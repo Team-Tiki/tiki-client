@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-// import { theme } from "../styles/theme";
+import { theme } from "../common/style/theme/theme";
 
 export const testStyle = css({
   backgroundColor: "blue",
@@ -7,6 +7,6 @@ export const testStyle = css({
   border: "1px solid purple",
 });
 
-// export const themeTestStyle = css({
-//   backgroundColor: theme.colors.pink200,
-// });
+export const themeTestStyle = css({
+  backgroundColor: theme.colors.pink200,
+});
