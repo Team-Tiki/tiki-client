@@ -9,8 +9,9 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
-      { find: '@pages', replacement: path.resolve(__dirname, 'src/pages') },
-      { find: '@components', replacement: path.resolve(__dirname, 'src/components') },
+      { find: '@common', replacement: path.resolve(__dirname, 'src/common') },
+      { find: '@page', replacement: path.resolve(__dirname, 'src/page') },
+      { find: '@shared', replacement: path.resolve(__dirname, 'src/shared') },
     ],
   },
 });

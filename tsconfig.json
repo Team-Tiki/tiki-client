@@ -18,8 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@pages/*": ["src/pages/*"],
-      "@component/*": ["src/components/*"]
+      "@common/*": ["src/common/*"],
+      "@page/*": ["src/page/*"],
+      "@shared/*": ["src/shared/*"]
     }
   },
   "exclude": ["node_modules"],
