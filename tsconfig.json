@@ -21,7 +21,8 @@
       "@common/*": ["src/common/*"],
       "@page/*": ["src/page/*"],
       "@shared/*": ["src/shared/*"]
-    }
+    },
+    "jsxImportSource": "@emotion/react"
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx", "src"],

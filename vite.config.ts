@@ -4,7 +4,10 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
-
-  /*절대 경로 설정*/
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+    }),
+    tsconfigPaths(),
+  ],
 });
