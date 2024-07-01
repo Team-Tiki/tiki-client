@@ -14,14 +14,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    //절대경로 설정
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@common/*": ["src/common/*"],
+      "@page/*": ["src/page/*"],
+      "@shared/*": ["src/shared/*"]
+    },
     "jsxImportSource": "@emotion/react"
   },
   "exclude": ["node_modules"],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "./src/assets/index.d.ts",
-    "./global.d.ts",
-    "./jest.config.js"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
