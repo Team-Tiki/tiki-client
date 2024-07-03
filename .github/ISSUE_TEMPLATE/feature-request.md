@@ -4,7 +4,6 @@ about: Suggest an idea for this project
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 ## Title
@@ -21,8 +20,4 @@ assignees: ''
 
 ## 📄 참고 사항 (선택)
 
-## ⏰ 예상 소요 기간
-
-ex) 8시간
-
-(개인 일정을 고려한 총 소요시간)
+<!-- Projects에 New 생성을 하셨나요 ??? -->
