@@ -1,22 +1,22 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const globalStyle = css({
-  "*": {
+  '*': {
     padding: 0,
     margin: 0,
-    boxSizing: "border-box",
+    boxSizing: 'border-box',
   },
 
-  "ul, ol, li": {
-    listStyle: "none",
+  'ul, ol, li': {
+    listStyle: 'none',
   },
 
-  "html, body": {
+  'html, body': {
     fontFamily: `system-ui, -apple-system, BlinkMacSystemFont, 'Open Sans', 'Helvetica Neue'`,
-    fontSize: "62.5%",
+    fontSize: '62.5%',
   },
 
   a: {
-    textDecoration: "none",
+    textDecoration: 'none',
   },
 });
