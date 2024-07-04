@@ -20,8 +20,8 @@
       "@/common/*": ["src/common/*"],
       "@/page/*": ["src/page/*"],
       "@/shared/*": ["src/shared/*"],
-      "@/stories/*": ["src/stories/*"],
-      "@/mocks/*": ["src/mocks/*"]
+      "@/story/*": ["src/story/*"],
+      "@/mocks/*": ["src/mock/*"]
     },
     "jsxImportSource": "@emotion/react"
   },

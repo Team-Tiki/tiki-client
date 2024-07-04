@@ -4,11 +4,12 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { globalStyle } from '@/common/style/globalStyle';
 import { theme } from '@/common/style/theme/theme';
 
-import { worker } from '@/mocks/browser';
+import { worker } from '@/mock/browser';
 
 import App from './App';
 
@@ -32,6 +33,7 @@ const main = async () => {
           <Global styles={globalStyle} />
           <App />
         </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </React.StrictMode>
   );

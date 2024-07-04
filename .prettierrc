@@ -20,8 +20,8 @@
     "^@/common/(.*)$",
     "^@/pages/(.*)$",
     "^@/shared/(.*)$",
-    "^@/stories/(.*)$",
-    "^@/mocks/(.*)$",
+    "^@/story/(.*)$",
+    "^@/mock/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true,
