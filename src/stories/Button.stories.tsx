@@ -8,7 +8,16 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  args: {},
+  args: {
+    children: 'Button',
+  },
+  argTypes: {
+    children: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
