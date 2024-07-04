@@ -91,8 +91,6 @@ const label = {
   },
 } as const;
 
-export type FontsTypes = typeof heading & typeof text & typeof label;
-
 export const theme: Theme = {
   colors,
   heading,
