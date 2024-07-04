@@ -23,10 +23,10 @@
       "@/story/*": ["src/story/*"],
       "@/mocks/*": ["src/mock/*"]
     },
-    "jsxImportSource": "@emotion/react",
-    /*svg*/
-    "types": ["vite-plugin-svgr/client"]
+    "jsxImportSource": "@emotion/react"
   },
+  /*svg*/
+  "types": ["vite-plugin-svgr/client"],
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx", "src", "custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
