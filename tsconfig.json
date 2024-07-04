@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
     "target": "ES2020",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
@@ -27,7 +29,7 @@
   },
   /*svg*/
   "types": ["vite-plugin-svgr/client"],
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "src", "custom.d.ts"],
+  "exclude": ["node_modules", "dist"],
+  "include": ["src", "custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
