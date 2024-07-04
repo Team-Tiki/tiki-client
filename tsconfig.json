@@ -19,7 +19,9 @@
       "@/*": ["src/*"],
       "@/common/*": ["src/common/*"],
       "@/page/*": ["src/page/*"],
-      "@/shared/*": ["src/shared/*"]
+      "@/shared/*": ["src/shared/*"],
+      "@/stories/*": ["src/stories/*"],
+      "@/mocks/*": ["src/mocks/*"]
     },
     "jsxImportSource": "@emotion/react"
   },
