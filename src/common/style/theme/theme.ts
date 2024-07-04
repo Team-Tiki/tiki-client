@@ -2,18 +2,18 @@ import { Theme } from '@emotion/react';
 
 const colors = {
   black: '#2C3030',
-  gray_80: '#5C5E63',
-  gray_70: '#6B6B6B',
-  gray_60: '#909090',
-  gray_50: '#ADADAD',
-  gray_40: '#CDCDCD',
-  gray_30: '#D6D5D5',
-  gray_20: '#EBEBEB',
-  gray_10: '#FAFAFA',
+  gray_800: '#56585D',
+  gray_700: '#6B6B6B',
+  gray_600: '#909090',
+  gray_500: '#ADADAD',
+  gray_400: '#CDCDCD',
+  gray_300: '#D6D5D5',
+  gray_200: '#EBEBEB',
+  gray_100: '#FAFAFA',
   white: '#FFFFFF',
   blue_100: '#466DEB',
   blue_10: '#EDF0FD',
-  error: '#FE4F60',
+  red: '#FE4F60',
 };
 
 export type ColorsTypes = typeof colors;
