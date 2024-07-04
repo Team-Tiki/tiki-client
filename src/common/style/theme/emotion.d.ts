@@ -1,10 +1,12 @@
 import '@emotion/react';
 
-import { ColorsTypes, FontsTypes } from './theme';
+import { ColorsTypes } from './theme';
 
 declare module '@emotion/react' {
   export interface Theme {
     colors: ColorsTypes;
-    fonts: FontsTypes;
+    heading: typeof heading;
+    text: typeof text;
+    label: typeof label;
   }
 }
