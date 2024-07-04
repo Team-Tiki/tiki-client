@@ -144,7 +144,7 @@ main
 	|-- 📁 common
 	|	 |-- 📁 asset
 	|	 |        |-- 📁 img
-	|	 |	      |-- 📁 svg
+	|	 |	  |-- 📁 svg
 	|        |-- 📁 component
 	|	 |        |-- 📁 Button
 	|        |-- 📁 router
