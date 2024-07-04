@@ -14,13 +14,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    //절대경로 설정
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@common/*": ["src/common/*"],
-      "@page/*": ["src/page/*"],
-      "@shared/*": ["src/shared/*"]
+      "@/common/*": ["src/common/*"],
+      "@/page/*": ["src/page/*"],
+      "@/shared/*": ["src/shared/*"],
+      "@/story/*": ["src/story/*"],
+      "@/mocks/*": ["src/mock/*"]
     },
     "jsxImportSource": "@emotion/react"
   },
