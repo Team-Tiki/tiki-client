@@ -39,40 +39,40 @@
 |-- 📁 public
 |-- 📁 src
 	|-- 📁 common
-	|		 |-- 📁 asset
-	|		 |        |-- 📁 img
-	|		 |	      |-- 📁 svg
+	|	 |-- 📁 asset
+	|	 |        |-- 📁 img
+	|	 |	      |-- 📁 svg
 	|        |-- 📁 component
-	|		 |        |-- 📁 Button
+	|	 |        |-- 📁 Button
 	|        |-- 📁 router
 	|        |        |-- router.tsx
 	|        |-- 📁 hook
 	|        |-- 📁 style
-	|			     |-- 📁 theme
-	|		 		 |       |-- theme.ts
-	|				 |	     |-- emotion.d.ts
-	|		         |-- GlobalStyle.ts
+	|	          |-- 📁 theme
+	|		  |       |-- theme.ts
+	|		  |       |-- emotion.d.ts
+	|		          |-- GlobalStyle.ts
 	|-- 📁 page
-	|		|-- 📁 archiving
-	|				 |-- 📁 component
-	|				 |		  |-- 📁 archiveButton
-	|				 |		           |-- archiveButton.tsx
-	|				 |		           |-- archiveButton.style.ts
-	|				 |-- 📁 hook
-	|				 |-- 📁 util
+	|	|-- 📁 archiving
+	|		  |-- 📁 component
+	|		  |       |-- 📁 archiveButton
+	|		  |		     |-- archiveButton.tsx
+	|		  |		     |-- archiveButton.style.ts
+	|			  |-- 📁 hook
+	|			  |-- 📁 util
 	|-- 📁 shared
-	|		|-- 📁 api
-	|		|      |-- instance.ts
-	|		|      |-- interceptor.ts
-	|		|-- 📁 hook
-	|		|	   |-- useTimeline.ts
+	|	|-- 📁 api
+	|	|      |-- instance.ts
+	|	|      |-- interceptor.ts
+	|	|-- 📁 hook
+	|	|      |-- useTimeline.ts
 	|       |-- 📁 component
-    |-- 📁 story
-    |       |-- Button.stories.tsx
-    |-- 📁 mock
-    |       |-- 📁 data
-    |       |-- 📁 handler
-    |       |-- browser.ts
+        |-- 📁 story
+        |       |-- Button.stories.tsx
+        |-- 📁 mock
+        |       |-- 📁 data
+        |       |-- 📁 handler
+        |       |-- browser.ts
 |-- .eslintrc.json
 |-- .prettierrc
 |-- .gitignore
@@ -142,40 +142,40 @@ main
 |-- 📁 public
 |-- 📁 src
 	|-- 📁 common
-	|		 |-- 📁 asset
-	|		 |        |-- 📁 img
-	|		 |	      |-- 📁 svg
+	|	 |-- 📁 asset
+	|	 |        |-- 📁 img
+	|	 |	      |-- 📁 svg
 	|        |-- 📁 component
-	|		 |        |-- 📁 Button
+	|	 |        |-- 📁 Button
 	|        |-- 📁 router
 	|        |        |-- router.tsx
 	|        |-- 📁 hook
 	|        |-- 📁 style
-	|			     |-- 📁 theme
-	|		 		 |       |-- theme.ts
-	|				 |	     |-- emotion.d.ts
-	|		         |-- GlobalStyle.ts
+	|	          |-- 📁 theme
+	|		  |       |-- theme.ts
+	|		  |       |-- emotion.d.ts
+	|		          |-- GlobalStyle.ts
 	|-- 📁 page
-	|		|-- 📁 archiving
-	|				 |-- 📁 component
-	|				 |		  |-- 📁 archiveButton
-	|				 |		           |-- archiveButton.tsx
-	|				 |		           |-- archiveButton.style.ts
-	|				 |-- 📁 hook
-	|				 |-- 📁 util
+	|	|-- 📁 archiving
+	|		  |-- 📁 component
+	|		  |       |-- 📁 archiveButton
+	|		  |		     |-- archiveButton.tsx
+	|		  |		     |-- archiveButton.style.ts
+	|			  |-- 📁 hook
+	|			  |-- 📁 util
 	|-- 📁 shared
-	|		|-- 📁 api
-	|		|      |-- instance.ts
-	|		|      |-- interceptor.ts
-	|		|-- 📁 hook
-	|		|	   |-- useTimeline.ts
+	|	|-- 📁 api
+	|	|      |-- instance.ts
+	|	|      |-- interceptor.ts
+	|	|-- 📁 hook
+	|	|      |-- useTimeline.ts
 	|       |-- 📁 component
-    |-- 📁 story
-    |       |-- Button.stories.tsx
-    |-- 📁 mock
-    |       |-- 📁 data
-    |       |-- 📁 handler
-    |       |-- browser.ts
+        |-- 📁 story
+        |       |-- Button.stories.tsx
+        |-- 📁 mock
+        |       |-- 📁 data
+        |       |-- 📁 handler
+        |       |-- browser.ts
 |-- .eslintrc.json
 |-- .prettierrc
 |-- .gitignore
