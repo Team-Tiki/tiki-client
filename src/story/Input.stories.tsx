@@ -1,3 +1,4 @@
+import Leaf from '@/asset/leaf.svg?react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Input from '@/common/component/Input/Input';
@@ -11,7 +12,6 @@ const meta = {
   args: {
     type: 'text',
     placeholder: 'placeholder',
-    inputSize: 'small',
     width: 20,
     label: 'label',
     variant: 'underline',
