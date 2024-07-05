@@ -1,3 +1,3 @@
-export type InputLength = 'short' | 'medium' | 'long';
+export type InputHeight = 'short' | 'medium';
 
-export type InputVariant = 'outline' | 'underline';
+export type InputVariant = 'outline' | 'underline' | 'colored';
