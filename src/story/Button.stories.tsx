@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '@/common/component/Button/Button';
 
-import Plus from '../common/asset/svg/plus.svg';
+import Add from '../common/asset/svg/add.svg';
 
 const meta = {
   title: 'Common/Button',
@@ -54,7 +54,7 @@ export const Secondary: Story = {
     children: 'Button',
     variant: 'secondary',
     size: 'medium',
-    icon: <Plus />,
+    icon: <Add />,
     color: 'blue',
   },
 };
