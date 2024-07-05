@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const useOverlay = () => {
+export const useOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const open = useCallback(() => {
@@ -17,5 +17,3 @@ const useOverlay = () => {
 
   return { isOpen, open, close, toggle };
 };
-
-export default useOverlay;
