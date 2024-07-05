@@ -15,7 +15,12 @@ export const buttonStyle = css({
 export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
     primary: css({}),
-    secondary: css({}),
+    secondary: css({
+      gap: '0.8rem',
+      borderRadius: '28px',
+      color: theme.colors.white,
+      backgroundColor: theme.colors.blue_100,
+    }),
   };
   return style[variant];
 };
