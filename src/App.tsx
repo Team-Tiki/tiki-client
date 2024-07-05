@@ -6,7 +6,7 @@ const App = () => {
   return (
     <main>
       <Outlet />
-      <Header isLogin={true} />
+      <Header isLogin={false} />
     </main>
   );
 };
