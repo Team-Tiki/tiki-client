@@ -11,6 +11,7 @@ export const inputContainerStyle = css({
 
 export const inputWarpperStyle = css({
   display: 'flex',
+  paddingLeft: '0.8rem',
   alignItems: 'center',
 });
 
