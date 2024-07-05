@@ -6,16 +6,25 @@ import { buttonStyle, colorStyle, sizeStyle, variantStyle } from './Button.style
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant: 'rectangle' | 'round';
+  variant: 'primary' | 'secondary' | 'text';
   onClick?: () => void;
   size: Size;
   icon?: ReactNode;
   color: 'blue' | 'gray' | 'black';
+  underline?: boolean;
 }
 
-const Button = ({ variant, children, size, color }: ButtonProps) => {
+const Button = ({ variant, children, size, color, underline }: ButtonProps) => {
   return (
-    <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size), colorStyle(color)]}>
+    <button
+      type="button"
+      css={[
+        buttonStyle,
+        variantStyle(variant),
+        sizeStyle(size),
+        colorStyle(color),
+        underline && { textDecorationLine: 'underline' },
+      ]}>
       {children}
     </button>
   );
