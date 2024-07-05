@@ -10,12 +10,14 @@ export const buttonStyle = css({
   padding: '1.6rem',
   border: 'none',
   borderRadius: '8px',
+  whiteSpace: 'nowrap',
 });
 
 export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
     primary: css({}),
     secondary: css({
+      padding: '1.6rem 2rem',
       gap: '0.8rem',
       borderRadius: '28px',
       color: theme.colors.white,
@@ -27,17 +29,22 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
 export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   const style = {
-    xSmall: css({
+    xxSmall: css({
       width: '8.9rem',
       ...theme.label.label02,
     }),
-    small: css({
+    xSmall: css({
       width: '14.7rem',
       ...theme.heading.heading05,
     }),
-    medium: css({
+    small: css({
       width: '15.8rem',
       ...theme.label.label01,
+    }),
+    medium: css({
+      width: '24rem',
+      ...theme.label.label01,
+      fontWeight: '700',
     }),
     large: css({
       width: '32rem',
