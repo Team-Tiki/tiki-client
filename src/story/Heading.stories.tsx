@@ -10,7 +10,6 @@ const meta = {
   },
   args: {
     children: 'Heading',
-    heading: 'H3',
   },
   argTypes: {
     children: {
