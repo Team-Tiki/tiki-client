@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Add from '@/common/asset/svg/add.svg';
 import Button from '@/common/component/Button/Button';
 
 const meta = {
@@ -13,7 +12,6 @@ const meta = {
   args: {
     children: 'Button',
     size: 'small',
-    icon: <Add />,
   },
   argTypes: {
     variant: {
@@ -27,11 +25,6 @@ const meta = {
     size: {
       control: {
         type: 'radio',
-      },
-    },
-    icon: {
-      control: {
-        type: 'boolean',
       },
     },
   },

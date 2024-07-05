@@ -9,7 +9,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: 'primary' | 'secondary' | 'text' | 'action';
   onClick?: () => void;
   size?: Size;
-  icon?: ReactNode;
 }
 
 const Button = ({ variant, children, size = 'medium', ...props }: ButtonProps) => {
