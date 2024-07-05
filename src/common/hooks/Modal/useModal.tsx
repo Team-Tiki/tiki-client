@@ -1,27 +1,23 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentContent, setCurrentContent] = useState<ReactElement | null>(null);
 
   // 열기
-  const openModal = useCallback((content: ReactElement) => {
+  const openModal = (content: ReactElement) => {
     setCurrentContent(content);
     setIsOpen(true);
-  }, []);
+  };
 
   // 닫기
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setIsOpen(false);
-  }, []);
+  };
 
   // 모달이 열렸을 때 스크롤을 막기
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
 
     return () => {
       document.body.style.overflow = 'auto';
