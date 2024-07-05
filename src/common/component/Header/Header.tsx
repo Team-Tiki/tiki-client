@@ -1,13 +1,13 @@
 import { MiddleLogo, SmallLogo } from '@/common/asset/svg';
 
 import Button from '../Button/Button';
-import { headerStyle, logoutBtnStyle, spanStyle } from './Header.style';
+import { headerStyle, logoutBtnStyle, spanStyle } from './header.style';
 
-interface Props {
+interface HeaderProps {
   isLogin: boolean;
 }
 
-const Header = ({ isLogin = false }: Props) => {
+const Header = ({ isLogin = false }: HeaderProps) => {
   return (
     <header css={headerStyle}>
       <span css={spanStyle}>{isLogin ? <SmallLogo /> : <MiddleLogo />}</span>
