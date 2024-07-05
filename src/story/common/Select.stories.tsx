@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import ArrowDown from '@/common/asset/arrow-down.svg';
 import Button from '@/common/component/Button/Button';
 import Select from '@/common/component/Select/Select';
-import { useOverlay } from '@/common/hook';
+import { useOutsideClick, useOverlay } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 const meta = {
@@ -40,6 +40,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => {
     const { isOpen, close, toggle } = useOverlay();
+    const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
     useEffect(() => {
@@ -53,6 +54,7 @@ export const Default: Story = {
     return (
       <Select
         {...args}
+        ref={ref}
         isOpen={isOpen}
         onSelect={handleSelect}
         trigger={

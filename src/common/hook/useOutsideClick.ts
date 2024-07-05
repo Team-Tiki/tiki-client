@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from 'react';
 type Callback = () => void;
 
 export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose: Callback) => {
-  const ref = useRef<T>();
+  const ref = useRef<T>(null);
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
@@ -36,4 +36,6 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
       window.removeEventListener('keypress', handleEscKeyDown);
     };
   }, [onClose, handleEscKeyDown, handleOutsideClick]);
+
+  return ref;
 };
