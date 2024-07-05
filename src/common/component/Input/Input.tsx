@@ -13,7 +13,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   variant: InputVariant;
   height?: InputHeight; //default: medium(4.8rem)
   label?: string;
-  LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //...확인못함
+  LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
   isError?: boolean;
 }
 
