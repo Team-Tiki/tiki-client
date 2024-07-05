@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import Modal from '@/common/component/Modal/Modal';
-
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,17 +41,9 @@ const useModal = () => {
     return () => window.removeEventListener('popstate', preventGoBack);
   }, [isOpen, closeModal]);
 
-  const ModalComponent = useCallback(
-    ({ children }: { children: React.ReactNode }) => (
-      <Modal isOpen={isOpen} onClose={closeModal}>
-        {children}
-      </Modal>
-    ),
-    [isOpen, closeModal]
-  );
-
   return {
-    Modal: ModalComponent,
+    isOpen,
+    //setIsOpen,
     openModal,
     closeModal,
   };
