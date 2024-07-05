@@ -1,9 +1,18 @@
-import { ComponentPropsWithRef } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
-type ButtonProps = ComponentPropsWithRef<'button'>;
+import { Size } from '@/common/type/design';
 
-const Button = ({ children, ...props }: ButtonProps) => {
-  return <button {...props}>{children}</button>;
+import { buttonStyle, sizeStyle, variantStyle } from './Button.style';
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: string;
+  variant: 'primary' | 'secondary';
+  onClick?: () => void;
+  size: Size;
+}
+
+const Button = ({ variant = 'primary', children, size }: ButtonProps) => {
+  return <button css={[buttonStyle, variantStyle(variant), sizeStyle(size)]}>{children}</button>;
 };
 
 export default Button;
