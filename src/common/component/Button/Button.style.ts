@@ -5,23 +5,34 @@ import { ButtonProps } from './Button';
 
 export const buttonStyle = css({
   display: 'flex',
+  gap: '0.8rem',
   justifyContent: 'center',
   alignItems: 'center',
   padding: '1.6rem',
   border: 'none',
   borderRadius: '8px',
   whiteSpace: 'nowrap',
+  cursor: 'pointer',
 });
 
 export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
-    primary: css({}),
-    secondary: css({
-      padding: '1.6rem 2rem',
-      gap: '0.8rem',
-      borderRadius: '28px',
+    primary: css({
+      color: theme.colors.white,
+      backgroundColor: theme.colors.black,
     }),
-    text: css({}),
+    secondary: css({
+      color: theme.colors.black,
+      backgroundColor: theme.colors.gray_100,
+    }),
+    text: css({
+      backgroundColor: 'transparent',
+      ...theme.label.label01,
+    }),
+    action: css({
+      color: theme.colors.white,
+      backgroundColor: theme.colors.blue_100,
+    }),
   };
   return style[variant];
 };
@@ -59,22 +70,4 @@ export const sizeStyle = (size: Required<ButtonProps>['size']) => {
     }),
   };
   return style[size];
-};
-
-export const colorStyle = (color: Required<ButtonProps>['color']) => {
-  const style = {
-    blue: css({
-      color: theme.colors.white,
-      backgroundColor: theme.colors.blue_100,
-    }),
-    gray: css({
-      color: theme.colors.black,
-      backgroundColor: theme.colors.gray_100,
-    }),
-    black: css({
-      color: theme.colors.white,
-      backgroundColor: theme.colors.black,
-    }),
-  };
-  return style[color];
 };

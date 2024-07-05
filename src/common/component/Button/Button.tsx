@@ -2,19 +2,19 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { Size } from '@/common/type/design';
 
-import { buttonStyle, colorStyle, sizeStyle, variantStyle } from './Button.style';
+import { buttonStyle, sizeStyle, variantStyle } from './Button.style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant: 'primary' | 'secondary' | 'text';
+  variant: 'primary' | 'secondary' | 'text' | 'action';
   onClick?: () => void;
-  size: Size;
+  size?: Size;
   icon?: ReactNode;
-  color: 'blue' | 'gray' | 'black';
   underline?: boolean;
+  round?: boolean;
 }
 
-const Button = ({ variant, children, size, color, underline }: ButtonProps) => {
+const Button = ({ variant, children, size = 'medium', underline, round }: ButtonProps) => {
   return (
     <button
       type="button"
@@ -22,8 +22,8 @@ const Button = ({ variant, children, size, color, underline }: ButtonProps) => {
         buttonStyle,
         variantStyle(variant),
         sizeStyle(size),
-        colorStyle(color),
         underline && { textDecorationLine: 'underline' },
+        round && { borderRadius: '28px' },
       ]}>
       {children}
     </button>
