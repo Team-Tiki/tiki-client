@@ -9,15 +9,14 @@ export const ModalWrapper = css({
   position: 'fixed',
   top: 0,
   left: 0,
-  width: '100%',
+  width: '100vw',
   height: '100vh',
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  zIndex: 1,
 });
 
 export const ModalContent = css({
-  background: theme.colors.white,
   paddingTop: '4.8rem',
   paddingBottom: '4.8rem',
   borderRadius: '16px',
+  background: theme.colors.white,
 });

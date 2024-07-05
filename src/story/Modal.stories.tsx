@@ -11,49 +11,58 @@ const meta: Meta<typeof Modal> = {
   },
   args: {
     isOpen: false,
-    onClose: () => {},
-    children: null,
+    component: null,
   },
-  argTypes: {},
+  argTypes: {
+    component: {
+      control: false,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// 모달 테스트를 위한 간단한 컴포넌트
 const ModalContent1 = ({ onNext }: { onNext: () => void }) => (
   <div>
-    <h2>First Modal</h2>
+    <h2>첫번째</h2>
     <button onClick={onNext}>Next</button>
   </div>
 );
 
 const ModalContent2 = ({ onNext }: { onNext: () => void }) => (
   <div>
-    <h2>Second Modal</h2>
+    <h2>두번째</h2>
     <button onClick={onNext}>Next</button>
   </div>
 );
 
 const ModalContent3 = ({ onClose }: { onClose: () => void }) => (
   <div>
-    <h2>Third Modal</h2>
+    <h2>마지막</h2>
     <button onClick={onClose}>Close</button>
   </div>
 );
 
 export const Default: Story = {
+  args: {
+    isOpen: true,
+  },
   render: (args) => {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
-    const handleNext1 = () => setCurrentContent(<ModalContent2 onNext={handleNext2} />);
-    const handleNext2 = () => setCurrentContent(<ModalContent3 onClose={closeModal} />);
+    const handleNext1 = () => {
+      setCurrentContent(<ModalContent2 onNext={handleNext2} />);
+    };
+    const handleNext2 = () => {
+      setCurrentContent(<ModalContent3 onClose={closeModal} />);
+    };
 
     return (
       <div>
         <button onClick={() => openModal(<ModalContent1 onNext={handleNext1} />)}>Open Modal</button>
-        <Modal {...args} isOpen={isOpen} onClose={closeModal}>
-          {currentContent}
-        </Modal>
+        <Modal {...args} isOpen={isOpen} component={currentContent} />
       </div>
     );
   },
