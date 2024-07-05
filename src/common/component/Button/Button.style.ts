@@ -15,13 +15,11 @@ export const buttonStyle = css({
 
 export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
-    primary: css({}),
-    secondary: css({
+    rectangle: css({}),
+    round: css({
       padding: '1.6rem 2rem',
       gap: '0.8rem',
       borderRadius: '28px',
-      color: theme.colors.white,
-      backgroundColor: theme.colors.blue_100,
     }),
   };
   return style[variant];

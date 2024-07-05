@@ -6,7 +6,7 @@ import { buttonStyle, colorStyle, sizeStyle, variantStyle } from './Button.style
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant: 'primary' | 'secondary';
+  variant: 'rectangle' | 'round';
   onClick?: () => void;
   size: Size;
   icon?: ReactNode;
