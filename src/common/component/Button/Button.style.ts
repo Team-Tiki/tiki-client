@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
-import { theme } from './../../style/theme/theme';
+import { theme } from '@/common/style/theme/theme';
+
 import { ButtonProps } from './Button';
 
 export const buttonStyle = css({
