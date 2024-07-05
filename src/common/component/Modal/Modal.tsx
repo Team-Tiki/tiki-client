@@ -1,5 +1,6 @@
+import ReactDOM from 'react-dom';
+
 import { ModalContent, ModalWrapper } from '@/common/component/Modal/Modal.style';
-import Portal from '@/common/component/Modal/ModalPortal';
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,12 +11,11 @@ interface ModalProps {
 const Modal = ({ isOpen, children }: ModalProps) => {
   if (!isOpen) return null;
 
-  return (
-    <Portal>
-      <div css={ModalWrapper}>
-        <div css={ModalContent}>{children}</div>
-      </div>
-    </Portal>
+  return ReactDOM.createPortal(
+    <div css={ModalWrapper}>
+      <div css={ModalContent}>{children}</div>
+    </div>,
+    document.body
   );
 };
 

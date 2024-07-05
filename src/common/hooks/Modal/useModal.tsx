@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentContent, setCurrentContent] = useState<React.ReactNode>(null);
 
   // 열기
-  const openModal = useCallback(() => {
+  const openModal = useCallback((content: React.ReactNode) => {
+    setCurrentContent(content);
     setIsOpen(true);
   }, []);
 
@@ -43,7 +45,8 @@ const useModal = () => {
 
   return {
     isOpen,
-    //setIsOpen,
+    currentContent,
+    setCurrentContent,
     openModal,
     closeModal,
   };
