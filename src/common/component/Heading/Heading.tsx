@@ -2,10 +2,10 @@ import { ComponentPropsWithoutRef } from 'react';
 
 import { headingStyle } from './heading.style';
 
-type headingType = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'H7';
+type HeadingType = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'H7';
 
 interface HeadingProps extends ComponentPropsWithoutRef<'h3'> {
-  heading?: headingType;
+  heading?: HeadingType;
 }
 
 const HeadingTag = {
