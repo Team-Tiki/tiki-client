@@ -13,9 +13,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color: 'blue' | 'gray' | 'black';
 }
 
-const Button = ({ variant = 'primary', children, size, icon, color }: ButtonProps) => {
+const Button = ({ variant, children, size, icon, color }: ButtonProps) => {
   return (
-    <button css={[buttonStyle, variantStyle(variant), sizeStyle(size), colorStyle(color)]}>
+    <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size), colorStyle(color)]}>
       {icon && <>{icon}</>}
       {children}
     </button>
