@@ -5,7 +5,7 @@ import { headingStyle } from './heading.style';
 type HeadingType = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' | 'H7';
 
 interface HeadingProps extends ComponentPropsWithoutRef<'h3'> {
-  variant?: HeadingType;
+  tag?: HeadingType;
 }
 
 const HeadingTag = {
@@ -18,11 +18,11 @@ const HeadingTag = {
   H7: 'h6',
 } as const;
 
-const Heading = ({ variant = 'H3', ...props }: HeadingProps) => {
-  const Tag = HeadingTag[variant];
+const Heading = ({ tag = 'H3', ...props }: HeadingProps) => {
+  const Tag = HeadingTag[tag];
 
   return (
-    <Tag css={headingStyle[variant]} {...props}>
+    <Tag css={headingStyle[tag]} {...props}>
       {props.children}
     </Tag>
   );
