@@ -17,7 +17,7 @@ const Select = ({ isOpen, trigger, label, onSelect, options }: SelectProps, ref:
       <Dropdown.Trigger as={trigger} />
       <Dropdown.List css={overlayStyle} isOpen={isOpen}>
         {options.map((item) => (
-          <Dropdown.Item css={itemStyle} onSelect={() => onSelect?.(item)}>
+          <Dropdown.Item key={item} css={itemStyle} onSelect={() => onSelect?.(item)}>
             {item}
           </Dropdown.Item>
         ))}
