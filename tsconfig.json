@@ -30,6 +30,6 @@
   /*svg*/
   "types": ["vite-plugin-svgr/client"],
   "exclude": ["node_modules", "dist"],
-  "include": ["src", "svg.d.ts"],
+  "include": ["src", "./svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
