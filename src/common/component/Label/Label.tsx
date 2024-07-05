@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react';
 
 import { textStyle } from '@/common/component/Label/Label.style';
 
-interface LabelProps extends Omit<ComponentPropsWithoutRef<'label'>, 'id'> {
+interface LabelProps extends ComponentPropsWithoutRef<'label'> {
   id: string;
 }
 
