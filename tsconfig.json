@@ -27,7 +27,9 @@
     },
     "jsxImportSource": "@emotion/react"
   },
+  /*svg*/
+  "types": ["vite-plugin-svgr/client"],
   "exclude": ["node_modules", "dist"],
-  "include": ["src"],
+  "include": ["src", "svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
