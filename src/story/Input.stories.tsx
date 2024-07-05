@@ -8,7 +8,14 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  args: { props: { type: 'text', placeholder: 'placeholder', width: 20 }, label: 'label', varient: 'underline' },
+  args: {
+    type: 'text',
+    placeholder: 'placeholder',
+    inputSize: 'small',
+    width: 20,
+    label: 'label',
+    variant: 'underline',
+  },
   argTypes: {},
 } satisfies Meta<typeof Input>;
 
