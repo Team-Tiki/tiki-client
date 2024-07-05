@@ -1,16 +1,22 @@
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
+import { InputLength, InputVariant } from '@/common/type/design';
 
-//underline, outline: outline이면 보더 둥글게하고 underline이면 밑줄, 둥글게X
 const borderStyle = {
-  outline: '1px solid black',
-  underline: '1px solid red',
+  outline: {
+    border: `1px solid ${theme.colors.gray_400}`,
+    borderRadius: '30px',
+  },
+  underline: {
+    borderColor: `transparent transparent ${theme.colors.gray_400} transparent`,
+  },
 };
 
-const borderRadiusStyle = {
-  outline: '30px',
-  underline: '0px',
+const size = {
+  short: { width: '32rem', height: '4.8rem', ...theme.text.body02 },
+  medium: { width: '37.5rem', height: '3.8rem', ...theme.text.body04 },
+  long: { width: '51.1rem', height: '4.8rem', ...theme.text.body02 },
 };
 
 export const inputContainerStyle = css({
@@ -19,10 +25,11 @@ export const inputContainerStyle = css({
   gap: '1.2rem',
 });
 
-export const inputStyle = ({}) =>
+export const inputStyle = ({ variant, inputLength }: { variant: InputVariant; inputLength: InputLength }) =>
   css({
-    border: borderStyle[variant]
-    //여기서 varient를 받아서 나눠야함
+    ...size[inputLength],
+    ...borderStyle[variant],
+    weight: 400,
   });
 
 //아 이걸 각 경우(varient, size)에 따라 컬러나 값들을 만들어놓고
