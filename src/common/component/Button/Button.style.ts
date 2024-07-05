@@ -12,7 +12,7 @@ export const buttonStyle = css({
 
   width: '100%',
 
-  padding: '16px 20px',
+  padding: '1.6rem 2rem',
 
   border: 'none',
   borderRadius: '8px',

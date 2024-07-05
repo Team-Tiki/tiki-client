@@ -12,7 +12,7 @@ export const overlayStyle = css({
 });
 
 export const itemStyle = css({
-  padding: '10px 12px',
+  padding: '1rem 1.2rem',
 
   fontSize: theme.text.body04.fontSize,
   lineHeight: theme.text.body04.lineHeight,
