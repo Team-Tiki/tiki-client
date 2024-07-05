@@ -2,17 +2,24 @@ import { ButtonHTMLAttributes } from 'react';
 
 import { Size } from '@/common/type/design';
 
-import { buttonStyle, sizeStyle, variantStyle } from './Button.style';
+import { buttonStyle, colorStyle, sizeStyle, variantStyle } from './Button.style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;
   variant: 'primary' | 'secondary';
   onClick?: () => void;
   size: Size;
+  icon?: React.ReactNode;
+  color: 'blue' | 'gray' | 'black';
 }
 
-const Button = ({ variant = 'primary', children, size }: ButtonProps) => {
-  return <button css={[buttonStyle, variantStyle(variant), sizeStyle(size)]}>{children}</button>;
+const Button = ({ variant = 'primary', children, size, icon, color }: ButtonProps) => {
+  return (
+    <button css={[buttonStyle, variantStyle(variant), sizeStyle(size), colorStyle(color)]}>
+      {icon && <>{icon}</>}
+      {children}
+    </button>
+  );
 };
 
 export default Button;

@@ -54,3 +54,21 @@ export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   };
   return style[size];
 };
+
+export const colorStyle = (color: Required<ButtonProps>['color']) => {
+  const style = {
+    blue: css({
+      color: theme.colors.white,
+      backgroundColor: theme.colors.blue_100,
+    }),
+    gray: css({
+      color: theme.colors.black,
+      backgroundColor: theme.colors.gray_100,
+    }),
+    black: css({
+      color: theme.colors.white,
+      backgroundColor: theme.colors.black,
+    }),
+  };
+  return style[color];
+};
