@@ -10,21 +10,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
   size?: Size;
   icon?: ReactNode;
-  underline?: boolean;
-  round?: boolean;
 }
 
-const Button = ({ variant, children, size = 'medium', underline, round }: ButtonProps) => {
+const Button = ({ variant, children, size = 'medium' }: ButtonProps) => {
   return (
-    <button
-      type="button"
-      css={[
-        buttonStyle,
-        variantStyle(variant),
-        sizeStyle(size),
-        underline && { textDecorationLine: 'underline' },
-        round && { borderRadius: '28px' },
-      ]}>
+    <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size)]}>
       {children}
     </button>
   );
