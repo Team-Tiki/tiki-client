@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '@/common/component/Button/Button';
 
+import Plus from '../common/asset/svg/plus.svg';
+
 const meta = {
   title: 'Common/Button',
   component: Button,
@@ -10,11 +12,25 @@ const meta = {
   },
   args: {
     children: 'Button',
+    size: 'small',
   },
   argTypes: {
+    variant: {
+      control: false,
+    },
     children: {
       control: {
         type: 'text',
+      },
+    },
+    size: {
+      control: {
+        type: 'radio',
+      },
+    },
+    icon: {
+      control: {
+        type: 'boolean',
       },
     },
   },
@@ -23,4 +39,21 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Primary: Story = {
+  args: {
+    children: 'Button',
+    variant: 'primary',
+    size: 'xSmall',
+    color: 'black',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    children: 'Button',
+    variant: 'secondary',
+    size: 'medium',
+    icon: <Plus />,
+    color: 'blue',
+  },
+};
