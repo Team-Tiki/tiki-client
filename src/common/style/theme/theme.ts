@@ -91,9 +91,17 @@ const label = {
   },
 } as const;
 
+const zIndex = {
+  overlayTop: 4,
+  overlayHigh: 3,
+  overlayMiddle: 2,
+  overlayBottom: 1,
+} as const;
+
 export const theme: Theme = {
   colors,
   heading,
   text,
   label,
+  zIndex,
 };
