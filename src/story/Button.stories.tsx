@@ -10,6 +10,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
   args: {
     children: 'Button',
     size: 'small',
