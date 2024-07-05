@@ -1,5 +1,3 @@
-import { Theme } from '@emotion/react';
-
 const colors = {
   black: '#2C3030',
   gray_800: '#56585D',
@@ -55,22 +53,26 @@ const text = {
     lineHeight: '2.4rem',
   },
   body02: {
-    fontSize: '1.6rem',
-    lineHeight: '1.6rem',
+    fontSize: '2rem',
+    lineHeight: '2rem',
   },
   body03: {
     fontSize: '1.6rem',
-    lineHeight: '2.24rem',
+    lineHeight: '1.6rem',
   },
   body04: {
-    fontSize: '1.4rem',
-    lineHeight: '1.4rem',
+    fontSize: '1.6rem',
+    lineHeight: '2.24rem',
   },
   body05: {
     fontSize: '1.4rem',
-    lineHeight: '1.96rem',
+    lineHeight: '1.4rem',
   },
   body06: {
+    fontSize: '1.4rem',
+    lineHeight: '1.96rem',
+  },
+  body07: {
     fontSize: '1.4rem',
     lineHeight: '1.68rem',
   },
@@ -98,7 +100,7 @@ const zIndex = {
   overlayBottom: 1,
 } as const;
 
-export const theme: Theme = {
+export const theme = {
   colors,
   heading,
   text,
