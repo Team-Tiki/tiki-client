@@ -12,9 +12,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode;
 }
 
-const Button = ({ variant, children, size = 'medium' }: ButtonProps) => {
+const Button = ({ variant, children, size = 'medium', ...props }: ButtonProps) => {
   return (
-    <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size)]}>
+    <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size)]} {...props}>
       {children}
     </button>
   );
