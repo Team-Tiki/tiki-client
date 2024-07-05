@@ -8,7 +8,7 @@ interface HeadingProps extends ComponentPropsWithoutRef<'h3'> {
   heading?: headingType;
 }
 
-const headingTag = {
+const HeadingTag = {
   H1: 'h1',
   H2: 'h2',
   H3: 'h3',
@@ -16,10 +16,10 @@ const headingTag = {
   H5: 'h5',
   H6: 'h6',
   H7: 'h6',
-};
+} as const;
 
 const Heading = ({ heading = 'H3', ...props }: HeadingProps) => {
-  const Tag = headingTag[heading] as React.ElementType;
+  const Tag = HeadingTag[heading];
 
   return (
     <Tag css={headingStyle[heading]} {...props}>
