@@ -11,17 +11,18 @@ export const inputContainerStyle = css({
 
 export const inputWarpperStyle = css({
   display: 'flex',
-  paddingLeft: '0.8rem',
   alignItems: 'center',
+
+  paddingLeft: '0.8rem',
 });
 
 export const inputStyle = css({
-  backgroundColor: 'transparent',
-  outline: 'none',
-  border: '0px',
   width: '100%',
   paddingLeft: '1.2rem',
+  border: '0px',
+  backgroundColor: 'transparent',
   weight: 400,
+  outline: 'none',
 });
 
 export const variantStyle = (variant: Required<InputProps>['variant']) => {
@@ -54,16 +55,3 @@ export const sizeStyle = (height: Required<InputProps>['height']) => {
 
   return style[height];
 };
-
-/*
-//CSS 순서!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-export const inputStyle = ({ variant, inputSize }: { variant: InputVariant; inputSize: InputSize }) =>
-  css({
-    outline: 'none',
-    padding: '1.2rem',
-    ...sizeStyle[inputSize],
-    ...borderStyle[variant],
-
-    weight: 400,
-  });
-*/
