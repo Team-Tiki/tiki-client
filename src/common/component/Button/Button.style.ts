@@ -6,13 +6,18 @@ import { ButtonProps } from './Button';
 
 export const buttonStyle = css({
   display: 'flex',
+
   gap: '0.8rem',
   justifyContent: 'center',
   alignItems: 'center',
+
   padding: '1.6rem',
+
   border: 'none',
   borderRadius: '8px',
+
   whiteSpace: 'nowrap',
+
   cursor: 'pointer',
 });
 
