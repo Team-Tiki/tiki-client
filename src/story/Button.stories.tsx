@@ -8,13 +8,23 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
   args: {
     children: 'Button',
+    size: 'small',
   },
   argTypes: {
+    variant: {
+      control: false,
+    },
     children: {
       control: {
         type: 'text',
+      },
+    },
+    size: {
+      control: {
+        type: 'radio',
       },
     },
   },
@@ -23,4 +33,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Primary: Story = {
+  args: {
+    variant: 'primary',
+    color: 'black',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+  },
+};
+
+export const Text: Story = {
+  args: {
+    variant: 'text',
+  },
+};
+
+export const Action: Story = {
+  args: {
+    variant: 'action',
+  },
+};
