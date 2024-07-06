@@ -1,4 +1,6 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState } from 'react';
+
+import usePreventGoBack from '@/common/hooks/Modal/usePreventGoBack';
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,19 +18,7 @@ const useModal = () => {
   };
 
   // 뒤로가기 이벤트 처리
-  useEffect(() => {
-    const preventGoBack = () => {
-      history.go(1);
-      closeModal();
-    };
-
-    if (isOpen) {
-      history.pushState(null, '', location.href);
-      window.addEventListener('popstate', preventGoBack);
-    }
-
-    return () => window.removeEventListener('popstate', preventGoBack);
-  }, [isOpen, closeModal]);
+  usePreventGoBack(isOpen, closeModal);
 
   return {
     isOpen,
