@@ -7,23 +7,25 @@ import {
   sizeStyle,
   variantStyle,
 } from '@/common/component/Input/Input.style';
-import { InputHeight, InputVariant } from '@/common/type/design';
+
+type InputSize = 'small' | 'medium';
+type InputVariant = 'outline' | 'underline' | 'colored';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   variant: InputVariant;
-  height?: InputHeight; //default: medium(4.8rem)
+  inputSize?: InputSize; //default: medium(p: 1.2rem)
   label?: string;
   LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
   isError?: boolean;
 }
 
-const Input = ({ type, placeholder, variant, height = 'medium', label, LeftIcon }: InputProps) => {
+const Input = ({ variant, inputSize = 'medium', label, LeftIcon, ...props }: InputProps) => {
   return (
     <div css={inputContainerStyle}>
       {label && <p>{label}</p>}
-      <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(height)]}>
+      <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(inputSize)]}>
         {LeftIcon && <LeftIcon />}
-        <input type={type} placeholder={placeholder} css={[inputStyle]} />
+        <input css={[inputStyle]} {...props} />
       </div>
     </div>
   );

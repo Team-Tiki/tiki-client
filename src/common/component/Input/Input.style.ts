@@ -7,6 +7,10 @@ export const inputContainerStyle = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.2rem',
+
+  '& > input': {
+    width: '100%',
+  },
 });
 
 export const inputWarpperStyle = css({
@@ -17,28 +21,27 @@ export const inputWarpperStyle = css({
 });
 
 export const inputStyle = css({
-  width: '100%',
   paddingLeft: '1.2rem',
-  border: '0px',
+
+  border: 'none',
+
   backgroundColor: 'transparent',
+
   weight: 400,
+
   outline: 'none',
 });
 
 export const variantStyle = (variant: Required<InputProps>['variant']) => {
   const style = {
     outline: {
-      border: `1px solid ${theme.colors.gray_400}`,
+      boxShadow: ` 0px 0px 0px 1px ${theme.colors.gray_400}`,
       borderRadius: '8px',
-      backgroundColor: 'white',
     },
     underline: {
-      border: '1px solid',
-      borderColor: `transparent transparent ${theme.colors.gray_400} transparent`,
-      backgroundColor: 'white',
+      boxShadow: ` 0px 1px 0px ${theme.colors.gray_400}`,
     },
     colored: {
-      border: '0px',
       borderRadius: '100px',
       backgroundColor: theme.colors.gray_100,
     },
@@ -47,11 +50,11 @@ export const variantStyle = (variant: Required<InputProps>['variant']) => {
   return style[variant];
 };
 
-export const sizeStyle = (height: Required<InputProps>['height']) => {
+export const sizeStyle = (inputSize: Required<InputProps>['inputSize']) => {
   const style = {
-    short: { height: '3.8rem', ...theme.text.body04 },
-    medium: { height: '4.8rem', ...theme.text.body02 },
+    small: { paddingTop: '0.8rem', paddingBottom: '0.8rem', ...theme.text.body04 },
+    medium: { paddingTop: '1.2rem', paddingBottom: '1.2rem', ...theme.text.body02 },
   };
 
-  return style[height];
+  return style[inputSize];
 };
