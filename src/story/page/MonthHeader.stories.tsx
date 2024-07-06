@@ -7,19 +7,10 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  decorators: [
-    (Story) => (
-      <div css={{ width: '200px' }}>
-        <Story />
-      </div>
-    ),
-  ],
-  args: {},
-  argTypes: {
-    variant: {
-      control: false,
-    },
+  args: {
+    onClick: (month: string) => {},
   },
+  argTypes: {},
 } satisfies Meta<typeof MonthHeader>;
 
 export default meta;
