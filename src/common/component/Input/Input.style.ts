@@ -6,11 +6,8 @@ import { theme } from '@/common/style/theme/theme';
 export const inputContainerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.2rem',
 
-  '& > input': {
-    width: '100%',
-  },
+  gap: '1.2rem',
 });
 
 export const inputWarpperStyle = css({
@@ -21,6 +18,8 @@ export const inputWarpperStyle = css({
 });
 
 export const inputStyle = css({
+  width: '100%',
+
   paddingLeft: '1.2rem',
 
   border: 'none',
