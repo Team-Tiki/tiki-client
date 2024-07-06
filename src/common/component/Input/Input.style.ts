@@ -20,8 +20,6 @@ export const inputWarpperStyle = css({
 export const inputStyle = css({
   width: '100%',
 
-  padding: '0 1.2rem 0 1.2rem',
-
   border: 'none',
   backgroundColor: 'transparent',
   fontWeight: 400,
@@ -53,8 +51,9 @@ export const variantStyle = (variant: Required<InputProps>['variant']) => {
 
 export const sizeStyle = (size: Required<InputProps>['size']) => {
   const style = {
-    small: { padding: '0.8rem 0', ...theme.text.body04 },
-    medium: { padding: '1.2rem 0', ...theme.text.body02 },
+    small: { padding: '0.8rem 1.2rem', ...theme.text.body04 },
+    medium: { padding: '1.2rem 1.2rem', ...theme.text.body02 },
+    large: { padding: '1.2rem 1.6rem', ...theme.text.body02 },
   };
 
   return style[size];

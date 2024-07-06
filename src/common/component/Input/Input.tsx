@@ -9,7 +9,7 @@ import {
 } from '@/common/component/Input/Input.style';
 import Label from '@/common/component/Label/Label';
 
-type InputSize = 'small' | 'medium';
+type InputSize = 'small' | 'medium' | 'large';
 type InputVariant = 'outline' | 'underline' | 'colored';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
