@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const ModalBackground = css({
+export const backgroundStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -19,7 +19,7 @@ export const ModalBackground = css({
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
 });
 
-export const ModalContent = css({
+export const dialogStyle = css({
   display: 'block',
 
   position: 'fixed',

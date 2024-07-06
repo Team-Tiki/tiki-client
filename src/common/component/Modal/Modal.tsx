@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { ModalBackground, ModalContent } from '@/common/component/Modal/Modal.style';
+import { backgroundStyle, dialogStyle } from '@/common/component/Modal/Modal.style';
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,8 +22,8 @@ const Modal = ({ isOpen, children }: ModalProps) => {
     isOpen &&
     ReactDOM.createPortal(
       <>
-        <article css={ModalBackground} />
-        <dialog css={ModalContent}>{children}</dialog>
+        <article css={backgroundStyle} />
+        <dialog css={dialogStyle}>{children}</dialog>
       </>,
       document.body
     )
