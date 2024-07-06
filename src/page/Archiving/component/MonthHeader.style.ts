@@ -12,8 +12,9 @@ export const monthBtnStyle = {
   color: theme.colors.black,
   backgroundColor: theme.colors.white,
 
-  ...theme.button.button02,
+  transition: 'all 0.2s ease-in-out',
 
+  ...theme.button.button02,
   '&:hover': {
     color: theme.colors.blue_900,
     backgroundColor: theme.colors.blue_100,
