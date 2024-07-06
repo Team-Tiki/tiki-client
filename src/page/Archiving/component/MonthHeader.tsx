@@ -11,7 +11,7 @@ const MonthHeader = ({ onMonthClick }: MonthHeaderProps) => {
   return (
     <section css={headerStyle}>
       {months.map((month) => (
-        <Button key={month} variant="primary" css={[monthBtnStyle]} onClick={() => onMonthClick(month)}>
+        <Button key={month} variant="primary" css={monthBtnStyle} onClick={() => onMonthClick(month)}>
           {month}
         </Button>
       ))}
