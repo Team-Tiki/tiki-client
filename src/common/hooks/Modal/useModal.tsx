@@ -15,15 +15,6 @@ const useModal = () => {
     setIsOpen(false);
   };
 
-  // 모달이 열렸을 때 스크롤을 막기
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
-
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
-
   // 뒤로가기 이벤트 처리
   useEffect(() => {
     const preventGoBack = () => {
