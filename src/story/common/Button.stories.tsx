@@ -9,6 +9,13 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <div css={{ width: '200px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     children: 'Button',
     size: 'small',

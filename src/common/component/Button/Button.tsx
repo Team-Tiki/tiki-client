@@ -6,12 +6,12 @@ import { buttonStyle, sizeStyle, variantStyle } from './Button.style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant: 'primary' | 'secondary' | 'text' | 'action';
+  variant?: 'primary' | 'secondary' | 'text' | 'action';
   onClick?: () => void;
-  size?: Size;
+  size?: Extract<Size, 'large' | 'medium' | 'small'>;
 }
 
-const Button = ({ variant, children, size = 'medium', ...props }: ButtonProps) => {
+const Button = ({ variant = 'secondary', children, size = 'medium', ...props }: ButtonProps) => {
   return (
     <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size)]} {...props}>
       {children}

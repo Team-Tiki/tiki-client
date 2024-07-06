@@ -6,15 +6,18 @@ import { ButtonProps } from './Button';
 
 export const buttonStyle = css({
   display: 'flex',
-
-  gap: '0.8rem',
   justifyContent: 'center',
   alignItems: 'center',
+  gap: '0.8rem',
 
-  padding: '1.6rem',
+  width: '100%',
+
+  padding: '1.6rem 2rem',
 
   border: 'none',
   borderRadius: '8px',
+
+  fontWeight: 500,
 
   whiteSpace: 'nowrap',
 
@@ -45,34 +48,14 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
 export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   const style = {
-    xxSmall: css({
-      width: '8.9rem',
-      ...theme.label.label02,
-    }),
-    xSmall: css({
-      width: '14.7rem',
-      ...theme.heading.heading05,
-    }),
-    small: css({
-      width: '15.8rem',
-      ...theme.label.label01,
+    large: css({
+      ...theme.text.body02,
     }),
     medium: css({
-      width: '24rem',
-      ...theme.label.label01,
-      fontWeight: '700',
+      ...theme.text.body04,
     }),
-    large: css({
-      width: '32rem',
-      ...theme.label.label01,
-    }),
-    xLarge: css({
-      width: '37.5rem',
-      ...theme.label.label01,
-    }),
-    xxLarge: css({
-      width: '51.1rem',
-      ...theme.label.label01,
+    small: css({
+      ...theme.text.body05,
     }),
   };
   return style[size];

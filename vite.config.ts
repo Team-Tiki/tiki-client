@@ -10,6 +10,11 @@ export default defineConfig({
       jsxImportSource: '@emotion/react',
     }),
     tsconfigPaths(),
-    svgr({ include: '**/*.svg' }),
+    svgr({
+      include: '**/*.svg',
+      svgrOptions: {
+        exportType: 'default',
+      },
+    }),
   ],
 });
