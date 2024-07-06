@@ -8,6 +8,7 @@ declare module '@emotion/react' {
     heading: typeof heading;
     text: typeof text;
     label: typeof label;
+    button: typeof button;
     zIndex: typeof zIndex;
   }
 }

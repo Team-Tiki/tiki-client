@@ -93,6 +93,17 @@ const label = {
   },
 } as const;
 
+const button = {
+  button01: {
+    fontsize: '1.6rem',
+    lineHeight: '1.6rem',
+  },
+  button02: {
+    fontSize: '1.4rem',
+    lineHeight: '1.4rem',
+  },
+} as const;
+
 const zIndex = {
   overlayTop: 4,
   overlayHigh: 3,
