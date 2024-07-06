@@ -11,7 +11,7 @@ export const ModalBackground = css({
   top: 0,
   left: 0,
 
-  zIndex: 1000,
+  zIndex: theme.zIndex.overlayHigh,
 
   width: '100vw',
   height: '100vh',
@@ -28,7 +28,7 @@ export const ModalContent = css({
   top: '50%',
   left: '50%',
 
-  zIndex: 1001,
+  zIndex: theme.zIndex.overlayTop,
 
   borderRadius: '16px',
   border: 'none',
