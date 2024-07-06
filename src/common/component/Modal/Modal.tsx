@@ -11,9 +11,9 @@ interface ModalProps {
 const Modal = ({ isOpen, component }: ModalProps) => {
   return isOpen && component
     ? ReactDOM.createPortal(
-        <div css={ModalWrapper}>
+        <article css={ModalWrapper}>
           <div css={ModalContent}>{component}</div>
-        </div>,
+        </article>,
         document.body
       )
     : null;
