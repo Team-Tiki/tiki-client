@@ -9,14 +9,16 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, component }: ModalProps) => {
-  return isOpen && component
-    ? ReactDOM.createPortal(
-        <article css={ModalWrapper}>
-          <div css={ModalContent}>{component}</div>
-        </article>,
-        document.body
-      )
-    : null;
+  return (
+    isOpen &&
+    component &&
+    ReactDOM.createPortal(
+      <article css={ModalWrapper}>
+        <div css={ModalContent}>{component}</div>
+      </article>,
+      document.body
+    )
+  );
 };
 
 export default Modal;
