@@ -1,14 +1,14 @@
 import { ReactElement, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { ModalContent, ModalWrapper } from '@/common/component/Modal/Modal.style';
+import { ModalBackground, ModalContent } from '@/common/component/Modal/Modal.style';
 
 interface ModalProps {
   isOpen: boolean;
-  component?: ReactElement;
+  children?: ReactElement;
 }
 
-const Modal = ({ isOpen, component }: ModalProps) => {
+const Modal = ({ isOpen, children }: ModalProps) => {
   // 모달이 열렸을 때 스크롤을 막기
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
@@ -20,11 +20,11 @@ const Modal = ({ isOpen, component }: ModalProps) => {
 
   return (
     isOpen &&
-    component &&
     ReactDOM.createPortal(
-      <article css={ModalWrapper}>
-        <div css={ModalContent}>{component}</div>
-      </article>,
+      <>
+        <article css={ModalBackground} />
+        <dialog css={ModalContent}>{children}</dialog>
+      </>,
       document.body
     )
   );

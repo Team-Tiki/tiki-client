@@ -13,7 +13,7 @@ const meta: Meta<typeof Modal> = {
     isOpen: false,
   },
   argTypes: {
-    component: {
+    children: {
       control: false,
     },
   },
@@ -57,7 +57,7 @@ export const Default: Story = {
     return (
       <div>
         <button onClick={() => openModal(<ModalContent1 onNext={handleNext1} />)}>Open Modal</button>
-        <Modal {...args} isOpen={isOpen} component={currentContent} />
+        <Modal {...args} isOpen={isOpen} children={currentContent} />
       </div>
     );
   },
