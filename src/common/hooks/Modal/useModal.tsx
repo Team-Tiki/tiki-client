@@ -4,7 +4,7 @@ import usePreventGoBack from '@/common/hooks/Modal/usePreventGoBack';
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentContent, setCurrentContent] = useState<ReactElement | null>(null);
+  const [currentContent, setCurrentContent] = useState<ReactElement | undefined>(undefined);
 
   // 열기
   const openModal = (content: ReactElement) => {
@@ -15,6 +15,7 @@ const useModal = () => {
   // 닫기
   const closeModal = () => {
     setIsOpen(false);
+    setCurrentContent(undefined);
   };
 
   // 뒤로가기 이벤트 처리

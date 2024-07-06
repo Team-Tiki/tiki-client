@@ -11,7 +11,6 @@ const meta: Meta<typeof Modal> = {
   },
   args: {
     isOpen: false,
-    component: null,
   },
   argTypes: {
     component: {

@@ -5,7 +5,7 @@ import { ModalContent, ModalWrapper } from '@/common/component/Modal/Modal.style
 
 interface ModalProps {
   isOpen: boolean;
-  component: ReactElement | null;
+  component?: ReactElement;
 }
 
 const Modal = ({ isOpen, component }: ModalProps) => {
