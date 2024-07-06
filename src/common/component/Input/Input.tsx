@@ -11,23 +11,23 @@ import {
 type InputSize = 'small' | 'medium';
 type InputVariant = 'outline' | 'underline' | 'colored';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   variant: InputVariant;
-  inputSize?: InputSize; //default: medium(p: 1.2rem)
+  size?: InputSize; //default: medium(p: 1.2rem)
   label?: string;
   LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
   isError?: boolean;
 }
 
-const Input = ({ variant, inputSize = 'medium', label, LeftIcon, ...props }: InputProps) => {
+const Input = ({ variant, size = 'medium', label, LeftIcon, ...props }: InputProps) => {
   return (
-    <div css={inputContainerStyle}>
+    <article css={inputContainerStyle}>
       {label && <p>{label}</p>}
-      <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(inputSize)]}>
+      <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(size)]}>
         {LeftIcon && <LeftIcon />}
         <input css={[inputStyle]} {...props} />
       </div>
-    </div>
+    </article>
   );
 };
 

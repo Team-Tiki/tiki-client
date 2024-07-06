@@ -20,13 +20,11 @@ export const inputWarpperStyle = css({
 export const inputStyle = css({
   width: '100%',
 
-  paddingLeft: '1.2rem',
+  padding: '0 1.2rem 0 1.2rem',
 
   border: 'none',
-
   backgroundColor: 'transparent',
-
-  weight: 400,
+  fontWeight: 400,
 
   outline: 'none',
 });
@@ -49,11 +47,11 @@ export const variantStyle = (variant: Required<InputProps>['variant']) => {
   return style[variant];
 };
 
-export const sizeStyle = (inputSize: Required<InputProps>['inputSize']) => {
+export const sizeStyle = (size: Required<InputProps>['size']) => {
   const style = {
-    small: { paddingTop: '0.8rem', paddingBottom: '0.8rem', ...theme.text.body04 },
-    medium: { paddingTop: '1.2rem', paddingBottom: '1.2rem', ...theme.text.body02 },
+    small: { padding: '0.8rem 0', ...theme.text.body04 },
+    medium: { padding: '1.2rem 0', ...theme.text.body02 },
   };
 
-  return style[inputSize];
+  return style[size];
 };
