@@ -9,8 +9,8 @@ const colors = {
   gray_200: '#EBEBEB',
   gray_100: '#FAFAFA',
   white: '#FFFFFF',
-  blue_100: '#466DEB',
-  blue_10: '#EDF0FD',
+  blue_900: '#466DEB',
+  blue_100: '#EDF0FD',
   red: '#FE4F60',
 };
 
