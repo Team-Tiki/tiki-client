@@ -4,14 +4,14 @@ import { months } from '../constant/date';
 import { headerStyle, monthBtnStyle } from './MonthHeader.style';
 
 interface MonthHeaderProps {
-  onClick: (month: string) => void;
+  onMonthClick: (month: string) => void;
 }
 
-const MonthHeader = ({ onClick }: MonthHeaderProps) => {
+const MonthHeader = ({ onMonthClick }: MonthHeaderProps) => {
   return (
     <section css={headerStyle}>
       {months.map((month) => (
-        <Button key={month} variant="primary" css={[monthBtnStyle]} onClick={() => onClick(month)}>
+        <Button key={month} variant="primary" css={[monthBtnStyle]} onClick={() => onMonthClick(month)}>
           {month}
         </Button>
       ))}
