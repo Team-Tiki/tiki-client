@@ -116,5 +116,6 @@ export const theme = {
   heading,
   text,
   label,
+  button,
   zIndex,
 };
