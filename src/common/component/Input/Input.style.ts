@@ -27,6 +27,10 @@ export const inputStyle = css({
   fontWeight: 400,
 
   outline: 'none',
+
+  '::placeholder': {
+    color: theme.colors.gray_500,
+  },
 });
 
 export const variantStyle = (variant: Required<InputProps>['variant']) => {

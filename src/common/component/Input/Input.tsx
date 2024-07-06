@@ -7,6 +7,7 @@ import {
   sizeStyle,
   variantStyle,
 } from '@/common/component/Input/Input.style';
+import Label from '@/common/component/Label/Label';
 
 type InputSize = 'small' | 'medium';
 type InputVariant = 'outline' | 'underline' | 'colored';
@@ -22,7 +23,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 const Input = ({ variant, size = 'medium', label, LeftIcon, ...props }: InputProps) => {
   return (
     <article css={inputContainerStyle}>
-      {label && <p>{label}</p>}
+      {label && <Label id={label}>{label}</Label>}
       <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(size)]}>
         {LeftIcon && <LeftIcon />}
         <input css={[inputStyle]} {...props} />
