@@ -1,4 +1,4 @@
-import { sectionStyle } from '@/page/landing/component/LandingFeatureSection.style';
+import { sectionStyle } from '@/page/landing/component/FeatureSection/FeatureSection.style';
 
 import { ComponentPropsWithoutRef } from 'react';
 

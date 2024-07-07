@@ -1,4 +1,4 @@
-import LandingFeatureSection from '@/page/landing/component/LandingFeatureSection';
+import LandingFeatureSection from '@/page/landing/component/FeatureSection/FeatureSection';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

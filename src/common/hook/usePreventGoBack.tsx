@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const usePreventGoBack = (isOpen: boolean, onClose: () => void) => {
+export const usePreventGoBack = (isOpen: boolean, onClose: () => void) => {
   useEffect(() => {
     const preventGoBack = () => {
       history.go(1);
@@ -15,5 +15,3 @@ const usePreventGoBack = (isOpen: boolean, onClose: () => void) => {
     return () => window.removeEventListener('popstate', preventGoBack);
   }, [isOpen, onClose]);
 };
-
-export default usePreventGoBack;
