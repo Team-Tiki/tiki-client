@@ -6,7 +6,7 @@ export const dayStyle = {
   border: 'none',
 
   backgroundColor: theme.colors.white,
-  ...theme.label.label01,
+  ...theme.text.body04,
 
   cursor: 'pointer',
 };

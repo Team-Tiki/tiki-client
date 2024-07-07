@@ -1,5 +1,7 @@
 const colors = {
   black: '#2C3030',
+  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%))',
+  dimmed: 'rgba(0, 0, 0, 0.40)',
   gray_800: '#56585D',
   gray_700: '#6B6B6B',
   gray_600: '#909090',
@@ -38,10 +40,6 @@ const heading = {
     lineHeight: '2rem',
   },
   heading06: {
-    fontSize: '1.8rem',
-    lineHeight: '1.8rem',
-  },
-  heading07: {
     fontSize: '1.6rem',
     lineHeight: '1.6rem',
   },
@@ -54,53 +52,31 @@ const text = {
   },
   body02: {
     fontSize: '2rem',
-    lineHeight: '2rem',
+    lineHeight: '3.36rem',
   },
   body03: {
-    fontSize: '1.6rem',
-    lineHeight: '1.6rem',
+    fontSize: '2rem',
+    lineHeight: '2rem',
   },
   body04: {
     fontSize: '1.6rem',
-    lineHeight: '2.24rem',
+    lineHeight: '1.6rem',
   },
   body05: {
     fontSize: '1.4rem',
-    lineHeight: '1.4rem',
+    lineHeight: '2.24rem',
   },
   body06: {
     fontSize: '1.4rem',
-    lineHeight: '1.96rem',
+    lineHeight: '1.4rem',
   },
   body07: {
     fontSize: '1.4rem',
     lineHeight: '1.68rem',
   },
-} as const;
-
-const label = {
-  label01: {
-    fontSize: '1.6rem',
-    lineHeight: '1.6rem',
-  },
-  label02: {
-    fontSize: '1.4rem',
-    lineHeight: '1.4rem',
-  },
-  label03: {
+  body08: {
     fontSize: '1.2rem',
     lineHeight: '1.2rem',
-  },
-} as const;
-
-const button = {
-  button01: {
-    fontsize: '1.6rem',
-    lineHeight: '1.6rem',
-  },
-  button02: {
-    fontSize: '1.4rem',
-    lineHeight: '1.4rem',
   },
 } as const;
 
@@ -115,7 +91,5 @@ export const theme = {
   colors,
   heading,
   text,
-  label,
-  button,
   zIndex,
 };

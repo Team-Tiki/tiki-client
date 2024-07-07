@@ -16,10 +16,10 @@ export const itemStyle = css({
   margin: '0.4rem 1.2rem',
   borderRadius: '8px',
 
-  fontSize: theme.text.body04.fontSize,
-  lineHeight: theme.text.body04.lineHeight,
+  fontSize: theme.text.body05.fontSize,
+  lineHeight: theme.text.body05.lineHeight,
 
   '&:hover, &:focus': {
-    backgroundColor: theme.colors.blue_10,
+    backgroundColor: theme.colors.blue_100,
   },
 });

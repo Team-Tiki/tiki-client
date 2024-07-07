@@ -51,9 +51,9 @@ export const variantStyle = (variant: Required<InputProps>['variant']) => {
 
 export const sizeStyle = (size: Required<InputProps>['size']) => {
   const style = {
-    small: { padding: '0.8rem 1.2rem', ...theme.text.body04 },
-    medium: { padding: '1.2rem 1.2rem', ...theme.text.body02 },
-    large: { padding: '1.2rem 1.6rem', ...theme.text.body02 },
+    small: { padding: '0.8rem 1.2rem', ...theme.text.body05 },
+    medium: { padding: '1.2rem 1.2rem', ...theme.text.body03 },
+    large: { padding: '1.2rem 1.6rem', ...theme.text.body03 },
   };
 
   return style[size];
