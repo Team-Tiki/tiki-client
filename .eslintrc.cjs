@@ -64,6 +64,9 @@ module.exports = {
     'react/prop-types': 0, // prop-type 지정
   },
   settings: {
+    react: {
+      version: 'detect', // 사용자가 설치한 버전을 자동으로 선택
+    },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
