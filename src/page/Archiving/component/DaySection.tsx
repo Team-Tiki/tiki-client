@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { bodyStyle, dayStyle } from './DaySection.style';
 
 interface DaySectionProps {
