@@ -31,14 +31,16 @@ export const inputStyle = css({
   },
 });
 
-export const variantStyle = (variant: Required<InputProps>['variant']) => {
+export const variantStyle = ({ variant, isError }: { variant: Required<InputProps>['variant']; isError: boolean }) => {
+  const borderColor = isError ? `${theme.colors.red}` : `${theme.colors.gray_400}`;
+
   const style = {
     outline: {
-      boxShadow: ` 0px 0px 0px 1px ${theme.colors.gray_400}`,
+      boxShadow: ` 0px 0px 0px 1px ${borderColor}`,
       borderRadius: '8px',
     },
     underline: {
-      boxShadow: ` 0px 1px 0px ${theme.colors.gray_400}`,
+      boxShadow: ` 0px 1px 0px ${borderColor}`,
     },
     colored: {
       borderRadius: '100px',

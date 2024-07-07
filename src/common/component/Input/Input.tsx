@@ -18,16 +18,26 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   label?: string;
   LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
   isError?: boolean;
+  supportingText?: string;
 }
 
-const Input = ({ variant, size = 'medium', label, LeftIcon, ...props }: InputProps) => {
+const Input = ({
+  variant,
+  size = 'medium',
+  label,
+  LeftIcon,
+  isError = false,
+  supportingText,
+  ...props
+}: InputProps) => {
   return (
     <article css={inputContainerStyle}>
       {label && <Label id={label}>{label}</Label>}
-      <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(size)]}>
+      <div css={[inputWarpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
         {LeftIcon && <LeftIcon />}
-        <input css={[inputStyle]} {...props} />
+        <input css={inputStyle} {...props} />
       </div>
+      {}
     </article>
   );
 };
