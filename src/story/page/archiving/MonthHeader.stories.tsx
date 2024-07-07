@@ -2,7 +2,7 @@ import MonthHeader from '@/page/Archiving/component/MonthHeader';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Page/MonthHeader',
+  title: 'Page/Archiving/MonthHeader',
   component: MonthHeader,
   parameters: {
     layout: 'centered',
