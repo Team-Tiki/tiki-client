@@ -6,6 +6,7 @@ const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentContent, setCurrentContent] = useState<ReactElement | undefined>(undefined);
 
+  console.log('Modal', isOpen);
   // 열기
   const openModal = useCallback((content: ReactElement) => {
     setCurrentContent(content);

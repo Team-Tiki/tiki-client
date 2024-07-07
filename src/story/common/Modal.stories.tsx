@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import Modal from '@/common/component/Modal/Modal';
+import { useOutsideClick } from '@/common/hook';
 import useModal from '@/common/hook/Modal/useModal';
 
 const meta: Meta<typeof Modal> = {
@@ -46,7 +47,7 @@ const ModalContent3 = ({ onClose }: { onClose: () => void }) => (
 
 export const Default: Story = {
   args: {
-    isOpen: true,
+    isOpen: false,
   },
   render: (args) => {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
@@ -57,7 +58,7 @@ export const Default: Story = {
     return (
       <div>
         <button onClick={() => openModal(<ModalContent1 onNext={handleNext1} />)}>Open Modal</button>
-        <Modal {...args} isOpen={isOpen} children={currentContent} />
+        <Modal {...args} isOpen={isOpen} children={currentContent} onClose={closeModal} />
       </div>
     );
   },
