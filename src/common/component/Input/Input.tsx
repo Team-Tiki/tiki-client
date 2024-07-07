@@ -1,11 +1,12 @@
 import React, { InputHTMLAttributes } from 'react';
 
 import {
-  inputContainerStyle,
+  containerStyle,
   inputStyle,
-  inputWarpperStyle,
+  inputSupportStyle,
   sizeStyle,
   variantStyle,
+  warpperStyle,
 } from '@/common/component/Input/Input.style';
 import Label from '@/common/component/Label/Label';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
@@ -34,13 +35,15 @@ const Input = ({
   ...props
 }: InputProps) => {
   return (
-    <article css={inputContainerStyle}>
+    <article css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
-      <div css={[inputWarpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
-        {LeftIcon && <LeftIcon />}
-        <input css={inputStyle} {...props} />
+      <div css={inputSupportStyle}>
+        <div css={[warpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
+          {LeftIcon && <LeftIcon />}
+          <input css={inputStyle} {...props} />
+        </div>
+        {supportingText && <SupportingText text={supportingText} isError={isError} isNotice={isNotice} />}
       </div>
-      {supportingText && <SupportingText text={supportingText} isError={isError} isNotice={isNotice} />}
     </article>
   );
 };

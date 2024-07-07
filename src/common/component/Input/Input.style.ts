@@ -3,14 +3,23 @@ import { css } from '@emotion/react';
 import { InputProps } from '@/common/component/Input/Input';
 import { theme } from '@/common/style/theme/theme';
 
-export const inputContainerStyle = css({
+export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
   gap: '1.2rem',
+
+  width: '100%',
 });
 
-export const inputWarpperStyle = css({
+export const inputSupportStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+
+  gap: '0.8rem',
+});
+
+export const warpperStyle = css({
   display: 'flex',
   alignItems: 'center',
 
@@ -28,6 +37,7 @@ export const inputStyle = css({
 
   '::placeholder': {
     color: theme.colors.gray_500,
+    ...theme.text.body03,
   },
 });
 
@@ -53,9 +63,9 @@ export const variantStyle = ({ variant, isError }: { variant: Required<InputProp
 
 export const sizeStyle = (size: Required<InputProps>['size']) => {
   const style = {
-    small: { padding: '0.8rem 1.2rem', ...theme.text.body04 },
-    medium: { padding: '1.2rem 1.2rem', ...theme.text.body02 },
-    large: { padding: '1.2rem 1.6rem', ...theme.text.body02 },
+    small: { padding: '0.8rem 1.2rem' },
+    medium: { padding: '1.2rem 1.2rem' },
+    large: { padding: '1.2rem 1.6rem' },
   };
 
   return style[size];
