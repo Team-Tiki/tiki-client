@@ -19,9 +19,15 @@ export const UserHeader = ({ isLogin = false }: HeaderProps) => {
   return (
     <header css={headerStyle}>
       <SmallLogo />
-      <Button variant="secondary" size="xxSmall">
-        {isLogin ? '로그아웃' : '로그인'}
-      </Button>
+      {isLogin ? (
+        <Button variant="secondary" size="xxSmall">
+          로그아웃
+        </Button>
+      ) : (
+        <Button variant="secondary" size="xxSmall">
+          로그인
+        </Button>
+      )}
     </header>
   );
 };
