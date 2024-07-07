@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import Modal from '@/common/component/Modal/Modal';
-import { useOutsideClick } from '@/common/hook';
 import useModal from '@/common/hook/Modal/useModal';
 
 const meta: Meta<typeof Modal> = {

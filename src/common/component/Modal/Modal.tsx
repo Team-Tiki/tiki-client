@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { backgroundStyle, dialogStyle } from '@/common/component/Modal/Modal.style';

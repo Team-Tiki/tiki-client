@@ -20,6 +20,6 @@ export const itemStyle = css({
   lineHeight: theme.text.body04.lineHeight,
 
   '&:hover, &:focus': {
-    backgroundColor: theme.colors.blue_10,
+    backgroundColor: theme.colors.blue_100,
   },
 });
