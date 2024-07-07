@@ -1,7 +1,7 @@
 import { MiddleLogo, SmallLogo } from '@/common/asset/svg';
 
 import Button from '../Button/Button';
-import { headerStyle, logoutBtnStyle, spanStyle } from './header.style';
+import { headerStyle } from './Header.style';
 
 interface HeaderProps {
   isLogin: boolean;
@@ -10,9 +10,9 @@ interface HeaderProps {
 const Header = ({ isLogin = false }: HeaderProps) => {
   return (
     <header css={headerStyle}>
-      <span css={spanStyle}>{isLogin ? <SmallLogo /> : <MiddleLogo />}</span>
+      <span>{isLogin ? <SmallLogo /> : <MiddleLogo />}</span>
       {isLogin && (
-        <Button variant="secondary" size="xxSmall" css={logoutBtnStyle}>
+        <Button variant="secondary" size="xxSmall">
           로그아웃
         </Button>
       )}
