@@ -1,17 +1,25 @@
-name: Chromatic Deployment
+name: 'Chromatic Deployment'
 
-on:
-  push:
-    branches:
-      - develop
+on: push
+
 jobs:
   test:
     name: Storybook Chromatic Deployment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: pnpm chromatic
-      - uses: chromaui/action@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run Chromatic
+        uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
