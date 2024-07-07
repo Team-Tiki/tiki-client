@@ -20,7 +20,7 @@ export const sectionStyle = css({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '24px',
+  gap: '2.4rem',
 
   scrollSnapAlign: 'start',
 });
