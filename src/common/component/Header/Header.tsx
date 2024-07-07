@@ -7,7 +7,7 @@ interface HeaderProps {
   isLogin: boolean;
 }
 
-export const Header = () => {
+export const DefaultHeader = () => {
   return (
     <header css={headerStyle}>
       <SmallLogo />
