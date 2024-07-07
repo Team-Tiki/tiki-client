@@ -40,7 +40,7 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
     }),
     action: css({
       color: theme.colors.white,
-      backgroundColor: theme.colors.blue_100,
+      backgroundColor: theme.colors.blue_900,
     }),
   };
   return style[variant];
