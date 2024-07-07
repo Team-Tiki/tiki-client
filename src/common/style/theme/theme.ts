@@ -9,8 +9,8 @@ const colors = {
   gray_200: '#EBEBEB',
   gray_100: '#FAFAFA',
   white: '#FFFFFF',
-  blue_100: '#466DEB',
-  blue_10: '#EDF0FD',
+  blue_900: '#466DEB',
+  blue_100: '#EDF0FD',
   red: '#FE4F60',
 };
 
@@ -93,6 +93,17 @@ const label = {
   },
 } as const;
 
+const button = {
+  button01: {
+    fontsize: '1.6rem',
+    lineHeight: '1.6rem',
+  },
+  button02: {
+    fontSize: '1.4rem',
+    lineHeight: '1.4rem',
+  },
+} as const;
+
 const zIndex = {
   overlayTop: 4,
   overlayHigh: 3,
@@ -105,5 +116,6 @@ export const theme = {
   heading,
   text,
   label,
+  button,
   zIndex,
 };
