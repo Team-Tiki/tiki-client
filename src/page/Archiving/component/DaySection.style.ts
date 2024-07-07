@@ -6,8 +6,8 @@ export const dayStyle = {
   border: 'none',
 
   backgroundColor: theme.colors.white,
-
   ...theme.label.label01,
+
   cursor: 'pointer',
 };
 
