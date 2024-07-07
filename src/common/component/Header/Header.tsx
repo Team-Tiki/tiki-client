@@ -20,11 +20,11 @@ export const UserHeader = ({ isLogin = false }: HeaderProps) => {
     <header css={headerStyle}>
       <SmallLogo />
       {isLogin ? (
-        <Button variant="secondary" size="xxSmall">
+        <Button variant="secondary" size="small">
           로그아웃
         </Button>
       ) : (
-        <Button variant="secondary" size="xxSmall">
+        <Button variant="secondary" size="small">
           로그인
         </Button>
       )}
