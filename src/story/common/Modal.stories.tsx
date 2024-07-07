@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import Modal from '@/common/component/Modal/Modal';
-import useModal from '@/common/hook/Modal/useModal';
+import { useModal } from '@/common/hook/useModal';
 
 const meta: Meta<typeof Modal> = {
   title: 'Common/Modal',

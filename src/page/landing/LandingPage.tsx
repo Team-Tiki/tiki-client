@@ -1,5 +1,5 @@
 import { landingStyle, sectionStyle, startedButtonStyle } from '@/page/landing/LandingPage.style';
-import LandingFeatureSection from '@/page/landing/component/LandingFeatureSection';
+import LandingFeatureSection from '@/page/landing/component/FeatureSection/FeatureSection';
 
 import Button from '@/common/component/Button/Button';
 import Heading from '@/common/component/Heading/Heading';
