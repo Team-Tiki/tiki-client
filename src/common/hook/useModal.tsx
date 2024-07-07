@@ -1,8 +1,8 @@
 import { ReactElement, useCallback, useState } from 'react';
 
-import usePreventGoBack from '@/common/hook/usePreventGoBack';
+import { usePreventGoBack } from '@/common/hook/usePreventGoBack';
 
-const useModal = () => {
+export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentContent, setCurrentContent] = useState<ReactElement | undefined>(undefined);
 
@@ -30,5 +30,3 @@ const useModal = () => {
     closeModal,
   };
 };
-
-export default useModal;
