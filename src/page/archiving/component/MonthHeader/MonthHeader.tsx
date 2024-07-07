@@ -1,6 +1,6 @@
 import Button from '@/common/component/Button/Button';
 
-import { months } from '../constant/date';
+import { months } from '../../constant/date';
 import { headerStyle, monthBtnStyle } from './MonthHeader.style';
 
 interface MonthHeaderProps {
