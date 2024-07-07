@@ -1,14 +1,14 @@
-import MonthHeader from '@/page/Archiving/component/MonthHeader';
+import MonthHeader from '@/page/archiving/component/MonthHeader';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Page/MonthHeader',
+  title: 'Page/Archiving/MonthHeader',
   component: MonthHeader,
   parameters: {
     layout: 'centered',
   },
   args: {
-    onMonthClick: (month: string) => {},
+    onMonthClick: () => {},
   },
   argTypes: {},
 } satisfies Meta<typeof MonthHeader>;
