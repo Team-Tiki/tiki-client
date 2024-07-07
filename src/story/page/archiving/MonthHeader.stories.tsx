@@ -8,7 +8,7 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    onMonthClick: (month: string) => {},
+    onMonthClick: () => {},
   },
   argTypes: {},
 } satisfies Meta<typeof MonthHeader>;
