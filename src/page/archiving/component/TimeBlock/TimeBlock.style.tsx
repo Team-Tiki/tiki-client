@@ -2,6 +2,7 @@ import { theme } from '@/common/style/theme/theme';
 
 export const timeBlockStyle = {
   display: 'flex',
+  gap: '0.7rem',
 
   padding: '0.5rem',
   marginRight: 'auto',
