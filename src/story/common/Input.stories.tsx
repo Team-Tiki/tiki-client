@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { useEffect, useRef } from 'react';
+
 import Input from '@/common/component/Input/Input';
 
 const meta = {
@@ -11,9 +13,12 @@ const meta = {
   args: {
     type: 'text',
     placeholder: 'placeholder',
-    width: 20,
     label: 'label',
     variant: 'underline',
+    size: 'medium',
+    isError: false,
+    isNotice: false,
+    supportingText: '',
   },
   argTypes: {},
 } satisfies Meta<typeof Input>;
@@ -21,4 +26,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, []);
+
+    return <Input ref={inputRef} {...args} />;
+  },
+};

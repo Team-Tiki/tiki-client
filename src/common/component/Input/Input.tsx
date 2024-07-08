@@ -1,35 +1,56 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { ForwardedRef, InputHTMLAttributes, forwardRef } from 'react';
 
 import {
-  inputContainerStyle,
+  containerStyle,
   inputStyle,
-  inputWarpperStyle,
+  inputSupportStyle,
   sizeStyle,
   variantStyle,
+  warpperStyle,
 } from '@/common/component/Input/Input.style';
 import Label from '@/common/component/Label/Label';
+import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 type InputSize = 'small' | 'medium' | 'large';
-type InputVariant = 'outline' | 'underline' | 'colored';
+type InputVariant = 'default' | 'underline' | 'colored';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant: InputVariant;
+  variant?: InputVariant;
   size?: InputSize; //default: medium(p: 1.2rem)
   label?: string;
   LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
   isError?: boolean;
+  isNotice?: boolean;
+  supportingText?: string;
 }
 
-const Input = ({ variant, size = 'medium', label, LeftIcon, ...props }: InputProps) => {
+const Input = (
+  {
+    variant = 'default',
+    size = 'medium',
+    label,
+    LeftIcon,
+    isError = false,
+    isNotice = false,
+    supportingText,
+    ...props
+  }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
-    <article css={inputContainerStyle}>
+    <article css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
-      <div css={[inputWarpperStyle, variantStyle(variant), sizeStyle(size)]}>
+      <div css={[warpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
         {LeftIcon && <LeftIcon />}
-        <input css={[inputStyle]} {...props} />
+        <input ref={ref} css={inputStyle} {...props} />
       </div>
+      {supportingText && (
+        <SupportingText isError={isError} isNotice={isNotice}>
+          {supportingText}
+        </SupportingText>
+      )}
     </article>
   );
 };
 
-export default Input;
+export default forwardRef(Input);
