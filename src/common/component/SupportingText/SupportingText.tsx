@@ -1,15 +1,14 @@
-import { textStyle } from '@/common/component/SupportingText/SupportingText.style';
-import { theme } from '@/common/style/theme/theme';
+import { ComponentPropsWithoutRef } from 'react';
 
-interface SupportingTextProps {
-  text: string;
+import { textStyle } from '@/common/component/SupportingText/SupportingText.style';
+
+interface SupportingTextProps extends ComponentPropsWithoutRef<'p'> {
   isError?: boolean; //red
   isNotice?: boolean; //blue
 }
 
-const SupportingText = ({ text, isError = false, isNotice = false }: SupportingTextProps) => {
-  const textColor = isError ? theme.colors.red : isNotice ? theme.colors.blue_900 : theme.colors.gray_400;
-  return <p css={textStyle(textColor)}>{text}</p>;
+const SupportingText = ({ isError = false, isNotice = false, children }: SupportingTextProps) => {
+  return <p css={textStyle({ isError, isNotice })}>{children}</p>;
 };
 
 export default SupportingText;
