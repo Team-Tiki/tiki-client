@@ -11,6 +11,5 @@ export const sidebarSectionStyle = css({
   height: '100vh',
 
   backgroundColor: theme.colors.gray_100,
+  borderRadius: '0px 30px 30px 0px',
 });
-
-export const 
