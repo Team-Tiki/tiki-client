@@ -8,7 +8,7 @@ interface SupportingTextProps extends ComponentPropsWithoutRef<'p'> {
 }
 
 const SupportingText = ({ isError = false, isNotice = false, children }: SupportingTextProps) => {
-  return <p css={textStyle({ isError, isNotice })}>{children}</p>;
+  return <p css={textStyle(isError, isNotice)}>{children}</p>;
 };
 
 export default SupportingText;

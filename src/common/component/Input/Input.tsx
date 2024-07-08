@@ -12,10 +12,10 @@ import Label from '@/common/component/Label/Label';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 type InputSize = 'small' | 'medium' | 'large';
-type InputVariant = 'outline' | 'underline' | 'colored';
+type InputVariant = 'default' | 'underline' | 'colored';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant: InputVariant;
+  variant?: InputVariant;
   size?: InputSize; //default: medium(p: 1.2rem)
   label?: string;
   LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
@@ -26,7 +26,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 
 const Input = (
   {
-    variant,
+    variant = 'default',
     size = 'medium',
     label,
     LeftIcon,

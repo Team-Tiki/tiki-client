@@ -46,12 +46,12 @@ export const variantStyle = ({ variant, isError }: { variant: Required<InputProp
   const borderColor = isError ? `${theme.colors.red}` : `${theme.colors.gray_400}`;
 
   const style = {
-    outline: {
-      boxShadow: ` 0px 0px 0px 1px ${borderColor}`,
+    default: {
+      boxShadow: `inset 0px 0px 0px 1px ${borderColor}`,
       borderRadius: '8px',
     },
     underline: {
-      boxShadow: ` 0px 1px 0px ${borderColor}`,
+      boxShadow: `0px 1px 0px ${borderColor}`,
     },
     colored: {
       borderRadius: '100px',
