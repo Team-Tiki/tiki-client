@@ -1,5 +1,5 @@
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
-import { Meta, StoryObj } from '@storybook/react/*';
+import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Page/Archiving/TimeBlock',
@@ -8,7 +8,7 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    children: 'TimeBlock',
+    children: ['타임 블록fjlaeijfla'],
   },
   argTypes: {
     children: {
