@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { ForwardedRef, InputHTMLAttributes, forwardRef } from 'react';
 
 import {
   containerStyle,
@@ -24,23 +24,26 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   supportingText?: string;
 }
 
-const Input = ({
-  variant,
-  size = 'medium',
-  label,
-  LeftIcon,
-  isError = false,
-  isNotice = false,
-  supportingText,
-  ...props
-}: InputProps) => {
+const Input = (
+  {
+    variant,
+    size = 'medium',
+    label,
+    LeftIcon,
+    isError = false,
+    isNotice = false,
+    supportingText,
+    ...props
+  }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
     <article css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
       <div css={inputSupportStyle}>
         <div css={[warpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
           {LeftIcon && <LeftIcon />}
-          <input css={inputStyle} {...props} />
+          <input ref={ref} css={inputStyle} {...props} />
         </div>
         {supportingText && (
           <SupportingText isError={isError} isNotice={isNotice}>
@@ -52,4 +55,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default forwardRef(Input);

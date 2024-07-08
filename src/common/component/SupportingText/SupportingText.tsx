@@ -3,8 +3,8 @@ import { ComponentPropsWithoutRef } from 'react';
 import { textStyle } from '@/common/component/SupportingText/SupportingText.style';
 
 interface SupportingTextProps extends ComponentPropsWithoutRef<'p'> {
-  isError?: boolean; //red
-  isNotice?: boolean; //blue
+  isError?: boolean;
+  isNotice?: boolean;
 }
 
 const SupportingText = ({ isError = false, isNotice = false, children }: SupportingTextProps) => {
