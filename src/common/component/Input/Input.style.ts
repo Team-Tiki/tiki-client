@@ -7,9 +7,13 @@ export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  gap: '1.2rem',
+  gap: '0.8rem',
 
   width: '100%',
+
+  '& > div': {
+    marginTop: '0.4rem',
+  },
 });
 
 export const inputSupportStyle = css({

@@ -40,17 +40,15 @@ const Input = (
   return (
     <article css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
-      <div css={inputSupportStyle}>
-        <div css={[warpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
-          {LeftIcon && <LeftIcon />}
-          <input ref={ref} css={inputStyle} {...props} />
-        </div>
-        {supportingText && (
-          <SupportingText isError={isError} isNotice={isNotice}>
-            {supportingText}
-          </SupportingText>
-        )}
+      <div css={[warpperStyle, variantStyle({ variant, isError }), sizeStyle(size)]}>
+        {LeftIcon && <LeftIcon />}
+        <input ref={ref} css={inputStyle} {...props} />
       </div>
+      {supportingText && (
+        <SupportingText isError={isError} isNotice={isNotice}>
+          {supportingText}
+        </SupportingText>
+      )}
     </article>
   );
 };
