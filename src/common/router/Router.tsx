@@ -1,7 +1,3 @@
-//
-// 회원가입 -> signin/terms | signin/info
-// archiving
-// showcase
 import App from '@/App';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
