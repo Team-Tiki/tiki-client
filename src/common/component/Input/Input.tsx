@@ -42,7 +42,11 @@ const Input = ({
           {LeftIcon && <LeftIcon />}
           <input css={inputStyle} {...props} />
         </div>
-        {supportingText && <SupportingText text={supportingText} isError={isError} isNotice={isNotice} />}
+        {supportingText && (
+          <SupportingText isError={isError} isNotice={isNotice}>
+            {supportingText}
+          </SupportingText>
+        )}
       </div>
     </article>
   );

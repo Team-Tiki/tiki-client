@@ -32,6 +32,7 @@ export const inputStyle = css({
   border: 'none',
   backgroundColor: 'transparent',
   fontWeight: 400,
+  ...theme.text.body03,
 
   outline: 'none',
 
