@@ -4,7 +4,6 @@ export const blockStyle = {
   display: 'flex',
 
   height: '5.6rem',
-  marginRight: 'auto',
   padding: '0.5rem',
   justifyContent: 'center',
   alignItems: 'center',
@@ -21,6 +20,7 @@ export const blockStyle = {
 
 export const spanStyle = {
   padding: '2rem 0.8rem',
+  marginRight: 'auto',
 
   overflow: 'hidden',
   textOverflow: 'ellipsis',

@@ -8,12 +8,18 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    children: ['타임 블록fjlaeijfla'],
+    children: ['타임 블록'],
+    width: 10,
   },
   argTypes: {
     children: {
       control: {
         type: 'text',
+      },
+    },
+    width: {
+      control: {
+        type: 'number',
       },
     },
   },

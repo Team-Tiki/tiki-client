@@ -6,12 +6,13 @@ import Eclipse from '@/common/asset/svg/eclipse.svg?react';
 
 interface TimeBlockProps {
   children: ReactNode;
+  width: number;
 }
 
-const TimeBlock = ({ children }: TimeBlockProps) => {
+const TimeBlock = ({ children, width }: TimeBlockProps) => {
   return (
     <>
-      <div css={blockStyle}>
+      <div css={[blockStyle, { width: `${width}rem` }]}>
         <Eclipse width={47} height={47} css={{ flexShrink: 0 }} />
         <span css={spanStyle}>{children}</span>
       </div>
