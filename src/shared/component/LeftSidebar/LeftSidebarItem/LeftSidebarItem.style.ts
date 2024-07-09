@@ -13,22 +13,26 @@ export const leftSidebarItemStyle = css({
   gap: '0.8rem',
 });
 
-export const logoBoxStyle = css({
-  display: 'flex',
+export const logoBoxStyle = (isClicked: boolean) => {
+  const style = css({
+    display: 'flex',
 
-  width: '4rem',
-  height: '4rem',
+    width: '4rem',
+    height: '4rem',
 
-  border: `1px solid ${theme.colors.blue_900}`,
-  borderRadius: '10px',
+    border: isClicked ? `1px solid ${theme.colors.blue_900}` : 'none',
+    borderRadius: '10px',
 
-  backgroundColor: theme.colors.gray_100,
+    backgroundColor: theme.colors.gray_100,
 
-  justifyContent: 'center',
-  alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-  flexShrink: '0',
-});
+    flexShrink: '0',
+  });
+
+  return style;
+};
 
 export const textStyle = (isExpansion: boolean) => {
   const style = css({

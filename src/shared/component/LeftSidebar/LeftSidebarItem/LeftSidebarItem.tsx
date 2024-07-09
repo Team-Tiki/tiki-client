@@ -10,13 +10,13 @@ interface LeftSidebarItemProps {
   isExpansion: boolean;
   children?: ReactNode;
   logo: EmotionJSX.Element;
-  isClick: boolean;
+  isClicked: boolean;
 }
 
-const LeftSidebarItem = ({ isExpansion, children, logo }: LeftSidebarItemProps) => {
+const LeftSidebarItem = ({ isExpansion, children = '', logo, isClicked }: LeftSidebarItemProps) => {
   return (
     <li css={leftSidebarItemStyle}>
-      <span css={logoBoxStyle}>{logo}</span>
+      <span css={logoBoxStyle(isClicked)}>{logo}</span>
       <Text tag="body3" css={textStyle(isExpansion)}>
         {children}
       </Text>

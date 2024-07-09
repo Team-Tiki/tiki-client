@@ -33,10 +33,10 @@ export const leftSidebarListStyle = css({
 });
 
 export const arrowStyle = css({
-  position: 'fixed',
+  position: 'absolute',
 
-  left: '24.1rem',
   top: '3.8rem',
+  right: '0.4rem',
 
   height: '1.2rem',
   width: '1.2rem',
