@@ -45,13 +45,9 @@ export const daySectionStyle = css({
 });
 
 export const buttonStyle = css({
-  display: 'flex',
-  position: 'fixed',
-
-  top: '73rem',
-  right: '16rem',
-
   width: '13.2rem',
+
+  marginLeft: 'auto',
 
   borderRadius: '28px',
 
