@@ -1,6 +1,6 @@
 const colors = {
   black: '#2C3030',
-  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%))',
+  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%)',
   dimmed: 'rgba(0, 0, 0, 0.40)',
   gray_800: '#56585D',
   gray_700: '#6B6B6B',
@@ -11,9 +11,16 @@ const colors = {
   gray_200: '#EBEBEB',
   gray_100: '#FAFAFA',
   white: '#FFFFFF',
+  blue_hover: 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #466DEB',
   blue_900: '#466DEB',
+  blue_200: '#D8EFFF',
   blue_100: '#EDF0FD',
   red: '#FE4F60',
+  purple: '#DBDBFC',
+  green: '#CEF7EF',
+  yellow: '#FFEECA',
+  orange: '#FDE0DE',
+  pink: '#FFDEF8',
 };
 
 export type ColorsTypes = typeof colors;
