@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-import { Add, LeftArrow, LogoSymbol, RightArrow } from '@/common/asset/svg';
+import Add from '@/common/asset/svg/add.svg?react';
+import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
+import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
+import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
 
 import { arrowStyle, containerStyle, leftSidebarListStyle } from './LeftSidebar.style';
 import LeftSidebarItem from './LeftSidebarItem/LeftSidebarItem';
