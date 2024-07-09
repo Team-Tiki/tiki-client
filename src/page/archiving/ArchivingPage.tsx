@@ -2,7 +2,7 @@ import { daySectionStyle, sectionStyle } from '@/page/archiving/Archiving.style'
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import { MonthType } from '@/page/archiving/type/monthType';
-import { getMonthDate } from '@/page/archiving/util/getMonth';
+import { getMonthDate } from '@/page/archiving/util/getMonthDate';
 import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
