@@ -9,5 +9,4 @@ export const headingStyle = {
   H4: css(theme.heading.heading04),
   H5: css(theme.heading.heading05),
   H6: css(theme.heading.heading06),
-  H7: css(theme.heading.heading07),
 };

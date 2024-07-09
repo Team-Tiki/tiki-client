@@ -3,8 +3,8 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const textStyle = css({
-  fontSize: theme.label.label01.fontSize,
-  lineHeight: theme.label.label01.lineHeight,
+  fontSize: theme.text.body04.fontSize,
+  lineHeight: theme.text.body04.lineHeight,
 
   fontWeight: 600,
 });
