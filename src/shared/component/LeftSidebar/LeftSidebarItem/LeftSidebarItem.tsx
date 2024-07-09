@@ -18,9 +18,9 @@ interface LeftSidebarItemProps {
 const LeftSidebarItem = ({ isExpansion, children = '', url, isClicked = false }: LeftSidebarItemProps) => {
   return (
     <li css={leftSidebarItemStyle}>
-      <span css={logoBoxStyle(isClicked)}>
-        <img src={url} alt={`${children} icon`} />
-      </span>
+      <div css={logoBoxStyle(isClicked)}>
+        <img src={url} alt={`${children?.toString()} icon`} />
+      </div>
       <Text tag="body3" css={textStyle(isExpansion)}>
         {children}
       </Text>

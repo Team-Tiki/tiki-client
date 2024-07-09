@@ -16,7 +16,7 @@ export const leftSidebarItemStyle = css({
 export const logoBoxStyle = (isClicked: boolean) =>
   css({
     display: 'flex',
-    flexShrink: '0',
+    // flexShrink: '0',
 
     width: '4rem',
     height: '4rem',
