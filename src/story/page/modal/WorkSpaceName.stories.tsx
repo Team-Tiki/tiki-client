@@ -1,5 +1,6 @@
-import WorkSpaceName from '@/page/modal/component/workspace/name/WorkSpaceName';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 
 const meta = {
   title: 'page/Modal/WorkSpace',

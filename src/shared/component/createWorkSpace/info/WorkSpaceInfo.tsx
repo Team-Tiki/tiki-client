@@ -1,7 +1,7 @@
-import { headingStyle, sectionStyle, textStyle } from '@/page/modal/component/workspace/info/WorkSpaceInfo.style';
-
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
+
+import { headingStyle, sectionStyle, textStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
 
 interface WorkSapceInfoProps {
   step: number;

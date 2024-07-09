@@ -1,14 +1,14 @@
-import WorkSapceInfo from '@/page/modal/component/workspace/info/WorkSpaceInfo';
-import {
-  buttonStyle,
-  inputWrapperStyle,
-  sectionStyle,
-} from '@/page/modal/component/workspace/name/WorkSpaceName.style';
-
 import { useEffect, useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Input from '@/common/component/Input/Input';
+
+import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import {
+  buttonStyle,
+  inputWrapperStyle,
+  sectionStyle,
+} from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
 interface WorkSpaceNameProps {}
 
