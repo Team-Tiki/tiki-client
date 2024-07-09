@@ -12,6 +12,7 @@ const ArchivingPage = () => {
   const [selectedMonth, setSelectedMonth] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
   const dateOfMonth = getMonthDate(selectedMonth);
   const endDay = endOfMonth(dateOfMonth);
+  const [clickedDay, setClickedDay] = useState<number | null>(null);
 
   return (
     <main css={pageStyle}>
@@ -19,19 +20,21 @@ const ArchivingPage = () => {
         <MonthHeader
           onMonthClick={(month: MonthType) => {
             setSelectedMonth(month);
+            setClickedDay(null);
           }}
         />
         <section css={daySectionStyle}>
           {Array.from({ length: endDay.getDate() }, (_, index) => {
             const day = index + 1;
-            const isCurrentMonth = dateOfMonth.getMonth() === currentDate.getMonth();
             const isEven = day % 2 === 0;
+            const isClicked = clickedDay === day;
             return (
               <DaySection
                 key={day}
                 day={day}
-                isClicked={isCurrentMonth && day === currentDate.getDate()}
+                isClicked={isClicked}
                 isEven={isEven}
+                onDayClick={() => setClickedDay(day)}
               />
             );
           })}
