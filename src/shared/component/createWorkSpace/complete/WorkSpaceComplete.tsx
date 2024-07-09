@@ -4,9 +4,7 @@ import { backgroundStyle } from '@/shared/component/createWorkSpace/complete/Wor
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
-interface WorkSpaceCompleteProps {}
-
-const WorkSpaceComplete = ({}: WorkSpaceCompleteProps) => {
+const WorkSpaceComplete = () => {
   return (
     <section css={sectionStyle}>
       <WorkSapceInfo
