@@ -12,7 +12,7 @@ interface TimeBlockProps {
 const TimeBlock = ({ children, width }: TimeBlockProps) => {
   return (
     <>
-      <div css={[blockStyle, { width: `${width}rem` }]}>
+      <div css={blockStyle(width)}>
         <Eclipse width={47} height={47} css={{ flexShrink: 0 }} />
         <span css={spanStyle}>{children}</span>
       </div>
