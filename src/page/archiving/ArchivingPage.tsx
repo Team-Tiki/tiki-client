@@ -1,4 +1,11 @@
-import { daySectionStyle, headerStyle, iconStyle, pageStyle, sectionStyle } from '@/page/archiving/ArchivingPage.style';
+import {
+  buttonStyle,
+  daySectionStyle,
+  headerStyle,
+  iconStyle,
+  pageStyle,
+  sectionStyle,
+} from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import { MonthType } from '@/page/archiving/type/monthType';
@@ -7,9 +14,11 @@ import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
 
+import AddIc from '@/common/asset/svg/add.svg?react';
 import PreviousYearArrow from '@/common/asset/svg/arrow_left.svg?react';
 import NextYearArrow from '@/common/asset/svg/arrow_right.svg?react';
 import Calendar from '@/common/asset/svg/calendar.svg?react';
+import Button from '@/common/component/Button/Button';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
@@ -71,6 +80,10 @@ const ArchivingPage = () => {
           })}
         </div>
       </section>
+      <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+        <AddIc />
+        블록 생성
+      </Button>
     </div>
   );
 };

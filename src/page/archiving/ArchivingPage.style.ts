@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 
+import { theme } from '@/common/style/theme/theme';
+
 export const pageStyle = css({
   padding: '2rem 16rem',
 });
@@ -32,6 +34,7 @@ export const daySectionStyle = css({
   display: 'flex',
 
   width: '110.5rem',
+  height: '46.4rem',
   borderRadius: '6px',
 
   overflowX: 'scroll',
@@ -41,4 +44,18 @@ export const daySectionStyle = css({
   '&::-webkit-scrollbar': {
     display: 'none',
   },
+});
+
+export const buttonStyle = css({
+  display: 'flex',
+  position: 'fixed',
+
+  top: '73rem',
+  right: '16rem',
+
+  width: '13.2rem',
+
+  borderRadius: '28px',
+
+  ...theme.text.body04,
 });
