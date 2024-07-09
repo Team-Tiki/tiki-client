@@ -1,5 +1,3 @@
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
-
 import { ReactNode } from 'react';
 
 import Text from '@/common/component/Text/Text';
@@ -9,14 +7,16 @@ import { leftSidebarItemStyle, logoBoxStyle, textStyle } from './LeftSidebarItem
 interface LeftSidebarItemProps {
   isExpansion: boolean;
   children?: ReactNode;
-  logo: EmotionJSX.Element;
-  isClicked: boolean;
+  url: string;
+  isClicked?: boolean;
 }
 
-const LeftSidebarItem = ({ isExpansion, children = '', logo, isClicked }: LeftSidebarItemProps) => {
+const LeftSidebarItem = ({ isExpansion, children = '', url, isClicked = false }: LeftSidebarItemProps) => {
   return (
     <li css={leftSidebarItemStyle}>
-      <span css={logoBoxStyle(isClicked)}>{logo}</span>
+      <span css={logoBoxStyle(isClicked)}>
+        <img src={url} alt={`${children} icon`} />
+      </span>
       <Text tag="body3" css={textStyle(isExpansion)}>
         {children}
       </Text>

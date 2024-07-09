@@ -43,7 +43,7 @@ export const textStyle = (isExpansion: boolean) => {
     transform: isExpansion ? 'translateX(0)' : 'translateX(-30rem)',
     transition: 'transform 0.5s',
 
-    animation: isExpansion ? `${fadeIn} 0.5s` : `${fadeOut} 0.4s ease-out`,
+    animation: isExpansion ? `${fadeIn} 0.5s ease-in` : `${fadeOut} 0.4s ease-out`,
   });
 
   return style;
