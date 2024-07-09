@@ -3,6 +3,8 @@ import { theme } from '@/common/style/theme/theme';
 export const headerStyle = {
   display: 'flex',
 
+  padding: '0.4rem',
+
   gap: '4.4rem',
 };
 
@@ -15,6 +17,7 @@ export const monthBtnStyle = {
   transition: 'all 0.2s ease-in-out',
 
   ...theme.text.body06,
+
   '&:hover': {
     color: theme.colors.blue_900,
     backgroundColor: theme.colors.blue_100,

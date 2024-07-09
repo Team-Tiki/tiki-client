@@ -1,14 +1,26 @@
+import { css } from '@emotion/react';
+
 import { Outlet } from 'react-router-dom';
 
-import LeftSidebar from './shared/component/LeftSidebar/LeftSidebar';
+import Header from '@/common/component/Header/Header';
 
 const App = () => {
   return (
-    <main>
-      <Outlet />
-      <LeftSidebar />
-    </main>
+    <>
+      <Header />
+      <main css={layoutStyle}>
+        <Outlet />
+      </main>
+    </>
   );
 };
+
+const layoutStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+
+  minHeight: 'calc(100vh - 95px)',
+});
 
 export default App;

@@ -1,21 +1,31 @@
+import { css } from '@emotion/react';
+
 import { theme } from '@/common/style/theme/theme';
 
-export const dayStyle = {
-  padding: '0.8rem 2.6rem',
+export const dayStyle = (isEven: boolean) =>
+  css({
+    dixplay: 'flex',
 
-  border: 'none',
+    backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
+  });
 
-  backgroundColor: theme.colors.white,
-  ...theme.text.body04,
+export const dayBtnStyle = (isClicked: boolean) =>
+  css({
+    padding: '1.2rem 2.6rem',
 
-  cursor: 'pointer',
-};
+    border: 'none',
 
-export const bodyStyle = {
-  width: '6rem',
-  height: '48.4rem',
+    color: isClicked ? theme.colors.blue_900 : theme.colors.black,
+    backgroundColor: theme.colors.gray_100,
+    ...theme.text.body04,
 
-  overflow: 'scroll',
+    cursor: 'pointer',
+  });
 
-  backgroundColor: theme.colors.white,
-};
+export const bodyStyle = () =>
+  css({
+    width: '6rem',
+    height: '48.4rem',
+
+    overflow: 'scroll',
+  });
