@@ -16,13 +16,13 @@ interface ClubProfileCardProps {
 
 const ClubProfileCard = ({ title, detail, imageUrl }: ClubProfileCardProps) => {
   return (
-    <section css={containerStyle}>
+    <article css={containerStyle}>
       <img src={imageUrl ? imageUrl : defaultImage} alt={`${title}-image`} css={imageStyle} />
       <div css={descriptionStyle}>
         <p css={titleStyle}>{title}</p>
         <p css={detailStyle}>{detail}</p>
       </div>
-    </section>
+    </article>
   );
 };
 
