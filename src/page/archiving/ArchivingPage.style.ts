@@ -10,8 +10,6 @@ export const headerStyle = css({
   display: 'flex',
 
   padding: '1.6rem 0rem 2.4rem 0rem',
-
-  verticalAlign: 'middle',
 });
 
 export const iconStyle = css({
