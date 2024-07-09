@@ -1,27 +1,16 @@
 import { buttonStyle } from '@/page/showcase/component/CategoryChip/CategoryChip.style';
 
-import { ComponentPropsWithRef, useEffect, useState } from 'react';
+import { ComponentPropsWithRef } from 'react';
 
 interface CategoryChipProps extends Omit<ComponentPropsWithRef<'button'>, 'onClick'> {
+  children: string;
   onClick?: (id: string) => void;
-  clickedChip?: string;
+  isClicked?: boolean;
 }
 
-const CategoryChip = ({ children, onClick, clickedChip = '', ...props }: CategoryChipProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    clickedChip === children?.toString() ? setIsClicked(true) : setIsClicked(false);
-  }, [clickedChip, children]);
-
-  const handleClick = () => {
-    if (onClick && children) {
-      onClick(children.toString());
-    }
-  };
-
+const CategoryChip = ({ children, onClick, isClicked = false, ...props }: CategoryChipProps) => {
   return (
-    <button css={buttonStyle(isClicked)} onClick={handleClick} {...props}>
+    <button css={buttonStyle(isClicked)} onClick={onClick ? () => onClick(children?.toString()) : undefined} {...props}>
       {children}
     </button>
   );
