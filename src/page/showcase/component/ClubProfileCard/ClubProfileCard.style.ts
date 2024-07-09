@@ -2,11 +2,16 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
+export const containerStyle = css({ width: '24.35rem' });
+
 export const imageStyle = css({
   width: '100%',
   height: '14rem',
 
   borderRadius: '16px 16px 0px 0px',
+
+  objectFit: 'none',
+  aspectRatio: 16 / 9,
 });
 
 export const descriptionStyle = css({
