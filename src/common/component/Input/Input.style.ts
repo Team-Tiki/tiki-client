@@ -36,13 +36,13 @@ export const inputStyle = css({
   border: 'none',
   backgroundColor: 'transparent',
   fontWeight: 400,
-  ...theme.text.body03,
+  ...theme.text.body04,
 
   outline: 'none',
 
   '::placeholder': {
     color: theme.colors.gray_500,
-    ...theme.text.body03,
+    ...theme.text.body04,
   },
 });
 
@@ -70,7 +70,7 @@ export const sizeStyle = (size: Required<InputProps>['size']) => {
   const style = {
     small: { padding: '0.8rem 1.2rem' },
     medium: { padding: '1.2rem 1.2rem' },
-    large: { padding: '1.2rem 1.6rem' },
+    large: { padding: '1.6rem 1.2rem' },
   };
 
   return style[size];
