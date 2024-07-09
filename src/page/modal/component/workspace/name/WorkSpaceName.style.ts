@@ -18,18 +18,6 @@ export const inputWrapperStyle = css({
   width: '32rem',
 });
 
-export const buttonStyle = css({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-
-  gap: '0.9rem',
-
-  marginTop: '4.4rem',
-
-  cursor: 'pointer',
-});
-
 export const textStyle = css({
   fontWeight: 500,
 
@@ -40,3 +28,19 @@ export const arrowStyle = css({
   width: '1.3rem',
   height: '1.3rem',
 });
+
+export const buttonStyle = (isActive: boolean) =>
+  css({
+    marginTop: '4.4rem',
+
+    width: '32rem',
+
+    cursor: 'pointer',
+
+    backgroundColor: isActive ? theme.colors.black : theme.colors.gray_400,
+    ...(isActive && {
+      '&:hover': {
+        color: theme.colors.gray_500,
+      },
+    }),
+  });
