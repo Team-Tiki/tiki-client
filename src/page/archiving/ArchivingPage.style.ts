@@ -31,7 +31,7 @@ export const sectionStyle = css({
 export const daySectionStyle = css({
   display: 'flex',
 
-  width: '110rem',
+  width: '110.5rem',
   borderRadius: '6px',
 
   overflowX: 'scroll',
