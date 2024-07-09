@@ -1,7 +1,8 @@
-import Button from '@/common/component/Button/Button';
+import { monthBtnStyle } from '@/page/archiving/component/MonthHeader/MonthHeader.style';
+import { MONTHS } from '@/page/archiving/constant/month';
 
-import { months } from '../../constant/date';
-import { headerStyle, monthBtnStyle } from './MonthHeader.style';
+import Button from '@/common/component/Button/Button';
+import { headerStyle } from '@/common/component/Header/Header.style';
 
 interface MonthHeaderProps {
   onMonthClick: (month: string) => void;
@@ -10,7 +11,7 @@ interface MonthHeaderProps {
 const MonthHeader = ({ onMonthClick }: MonthHeaderProps) => {
   return (
     <section css={headerStyle}>
-      {months.map((month) => (
+      {MONTHS.map((month) => (
         <Button key={month} variant="primary" css={monthBtnStyle} onClick={() => onMonthClick(month)}>
           {month}
         </Button>

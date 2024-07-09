@@ -30,6 +30,14 @@ export const textStyle = (tag: Required<TextProps>['tag']) => {
       fontSize: theme.text.body06.fontSize,
       lineHeight: theme.text.body06.lineHeight,
     }),
+    body7: css({
+      fontSize: theme.text.body07.fontSize,
+      lineHeight: theme.text.body07.lineHeight,
+    }),
+    body8: css({
+      fontSize: theme.text.body08.fontSize,
+      lineHeight: theme.text.body08.lineHeight,
+    }),
   };
   return style[tag];
 };
