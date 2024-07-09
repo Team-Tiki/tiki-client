@@ -44,7 +44,7 @@ const ModalContent3 = ({ onClose }: { onClose: () => void }) => (
   </div>
 );
 
-export const Default: Story = {
+export const ModalComponent: Story = {
   render: () => {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
