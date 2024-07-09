@@ -1,20 +1,46 @@
-import { sidebarSectionStyle } from './LeftSidebar.style';
+import { useState } from 'react';
 
-interface LeftSidebarProps {}
+import { Add, Arrow, LogoSymbol } from '@/common/asset/svg';
 
-const LeftSidebar = ({}: LeftSidebarProps) => {
+import { arrowStyle, containerStyle, leftSidebarListStyle } from './LeftSidebar.style';
+import LeftSidebarItem from './LeftSidebarItem/LeftSidebarItem';
+
+const LeftSidebar = () => {
+  const [isExpansion, setIsExpansion] = useState(true);
+
   return (
-    <aside css={sidebarSectionStyle}>
+    <aside css={containerStyle(isExpansion)}>
+      <Arrow
+        css={arrowStyle}
+        onClick={() => {
+          setIsExpansion((prevState) => !prevState);
+        }}
+      />
       <nav>
-        <ul>
-          <li>
-            <div>로고</div>
-            <p>Showcase</p>
-          </li>
-          <li>
-            <div>로고</div>
-            <p>Team 1</p>
-          </li>
+        <ul css={leftSidebarListStyle}>
+          <LeftSidebarItem
+            isClick={true}
+            isExpansion={isExpansion}
+            logo={<LogoSymbol style={{ height: '4rem', width: '4rem' }} />}
+          />
+          <LeftSidebarItem
+            isClick={false}
+            isExpansion={isExpansion}
+            logo={<Add style={{ height: '1.6rem', width: '1.6rem' }} />}>
+            Showcase
+          </LeftSidebarItem>
+          <LeftSidebarItem
+            isClick={false}
+            isExpansion={isExpansion}
+            logo={<Add style={{ height: '1.6rem', width: '1.6rem' }} />}>
+            Team 1
+          </LeftSidebarItem>
+          <LeftSidebarItem
+            isClick={false}
+            isExpansion={isExpansion}
+            logo={<Add style={{ height: '1.6rem', width: '1.6rem' }} />}>
+            워크스페이스 생성
+          </LeftSidebarItem>
         </ul>
       </nav>
     </aside>
