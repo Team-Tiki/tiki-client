@@ -39,7 +39,7 @@ const ArchivingPage = () => {
           타임라인
         </Heading>
         <div css={iconStyle}>
-          <Calendar width={24} height={24} css={{}} />
+          <Calendar width={24} height={24} />
           <PreviousYearArrow
             width={16}
             height={16}
