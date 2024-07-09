@@ -1,25 +1,33 @@
-import SmallLogo from '@/common/asset/svg/logo_tiki_md.svg?react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
+
+import useStore from '@/shared/store/auth';
 
 import Button from '../Button/Button';
 import { headerStyle } from './Header.style';
 
-interface HeaderProps {
-  isLogin: boolean;
-  isAuthPage: boolean;
-}
+const Header = () => {
+  const { pathname } = useLocation();
 
-export const Header = ({ isLogin = false, isAuthPage }: HeaderProps) => {
+  const isLogin = useStore((state) => state.isLoggedIn);
+
+  const navigate = useNavigate();
+
+  const regexp = new RegExp('^(/signin(/.*)?|/password(/.*)?)$');
+  const isAuthPage = pathname.match(regexp);
+
   if (!isAuthPage) {
     return (
       <header css={headerStyle}>
-        <SmallLogo width={100} height={40} />
+        <Logo onClick={() => navigate('/showcase')} />
       </header>
     );
   }
 
   return (
     <header css={headerStyle}>
-      <SmallLogo width={100} height={40} />
+      <Logo onClick={() => navigate('/showcase')} />
       <div>
         {isLogin ? (
           <Button variant="secondary" size="small">
@@ -34,3 +42,5 @@ export const Header = ({ isLogin = false, isAuthPage }: HeaderProps) => {
     </header>
   );
 };
+
+export default Header;

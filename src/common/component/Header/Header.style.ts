@@ -16,4 +16,11 @@ export const headerStyle = css({
   height: '9rem',
 
   padding: '2.4rem 16rem',
+
+  '& > svg': {
+    width: '10rem',
+    height: '4rem',
+
+    cursor: 'pointer',
+  },
 });
