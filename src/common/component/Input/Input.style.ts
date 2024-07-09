@@ -46,7 +46,7 @@ export const inputStyle = css({
   },
 });
 
-export const variantStyle = ({ variant, isError }: { variant: Required<InputProps>['variant']; isError: boolean }) => {
+export const variantStyle = (variant: Required<InputProps>['variant'], isError: boolean) => {
   const borderColor = isError ? `${theme.colors.red}` : `${theme.colors.gray_400}`;
 
   const style = {
