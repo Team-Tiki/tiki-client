@@ -10,13 +10,13 @@ interface MonthHeaderProps {
 
 const MonthHeader = ({ onMonthClick }: MonthHeaderProps) => {
   return (
-    <section css={headerStyle}>
+    <header css={headerStyle}>
       {MONTHS.map((month) => (
         <Button key={month} variant="primary" css={monthBtnStyle} onClick={() => onMonthClick(month)}>
           {month}
         </Button>
       ))}
-    </section>
+    </header>
   );
 };
 

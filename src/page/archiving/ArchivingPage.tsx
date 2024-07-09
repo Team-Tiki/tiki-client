@@ -15,7 +15,7 @@ const ArchivingPage = () => {
   const [clickedDay, setClickedDay] = useState<number | null>(null);
 
   return (
-    <main css={pageStyle}>
+    <div css={pageStyle}>
       <section css={sectionStyle}>
         <MonthHeader
           onMonthClick={(month: MonthType) => {
@@ -23,7 +23,7 @@ const ArchivingPage = () => {
             setClickedDay(null);
           }}
         />
-        <section css={daySectionStyle}>
+        <div css={daySectionStyle}>
           {Array.from({ length: endDay.getDate() }, (_, index) => {
             const day = index + 1;
             const isEven = day % 2 === 0;
@@ -38,9 +38,9 @@ const ArchivingPage = () => {
               />
             );
           })}
-        </section>
+        </div>
       </section>
-    </main>
+    </div>
   );
 };
 
