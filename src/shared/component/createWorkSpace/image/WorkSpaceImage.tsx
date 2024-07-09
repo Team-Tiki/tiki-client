@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
 import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
 
 import {
   buttonCompleteStyle,
@@ -34,7 +35,7 @@ const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
   };
 
   return (
-    <section css={sectionStyle}>
+    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo
         step={3}
         title="동아리 프로필 이미지 등록"
@@ -52,7 +53,7 @@ const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
       <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={onNext}>
         완료
       </Button>
-    </section>
+    </Flex>
   );
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import ArrowDown from '@/common/asset/arrow-down.svg?react';
 import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
@@ -36,7 +37,7 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
   }, [selected]);
 
   return (
-    <section css={sectionStyle}>
+    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step={2} title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
       <div css={{ width: '32rem' }}>
         <Select
@@ -60,7 +61,7 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
         onClick={onNext}>
         다음
       </Button>
-    </section>
+    </Flex>
   );
 };
 

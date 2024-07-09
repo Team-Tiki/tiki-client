@@ -1,3 +1,4 @@
+import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
@@ -11,7 +12,7 @@ interface WorkSapceInfoProps {
 
 const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
   return (
-    <section css={sectionStyle}>
+    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       {step !== undefined && (
         <Heading tag="H6" css={{ fontWeight: 500 }}>
           {step}&nbsp;/&nbsp;3
@@ -23,7 +24,7 @@ const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
       <Text tag="body4" css={textStyle}>
         {info}
       </Text>
-    </section>
+    </Flex>
   );
 };
 
