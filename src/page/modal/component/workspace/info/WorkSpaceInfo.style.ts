@@ -10,11 +10,11 @@ export const sectionStyle = css({
   textAlign: 'center',
 });
 
-export const gapStyle = css({
+export const headingStyle = css({
   marginTop: '1.6rem',
   fontWeight: 600,
 });
 
-export const gapStyle2 = css({
+export const textStyle = css({
   marginTop: '1.2rem',
 });

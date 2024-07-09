@@ -2,7 +2,7 @@ import WorkSapceInfo from '@/page/modal/component/workspace/info/WorkSpaceInfo';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'page/Modal/WorkSapce/Info',
+  title: 'page/Modal/WorkSpace',
   component: WorkSapceInfo,
 
   args: {
@@ -16,4 +16,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Info: Story = {};
