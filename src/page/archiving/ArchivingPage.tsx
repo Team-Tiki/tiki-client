@@ -8,13 +8,15 @@ import {
 } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
+import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
+import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
 import { MonthType } from '@/page/archiving/type/monthType';
 import { getMonthDate } from '@/page/archiving/util/getMonthDate';
 import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
 
-import AddIc from '@/common/asset/svg/add.svg?react';
+import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import PreviousYearArrow from '@/common/asset/svg/arrow_left.svg?react';
 import NextYearArrow from '@/common/asset/svg/arrow_right.svg?react';
 import Calendar from '@/common/asset/svg/calendar.svg?react';
@@ -79,10 +81,15 @@ const ArchivingPage = () => {
               />
             );
           })}
+          {TIME_BLOCK.map((block) => (
+            <TimeBlock key={block.id} startDate={block.startDate} endDate={block.endDate}>
+              {block.name}
+            </TimeBlock>
+          ))}
         </div>
       </section>
       <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
-        <AddIc />
+        <AddIc width={24} height={24} />
         블록 생성
       </Button>
     </div>

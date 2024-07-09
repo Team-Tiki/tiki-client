@@ -2,9 +2,14 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const blockStyle = (width: number) =>
+export const blockStyle = (width: number, startPosition: number, level: number) =>
   css({
+    position: 'absolute',
     display: 'flex',
+
+    zIndex: theme.zIndex.overlayTop,
+    top: `${16.6 + level}rem`,
+    left: `${startPosition}rem`,
 
     width: `${width}rem`,
     height: '5.6rem',
