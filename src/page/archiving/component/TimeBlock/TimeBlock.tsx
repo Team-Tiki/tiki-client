@@ -11,8 +11,10 @@ interface TimeBlockProps {
 }
 
 const TimeBlock = ({ startDate, endDate, children }: TimeBlockProps) => {
-  const blockWidth = (endDate.getDay() - startDate.getDay() + 1) * 6;
-  const startPosition = startDate.getDay() + 8.2;
+  const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
+  const startPosition = startDate.getDate() - 1;
+  console.log(blockWidth);
+  console.log(startPosition);
   const level = 20;
 
   return (

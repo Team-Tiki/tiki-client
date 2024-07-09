@@ -8,7 +8,7 @@ export const blockStyle = (width: number, startPosition: number, level: number) 
     display: 'flex',
 
     zIndex: theme.zIndex.overlayTop,
-    top: `${16.6 + level}rem`,
+    top: '16.6rem',
     left: `${startPosition}rem`,
 
     width: `${width}rem`,
