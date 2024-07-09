@@ -2,10 +2,16 @@ import { useState } from 'react';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
+import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
 
-import { testData } from '../constant/testData';
-import { arrowStyle, containerStyle, leftSidebarListStyle } from './LeftSidebar.style';
-import LeftSidebarItem from './LeftSidebarItem/LeftSidebarItem';
+import {
+  LogoSymbolStyle,
+  arrowStyle,
+  containerStyle,
+  leftSidebarListStyle,
+} from '@/shared/component/LeftSidebar/LeftSidebar.style';
+import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
+import { TEST_DATA } from '@/shared/component/constant/index';
 
 const LeftSidebar = () => {
   const [isExpansion, setIsExpansion] = useState(true);
@@ -21,11 +27,10 @@ const LeftSidebar = () => {
       ) : (
         <RightArrow css={arrowStyle} onClick={handleArrowClick} />
       )}
-
+      <LogoSymbol css={LogoSymbolStyle} />
       <nav>
         <ul css={leftSidebarListStyle}>
-          <LeftSidebarItem isClicked={false} isExpansion={isExpansion} url={'src/common/asset/svg/logo_symbol.svg'} />
-          {testData.map((data) => {
+          {TEST_DATA.map((data) => {
             return (
               <LeftSidebarItem isClicked={false} isExpansion={isExpansion} url={data.iconImageUrl}>
                 {data.name}

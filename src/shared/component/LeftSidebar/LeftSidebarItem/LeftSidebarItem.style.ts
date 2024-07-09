@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-import { fadeIn, fadeOut } from '../../../style/animation';
+import { fadeIn, fadeOut } from '@/shared/style/animation';
 
 export const leftSidebarItemStyle = css({
   display: 'flex',
@@ -13,9 +13,10 @@ export const leftSidebarItemStyle = css({
   gap: '0.8rem',
 });
 
-export const logoBoxStyle = (isClicked: boolean) => {
-  const style = css({
+export const logoBoxStyle = (isClicked: boolean) =>
+  css({
     display: 'flex',
+    flexShrink: '0',
 
     width: '4rem',
     height: '4rem',
@@ -27,15 +28,10 @@ export const logoBoxStyle = (isClicked: boolean) => {
 
     justifyContent: 'center',
     alignItems: 'center',
-
-    flexShrink: '0',
   });
 
-  return style;
-};
-
-export const textStyle = (isExpansion: boolean) => {
-  const style = css({
+export const textStyle = (isExpansion: boolean) =>
+  css({
     fontWeight: '500',
 
     opacity: isExpansion ? '1' : '0',
@@ -45,6 +41,3 @@ export const textStyle = (isExpansion: boolean) => {
 
     animation: isExpansion ? `${fadeIn} 0.5s ease-in` : `${fadeOut} 0.4s ease-out`,
   });
-
-  return style;
-};

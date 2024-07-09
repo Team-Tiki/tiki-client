@@ -2,7 +2,11 @@ import { ReactNode } from 'react';
 
 import Text from '@/common/component/Text/Text';
 
-import { leftSidebarItemStyle, logoBoxStyle, textStyle } from './LeftSidebarItem.style';
+import {
+  leftSidebarItemStyle,
+  logoBoxStyle,
+  textStyle,
+} from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem.style';
 
 interface LeftSidebarItemProps {
   isExpansion: boolean;
