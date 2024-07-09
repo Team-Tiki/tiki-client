@@ -8,7 +8,7 @@ export const blockStyle = {
   justifyContent: 'center',
   alignItems: 'center',
 
-  borderRadius: '10rem',
+  borderRadius: '100px',
 
   backgroundColor: theme.colors.blue_100,
   ...theme.text.body03,
