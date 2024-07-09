@@ -1,4 +1,5 @@
 import App from '@/App';
+import ArchivingPage from '@/page/archiving/ArchivingPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: 'showcase', element: <p>showcase</p> },
-      { path: 'archiving', element: <p>archiving</p> },
+      { path: 'archiving', element: <ArchivingPage /> },
       {
         path: 'signin',
         element: <p>terms</p>,
