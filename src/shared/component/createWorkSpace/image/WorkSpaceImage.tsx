@@ -1,3 +1,5 @@
+import { useRef, useState } from 'react';
+
 import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -16,6 +18,21 @@ interface WorkSpaceImageProps {
 }
 
 const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
+  const [fileURL, setFileURL] = useState<string>('');
+  const imgUploadInput = useRef<HTMLInputElement | null>(null);
+
+  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFileURL = URL.createObjectURL(event.target.files[0]);
+      setFileURL(newFileURL);
+    }
+  };
+
+  const onImageRemove = (): void => {
+    URL.revokeObjectURL(fileURL);
+    setFileURL('');
+  };
+
   return (
     <section css={sectionStyle}>
       <WorkSapceInfo
@@ -24,9 +41,14 @@ const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
         info="우리 동아리의 프로필에 표시할 이미지를 등록해주세요"
       />
       <div css={imageBoxStyle}>
-        <TeamProfileAdd css={imageAddStyle} />
-        <TeamProfileDelete css={imageDeleteStyle} />
+        {fileURL ? (
+          <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
+        ) : (
+          <TeamProfileAdd css={imageAddStyle} onClick={() => imgUploadInput.current?.click()} />
+        )}
+        {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={onImageRemove} />}
       </div>
+      <input css={{ display: 'none' }} type="file" accept="image/*" ref={imgUploadInput} onChange={onImageChange} />
       <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={onNext}>
         완료
       </Button>

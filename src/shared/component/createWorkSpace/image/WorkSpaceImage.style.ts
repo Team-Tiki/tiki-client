@@ -12,7 +12,11 @@ export const imageAddStyle = css({
   width: '20rem',
   height: '20rem',
 
+  borderRadius: '57.14px',
+  objectFit: 'cover',
+
   cursor: 'pointer',
+  boxSizing: 'border-box',
 });
 
 export const imageDeleteStyle = css({
