@@ -12,7 +12,7 @@ export const buttonStyle = (isClicked: boolean) =>
 
     ...theme.text.body04,
     color: `${isClicked ? theme.colors.blue_900 : theme.colors.gray_800}`,
-    fontWeight: isClicked ? 600 : 500,
+    fontWeight: 500,
 
     cursor: 'pointer',
   });
