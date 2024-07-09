@@ -22,7 +22,6 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState('');
-  //const [isButtonActive, setIsButtonActive] = useState(false);
 
   useEffect(() => {
     close?.();
@@ -36,7 +35,7 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
-      <WorkSapceInfo step={2} title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
+      <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
       <div css={{ width: '32rem' }}>
         <Select
           ref={ref}

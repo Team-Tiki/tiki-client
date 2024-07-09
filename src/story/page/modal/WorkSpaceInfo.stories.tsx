@@ -7,7 +7,7 @@ const meta = {
   component: WorkSapceInfo,
 
   args: {
-    step: 1,
+    step: 'name',
     title: '새로운 워크 스페이스 생성하기',
     info: '워크스페이스의 이름을 입력해주세요.',
   },
