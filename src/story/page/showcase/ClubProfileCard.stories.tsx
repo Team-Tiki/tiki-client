@@ -13,7 +13,18 @@ const meta = {
     detail: '안녕하세요 티키입니다. 저희는 멋진 웹사이트를 제작합니다.',
     Image: Image,
   },
-  argTypes: {},
+  argTypes: {
+    title: {
+      control: {
+        type: 'text',
+      },
+    },
+    detail: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
 } satisfies Meta<typeof ClubProfileCard>;
 
 export default meta;
