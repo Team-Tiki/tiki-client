@@ -4,11 +4,12 @@ import { ButtonHTMLAttributes } from 'react';
 
 interface CategoryChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
+  isClicked?: boolean;
 }
 
-const CategoryChip = ({ children, ...props }: CategoryChipProps) => {
+const CategoryChip = ({ children, isClicked = false, ...props }: CategoryChipProps) => {
   return (
-    <button css={buttonStyle} {...props}>
+    <button css={buttonStyle(isClicked)} {...props}>
       {children}
     </button>
   );
