@@ -1,16 +1,22 @@
 import { css } from '@emotion/react';
 
+export const pageStyle = css({
+  padding: '2rem 16rem',
+});
+
 export const sectionStyle = css({
   display: 'flex',
 
-  width: '110.5rem',
+  flexDirection: 'column',
   gap: '2rem',
 
-  flexDirection: 'column',
+  overflow: 'hidden',
 });
 
 export const daySectionStyle = css({
   display: 'flex',
+
+  borderRadius: '6px',
 
   overflow: 'scroll',
 
