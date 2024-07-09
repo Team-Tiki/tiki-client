@@ -29,6 +29,7 @@ export const sectionStyle = css({
 });
 
 export const daySectionStyle = css({
+  position: 'relative',
   display: 'flex',
 
   width: '110.5rem',
@@ -52,4 +53,7 @@ export const buttonStyle = css({
   borderRadius: '28px',
 
   ...theme.text.body04,
+  '&:hover': {
+    backgroundColor: theme.colors.blue_hover,
+  },
 });
