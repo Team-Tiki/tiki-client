@@ -6,6 +6,7 @@ export const headerStyle = css({
   justifyContent: 'space-between',
 
   width: '100%',
+  height: '9rem',
 
   padding: '2.4rem 16rem',
 });
