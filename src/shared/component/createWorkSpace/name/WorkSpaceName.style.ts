@@ -37,7 +37,6 @@ export const buttonStyle = (isActive: boolean) =>
 
     cursor: 'pointer',
 
-    backgroundColor: isActive ? theme.colors.black : theme.colors.gray_400,
     ...(isActive && {
       '&:hover': {
         color: theme.colors.gray_500,

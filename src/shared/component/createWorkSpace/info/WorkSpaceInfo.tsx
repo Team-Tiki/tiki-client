@@ -4,7 +4,7 @@ import Text from '@/common/component/Text/Text';
 import { headingStyle, sectionStyle, textStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
 
 interface WorkSapceInfoProps {
-  step: number;
+  step?: number;
   title: string;
   info: string;
 }
