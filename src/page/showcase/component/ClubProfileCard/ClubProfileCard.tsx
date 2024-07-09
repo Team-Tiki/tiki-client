@@ -1,13 +1,15 @@
+import { containerStyle } from '@/page/showcase/component/ClubProfileCard/ClubProfileCard.style';
+
 interface ClubProfileCardProps {
   title: string;
   detail: string;
-  image: string;
+  Image: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const ClubProfileCard = ({ title, detail, image }: ClubProfileCardProps) => {
+const ClubProfileCard = ({ title, detail, Image }: ClubProfileCardProps) => {
   return (
-    <section>
-      <img src={image} alt={`${title}-image`} />
+    <section css={containerStyle}>
+      <Image />
       <p>{title}</p>
       <p>{detail}</p>
     </section>
