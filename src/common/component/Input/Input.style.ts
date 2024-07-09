@@ -36,13 +36,13 @@ export const inputStyle = css({
   border: 'none',
   backgroundColor: 'transparent',
   fontWeight: 400,
-  ...theme.text.body03,
+  ...theme.text.body04,
 
   outline: 'none',
 
   '::placeholder': {
     color: theme.colors.gray_500,
-    ...theme.text.body03,
+    ...theme.text.body04,
   },
 });
 
@@ -55,7 +55,8 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
       borderRadius: '8px',
     },
     underline: {
-      boxShadow: `0px 1px 0px ${borderColor}`,
+      boxShadow: `inset 0px -1px 0px ${borderColor}`,
+      // boxShadow: `0px 1px 0px ${borderColor}`,
     },
     colored: {
       borderRadius: '100px',
