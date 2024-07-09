@@ -8,14 +8,16 @@ export const sectionStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
 
-  paddingLeft: '9.55rem',
-  paddingRight: '9.55rem',
+  height: '40rem',
+
+  width: '51.1rem',
 });
 
 export const inputWrapperStyle = css({
-  marginTop: '2.4rem',
-
   width: '32rem',
+  height: '4.81rem',
+
+  marginTop: '2.4rem',
 });
 
 export const textStyle = css({
@@ -31,9 +33,9 @@ export const arrowStyle = css({
 
 export const buttonStyle = (isActive: boolean) =>
   css({
-    marginTop: '19rem',
-
     width: '32rem',
+
+    marginTop: '20rem',
 
     cursor: 'pointer',
 

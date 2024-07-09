@@ -7,12 +7,14 @@ export const sectionStyle = css({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+
   textAlign: 'center',
 });
 
 export const headingStyle = css({
-  marginTop: '1.6rem',
   fontWeight: 600,
+
+  marginTop: '1.6rem',
 });
 
 export const textStyle = css({

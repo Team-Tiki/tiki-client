@@ -12,7 +12,11 @@ interface WorkSapceInfoProps {
 const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
   return (
     <section css={sectionStyle}>
-      {step !== undefined && <Heading tag="H6" css={{ fontWeight: 500 }}>{`${step}/3`}</Heading>}
+      {step !== undefined && (
+        <Heading tag="H6" css={{ fontWeight: 500 }}>
+          {step}&nbsp;/&nbsp;3
+        </Heading>
+      )}
       <Heading css={headingStyle} tag="H5">
         {title}
       </Heading>

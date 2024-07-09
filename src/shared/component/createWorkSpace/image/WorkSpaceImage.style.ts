@@ -27,7 +27,7 @@ export const imageDeleteStyle = css({
 });
 
 export const buttonCompleteStyle = css({
-  marginTop: '4.8rem',
+  marginTop: '4.6rem',
 
   width: '32rem',
 
@@ -36,19 +36,4 @@ export const buttonCompleteStyle = css({
   '&:hover': {
     color: theme.colors.gray_500,
   },
-});
-
-export const buttonSkipStyle = css({
-  border: 'none',
-
-  marginTop: '2.4rem',
-
-  backgroundColor: 'transparent',
-  color: theme.colors.gray_500,
-
-  cursor: 'pointer',
-
-  ...theme.text.body06,
-
-  textDecoration: 'underline',
 });

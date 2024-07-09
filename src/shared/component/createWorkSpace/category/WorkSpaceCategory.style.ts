@@ -8,11 +8,15 @@ export const selectButtonStyle = (isOpen: boolean) =>
     justifyContent: 'space-between',
     alignItems: 'center',
 
+    height: '4.81rem',
     padding: '1.2rem',
-    color: theme.colors.gray_500,
+    marginTop: '2.4rem',
+
     border: `1px solid ${isOpen ? theme.colors.blue_900 : theme.colors.gray_400}`,
-    backgroundColor: 'white',
     borderRadius: '8px',
+
+    backgroundColor: 'white',
+    color: theme.colors.gray_500,
   });
 
 export const selectedTextStyle = css({

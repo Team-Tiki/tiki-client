@@ -4,7 +4,6 @@ import Button from '@/common/component/Button/Button';
 
 import {
   buttonCompleteStyle,
-  buttonSkipStyle,
   imageAddStyle,
   imageBoxStyle,
   imageDeleteStyle,
@@ -31,9 +30,6 @@ const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
       <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={onNext}>
         완료
       </Button>
-      <button css={buttonSkipStyle} onClick={onNext}>
-        Skip
-      </button>
     </section>
   );
 };

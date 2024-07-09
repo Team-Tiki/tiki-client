@@ -38,7 +38,7 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
   return (
     <section css={sectionStyle}>
       <WorkSapceInfo step={2} title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem', marginTop: '2.4rem' }}>
+      <div css={{ width: '32rem' }}>
         <Select
           ref={ref}
           isOpen={isOpen}
