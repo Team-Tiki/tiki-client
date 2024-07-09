@@ -8,8 +8,8 @@ import { endOfMonth } from 'date-fns';
 import { useState } from 'react';
 
 const ArchivingPage = () => {
-  const [selectedMonth, setSelectedMonth] = useState<MonthType>('1월');
   const currentDate = new Date();
+  const [selectedMonth, setSelectedMonth] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
   const dateOfMonth = getMonthDate(selectedMonth);
   const endDay = endOfMonth(dateOfMonth);
 
