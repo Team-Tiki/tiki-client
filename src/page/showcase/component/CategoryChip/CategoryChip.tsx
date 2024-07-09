@@ -4,13 +4,12 @@ import { ComponentPropsWithRef } from 'react';
 
 interface CategoryChipProps extends Omit<ComponentPropsWithRef<'button'>, 'onClick'> {
   children: string;
-  onClick?: (id: string) => void;
-  isClicked?: boolean;
+  isSelected?: boolean;
 }
 
-const CategoryChip = ({ children, onClick, isClicked = false, ...props }: CategoryChipProps) => {
+const CategoryChip = ({ children, isSelected = false, ...props }: CategoryChipProps) => {
   return (
-    <button css={buttonStyle(isClicked)} onClick={onClick ? () => onClick(children?.toString()) : undefined} {...props}>
+    <button css={buttonStyle(isSelected)} {...props}>
       {children}
     </button>
   );

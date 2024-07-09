@@ -8,4 +8,4 @@ export const CATEGORY = [
   '체육',
   '친목',
   '기타',
-];
+] as const;
