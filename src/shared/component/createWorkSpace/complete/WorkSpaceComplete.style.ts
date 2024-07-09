@@ -10,10 +10,6 @@ export const sectionStyle = css({
 });
 
 export const backgroundStyle = css({
-  width: '50.9rem',
-  height: '40rem',
-
-  marginTop: '2.4rem',
-
-  backgroundColor: theme.colors.gray_200,
+  width: '35rem',
+  height: '35rem',
 });

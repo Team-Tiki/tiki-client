@@ -20,3 +20,8 @@ export const headingStyle = css({
 export const textStyle = css({
   marginTop: '1.2rem',
 });
+
+export const stepStyle = (step: number | undefined) =>
+  css({
+    display: step === undefined ? 'none' : 'block',
+  });
