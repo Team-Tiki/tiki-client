@@ -21,14 +21,8 @@ export const descriptionStyle = css({
   padding: '1.6rem',
 });
 
-export const titleStyle = css({
-  ...theme.heading.heading06,
-});
-
 export const detailStyle = css({
   height: '3.4rem',
-
-  ...theme.text.body07,
 
   overflow: 'hidden',
 });
