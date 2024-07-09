@@ -22,14 +22,14 @@ const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
 
-  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFileURL = URL.createObjectURL(event.target.files[0]);
       setFileURL(newFileURL);
     }
   };
 
-  const onImageRemove = (): void => {
+  const handleImageRemove = (): void => {
     URL.revokeObjectURL(fileURL);
     setFileURL('');
   };
@@ -45,11 +45,20 @@ const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
         {fileURL ? (
           <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
         ) : (
-          <TeamProfileAdd css={imageAddStyle} onClick={() => imgUploadInput.current?.click()} />
+          <label htmlFor="imgUploadInput" css={imageAddStyle}>
+            <TeamProfileAdd css={{ width: '20rem', height: '20rem' }} />
+          </label>
         )}
-        {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={onImageRemove} />}
+        {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
       </div>
-      <input css={{ display: 'none' }} type="file" accept="image/*" ref={imgUploadInput} onChange={onImageChange} />
+      <input
+        id="imgUploadInput"
+        css={{ display: 'none' }}
+        type="file"
+        accept="image/*"
+        ref={imgUploadInput}
+        onChange={handleImageChange}
+      />
       <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={onNext}>
         완료
       </Button>

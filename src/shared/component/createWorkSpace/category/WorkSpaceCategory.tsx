@@ -22,7 +22,7 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState('');
-  const [isButtonActive, setIsButtonActive] = useState(false);
+  //const [isButtonActive, setIsButtonActive] = useState(false);
 
   useEffect(() => {
     close?.();
@@ -32,9 +32,7 @@ const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
     setSelected(id);
   };
 
-  useEffect(() => {
-    setIsButtonActive(selected.trim().length > 0);
-  }, [selected]);
+  const isButtonActive = selected.trim().length > 0;
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>

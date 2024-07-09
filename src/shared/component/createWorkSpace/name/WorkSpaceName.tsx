@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -17,11 +17,8 @@ interface WorkSpaceNameProps {
 
 const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
   const [inputValue, setInputValue] = useState('');
-  const [isButtonActive, setIsButtonActive] = useState(false);
 
-  useEffect(() => {
-    setIsButtonActive(inputValue.trim().length > 0);
-  }, [inputValue]);
+  const isButtonActive = inputValue.trim().length > 0;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

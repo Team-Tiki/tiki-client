@@ -27,7 +27,7 @@ export const arrowStyle = css({
 
 export const buttonStyle = (isActive: boolean) =>
   css({
-    width: '32rem',
+    width: '100%',
 
     marginTop: '20rem',
 

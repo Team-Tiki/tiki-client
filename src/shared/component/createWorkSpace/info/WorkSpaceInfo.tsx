@@ -13,11 +13,7 @@ interface WorkSapceInfoProps {
 const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
-      {step !== undefined && (
-        <Heading tag="H6" css={{ fontWeight: 500 }}>
-          {step}&nbsp;/&nbsp;3
-        </Heading>
-      )}
+      {step !== undefined && <Heading tag="H6">{step}&nbsp;/&nbsp;3</Heading>}
       <Heading css={headingStyle} tag="H5">
         {title}
       </Heading>

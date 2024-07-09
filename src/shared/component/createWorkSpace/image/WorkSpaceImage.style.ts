@@ -16,7 +16,6 @@ export const imageAddStyle = css({
   objectFit: 'cover',
 
   cursor: 'pointer',
-  boxSizing: 'border-box',
 });
 
 export const imageDeleteStyle = css({
@@ -33,7 +32,7 @@ export const imageDeleteStyle = css({
 export const buttonCompleteStyle = css({
   marginTop: '4.6rem',
 
-  width: '32rem',
+  width: '100%',
 
   cursor: 'pointer',
 
