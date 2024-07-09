@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const sectionStyle = css({
-  textAlign: 'center',
+  //textAlign: 'center',
 });
 
 export const headingStyle = css({

@@ -8,9 +8,9 @@ export const selectButtonStyle = (isOpen: boolean) =>
     justifyContent: 'space-between',
     alignItems: 'center',
 
-    height: '4.81rem',
+    height: '4.8rem',
     padding: '1.2rem',
-    marginTop: '2.4rem',
+    marginTop: '2.8rem',
 
     border: `1px solid ${isOpen ? theme.colors.blue_900 : theme.colors.gray_400}`,
     borderRadius: '8px',

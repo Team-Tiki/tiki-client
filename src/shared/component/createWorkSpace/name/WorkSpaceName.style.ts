@@ -4,14 +4,12 @@ import { theme } from '@/common/style/theme/theme';
 
 export const sectionStyle = css({
   height: '40rem',
-  width: '51.1rem',
+
+  backgroundColor: theme.colors.blue_900,
 });
 
 export const inputWrapperStyle = css({
-  width: '32rem',
-  height: '4.81rem',
-
-  marginTop: '2.4rem',
+  height: '1.6rem',
 });
 
 export const textStyle = css({
@@ -27,9 +25,9 @@ export const arrowStyle = css({
 
 export const buttonStyle = (isActive: boolean) =>
   css({
-    width: '100%',
+    width: '32rem',
 
-    marginTop: '20rem',
+    marginTop: '19.65rem',
 
     cursor: 'pointer',
 

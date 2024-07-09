@@ -32,7 +32,7 @@ export const imageDeleteStyle = css({
 export const buttonCompleteStyle = css({
   marginTop: '4.6rem',
 
-  width: '100%',
+  width: '32rem',
 
   cursor: 'pointer',
 
