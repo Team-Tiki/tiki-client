@@ -9,7 +9,7 @@ const meta = {
   },
   args: {
     day: 1,
-    onDayClick: () => {},
+    isClicked: false,
   },
   argTypes: {
     day: {
@@ -24,7 +24,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    onDayClick: () => {},
-  },
 };
