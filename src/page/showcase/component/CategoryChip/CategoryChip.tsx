@@ -11,11 +11,7 @@ const CategoryChip = ({ children, onClick, clickedChip = '', ...props }: Categor
   const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    if (clickedChip === children?.toString()) {
-      setIsClicked(true);
-    } else {
-      setIsClicked(false);
-    }
+    clickedChip === children?.toString() ? setIsClicked(true) : setIsClicked(false);
   }, [clickedChip, children]);
 
   const handleClick = () => {

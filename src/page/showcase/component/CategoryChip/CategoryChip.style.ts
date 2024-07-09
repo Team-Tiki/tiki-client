@@ -16,5 +16,7 @@ export const buttonStyle = (isClicked: boolean) =>
 
     cursor: 'pointer',
 
-    '&:hover': { backgroundColor: theme.colors.blue_100 },
+    '&:hover': {
+      backgroundColor: theme.colors.blue_100,
+    },
   });
