@@ -1,4 +1,4 @@
-import { bodyStyle, dayBtnStyle, dayStyle } from './DaySection.style';
+import { bodyStyle, dayBtnStyle, dayStyle } from '@/page/archiving/component/DaySection/DaySection.style';
 
 interface DaySectionProps {
   day: number;
