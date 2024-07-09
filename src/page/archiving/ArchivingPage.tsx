@@ -27,9 +27,10 @@ const ArchivingPage = () => {
 
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
+  const [clickedDay, setClickedDay] = useState<number | null>(null);
+
   const dateOfMonth = getMonthDate(selectedMonth, currentYear);
   const endDay = endOfMonth(dateOfMonth);
-  const [clickedDay, setClickedDay] = useState<number | null>(null);
 
   return (
     <div css={pageStyle}>
