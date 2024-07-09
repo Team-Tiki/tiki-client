@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { UserHeader } from '@/common/component/Header/Header';
+import Header from '@/common/component/Header/Header';
 
 const meta = {
   title: 'Common/UserHeader',
-  component: UserHeader,
+  component: Header,
   parameters: {
     layout: 'centered',
   },
@@ -16,7 +16,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-} satisfies Meta<typeof UserHeader>;
+} satisfies Meta<typeof Header>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

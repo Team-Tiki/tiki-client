@@ -3,6 +3,8 @@ import { theme } from '@/common/style/theme/theme';
 export const headerStyle = {
   display: 'flex',
 
+  padding: '0.4rem',
+
   gap: '4.4rem',
 };
 

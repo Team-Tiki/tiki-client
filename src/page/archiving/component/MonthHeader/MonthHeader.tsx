@@ -1,22 +1,22 @@
-import { monthBtnStyle } from '@/page/archiving/component/MonthHeader/MonthHeader.style';
+import { headerStyle, monthBtnStyle } from '@/page/archiving/component/MonthHeader/MonthHeader.style';
 import { MONTHS } from '@/page/archiving/constant/month';
+import { MonthType } from '@/page/archiving/type/monthType';
 
 import Button from '@/common/component/Button/Button';
-import { headerStyle } from '@/common/component/Header/Header.style';
 
 interface MonthHeaderProps {
-  onMonthClick: (month: string) => void;
+  onMonthClick: (month: MonthType) => void;
 }
 
 const MonthHeader = ({ onMonthClick }: MonthHeaderProps) => {
   return (
-    <section css={headerStyle}>
+    <header css={headerStyle}>
       {MONTHS.map((month) => (
         <Button key={month} variant="primary" css={monthBtnStyle} onClick={() => onMonthClick(month)}>
           {month}
         </Button>
       ))}
-    </section>
+    </header>
   );
 };
 
