@@ -8,9 +8,10 @@ interface TimeBlockProps {
   children: ReactNode;
   startDate: Date;
   endDate: Date;
+  color: string;
 }
 
-const TimeBlock = ({ startDate, endDate, children }: TimeBlockProps) => {
+const TimeBlock = ({ startDate, endDate, children, color }: TimeBlockProps) => {
   const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
   const startPosition = startDate.getDate() - 1;
   console.log(blockWidth);
@@ -19,7 +20,7 @@ const TimeBlock = ({ startDate, endDate, children }: TimeBlockProps) => {
 
   return (
     <>
-      <div css={blockStyle(blockWidth, startPosition, level)}>
+      <div css={blockStyle(blockWidth, startPosition, level, color)}>
         <Eclipse width={47} height={47} css={{ flexShrink: 0 }} />
         <span css={spanStyle}>{children}</span>
       </div>

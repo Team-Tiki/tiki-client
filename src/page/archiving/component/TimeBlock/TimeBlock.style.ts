@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const blockStyle = (width: number, startPosition: number, level: number) =>
+export const blockStyle = (width: number, startPosition: number, level: number, color: string) =>
   css({
     position: 'absolute',
     display: 'flex',
@@ -19,7 +19,7 @@ export const blockStyle = (width: number, startPosition: number, level: number) 
 
     borderRadius: '100px',
 
-    backgroundColor: theme.colors.blue_100,
+    backgroundColor: `${color}`,
     ...theme.text.body03,
 
     overflow: 'hidden',

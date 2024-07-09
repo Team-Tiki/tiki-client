@@ -12,6 +12,7 @@ import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
 import { MonthType } from '@/page/archiving/type/monthType';
 import { getMonthDate } from '@/page/archiving/util/getMonthDate';
+import { getRandomColor } from '@/page/archiving/util/getRandomColor';
 import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
@@ -82,7 +83,7 @@ const ArchivingPage = () => {
             );
           })}
           {TIME_BLOCK.map((block) => (
-            <TimeBlock key={block.id} startDate={block.startDate} endDate={block.endDate}>
+            <TimeBlock key={block.id} startDate={block.startDate} endDate={block.endDate} color={getRandomColor()}>
               {block.name}
             </TimeBlock>
           ))}
