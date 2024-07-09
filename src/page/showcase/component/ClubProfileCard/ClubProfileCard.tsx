@@ -1,4 +1,10 @@
-import { containerStyle } from '@/page/showcase/component/ClubProfileCard/ClubProfileCard.style';
+import {
+  containerStyle,
+  descriptionStyle,
+  detailStyle,
+  imageStyle,
+  titleStyle,
+} from '@/page/showcase/component/ClubProfileCard/ClubProfileCard.style';
 
 interface ClubProfileCardProps {
   title: string;
@@ -9,9 +15,11 @@ interface ClubProfileCardProps {
 const ClubProfileCard = ({ title, detail, Image }: ClubProfileCardProps) => {
   return (
     <section css={containerStyle}>
-      <Image />
-      <p>{title}</p>
-      <p>{detail}</p>
+      <Image css={imageStyle} />
+      <div css={descriptionStyle}>
+        <p css={titleStyle}>{title}</p>
+        <p css={detailStyle}>{detail}</p>
+      </div>
     </section>
   );
 };
