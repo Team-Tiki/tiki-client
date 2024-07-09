@@ -2,15 +2,13 @@ import { bodyStyle, dayStyle } from './DaySection.style';
 
 interface DaySectionProps {
   day: number;
-  onDayClick: () => void;
+  isClicked: boolean;
 }
 
-const DaySection = ({ day, onDayClick }: DaySectionProps) => {
+const DaySection = ({ day, isClicked }: DaySectionProps) => {
   return (
     <>
-      <button css={dayStyle} onClick={() => onDayClick()}>
-        {day}
-      </button>
+      <button css={dayStyle(isClicked)}>{day}</button>
       <div css={bodyStyle} />
     </>
   );
