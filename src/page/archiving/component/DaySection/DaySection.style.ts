@@ -2,7 +2,11 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const dayStyle = (isClicked: boolean) =>
+export const dayStyle = css({
+  dixplay: 'flex',
+});
+
+export const dayBtnStyle = (isClicked: boolean) =>
   css({
     color: isClicked ? theme.colors.blue_900 : theme.colors.black,
     padding: '0.8rem 2.6rem',
@@ -12,11 +16,11 @@ export const dayStyle = (isClicked: boolean) =>
     cursor: 'pointer',
   });
 
-export const bodyStyle = {
+export const bodyStyle = css({
   width: '6rem',
   height: '48.4rem',
 
   overflow: 'scroll',
 
   backgroundColor: theme.colors.white,
-};
+});

@@ -1,4 +1,4 @@
-import { bodyStyle, dayStyle } from './DaySection.style';
+import { bodyStyle, dayBtnStyle, dayStyle } from './DaySection.style';
 
 interface DaySectionProps {
   day: number;
@@ -7,10 +7,10 @@ interface DaySectionProps {
 
 const DaySection = ({ day, isClicked }: DaySectionProps) => {
   return (
-    <>
-      <button css={dayStyle(isClicked)}>{day}</button>
+    <article css={dayStyle}>
+      <button css={dayBtnStyle(isClicked)}>{day}</button>
       <div css={bodyStyle} />
-    </>
+    </article>
   );
 };
 
