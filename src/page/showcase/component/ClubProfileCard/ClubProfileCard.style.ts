@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 
-import { theme } from '@/common/style/theme/theme';
-
 export const containerStyle = css({ width: '100%' });
 
 export const imageStyle = css({
