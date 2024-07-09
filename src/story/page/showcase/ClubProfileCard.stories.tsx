@@ -1,6 +1,6 @@
 import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfileCard';
+import Image from '@/page/showcase/constant/empty.svg?react';
 import type { Meta, StoryObj } from '@storybook/react';
-import Image from 'public/check.svg?react';
 
 const meta = {
   title: 'Page/ClubProfileCard',
@@ -9,8 +9,8 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    title: 'titletitle',
-    detail: 'detaildetail',
+    title: 'Tiki 티키',
+    detail: '안녕하세요 티키입니다. 저희는 멋진 웹사이트를 제작합니다.',
     Image: Image,
   },
   argTypes: {},
