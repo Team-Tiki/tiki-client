@@ -12,9 +12,11 @@ import {
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
-interface WorkSpaceImageProps {}
+interface WorkSpaceImageProps {
+  onNext: () => void;
+}
 
-const WorkSpaceImage = ({}: WorkSpaceImageProps) => {
+const WorkSpaceImage = ({ onNext }: WorkSpaceImageProps) => {
   return (
     <section css={sectionStyle}>
       <WorkSapceInfo
@@ -26,10 +28,12 @@ const WorkSpaceImage = ({}: WorkSpaceImageProps) => {
         <TeamProfileAdd css={imageAddStyle} />
         <TeamProfileDelete css={imageDeleteStyle} />
       </div>
-      <Button css={buttonCompleteStyle} variant="primary" size="medium">
+      <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={onNext}>
         완료
       </Button>
-      <button css={buttonSkipStyle}>Skip</button>
+      <button css={buttonSkipStyle} onClick={onNext}>
+        Skip
+      </button>
     </section>
   );
 };

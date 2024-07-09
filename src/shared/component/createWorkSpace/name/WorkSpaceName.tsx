@@ -10,9 +10,11 @@ import {
   sectionStyle,
 } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
-interface WorkSpaceNameProps {}
+interface WorkSpaceNameProps {
+  onNext: () => void;
+}
 
-const WorkSpaceName = ({}: WorkSpaceNameProps) => {
+const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isButtonActive, setIsButtonActive] = useState(false);
 
@@ -36,7 +38,12 @@ const WorkSpaceName = ({}: WorkSpaceNameProps) => {
           onChange={handleInputChange}
         />
       </div>
-      <Button variant="primary" size="medium" css={buttonStyle(isButtonActive)} disabled={!isButtonActive}>
+      <Button
+        variant="primary"
+        size="medium"
+        css={buttonStyle(isButtonActive)}
+        disabled={!isButtonActive}
+        onClick={onNext}>
         다음
       </Button>
     </section>

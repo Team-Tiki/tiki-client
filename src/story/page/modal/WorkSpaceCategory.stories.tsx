@@ -6,7 +6,9 @@ const meta = {
   title: 'page/Modal/WorkSpace',
   component: WorkSpaceCategory,
 
-  args: {},
+  args: {
+    onNext: () => {},
+  },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceCategory>;
 

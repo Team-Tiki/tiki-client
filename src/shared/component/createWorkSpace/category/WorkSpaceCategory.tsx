@@ -13,9 +13,11 @@ import {
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
-interface WorkSpaceCategoryProps {}
+interface WorkSpaceCategoryProps {
+  onNext: () => void;
+}
 
-const WorkSpaceCategory = ({}: WorkSpaceCategoryProps) => {
+const WorkSpaceCategory = ({ onNext }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState('');
@@ -50,7 +52,12 @@ const WorkSpaceCategory = ({}: WorkSpaceCategoryProps) => {
           }
         />
       </div>
-      <Button variant="primary" size="medium" css={buttonStyle(isButtonActive)} disabled={!isButtonActive}>
+      <Button
+        variant="primary"
+        size="medium"
+        css={buttonStyle(isButtonActive)}
+        disabled={!isButtonActive}
+        onClick={onNext}>
         다음
       </Button>
     </section>

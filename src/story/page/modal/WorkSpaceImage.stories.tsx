@@ -6,7 +6,9 @@ const meta = {
   title: 'page/Modal/WorkSpace',
   component: WorkSpaceImage,
 
-  args: {},
+  args: {
+    onNext: () => {},
+  },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceImage>;
 
