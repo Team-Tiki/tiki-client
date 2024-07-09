@@ -2,10 +2,6 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = css({
-  width: '24.35rem', //나중에 바꿔야함
-});
-
 export const imageStyle = css({
   width: '100%',
   height: '14rem',

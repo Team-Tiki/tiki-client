@@ -1,5 +1,4 @@
 import {
-  containerStyle,
   descriptionStyle,
   detailStyle,
   imageStyle,
@@ -14,13 +13,13 @@ interface ClubProfileCardProps {
 
 const ClubProfileCard = ({ title, detail, Image }: ClubProfileCardProps) => {
   return (
-    <section css={containerStyle}>
+    <>
       <Image css={imageStyle} />
       <div css={descriptionStyle}>
         <p css={titleStyle}>{title}</p>
         <p css={detailStyle}>{detail}</p>
       </div>
-    </section>
+    </>
   );
 };
 
