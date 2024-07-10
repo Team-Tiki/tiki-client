@@ -27,7 +27,13 @@ export const blockStyle = (width: number, startPosition: number, level: number, 
   });
 
 export const spanStyle = {
+  display: 'flex',
+
   padding: '2rem 0.8rem',
+
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexShrink: '0',
 
   overflow: 'hidden',
   textOverflow: 'ellipsis',

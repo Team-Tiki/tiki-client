@@ -2,8 +2,8 @@ export const TIME_BLOCK = [
   {
     id: 1,
     name: '블록 이름',
-    startDate: new Date(2022, 1, 1),
-    endDate: new Date(2022, 1, 5),
+    startDate: new Date(2022, 6, 1),
+    endDate: new Date(2022, 6, 1),
   },
   {
     id: 2,
