@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Header from '@/common/component/Header/Header';
 
 const meta = {
-  title: 'Common/UserHeader',
+  title: 'Common/Header',
   component: Header,
   parameters: {
     layout: 'centered',
@@ -21,14 +21,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoginHeader: Story = {
-  args: {
-    isLogin: false,
-  },
-};
-
-export const LogoutHeader: Story = {
-  args: {
-    isLogin: true,
-  },
-};
+export const Default: Story = {};
