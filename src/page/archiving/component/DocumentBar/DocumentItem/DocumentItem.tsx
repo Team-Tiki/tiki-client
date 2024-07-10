@@ -19,7 +19,7 @@ interface DocumentItemProps {
 
 const DocumentItem = ({ children, wholeDocument, blockName }: DocumentItemProps) => {
   return (
-    <article css={containerStyle}>
+    <article css={containerStyle(wholeDocument)}>
       {wholeDocument && (
         <div>
           <Text tag="body8" css={blockNameTextStyle('blue_100')}>

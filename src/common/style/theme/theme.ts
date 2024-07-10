@@ -11,7 +11,7 @@ const colors = {
   gray_200: '#EBEBEB',
   gray_100: '#FAFAFA',
   white: '#FFFFFF',
-  blue_900: '#466DEB',
+  blue_900: '#353F9B',
   blue_100: '#EDF0FD',
   red: '#FE4F60',
 };

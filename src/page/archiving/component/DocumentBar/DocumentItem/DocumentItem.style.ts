@@ -2,16 +2,17 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
+export const containerStyle = (wholeDocument: boolean) =>
+  css({
+    display: 'flex',
+    flexDirection: 'column',
 
-  gap: '0.4rem',
-  padding: '1.2rem ',
+    gap: '0.4rem',
+    padding: wholeDocument ? '1rem 1.2rem' : '1.2rem',
 
-  border: '1px solid var(--gray_300, #D6D5D5)',
-  borderRadius: '8px',
-});
+    border: '1px solid var(--gray_300, #D6D5D5)',
+    borderRadius: '8px',
+  });
 
 export const blockNameTextStyle = (color: string) =>
   css({
