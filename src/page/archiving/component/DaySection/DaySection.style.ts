@@ -13,6 +13,7 @@ export const dayStyle = (isEven: boolean) =>
 
 export const dayBtnStyle = (isClicked: boolean) =>
   css({
+    width: '6rem',
     padding: '0.8rem 2.6rem',
 
     border: 'none',
