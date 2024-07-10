@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import ArrowDown from '@/common/asset/arrow-down.svg?react';
+import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
