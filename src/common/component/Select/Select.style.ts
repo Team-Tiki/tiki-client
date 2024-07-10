@@ -8,7 +8,7 @@ export const overlayStyle = css({
 
   maxHeight: '48rem',
 
-  overflowY: 'scroll',
+  overflowY: 'auto',
 });
 
 export const itemStyle = css({

@@ -17,8 +17,8 @@ export const buttonStyle = (isClicked: boolean) =>
     backgroundColor: isClicked ? theme.colors.blue_100 : theme.colors.gray_100,
     color: isClicked ? theme.colors.blue_900 : theme.colors.black,
 
-    fontSize: theme.text.body03.fontSize,
-    lineHeight: theme.text.body03.lineHeight,
+    fontSize: theme.text.body04.fontSize,
+    lineHeight: theme.text.body04.lineHeight,
 
     cursor: 'pointer',
 

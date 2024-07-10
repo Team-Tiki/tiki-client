@@ -2,7 +2,7 @@ import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfi
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Page/ClubProfileCard',
+  title: 'page/showcase/ClubProfileCard',
   component: ClubProfileCard,
   parameters: {
     layout: 'centered',

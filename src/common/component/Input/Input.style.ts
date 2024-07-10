@@ -36,7 +36,7 @@ export const inputStyle = css({
   border: 'none',
   backgroundColor: 'transparent',
   fontWeight: 400,
-  ...theme.text.body03,
+  ...theme.text.body04,
 
   outline: 'none',
 
@@ -53,13 +53,25 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
     default: {
       boxShadow: `inset 0px 0px 0px 1px ${borderColor}`,
       borderRadius: '8px',
+
+      '&:focus-within': {
+        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+      },
     },
     underline: {
-      boxShadow: `0px 1px 0px ${borderColor}`,
+      boxShadow: `inset 0px -1px 0px ${borderColor}`,
+
+      '&:focus-within': {
+        boxShadow: `inset 0px -1px 0px ${theme.colors.blue_900}`,
+      },
     },
     colored: {
       borderRadius: '100px',
       backgroundColor: theme.colors.gray_100,
+
+      '&:focus-within': {
+        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+      },
     },
   };
 
@@ -70,7 +82,7 @@ export const sizeStyle = (size: Required<InputProps>['size']) => {
   const style = {
     small: { padding: '0.8rem 1.2rem' },
     medium: { padding: '1.2rem 1.2rem' },
-    large: { padding: '1.2rem 1.6rem' },
+    large: { padding: '1.6rem 1.2rem' },
   };
 
   return style[size];
