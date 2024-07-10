@@ -53,14 +53,25 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
     default: {
       boxShadow: `inset 0px 0px 0px 1px ${borderColor}`,
       borderRadius: '8px',
+
+      '&:focus-within': {
+        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+      },
     },
     underline: {
       boxShadow: `inset 0px -1px 0px ${borderColor}`,
-      // boxShadow: `0px 1px 0px ${borderColor}`,
+
+      '&:focus-within': {
+        boxShadow: `inset 0px -1px 0px ${theme.colors.blue_900}`,
+      },
     },
     colored: {
       borderRadius: '100px',
       backgroundColor: theme.colors.gray_100,
+
+      '&:focus-within': {
+        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+      },
     },
   };
 
