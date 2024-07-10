@@ -20,6 +20,10 @@ export const containerStyle = (imageUrl: string) =>
 
     overflow: 'hidden',
 
+    '& > *': {
+      zIndex: theme.zIndex.overlayBottom,
+    },
+
     '::before': {
       content: '""',
 
@@ -35,15 +39,11 @@ export const containerStyle = (imageUrl: string) =>
   });
 
 export const titleStyle = css({
-  zIndex: theme.zIndex.overlayBottom,
-
   color: theme.colors.white,
   fontWeight: 600,
 });
 
 export const contentStyle = css({
-  zIndex: theme.zIndex.overlayBottom,
-
   height: '1.6rem',
 
   color: theme.colors.white,
@@ -53,8 +53,6 @@ export const contentStyle = css({
 });
 
 export const buttonStyle = css({
-  zIndex: theme.zIndex.overlayBottom,
-
   padding: '1rem 7.65rem',
 
   borderRadius: '1.4rem',
