@@ -42,7 +42,7 @@ export const inputStyle = css({
 
   '::placeholder': {
     color: theme.colors.gray_500,
-    ...theme.text.body03,
+    ...theme.text.body04,
   },
 });
 

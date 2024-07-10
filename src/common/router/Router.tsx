@@ -1,9 +1,11 @@
 import App from '@/App';
+import LoginPage from '@/page/login/LoginPage';
 import TermPage from '@/page/signIn/index/TermPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
+  { path: '/login', element: <LoginPage /> },
   {
     path: '/',
     element: <App />,
