@@ -11,6 +11,7 @@ import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
 import { MonthType } from '@/page/archiving/type/monthType';
+import { alignBlocks } from '@/page/archiving/util/alignBlocks';
 import { getMonthDate } from '@/page/archiving/util/getMonthDate';
 import { getRandomColor } from '@/page/archiving/util/getRandomColor';
 import { endOfMonth } from 'date-fns';
@@ -34,6 +35,8 @@ const ArchivingPage = () => {
 
   const dateOfMonth = getMonthDate(selectedMonth, currentYear);
   const endDay = endOfMonth(dateOfMonth);
+
+  const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
     <div css={pageStyle}>
@@ -86,10 +89,14 @@ const ArchivingPage = () => {
             const blockMonth = block.startDate.getMonth() + 1;
             const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
-            // (블록 자체의 month === 클릭한 버튼의 month) && (year === 클릭한 버튼의 year)인 경우에만 블록 띄우기
             return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
           }).map((block) => (
-            <TimeBlock key={block.id} startDate={block.startDate} endDate={block.endDate} color={getRandomColor()}>
+            <TimeBlock
+              key={block.id}
+              startDate={block.startDate}
+              endDate={block.endDate}
+              color={getRandomColor()}
+              floor={blockFloors[block.id] || 1}>
               {block.name}
             </TimeBlock>
           ))}
