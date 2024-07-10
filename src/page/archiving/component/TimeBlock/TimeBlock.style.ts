@@ -7,9 +7,9 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     position: 'absolute',
     display: 'flex',
 
-    zIndex: theme.zIndex.overlayTop,
+    zIndex: theme.zIndex.overlayMiddle,
 
-    top: `${floor * 6}rem`,
+    top: `${floor * 6 - 2.4}rem`,
     left: `${startPosition + 0.2}rem`,
 
     width: `${width - 0.4}rem`,
@@ -25,14 +25,9 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
   });
 
 export const spanStyle = {
-  display: 'flex',
+  margin: 'auto 0.7rem',
 
-  padding: '2rem 0.8rem',
-  minWidth: '0rem',
-
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexShrink: '0',
+  lineHeight: '120%',
 
   overflow: 'hidden',
   textOverflow: 'ellipsis',
