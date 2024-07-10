@@ -42,4 +42,3 @@ export const Default: Story = {
     onDayClick: () => {},
   },
 };
-

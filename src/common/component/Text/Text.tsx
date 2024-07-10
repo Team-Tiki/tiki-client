@@ -1,11 +1,9 @@
 import { HTMLAttributes } from 'react';
 
-import { TextSize } from '@/common/type/design';
-
 import { textStyle } from './Text.style';
 
 export interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
-  tag?: TextSize;
+  tag?: 'body1' | 'body2' | 'body3' | 'body4' | 'body5' | 'body6' | 'body7' | 'body8';
 }
 
 const Text = ({ tag = 'body3', children, ...props }: TextProps) => {
