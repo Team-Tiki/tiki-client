@@ -20,7 +20,7 @@ export const blockNameTextStyle = (color: string) =>
     padding: '0.2rem 0.4rem',
 
     borderRadius: '0.4rem',
-    backgroundColor: theme.colors[color],
+    backgroundColor: theme.colors.blue_100,
     color: theme.colors.gray_800,
   });
 
