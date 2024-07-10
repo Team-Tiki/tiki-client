@@ -13,15 +13,13 @@ interface TimeBlockProps {
 
 const TimeBlock = ({ startDate, endDate, children, color }: TimeBlockProps) => {
   const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
-  const startPosition = startDate.getDate() - 1;
-  console.log(blockWidth);
-  console.log(startPosition);
-  const level = 20;
+  const startPosition = (startDate.getDate() - 1) * 6;
+  const level = 10;
 
   return (
     <>
       <div css={blockStyle(blockWidth, startPosition, level, color)}>
-        <Eclipse width={47} height={47} css={{ flexShrink: 0 }} />
+        <Eclipse width={46} height={46} css={{ flexShrink: 0 }} />
         <span css={spanStyle}>{children}</span>
       </div>
     </>

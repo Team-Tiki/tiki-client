@@ -8,10 +8,11 @@ export const blockStyle = (width: number, startPosition: number, level: number, 
     display: 'flex',
 
     zIndex: theme.zIndex.overlayTop,
-    top: '16.6rem',
-    left: `${startPosition}rem`,
 
-    width: `${width}rem`,
+    top: '16.6rem',
+    left: `${startPosition + 0.2}rem`,
+
+    width: `${width - 0.8}rem`,
     height: '5.6rem',
     padding: '0.5rem',
     justifyContent: 'center',
@@ -20,7 +21,7 @@ export const blockStyle = (width: number, startPosition: number, level: number, 
     borderRadius: '100px',
 
     backgroundColor: `${color}`,
-    ...theme.text.body03,
+    ...theme.text.body04,
 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
