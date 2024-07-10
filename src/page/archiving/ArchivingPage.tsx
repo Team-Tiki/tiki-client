@@ -39,74 +39,80 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
-    <Flex css={pageStyle} styles={{ direction: 'column' }}>
-      <header css={headerStyle}>
-        <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem' }}>
-          타임라인
-        </Heading>
-        <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Calendar width={24} height={24} />
-          <PreviousYearArrow
-            width={16}
-            height={16}
-            onClick={() => setCurrentYear(currentYear - 1)}
-            css={{ cursor: 'pointer' }}
-          />
-          <Text tag="body1" css={{ marginTop: '0.4rem' }}>
-            {currentYear}
-          </Text>
-          <NextYearArrow
-            width={16}
-            height={16}
-            onClick={() => setCurrentYear(currentYear + 1)}
-            css={{ cursor: 'pointer' }}
-          />
-        </Flex>
-      </header>
-      <section css={sectionStyle}>
-        <MonthHeader
-          onMonthClick={(month: MonthType) => {
-            setSelectedMonth(month);
-            setClickedDay(null);
-          }}
-        />
-        <div css={daySectionStyle}>
-          {Array.from({ length: endDay.getDate() }, (_, index) => {
-            const day = index + 1;
-            const isEven = day % 2 === 0;
-            const isClicked = clickedDay === day;
-            return (
-              <DaySection
-                key={day}
-                day={day}
-                isClicked={isClicked}
-                isEven={isEven}
-                onDayClick={() => setClickedDay(day)}
+    <>
+      <section css={{ padding: '0rem 13.2rem 6.2rem 5.2rem', flexDirection: 'column' }}>
+        <div css={pageStyle}>
+          <header css={headerStyle}>
+            <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem' }}>
+              타임라인
+            </Heading>
+            <Flex styles={{ align: 'center', gap: '0.8rem' }}>
+              <Calendar width={24} height={24} />
+              <PreviousYearArrow
+                width={16}
+                height={16}
+                onClick={() => setCurrentYear(currentYear - 1)}
+                css={{ cursor: 'pointer' }}
               />
-            );
-          })}
-          {TIME_BLOCK.filter((block) => {
-            const blockMonth = block.startDate.getMonth() + 1;
-            const clickedMonth = parseInt(selectedMonth.split('월')[0]);
+              <Text tag="body1" css={{ marginTop: '0.4rem' }}>
+                {currentYear}
+              </Text>
+              <NextYearArrow
+                width={16}
+                height={16}
+                onClick={() => setCurrentYear(currentYear + 1)}
+                css={{ cursor: 'pointer' }}
+              />
+            </Flex>
+          </header>
+          <section css={sectionStyle}>
+            <MonthHeader
+              onMonthClick={(month: MonthType) => {
+                setSelectedMonth(month);
+                setClickedDay(null);
+              }}
+            />
+            <div css={daySectionStyle}>
+              {Array.from({ length: endDay.getDate() }, (_, index) => {
+                const day = index + 1;
+                const isEven = day % 2 === 0;
+                const isClicked = clickedDay === day;
+                return (
+                  <DaySection
+                    key={day}
+                    day={day}
+                    isClicked={isClicked}
+                    isEven={isEven}
+                    onDayClick={() => setClickedDay(day)}
+                  />
+                );
+              })}
+              {TIME_BLOCK.filter((block) => {
+                const blockMonth = block.startDate.getMonth() + 1;
+                const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
-            return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
-          }).map((block) => (
-            <TimeBlock
-              key={block.id}
-              startDate={block.startDate}
-              endDate={block.endDate}
-              color={getRandomColor()}
-              floor={blockFloors[block.id] || 1}>
-              {block.name}
-            </TimeBlock>
-          ))}
+                return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
+              }).map((block) => (
+                <TimeBlock
+                  key={block.id}
+                  startDate={block.startDate}
+                  endDate={block.endDate}
+                  color={getRandomColor()}
+                  floor={blockFloors[block.id] || 1}>
+                  {block.name}
+                </TimeBlock>
+              ))}
+            </div>
+          </section>
         </div>
       </section>
-      <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
-        <AddIc width={24} height={24} />
-        블록 생성
-      </Button>
-    </Flex>
+      <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
+        <Button variant="action" css={[buttonStyle]} onClick={() => alert('모달')}>
+          <AddIc width={24} height={24} />
+          블록 생성
+        </Button>
+      </Flex>
+    </>
   );
 };
 

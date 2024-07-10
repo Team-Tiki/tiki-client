@@ -3,7 +3,11 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const pageStyle = css({
-  padding: '2rem 16rem',
+  padding: '2.6rem 2.4rem',
+
+  borderRadius: '16px',
+
+  backgroundColor: theme.colors.gray_100,
 });
 
 export const headerStyle = css({
@@ -25,7 +29,7 @@ export const daySectionStyle = css({
   position: 'relative',
   display: 'flex',
 
-  width: '110.5rem',
+  width: '104.6rem',
   height: '46.4rem',
   borderRadius: '6px',
 
@@ -46,7 +50,10 @@ export const buttonStyle = css({
   borderRadius: '28px',
 
   ...theme.text.body04,
+
+  boxShadow: '0px 2px 10px 0px rgba(70, 109, 235, 0.30)',
+
   '&:hover': {
-    backgroundColor: theme.colors.blue_hover,
+    backgroundColor: theme.colors.blue_300,
   },
 });
