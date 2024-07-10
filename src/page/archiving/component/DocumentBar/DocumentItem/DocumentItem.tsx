@@ -19,7 +19,7 @@ interface DocumentItemProps {
 
 const DocumentItem = ({ children, wholeDocument, blockName }: DocumentItemProps) => {
   return (
-    <article css={containerStyle(wholeDocument)}>
+    <li css={containerStyle(wholeDocument)}>
       {wholeDocument && (
         <div>
           <Text tag="body8" css={blockNameTextStyle('blue_100')}>
@@ -31,10 +31,10 @@ const DocumentItem = ({ children, wholeDocument, blockName }: DocumentItemProps)
         <Text tag="body6" css={fileNameStyle}>
           {children?.toString()}
         </Text>
-        <Download style={{ width: '2rem', height: '2rem' }} />
-        <TrashBox style={{ width: '2rem', height: '2rem' }} />
+        <Download width={20} height={20} />
+        <TrashBox width={20} height={20} />
       </Flex>
-    </article>
+    </li>
   );
 };
 

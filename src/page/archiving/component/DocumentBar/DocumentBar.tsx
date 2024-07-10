@@ -2,12 +2,11 @@ import { containerStyle, documentListStyle } from '@/page/archiving/component/Do
 import DocumentBarInfo from '@/page/archiving/component/DocumentBar/DocumentBarInfo/DocumentBarInfo';
 import DocumentBarTab from '@/page/archiving/component/DocumentBar/DocumentBarTab/DocumentBarTab';
 import DocumentItem from '@/page/archiving/component/DocumentBar/DocumentItem/DocumentItem';
+import { BLOCK_TEST_DATA } from '@/page/archiving/component/DocumentBar/constant';
 
 import { useState } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
-
-import { BLOCK_TEST_DATA } from './constant';
 
 const DocumentBar = () => {
   const [wholeDocument, setWholeDocument] = useState(false);
@@ -33,6 +32,6 @@ const DocumentBar = () => {
       </Flex>
     </aside>
   );
-};
+}; 
 
 export default DocumentBar;
