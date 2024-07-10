@@ -1,7 +1,9 @@
 import BlockBox from '@/page/archiving/component/Modal/Box/BlockBox';
 import BlockDate from '@/page/archiving/component/Modal/Date/BlockDate';
+import BlockAdd from '@/page/archiving/component/Modal/File/Add/BlockAdd';
 import BlockIcon from '@/page/archiving/component/Modal/Icon/BlockIcon';
 
+import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
@@ -38,6 +40,14 @@ const BlockModal = ({}: BlockModalProps) => {
       <BlockBox title="기간">
         <BlockDate />
       </BlockBox>
+
+      <BlockBox title="업로드 문서">
+        <BlockAdd />
+      </BlockBox>
+
+      <Button variant="primary" size="medium" css={{ marginTop: '1.2rem', width: '32rem' }}>
+        저장
+      </Button>
     </Flex>
   );
 };

@@ -1,7 +1,9 @@
 import { textStyle } from '@/page/archiving/component/Modal/Date/BlockDate.style';
+import { ERROR } from '@/page/archiving/constant/error';
+import { formatDateString, isValidDate, parseDate } from '@/page/archiving/util/dateUtils';
 import { css } from '@emotion/react';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
@@ -18,20 +20,6 @@ const BlockDate = ({}: BlockDateProps) => {
   const [isStartDateError, setIsStartDateError] = useState<boolean>(false);
   const [isEndDateError, setIsEndDateError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
-  const formatDateString = (dateString: string): string => {
-    if (dateString.length !== 8) return dateString;
-    return `${dateString.slice(0, 4)}.${dateString.slice(4, 6)}.${dateString.slice(6, 8)}`;
-  };
-
-  const isValidDate = (dateString: string): boolean => {
-    const datePattern = /^\d{4}\.\d{2}\.\d{2}$/;
-    if (!datePattern.test(dateString)) return false;
-    const [year, month, day] = dateString.split('.').map(Number);
-    const date = new Date(year, month - 1, day);
-    const isYearValid = year >= 1900;
-    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day && isYearValid;
-  };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -50,11 +38,11 @@ const BlockDate = ({}: BlockDateProps) => {
 
     if (!input) {
       setIsError(true);
-      setErrorMessage(isStart ? '시작 시간이 입력되지 않았습니다.' : '종료 시간이 입력되지 않았습니다.');
+      setErrorMessage(isStart ? ERROR.START : ERROR.END);
     } else if (formattedDate.length === 10) {
       if (!isValid || !otherIsValid) {
         setIsError(true);
-        setErrorMessage('유효한 기간이 아닙니다. 확인 후 다시 입력해주세요.');
+        setErrorMessage(ERROR.OTHER);
       } else {
         checkDateRange(formattedDate, startDate, endDate, isStart);
       }
@@ -64,14 +52,6 @@ const BlockDate = ({}: BlockDateProps) => {
     }
   };
 
-  const parseDate = (dateString: string): Date | null => {
-    if (isValidDate(dateString)) {
-      const [year, month, day] = dateString.split('.').map(Number);
-      return new Date(year, month - 1, day);
-    }
-    return null;
-  };
-
   const checkDateRange = (formattedDate: string, startDate: string, endDate: string, isStart: boolean) => {
     const start = parseDate(isStart ? formattedDate : startDate);
     const end = parseDate(isStart ? endDate : formattedDate);
@@ -79,7 +59,7 @@ const BlockDate = ({}: BlockDateProps) => {
       const isValidRange = start <= end;
       setIsDateRangeValid(isValidRange);
       if (!isValidRange) {
-        setErrorMessage('유효한 기간이 아닙니다. 확인 후 다시 입력해주세요.');
+        setErrorMessage(ERROR.OTHER);
         setIsStartDateError(isStart);
         setIsEndDateError(!isStart);
       } else {
@@ -97,7 +77,6 @@ const BlockDate = ({}: BlockDateProps) => {
 
   const inputStyle = (isValid: boolean, value: string, isError: boolean) => css`
     text-align: ${value.length === 10 ? 'center' : 'left'};
-    border-color: ${isError ? 'red' : 'initial'};
   `;
 
   return (
