@@ -18,7 +18,7 @@ const ShowcasePage = () => {
     <>
       <Header />
       <Flex styles={{ direction: 'column', padding: '0.8rem 16rem', gap: '3.6rem' }}>
-        <Flex styles={{ direction: 'column', gap: '2.4rem' }}>
+        <Flex styles={{ direction: 'column', gap: '2.4rem', width: '100%' }}>
           <Heading tag="H4" css={{ fontWeight: 600 }}>
             우리 학교 동아리
           </Heading>
