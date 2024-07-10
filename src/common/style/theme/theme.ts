@@ -85,7 +85,6 @@ const zIndex = {
   overlayHigh: 3,
   overlayMiddle: 2,
   overlayBottom: 1,
-  overlayBackground: -1,
 } as const;
 
 export const theme = {

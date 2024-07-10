@@ -1,15 +1,15 @@
 import AdvBanner from '@/page/showcase/component/AdvBanner/AdvBanner';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Logo from '@/common/asset/svg/calendar.svg';
+import Logo from '@/common/asset/svg/logo_tiki_md.svg';
 
 const meta = {
   title: 'page/showcase/AdvBanner',
   component: AdvBanner,
 
   args: {
-    title: 'TikiTikiTikiTikiTikiTikiTiki',
-    detail: '동아리 모집 마감까지 D-3동아리 모집 마감까지 D-3동아리 모집 마감까지 D-3',
+    title: 'SOPT',
+    detail: '동아리 모집 마감까지 D-3 동아리 모집 마감까지 D-3 동아리 모집 마감까지 D-3',
     imageUrl: Logo,
     externUrl: '',
   },

@@ -10,8 +10,7 @@ export const containerStyle = (imageUrl: string) =>
     flexDirection: 'column',
     justifyContent: 'center',
 
-    height: '22.4rem',
-    paddingLeft: '6.4rem',
+    padding: '5rem 0 5.8rem 6.4rem',
 
     borderRadius: '16px',
 
@@ -19,12 +18,11 @@ export const containerStyle = (imageUrl: string) =>
     backgroundSize: 'cover',
     backgroundPosition: 'center',
 
-    zIndex: theme.zIndex.overlayBottom,
-
     '::before': {
       content: '""',
 
       position: 'absolute',
+      top: 0,
       left: 0,
 
       width: '16rem',
@@ -33,35 +31,31 @@ export const containerStyle = (imageUrl: string) =>
       borderRadius: '16px',
 
       background: theme.colors.black_shade,
-
-      zIndex: theme.zIndex.overlayBackground,
     },
   });
 
-export const descriptionStyle = css({
-  width: '24rem',
-  height: '5.2rem',
-
-  marginBottom: '2.4rem',
-
-  overflow: 'hidden',
-});
-
 export const titleStyle = css({
-  marginBottom: '0.8rem',
+  zIndex: theme.zIndex.overlayBottom,
 
   color: theme.colors.white,
   fontWeight: 600,
 });
 
 export const contentStyle = css({
+  zIndex: theme.zIndex.overlayBottom,
+
+  height: '1.6rem',
+
   color: theme.colors.white,
   fontWeight: 500,
+
+  overflow: 'hidden',
 });
 
 export const buttonStyle = css({
-  width: '24rem',
-  height: '4rem',
+  zIndex: theme.zIndex.overlayBottom,
 
-  borderRadius: '1.6rem',
+  padding: '1rem 7.65rem',
+
+  borderRadius: '1.4rem',
 });
