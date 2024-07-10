@@ -6,6 +6,42 @@ import 'slick-carousel/slick/slick.css';
 
 import Slider from 'react-slick';
 
+import LeftArrow from '@/common/asset/svg/arrow-left-white.svg?react';
+import RightArrow from '@/common/asset/svg/arrow-right-white.svg?react';
+
+interface ArrowProps {
+  onClick?: () => void;
+}
+
+const NextArrow: React.FC<ArrowProps> = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      css={{
+        position: 'absolute',
+        right: '1.6rem',
+        top: '9.6rem',
+        width: '3.2rem',
+        height: '3.2rem',
+        background: 'rgb(0,0,0,0.3)',
+        borderRadius: '16px',
+        border: 'none',
+      }}>
+      <RightArrow />
+    </button>
+  );
+};
+
+const PrevArrow: React.FC<ArrowProps> = (props) => {
+  const { onClick } = props;
+  return (
+    <button onClick={onClick} css={{ position: 'absolute', left: '1.6rem', top: '9.6rem', zIndex: 3 }}>
+      <LeftArrow />
+    </button>
+  );
+};
+
 const BannerSlider = () => {
   const settings = {
     dots: true,
@@ -13,6 +49,8 @@ const BannerSlider = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
   return (
     <Slider {...settings}>
