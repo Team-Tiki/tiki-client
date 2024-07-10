@@ -9,7 +9,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
 
     zIndex: theme.zIndex.overlayTop,
 
-    top: `${floor * 5.6}rem`,
+    top: `${floor * 6}rem`,
     left: `${startPosition + 0.2}rem`,
 
     width: `${width - 0.4}rem`,
@@ -22,14 +22,13 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     ...theme.text.body04,
 
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   });
 
 export const spanStyle = {
   display: 'flex',
 
   padding: '2rem 0.8rem',
+  minWidth: '0rem',
 
   justifyContent: 'center',
   alignItems: 'center',
