@@ -17,12 +17,10 @@ const TimeBlock = ({ startDate, endDate, children, color, floor }: TimeBlockProp
   const startPosition = (startDate.getDate() - 1) * 6;
 
   return (
-    <>
-      <div css={blockStyle(blockWidth, startPosition, floor, color)}>
-        <Eclipse width={46} height={46} css={{ flexShrink: 0 }} />
-        <span css={spanStyle}>{children}</span>
-      </div>
-    </>
+    <div css={blockStyle(blockWidth, startPosition, floor, color)}>
+      <Eclipse width={46} height={46} css={{ flexShrink: 0 }} />
+      <p css={spanStyle}>{children}</p>
+    </div>
   );
 };
 
