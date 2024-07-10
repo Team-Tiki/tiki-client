@@ -11,6 +11,7 @@ const meta = {
     title: 'TikiTikiTikiTikiTikiTikiTiki',
     detail: '동아리 모집 마감까지 D-3동아리 모집 마감까지 D-3동아리 모집 마감까지 D-3',
     imageUrl: Logo,
+    externUrl: '',
   },
   argTypes: {},
 } satisfies Meta<typeof AdvBanner>;
