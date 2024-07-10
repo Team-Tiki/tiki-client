@@ -12,13 +12,6 @@ export const headerStyle = css({
   padding: '1.6rem 0rem 2.4rem 0rem',
 });
 
-export const iconStyle = css({
-  display: 'flex',
-
-  alignItems: 'center',
-  gap: '0.8rem',
-});
-
 export const sectionStyle = css({
   display: 'flex',
 

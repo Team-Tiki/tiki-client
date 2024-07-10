@@ -2,7 +2,6 @@ import {
   buttonStyle,
   daySectionStyle,
   headerStyle,
-  iconStyle,
   pageStyle,
   sectionStyle,
 } from '@/page/archiving/ArchivingPage.style';
@@ -23,6 +22,7 @@ import PreviousYearArrow from '@/common/asset/svg/arrow_left.svg?react';
 import NextYearArrow from '@/common/asset/svg/arrow_right.svg?react';
 import Calendar from '@/common/asset/svg/calendar.svg?react';
 import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
@@ -39,12 +39,12 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
-    <div css={pageStyle}>
+    <Flex css={pageStyle} styles={{ direction: 'column' }}>
       <header css={headerStyle}>
         <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem' }}>
           타임라인
         </Heading>
-        <div css={iconStyle}>
+        <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Calendar width={24} height={24} />
           <PreviousYearArrow
             width={16}
@@ -61,7 +61,7 @@ const ArchivingPage = () => {
             onClick={() => setCurrentYear(currentYear + 1)}
             css={{ cursor: 'pointer' }}
           />
-        </div>
+        </Flex>
       </header>
       <section css={sectionStyle}>
         <MonthHeader
@@ -106,7 +106,7 @@ const ArchivingPage = () => {
         <AddIc width={24} height={24} />
         블록 생성
       </Button>
-    </div>
+    </Flex>
   );
 };
 
