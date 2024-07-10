@@ -14,6 +14,7 @@ export const containerStyle = (wholeDocument: boolean) =>
     borderRadius: '8px',
   });
 
+// 추후에 color 받아서 쓸거임 진짜임 지우라 하지마셈 반박불가
 export const blockNameTextStyle = (color: string) =>
   css({
     display: 'inline-block',

@@ -21,5 +21,3 @@ export const deleteBtnStyle = css({
 
   textDecoration: 'underline',
 });
-
-export const dateStyle = css({});
