@@ -1,7 +1,9 @@
 import { clubProfileStyle } from '@/page/showcase/ShowcasePage.style';
+import AdvBanner from '@/page/showcase/component/AdvBanner/AdvBanner';
 import CategoryChip from '@/page/showcase/component/CategoryChip/CategoryChip';
 import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfileCard';
 import { CATEGORY } from '@/page/showcase/constant/category';
+import { ADVBANNER, CLUBPROFILEDATA } from '@/page/showcase/constant/dummy';
 
 import { useState } from 'react';
 
@@ -20,49 +22,32 @@ const ShowcasePage = () => {
           <Heading tag="H4" css={{ fontWeight: 600 }}>
             우리 학교 동아리
           </Heading>
-          <div>홍보배너</div>
+          <AdvBanner
+            title={ADVBANNER[0].name}
+            detail={ADVBANNER[0].overview}
+            imageUrl={ADVBANNER[0].imageUrl}
+            externUrl={''}
+          />
         </Flex>
         <Flex styles={{ gap: '0.8rem' }}>
           {CATEGORY.map((category) => {
-            return <CategoryChip isSelected={selectedChip === category}>{category}</CategoryChip>;
+            const handleChipClick = () => {
+              setSelectedChip(category);
+            };
+
+            return (
+              <CategoryChip onClick={handleChipClick} isSelected={selectedChip === category}>
+                {category}
+              </CategoryChip>
+            );
           })}
         </Flex>
         <section css={clubProfileStyle}>
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
-          <ClubProfileCard
-            title={'TIKI'}
-            detail={'안녕하세요 티키입니다. 저희는 멋진 웹사이트르 제작합니다.'}
-            imageUrl=""
-          />
+          {CLUBPROFILEDATA.map((club) => {
+            if (club.teamtype === '건국대학교') {
+              return <ClubProfileCard title={club.name} detail={club.overview} imageUrl={club.imageUrl} />;
+            }
+          })}
         </section>
       </Flex>
     </>
