@@ -6,12 +6,14 @@ export const dayStyle = (isEven: boolean) =>
   css({
     dixplay: 'flex',
 
+    width: '6rem',
+
     backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
   });
 
 export const dayBtnStyle = (isClicked: boolean) =>
   css({
-    padding: '1.2rem 2.6rem',
+    padding: '0.8rem 2.6rem',
 
     border: 'none',
 
@@ -24,7 +26,6 @@ export const dayBtnStyle = (isClicked: boolean) =>
 
 export const bodyStyle = (isEven: boolean) =>
   css({
-    width: '6rem',
     height: '48.4rem',
 
     backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
