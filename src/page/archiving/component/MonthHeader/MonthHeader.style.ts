@@ -22,4 +22,9 @@ export const monthBtnStyle = {
     color: theme.colors.blue_900,
     backgroundColor: theme.colors.blue_100,
   },
+
+  '&:focus': {
+    color: theme.colors.blue_900,
+    backgroundColor: theme.colors.blue_100,
+  },
 };
