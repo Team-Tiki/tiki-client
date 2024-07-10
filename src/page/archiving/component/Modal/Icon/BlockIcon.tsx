@@ -1,13 +1,11 @@
-import { iconStyle, iconWrapperStyle, selectedIconStyle } from '@/page/archiving/component/Modal/Icon/BlockIcon.style';
+import { iconStyle, selectedIconStyle } from '@/page/archiving/component/Modal/Icon/BlockIcon.style';
 import { BLOCK_ICON } from '@/page/archiving/constant/icon';
 
 import { useState } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
 
-interface BlockIconProps {}
-
-const BlockIcon = ({}: BlockIconProps) => {
+const BlockIcon = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const handleIconClick = (index: number) => {
