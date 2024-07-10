@@ -9,16 +9,16 @@ interface TimeBlockProps {
   startDate: Date;
   endDate: Date;
   color: string;
+  floor: number;
 }
 
-const TimeBlock = ({ startDate, endDate, children, color }: TimeBlockProps) => {
+const TimeBlock = ({ startDate, endDate, children, color, floor }: TimeBlockProps) => {
   const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
   const startPosition = (startDate.getDate() - 1) * 6;
-  const level = 10;
 
   return (
     <>
-      <div css={blockStyle(blockWidth, startPosition, level, color)}>
+      <div css={blockStyle(blockWidth, startPosition, floor, color)}>
         <Eclipse width={46} height={46} css={{ flexShrink: 0 }} />
         <span css={spanStyle}>{children}</span>
       </div>
