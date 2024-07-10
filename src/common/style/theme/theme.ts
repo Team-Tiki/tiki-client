@@ -1,6 +1,6 @@
 const colors = {
   black: '#2C3030',
-  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%))',
+  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%)',
   dimmed: 'rgba(0, 0, 0, 0.40)',
   gray_800: '#56585D',
   gray_700: '#6B6B6B',
