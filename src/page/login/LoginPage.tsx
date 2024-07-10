@@ -16,8 +16,6 @@ const LoginPage = () => {
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log(email, password);
   };
 
   const 회원가입페이지로이동 = () => {
@@ -29,8 +27,9 @@ const LoginPage = () => {
       <Logo width={100} height={40} />
 
       <form onSubmit={handleLogin}>
-        <Input onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
         <Input
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           variant="underline"
