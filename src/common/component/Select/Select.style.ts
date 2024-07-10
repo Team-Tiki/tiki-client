@@ -9,6 +9,7 @@ export const overlayStyle = css({
   maxHeight: '48rem',
 
   overflowY: 'auto',
+  overscrollBehavior: 'contain',
 });
 
 export const itemStyle = css({
