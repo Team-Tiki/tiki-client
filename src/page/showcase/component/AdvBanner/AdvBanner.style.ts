@@ -18,6 +18,8 @@ export const containerStyle = (imageUrl: string) =>
     backgroundSize: 'cover',
     backgroundPosition: 'center',
 
+    overflow: 'hidden',
+
     '::before': {
       content: '""',
 
@@ -27,8 +29,6 @@ export const containerStyle = (imageUrl: string) =>
 
       width: '16rem',
       height: '100%',
-
-      borderRadius: '16px',
 
       background: theme.colors.black_shade,
     },
