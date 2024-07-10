@@ -1,12 +1,40 @@
-import { boxStyle, buttonStyle, textStyle } from '@/page/archiving/component/Modal/File/Add/BlockAdd.style';
+import { boxStyle, buttonStyle } from '@/page/archiving/component/Modal/File/Add/BlockAdd.style';
+
+import { useRef, useState } from 'react';
 
 import PlusIcon from '@/common/asset/svg/plus-gray.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-interface BlockAddProps {}
+interface BlockAddProps {
+  files: File[];
+  onFilesChange: (files: File[]) => void;
+}
 
-const BlockAdd = ({}: BlockAddProps) => {
+const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFiles = (newFiles: FileList | null) => {
+    if (!newFiles) return;
+    const fileArray = Array.from(newFiles);
+    onFilesChange([...files, ...fileArray]);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleFiles(event.target.files);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleFiles(event.dataTransfer.files);
+  };
+
   return (
     <Flex
       styles={{
@@ -16,7 +44,10 @@ const BlockAdd = ({}: BlockAddProps) => {
         padding: '3.4rem 6.35rem',
         width: '37.5rem',
       }}
-      css={boxStyle}>
+      css={boxStyle}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}>
+      <input type="file" multiple style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
       <PlusIcon width={36} height={36} />
       <Text tag="body6" css={{ marginTop: '1.6rem' }}>
         업로드할 파일을 여기로 드래그 하세요
@@ -25,7 +56,7 @@ const BlockAdd = ({}: BlockAddProps) => {
         styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.3rem' }}
         css={{ marginTop: '1.6rem' }}>
         <Text tag="body6">또는</Text>
-        <button type="button" css={buttonStyle}>
+        <button type="button" css={buttonStyle} onClick={() => fileInputRef.current && fileInputRef.current.click()}>
           여기를 클릭
         </button>
         <Text tag="body6">하여</Text>

@@ -1,7 +1,10 @@
 import BlockBox from '@/page/archiving/component/Modal/Box/BlockBox';
 import BlockDate from '@/page/archiving/component/Modal/Date/BlockDate';
 import BlockAdd from '@/page/archiving/component/Modal/File/Add/BlockAdd';
+import BlockItem from '@/page/archiving/component/Modal/File/List/BlockItem';
 import BlockIcon from '@/page/archiving/component/Modal/Icon/BlockIcon';
+
+import { useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -12,6 +15,16 @@ import Text from '@/common/component/Text/Text';
 interface BlockModalProps {}
 
 const BlockModal = ({}: BlockModalProps) => {
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleFilesChange = (newFiles: File[]) => {
+    setFiles(newFiles);
+  };
+
+  const handleDelete = (fileName: string) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  };
+
   return (
     <Flex
       tag={'section'}
@@ -42,7 +55,12 @@ const BlockModal = ({}: BlockModalProps) => {
       </BlockBox>
 
       <BlockBox title="업로드 문서">
-        <BlockAdd />
+        <Flex styles={{ direction: 'column', align: 'center', justify: 'center', gap: '0.8rem' }}>
+          {files.map((file, index) => (
+            <BlockItem key={index} title={file.name} onDelete={() => handleDelete(file.name)} />
+          ))}
+        </Flex>
+        <BlockAdd files={files} onFilesChange={handleFilesChange} />
       </BlockBox>
 
       <Button variant="primary" size="medium" css={{ marginTop: '1.2rem', width: '32rem' }}>

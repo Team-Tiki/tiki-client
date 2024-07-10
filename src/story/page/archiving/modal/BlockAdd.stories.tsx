@@ -5,7 +5,12 @@ const meta = {
   title: 'page/Modal/Block',
   component: BlockAdd,
 
-  args: {},
+  args: {
+    files: [],
+    onFilesChange: (files: File[]) => {
+      console.log('Files changed:', files);
+    },
+  },
   argTypes: {},
 } satisfies Meta<typeof BlockAdd>;
 

@@ -6,9 +6,10 @@ import Text from '@/common/component/Text/Text';
 
 interface BlockItemProps {
   title: string;
+  onDelete: () => void;
 }
 
-const BlockItem = ({ title }: BlockItemProps) => {
+const BlockItem = ({ title, onDelete }: BlockItemProps) => {
   return (
     <Flex
       styles={{ direction: 'row', align: 'center', justify: 'space-between', padding: '1.5rem 1.2rem' }}
@@ -16,7 +17,7 @@ const BlockItem = ({ title }: BlockItemProps) => {
       <Text tag="body6" css={textStyle}>
         {title}
       </Text>
-      <Delete width={20} height={20} css={{ cursor: 'pointer' }} />
+      <Delete width={20} height={20} css={{ cursor: 'pointer' }} onClick={onDelete} />
     </Flex>
   );
 };

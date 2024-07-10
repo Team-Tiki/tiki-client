@@ -5,7 +5,12 @@ const meta = {
   title: 'page/Modal/Block',
   component: BlockItem,
 
-  args: { title: '6월 회의록(1).word' },
+  args: {
+    title: '6월 회의록(1).word',
+    onDelete: () => {
+      console.log('Delete clicked');
+    },
+  },
   argTypes: {},
 } satisfies Meta<typeof BlockItem>;
 
