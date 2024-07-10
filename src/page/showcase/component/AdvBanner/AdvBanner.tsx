@@ -11,11 +11,18 @@ import Heading from '@/common/component/Heading/Heading';
 
 interface AdvBannerProps {
   title: string;
-  detail: string;
+  detail?: string;
   imageUrl: string;
+  externUrl: string;
 }
 
-const AdvBanner = ({ title, detail, imageUrl }: AdvBannerProps) => {
+const AdvBanner = ({ title, detail, imageUrl, externUrl }: AdvBannerProps) => {
+  externUrl = 'https://www.sopt.org/recruit';
+
+  const handleLinkMove = () => {
+    window.open(externUrl);
+  };
+
   return (
     <article css={containerStyle(imageUrl)}>
       <div css={descriptionStyle}>
@@ -26,7 +33,7 @@ const AdvBanner = ({ title, detail, imageUrl }: AdvBannerProps) => {
           {detail}
         </Heading>
       </div>
-      <Button variant="action" css={buttonStyle}>
+      <Button variant="action" onClick={handleLinkMove} css={buttonStyle}>
         링크 바로가기
       </Button>
     </article>
