@@ -1,4 +1,4 @@
-import BlockAdd from '@/page/archiving/component/Modal/File/Add/BlockAdd';
+import BlockAdd from '@/page/archiving/component/Modal/Upload/File/Add/BlockAdd';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

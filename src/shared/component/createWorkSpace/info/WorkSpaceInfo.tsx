@@ -6,15 +6,30 @@ import { headingStyle, sectionStyle, textStyle } from '@/shared/component/create
 import { STEPS } from '@/shared/constant';
 
 interface WorkSapceInfoProps {
-  step?: 'name' | 'category' | 'image';
+  step?: 'name' | 'category' | 'image' | 'block' | 'upload';
   title: string;
   info: string;
 }
 
 const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
+  const getTotalSteps = (step: string | undefined) => {
+    const stepMapping: { [key: string]: number } = {
+      name: 3,
+      category: 3,
+      image: 3,
+      block: 2,
+      upload: 2,
+    };
+    return step ? stepMapping[step] : undefined;
+  };
+
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
-      {step !== undefined && <Heading tag="H6">{STEPS[step.toUpperCase() as keyof typeof STEPS]}/3</Heading>}
+      {step !== undefined && (
+        <Heading tag="H6">
+          {STEPS[step.toUpperCase() as keyof typeof STEPS]}/{getTotalSteps(step)}
+        </Heading>
+      )}
       <Heading css={headingStyle} tag="H5">
         {title}
       </Heading>

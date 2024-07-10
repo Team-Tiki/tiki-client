@@ -1,4 +1,4 @@
-import { boxStyle, buttonStyle } from '@/page/archiving/component/Modal/File/Add/BlockAdd.style';
+import { boxStyle, buttonStyle } from '@/page/archiving/component/Modal/Upload/File/Add/BlockAdd.style';
 
 import { useRef, useState } from 'react';
 

@@ -1,14 +1,17 @@
-import BlockIcon from '@/page/archiving/component/Modal/Icon/BlockIcon';
+import BlockIcon from '@/page/archiving/component/Modal/Block/Icon/BlockIcon';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'page/Modal/Block',
+  title: 'page/Modal/BlockIcon',
   component: BlockIcon,
-
   args: {
-    onNext: () => {},
+    selectedIcon: null,
+    setSelectedIcon: (index: number | ((prevIndex: number | null) => number | null) | null) => {},
   },
-  argTypes: {},
+  argTypes: {
+    selectedIcon: { control: 'number' },
+    setSelectedIcon: { action: 'setSelectedIcon' },
+  },
 } satisfies Meta<typeof BlockIcon>;
 
 export default meta;

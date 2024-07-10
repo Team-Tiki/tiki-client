@@ -1,15 +1,14 @@
-import BlockModal from '@/page/archiving/component/Modal/BlockModal';
+import BlockModal from '@/page/archiving/component/Modal/Block/BlockModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta = {
+const meta: Meta<typeof BlockModal> = {
   title: 'page/Modal/Block',
   component: BlockModal,
-
   args: {
     onNext: () => {},
   },
   argTypes: {},
-} satisfies Meta<typeof BlockModal>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -4,8 +4,6 @@ import { theme } from '@/common/style/theme/theme';
 
 export const sectionStyle = css({
   height: '40rem',
-
-  backgroundColor: theme.colors.blue_900,
 });
 
 export const inputWrapperStyle = css({

@@ -1,4 +1,4 @@
-import { textStyle } from '@/page/archiving/component/Modal/Date/BlockDate.style';
+import { textStyle } from '@/page/archiving/component/Modal/Block/Date/BlockDate.style';
 import { ERROR } from '@/page/archiving/constant/error';
 import { formatDateString, isValidDate, parseDate } from '@/page/archiving/util/dateUtils';
 import { css } from '@emotion/react';
@@ -9,11 +9,14 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
-interface BlockDateProps {}
+interface BlockDateProps {
+  startDate: string;
+  endDate: string;
+  setStartDate: (date: string | ((prev: string) => string)) => void;
+  setEndDate: (date: string | ((prev: string) => string)) => void;
+}
 
-const BlockDate = ({}: BlockDateProps) => {
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
+const BlockDate = ({ startDate, endDate, setStartDate, setEndDate }: BlockDateProps) => {
   const [isStartDateValid, setIsStartDateValid] = useState<boolean>(true);
   const [isEndDateValid, setIsEndDateValid] = useState<boolean>(true);
   const [isDateRangeValid, setIsDateRangeValid] = useState<boolean>(true);
@@ -23,7 +26,7 @@ const BlockDate = ({}: BlockDateProps) => {
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    setDate: React.Dispatch<React.SetStateAction<string>>,
+    setDate: (date: string | ((prev: string) => string)) => void,
     setIsValid: React.Dispatch<React.SetStateAction<boolean>>,
     setIsError: React.Dispatch<React.SetStateAction<boolean>>,
     otherDate: string,

@@ -9,7 +9,7 @@ export const BLOCK_ICON = [
   },
   {
     title: 'laptop',
-    img: 'src/common/asset/svg/icon-speaker.svg',
+    img: 'src/common/asset/svg/icon-laptop.svg',
   },
   {
     title: 'speaker',

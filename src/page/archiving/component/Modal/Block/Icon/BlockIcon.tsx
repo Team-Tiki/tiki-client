@@ -1,15 +1,16 @@
-import { iconStyle, selectedIconStyle } from '@/page/archiving/component/Modal/Icon/BlockIcon.style';
+import { iconStyle, selectedIconStyle } from '@/page/archiving/component/Modal/Block/Icon/BlockIcon.style';
 import { BLOCK_ICON } from '@/page/archiving/constant/icon';
-
-import { useState } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
 
-const BlockIcon = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+interface BlockIconProps {
+  selectedIcon: number | null;
+  setSelectedIcon: (index: ((prevIndex: number | null) => number | null) | number | null) => void;
+}
 
+const BlockIcon = ({ selectedIcon, setSelectedIcon }: BlockIconProps) => {
   const handleIconClick = (index: number) => {
-    setSelectedIndex((prevIndex) => (prevIndex === index ? null : index));
+    setSelectedIcon((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -17,7 +18,7 @@ const BlockIcon = () => {
       {BLOCK_ICON.map((icon, index) => (
         <div
           key={index}
-          css={[iconStyle, selectedIndex === index && selectedIconStyle]}
+          css={[iconStyle, selectedIcon === index && selectedIconStyle]}
           onClick={() => handleIconClick(index)}>
           <img src={icon.img} alt={icon.title} />
         </div>

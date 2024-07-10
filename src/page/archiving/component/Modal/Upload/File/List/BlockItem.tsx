@@ -1,4 +1,4 @@
-import { borderStyle, textStyle } from '@/page/archiving/component/Modal/File/List/BlockItem.style';
+import { borderStyle, textStyle } from '@/page/archiving/component/Modal/Upload/File/List/BlockItem.style';
 
 import Delete from '@/common/asset/svg/file-delete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
