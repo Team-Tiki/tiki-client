@@ -82,7 +82,13 @@ const ArchivingPage = () => {
               />
             );
           })}
-          {TIME_BLOCK.map((block) => (
+          {TIME_BLOCK.filter((block) => {
+            const blockMonth = block.startDate.getMonth() + 1;
+            const clickedMonth = parseInt(selectedMonth.split('월')[0]);
+
+            // (블록 자체의 month === 클릭한 버튼의 month) && (year === 클릭한 버튼의 year)인 경우에만 블록 띄우기
+            return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
+          }).map((block) => (
             <TimeBlock key={block.id} startDate={block.startDate} endDate={block.endDate} color={getRandomColor()}>
               {block.name}
             </TimeBlock>
