@@ -111,11 +111,13 @@ const BlockDate = ({ startDate, endDate, setStartDate, setEndDate }: BlockDatePr
           isError={isEndDateError}
         />
       </Flex>
-      {(isStartDateError || isEndDateError) && (
-        <Text tag="body7" css={{ color: 'red' }}>
-          {errorMessage}
-        </Text>
-      )}
+      <div css={{ height: '1.5rem' }}>
+        {(isStartDateError || isEndDateError) && (
+          <Text tag="body7" css={{ color: 'red', marginTop: '0.5rem' }}>
+            {errorMessage}
+          </Text>
+        )}
+      </div>
     </>
   );
 };

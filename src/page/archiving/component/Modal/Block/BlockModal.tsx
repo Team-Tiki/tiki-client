@@ -29,45 +29,56 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
     setIsButtonActive(isBlockNameFilled && isIconSelected && isDateFilled);
   }, [blockName, selectedIcon, startDate, endDate]);
 
+  const handleButtonClick = () => {
+    console.log('Button clicked!');
+    console.log('button', onNext);
+    onNext();
+  };
+
   return (
     <Flex
       tag={'section'}
       styles={{
         direction: 'column',
-        justify: 'center',
+        justify: 'space-between',
         align: 'center',
-        paddingLeft: '6.8rem',
-        paddingRight: '6.8rem',
-        height: '47.8rem',
-        gap: '2.4rem',
+        height: '52.72rem',
       }}>
       <WorkSapceInfo step="block" title="블록 생성하기" info="타임라인에 생성할 블록 정보를 입력해주세요" />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2.4rem',
+          paddingLeft: '6.8rem',
+          paddingRight: '6.8rem',
+        }}>
+        <BlockBox title="블록 아이콘">
+          <BlockIcon selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon} />
+        </BlockBox>
 
-      <BlockBox title="블록 아이콘">
-        <BlockIcon selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon} />
-      </BlockBox>
+        <BlockBox title="블록명">
+          <Input
+            variant="default"
+            size="large"
+            placeholder="활동,행사명 등"
+            css={{ width: '100%' }}
+            value={blockName}
+            onChange={(e) => setBlockName(e.target.value)}
+          />
+        </BlockBox>
 
-      <BlockBox title="블록명">
-        <Input
-          variant="default"
-          size="large"
-          placeholder="활동,행사명 등"
-          css={{ width: '100%' }}
-          value={blockName}
-          onChange={(e) => setBlockName(e.target.value)}
-        />
-      </BlockBox>
-
-      <BlockBox title="기간">
-        <BlockDate startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-      </BlockBox>
-
+        <BlockBox title="기간">
+          <BlockDate startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+        </BlockBox>
+      </div>
       <Button
         variant="primary"
         size="medium"
         css={buttonStyle(isButtonActive)}
         disabled={!isButtonActive}
-        onClick={onNext}>
+        onClick={handleButtonClick}>
         다음
       </Button>
     </Flex>
