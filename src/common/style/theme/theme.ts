@@ -11,9 +11,10 @@ const colors = {
   gray_200: '#EBEBEB',
   gray_100: '#FAFAFA',
   white: '#FFFFFF',
-  blue_hover: 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #466DEB',
-  blue_900: '#466DEB',
-  blue_200: '#D8EFFF',
+  blue_900: '#353F9B',
+  blue_700: '#4952A5',
+  blue_300: '#7279B9',
+  blue_200: '#D7D9EB',
   blue_100: '#EDF0FD',
   red: '#FE4F60',
   purple: '#DBDBFC',
@@ -21,6 +22,7 @@ const colors = {
   yellow: '#FFEECA',
   orange: '#FDE0DE',
   pink: '#FFDEF8',
+  blue: '#D8EFFF',
 };
 
 export type ColorsTypes = typeof colors;
