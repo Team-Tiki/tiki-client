@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (wholeDocument: boolean) =>
+export const containerStyle = (selectedId: string) =>
   css({
     display: 'flex',
     flexDirection: 'column',
 
     gap: '0.4rem',
-    padding: wholeDocument ? '1rem 1.2rem' : '1.2rem',
+    padding: selectedId === 'total' ? '1rem 1.2rem' : '1.2rem',
 
     border: '1px solid var(--gray_300, #D6D5D5)',
     borderRadius: '8px',

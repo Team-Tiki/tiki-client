@@ -9,9 +9,11 @@ import { useState } from 'react';
 import Flex from '@/common/component/Flex/Flex';
 
 const DocumentBar = () => {
-  const [wholeDocument, setWholeDocument] = useState(false);
-  const handleTabClick = () => {
-    setWholeDocument((prev) => !prev);
+  const [selectedId, setSelectedId] = useState('selected');
+
+  const handleTabClick = (selectedId: string, tabId: string) => {
+    console.log(selectedId);
+    tabId !== selectedId && setSelectedId(tabId);
   };
 
   // 목업 데이터
@@ -19,12 +21,12 @@ const DocumentBar = () => {
 
   return (
     <aside css={containerStyle}>
-      <DocumentBarTab wholeDocument={wholeDocument} handleTabClick={handleTabClick} />
+      <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       <Flex styles={{ direction: 'column', align: 'center', padding: '2.4rem 1.6rem 0 2.4rem' }}>
         <DocumentBarInfo blockName={blockData.title} startDate={blockData.startDate} endDate={blockData.endDate} />
         <ul css={documentListStyle}>
           {blockData.filesUrl.map((data) => (
-            <DocumentItem wholeDocument={wholeDocument} blockName={blockData.title}>
+            <DocumentItem selectedId={selectedId} blockName={blockData.title}>
               {data.fileName}
             </DocumentItem>
           ))}
@@ -32,6 +34,6 @@ const DocumentBar = () => {
       </Flex>
     </aside>
   );
-}; 
+};
 
 export default DocumentBar;

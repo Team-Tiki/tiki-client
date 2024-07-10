@@ -4,17 +4,21 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 interface DocumentBarTabProps {
-  wholeDocument: boolean;
-  handleTabClick: () => void;
+  selectedId: string;
+  onTabClick: (tabId: string, selectedId: string) => void;
 }
 
-const DocumentBarTab = ({ wholeDocument, handleTabClick }: DocumentBarTabProps) => {
+const DocumentBarTab = ({ selectedId, onTabClick }: DocumentBarTabProps) => {
   return (
     <Flex css={{ borderRadius: '16px' }}>
-      <Button onClick={handleTabClick} css={[tabDefaultStyle(!wholeDocument), { borderRadius: '16px 0px 0px 0px' }]}>
+      <Button
+        onClick={() => onTabClick(selectedId, 'selected')}
+        css={[tabDefaultStyle(selectedId, 'selected'), { borderRadius: '16px 0px 0px 0px' }]}>
         선택한 블록
       </Button>
-      <Button onClick={handleTabClick} css={[tabDefaultStyle(wholeDocument), { borderRadius: '0px 16px 0px 0px' }]}>
+      <Button
+        onClick={() => onTabClick(selectedId, 'total')}
+        css={[tabDefaultStyle(selectedId, 'total'), { borderRadius: '0px 16px 0px 0px' }]}>
         전체 문서
       </Button>
     </Flex>

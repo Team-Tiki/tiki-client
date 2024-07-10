@@ -13,14 +13,14 @@ import Text from '@/common/component/Text/Text';
 
 interface DocumentItemProps {
   children: ReactNode;
-  wholeDocument: boolean;
+  selectedId: string;
   blockName?: string;
 }
 
-const DocumentItem = ({ children, wholeDocument, blockName }: DocumentItemProps) => {
+const DocumentItem = ({ children, selectedId, blockName }: DocumentItemProps) => {
   return (
-    <li css={containerStyle(wholeDocument)}>
-      {wholeDocument && (
+    <li css={containerStyle(selectedId)}>
+      {selectedId === 'total' && (
         <div>
           <Text tag="body8" css={blockNameTextStyle('blue_100')}>
             {blockName}
