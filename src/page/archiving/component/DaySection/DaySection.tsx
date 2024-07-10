@@ -13,7 +13,7 @@ const DaySection = ({ day, isClicked, isEven, onDayClick }: DaySectionProps) => 
       <button css={dayBtnStyle(isClicked)} onClick={onDayClick}>
         {day}
       </button>
-      <div css={bodyStyle} />
+      <div css={bodyStyle(isEven)} />
     </article>
   );
 };

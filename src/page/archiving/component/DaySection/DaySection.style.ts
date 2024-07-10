@@ -22,10 +22,12 @@ export const dayBtnStyle = (isClicked: boolean) =>
     cursor: 'pointer',
   });
 
-export const bodyStyle = () =>
+export const bodyStyle = (isEven: boolean) =>
   css({
     width: '6rem',
     height: '48.4rem',
+
+    backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
 
     overflow: 'scroll',
   });
