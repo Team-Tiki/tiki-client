@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useEffect, useState } from 'react';
 
-import ArrowDown from '@/common/asset/arrow-down.svg?react';
+import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
