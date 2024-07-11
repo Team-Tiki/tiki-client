@@ -2,7 +2,7 @@ export const TEST_DATA = [
   {
     id: 1,
     name: 'Showcase',
-    iconImageUrl: 'src/common/asset/svg/add.svg',
+    iconImageUrl: 'src/common/asset/svg/earth.svg',
   },
   {
     id: 2,
@@ -12,6 +12,6 @@ export const TEST_DATA = [
   {
     id: 3,
     name: '워크스페이스 생성',
-    iconImageUrl: 'src/common/asset/svg/add.svg',
+    iconImageUrl: 'src/common/asset/svg/polder.svg',
   },
 ];

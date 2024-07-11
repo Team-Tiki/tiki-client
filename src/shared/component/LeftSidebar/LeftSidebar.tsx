@@ -32,7 +32,7 @@ const LeftSidebar = () => {
         <ul css={leftSidebarListStyle}>
           {TEST_DATA.map((data) => {
             return (
-              <LeftSidebarItem isClicked={false} isExpansion={isExpansion} url={data.iconImageUrl}>
+              <LeftSidebarItem isClicked={true} isExpansion={isExpansion} url={data.iconImageUrl}>
                 {data.name}
               </LeftSidebarItem>
             );
