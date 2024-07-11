@@ -37,6 +37,6 @@ export const buttonCompleteStyle = css({
   cursor: 'pointer',
 
   '&:hover': {
-    color: theme.colors.gray_500,
+    backgroundColor: theme.colors.blue_300,
   },
 });
