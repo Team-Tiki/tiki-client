@@ -1,3 +1,9 @@
+import {
+  buttonStyle,
+  fontStyle,
+} from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/DocumentSort.style';
+import Filter from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/FilterDropdown/Filter';
+
 import { forwardRef, useEffect, useState } from 'react';
 
 import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
@@ -6,9 +12,6 @@ import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import ArrowDown from '@/common/asset/svg/arrow.svg?react';
 import Button from '@/common/component/Button/Button';
 import { useOutsideClick, useOverlay } from '@/common/hook';
-
-import { buttonStyle, fontStyle } from './DocumentSort.style';
-import Filter from './FilterDropdown/Filter';
 
 const DocumentSort = () => {
   const { isOpen, close, toggle } = useOverlay();

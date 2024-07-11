@@ -1,8 +1,8 @@
+import DocumentSort from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/DocumentSort';
+
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
-
-import DocumentSort from './DocumentSort/DocumentSort';
 
 const DocumentBarTool = () => {
   return (

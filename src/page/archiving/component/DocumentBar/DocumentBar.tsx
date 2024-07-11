@@ -1,12 +1,11 @@
 import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/component/DocumentBar/DocumentBarTab/DocumentBarTab';
+import DocumentBarInfo from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarInfo/DocumentBarInfo';
+import DocumentBarTool from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentBarTool';
+import DocumentWrapper from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentWrapper';
 import { BLOCK_TEST_DATA } from '@/page/archiving/component/DocumentBar/constant';
 
 import { useState } from 'react';
-
-import DocumentBarInfo from './DocumentWrapper/DocumentBarInfo/DocumentBarInfo';
-import DocumentBarTool from './DocumentWrapper/DocumentBarTool/DocumentBarTool';
-import DocumentWrapper from './DocumentWrapper/DocumentWrapper';
 
 const DocumentBar = () => {
   const [selectedId, setSelectedId] = useState('total');
