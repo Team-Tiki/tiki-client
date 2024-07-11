@@ -1,14 +1,9 @@
-import {
-  buttonStyle,
-  contentStyle,
-  daySectionStyle,
-  headerStyle,
-  pageStyle,
-} from '@/page/archiving/ArchivingPage.style';
+import { buttonStyle, contentStyle, daySectionStyle, pageStyle } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
+import YearHeader from '@/page/archiving/component/YearHeader/YearHeader';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
 import { useDate } from '@/page/archiving/hook/useDate';
 import { BlockType } from '@/page/archiving/type/blockType';
@@ -19,13 +14,8 @@ import { getRandomColor } from '@/page/archiving/util/getRandomColor';
 import { useState } from 'react';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
-import PreviousYearArrow from '@/common/asset/svg/arrow_left.svg?react';
-import NextYearArrow from '@/common/asset/svg/arrow_right.svg?react';
-import Calendar from '@/common/asset/svg/calendar.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
 
 const ArchivingPage = () => {
   const { currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } = useDate();
@@ -38,29 +28,7 @@ const ArchivingPage = () => {
     <>
       <section css={{ padding: '0rem 13.2rem 6.2rem 5.2rem', flexDirection: 'column' }}>
         <div css={pageStyle}>
-          <header css={headerStyle}>
-            <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem' }}>
-              타임라인
-            </Heading>
-            <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-              <Calendar width={24} height={24} />
-              <PreviousYearArrow
-                width={16}
-                height={16}
-                onClick={() => handlePrevYear(currentYear)}
-                css={{ cursor: 'pointer' }}
-              />
-              <Text tag="body1" css={{ marginTop: '0.4rem' }}>
-                {currentYear}
-              </Text>
-              <NextYearArrow
-                width={16}
-                height={16}
-                onClick={() => handleNextYear(currentYear)}
-                css={{ cursor: 'pointer' }}
-              />
-            </Flex>
-          </header>
+          <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
           <Flex css={contentStyle}>
             <MonthHeader
               onMonthClick={(month: MonthType) => {

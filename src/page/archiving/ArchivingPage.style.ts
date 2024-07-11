@@ -10,12 +10,6 @@ export const pageStyle = css({
   backgroundColor: theme.colors.gray_100,
 });
 
-export const headerStyle = css({
-  display: 'flex',
-
-  padding: '0rem 0rem 2.4rem 0rem',
-});
-
 export const contentStyle = css({
   flexDirection: 'column',
   gap: '2rem',
