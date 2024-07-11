@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const headerStyle = (isBlockSelected: BlockType | undefined) =>
+export const headerStyle = (blockSelected: BlockType | undefined) =>
   css({
     display: 'flex',
 
@@ -12,7 +12,7 @@ export const headerStyle = (isBlockSelected: BlockType | undefined) =>
     borderRadius: '8px',
 
     padding: '0.4rem',
-    gap: isBlockSelected ? '2.4rem' : '4.4rem',
+    gap: blockSelected ? '2.4rem' : '4.4rem',
 
     backgroundColor: theme.colors.white,
   });

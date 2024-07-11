@@ -7,12 +7,12 @@ import Button from '@/common/component/Button/Button';
 
 interface MonthHeaderProps {
   onMonthClick: (month: MonthType) => void;
-  isBlockSelected: BlockType | undefined;
+  blockSelected: BlockType | undefined;
 }
 
-const MonthHeader = ({ onMonthClick, isBlockSelected }: MonthHeaderProps) => {
+const MonthHeader = ({ onMonthClick, blockSelected }: MonthHeaderProps) => {
   return (
-    <header css={headerStyle(isBlockSelected)}>
+    <header css={headerStyle(blockSelected)}>
       {MONTHS.map((month) => (
         <Button key={month} variant="primary" css={monthBtnStyle} onClick={() => onMonthClick(month)}>
           {month}

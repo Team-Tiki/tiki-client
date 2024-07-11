@@ -3,19 +3,19 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const timelineStyle = (isBlockSelected: BlockType | undefined) =>
+export const timelineStyle = (blockSelected: BlockType | undefined) =>
   css({
     position: 'relative',
 
-    left: isBlockSelected ? '-5rem' : '5.2rem',
+    left: blockSelected ? '-5rem' : '5.2rem',
     padding: '1.2rem 13.2rem 6.2rem 0rem',
 
     flexDirection: 'column',
   });
 
-export const pageStyle = (isBlockSelected: BlockType | undefined) =>
+export const pageStyle = (blockSelected: BlockType | undefined) =>
   css({
-    width: isBlockSelected ? '890px' : '100%',
+    width: blockSelected ? '890px' : '100%',
     padding: '2.6rem 2.4rem',
 
     borderRadius: '16px',
@@ -28,12 +28,12 @@ export const contentStyle = css({
   gap: '2rem',
 });
 
-export const daySectionStyle = (isBlockSelected: BlockType | undefined) =>
+export const daySectionStyle = (blockSelected: BlockType | undefined) =>
   css({
     position: 'relative',
     display: 'flex',
 
-    width: isBlockSelected ? '84.2rem' : '104.6rem',
+    width: blockSelected ? '84.2rem' : '104.6rem',
     height: '46.4rem',
     borderRadius: '6px',
 
@@ -46,7 +46,7 @@ export const daySectionStyle = (isBlockSelected: BlockType | undefined) =>
     },
   });
 
-export const buttonStyle = (isBlockSelected: BlockType | undefined) =>
+export const buttonStyle = (blockSelected: BlockType | undefined) =>
   css({
     position: 'relative',
     width: '13.2rem',
@@ -54,7 +54,7 @@ export const buttonStyle = (isBlockSelected: BlockType | undefined) =>
     bottom: '3rem',
 
     marginLeft: 'auto',
-    marginRight: isBlockSelected ? '30rem' : '0',
+    marginRight: blockSelected ? '30rem' : '0',
 
     borderRadius: '28px',
 

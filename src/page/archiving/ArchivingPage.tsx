@@ -25,23 +25,23 @@ import Flex from '@/common/component/Flex/Flex';
 
 const ArchivingPage = () => {
   const { currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } = useDate();
-  const [isBlockSelected, setIsBlockSelected] = useState<BlockType>();
+  const [blockSelected, setBlockSelected] = useState<BlockType>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
     <>
-      <section css={timelineStyle(isBlockSelected)}>
-        <div css={pageStyle(isBlockSelected)}>
+      <section css={timelineStyle(blockSelected)}>
+        <div css={pageStyle(blockSelected)}>
           <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
           <Flex css={contentStyle}>
             <MonthHeader
               onMonthClick={(month: MonthType) => {
                 setSelectedMonth(month);
               }}
-              isBlockSelected={isBlockSelected}
+              blockSelected={blockSelected}
             />
-            <div css={daySectionStyle(isBlockSelected)}>
+            <div css={daySectionStyle(blockSelected)}>
               {Array.from({ length: endDay.getDate() }, (_, index) => {
                 const day = index + 1;
                 const isEven = day % 2 === 0;
@@ -59,7 +59,7 @@ const ArchivingPage = () => {
                   endDate={block.endDate}
                   color={getRandomColor()}
                   floor={blockFloors[block.id] || 1}
-                  onBlockClick={() => setIsBlockSelected(block)}>
+                  onBlockClick={() => setBlockSelected(block)}>
                   {block.title}
                 </TimeBlock>
               ))}
@@ -68,12 +68,12 @@ const ArchivingPage = () => {
         </div>
       </section>
       <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
-        <Button variant="action" css={buttonStyle(isBlockSelected)} onClick={() => alert('모달')}>
+        <Button variant="action" css={buttonStyle(blockSelected)} onClick={() => alert('모달')}>
           <AddIc width={24} height={24} />
           블록 생성
         </Button>
       </Flex>
-      {isBlockSelected && <DocumentBar isBlockSelected={isBlockSelected} />}
+      {blockSelected && <DocumentBar blockSelected={blockSelected} />}
     </>
   );
 };
