@@ -9,12 +9,23 @@ const meta = {
   },
   args: {
     day: 1,
+    isClicked: false,
     onDayClick: () => {},
   },
   argTypes: {
     day: {
       control: {
         type: 'number',
+      },
+    },
+    isClicked: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    isEven: {
+      control: {
+        type: 'boolean',
       },
     },
   },
@@ -25,6 +36,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    day: 1,
+    isClicked: false,
+    isEven: false,
     onDayClick: () => {},
   },
 };

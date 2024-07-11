@@ -22,6 +22,11 @@ export const buttonStyle = css({
   whiteSpace: 'nowrap',
 
   cursor: 'pointer',
+
+  '&:disabled': {
+    backgroundColor: theme.colors.gray_400,
+    color: theme.colors.white,
+  },
 });
 
 export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
@@ -49,7 +54,7 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   const style = {
     large: css({
-      ...theme.text.body03,
+      ...theme.text.body04,
     }),
     medium: css({
       ...theme.text.body05,

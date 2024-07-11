@@ -29,9 +29,13 @@ export const dialogStyle = css({
   top: '50%',
   left: '50%',
 
+  width: '51.1rem',
+  height: '49.6rem',
+
   zIndex: theme.zIndex.overlayTop,
 
-  padding: '4.8rem 5rem',
+  paddingTop: '4.8rem',
+  paddingBottom: '4.8rem',
 
   borderRadius: '16px',
   border: 'none',
