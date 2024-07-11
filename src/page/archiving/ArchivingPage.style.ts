@@ -13,7 +13,7 @@ export const pageStyle = css({
 export const headerStyle = css({
   display: 'flex',
 
-  padding: '1.6rem 0rem 2.4rem 0rem',
+  padding: '0rem 0rem 2.4rem 0rem',
 });
 
 export const sectionStyle = css({
