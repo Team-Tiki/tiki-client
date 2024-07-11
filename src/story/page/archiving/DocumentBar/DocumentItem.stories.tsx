@@ -1,4 +1,4 @@
-import DocumentItem from '@/page/archiving/component/DocumentBar/DocumentItem/DocumentItem';
+import DocumentItem from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentItem/DocumentItem';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -9,7 +9,7 @@ const meta = {
   },
   args: {
     children: '6월 회의록(1).word',
-    wholeDocument: false,
+    selectedId: 'total',
   },
   argTypes: {
     children: {
