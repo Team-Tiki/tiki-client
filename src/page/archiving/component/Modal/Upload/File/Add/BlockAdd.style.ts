@@ -14,14 +14,11 @@ export const textStyle = css({
 });
 
 export const buttonStyle = css({
-  border: 'none',
-
-  color: theme.colors.gray_500,
-  backgroundColor: 'transparent',
+  padding: '0',
 
   textDecoration: 'underline',
   ...theme.text.body06,
   fontWeight: 600,
 
-  cursor: 'pointer',
+  color: theme.colors.gray_500,
 });

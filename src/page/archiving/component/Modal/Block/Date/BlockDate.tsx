@@ -1,10 +1,10 @@
-import { textStyle } from '@/page/archiving/component/Modal/Block/Date/BlockDate.style';
+import { supportStyle, textStyle } from '@/page/archiving/component/Modal/Block/Date/BlockDate.style';
 import useDateRange from '@/page/archiving/hook/useDateRange';
 import { css } from '@emotion/react';
 
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
-import Text from '@/common/component/Text/Text';
+import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 interface BlockDateProps {
   startDate: string;
@@ -55,11 +55,12 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
           isError={validation.isEndDateError}
         />
       </Flex>
-      <div css={{ height: '1.5rem' }}>
+
+      <div css={{ height: '1.6rem' }}>
         {(validation.isStartDateError || validation.isEndDateError) && (
-          <Text tag="body7" css={{ color: 'red', marginTop: '0.5rem' }}>
+          <SupportingText isError css={supportStyle}>
             {validation.errorMessage}
-          </Text>
+          </SupportingText>
         )}
       </div>
     </>

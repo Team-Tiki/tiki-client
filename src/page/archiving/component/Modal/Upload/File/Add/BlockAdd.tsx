@@ -1,6 +1,7 @@
 import { boxStyle, buttonStyle } from '@/page/archiving/component/Modal/Upload/File/Add/BlockAdd.style';
 import useFile from '@/page/archiving/hook/useFile';
 
+import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
@@ -28,11 +29,11 @@ const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
       <Text tag="body6">업로드할 파일을 여기로 드래그 하세요</Text>
       <Flex
         styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.3rem' }}
-        css={{ marginTop: '1.6rem' }}>
+        css={{ marginTop: '1.6rem', whiteSpace: 'nowrap' }}>
         <Text tag="body6">또는</Text>
-        <button type="button" css={buttonStyle} onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+        <Button variant="text" css={buttonStyle} onClick={() => fileInputRef.current && fileInputRef.current.click()}>
           여기를 클릭
-        </button>
+        </Button>
         <Text tag="body6">하여</Text>
       </Flex>
       <Text tag="body6" css={{ marginTop: '0.5rem' }}>

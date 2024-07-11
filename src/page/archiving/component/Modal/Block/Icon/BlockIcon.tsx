@@ -1,7 +1,5 @@
-import { iconStyle, selectedIconStyle } from '@/page/archiving/component/Modal/Block/Icon/BlockIcon.style';
+import { boxStyle, iconStyle, selectedIconStyle } from '@/page/archiving/component/Modal/Block/Icon/BlockIcon.style';
 import { BLOCK_ICON } from '@/page/archiving/constant/icon';
-
-import Flex from '@/common/component/Flex/Flex';
 
 interface BlockIconProps {
   selectedBlockIcon: number | null;
@@ -14,7 +12,7 @@ const BlockIcon = ({ selectedBlockIcon, onBlockIconSelect }: BlockIconProps) => 
   };
 
   return (
-    <Flex tag={'div'} styles={{ direction: 'row', align: 'center', justify: 'center', gap: '1.2rem' }}>
+    <div css={boxStyle}>
       {BLOCK_ICON.map((icon, index) => (
         <div
           key={index}
@@ -23,7 +21,7 @@ const BlockIcon = ({ selectedBlockIcon, onBlockIconSelect }: BlockIconProps) => 
           <img src={icon.img} alt={icon.title} />
         </div>
       ))}
-    </Flex>
+    </div>
   );
 };
 

@@ -24,3 +24,12 @@ export const iconStyle = css({
 export const selectedIconStyle = css({
   border: `1.2px solid ${theme.colors.blue_900}`,
 });
+
+export const boxStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'row',
+
+  gap: '1.2rem',
+});

@@ -52,8 +52,8 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
         <BlockAdd files={files} onFilesChange={handleFilesChange} />
 
         <div className="scroll" css={scrollStyle}>
-          {files.map((file, index) => (
-            <BlockItem key={index} title={file.name} onDelete={() => handleDelete(file.name)} />
+          {files.map((file) => (
+            <BlockItem key={file.lastModified} title={file.name} onDelete={() => handleDelete(file.name)} />
           ))}
         </div>
       </Flex>
