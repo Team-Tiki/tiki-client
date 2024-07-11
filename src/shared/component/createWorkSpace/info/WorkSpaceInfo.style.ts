@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 
-export const sectionStyle = css({
-  //textAlign: 'center',
-});
+import { theme } from '@/common/style/theme/theme';
 
 export const headingStyle = css({
   fontWeight: 600,
@@ -14,7 +12,7 @@ export const textStyle = css({
   marginTop: '1.2rem',
 });
 
-export const stepStyle = (step: number | undefined) =>
-  css({
-    display: step === undefined ? 'none' : 'block',
-  });
+export const topStyle = css({
+  ...theme.heading.heading06,
+  fontWeight: 500,
+});

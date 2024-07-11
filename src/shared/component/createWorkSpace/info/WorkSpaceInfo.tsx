@@ -2,7 +2,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
-import { headingStyle, sectionStyle, textStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
+import { headingStyle, textStyle, topStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
 import { STEPS } from '@/shared/constant';
 
 interface WorkSapceInfoProps {
@@ -24,11 +24,11 @@ const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
   };
 
   return (
-    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
+    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }}>
       {step !== undefined && (
-        <Heading tag="H6">
+        <Text css={topStyle}>
           {STEPS[step.toUpperCase() as keyof typeof STEPS]}/{getTotalSteps(step)}
-        </Heading>
+        </Text>
       )}
       <Heading css={headingStyle} tag="H5">
         {title}
