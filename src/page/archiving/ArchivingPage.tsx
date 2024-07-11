@@ -6,9 +6,11 @@ import {
   pageStyle,
 } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
+import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
+import { BlockType } from '@/page/archiving/type/blockType';
 import { MonthType } from '@/page/archiving/type/monthType';
 import { alignBlocks } from '@/page/archiving/util/alignBlocks';
 import { getMonthDate } from '@/page/archiving/util/getMonthDate';
@@ -32,6 +34,7 @@ const ArchivingPage = () => {
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
   const [clickedDay, setClickedDay] = useState<number | null>(null);
+  const [selectedBlock, setSelectedBlock] = useState<BlockType>();
 
   const dateOfMonth = getMonthDate(selectedMonth, currentYear);
   const endDay = endOfMonth(dateOfMonth);
@@ -98,8 +101,9 @@ const ArchivingPage = () => {
                   startDate={block.startDate}
                   endDate={block.endDate}
                   color={getRandomColor()}
-                  floor={blockFloors[block.id] || 1}>
-                  {block.name}
+                  floor={blockFloors[block.id] || 1}
+                  onBlockClick={() => setSelectedBlock(block)}>
+                  {block.title}
                 </TimeBlock>
               ))}
             </div>
@@ -112,6 +116,7 @@ const ArchivingPage = () => {
           블록 생성
         </Button>
       </Flex>
+      {selectedBlock && <DocumentBar selectedBlock={selectedBlock} />}
     </>
   );
 };

@@ -13,6 +13,7 @@ export const containerStyle = css({
 
   borderRadius: '16px',
 
+  backgroundColor: theme.colors.white,
   boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 });
 
