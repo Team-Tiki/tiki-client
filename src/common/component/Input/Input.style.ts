@@ -75,9 +75,9 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
           ...theme.text.body06,
         },
 
-      '&:focus-within': {
-        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
-
+        '&:focus-within': {
+          boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+        },
       },
     },
   };
