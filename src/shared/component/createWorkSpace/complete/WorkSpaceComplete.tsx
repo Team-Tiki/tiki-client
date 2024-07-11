@@ -11,7 +11,7 @@ const WorkSpaceComplete = () => {
         title="워크 스페이스 생성 완료!"
         info="이제 동아리 효율적인 문서와 일정관리를 이용하실 수 있습니다"
       />
-      <WorkSpaceCompleteImg css={{ width: '35rem', height: '35rem' }} />
+      <WorkSpaceCompleteImg css={{ width: '30rem', height: '30rem' }} />
     </Flex>
   );
 };
