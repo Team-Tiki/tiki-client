@@ -1,7 +1,7 @@
 import App from '@/App';
-
-import LoginPage from '@/page/login/LoginPage';
 import ArchivingPage from '@/page/archiving/ArchivingPage';
+import LoginPage from '@/page/login/LoginPage';
+import ShowcasePage from '@/page/showcase/ShowcasePage';
 import TermPage from '@/page/signIn/index/TermPage';
 import InfoFormPage from '@/page/signIn/info/InfoFormPage';
 
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { path: 'showcase', element: <p>showcase</p> },
+      { path: 'showcase', element: <ShowcasePage /> },
       { path: 'archiving', element: <ArchivingPage /> },
       {
         path: 'signin',
