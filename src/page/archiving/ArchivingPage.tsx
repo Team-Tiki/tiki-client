@@ -107,7 +107,7 @@ const ArchivingPage = () => {
         </div>
       </section>
       <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
-        <Button variant="action" css={[buttonStyle]} onClick={() => alert('모달')}>
+        <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
           <AddIc width={24} height={24} />
           블록 생성
         </Button>
