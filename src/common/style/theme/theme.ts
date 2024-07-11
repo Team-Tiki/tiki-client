@@ -60,7 +60,7 @@ const text = {
     lineHeight: '2.4rem',
   },
   body02: {
-    fontSize: '2rem',
+    fontSize: '2.4rem',
     lineHeight: '3.36rem',
   },
   body03: {
@@ -72,7 +72,7 @@ const text = {
     lineHeight: '1.6rem',
   },
   body05: {
-    fontSize: '1.4rem',
+    fontSize: '1.6rem',
     lineHeight: '2.24rem',
   },
   body06: {
