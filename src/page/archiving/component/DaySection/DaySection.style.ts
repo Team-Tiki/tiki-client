@@ -37,3 +37,18 @@ export const bodyStyle = (isEven: boolean) =>
 
     overflow: 'scroll',
   });
+
+export const selectedDayStyle = css({
+  display: 'flex',
+  position: 'relative',
+
+  bottom: '0.5rem',
+
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  '& > svg': {
+    zIndex: theme.zIndex.overlayTop,
+  },
+});
