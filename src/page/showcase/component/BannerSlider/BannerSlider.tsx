@@ -4,6 +4,7 @@ import { arrowStyle, dotsContaierStyle } from '@/page/showcase/component/BannerS
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
+import { useMemo } from 'react';
 import Slider from 'react-slick';
 
 import LeftArrow from '@/common/asset/svg/arrow-left-white.svg?react';
@@ -48,7 +49,7 @@ interface ArrowProps {
   onClick?: () => void;
 }
 
-const NextArrow: React.FC<ArrowProps> = (props) => {
+const NextArrow = (props: ArrowProps) => {
   const { onClick } = props;
   return (
     <button onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
@@ -57,7 +58,7 @@ const NextArrow: React.FC<ArrowProps> = (props) => {
   );
 };
 
-const PrevArrow: React.FC<ArrowProps> = (props) => {
+const PrevArrow = (props: ArrowProps) => {
   const { onClick } = props;
   return (
     <button onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
@@ -67,23 +68,26 @@ const PrevArrow: React.FC<ArrowProps> = (props) => {
 };
 
 const BannerSlider = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    appendDots: (dots: any) => (
-      <ul className="dotsUl" css={dotsContaierStyle}>
-        {dots}
-      </ul>
-    ),
-    dotsStyle: 'dotsUl',
-  };
+  const settings = useMemo(() => {
+    return {
+      dots: true,
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
+      appendDots: (dots: any) => (
+        <ul className="dotsUl" css={dotsContaierStyle}>
+          {dots}
+        </ul>
+      ),
+      dotsStyle: 'dotsUl',
+    };
+  }, []);
+
   return (
     <Slider {...settings}>
       {ADVBANNER.map((advBanner) => {
@@ -101,6 +105,3 @@ const BannerSlider = () => {
 };
 
 export default BannerSlider;
-/*
-
-*/

@@ -5,6 +5,7 @@ export const containerStyle = css({
   flexDirection: 'column',
   gap: '3.6rem',
 
+  padding: '0 16rem',
   borderRadius: '16px',
 
   backgroundColor: 'white',

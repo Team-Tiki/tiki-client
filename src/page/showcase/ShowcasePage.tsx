@@ -13,7 +13,8 @@ const CLUBDATA = [
   {
     id: 1,
     name: 'SOPT',
-    overview: '창업/취업 동아리',
+    overview:
+      '창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리',
     category: '창업/취업',
     teamtype: '건국대학교',
     imageUrl: '',
@@ -21,7 +22,7 @@ const CLUBDATA = [
   {
     id: 2,
     name: 'SOPT2',
-    overview: '예술 동아리',
+    overview: '예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리',
     category: '예술/공연',
     teamtype: '건국대학교',
     imageUrl: '',
@@ -95,6 +96,10 @@ const CLUBDATA = [
 const ShowcasePage = () => {
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
+  const handleChipClick = (category: string) => {
+    setSelectedChip(category);
+  };
+
   return (
     <div css={containerStyle}>
       <Flex tag="section" styles={{ direction: 'column', gap: '2.4rem', width: '100%' }}>
@@ -105,14 +110,10 @@ const ShowcasePage = () => {
           <BannerSlider />
         </div>
       </Flex>
-      <Flex styles={{ gap: '0.8rem' }}>
+      <Flex tag="section" styles={{ gap: '0.8rem' }}>
         {CATEGORY.map((category) => {
-          const handleChipClick = () => {
-            setSelectedChip(category);
-          };
-
           return (
-            <CategoryChip onClick={handleChipClick} isSelected={selectedChip === category}>
+            <CategoryChip onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
               {category}
             </CategoryChip>
           );
