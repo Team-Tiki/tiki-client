@@ -22,6 +22,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     ...theme.text.body04,
 
     overflow: 'hidden',
+    cursor: 'pointer',
   });
 
 export const spanStyle = {
