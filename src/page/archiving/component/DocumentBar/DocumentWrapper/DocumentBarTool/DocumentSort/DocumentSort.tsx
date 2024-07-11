@@ -18,11 +18,6 @@ const DocumentSort = () => {
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState('');
 
-  const options = [
-    { text: '최근 업로드 순', logo: <ArrowUpThin /> },
-    { text: '과거 업로드 순', logo: <ArrowDownThin /> },
-  ];
-
   useEffect(() => {
     close?.();
   }, [selected, close]);
@@ -30,6 +25,10 @@ const DocumentSort = () => {
   const handleSelect = (id: string) => {
     setSelected(id);
   };
+  const options = [
+    { id: 1, text: '최근 업로드 순', logo: <ArrowUpThin /> },
+    { id: 2, text: '과거 업로드 순', logo: <ArrowDownThin /> },
+  ];
 
   return (
     <Filter
