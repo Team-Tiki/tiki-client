@@ -8,7 +8,7 @@ export const timelineStyle = (isBlockSelected: BlockType | undefined) =>
     position: 'relative',
 
     left: isBlockSelected ? '-5rem' : '5.2rem',
-    padding: '0rem 13.2rem 6.2rem 0rem',
+    padding: '1.2rem 13.2rem 6.2rem 0rem',
 
     flexDirection: 'column',
   });
@@ -48,7 +48,10 @@ export const daySectionStyle = (isBlockSelected: BlockType | undefined) =>
 
 export const buttonStyle = (isBlockSelected: BlockType | undefined) =>
   css({
+    position: 'relative',
     width: '13.2rem',
+
+    bottom: '3rem',
 
     marginLeft: 'auto',
     marginRight: isBlockSelected ? '30rem' : '0',
