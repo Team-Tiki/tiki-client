@@ -6,9 +6,9 @@ export const buttonStyle = (isActive: boolean) =>
   css({
     width: '32rem',
 
-    cursor: 'pointer',
-
     marginTop: '2.4rem',
+
+    cursor: 'pointer',
 
     ...(isActive && {
       '&:hover': {

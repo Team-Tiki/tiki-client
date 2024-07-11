@@ -3,7 +3,7 @@ import BlockDate from '@/page/archiving/component/Modal/Block/Date/BlockDate';
 import BlockIcon from '@/page/archiving/component/Modal/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/component/Modal/Box/BlockBox';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -18,17 +18,15 @@ interface BlockModalProps {
 const BlockModal = ({ onNext }: BlockModalProps) => {
   const [blockName, setBlockName] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [dates, setDates] = useState({ startDate: '', endDate: '' });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
-  const [isButtonActive, setIsButtonActive] = useState(false);
 
-  useEffect(() => {
-    const isBlockNameFilled = blockName.trim() !== '';
-    const isIconSelected = selectedIcon !== null;
-    const isDateFilled = startDate.length === 10 && endDate.length === 10 && isDateRangeValid;
-    setIsButtonActive(isBlockNameFilled && isIconSelected && isDateFilled);
-  }, [blockName, selectedIcon, startDate, endDate, isDateRangeValid]);
+  const isButtonActive =
+    blockName.trim() !== '' &&
+    selectedIcon !== null &&
+    dates.startDate.length === 10 &&
+    dates.endDate.length === 10 &&
+    isDateRangeValid;
 
   return (
     <Flex
@@ -65,11 +63,11 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
 
         <BlockBox title="기간">
           <BlockDate
-            startDate={startDate}
-            endDate={endDate}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            setIsDateRangeValid={setIsDateRangeValid}
+            startDate={dates.startDate}
+            endDate={dates.endDate}
+            onSetStartDate={(date) => setDates((prev) => ({ ...prev, startDate: date as string }))}
+            onSetEndDate={(date) => setDates((prev) => ({ ...prev, endDate: date as string }))}
+            onSetIsDateRangeValid={setIsDateRangeValid}
           />
         </BlockBox>
       </Flex>

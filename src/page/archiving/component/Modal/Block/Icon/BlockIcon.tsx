@@ -5,12 +5,12 @@ import Flex from '@/common/component/Flex/Flex';
 
 interface BlockIconProps {
   selectedBlockIcon: number | null;
-  onBlockIconSelect: (index: ((prevIndex: number | null) => number | null) | number | null) => void;
+  onBlockIconSelect: (index: number | null) => void;
 }
 
 const BlockIcon = ({ selectedBlockIcon, onBlockIconSelect }: BlockIconProps) => {
   const handleIconClick = (index: number) => {
-    onBlockIconSelect((prevIndex) => (prevIndex === index ? null : index));
+    onBlockIconSelect(selectedBlockIcon === index ? null : index);
   };
 
   return (

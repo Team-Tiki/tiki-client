@@ -2,8 +2,6 @@ import { textStyle } from '@/page/archiving/component/Modal/Block/Date/BlockDate
 import useDateRange from '@/page/archiving/hook/useDateRange';
 import { css } from '@emotion/react';
 
-import { useEffect } from 'react';
-
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
@@ -11,24 +9,23 @@ import Text from '@/common/component/Text/Text';
 interface BlockDateProps {
   startDate: string;
   endDate: string;
-  setStartDate: (date: string | ((prev: string) => string)) => void;
-  setEndDate: (date: string | ((prev: string) => string)) => void;
-  setIsDateRangeValid: (isValid: boolean) => void;
+  onSetStartDate: (date: string | ((prev: string) => string)) => void;
+  onSetEndDate: (date: string | ((prev: string) => string)) => void;
+  onSetIsDateRangeValid: (isValid: boolean) => void;
 }
 
-const BlockDate = ({ startDate, endDate, setStartDate, setEndDate, setIsDateRangeValid }: BlockDateProps) => {
-  const {
-    handleChange,
-    dateValidation: { isStartDateValid, isEndDateValid, isStartDateError, isEndDateError, errorMessage },
-  } = useDateRange(startDate, endDate);
+const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDateRangeValid }: BlockDateProps) => {
+  const { dates, validation, isDateRangeValid, handleChange } = useDateRange(
+    startDate,
+    endDate,
+    onSetStartDate,
+    onSetEndDate,
+    onSetIsDateRangeValid
+  );
 
   const inputStyle = (isValid: boolean, value: string, isError: boolean) => css`
     text-align: ${value.length === 10 ? 'center' : 'left'};
   `;
-
-  useEffect(() => {
-    setIsDateRangeValid(isStartDateValid && isEndDateValid && startDate.length === 10 && endDate.length === 10);
-  }, [startDate, endDate, isStartDateValid, isEndDateValid, setIsDateRangeValid]);
 
   return (
     <>
@@ -37,28 +34,31 @@ const BlockDate = ({ startDate, endDate, setStartDate, setEndDate, setIsDateRang
           variant="default"
           size="large"
           placeholder="YYYY.MM.DD"
-          css={[{ width: '9.7rem' }, inputStyle(isStartDateValid, startDate, isStartDateError)]}
-          value={startDate}
-          onChange={(e) => handleChange(e.target.value.replace(/\D/g, ''), setStartDate, true)}
+          css={[
+            { width: '9.7rem' },
+            inputStyle(validation.isStartDateValid, dates.startDate, validation.isStartDateError),
+          ]}
+          value={dates.startDate}
+          onChange={(e) => handleChange('startDate', e.target.value, dates.endDate, validation.isEndDateValid, true)}
           maxLength={10}
-          isError={isStartDateError}
+          isError={validation.isStartDateError}
         />
         <p css={textStyle}>~</p>
         <Input
           variant="default"
           size="large"
           placeholder="YYYY.MM.DD"
-          css={[{ width: '9.7rem' }, inputStyle(isEndDateValid, endDate, isEndDateError)]}
-          value={endDate}
-          onChange={(e) => handleChange(e.target.value.replace(/\D/g, ''), setEndDate, false)}
+          css={[{ width: '9.7rem' }, inputStyle(validation.isEndDateValid, dates.endDate, validation.isEndDateError)]}
+          value={dates.endDate}
+          onChange={(e) => handleChange('endDate', e.target.value, dates.startDate, validation.isStartDateValid, false)}
           maxLength={10}
-          isError={isEndDateError}
+          isError={validation.isEndDateError}
         />
       </Flex>
       <div css={{ height: '1.5rem' }}>
-        {(isStartDateError || isEndDateError) && (
+        {(validation.isStartDateError || validation.isEndDateError) && (
           <Text tag="body7" css={{ color: 'red', marginTop: '0.5rem' }}>
-            {errorMessage}
+            {validation.errorMessage}
           </Text>
         )}
       </div>
