@@ -31,5 +31,6 @@ export const Default: Story = {
     endDate: new Date(2022, 0, 2),
     color: theme.colors.blue,
     floor: 0,
+    onBlockClick: () => {},
   },
 };
