@@ -1,4 +1,10 @@
-import { buttonStyle, contentStyle, daySectionStyle, pageStyle } from '@/page/archiving/ArchivingPage.style';
+import {
+  buttonStyle,
+  contentStyle,
+  daySectionStyle,
+  pageStyle,
+  timelineStyle,
+} from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
@@ -19,37 +25,27 @@ import Flex from '@/common/component/Flex/Flex';
 
 const ArchivingPage = () => {
   const { currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } = useDate();
-  const [clickedDay, setClickedDay] = useState<number | null>(null);
-  const [selectedBlock, setSelectedBlock] = useState<BlockType>();
+  const [isBlockSelected, setIsBlockSelected] = useState<BlockType>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
     <>
-      <section css={{ padding: '0rem 13.2rem 6.2rem 5.2rem', flexDirection: 'column' }}>
-        <div css={pageStyle}>
+      <section css={timelineStyle(isBlockSelected)}>
+        <div css={pageStyle(isBlockSelected)}>
           <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
           <Flex css={contentStyle}>
             <MonthHeader
               onMonthClick={(month: MonthType) => {
                 setSelectedMonth(month);
-                setClickedDay(null);
               }}
+              isBlockSelected={isBlockSelected}
             />
-            <div css={daySectionStyle}>
+            <div css={daySectionStyle(isBlockSelected)}>
               {Array.from({ length: endDay.getDate() }, (_, index) => {
                 const day = index + 1;
                 const isEven = day % 2 === 0;
-                const isClicked = clickedDay === day;
-                return (
-                  <DaySection
-                    key={day}
-                    day={day}
-                    isClicked={isClicked}
-                    isEven={isEven}
-                    onDayClick={() => setClickedDay(day)}
-                  />
-                );
+                return <DaySection key={day} day={day} isEven={isEven} />;
               })}
               {TIME_BLOCK.filter((block) => {
                 const blockMonth = block.startDate.getMonth() + 1;
@@ -63,7 +59,7 @@ const ArchivingPage = () => {
                   endDate={block.endDate}
                   color={getRandomColor()}
                   floor={blockFloors[block.id] || 1}
-                  onBlockClick={() => setSelectedBlock(block)}>
+                  onBlockClick={() => setIsBlockSelected(block)}>
                   {block.title}
                 </TimeBlock>
               ))}
@@ -72,12 +68,12 @@ const ArchivingPage = () => {
         </div>
       </section>
       <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
-        <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+        <Button variant="action" css={buttonStyle(isBlockSelected)} onClick={() => alert('모달')}>
           <AddIc width={24} height={24} />
           블록 생성
         </Button>
       </Flex>
-      {selectedBlock && <DocumentBar selectedBlock={selectedBlock} />}
+      {isBlockSelected && <DocumentBar isBlockSelected={isBlockSelected} />}
     </>
   );
 };

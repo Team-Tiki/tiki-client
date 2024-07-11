@@ -20,8 +20,6 @@ export const dayHeaderStyle = css({
   color: theme.colors.black,
   backgroundColor: theme.colors.gray_100,
   ...theme.text.body04,
-
-  cursor: 'pointer',
 });
 
 export const bodyStyle = (isEven: boolean) =>

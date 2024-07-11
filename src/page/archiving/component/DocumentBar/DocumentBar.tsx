@@ -8,7 +8,7 @@ import DocumentBarInfo from './DocumentWrapper/DocumentBarInfo/DocumentBarInfo';
 import DocumentBarTool from './DocumentWrapper/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from './DocumentWrapper/DocumentWrapper';
 
-const DocumentBar = ({ selectedBlock }: { selectedBlock: BlockType }) => {
+const DocumentBar = ({ isBlockSelected }: { isBlockSelected: BlockType }) => {
   const [selectedId, setSelectedId] = useState('selected');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
@@ -21,9 +21,9 @@ const DocumentBar = ({ selectedBlock }: { selectedBlock: BlockType }) => {
       <DocumentWrapper selectedId={selectedId}>
         {selectedId === 'selected' ? (
           <DocumentBarInfo
-            blockName={selectedBlock.title}
-            startDate={selectedBlock.startDate.getDate().toString()}
-            endDate={selectedBlock.endDate.getDate().toString()}
+            blockName={isBlockSelected.title}
+            startDate={isBlockSelected.startDate.getDate().toString()}
+            endDate={isBlockSelected.endDate.getDate().toString()}
           />
         ) : (
           <DocumentBarTool />
