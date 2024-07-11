@@ -41,7 +41,7 @@ const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
         justify: 'center',
         align: 'center',
         padding: '3.2rem 6.35rem',
-        width: '37.5rem',
+        width: '100%',
       }}
       css={boxStyle}
       onDragOver={handleDragOver}
