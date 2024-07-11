@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@/common/component/Button/Button';
+import Icon from '@/common/asset/svg/check_active.svg?react';
+import Button, { ButtonProps } from '@/common/component/Button/Button';
 
 const meta = {
   title: 'Common/Button',
@@ -9,58 +10,55 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <div css={{ width: '200px' }}>
-        <Story />
-      </div>
-    ),
-  ],
-  args: {
-    children: 'Button',
-    size: 'small',
-  },
   argTypes: {
     variant: {
-      control: false,
-    },
-    children: {
-      control: {
-        type: 'text',
-      },
+      control: { type: 'radio' },
+      options: ['primary', 'secondary', 'default', 'outline'],
     },
     size: {
-      control: {
-        type: 'radio',
-      },
+      control: { type: 'radio' },
+      options: ['xLarge', 'large', 'medium', 'small'],
     },
+    children: {
+      control: { type: 'text' },
+    },
+  },
+  args: {
+    variant: 'primary',
+    size: 'medium',
+    children: 'Button',
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+const createButtonStory = (variant: ButtonProps['variant']) => ({
   args: {
-    variant: 'primary',
-    color: 'black',
+    variant,
   },
-};
-
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
+  argsType: {
+    variant: {
+      control: false,
+    },
   },
-};
+});
 
-export const Text: Story = {
-  args: {
-    variant: 'text',
-  },
-};
+export const Primary: Story = createButtonStory('primary');
 
-export const Action: Story = {
+export const Secondary: Story = createButtonStory('secondary');
+
+export const Text: Story = createButtonStory('text');
+
+export const Action: Story = createButtonStory('action');
+
+export const WithIcon: Story = {
   args: {
-    variant: 'action',
+    children: (
+      <>
+        <Icon />
+        Icon
+      </>
+    ),
   },
 };

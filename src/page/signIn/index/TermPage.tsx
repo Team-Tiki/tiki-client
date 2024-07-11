@@ -33,7 +33,7 @@ const TermPage = () => {
   };
 
   return (
-    <Flex styles={{ direction: 'column', width: '50rem', gap: '1.6rem' }}>
+    <Flex tag="section" styles={{ direction: 'column', width: '50rem', gap: '1.6rem' }}>
       <Heading tag="H3">이용 약관 동의</Heading>
       <TermsAgreeButton isClicked={totalAgreeClicked} onClick={약관전체동의클릭} />
 
@@ -42,20 +42,20 @@ const TermPage = () => {
           term="이용 약관"
           onClick={() => setTermStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
           isChecked={termStatus.serviceTerm}>
-          <p css={detailStyle}>
+          <Text tag="body5" css={detailStyle}>
             이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력
             이용약관 내용입력 이용약관 내용입력
-          </p>
+          </Text>
         </TermArea>
 
         <TermArea
           term="개인정보 처리방침"
           onClick={() => setTermStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
           isChecked={termStatus.privatePolicy}>
-          <p css={detailStyle}>
+          <Text tag="body5" css={detailStyle}>
             이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력
             이용약관 내용입력 이용약관 내용입력
-          </p>
+          </Text>
         </TermArea>
 
         <TermArea
@@ -63,12 +63,12 @@ const TermPage = () => {
           onClick={() => setTermStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
           isChecked={termStatus.collectionAgree}
           isRequired={false}>
-          <Text tag="body3" css={{ fontWeight: 400, marginLeft: '3.2rem' }}>
+          <Text tag="body4" css={{ fontWeight: 400, marginLeft: '3.2rem' }}>
             이벤트 혜택 정보 수신
           </Text>
         </TermArea>
       </Flex>
-      <Button disabled={!isConfirmed} onClick={handleNextStep} css={buttonStyle} variant="primary" size="small">
+      <Button disabled={!isConfirmed} onClick={handleNextStep} css={buttonStyle} variant="primary" size="large">
         다음
       </Button>
     </Flex>

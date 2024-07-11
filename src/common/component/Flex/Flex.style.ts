@@ -42,6 +42,10 @@ export interface FlexStyle {
   shrink?: string;
 
   position?: 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky' | 'inherit';
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
 
   width?: string;
   height?: string;
@@ -64,6 +68,10 @@ export const getFlexStyle = ({
   justify = 'flex-start',
   gap = '0px',
   position = 'static',
+  top = '',
+  right = '',
+  bottom = '',
+  left = '',
   wrap = 'nowrap',
   basis = 'auto',
   grow = '0',
@@ -84,6 +92,10 @@ export const getFlexStyle = ({
   css({
     display: 'flex',
     position,
+    top,
+    right,
+    bottom,
+    left,
     flexWrap: wrap,
     flexBasis: basis,
     flexGrow: grow,

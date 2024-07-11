@@ -11,7 +11,7 @@ const Flex = ({ tag = 'div', styles = {}, children, ...props }: FlexProps) => {
   const Element = tag;
 
   return (
-    <Element {...props} css={getFlexStyle(styles)}>
+    <Element css={getFlexStyle(styles)} {...props}>
       {children}
     </Element>
   );

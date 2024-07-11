@@ -1,10 +1,14 @@
 import App from '@/App';
+
+import LoginPage from '@/page/login/LoginPage';
 import ArchivingPage from '@/page/archiving/ArchivingPage';
 import TermPage from '@/page/signIn/index/TermPage';
+import InfoFormPage from '@/page/signIn/info/InfoFormPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
+  { path: '/login', element: <LoginPage /> },
   {
     path: '/',
     element: <App />,
@@ -17,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'signin/info',
-        element: <p>info</p>,
+        element: <InfoFormPage />,
       },
       {
         path: 'password/auth',

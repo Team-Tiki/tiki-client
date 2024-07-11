@@ -3,7 +3,7 @@ import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
 import { Dropdown } from '@/common/component/Dropdown';
 import { itemStyle, overlayStyle } from '@/common/component/Select/Select.style';
 
-interface SelectProps extends Omit<ComponentPropsWithRef<'select'>, 'onSelect'> {
+interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
   isOpen?: boolean;
   trigger: JSX.Element;
   label?: string;
@@ -11,9 +11,12 @@ interface SelectProps extends Omit<ComponentPropsWithRef<'select'>, 'onSelect'> 
   options: string[];
 }
 
-const Select = ({ isOpen, trigger, label, onSelect, options }: SelectProps, ref: ForwardedRef<HTMLDivElement>) => {
+const Select = (
+  { isOpen, trigger, label, onSelect, options, ...props }: SelectProps,
+  ref: ForwardedRef<HTMLDivElement>
+) => {
   return (
-    <Dropdown ref={ref} role="listbox" label={label}>
+    <Dropdown ref={ref} role="listbox" label={label} {...props}>
       <Dropdown.Trigger as={trigger} />
       <Dropdown.List css={overlayStyle} isOpen={isOpen}>
         {options.map((item) => (

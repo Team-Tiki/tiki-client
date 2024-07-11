@@ -1,4 +1,4 @@
-import React, { ForwardedRef, InputHTMLAttributes, forwardRef } from 'react';
+import { ForwardedRef, InputHTMLAttributes, ReactNode, forwardRef } from 'react';
 
 import {
   containerStyle,
@@ -17,7 +17,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   variant?: InputVariant;
   size?: InputSize; //default: medium(p: 1.2rem)
   label?: string;
-  LeftIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>; //svg 컴포넌트
+  LeftIcon?: ReactNode; //svg 컴포넌트
   isError?: boolean;
   isNotice?: boolean;
   supportingText?: string;
@@ -40,7 +40,7 @@ const Input = (
     <article css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
       <div css={[warpperStyle, variantStyle(variant, isError), sizeStyle(size)]}>
-        {LeftIcon && <LeftIcon />}
+        {LeftIcon}
         <input ref={ref} css={inputStyle} {...props} />
       </div>
       {supportingText && (
