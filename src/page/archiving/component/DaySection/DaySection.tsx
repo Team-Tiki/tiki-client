@@ -14,7 +14,7 @@ interface DaySectionProps {
 
 const DaySection = ({ day, isClicked, isEven, onDayClick }: DaySectionProps) => {
   return (
-    <article css={dayStyle(isEven)}>
+    <div css={dayStyle(isEven)}>
       <button css={dayBtnStyle(isClicked)} onClick={onDayClick}>
         {day}
       </button>
@@ -34,7 +34,7 @@ const DaySection = ({ day, isClicked, isEven, onDayClick }: DaySectionProps) => 
         </>
       )}
       <div css={bodyStyle(isEven)} />
-    </article>
+    </div>
   );
 };
 

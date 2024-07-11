@@ -1,9 +1,9 @@
 import {
   buttonStyle,
+  contentStyle,
   daySectionStyle,
   headerStyle,
   pageStyle,
-  sectionStyle,
 } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
@@ -65,7 +65,7 @@ const ArchivingPage = () => {
               />
             </Flex>
           </header>
-          <section css={sectionStyle}>
+          <Flex css={contentStyle}>
             <MonthHeader
               onMonthClick={(month: MonthType) => {
                 setSelectedMonth(month);
@@ -103,7 +103,7 @@ const ArchivingPage = () => {
                 </TimeBlock>
               ))}
             </div>
-          </section>
+          </Flex>
         </div>
       </section>
       <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>

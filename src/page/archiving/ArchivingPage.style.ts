@@ -16,9 +16,7 @@ export const headerStyle = css({
   padding: '0rem 0rem 2.4rem 0rem',
 });
 
-export const sectionStyle = css({
-  display: 'flex',
-
+export const contentStyle = css({
   flexDirection: 'column',
   gap: '2rem',
 
