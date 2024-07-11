@@ -9,7 +9,7 @@ import DocumentBarTool from './DocumentWrapper/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from './DocumentWrapper/DocumentWrapper';
 
 const DocumentBar = () => {
-  const [selectedId, setSelectedId] = useState('selected');
+  const [selectedId, setSelectedId] = useState('total');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
     tabId !== selectedId && setSelectedId(tabId);

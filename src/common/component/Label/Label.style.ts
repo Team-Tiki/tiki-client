@@ -7,4 +7,6 @@ export const textStyle = css({
   lineHeight: theme.text.body04.lineHeight,
 
   fontWeight: 600,
+
+  // marginBottom: '0.4rem',
 });

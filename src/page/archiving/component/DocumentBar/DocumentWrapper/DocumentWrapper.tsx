@@ -16,7 +16,7 @@ const blockData = BLOCK_TEST_DATA;
 
 const DocumentLayout = ({ selectedId, children }: DocumentLayoutProps) => {
   return (
-    <Flex styles={{ direction: 'column', align: 'center', padding: '2.4rem 1.6rem 0 2.4rem' }}>
+    <Flex styles={{ direction: 'column', align: 'center', padding: '1.6rem 1.6rem 0 2.4rem' }}>
       {children}
       <Flex tag="ul" css={documentListStyle}>
         {blockData.filesUrl.map((data) => (

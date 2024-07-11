@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
 import ArrowUpThin from '@/common/asset/svg/arrow-up-thin.svg?react';
