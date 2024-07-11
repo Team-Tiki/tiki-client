@@ -20,20 +20,15 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
   const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [isDateRangeValid, setIsDateRangeValid] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   useEffect(() => {
     const isBlockNameFilled = blockName.trim() !== '';
     const isIconSelected = selectedIcon !== null;
-    const isDateFilled = startDate !== '' && endDate !== '';
+    const isDateFilled = startDate.length === 10 && endDate.length === 10 && isDateRangeValid;
     setIsButtonActive(isBlockNameFilled && isIconSelected && isDateFilled);
-  }, [blockName, selectedIcon, startDate, endDate]);
-
-  const handleButtonClick = () => {
-    console.log('Button clicked!');
-    console.log('button', onNext);
-    onNext();
-  };
+  }, [blockName, selectedIcon, startDate, endDate, isDateRangeValid]);
 
   return (
     <Flex
@@ -70,7 +65,13 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         </BlockBox>
 
         <BlockBox title="기간">
-          <BlockDate startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+          <BlockDate
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setIsDateRangeValid={setIsDateRangeValid}
+          />
         </BlockBox>
       </div>
       <Button
@@ -78,7 +79,7 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         size="medium"
         css={buttonStyle(isButtonActive)}
         disabled={!isButtonActive}
-        onClick={handleButtonClick}>
+        onClick={onNext}>
         다음
       </Button>
     </Flex>
