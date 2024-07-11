@@ -36,10 +36,3 @@ export const dotsContaierStyle = css({
     opacity: 0.8,
   },
 });
-
-export const dotsStyle = css({
-  backgroundColor: 'blue',
-  padding: '1rem',
-  color: 'blue',
-  border: '1px solid black',
-});
