@@ -6,12 +6,19 @@ export const dayStyle = (isEven: boolean) =>
   css({
     dixplay: 'flex',
 
+    width: '6rem',
+
     backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
   });
 
 export const dayBtnStyle = (isClicked: boolean) =>
   css({
-    padding: '1.2rem 2.6rem',
+    display: 'flex',
+
+    width: '6rem',
+
+    padding: '0.8rem 2.6rem',
+    justifyContent: 'center',
 
     border: 'none',
 
@@ -22,10 +29,26 @@ export const dayBtnStyle = (isClicked: boolean) =>
     cursor: 'pointer',
   });
 
-export const bodyStyle = () =>
+export const bodyStyle = (isEven: boolean) =>
   css({
-    width: '6rem',
     height: '48.4rem',
+
+    backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
 
     overflow: 'scroll',
   });
+
+export const selectedDayStyle = css({
+  display: 'flex',
+  position: 'relative',
+
+  bottom: '0.5rem',
+
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  '& > svg': {
+    zIndex: theme.zIndex.overlayTop,
+  },
+});

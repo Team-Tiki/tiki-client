@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const sectionStyle = css({
-  height: '40.69rem',
+  height: '40rem',
 });
 
 export const inputWrapperStyle = css({

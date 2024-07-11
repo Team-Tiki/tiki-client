@@ -17,6 +17,7 @@ export const headerStyle = css({
 
   padding: '2.4rem 16rem',
 
+  backgroundColor: theme.colors.white,
   '& > svg': {
     width: '10rem',
     height: '4rem',
