@@ -1,6 +1,6 @@
 const colors = {
   black: '#2C3030',
-  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%))',
+  black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%)',
   dimmed: 'rgba(0, 0, 0, 0.40)',
   gray_800: '#56585D',
   gray_700: '#6B6B6B',
@@ -51,7 +51,7 @@ const text = {
     lineHeight: '2.4rem',
   },
   body02: {
-    fontSize: '2rem',
+    fontSize: '2.4rem',
     lineHeight: '3.36rem',
   },
   body03: {
@@ -63,7 +63,7 @@ const text = {
     lineHeight: '1.6rem',
   },
   body05: {
-    fontSize: '1.4rem',
+    fontSize: '1.6rem',
     lineHeight: '2.24rem',
   },
   body06: {
