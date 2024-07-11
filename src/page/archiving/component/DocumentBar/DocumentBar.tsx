@@ -1,5 +1,6 @@
 import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/component/DocumentBar/DocumentBarTab/DocumentBarTab';
+import { BlockType } from '@/page/archiving/type/blockType';
 
 import { useState } from 'react';
 
@@ -7,7 +8,7 @@ import DocumentBarInfo from './DocumentWrapper/DocumentBarInfo/DocumentBarInfo';
 import DocumentBarTool from './DocumentWrapper/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from './DocumentWrapper/DocumentWrapper';
 
-const DocumentBar = ({ selectedBlock }: any) => {
+const DocumentBar = ({ selectedBlock }: { selectedBlock: BlockType }) => {
   const [selectedId, setSelectedId] = useState('selected');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
@@ -21,8 +22,8 @@ const DocumentBar = ({ selectedBlock }: any) => {
         {selectedId === 'selected' ? (
           <DocumentBarInfo
             blockName={selectedBlock.title}
-            startDate={selectedBlock.startDate.getDate()}
-            endDate={selectedBlock.endDate.getDate()}
+            startDate={selectedBlock.startDate.getDate().toString()}
+            endDate={selectedBlock.endDate.getDate().toString()}
           />
         ) : (
           <DocumentBarTool />
