@@ -42,7 +42,8 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         direction: 'column',
         justify: 'space-between',
         align: 'center',
-        height: '52.72rem',
+        height: '55.11rem',
+        gap: '2.4rem',
       }}>
       <WorkSapceInfo step="block" title="블록 생성하기" info="타임라인에 생성할 블록 정보를 입력해주세요" />
       <Flex
@@ -74,13 +75,15 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         </BlockBox>
 
         <BlockBox title="기간">
-          <BlockDate
-            startDate={dates.startDate}
-            endDate={dates.endDate}
-            onSetStartDate={(date) => setDates((prev) => ({ ...prev, startDate: date as string }))}
-            onSetEndDate={(date) => setDates((prev) => ({ ...prev, endDate: date as string }))}
-            onSetIsDateRangeValid={setIsDateRangeValid}
-          />
+          <Flex styles={{ align: 'flex-start', direction: 'column', padding: '0', width: '100%' }}>
+            <BlockDate
+              startDate={dates.startDate}
+              endDate={dates.endDate}
+              onSetStartDate={(date) => setDates((prev) => ({ ...prev, startDate: date as string }))}
+              onSetEndDate={(date) => setDates((prev) => ({ ...prev, endDate: date as string }))}
+              onSetIsDateRangeValid={setIsDateRangeValid}
+            />
+          </Flex>
         </BlockBox>
       </Flex>
       <Button

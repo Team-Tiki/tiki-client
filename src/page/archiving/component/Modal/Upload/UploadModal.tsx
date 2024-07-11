@@ -35,7 +35,7 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
         direction: 'column',
         justify: 'space-between',
         align: 'center',
-        height: '52.72rem',
+        height: '55.11rem',
         paddingLeft: '6.8rem',
         paddingRight: '6.8rem',
         gap: '2.4rem',
