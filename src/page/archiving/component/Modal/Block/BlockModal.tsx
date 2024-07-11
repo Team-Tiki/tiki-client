@@ -40,11 +40,10 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         height: '52.72rem',
       }}>
       <WorkSapceInfo step="block" title="블록 생성하기" info="타임라인에 생성할 블록 정보를 입력해주세요" />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+      <Flex
+        styles={{
+          direction: 'column',
+          align: 'center',
           gap: '2.4rem',
           paddingLeft: '6.8rem',
           paddingRight: '6.8rem',
@@ -73,7 +72,7 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
             setIsDateRangeValid={setIsDateRangeValid}
           />
         </BlockBox>
-      </div>
+      </Flex>
       <Button
         variant="primary"
         size="medium"

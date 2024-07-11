@@ -1,9 +1,8 @@
 import { textStyle } from '@/page/archiving/component/Modal/Block/Date/BlockDate.style';
-import { ERROR } from '@/page/archiving/constant/error';
-import { formatDateString, isValidDate, parseDate } from '@/page/archiving/util/dateUtils';
+import useDateRange from '@/page/archiving/hook/useDateRange';
 import { css } from '@emotion/react';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
@@ -18,72 +17,18 @@ interface BlockDateProps {
 }
 
 const BlockDate = ({ startDate, endDate, setStartDate, setEndDate, setIsDateRangeValid }: BlockDateProps) => {
-  const [isStartDateValid, setIsStartDateValid] = useState<boolean>(true);
-  const [isEndDateValid, setIsEndDateValid] = useState<boolean>(true);
-  const [isStartDateError, setIsStartDateError] = useState<boolean>(false);
-  const [isEndDateError, setIsEndDateError] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setDate: (date: string | ((prev: string) => string)) => void,
-    setIsValid: React.Dispatch<React.SetStateAction<boolean>>,
-    setIsError: React.Dispatch<React.SetStateAction<boolean>>,
-    otherDate: string,
-    otherIsValid: boolean,
-    isStart: boolean
-  ) => {
-    const input = event.target.value.replace(/\D/g, '');
-    const formattedDate = input.length <= 8 ? formatDateString(input) : input;
-    setDate(formattedDate);
-    const isValid = input.length === 8 && isValidDate(formattedDate);
-    setIsValid(isValid);
-
-    if (!input) {
-      setIsError(true);
-      setErrorMessage(isStart ? ERROR.START : ERROR.END);
-      setIsDateRangeValid(false);
-    } else if (formattedDate.length === 10) {
-      if (!isValid || !otherIsValid) {
-        setIsError(true);
-        setErrorMessage(ERROR.OTHER);
-        setIsDateRangeValid(false);
-      } else {
-        checkDateRange(formattedDate, startDate, endDate, isStart);
-      }
-    } else {
-      setIsError(false);
-      setErrorMessage('');
-      setIsDateRangeValid(false);
-    }
-  };
-
-  const checkDateRange = (formattedDate: string, startDate: string, endDate: string, isStart: boolean) => {
-    const start = parseDate(isStart ? formattedDate : startDate);
-    const end = parseDate(isStart ? endDate : formattedDate);
-    if (start && end) {
-      const isValidRange = start <= end;
-      setIsDateRangeValid(isValidRange);
-      if (!isValidRange) {
-        setErrorMessage(ERROR.OTHER);
-        setIsStartDateError(isStart);
-        setIsEndDateError(!isStart);
-      } else {
-        setIsStartDateError(false);
-        setIsEndDateError(false);
-        setErrorMessage('');
-      }
-    } else {
-      setIsDateRangeValid(true);
-      setIsStartDateError(false);
-      setIsEndDateError(false);
-      setErrorMessage('');
-    }
-  };
+  const {
+    handleChange,
+    dateValidation: { isStartDateValid, isEndDateValid, isStartDateError, isEndDateError, errorMessage },
+  } = useDateRange(startDate, endDate);
 
   const inputStyle = (isValid: boolean, value: string, isError: boolean) => css`
     text-align: ${value.length === 10 ? 'center' : 'left'};
   `;
+
+  useEffect(() => {
+    setIsDateRangeValid(isStartDateValid && isEndDateValid && startDate.length === 10 && endDate.length === 10);
+  }, [startDate, endDate, isStartDateValid, isEndDateValid, setIsDateRangeValid]);
 
   return (
     <>
@@ -94,9 +39,7 @@ const BlockDate = ({ startDate, endDate, setStartDate, setEndDate, setIsDateRang
           placeholder="YYYY.MM.DD"
           css={[{ width: '9.7rem' }, inputStyle(isStartDateValid, startDate, isStartDateError)]}
           value={startDate}
-          onChange={(e) =>
-            handleChange(e, setStartDate, setIsStartDateValid, setIsStartDateError, endDate, isEndDateValid, true)
-          }
+          onChange={(e) => handleChange(e.target.value.replace(/\D/g, ''), setStartDate, true)}
           maxLength={10}
           isError={isStartDateError}
         />
@@ -107,9 +50,7 @@ const BlockDate = ({ startDate, endDate, setStartDate, setEndDate, setIsDateRang
           placeholder="YYYY.MM.DD"
           css={[{ width: '9.7rem' }, inputStyle(isEndDateValid, endDate, isEndDateError)]}
           value={endDate}
-          onChange={(e) =>
-            handleChange(e, setEndDate, setIsEndDateValid, setIsEndDateError, startDate, isStartDateValid, false)
-          }
+          onChange={(e) => handleChange(e.target.value.replace(/\D/g, ''), setEndDate, false)}
           maxLength={10}
           isError={isEndDateError}
         />
