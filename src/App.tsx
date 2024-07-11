@@ -4,15 +4,12 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '@/common/component/Header/Header';
 
-import DocumentBar from './page/archiving/component/DocumentBar/DocumentBar';
-
 const App = () => {
   return (
     <>
       <Header />
       <main css={layoutStyle}>
         <Outlet />
-        <DocumentBar />
       </main>
     </>
   );
