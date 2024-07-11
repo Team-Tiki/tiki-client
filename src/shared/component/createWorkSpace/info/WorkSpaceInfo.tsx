@@ -3,7 +3,7 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
 import { headingStyle, textStyle, topStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
-import { STEPS, STEPS_EVERY } from '@/shared/constant';
+import { STEPS, STEPS_BY_CATEGORY } from '@/shared/constant';
 
 interface WorkSapceInfoProps {
   step?: 'name' | 'category' | 'image' | 'block' | 'upload';
@@ -14,8 +14,8 @@ interface WorkSapceInfoProps {
 const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
   const getTotalSteps = (step: string | undefined) => {
     if (!step) return undefined;
-    const upperCaseStep = step.toUpperCase() as keyof typeof STEPS_EVERY;
-    return STEPS_EVERY[upperCaseStep] || undefined;
+    const upperCaseStep = step.toUpperCase() as keyof typeof STEPS_BY_CATEGORY;
+    return STEPS_BY_CATEGORY[upperCaseStep] ?? undefined;
   };
 
   return (

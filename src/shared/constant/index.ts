@@ -6,7 +6,7 @@ export const STEPS = {
   UPLOAD: 2,
 } as const;
 
-export const STEPS_EVERY = {
+export const STEPS_BY_CATEGORY = {
   NAME: 3,
   CATEGORY: 3,
   IMAGE: 3,
