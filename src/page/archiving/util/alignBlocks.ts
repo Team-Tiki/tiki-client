@@ -1,7 +1,7 @@
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
 import { MonthType } from '@/page/archiving/type/monthType';
 
-const getDaysArray = (startDate: Date, endDate: Date): number[] => {
+const getDays = (startDate: Date, endDate: Date): number[] => {
   const days = [];
   const date = new Date(startDate);
   while (date <= endDate) {
@@ -22,7 +22,7 @@ export const alignBlocks = (endDay: Date, selectedMonth: MonthType, currentYear:
     const blockMonth = block.startDate.getMonth() + 1;
 
     if (blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear) {
-      const days = getDaysArray(block.startDate, block.endDate);
+      const days = getDays(block.startDate, block.endDate);
       let floor = 0;
 
       for (let depth = 1; depth <= TIME_BLOCK.length; depth++) {
