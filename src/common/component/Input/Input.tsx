@@ -40,7 +40,7 @@ const Input = (
     <article css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
       <div css={[warpperStyle, variantStyle(variant, isError), sizeStyle(size)]}>
-        {LeftIcon && LeftIcon}
+        {LeftIcon}
         <input ref={ref} css={inputStyle} {...props} />
       </div>
       {supportingText && (
