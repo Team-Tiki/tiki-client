@@ -12,8 +12,17 @@ const colors = {
   gray_100: '#FAFAFA',
   white: '#FFFFFF',
   blue_900: '#353F9B',
+  blue_700: '#4952A5',
+  blue_300: '#7279B9',
+  blue_200: '#D7D9EB',
   blue_100: '#EDF0FD',
   red: '#FE4F60',
+  purple: '#DBDBFC',
+  green: '#CEF7EF',
+  yellow: '#FFEECA',
+  orange: '#FDE0DE',
+  pink: '#FFDEF8',
+  blue: '#D8EFFF',
 };
 
 export type ColorsTypes = typeof colors;

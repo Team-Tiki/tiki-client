@@ -6,17 +6,21 @@ import Eclipse from '@/common/asset/svg/eclipse.svg?react';
 
 interface TimeBlockProps {
   children: ReactNode;
-  width: number;
+  startDate: Date;
+  endDate: Date;
+  color: string;
+  floor: number;
 }
 
-const TimeBlock = ({ children, width }: TimeBlockProps) => {
+const TimeBlock = ({ startDate, endDate, children, color, floor }: TimeBlockProps) => {
+  const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
+  const startPosition = (startDate.getDate() - 1) * 6;
+
   return (
-    <>
-      <div css={blockStyle(width)}>
-        <Eclipse width={47} height={47} css={{ flexShrink: 0 }} />
-        <span css={spanStyle}>{children}</span>
-      </div>
-    </>
+    <div css={blockStyle(blockWidth, startPosition, floor, color)}>
+      <Eclipse width={46} height={46} css={{ flexShrink: 0 }} />
+      <p css={spanStyle}>{children}</p>
+    </div>
   );
 };
 
