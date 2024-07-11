@@ -1,4 +1,4 @@
-import { buttonStyle } from '@/page/archiving/component/Modal/Block/BlockModal.style';
+import { buttonStyle, textStyle } from '@/page/archiving/component/Modal/Block/BlockModal.style';
 import BlockDate from '@/page/archiving/component/Modal/Block/Date/BlockDate';
 import BlockIcon from '@/page/archiving/component/Modal/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/component/Modal/Box/BlockBox';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
+import Text from '@/common/component/Text/Text';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
@@ -20,6 +21,12 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
   const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
   const [dates, setDates] = useState({ startDate: '', endDate: '' });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
+
+  const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length <= 25) {
+      setBlockName(e.target.value);
+    }
+  };
 
   const isButtonActive =
     blockName.trim() !== '' &&
@@ -51,14 +58,19 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         </BlockBox>
 
         <BlockBox title="블록명">
-          <Input
-            variant="default"
-            size="large"
-            placeholder="활동,행사명 등"
-            css={{ width: '100%' }}
-            value={blockName}
-            onChange={(e) => setBlockName(e.target.value)}
-          />
+          <Flex styles={{ align: 'flex-end', direction: 'column', gap: '0.8rem', width: '100%' }}>
+            <Input
+              variant="default"
+              size="large"
+              placeholder="활동,행사명 등"
+              css={{ width: '100%' }}
+              value={blockName}
+              onChange={handleBlockNameChange}
+            />
+            <Text tag="body7" css={textStyle}>
+              {blockName.length} / 25
+            </Text>
+          </Flex>
         </BlockBox>
 
         <BlockBox title="기간">

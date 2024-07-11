@@ -16,3 +16,8 @@ export const buttonStyle = (isActive: boolean) =>
       },
     }),
   });
+
+export const textStyle = css({
+  color: theme.colors.gray_700,
+  fontWeight: 400,
+});

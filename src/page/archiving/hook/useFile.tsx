@@ -26,13 +26,12 @@ const useFile = ({ files, onFilesChange }: useFileProps) => {
 
   const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    event.stopPropagation();
   }, []);
 
   const handleDrop = useCallback(
     (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
-      event.stopPropagation();
+
       handleFiles(event.dataTransfer.files);
     },
     [handleFiles]
