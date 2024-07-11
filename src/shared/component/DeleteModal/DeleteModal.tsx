@@ -3,7 +3,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
-import { cancleStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
+import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
 
 interface DeleteModalProps {
@@ -42,7 +42,7 @@ const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
       </Text>
 
       <Flex styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.8rem', marginTop: '2.4rem' }}>
-        <Button variant="secondary" size="large" onClick={onClose} css={cancleStyle}>
+        <Button variant="secondary" size="large" onClick={onClose} css={cancelStyle}>
           취소
         </Button>
         <Button variant="primary" size="large" onClick={handleDelete} css={deleteStyle}>

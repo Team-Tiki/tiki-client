@@ -29,12 +29,12 @@ export const Delete: Story = {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
     return (
-      <div>
+      <>
         <button onClick={() => openModal(<DeleteModal title="block" detail="block" onClose={closeModal} />)}>
           Open Modal
         </button>
         <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      </div>
+      </>
     );
   },
 };

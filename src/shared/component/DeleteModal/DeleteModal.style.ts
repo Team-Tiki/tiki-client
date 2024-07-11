@@ -10,7 +10,7 @@ export const deleteStyle = css({
   width: '15.8rem',
 });
 
-export const cancleStyle = css({
+export const cancelStyle = css({
   '&:hover': {
     backgroundColor: theme.colors.blue_100,
   },
