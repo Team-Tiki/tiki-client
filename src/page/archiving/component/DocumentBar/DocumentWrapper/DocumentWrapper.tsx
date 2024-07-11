@@ -1,10 +1,10 @@
+import DocumentItem from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentItem/DocumentItem';
+import { documentListStyle } from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentWrapper.style';
+import { BLOCK_TEST_DATA } from '@/page/archiving/component/DocumentBar/constant';
+
 import { ReactNode } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
-
-import { BLOCK_TEST_DATA } from '../constant';
-import DocumentItem from './DocumentItem/DocumentItem';
-import { documentListStyle } from './DocumentWrapper.style';
 
 interface DocumentLayoutProps {
   selectedId: string;
@@ -14,9 +14,9 @@ interface DocumentLayoutProps {
 // 목업 데이터
 const blockData = BLOCK_TEST_DATA;
 
-const DocumentLayout = ({ selectedId, children }: DocumentLayoutProps) => {
+const DocumentWrapper = ({ selectedId, children }: DocumentLayoutProps) => {
   return (
-    <Flex styles={{ direction: 'column', align: 'center', padding: '2.4rem 1.6rem 0 2.4rem' }}>
+    <Flex styles={{ direction: 'column', align: 'center', padding: '1.6rem 1.6rem 0 2.4rem' }}>
       {children}
       <Flex tag="ul" css={documentListStyle}>
         {blockData.filesUrl.map((data) => (
@@ -29,4 +29,4 @@ const DocumentLayout = ({ selectedId, children }: DocumentLayoutProps) => {
   );
 };
 
-export default DocumentLayout;
+export default DocumentWrapper;
