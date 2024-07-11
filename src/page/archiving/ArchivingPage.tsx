@@ -10,12 +10,11 @@ import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
+import { useDate } from '@/page/archiving/hook/useDate';
 import { BlockType } from '@/page/archiving/type/blockType';
 import { MonthType } from '@/page/archiving/type/monthType';
 import { alignBlocks } from '@/page/archiving/util/alignBlocks';
-import { getMonthDate } from '@/page/archiving/util/getMonthDate';
 import { getRandomColor } from '@/page/archiving/util/getRandomColor';
-import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
 
@@ -29,15 +28,9 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
 const ArchivingPage = () => {
-  const currentDate = new Date();
-
-  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
+  const { currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } = useDate();
   const [clickedDay, setClickedDay] = useState<number | null>(null);
   const [selectedBlock, setSelectedBlock] = useState<BlockType>();
-
-  const dateOfMonth = getMonthDate(selectedMonth, currentYear);
-  const endDay = endOfMonth(dateOfMonth);
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
@@ -54,7 +47,7 @@ const ArchivingPage = () => {
               <PreviousYearArrow
                 width={16}
                 height={16}
-                onClick={() => setCurrentYear(currentYear - 1)}
+                onClick={() => handlePrevYear(currentYear)}
                 css={{ cursor: 'pointer' }}
               />
               <Text tag="body1" css={{ marginTop: '0.4rem' }}>
@@ -63,7 +56,7 @@ const ArchivingPage = () => {
               <NextYearArrow
                 width={16}
                 height={16}
-                onClick={() => setCurrentYear(currentYear + 1)}
+                onClick={() => handleNextYear(currentYear)}
                 css={{ cursor: 'pointer' }}
               />
             </Flex>

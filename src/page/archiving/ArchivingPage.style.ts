@@ -19,8 +19,6 @@ export const headerStyle = css({
 export const contentStyle = css({
   flexDirection: 'column',
   gap: '2rem',
-
-  overflow: 'hidden',
 });
 
 export const daySectionStyle = css({
