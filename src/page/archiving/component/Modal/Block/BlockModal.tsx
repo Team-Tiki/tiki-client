@@ -49,7 +49,7 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
           paddingRight: '6.8rem',
         }}>
         <BlockBox title="블록 아이콘">
-          <BlockIcon selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon} />
+          <BlockIcon selectedBlockIcon={selectedIcon} onBlockIconSelect={setSelectedIcon} />
         </BlockBox>
 
         <BlockBox title="블록명">

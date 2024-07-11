@@ -1,6 +1,5 @@
 import { boxStyle, buttonStyle } from '@/page/archiving/component/Modal/Upload/File/Add/BlockAdd.style';
-
-import { useRef } from 'react';
+import useFile from '@/page/archiving/hook/useFile';
 
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
@@ -11,28 +10,7 @@ interface BlockAddProps {
 }
 
 const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleFiles = (newFiles: FileList | null) => {
-    if (!newFiles) return;
-    const fileArray = Array.from(newFiles);
-    onFilesChange([...files, ...fileArray]);
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleFiles(event.target.files);
-  };
-
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    handleFiles(event.dataTransfer.files);
-  };
+  const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({ files, onFilesChange });
 
   return (
     <Flex
