@@ -5,12 +5,12 @@ import Flex from '@/common/component/Flex/Flex';
 
 interface DocumentBarTabProps {
   selectedId: string;
-  onTabClick: (tabId: string, selectedId: string) => void;
+  onTabClick: (selectedId: string, tabId: string) => void;
 }
 
 const DocumentBarTab = ({ selectedId, onTabClick }: DocumentBarTabProps) => {
   return (
-    <Flex css={{ borderRadius: '16px' }}>
+    <Flex>
       <Button
         onClick={() => onTabClick(selectedId, 'selected')}
         css={[tabDefaultStyle(selectedId, 'selected'), { borderRadius: '16px 0px 0px 0px' }]}>

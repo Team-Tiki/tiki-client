@@ -42,7 +42,7 @@ export const inputStyle = css({
 
   '::placeholder': {
     color: theme.colors.gray_500,
-    ...theme.text.body03,
+    ...theme.text.body04,
   },
 });
 
@@ -60,6 +60,13 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
     colored: {
       borderRadius: '100px',
       backgroundColor: theme.colors.gray_100,
+
+      '& > input': {
+        '::placeholder': {
+          color: theme.colors.gray_500,
+          ...theme.text.body06,
+        },
+      },
     },
   };
 

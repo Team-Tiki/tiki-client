@@ -2,7 +2,7 @@ import {
   blockNameTextStyle,
   containerStyle,
   fileNameStyle,
-} from '@/page/archiving/component/DocumentBar/DocumentItem/DocumentItem.style';
+} from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentItem/DocumentItem.style';
 
 import { ReactNode } from 'react';
 

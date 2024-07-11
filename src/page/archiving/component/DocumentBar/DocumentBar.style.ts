@@ -16,9 +16,9 @@ export const containerStyle = css({
   boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 });
 
-export const documentListStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
+// export const documentListStyle = css({
+//   display: 'flex',
+//   flexDirection: 'column',
 
-  gap: '0.8rem',
-});
+//   gap: '0.8rem',
+// });

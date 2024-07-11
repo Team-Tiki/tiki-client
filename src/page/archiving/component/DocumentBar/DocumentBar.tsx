@@ -1,18 +1,17 @@
-import { containerStyle, documentListStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
-import DocumentBarInfo from '@/page/archiving/component/DocumentBar/DocumentBarInfo/DocumentBarInfo';
+import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/component/DocumentBar/DocumentBarTab/DocumentBarTab';
-import DocumentItem from '@/page/archiving/component/DocumentBar/DocumentItem/DocumentItem';
 import { BLOCK_TEST_DATA } from '@/page/archiving/component/DocumentBar/constant';
 
 import { useState } from 'react';
 
-import Flex from '@/common/component/Flex/Flex';
+import DocumentBarInfo from './DocumentWrapper/DocumentBarInfo/DocumentBarInfo';
+import DocumentBarTool from './DocumentWrapper/DocumentBarTool/DocumentBarTool';
+import DocumentWrapper from './DocumentWrapper/DocumentWrapper';
 
 const DocumentBar = () => {
   const [selectedId, setSelectedId] = useState('selected');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
-    console.log(selectedId);
     tabId !== selectedId && setSelectedId(tabId);
   };
 
@@ -22,16 +21,13 @@ const DocumentBar = () => {
   return (
     <aside css={containerStyle}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      <Flex styles={{ direction: 'column', align: 'center', padding: '2.4rem 1.6rem 0 2.4rem' }}>
-        <DocumentBarInfo blockName={blockData.title} startDate={blockData.startDate} endDate={blockData.endDate} />
-        <ul css={documentListStyle}>
-          {blockData.filesUrl.map((data) => (
-            <DocumentItem selectedId={selectedId} blockName={blockData.title}>
-              {data.fileName}
-            </DocumentItem>
-          ))}
-        </ul>
-      </Flex>
+      <DocumentWrapper selectedId={selectedId}>
+        {selectedId === 'selected' ? (
+          <DocumentBarInfo blockName={blockData.title} startDate={blockData.startDate} endDate={blockData.endDate} />
+        ) : (
+          <DocumentBarTool />
+        )}
+      </DocumentWrapper>
     </aside>
   );
 };
