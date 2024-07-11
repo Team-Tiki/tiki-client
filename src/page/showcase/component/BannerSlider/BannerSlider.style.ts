@@ -5,12 +5,16 @@ import { theme } from '@/common/style/theme/theme';
 export const arrowStyle = css({
   position: 'absolute',
   top: '9.6rem',
+
   zIndex: theme.zIndex.overlayBottom,
+
   width: '3.2rem',
   height: '3.2rem',
-  background: 'rgb(0,0,0,0.3)',
-  borderRadius: '16px',
+
   border: 'none',
+  borderRadius: '16px',
+
+  background: 'rgb(0,0,0,0.3)',
 
   cursor: 'pointer',
 });

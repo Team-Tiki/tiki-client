@@ -15,6 +15,7 @@ export const buttonStyle = (isSelected: boolean) =>
     fontWeight: 500,
 
     cursor: 'pointer',
+    whiteSpace: 'nowrap',
 
     '&:hover': {
       backgroundColor: theme.colors.blue_100,

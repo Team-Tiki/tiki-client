@@ -1,4 +1,4 @@
-import { clubProfileStyle, containerStyle } from '@/page/showcase/ShowcasePage.style';
+import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/ShowcasePage.style';
 import BannerSlider from '@/page/showcase/component/BannerSlider/BannerSlider';
 import CategoryChip from '@/page/showcase/component/CategoryChip/CategoryChip';
 import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfileCard';
@@ -106,11 +106,12 @@ const ShowcasePage = () => {
         <Heading tag="H4" css={{ fontWeight: 600 }}>
           우리 학교 동아리
         </Heading>
-        <div css={{ width: '104.6rem' }}>
+        <div css={{ width: '100%' }}>
           <BannerSlider />
         </div>
       </Flex>
-      <Flex tag="section" styles={{ gap: '0.8rem' }}>
+
+      <section css={chipStyle}>
         {CATEGORY.map((category) => {
           return (
             <CategoryChip onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
@@ -118,7 +119,8 @@ const ShowcasePage = () => {
             </CategoryChip>
           );
         })}
-      </Flex>
+      </section>
+
       <section css={clubProfileStyle}>
         {CLUBDATA.map((club) => {
           if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
