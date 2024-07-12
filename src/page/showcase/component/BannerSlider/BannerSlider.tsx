@@ -90,17 +90,15 @@ const BannerSlider = () => {
 
   return (
     <Slider {...settings}>
-      {ADVBANNER.map((advBanner) => {
-        return (
-          <AdvBanner
-            key={advBanner.id}
-            title={advBanner.name}
-            detail={advBanner.overview}
-            imageUrl={advBanner.imageUrl}
-            externUrl={advBanner.externUrl}
-          />
-        );
-      })}
+      {ADVBANNER.map((advBanner) => (
+        <AdvBanner
+          key={advBanner.id}
+          title={advBanner.name}
+          detail={advBanner.overview}
+          imageUrl={advBanner.imageUrl}
+          externUrl={advBanner.externUrl}
+        />
+      ))}
     </Slider>
   );
 };

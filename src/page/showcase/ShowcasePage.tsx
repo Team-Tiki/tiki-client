@@ -112,16 +112,11 @@ const ShowcasePage = () => {
       </Flex>
 
       <section css={chipStyle}>
-        {CATEGORY.map((category) => {
-          return (
-            <CategoryChip
-              key={category}
-              onClick={() => handleChipClick(category)}
-              isSelected={selectedChip === category}>
-              {category}
-            </CategoryChip>
-          );
-        })}
+        {CATEGORY.map((category) => (
+          <CategoryChip key={category} onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
+            {category}
+          </CategoryChip>
+        ))}
       </section>
 
       <section css={clubProfileStyle}>
