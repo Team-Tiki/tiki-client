@@ -23,25 +23,20 @@ const layoutStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  height: 'calc(100vh - 95px)',
+  height: 'calc(100% - 90px)',
 
   borderBottomLeftRadius: '16px',
   borderBottomRightRadius: '16px',
 
   backgroundColor: theme.colors.white,
-  overscrollBehavior: 'contain',
 });
 
 const containerStyle = css({
-  flex: 1,
-
   height: '100vh',
 
-  paddingLeft: '8rem',
-  paddingRight: '0.4rem',
+  padding: '0rem 0.4rem 0.4rem 8.4rem',
 
   backgroundColor: theme.colors.blue_900,
-  overscrollBehavior: 'contain',
 });
 
 export default App;

@@ -8,7 +8,9 @@ export const containerStyle = (isExpansion: boolean) =>
     left: '0',
     zIndex: theme.zIndex.overlayTop,
 
-    width: isExpansion ? '24.1rem' : '8rem',
+    transform: isExpansion ? 'scaleX(1.05)' : 'scaleX(1)',
+    transformOrigin: 'left',
+
     height: '100vh',
     padding: '2.4rem 2rem 0 0',
 
