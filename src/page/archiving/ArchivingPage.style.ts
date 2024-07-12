@@ -34,6 +34,7 @@ export const daySectionStyle = css({
   overflowX: 'scroll',
 
   scrollBehavior: 'smooth',
+  overscrollBehavior: 'contain',
 
   '&::-webkit-scrollbar': {
     display: 'none',

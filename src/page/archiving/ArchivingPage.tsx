@@ -40,7 +40,7 @@ const ArchivingPage = () => {
 
   return (
     <>
-      <section css={{ padding: '0rem 13.2rem 6.2rem 5.2rem', flexDirection: 'column' }}>
+      <section css={{ padding: '1.2rem 13.2rem 6.2rem 5.2rem', flexDirection: 'column' }}>
         <div css={pageStyle}>
           <header css={headerStyle}>
             <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem' }}>
@@ -105,13 +105,13 @@ const ArchivingPage = () => {
             </div>
           </Flex>
         </div>
+        <Flex styles={{ position: 'fixed', bottom: '3rem', right: '2rem' }}>
+          <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+            <AddIc width={24} height={24} />
+            블록 생성
+          </Button>
+        </Flex>
       </section>
-      <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
-        <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
-          <AddIc width={24} height={24} />
-          블록 생성
-        </Button>
-      </Flex>
     </>
   );
 };

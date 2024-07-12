@@ -8,14 +8,16 @@ export const headerStyle = css({
   justifyContent: 'space-between',
 
   position: 'sticky',
-  top: 0,
+  top: 4,
+  borderTopLeftRadius: '16px',
+  borderTopRightRadius: '16px',
 
   zIndex: theme.zIndex.overlayMiddle,
 
   width: '100%',
   height: '9rem',
 
-  padding: '2.4rem 16rem',
+  padding: '2.4rem 16rem 2.4rem 8rem',
 
   backgroundColor: theme.colors.white,
   '& > svg': {
