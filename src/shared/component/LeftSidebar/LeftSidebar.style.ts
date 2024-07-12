@@ -2,13 +2,14 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (isExpansion: boolean) =>
+export const containerStyle = (isNavOpen: boolean) =>
   css({
     position: 'fixed',
+    top: '0',
     left: '0',
-    zIndex: theme.zIndex.overlayTop,
+    zIndex: theme.zIndex.overlayHigh,
 
-    transform: isExpansion ? 'scaleX(1.05)' : 'scaleX(1)',
+    transform: isNavOpen ? 'scaleX(1.05)' : 'scaleX(1)',
     transformOrigin: 'left',
 
     height: '100vh',

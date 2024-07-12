@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import Header from '@/common/component/Header/Header';
+import { useOutsideClick, useOverlay } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
@@ -10,12 +11,16 @@ import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 const App = () => {
   const location = useLocation();
   const showSidebar = ['/showcase', '/archiving'].includes(location.pathname);
+  //const { isOpen: isNavOpen, close, open } = useOverlay();
+  //const ref = useOutsideClick<HTMLDivElement>(close);
+
+  //console.log(isNavOpen);
 
   return showSidebar ? (
     <div css={containerStyle}>
       <LeftSidebar />
+      <Header />
       <main css={layoutStyle}>
-        <Header />
         <Outlet />
       </main>
     </div>
@@ -35,7 +40,8 @@ const layoutStyle = css({
 
   height: '100%',
 
-  borderRadius: '16px',
+  borderBottomLeftRadius: '16px',
+  borderBottomRightRadius: '16px',
 
   backgroundColor: theme.colors.white,
 });

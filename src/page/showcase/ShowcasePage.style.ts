@@ -7,6 +7,7 @@ export const containerStyle = css({
   gap: '3.6rem',
 
   width: '100%',
+  minHeight: '100vh',
 
   padding: '0 16rem',
 
