@@ -14,9 +14,9 @@ const InfoFormPage = () => {
   const ref = useOutsideClick(close);
 
   return (
-    <div css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', gap: '4.8rem', width: '50rem' }}>
-        <Heading>회원가입</Heading>
+    <Flex css={pageStyle}>
+      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', width: '50rem' }}>
+        <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
 
         <Flex tag="form" styles={{ direction: 'column', gap: '3.2rem', width: '100%' }}>
           <Input variant="underline" label="이름" placeholder={PLACEHOLDER.NAME} />
@@ -43,17 +43,17 @@ const InfoFormPage = () => {
             </Button>
           </Flex>
 
-          <Flex styles={{ direction: 'column', width: '100%' }}>
+          {/* <Flex styles={{ direction: 'column', width: '100%' }}>
             <Input variant="underline" label="비밀번호 설정" placeholder={PLACEHOLDER.PASSWORD} />
             <Input variant="underline" placeholder={PLACEHOLDER.PASSWORD_CONFIRM} />
-          </Flex>
+          </Flex> */}
 
-          <Button type="button" variant="primary" size="large">
-            회원가입 완료
+          <Button type="button" variant="primary" size="large" css={{ marginTop: '14.8rem' }}>
+            다음
           </Button>
         </Flex>
       </Flex>
-    </div>
+    </Flex>
   );
 };
 
