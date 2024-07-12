@@ -10,11 +10,12 @@ export const buttonStyle = (isSelected: boolean) =>
     borderRadius: '100px',
     border: `1.2px solid ${isSelected ? theme.colors.blue_900 : theme.colors.gray_400}`,
 
-    ...theme.text.body04,
+    ...theme.text.body06,
     color: `${isSelected ? theme.colors.blue_900 : theme.colors.gray_800}`,
     fontWeight: 500,
 
     cursor: 'pointer',
+    whiteSpace: 'nowrap',
 
     '&:hover': {
       backgroundColor: theme.colors.blue_100,

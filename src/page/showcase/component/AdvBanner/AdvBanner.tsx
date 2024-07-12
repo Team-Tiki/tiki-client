@@ -17,8 +17,6 @@ interface AdvBannerProps {
 }
 
 const AdvBanner = ({ title, detail, imageUrl, externUrl }: AdvBannerProps) => {
-  externUrl = 'https://www.sopt.org/recruit';
-
   const handleLinkMove = () => {
     window.open(externUrl);
   };
