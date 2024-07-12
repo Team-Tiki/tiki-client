@@ -4,6 +4,7 @@ import { PLACEHOLDER } from '@/page/signUp/info/constant';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
+import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -33,7 +34,7 @@ const InfoFormPage = () => {
             trigger={
               <button type="button" css={selectTriggerStyle} onClick={toggle}>
                 {PLACEHOLDER.SCHOOL}
-                <ArrowDown />
+                {isOpen ? <ArrowUp /> : <ArrowDown />}
               </button>
             }
             options={['인하대학교', '건국대학교', '숙명여자대학교', '시립대학교', '중앙대학교']}
