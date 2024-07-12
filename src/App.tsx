@@ -11,8 +11,8 @@ const App = () => {
   return (
     <div css={containerStyle}>
       <LeftSidebar />
-      <Header />
       <main css={layoutStyle}>
+        <Header />
         <Outlet />
       </main>
     </div>
@@ -23,18 +23,17 @@ const layoutStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  height: 'calc(100% - 90px)',
+  height: '100%',
 
-  borderBottomLeftRadius: '16px',
-  borderBottomRightRadius: '16px',
+  borderRadius: '16px',
 
   backgroundColor: theme.colors.white,
 });
 
 const containerStyle = css({
-  height: '100vh',
+  height: '100%',
 
-  padding: '0rem 0.4rem 0.4rem 8.4rem',
+  padding: '0.4rem 0.4rem 0.4rem 8.4rem ',
 
   backgroundColor: theme.colors.blue_900,
 });

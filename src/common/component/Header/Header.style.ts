@@ -8,7 +8,7 @@ export const headerStyle = css({
   justifyContent: 'space-between',
 
   position: 'sticky',
-  top: 4,
+  top: 0,
   borderTopLeftRadius: '16px',
   borderTopRightRadius: '16px',
 
