@@ -1,8 +1,5 @@
-import {
-  buttonStyle,
-  fontStyle,
-} from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/DocumentSort.style';
-import Filter from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/FilterDropdown/Filter';
+import Filter from '@/page/archiving/component/DocumentFilter/Filter';
+import { buttonStyle, fontStyle } from '@/page/archiving/component/DocumentSort/DocumentSort.style';
 
 import { forwardRef, useEffect, useState } from 'react';
 

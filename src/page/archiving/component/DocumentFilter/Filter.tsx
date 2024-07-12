@@ -1,4 +1,4 @@
-import { filterItemStyle } from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/FilterDropdown/Filter.style';
+import { filterItemStyle } from '@/page/archiving/component/DocumentFilter/Filter.style';
 import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
 import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
