@@ -114,7 +114,10 @@ const ShowcasePage = () => {
       <section css={chipStyle}>
         {CATEGORY.map((category) => {
           return (
-            <CategoryChip onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
+            <CategoryChip
+              key={category}
+              onClick={() => handleChipClick(category)}
+              isSelected={selectedChip === category}>
               {category}
             </CategoryChip>
           );
@@ -124,7 +127,9 @@ const ShowcasePage = () => {
       <section css={clubProfileStyle}>
         {CLUBDATA.map((club) => {
           if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
-            return <ClubProfileCard title={club.name} detail={club.overview} imageUrl={club.imageUrl} />;
+            return (
+              <ClubProfileCard key={club.name} title={club.name} detail={club.overview} imageUrl={club.imageUrl} />
+            );
           }
         })}
       </section>

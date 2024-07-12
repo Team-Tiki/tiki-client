@@ -4,7 +4,7 @@ import { arrowStyle, dotsContaierStyle } from '@/page/showcase/component/BannerS
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import Slider from 'react-slick';
 
 import LeftArrow from '@/common/asset/svg/arrow-left-white.svg?react';
@@ -52,7 +52,7 @@ interface ArrowProps {
 const NextArrow = (props: ArrowProps) => {
   const { onClick } = props;
   return (
-    <button onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
+    <button type="button" onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
       <RightArrow />
     </button>
   );
@@ -61,7 +61,7 @@ const NextArrow = (props: ArrowProps) => {
 const PrevArrow = (props: ArrowProps) => {
   const { onClick } = props;
   return (
-    <button onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
+    <button type="button" onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
       <LeftArrow />
     </button>
   );
@@ -79,7 +79,7 @@ const BannerSlider = () => {
       autoplaySpeed: 3000,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
-      appendDots: (dots: any) => (
+      appendDots: (dots: ReactNode) => (
         <ul className="dotsUl" css={dotsContaierStyle}>
           {dots}
         </ul>
@@ -93,6 +93,7 @@ const BannerSlider = () => {
       {ADVBANNER.map((advBanner) => {
         return (
           <AdvBanner
+            key={advBanner.id}
             title={advBanner.name}
             detail={advBanner.overview}
             imageUrl={advBanner.imageUrl}
