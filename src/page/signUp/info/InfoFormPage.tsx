@@ -1,6 +1,8 @@
 import { pageStyle, selectTriggerStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
 
+import { useNavigate } from 'react-router-dom';
+
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -12,6 +14,7 @@ import { useOutsideClick, useOverlay } from '@/common/hook';
 const InfoFormPage = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick(close);
+  const navigate = useNavigate();
 
   return (
     <Flex css={pageStyle}>
@@ -42,13 +45,12 @@ const InfoFormPage = () => {
               인증 메일 발송
             </Button>
           </Flex>
-
-          {/* <Flex styles={{ direction: 'column', width: '100%' }}>
-            <Input variant="underline" label="비밀번호 설정" placeholder={PLACEHOLDER.PASSWORD} />
-            <Input variant="underline" placeholder={PLACEHOLDER.PASSWORD_CONFIRM} />
-          </Flex> */}
-
-          <Button type="button" variant="primary" size="large" css={{ marginTop: '14.8rem' }}>
+          <Button
+            type="button"
+            variant="primary"
+            size="large"
+            css={{ marginTop: '14.8rem' }}
+            onClick={() => navigate(`/password`)}>
             다음
           </Button>
         </Flex>
