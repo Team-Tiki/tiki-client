@@ -17,7 +17,9 @@ import { MonthType } from '@/page/archiving/type/monthType';
 import { alignBlocks } from '@/page/archiving/util/alignBlocks';
 import { getRandomColor } from '@/page/archiving/util/getRandomColor';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -29,6 +31,21 @@ const ArchivingPage = () => {
   const [blockSelected, setBlockSelected] = useState<BlockType>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
+
+  useEffect(() => {
+    const fetchBlockData = async () => {
+      try {
+        const response = await axios({
+          method: 'get',
+          url: '/time-blocks/team/:teamId',
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBlockData();
+  });
 
   return (
     <>
