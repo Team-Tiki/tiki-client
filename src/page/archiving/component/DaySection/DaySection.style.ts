@@ -4,6 +4,7 @@ import { theme } from '@/common/style/theme/theme';
 
 export const dayStyle = (isEven: boolean) =>
   css({
+    position: 'relative',
     width: '6rem',
 
     backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
@@ -32,16 +33,10 @@ export const bodyStyle = (isEven: boolean) =>
   });
 
 export const selectedDayStyle = css({
-  display: 'flex',
-  position: 'relative',
+  position: 'absolute',
 
-  bottom: '0.5rem',
+  left: '2.5rem',
+  top: '2.8rem',
 
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  '& > svg': {
-    zIndex: theme.zIndex.overlayTop,
-  },
+  zIndex: theme.zIndex.overlayTop,
 });

@@ -21,6 +21,11 @@ const meta = {
         type: 'boolean',
       },
     },
+    isToday: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 } satisfies Meta<typeof DaySection>;
 
@@ -31,5 +36,6 @@ export const Default: Story = {
   args: {
     day: 1,
     isEven: false,
+    isToday: false,
   },
 };

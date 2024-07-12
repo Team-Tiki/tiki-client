@@ -24,7 +24,8 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 const ArchivingPage = () => {
-  const { currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } = useDate();
+  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
+    useDate();
   const [blockSelected, setBlockSelected] = useState<BlockType>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
@@ -45,7 +46,18 @@ const ArchivingPage = () => {
               {Array.from({ length: endDay.getDate() }, (_, index) => {
                 const day = index + 1;
                 const isEven = day % 2 === 0;
-                return <DaySection key={day} day={day} isEven={isEven} />;
+                return (
+                  <DaySection
+                    key={day}
+                    day={day}
+                    isEven={isEven}
+                    isToday={
+                      day === currentDate.getDate() &&
+                      currentYear === currentDate.getFullYear() &&
+                      selectedMonth === `${currentDate.getMonth() + 1}월`
+                    }
+                  />
+                );
               })}
               {TIME_BLOCK.filter((block) => {
                 const blockMonth = block.startDate.getMonth() + 1;

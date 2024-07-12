@@ -20,5 +20,14 @@ export const useDate = () => {
     setCurrentYear(currentYear + 1);
   };
 
-  return { currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, dateOfMonth, endDay };
+  return {
+    currentDate,
+    currentYear,
+    selectedMonth,
+    setSelectedMonth,
+    handlePrevYear,
+    handleNextYear,
+    dateOfMonth,
+    endDay,
+  };
 };
