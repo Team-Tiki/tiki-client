@@ -16,10 +16,3 @@ export const containerStyle = css({
   backgroundColor: theme.colors.white,
   boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 });
-
-// export const documentListStyle = css({
-//   display: 'flex',
-//   flexDirection: 'column',
-
-//   gap: '0.8rem',
-// });

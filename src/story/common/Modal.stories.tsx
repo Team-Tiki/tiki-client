@@ -31,10 +31,9 @@ export const ModalComponent: Story = {
   render: () => {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
-    const handleNext1 = () => setCurrentContent(<WorkSpaceName onNext={handleNext2} />);
-    const handleNext2 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext3} />);
-    const handleNext3 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext4} />);
-    const handleNext4 = () => setCurrentContent(<WorkSpaceComplete />);
+    const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} />);
+    const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} />);
+    const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
 
     return (
       <div>

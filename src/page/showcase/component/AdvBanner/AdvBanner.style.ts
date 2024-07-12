@@ -10,6 +10,8 @@ export const containerStyle = (imageUrl: string) =>
     flexDirection: 'column',
     justifyContent: 'center',
 
+    width: '100%',
+
     padding: '5rem 0 5.8rem 6.4rem',
 
     borderRadius: '16px',

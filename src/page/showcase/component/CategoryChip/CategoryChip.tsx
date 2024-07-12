@@ -1,8 +1,8 @@
 import { buttonStyle } from '@/page/showcase/component/CategoryChip/CategoryChip.style';
 
-import { ComponentPropsWithRef } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
-interface CategoryChipProps extends Omit<ComponentPropsWithRef<'button'>, 'onClick'> {
+interface CategoryChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;
   isSelected?: boolean;
 }
