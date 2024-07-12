@@ -6,6 +6,8 @@ import {
   pageStyle,
 } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
+import BlockModal from '@/page/archiving/component/Modal/Block/BlockModal';
+import UploadModal from '@/page/archiving/component/Modal/Upload/UploadModal';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
@@ -24,7 +26,9 @@ import Calendar from '@/common/asset/svg/calendar.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
+import { useModal } from '@/common/hook/useModal';
 
 const ArchivingPage = () => {
   const currentDate = new Date();
@@ -37,6 +41,11 @@ const ArchivingPage = () => {
   const endDay = endOfMonth(dateOfMonth);
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
+
+  // 블록 생성 모달 관련 코드
+  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+
+  const handleNext = () => setCurrentContent(<UploadModal onClose={closeModal} />);
 
   return (
     <>
@@ -107,11 +116,12 @@ const ArchivingPage = () => {
         </div>
       </section>
       <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
-        <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+        <Button variant="action" css={buttonStyle} onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
           <AddIc width={24} height={24} />
           블록 생성
         </Button>
       </Flex>
+      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </>
   );
 };
