@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import Header from '@/common/component/Header/Header';
 import { theme } from '@/common/style/theme/theme';
@@ -8,7 +8,10 @@ import { theme } from '@/common/style/theme/theme';
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 
 const App = () => {
-  return (
+  const location = useLocation();
+  const showSidebar = ['/showcase', '/archiving'].includes(location.pathname);
+
+  return showSidebar ? (
     <div css={containerStyle}>
       <LeftSidebar />
       <main css={layoutStyle}>
@@ -16,6 +19,13 @@ const App = () => {
         <Outlet />
       </main>
     </div>
+  ) : (
+    <>
+      <Header />
+      <main css={layoutStyle}>
+        <Outlet />
+      </main>
+    </>
   );
 };
 
