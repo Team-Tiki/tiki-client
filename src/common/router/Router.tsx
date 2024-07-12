@@ -2,15 +2,15 @@ import App from '@/App';
 import ArchivingPage from '@/page/archiving/ArchivingPage';
 import LoginPage from '@/page/login/LoginPage';
 import ShowcasePage from '@/page/showcase/ShowcasePage';
-import TermPage from '@/page/signIn/index/TermPage';
-import InfoFormPage from '@/page/signIn/info/InfoFormPage';
+import TermPage from '@/page/signUp/index/TermPage';
+import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
   {
-    path: '/signin',
+    path: '/signup',
     element: <TermPage />,
   },
   {

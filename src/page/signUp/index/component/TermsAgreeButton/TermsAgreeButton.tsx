@@ -1,4 +1,4 @@
-import { buttonStyle } from '@/page/signIn/index/component/TermsAgreeButton/TermsAgreeButton.style';
+import { buttonStyle } from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton.style';
 
 import { ComponentPropsWithoutRef } from 'react';
 

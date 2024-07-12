@@ -2,8 +2,20 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
+export const pageStyle = css({
+  display: 'flex',
+
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  height: '100vh',
+});
+
 export const selectTriggerStyle = css({
   display: 'flex',
+
+  height: '100vh',
   justifyContent: 'space-between',
   alignItems: 'center',
 
