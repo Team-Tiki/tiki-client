@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <TermPage />,
   },
   {
-    path: '/signin/info',
+    path: '/signup/info',
     element: <InfoFormPage />,
   },
   {
