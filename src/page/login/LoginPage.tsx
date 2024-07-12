@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   return (
     <section css={pageStyle}>
-      <Logo width={100} height={40} />
+      <Logo width={108} height={40} />
       <form onSubmit={handleLogin} css={formStyle}>
         <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
           <Input value={email} onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
