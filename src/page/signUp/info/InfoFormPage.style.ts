@@ -32,4 +32,8 @@ export const selectTriggerStyle = css({
     width: 10,
     height: 10,
   },
+
+  '&:focus': {
+    borderColor: theme.colors.blue_900,
+  },
 });

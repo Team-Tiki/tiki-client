@@ -34,8 +34,10 @@ const TermPage = () => {
 
   return (
     <Flex styles={{ direction: 'column', align: 'center', justify: 'center', height: '100vh' }}>
-      <Flex tag="section" styles={{ direction: 'column', width: '50rem', gap: '1.6rem' }}>
-        <Heading tag="H3">이용 약관 동의</Heading>
+      <Flex tag="section" styles={{ direction: 'column', width: '50rem', gap: '3.2rem' }}>
+        <Heading tag="H3" css={{ padding: '1.6rem 0' }}>
+          이용 약관 동의
+        </Heading>
         <TermsAgreeButton isClicked={totalAgreeClicked} onClick={약관전체동의클릭} />
 
         <Flex styles={{ direction: 'column', gap: '3.2rem', marginTop: '1.6rem' }}>
@@ -45,7 +47,8 @@ const TermPage = () => {
             isChecked={termStatus.serviceTerm}>
             <Text tag="body5" css={detailStyle}>
               이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력
-              이용약관 내용입력 이용약관 내용입력
+              입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관
+              내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력
             </Text>
           </TermArea>
 
