@@ -15,7 +15,7 @@ export const timelineStyle = (blockSelected: BlockType | undefined) =>
 
 export const pageStyle = (blockSelected: BlockType | undefined) =>
   css({
-    width: blockSelected ? '890px' : '100%',
+    transform: blockSelected ? '89rem' : '100%',
     padding: '2.6rem 2.4rem',
 
     borderRadius: '16px',
