@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const containerStyle = css({ width: '100%' });
+export const containerStyle = css({ width: '100%', maxWidth: '24.4rem' });
 
 export const imageStyle = css({
   width: '100%',
