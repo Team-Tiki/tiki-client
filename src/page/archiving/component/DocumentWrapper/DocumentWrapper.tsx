@@ -22,9 +22,7 @@ interface DocumentLayoutProps {
 const DocumentWrapper = ({ selectedId, documentData, children, searchWord }: DocumentLayoutProps) => {
   // 검색 된 문서리스트 받아오기
   const filterDocument = (searchWord: string, documentData: Total | Block) => {
-    return documentData.filter((document) => {
-      return document.fileName.includes(searchWord);
-    });
+    return documentData.filter((document) => document.fileName.includes(searchWord));
   };
 
   const documentList = selectedId === 'selected' ? documentData : filterDocument(searchWord, documentData);
