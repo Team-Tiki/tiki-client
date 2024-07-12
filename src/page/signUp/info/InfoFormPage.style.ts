@@ -37,3 +37,24 @@ export const selectTriggerStyle = css({
     borderColor: theme.colors.blue_900,
   },
 });
+
+export const identifyStyle = (isMailSent: boolean) =>
+  css({
+    position: 'relative',
+    visibility: isMailSent ? 'visible' : 'hidden',
+    width: '100%',
+
+    alignItems: 'end',
+    justifyContent: 'space-between',
+    gap: '0.8rem',
+  });
+
+export const timestyle = css({
+  position: 'absolute',
+
+  top: '1.8rem',
+  right: '13rem',
+
+  color: theme.colors.blue_900,
+  ...theme.text.body04,
+});

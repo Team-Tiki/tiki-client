@@ -19,7 +19,7 @@ const LoginPage = () => {
   };
 
   const 회원가입페이지로이동 = () => {
-    navigate('/signin');
+    navigate('/signup');
   };
 
   return (
