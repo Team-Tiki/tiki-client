@@ -15,6 +15,7 @@ const PasswordAuthPage = () => {
   const [isMainSent, setIsMainSent] = useState(false);
   const navigate = useNavigate();
   const [remainTime, setRemainTime] = useState(180);
+  const [verified] = useState({ isVerified: false });
 
   const handleMainSend = useCallback(() => {
     setIsMainSent(true);
@@ -26,9 +27,12 @@ const PasswordAuthPage = () => {
           clearInterval(timer);
         }
       }, 1000);
-      return () => clearInterval(timer);
     });
   }, [remainTime]);
+
+  const handleVerify = () => {
+    verified.isVerified = true;
+  };
 
   return (
     <Flex tag="section" css={pageStyle}>
@@ -54,7 +58,7 @@ const PasswordAuthPage = () => {
                 }}>
                 <Input variant="underline" label="회원 정보" placeholder={PLACEHOLDER.SCHOOL_EMAIL} />
                 <span css={timestyle}>{formatTime(remainTime)}</span>
-                <Button css={{ width: '13rem' }} size="large" onClick={() => {}}>
+                <Button css={{ width: '13rem' }} size="large" onClick={() => handleVerify()}>
                   인증하기
                 </Button>
               </Flex>
@@ -65,8 +69,9 @@ const PasswordAuthPage = () => {
           type="button"
           variant="primary"
           size="large"
-          css={{ marginTop: 'auto', padding: '1.6rem 23.15rem' }} // 버튼을 하단으로 밀어내기 위한 스타일 조정
-          onClick={() => navigate(`/login`)}>
+          css={{ marginTop: 'auto' }}
+          onClick={() => navigate(`/login`)}
+          disabled={!verified.isVerified}>
           완료
         </Button>
       </form>
