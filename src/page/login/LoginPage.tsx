@@ -44,7 +44,7 @@ const LoginPage = () => {
             학교 메일로 회원가입
           </Button>
         </Flex>
-        <Button size="small" variant="text" css={findPasswordButtonStyle}>
+        <Button size="small" variant="text" css={findPasswordButtonStyle} onClick={() => navigate('/password/auth')}>
           비밀번호 찾기
         </Button>
       </form>
