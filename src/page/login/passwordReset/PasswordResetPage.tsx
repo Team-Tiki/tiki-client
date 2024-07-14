@@ -1,7 +1,7 @@
-import { formStyle, pageStyle } from '@/page/login/passwordReset/PasswordResetPage.style';
-import { PLACEHOLDER, SUPPORTINGTXT } from '@/page/signUp/info/constant';
+import { formStyle, pageStyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
+import { PLACEHOLDER } from '@/page/signUp/info/constant';
 
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -9,27 +9,41 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 
 const PasswordResetPage = () => {
-  const navigate = useNavigate();
+  const [updatePassword, setUpdatePassword] = useState('');
+  const [updatePasswordConfirm, setUpdatePasswordConfirm] = useState('');
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdatePassword(e.target.value);
+  };
+
+  const handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdatePasswordConfirm(e.target.value);
+  };
 
   return (
-    <Flex css={pageStyle}>
+    <Flex tag="section" css={pageStyle}>
+      <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
       <form css={formStyle}>
-        <Heading css={{ padding: '1.6rem 0' }}>비밀번호 재설정</Heading>
-        <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
+        <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem' }}>
           <Input
             variant="underline"
-            label="회원 정보"
-            placeholder={PLACEHOLDER.SCHOOL_EMAIL}
-            supportingText={SUPPORTINGTXT.AUTH_CODE}
+            placeholder={PLACEHOLDER.PASSWORD}
+            value={updatePassword}
+            onChange={handlePasswordChange}
           />
-          <Input variant="underline" placeholder={PLACEHOLDER.AUTH_CODE} />
+          <Input
+            variant="underline"
+            placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
+            value={updatePasswordConfirm}
+            onChange={handlePasswordConfirmChange}
+          />
         </Flex>
         <Button
-          type="button"
+          type="submit"
           variant="primary"
           size="large"
-          css={{ marginTop: '46rem' }}
-          onClick={() => navigate(`/login`)}>
+          css={{ marginTop: 'auto' }}
+          disabled={updatePassword.length === 0 || updatePassword !== updatePasswordConfirm}>
           완료
         </Button>
       </form>
