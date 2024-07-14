@@ -1,3 +1,4 @@
+import useTimer from '@/page/login/hook/useTime';
 import { formStyle, pageStyle, timestyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
 import { validateInput } from '@/page/login/util/validateInput';
 import { PLACEHOLDER, SUPPORTINGTXT } from '@/page/signUp/info/constant';
@@ -15,11 +16,11 @@ import SupportingText from '@/common/component/SupportingText/SupportingText';
 const PasswordAuthPage = () => {
   const [isMainSent, setIsMainSent] = useState(false);
   const navigate = useNavigate();
-  const [remainTime, setRemainTime] = useState(180);
   const [isVerified, setIsVerified] = useState(false);
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const { time: remainTime, startTimer, stopTimer } = useTimer(10);
 
   useEffect(() => {
     const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
@@ -29,18 +30,7 @@ const PasswordAuthPage = () => {
 
   const handleMailSend = useCallback(() => {
     setIsMainSent(true);
-    setTimeout(() => {
-      const timer = setInterval(() => {
-        setRemainTime((prevTime) => {
-          if (prevTime > 0) {
-            return prevTime - 1;
-          } else {
-            clearInterval(timer);
-            return 0;
-          }
-        });
-      }, 1000);
-    });
+    startTimer();
   }, []);
 
   const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +42,7 @@ const PasswordAuthPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isVerified) {
+      stopTimer();
       navigate('/password/reset');
     }
   };
