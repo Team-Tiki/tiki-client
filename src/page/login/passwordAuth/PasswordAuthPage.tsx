@@ -15,17 +15,18 @@ const PasswordAuthPage = () => {
   const [isMainSent, setIsMainSent] = useState(false);
   const navigate = useNavigate();
   const [remainTime, setRemainTime] = useState(180);
-  const [verified, setVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
-  const [emailError] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
 
   useEffect(() => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    const isValid = email.trim().length > 0 && emailPattern.test(email.trim());
-    setIsEmailValid(isValid);
-  }, [email]);
+    const isEmailValid = email.trim().length > 0 && emailPattern.test(email.trim());
+    const isAuthCodeValid = authCode.trim().length > 0 && authCode.trim().length === 6;
+    setIsEmailValid(isEmailValid);
+    setIsVerified(isAuthCodeValid);
+  }, [email, authCode]);
 
   const MainSend = useCallback(() => {
     setIsMainSent(true);
@@ -46,12 +47,12 @@ const PasswordAuthPage = () => {
   const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setAuthCode(value);
-    setVerified(value.length === 6 && authCode === '1234');
+    setIsVerified(value.length === 6);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (verified) {
+    if (isVerified) {
       navigate('/login');
     }
   };
@@ -73,7 +74,6 @@ const PasswordAuthPage = () => {
               인증 메일 발송
             </Button>
           </Flex>
-          {emailError && <SupportingText>{emailError}</SupportingText>}
           {isMainSent && (
             <>
               <SupportingText isNotice={true}>{SUPPORTINGTXT.AUTH_CODE}</SupportingText>
@@ -93,14 +93,14 @@ const PasswordAuthPage = () => {
                   onChange={handleVerify}
                 />
                 <span css={timestyle}>{formatTime(remainTime)}</span>
-                <Button css={{ width: '13rem' }} size="large" onClick={() => handleVerify}>
+                <Button css={{ width: '13rem' }} size="large" disabled={!isVerified}>
                   인증하기
                 </Button>
               </Flex>
             </>
           )}
         </Flex>
-        <Button type="submit" variant="primary" size="large" css={{ marginTop: 'auto' }} disabled={!verified}>
+        <Button type="submit" variant="primary" size="large" css={{ marginTop: 'auto' }} disabled={!isVerified}>
           완료
         </Button>
       </form>
