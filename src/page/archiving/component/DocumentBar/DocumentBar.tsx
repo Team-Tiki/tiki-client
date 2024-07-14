@@ -5,7 +5,7 @@ import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/Document
 import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
 import { BLOCK_INFO, BLOCK_TEST_DATA, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
 
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 const DocumentBar = () => {
   const [selectedId, setSelectedId] = useState('selected');
@@ -18,8 +18,8 @@ const DocumentBar = () => {
     tabId !== selectedId && setSelectedId(tabId);
   };
 
-  const handleSearchWord = (search: string) => {
-    setSearchWord(search);
+  const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchWord(e.target.value);
   };
 
   // 탭 클릭시 문서리스트 받아오기
@@ -38,7 +38,7 @@ const DocumentBar = () => {
         {selectedId === 'selected' ? (
           <DocumentBarInfo blockName={BLOCK_INFO.title} startDate={BLOCK_INFO.startDate} endDate={BLOCK_INFO.endDate} />
         ) : (
-          <DocumentBarTool handleSearchWord={handleSearchWord} searchWord={searchWord} />
+          <DocumentBarTool onSearchWord={handleSearchWord} searchWord={searchWord} />
         )}
       </DocumentWrapper>
     </aside>

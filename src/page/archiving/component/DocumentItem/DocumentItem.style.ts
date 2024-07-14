@@ -10,7 +10,7 @@ export const containerStyle = (selectedId: string) =>
     gap: '0.4rem',
     padding: selectedId === 'total' ? '1rem 1.2rem' : '1.2rem',
 
-    border: '1px solid var(--gray_300, #D6D5D5)',
+    border: `1px solid ${theme.colors.gray_300}`,
     borderRadius: '8px',
 
     cursor: 'pointer',

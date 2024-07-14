@@ -1,4 +1,4 @@
-import Filter from '@/page/archiving/component/DocumentFilter/Filter';
+import Filter from '@/page/archiving/component/DocumentFilter/DocumentFilter';
 import { buttonStyle, fontStyle } from '@/page/archiving/component/DocumentSort/DocumentSort.style';
 
 import { forwardRef, useEffect, useState } from 'react';

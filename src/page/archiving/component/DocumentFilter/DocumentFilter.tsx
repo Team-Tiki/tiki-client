@@ -1,4 +1,4 @@
-import { filterItemStyle } from '@/page/archiving/component/DocumentFilter/Filter.style';
+import { filterItemStyle } from '@/page/archiving/component/DocumentFilter/DocumentFilter.style';
 
 import { ComponentPropsWithRef, ForwardedRef, ReactElement, forwardRef } from 'react';
 
