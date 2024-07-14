@@ -3,10 +3,10 @@ import { useEffect, useRef } from 'react';
 type ObserverOptions = IntersectionObserverInit;
 type ObserverCallback = IntersectionObserverCallback;
 
-export function useIntersectionObserver<T extends HTMLElement>(
+export const useIntersectionObserver = <T extends HTMLElement>(
   onIntersect: ObserverCallback,
   { root, rootMargin, threshold }: ObserverOptions
-) {
+) => {
   const targetRef = useRef<T>(null);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ export function useIntersectionObserver<T extends HTMLElement>(
   }, [root, rootMargin, threshold, onIntersect]);
 
   return { targetRef };
-}
+};
