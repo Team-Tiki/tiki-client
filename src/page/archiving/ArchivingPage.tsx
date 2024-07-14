@@ -1,10 +1,5 @@
-import {
-  buttonStyle,
-  contentStyle,
-  daySectionStyle,
-  pageStyle,
-  timelineStyle,
-} from '@/page/archiving/ArchivingPage.style';
+/** @jsxImportSource @emotion/react */
+import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
@@ -31,62 +26,60 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
-    <>
+    <Flex styles={{ width: '100%' }}>
       <section css={timelineStyle(blockSelected)}>
-        <div css={pageStyle(blockSelected)}>
-          <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
-          <Flex css={contentStyle}>
-            <MonthHeader
-              onMonthClick={(month: MonthType) => {
-                setSelectedMonth(month);
-              }}
-              blockSelected={blockSelected}
-            />
-            <div css={daySectionStyle(blockSelected)}>
-              {Array.from({ length: endDay.getDate() }, (_, index) => {
-                const day = index + 1;
-                const isEven = day % 2 === 0;
-                return (
-                  <DaySection
-                    key={day}
-                    day={day}
-                    isEven={isEven}
-                    isToday={
-                      day === currentDate.getDate() &&
-                      currentYear === currentDate.getFullYear() &&
-                      selectedMonth === `${currentDate.getMonth() + 1}월`
-                    }
-                  />
-                );
-              })}
-              {TIME_BLOCK.filter((block) => {
-                const blockMonth = block.startDate.getMonth() + 1;
-                const clickedMonth = parseInt(selectedMonth.split('월')[0]);
+        <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
+        <Flex css={contentStyle}>
+          <MonthHeader
+            onMonthClick={(month: MonthType) => {
+              setSelectedMonth(month);
+            }}
+            blockSelected={blockSelected}
+          />
+          <div css={daySectionStyle}>
+            {Array.from({ length: endDay.getDate() }, (_, index) => {
+              const day = index + 1;
+              const isEven = day % 2 === 0;
+              return (
+                <DaySection
+                  key={day}
+                  day={day}
+                  isEven={isEven}
+                  isToday={
+                    day === currentDate.getDate() &&
+                    currentYear === currentDate.getFullYear() &&
+                    selectedMonth === `${currentDate.getMonth() + 1}월`
+                  }
+                />
+              );
+            })}
+            {TIME_BLOCK.filter((block) => {
+              const blockMonth = block.startDate.getMonth() + 1;
+              const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
-                return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
-              }).map((block) => (
-                <TimeBlock
-                  key={block.id}
-                  startDate={block.startDate}
-                  endDate={block.endDate}
-                  color={getRandomColor()}
-                  floor={blockFloors[block.id] || 1}
-                  onBlockClick={() => setBlockSelected(block)}>
-                  {block.title}
-                </TimeBlock>
-              ))}
-            </div>
-          </Flex>
-        </div>
+              return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
+            }).map((block) => (
+              <TimeBlock
+                key={block.id}
+                startDate={block.startDate}
+                endDate={block.endDate}
+                color={getRandomColor()}
+                floor={blockFloors[block.id] || 1}
+                onBlockClick={() => setBlockSelected(block)}>
+                {block.title}
+              </TimeBlock>
+            ))}
+          </div>
+        </Flex>
+        <Flex css={{ marginLeft: 'auto' }}>
+          <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+            <AddIc width={24} height={24} />
+            블록 생성
+          </Button>
+        </Flex>
       </section>
-      <Flex styles={{ paddingRight: '2rem', marginLeft: 'auto' }}>
-        <Button variant="action" css={buttonStyle(blockSelected)} onClick={() => alert('모달')}>
-          <AddIc width={24} height={24} />
-          블록 생성
-        </Button>
-      </Flex>
       {blockSelected && <DocumentBar blockSelected={blockSelected} />}
-    </>
+    </Flex>
   );
 };
 

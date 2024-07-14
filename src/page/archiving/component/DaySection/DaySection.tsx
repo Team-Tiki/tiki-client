@@ -23,7 +23,7 @@ const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
       {isToday && (
         <>
           <Circle width={8} height={8} css={selectedDayStyle} />
-          <Dotted width={2} height={'100%'} css={[selectedDayStyle, { left: '2.8rem' }]} />
+          <Dotted width={2} height={500} css={[selectedDayStyle, { top: '3rem', left: '2.8rem' }]} />
         </>
       )}
     </Flex>

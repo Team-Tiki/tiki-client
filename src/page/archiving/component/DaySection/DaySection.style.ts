@@ -6,6 +6,7 @@ export const dayStyle = (isEven: boolean) =>
   css({
     position: 'relative',
     width: '6rem',
+    height: '100vh',
 
     backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
   });

@@ -1,7 +1,6 @@
 import App from '@/App';
-
-import LoginPage from '@/page/login/LoginPage';
 import ArchivingPage from '@/page/archiving/ArchivingPage';
+import LoginPage from '@/page/login/LoginPage';
 import TermPage from '@/page/signIn/index/TermPage';
 import InfoFormPage from '@/page/signIn/info/InfoFormPage';
 
