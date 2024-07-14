@@ -27,7 +27,7 @@ const PasswordAuthPage = () => {
     setIsEmailValid(isValid);
   }, [email]);
 
-  const handleMainSend = useCallback(() => {
+  const MainSend = useCallback(() => {
     setIsMainSent(true);
     setTimeout(() => {
       const timer = setInterval(() => {
@@ -46,7 +46,7 @@ const PasswordAuthPage = () => {
   const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setAuthCode(value);
-    setVerified(value.length > 0);
+    setVerified(value.length === 6 && authCode === '1234');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -69,7 +69,7 @@ const PasswordAuthPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button css={{ width: '11.1rem' }} size="large" onClick={handleMainSend} disabled={!isEmailValid}>
+            <Button css={{ width: '11.1rem' }} size="large" onClick={MainSend} disabled={!isEmailValid}>
               인증 메일 발송
             </Button>
           </Flex>
