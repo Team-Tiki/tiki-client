@@ -1,4 +1,4 @@
-import { tabDefaultStyle } from '@/page/archiving/component/DocumentBar/DocumentBarTab/DocumentBarTab.style';
+import { tabDefaultStyle } from '@/page/archiving/component/DocumentBarTab/DocumentBarTab.style';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';

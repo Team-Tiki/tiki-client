@@ -1,19 +1,18 @@
-import { filterItemStyle } from '@/page/archiving/component/DocumentBar/DocumentWrapper/DocumentBarTool/DocumentSort/FilterDropdown/Filter.style';
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+import { filterItemStyle } from '@/page/archiving/component/DocumentFilter/DocumentFilter.style';
 
-import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
+import { ComponentPropsWithRef, ForwardedRef, ReactElement, forwardRef } from 'react';
 
 import { Dropdown } from '@/common/component/Dropdown';
 import { itemStyle, overlayStyle } from '@/common/component/Select/Select.style';
 
 interface FilterProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
   isOpen?: boolean;
-  trigger: JSX.Element;
+  trigger: ReactElement;
   label?: string;
   onSelect?: (id: string) => void;
   options: {
     text: string;
-    logo: EmotionJSX.Element;
+    logo: ReactElement;
   }[];
 }
 
