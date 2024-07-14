@@ -20,8 +20,27 @@ import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
+import { useIntersectionObserver } from '@/common/hook/useObserver';
 
 const LandingPage = () => {
+  const handleObserve = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('observer_shown');
+
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+  const option = {
+    root: document.getElementById('landing_view'),
+    threshold: 1,
+  };
+
+  const { targetRef: overviewRef } = useIntersectionObserver(handleObserve, option);
+  const { targetRef: feature1Ref } = useIntersectionObserver(handleObserve, option);
+  const { targetRef: feature2Ref } = useIntersectionObserver(handleObserve, option);
+
   return (
     <main id="landing_view" css={landingStyle}>
       <section css={sectionStyle}>
@@ -34,8 +53,8 @@ const LandingPage = () => {
         </Button>
         <ArrowDown />
       </section>
-      <LandingOverview />
-      <section css={[featureSectionStyle, { textAlign: 'end' }]}>
+      <LandingOverview ref={overviewRef} />
+      <section ref={feature1Ref} css={[featureSectionStyle, { textAlign: 'end' }]}>
         <div css={textWrapperStyle}>
           <Heading css={hideStyle} tag="H1">
             {TEXT.FEATURE_HEADING.FIRST}
@@ -56,7 +75,7 @@ const LandingPage = () => {
           <img css={viewImgStyle} src={firstView} alt="서비스 뷰 1" />
         </div>
       </section>
-      <section css={[featureSectionStyle, { textAlign: 'start' }]}>
+      <section ref={feature2Ref} css={[featureSectionStyle, { textAlign: 'start' }]}>
         <div css={textWrapperStyle}>
           <Heading css={hideStyle} tag="H1">
             {TEXT.FEATURE_HEADING.SECOND}
