@@ -7,7 +7,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     position: 'absolute',
     display: 'flex',
 
-    zIndex: theme.zIndex.overlayMiddle,
+    zIndex: theme.zIndex.overlayBottom,
 
     top: `${floor * 6 - 2.4}rem`,
     left: `${startPosition + 0.2}rem`,
