@@ -10,10 +10,6 @@ export const containerStyle = css({
   gap: '0.8rem',
 
   width: '100%',
-
-  '& > div': {
-    marginTop: '0.4rem',
-  },
 });
 
 export const inputSupportStyle = css({
@@ -69,8 +65,15 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
       borderRadius: '100px',
       backgroundColor: theme.colors.gray_100,
 
-      '&:focus-within': {
-        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+      '& > input': {
+        '::placeholder': {
+          color: theme.colors.gray_500,
+          ...theme.text.body06,
+        },
+
+        '&:focus-within': {
+          boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+        },
       },
     },
   };

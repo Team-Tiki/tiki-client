@@ -6,11 +6,13 @@ import { fadeIn, fadeOut } from '@/shared/style/animation';
 
 export const leftSidebarItemStyle = css({
   display: 'flex',
-
-  height: '4rem',
   alignItems: 'center',
 
-  gap: '0.8rem',
+  height: '4.8rem',
+
+  padding: '0.4rem',
+
+  cursor: 'pointer',
 });
 
 export const logoBoxStyle = (isClicked: boolean) =>
@@ -21,23 +23,39 @@ export const logoBoxStyle = (isClicked: boolean) =>
     width: '4rem',
     height: '4rem',
 
-    border: isClicked ? `1px solid ${theme.colors.blue_900}` : 'none',
     borderRadius: '10px',
 
-    backgroundColor: theme.colors.gray_100,
+    backgroundColor: isClicked ? theme.colors.blue_300 : theme.colors.blue_900,
 
     justifyContent: 'center',
     alignItems: 'center',
   });
 
+export const itemStyle = (isClicked: boolean) =>
+  css({
+    marginLeft: '1.2rem',
+
+    borderRadius: '10px',
+
+    backgroundColor: isClicked && theme.colors.blue_300,
+
+    '&: hover': { backgroundColor: theme.colors.blue_700, '& > div': { backgroundColor: theme.colors.blue_700 } },
+  });
+
 export const textStyle = (isExpansion: boolean) =>
   css({
-    fontWeight: '500',
+    alignSelf: 'center',
+    width: isExpansion ? '14.9rem' : '0rem',
+    marginLeft: isExpansion ? '0.8rem' : 0,
 
     opacity: isExpansion ? '1' : '0',
 
-    transform: isExpansion ? 'translateX(0)' : 'translateX(-30rem)',
-    transition: 'transform 0.5s',
+    fontWeight: '500',
 
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+
+    transform: isExpansion ? 'translateX(0)' : 'translateX(-30rem)',
+    transition: '0.5s',
     animation: isExpansion ? `${fadeIn} 0.5s ease-in` : `${fadeOut} 0.4s ease-out`,
   });

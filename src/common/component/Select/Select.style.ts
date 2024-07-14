@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const overlayStyle = css({
+  marginTop: '0.8rem',
+
   border: `1px solid ${theme.colors.gray_400}`,
   borderRadius: '8px',
 
