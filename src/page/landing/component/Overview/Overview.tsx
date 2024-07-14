@@ -15,18 +15,15 @@ const Overview = ({}, ref: ForwardedRef<HTMLElement>) => {
       <Heading tag="H1" css={titleStyle}>
         {TEXT.OVERVIEW}
       </Heading>
-      <Lottie
-        aria-label="서비스 소개 애니메이션"
-        animationData={serviceAni}
-        loop={true}
-        css={css`
-          opacity: 0;
-          transform: translateY(2rem);
-          width: 100%;
-        `}
-      />
+      <Lottie aria-label="서비스 소개 애니메이션" animationData={serviceAni} loop={true} css={animationStyle} />
     </section>
   );
 };
+
+const animationStyle = css({
+  opacity: 0,
+  transform: 'translateY(2rem)',
+  width: '100%',
+});
 
 export default forwardRef(Overview);
