@@ -10,6 +10,19 @@ export const pageStyle = css({
   height: '100vh',
 });
 
+export const formStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  flex: 1,
+
+  width: '100%',
+
+  '& > div': {
+    width: '100%',
+  },
+});
+
 export const selectTriggerStyle = css({
   display: 'flex',
 
