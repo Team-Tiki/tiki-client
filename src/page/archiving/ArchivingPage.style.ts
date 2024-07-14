@@ -1,9 +1,9 @@
-import { BlockType } from '@/page/archiving/type/blockType';
+import { Block } from '@/page/archiving/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const timelineStyle = (blockSelected: BlockType | undefined) =>
+export const timelineStyle = (blockSelected: Block | undefined) =>
   css({
     position: 'relative',
 
@@ -13,7 +13,7 @@ export const timelineStyle = (blockSelected: BlockType | undefined) =>
     flexDirection: 'column',
   });
 
-export const pageStyle = (blockSelected: BlockType | undefined) =>
+export const pageStyle = (blockSelected: Block | undefined) =>
   css({
     width: blockSelected ? '89rem' : '100%',
     padding: '2.6rem 2.4rem',
@@ -28,7 +28,7 @@ export const contentStyle = css({
   gap: '2rem',
 });
 
-export const daySectionStyle = (blockSelected: BlockType | undefined) =>
+export const daySectionStyle = (blockSelected: Block | undefined) =>
   css({
     position: 'relative',
     display: 'flex',
@@ -46,7 +46,7 @@ export const daySectionStyle = (blockSelected: BlockType | undefined) =>
     },
   });
 
-export const buttonStyle = (blockSelected: BlockType | undefined) =>
+export const buttonStyle = (blockSelected: Block | undefined) =>
   css({
     position: 'relative',
     width: '13.2rem',
