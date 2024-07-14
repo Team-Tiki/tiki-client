@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { containerStyle, titleStyle } from '@/page/landing/component/Overview/Overview.style';
 import { TEXT } from '@/page/landing/constant';
 import { css } from '@emotion/react';

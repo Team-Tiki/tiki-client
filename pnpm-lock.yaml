@@ -20,9 +20,6 @@ importers:
       axios:
         specifier: ^1.7.2
         version: 1.7.2
-      date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -32,9 +29,6 @@ importers:
       react-router-dom:
         specifier: ^6.24.1
         version: 6.24.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      zustand:
-        specifier: ^4.5.4
-        version: 4.5.4(@types/react@18.3.3)(react@18.3.1)
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^1.6.0
@@ -102,6 +96,9 @@ importers:
       chromatic:
         specifier: ^11.5.4
         version: 11.5.4
+      date-fns:
+        specifier: ^3.6.0
+        version: 3.6.0
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -168,6 +165,9 @@ importers:
       vite-tsconfig-paths:
         specifier: ^4.3.2
         version: 4.3.2(typescript@5.5.2)(vite@5.3.2(@types/node@20.14.9))
+      zustand:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/react@18.3.3)(react@18.3.1)
 
 packages:
 
