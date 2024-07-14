@@ -10,8 +10,14 @@ export const containerStyle = (selectedId: string) =>
     gap: '0.4rem',
     padding: selectedId === 'total' ? '1rem 1.2rem' : '1.2rem',
 
-    border: '1px solid var(--gray_300, #D6D5D5)',
+    border: `1px solid ${theme.colors.gray_300}`,
     borderRadius: '8px',
+
+    cursor: 'pointer',
+
+    '&: hover': {
+      backgroundColor: theme.colors.blue_100,
+    },
   });
 
 // 추후에 color 받아서 쓸거임 진짜임 지우라 하지마셈 반박불가
