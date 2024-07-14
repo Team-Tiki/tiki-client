@@ -1,4 +1,3 @@
-import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import { css } from '@emotion/react';
 
 import { Outlet } from 'react-router-dom';
@@ -9,7 +8,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <DocumentBar />
+
       <main css={layoutStyle}>
         <Outlet />
       </main>
