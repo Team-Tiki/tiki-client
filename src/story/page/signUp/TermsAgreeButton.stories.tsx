@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
 const meta = {
-  title: 'page/signIn/TermsAgreeButton',
+  title: 'page/signUp/TermsAgreeButton',
   component: TermsAgreeButton,
   parameters: {
     layout: 'centered',

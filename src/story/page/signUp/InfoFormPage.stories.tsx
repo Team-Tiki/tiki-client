@@ -1,13 +1,14 @@
-import TermPage from '@/page/signUp/index/TermPage';
+import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'page/signIn/TermPage',
-  component: TermPage,
+  title: 'page/signUp/InfoFormPage',
+  component: InfoFormPage,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof TermPage>;
+  args: {},
+} satisfies Meta<typeof InfoFormPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
