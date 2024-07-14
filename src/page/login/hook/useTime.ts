@@ -6,9 +6,6 @@ const useTimer = (initialTime: number) => {
 
   const startTimer = useCallback(() => {
     setTime(initialTime);
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
     timerRef.current = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime > 0) {
