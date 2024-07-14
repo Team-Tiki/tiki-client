@@ -3,9 +3,11 @@ import DocumentBarInfo from '@/page/archiving/component/DocumentBarInfo/Document
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
-import { BLOCK_INFO, BLOCK_TEST_DATA, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
+import { BLOCK_INFO, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
 
 import { ChangeEvent, useEffect, useState } from 'react';
+
+import { useGetBlockData } from '@/shared/api/hook/useGetBlockData';
 
 const DocumentBar = () => {
   const [selectedId, setSelectedId] = useState('selected');
@@ -22,14 +24,16 @@ const DocumentBar = () => {
     setSearchWord(e.target.value);
   };
 
+  const { data } = useGetBlockData(9, 8);
+
   // 탭 클릭시 문서리스트 받아오기
   useEffect(() => {
     if (selectedId === 'selected') {
-      setDocumentData(BLOCK_TEST_DATA);
+      setDocumentData(data);
     } else if (selectedId === 'total') {
       setDocumentData(TOTAL_DATA);
     }
-  }, [selectedId]);
+  }, [selectedId, data]);
 
   return (
     <aside css={containerStyle}>

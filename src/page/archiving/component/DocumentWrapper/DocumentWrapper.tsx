@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 import Flex from '@/common/component/Flex/Flex';
 
 interface Document {
+  documentId: number;
   fileName: string;
   fileUrl?: string;
   blockName?: string;
@@ -30,8 +31,8 @@ const DocumentWrapper = ({ selectedId, documentData, children, searchWord }: Doc
     <Flex styles={{ direction: 'column', align: 'center', padding: '1.6rem 1.6rem 0 2.4rem' }}>
       {children}
       <Flex tag="ul" css={documentListStyle}>
-        {documentList.map((data: Document) => (
-          <DocumentItem key={data.fileName} selectedId={selectedId} blockName={data.blockName}>
+        {documentList?.map((data: Document) => (
+          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName}>
             {data.fileName}
           </DocumentItem>
         ))}
