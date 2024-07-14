@@ -16,9 +16,8 @@ const colors = {
   blue_700: '#4952A5',
   blue_300: '#7279B9',
   blue_200: '#D7D9EB',
-
   blue_100: '#EDF0FD',
-  blue_300: '#7279B9',
+
   red: '#FE4F60',
   purple: '#DBDBFC',
   green: '#CEF7EF',
