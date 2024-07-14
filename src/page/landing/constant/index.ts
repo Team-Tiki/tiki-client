@@ -12,4 +12,6 @@ export const TEXT = {
     SECOND:
       '동아리 프로필을 만들고 모아볼 수 있는 기능을 통해\n다른 학생단체와의 파트너십과 모집부원 홍보를\n 한 번에 해결하세요',
   } as const,
+
+  OVERVIEW: "TEAM의 A-Z까지\n 하나의 'Ti.Ki'에서 '타카'하세요",
 } as const;

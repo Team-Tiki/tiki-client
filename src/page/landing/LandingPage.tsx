@@ -42,7 +42,7 @@ const LandingPage = () => {
   const { targetRef: feature2Ref } = useIntersectionObserver(handleObserve, option);
 
   return (
-    <main id="landing_view" css={landingStyle}>
+    <div id="landing_view" css={landingStyle}>
       <section css={sectionStyle}>
         <Heading tag="H1">{TEXT.LANDING_TITLE}</Heading>
         <Heading tag="H2" css={{ fontWeight: 500 }}>
@@ -90,7 +90,7 @@ const LandingPage = () => {
           <img css={viewImgStyle} src={secondView} alt="서비스 뷰 2" />
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 
