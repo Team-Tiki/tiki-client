@@ -12,8 +12,7 @@ import Heading from '@/common/component/Heading/Heading';
 import { ClubType } from '@/shared/api/showcase/type';
 import { useGetClubList } from '@/shared/hook/useGetClubList';
 
-//이거 로그인 구현되면 거기서 받아올거임 토큰
-// 지우라하지마셈 진짜임
+//이거 로그인 구현되면 고칠것..
 const token = '';
 
 const ShowcasePage = () => {
