@@ -15,13 +15,19 @@ interface UploadModalProps {
 
 const UploadModal = ({ onClose }: UploadModalProps) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const handleFilesChange = (newFiles: File[]) => {
-    setFiles(newFiles);
+    setFiles((prevFiles) => {
+      const uniqueNewFiles = newFiles.filter((newFile) => !prevFiles.some((file) => file.name === newFile.name));
+      return [...prevFiles, ...uniqueNewFiles];
+    });
+    setIsDeleted(false);
   };
 
   const handleDelete = (fileName: string) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    setIsDeleted(true);
   };
 
   const handleSave = () => {
@@ -49,10 +55,9 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
           width: '100%',
           gap: '2.4rem',
         }}>
-        <BlockAdd files={files} onFilesChange={handleFilesChange} />
-
+        <BlockAdd files={files} onFilesChange={handleFilesChange} isDeleted={isDeleted} />
         <div className="scroll" css={scrollStyle}>
-          {files.map((file) => (
+          {files.map((file, index) => (
             <BlockItem key={file.lastModified} title={file.name} onDelete={() => handleDelete(file.name)} />
           ))}
         </div>

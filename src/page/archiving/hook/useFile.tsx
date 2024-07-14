@@ -12,14 +12,19 @@ const useFile = ({ files, onFilesChange }: useFileProps) => {
     (newFiles: FileList | null) => {
       if (!newFiles) return;
       const fileArray = Array.from(newFiles);
-      onFilesChange([...files, ...fileArray]);
+      // 중복된 파일 제거
+      const uniqueFiles = fileArray.filter((newFile) => !files.some((file) => file.name === newFile.name));
+      onFilesChange([...files, ...uniqueFiles]);
     },
     [files, onFilesChange]
   );
 
   const handleFileChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: React.ChangeEvent<HTMLInputElement>, handleNewFilesCallback?: (newFiles: File[]) => void) => {
       handleFiles(event.target.files);
+      if (handleNewFilesCallback) {
+        handleNewFilesCallback(Array.from(event.target.files || []));
+      }
     },
     [handleFiles]
   );
@@ -29,12 +34,22 @@ const useFile = ({ files, onFilesChange }: useFileProps) => {
   }, []);
 
   const handleDrop = useCallback(
-    (event: React.DragEvent<HTMLDivElement>) => {
+    (event: React.DragEvent<HTMLDivElement>, handleNewFilesCallback?: (newFiles: File[]) => void) => {
       event.preventDefault();
-
       handleFiles(event.dataTransfer.files);
+      if (handleNewFilesCallback) {
+        handleNewFilesCallback(Array.from(event.dataTransfer.files || []));
+      }
     },
     [handleFiles]
+  );
+
+  const handleFileDelete = useCallback(
+    (index: number) => {
+      const newFiles = files.filter((_, i) => i !== index);
+      onFilesChange(newFiles);
+    },
+    [files, onFilesChange]
   );
 
   return {
@@ -42,6 +57,7 @@ const useFile = ({ files, onFilesChange }: useFileProps) => {
     handleFileChange,
     handleDragOver,
     handleDrop,
+    handleFileDelete,
   };
 };
 

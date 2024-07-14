@@ -15,6 +15,7 @@ export const textStyle = css({
 
 export const buttonStyle = css({
   padding: '0',
+  width: '6.4rem',
 
   textDecoration: 'underline',
   ...theme.text.body06,
