@@ -19,11 +19,12 @@ export const formStyle = css({
   flexDirection: 'column',
   flex: '1',
 
-  width: '100%',
+  width: '51.1rem',
 
   paddingTop: '3.2rem',
 
   alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export const timestyle = css({
