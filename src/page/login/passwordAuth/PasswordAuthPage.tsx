@@ -28,7 +28,7 @@ const PasswordAuthPage = () => {
     setIsVerified(isAuthCodeValid);
   }, [email, authCode]);
 
-  const MainSend = useCallback(() => {
+  const handleMailSend = useCallback(() => {
     setIsMainSent(true);
     setTimeout(() => {
       const timer = setInterval(() => {
@@ -53,7 +53,7 @@ const PasswordAuthPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isVerified) {
-      navigate('/login');
+      navigate('/password/reset');
     }
   };
 
@@ -70,7 +70,7 @@ const PasswordAuthPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button css={{ width: '11.1rem' }} size="large" onClick={MainSend} disabled={!isEmailValid}>
+            <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!isEmailValid}>
               인증 메일 발송
             </Button>
           </Flex>
