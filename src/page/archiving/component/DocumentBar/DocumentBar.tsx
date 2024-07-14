@@ -7,9 +7,14 @@ import { BLOCK_INFO, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/
 
 import { ChangeEvent, useEffect, useState } from 'react';
 
+import { useOutsideClick, useOverlay } from '@/common/hook';
+
 import { useGetBlockData } from '@/shared/api/hook/useGetBlockData';
 
 const DocumentBar = () => {
+  const { close } = useOverlay();
+  const documentBarRef = useOutsideClick(close);
+
   const [selectedId, setSelectedId] = useState('selected');
 
   const [documentData, setDocumentData] = useState<Total | Block>([]);
@@ -36,7 +41,8 @@ const DocumentBar = () => {
   }, [selectedId, data]);
 
   return (
-    <aside css={containerStyle}>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+    <aside css={containerStyle} ref={documentBarRef} onClick={(e) => e.stopPropagation()}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
         {selectedId === 'selected' ? (
