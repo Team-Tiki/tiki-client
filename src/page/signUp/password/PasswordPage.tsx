@@ -17,22 +17,19 @@ const PasswordPage = () => {
   };
 
   return (
-    <Flex css={pageStyle}>
-      <form onSubmit={handleSignUp} css={formStyle}>
+    <Flex tag="main" css={pageStyle}>
+      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', height: '78rem', width: '51.1rem' }}>
         <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
-        <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
-          <Input variant="underline" label="비밀번호 설정" placeholder={PLACEHOLDER.PASSWORD} />
-          <Input variant="underline" placeholder={PLACEHOLDER.PASSWORD_CONFIRM} />
-        </Flex>
-        <Button
-          type="button"
-          variant="primary"
-          size="large"
-          css={{ marginTop: '46rem' }}
-          onClick={() => navigate(`/showcase`)}>
-          다음
-        </Button>
-      </form>
+        <form onSubmit={handleSignUp} css={formStyle}>
+          <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem', grow: '1' }}>
+            <Input variant="underline" label="비밀번호 설정" placeholder={PLACEHOLDER.PASSWORD} />
+            <Input variant="underline" placeholder={PLACEHOLDER.PASSWORD_CONFIRM} />
+          </Flex>
+          <Button variant="primary" size="large" onClick={() => navigate(`/showcase`)}>
+            다음
+          </Button>
+        </form>
+      </Flex>
     </Flex>
   );
 };
