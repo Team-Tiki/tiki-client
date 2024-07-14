@@ -33,7 +33,7 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
     primary: css({
       color: theme.colors.white,
-      backgroundColor: theme.colors.black,
+      backgroundColor: theme.colors.blue_900,
     }),
     secondary: css({
       color: theme.colors.black,

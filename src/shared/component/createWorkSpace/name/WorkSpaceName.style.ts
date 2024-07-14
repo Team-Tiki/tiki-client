@@ -4,8 +4,6 @@ import { theme } from '@/common/style/theme/theme';
 
 export const sectionStyle = css({
   height: '40rem',
-
-  backgroundColor: theme.colors.blue_900,
 });
 
 export const inputWrapperStyle = css({
@@ -33,7 +31,7 @@ export const buttonStyle = (isActive: boolean) =>
 
     ...(isActive && {
       '&:hover': {
-        color: theme.colors.gray_500,
+        backgroundColor: theme.colors.blue_300,
       },
     }),
   });

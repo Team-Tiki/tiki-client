@@ -10,10 +10,6 @@ export const containerStyle = css({
   gap: '0.8rem',
 
   width: '100%',
-
-  '& > div': {
-    marginTop: '0.4rem',
-  },
 });
 
 export const inputSupportStyle = css({

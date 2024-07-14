@@ -8,6 +8,7 @@ const App = () => {
   return (
     <>
       <Header />
+
       <main css={layoutStyle}>
         <Outlet />
       </main>
