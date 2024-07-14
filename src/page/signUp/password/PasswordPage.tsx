@@ -1,6 +1,7 @@
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
-import { pageStyle } from '@/page/signUp/password/PasswordPage.style';
+import { formStyle, pageStyle } from '@/page/signUp/password/PasswordPage.style';
 
+import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -11,9 +12,13 @@ import Input from '@/common/component/Input/Input';
 const PasswordPage = () => {
   const navigate = useNavigate();
 
+  const handleSignUp = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Flex css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', width: '50rem', gap: '3.2rem' }}>
+      <form onSubmit={handleSignUp} css={formStyle}>
         <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
         <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
           <Input variant="underline" label="비밀번호 설정" placeholder={PLACEHOLDER.PASSWORD} />
@@ -27,7 +32,7 @@ const PasswordPage = () => {
           onClick={() => navigate(`/showcase`)}>
           다음
         </Button>
-      </Flex>
+      </form>
     </Flex>
   );
 };

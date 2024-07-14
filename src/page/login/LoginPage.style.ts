@@ -5,15 +5,17 @@ import { theme } from '@/common/style/theme/theme';
 export const pageStyle = css({
   display: 'flex',
 
-  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+
+  flexDirection: 'column',
 
   height: '100vh',
 });
 
 export const formStyle = css({
   display: 'flex',
+  flexDirection: 'column',
 
   width: '51.1rem',
   height: '53rem',
@@ -22,7 +24,7 @@ export const formStyle = css({
   alignItems: 'center',
   justifyContent: 'center',
 
-  flexDirection: 'column',
+  gap: '3.2rem',
 });
 
 export const findPasswordButtonStyle = css({

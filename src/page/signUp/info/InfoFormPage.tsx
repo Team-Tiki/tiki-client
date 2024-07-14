@@ -35,7 +35,7 @@ const InfoFormPage = () => {
 
   return (
     <Flex css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', width: '50rem' }}>
+      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', width: '51.1rem' }}>
         <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
 
         <Flex tag="form" styles={{ direction: 'column', gap: '3.2rem', width: '100%' }}>

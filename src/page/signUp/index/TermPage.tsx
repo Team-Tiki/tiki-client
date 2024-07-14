@@ -34,7 +34,7 @@ const TermPage = () => {
 
   return (
     <Flex styles={{ direction: 'column', align: 'center', justify: 'center', height: '100vh' }}>
-      <Flex tag="section" styles={{ direction: 'column', width: '50rem', gap: '3.2rem' }}>
+      <Flex tag="section" styles={{ direction: 'column', width: '51.1rem', gap: '3.2rem' }}>
         <Heading tag="H3" css={{ padding: '1.6rem 0' }}>
           이용 약관 동의
         </Heading>
