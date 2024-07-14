@@ -9,92 +9,17 @@ import { useState } from 'react';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
-const CLUBDATA = [
-  {
-    id: 1,
-    name: 'SOPT',
-    overview:
-      '창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리창업/취업 동아리',
-    category: '창업/취업',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 2,
-    name: 'SOPT2',
-    overview: '예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리예술 동아리',
-    category: '예술/공연',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 3,
-    name: 'SOPT3',
-    overview: '봉사 동아리',
-    category: '봉사/사회활동',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 4,
-    name: 'SOPT4',
-    overview: '자연과학 동아리',
-    category: '자연과학',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 5,
-    name: 'SOPT5',
-    overview: '공학 동아리',
-    category: '공학',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 6,
-    name: 'SOPT6',
-    overview: '어학 동아리',
-    category: '어학',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 7,
-    name: 'SOPT7',
-    overview: '종교 동아리',
-    category: '종교',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 8,
-    name: 'SOPT8',
-    overview: '스포츠 동아리',
-    category: '스포츠/레저',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 9,
-    name: 'SOPT9',
-    overview: '스포츠 동아리',
-    category: '스포츠/레저',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-  {
-    id: 10,
-    name: 'SOPT10',
-    overview: '봉사 동아리',
-    category: '봉사/사회활동',
-    teamtype: '건국대학교',
-    imageUrl: '',
-  },
-];
+import { ClubType } from '@/shared/api/showcase/type';
+import { useGetClubList } from '@/shared/hook/useGetClubList';
+
+//이거 로그인 구현되면 거기서 받아올거임 토큰
+// 지우라하지마셈 진짜임
+const token = '';
 
 const ShowcasePage = () => {
   const [selectedChip, setSelectedChip] = useState<string>('전체');
+
+  const clubs: ClubType[] = useGetClubList(token);
 
   const handleChipClick = (category: string) => {
     setSelectedChip(category);
@@ -120,13 +45,14 @@ const ShowcasePage = () => {
       </section>
 
       <section css={clubProfileStyle}>
-        {CLUBDATA.map((club) => {
-          if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
-            return (
-              <ClubProfileCard key={club.name} title={club.name} detail={club.overview} imageUrl={club.imageUrl} />
-            );
-          }
-        })}
+        {clubs &&
+          clubs.map((club) => {
+            if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
+              return (
+                <ClubProfileCard key={club.name} title={club.name} detail={club.overview} imageUrl={club.imageUrl} />
+              );
+            }
+          })}
       </section>
     </div>
   );
