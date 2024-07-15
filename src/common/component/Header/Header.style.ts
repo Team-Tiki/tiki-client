@@ -6,18 +6,16 @@ export const headerStyle = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-
-  position: 'fixed',
-  top: 0,
   borderTopLeftRadius: '16px',
   borderTopRightRadius: '16px',
 
   zIndex: theme.zIndex.overlayMiddle,
 
-  width: '100%',
   height: '9rem',
+  //width: '100%',
+  //position: 'absolute',
 
-  padding: '2.4rem 16rem 2.4rem 8rem',
+  padding: '2.4rem 8rem 2.4rem 8rem',
 
   backgroundColor: theme.colors.white,
   '& > svg': {
