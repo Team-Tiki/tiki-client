@@ -51,8 +51,8 @@ const PasswordAuthPage = () => {
     <Flex tag="section" css={pageStyle}>
       <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
       <form css={formStyle} onSubmit={handleSubmit}>
-        <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem' }}>
-          <Flex styles={{ align: 'end', justify: 'space-between', width: '100%', gap: '0.8rem' }}>
+        <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
+          <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
             <Input
               variant="underline"
               label="회원 정보"
@@ -90,7 +90,7 @@ const PasswordAuthPage = () => {
             </>
           )}
         </Flex>
-        <Button type="submit" variant="primary" size="large" css={{ marginTop: 'auto' }} disabled={!isVerified}>
+        <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
           완료
         </Button>
       </form>

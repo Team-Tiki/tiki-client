@@ -23,6 +23,7 @@ export const formStyle = css({
   width: '51.1rem',
 
   paddingTop: '3.2rem',
+  margin: '0 auto',
 
   alignItems: 'center',
   justifyContent: 'center',

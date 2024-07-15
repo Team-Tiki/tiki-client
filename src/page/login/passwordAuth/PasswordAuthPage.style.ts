@@ -26,7 +26,7 @@ export const formStyle = css({
   margin: '0 auto',
 
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
 });
 
 export const timestyle = css({
