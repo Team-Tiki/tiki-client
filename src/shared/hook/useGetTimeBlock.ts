@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getTimeline } from '@/shared/api/api-gateway/time-blocks/team/getTimeline';
 
-export const useGetTimeBlock = (timeId: number, timeline: string, date: string) => {
+export const useGetTimeBlock = (timeId: number) => {
   return useQuery({
-    queryKey: ['timeBlock', date],
-    queryFn: () => getTimeline(timeId, timeline, date),
+    queryKey: ['timeBlock', timeId],
+    queryFn: () => getTimeline(timeId, 'executive', ''),
   });
 };

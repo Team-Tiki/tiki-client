@@ -16,7 +16,6 @@ import { alignBlocks } from '@/page/archiving/util/alignBlocks';
 import { getRandomColor } from '@/page/archiving/util/getRandomColor';
 
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -25,13 +24,13 @@ import Flex from '@/common/component/Flex/Flex';
 import { useGetTimeBlock } from '@/shared/hook/useGetTimeBlock';
 
 const ArchivingPage = () => {
-  const { teamId, date } = useParams();
+  // const { date } = useParams();
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
   const [blockSelected, setBlockSelected] = useState<Block>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
-  const { data } = useGetTimeBlock(Number(7), 'executive', date || '2022-01');
+  const { data } = useGetTimeBlock(Number(7));
 
   return (
     <>
