@@ -8,7 +8,6 @@ import YearHeader from '@/page/archiving/component/YearHeader/YearHeader';
 import { useDate } from '@/page/archiving/hook/useDate';
 import { Block } from '@/page/archiving/type/blockType';
 import { alignBlocks } from '@/page/archiving/util/alignBlocks';
-import { getRandomColor } from '@/page/archiving/util/getRandomColor';
 
 import { useState } from 'react';
 
@@ -24,11 +23,7 @@ const ArchivingPage = () => {
   const [blockSelected, setBlockSelected] = useState<Block>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
-  const { data } = useGetTimeBlockQuery(
-    Number(7),
-    'executive',
-    `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}`
-  );
+  const { data } = useGetTimeBlockQuery(Number(7), 'executive', `${currentYear}-${selectedMonth.split('월')[0]}`);
 
   return (
     <Flex styles={{ width: '100%' }}>
@@ -65,7 +60,7 @@ const ArchivingPage = () => {
                   key={block.timeBlockId}
                   startDate={block.startDate}
                   endDate={block.endDate}
-                  color={getRandomColor()}
+                  color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
                   onBlockClick={() => setBlockSelected(block)}>
                   {block.name}

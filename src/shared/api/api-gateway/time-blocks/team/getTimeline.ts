@@ -2,10 +2,10 @@ import { TimeBlockList } from '@/page/archiving/type/blockType';
 
 import { axiosInstance } from '@/shared/api/instance';
 
-export const getTimeline = async (teamId: number, date: string) => {
+export const getTimeline = async (teamId: number, timeline: string, date: string) => {
   try {
     const response = await axiosInstance.get<TimeBlockList>(
-      `/time-blocks/team/${teamId}/timeline?type=executive&date=${date}`,
+      `/time-blocks/team/${teamId}/timeline?type=${timeline}&date=${date}`,
       {
         headers: {
           'Content-Type': 'application/json',
