@@ -9,16 +9,12 @@ import { useState } from 'react';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
-import { ClubType } from '@/shared/api/showcase/type';
-import { useGetClubList } from '@/shared/hook/useGetClubList';
-
-//이거 로그인 구현되면 고칠것..
-const token = '';
+import { useClubListQuery } from '@/shared/hook/useClubListQuery';
 
 const ShowcasePage = () => {
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
-  const clubs: ClubType[] = useGetClubList(token);
+  const { data: clubs } = useClubListQuery();
 
   const handleChipClick = (category: string) => {
     setSelectedChip(category);
@@ -48,7 +44,12 @@ const ShowcasePage = () => {
           clubs.map((club) => {
             if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
               return (
-                <ClubProfileCard key={club.name} title={club.name} detail={club.overview} imageUrl={club.imageUrl} />
+                <ClubProfileCard
+                  key={club.name}
+                  title={club.name}
+                  detail={club.overview || ''}
+                  imageUrl={club.imageUrl}
+                />
               );
             }
           })}
