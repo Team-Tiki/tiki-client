@@ -9,7 +9,7 @@ import { formattingDate } from '@/page/archiving/util/formattingDate';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useEffect, useState } from 'react';
 
-import { useGetBlockData } from '@/shared/api/hook/useGetBlockData';
+import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
 
 const DocumentBar = (
   {
@@ -33,7 +33,7 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data } = useGetBlockData(9, 8);
+  const { data } = useBlockQuery(9, 8);
 
   // 탭 클릭시 문서리스트 받아오기
   useEffect(() => {
