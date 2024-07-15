@@ -26,7 +26,6 @@ const ArchivingPage = () => {
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
-  console.log('docu', blockSelected);
   return (
     <Flex styles={{ width: '100%' }}>
       <section css={timelineStyle(blockSelected)}>
@@ -82,7 +81,7 @@ const ArchivingPage = () => {
           </Button>
         </Flex>
       </section>
-      {blockSelected && <DocumentBar blockSelected={blockSelected} />}
+      <DocumentBar blockSelected={blockSelected} />
     </Flex>
   );
 };

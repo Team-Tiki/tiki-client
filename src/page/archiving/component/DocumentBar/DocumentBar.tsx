@@ -18,6 +18,7 @@ const DocumentBar = ({
 }: {
   blockSelected: BlockType;
 }) => {
+  console.log(blockSelected);
   //const documentBarRef = useOutsideClick(onCloseBar);
 
   // const { isOpen, close, open } = useOverlay();
@@ -52,7 +53,7 @@ const DocumentBar = ({
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <aside css={containerStyle(blockSelected)}>
+    <aside css={containerStyle(blockSelected.title)}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
         {selectedId === 'selected' ? (
