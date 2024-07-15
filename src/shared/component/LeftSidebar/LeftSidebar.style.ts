@@ -2,14 +2,18 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (isExpansion: boolean) =>
+export const containerStyle = (isNavOpen: boolean) =>
   css({
     position: 'fixed',
+    top: '0',
     left: '0',
-    zIndex: theme.zIndex.overlayTop,
+    zIndex: theme.zIndex.overlayHigh,
 
-    width: isExpansion ? '24.1rem' : '8rem',
+    transform: isNavOpen ? 'scaleX(1.05)' : 'scaleX(1)',
+    transformOrigin: 'left',
+
     height: '100vh',
+
     padding: '2.4rem 2rem 0 0',
 
     backgroundColor: theme.colors.blue_900,
@@ -27,6 +31,7 @@ export const LogoSymbolStyle = css({
 
   width: '4rem',
   height: '4rem',
+
   margin: '0 0 2.4rem 2rem',
   borderRadius: '10px',
 
