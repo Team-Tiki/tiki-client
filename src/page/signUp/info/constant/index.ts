@@ -1,6 +1,6 @@
 export const PLACEHOLDER = {
   NAME: '주민등록상 실명 입력',
-  BIRTHDAY: 'YYYY.MM.DD',
+  BIRTHDAY: 'YYYY-MM-DD',
   SCHOOL: '소속 학교 선택',
   VERIFY: '학교 웹메일 입력',
   AUTH_CODE: '인증코드 6자리 입력',
@@ -20,3 +20,7 @@ export const SUPPORTING_TEXT = {
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
 } as const;
+
+export const FORMATTED_DATE_MAXLENGTH = 10 as const;
+
+export const DATE_MAXLENGTH = 8 as const;
