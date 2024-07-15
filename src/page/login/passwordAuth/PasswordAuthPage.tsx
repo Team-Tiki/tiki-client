@@ -48,52 +48,54 @@ const PasswordAuthPage = () => {
   };
 
   return (
-    <Flex tag="section" css={pageStyle}>
-      <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
-      <form css={formStyle} onSubmit={handleSubmit}>
-        <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
-          <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
-            <Input
-              variant="underline"
-              label="회원 정보"
-              placeholder={PLACEHOLDER.SCHOOL_EMAIL}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!isEmailValid}>
-              인증 메일 발송
-            </Button>
+    <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Flex tag="section" css={pageStyle}>
+        <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
+        <form css={[formStyle, { width: '51.1rem', height: '78rem' }]} onSubmit={handleSubmit}>
+          <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
+            <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
+              <Input
+                variant="underline"
+                label="회원 정보"
+                placeholder={PLACEHOLDER.SCHOOL_EMAIL}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!isEmailValid}>
+                인증 메일 발송
+              </Button>
+            </Flex>
+            {isMainSent && (
+              <>
+                <SupportingText isNotice={true}>{SUPPORTINGTXT.AUTH_CODE}</SupportingText>
+                <Flex
+                  styles={{
+                    align: 'end',
+                    justify: 'space-between',
+                    width: '100%',
+                    marginTop: '1.6rem',
+                    gap: '1.6rem',
+                  }}>
+                  <Input
+                    variant="underline"
+                    label="인증 코드"
+                    placeholder={PLACEHOLDER.AUTH_CODE}
+                    value={authCode}
+                    onChange={handleVerify}
+                  />
+                  <span css={timestyle}>{formatTime(remainTime)}</span>
+                  <Button css={{ width: '13rem' }} size="large" disabled={!isVerified}>
+                    인증하기
+                  </Button>
+                </Flex>
+              </>
+            )}
           </Flex>
-          {isMainSent && (
-            <>
-              <SupportingText isNotice={true}>{SUPPORTINGTXT.AUTH_CODE}</SupportingText>
-              <Flex
-                styles={{
-                  align: 'end',
-                  justify: 'space-between',
-                  width: '100%',
-                  marginTop: '1.6rem',
-                  gap: '1.6rem',
-                }}>
-                <Input
-                  variant="underline"
-                  label="인증 코드"
-                  placeholder={PLACEHOLDER.AUTH_CODE}
-                  value={authCode}
-                  onChange={handleVerify}
-                />
-                <span css={timestyle}>{formatTime(remainTime)}</span>
-                <Button css={{ width: '13rem' }} size="large" disabled={!isVerified}>
-                  인증하기
-                </Button>
-              </Flex>
-            </>
-          )}
-        </Flex>
-        <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
-          완료
-        </Button>
-      </form>
+          <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
+            완료
+          </Button>
+        </form>
+      </Flex>
     </Flex>
   );
 };
