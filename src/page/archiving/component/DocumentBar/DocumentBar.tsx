@@ -20,9 +20,7 @@ const DocumentBar = (
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   const [selectedId, setSelectedId] = useState('selected');
-
   const [documentData, setDocumentData] = useState<Total | Block>([]);
-
   const [searchWord, setSearchWord] = useState('');
 
   const handleTabClick = (selectedId: string, tabId: string) => {

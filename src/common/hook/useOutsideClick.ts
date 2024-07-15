@@ -7,17 +7,17 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
-      if (!ref.current) return;
+      if (!ref.current || !(event.target instanceof HTMLElement)) return;
 
-      if (event.target instanceof HTMLElement) {
-        if (componentName) {
-          if (!ref.current.contains(event.target as Node) && !event.target?.className.includes(componentName)) {
-            onClose?.();
-          }
-        } else {
-          if (!ref.current.contains(event.target as Node)) {
-            onClose?.();
-          }
+      const isOutSide = !ref.current.contains(event.target as Node);
+
+      if (componentName) {
+        if (isOutSide && !event.target?.className.includes(componentName)) {
+          onClose?.();
+        }
+      } else {
+        if (isOutSide) {
+          onClose?.();
         }
       }
     },

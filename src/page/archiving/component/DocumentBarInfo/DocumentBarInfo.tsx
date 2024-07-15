@@ -26,6 +26,7 @@ const DocumentBarInfo = ({ blockName, startDate, endDate }: DocumentBarInfoProps
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             paddingRight: '0.5rem',
+            wordBreack: 'keep-all',
           }}>
           {blockName}
         </Heading>

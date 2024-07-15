@@ -22,7 +22,7 @@ const DocumentWrapper = ({ selectedId, documentData, children, searchWord }: Doc
   const documentList = selectedId === 'selected' ? documentData : filterDocument(searchWord, documentData);
 
   return (
-    <Flex styles={{ direction: 'column', align: 'center', padding: '1.6rem 1.6rem 0 2.4rem' }}>
+    <Flex styles={{ direction: 'column', align: 'center', padding: '1.6rem' }}>
       {children}
       <Flex tag="ul" css={documentListStyle}>
         {documentList?.map((data: Document) => (
