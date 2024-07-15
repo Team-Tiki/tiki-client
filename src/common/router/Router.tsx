@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: 'showcase', element: <ShowcasePage /> },
-      { path: 'archiving/time-blocks/team/:teamId/timeline', element: <ArchivingPage /> },
+      { path: 'archiving', element: <ArchivingPage /> },
     ],
   },
 ]);
