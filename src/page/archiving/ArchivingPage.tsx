@@ -27,13 +27,13 @@ const ArchivingPage = () => {
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
   const [blockSelected, setBlockSelected] = useState<Block | undefined>(undefined);
-
-  const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
   const { data } = useGetTimeBlockQuery(
     Number(7),
     'executive',
     `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
   );
+  const timeBlocks: Block[] = data?.timeBlocks || [];
+  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   return (
     <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden', overflowX: 'hidden' }}>

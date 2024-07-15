@@ -5,8 +5,6 @@ import { theme } from '@/common/style/theme/theme';
 
 export const timelineStyle = (blockSelected: Block | undefined) =>
   css({
-    display: 'flex',
-
     flexDirection: 'column',
 
     width: '100%',
