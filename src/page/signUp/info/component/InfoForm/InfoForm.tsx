@@ -12,7 +12,7 @@ import { useSelect } from '@/page/signUp/info/hook/useSelect';
 import { useTimer } from '@/page/signUp/info/hook/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
@@ -24,12 +24,14 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 const InfoForm = () => {
-  const [isMailSent, setIsMailSent] = useState(false);
-
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick(close);
 
-  const { remainTime } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
+  const {
+    remainTime,
+    isTriggered: isMailSent,
+    handleTrigger: handleSend,
+  } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
   const { selectedItem, onSelect, error, onValidate, onReset } = useSelect('');
 
   const { value: name, onChange: onNameChange, error: nameError, onValidate: onNameValidate } = useInput('');
@@ -120,11 +122,7 @@ const InfoForm = () => {
             label="학교 인증"
             placeholder={PLACEHOLDER.VERIFY}
           />
-          <Button
-            size="large"
-            onClick={() => {
-              setIsMailSent(true);
-            }}>
+          <Button size="large" onClick={handleSend}>
             인증 메일 발송
           </Button>
         </Flex>
