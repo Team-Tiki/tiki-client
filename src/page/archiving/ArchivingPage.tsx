@@ -19,9 +19,7 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
 import Modal from '@/common/component/Modal/Modal';
-import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook/useModal';
 
 const ArchivingPage = () => {
@@ -37,7 +35,7 @@ const ArchivingPage = () => {
   const handleNext = () => setCurrentContent(<UploadModal onClose={closeModal} />);
 
   return (
-    <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden' }}>
+    <Flex styles={{ width: '100%', height: '100vh' }}>
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
@@ -83,13 +81,13 @@ const ArchivingPage = () => {
           </div>
         </Flex>
         <Flex css={{ marginLeft: 'auto' }}>
-          <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+          <Button variant="action" css={buttonStyle} onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
             <AddIc width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
-
+      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       {blockSelected && <DocumentBar blockSelected={blockSelected} />}
     </Flex>
   );

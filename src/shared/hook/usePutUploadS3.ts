@@ -1,16 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { AxiosError, isAxiosError } from 'axios';
-
 import { putUploadToS3 } from '@/shared/api/extermal';
 
-const MESSAGES = {
-  UNKNOWN_ERROR: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
-};
+import { UploadVariables } from '../api/extermal/type';
 
-export const usePutUploadS3 = () => {
+/*export const usePutUploadS3 = () => {
   return useMutation<string, AxiosError, { presignedUrl: string; file: File }>({
-    mutationFn: ({ presignedUrl, file }) => putUploadToS3(presignedUrl, file),
+    mutationFn: async ({ presignedUrl, file }) => {
+      return putUploadToS3(presignedUrl, file);
+    },
     onError: (error) => {
       if (isAxiosError(error)) {
         console.error('Axios error:', error.message);
@@ -19,7 +17,14 @@ export const usePutUploadS3 = () => {
       }
     },
     onSuccess: (data) => {
-      console.log('File uploaded successfully:', data);
+      console.log('', data);
     },
+  });
+};
+*/
+
+export const usePutUploadS3 = () => {
+  return useMutation<string, Error, UploadVariables>({
+    mutationFn: ({ presignedUrl, file }: UploadVariables) => putUploadToS3(presignedUrl, file),
   });
 };
