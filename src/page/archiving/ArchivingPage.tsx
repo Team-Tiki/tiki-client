@@ -26,8 +26,7 @@ const ArchivingPage = () => {
 
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
-  // const [blockSelected, setBlockSelected] = useState<Block>();
-  const [blockSelected, setBlockSelected] = useState<BlockType | undefined>(undefined);
+  const [blockSelected, setBlockSelected] = useState<Block | undefined>(undefined);
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
   const { data } = useGetTimeBlockQuery(
