@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
 
-import { Document } from '@/shared/api/archiving/type';
+import { Document } from '@/shared/api/archiving/document/type';
 
 interface DocumentLayoutProps {
   selectedId: string;
