@@ -4,6 +4,7 @@ import { theme } from '@/common/style/theme/theme';
 
 export const pageStyle = css({
   height: '78rem',
+  width: '51.1rem',
 
   flexDirection: 'column',
   justifyContent: 'space-between',
