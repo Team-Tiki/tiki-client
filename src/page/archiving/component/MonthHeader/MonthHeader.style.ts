@@ -1,9 +1,9 @@
-import { BlockType } from '@/page/archiving/type/blockType';
+import { Block } from '@/page/archiving/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const headerStyle = (blockSelected: BlockType | undefined) =>
+export const headerStyle = (blockSelected: Block | undefined) =>
   css({
     display: 'flex',
 

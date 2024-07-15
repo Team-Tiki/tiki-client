@@ -3,7 +3,7 @@ import DocumentBarInfo from '@/page/archiving/component/DocumentBarInfo/Document
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
-import { Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
+import { TOTAL_DATA, Total } from '@/page/archiving/constant/document';
 import { BlockType } from '@/page/archiving/type/blockType';
 import { formattingDate } from '@/page/archiving/util/formattingDate';
 
@@ -20,7 +20,7 @@ const DocumentBar = (
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   const [selectedId, setSelectedId] = useState('selected');
-  const [documentData, setDocumentData] = useState<Total | Block>([]);
+  const [documentData, setDocumentData] = useState<Total | BlockType>();
   const [searchWord, setSearchWord] = useState('');
 
   const handleTabClick = (selectedId: string, tabId: string) => {

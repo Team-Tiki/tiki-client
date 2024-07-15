@@ -13,3 +13,16 @@ export interface TimeBlockList {
     timeBlocks: Block[];
   };
 }
+
+export interface BlockType {
+  id: number;
+  title: string;
+  startDate: Date;
+  endDate: Date;
+}
+
+export interface TotalDocumentType {
+  documenyId: number;
+  fileName: string;
+  fileUrl: string;
+}
