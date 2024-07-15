@@ -8,7 +8,7 @@ export const pageStyle = css({
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  padding: '3.3rem 42.8rem 12rem 42.8rem',
+  padding: '12.3rem 42.75rem 12rem 42.75rem',
 
   whiteSpace: 'nowrap',
 });
