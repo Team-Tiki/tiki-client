@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     element: <InfoFormPage />,
   },
   {
+    path: '/signup/info/password',
+    element: <InfoFormPage />,
+  },
+  {
     path: '/password',
     element: <PasswordPage />,
   },
