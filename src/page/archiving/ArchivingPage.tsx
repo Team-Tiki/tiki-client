@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/ArchivingPage.style';
 import DaySection from '@/page/archiving/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
@@ -30,7 +29,7 @@ const ArchivingPage = () => {
   );
 
   return (
-    <Flex styles={{ width: '100%' }}>
+    <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden' }}>
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>

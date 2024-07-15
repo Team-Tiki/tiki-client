@@ -12,7 +12,7 @@ export const timelineStyle = (blockSelected: Block | undefined) =>
     width: '100%',
 
     padding: '2.6rem 2.4rem',
-    margin: blockSelected ? '10.2rem 4rem 0rem 13.2rem' : '10.2rem 5.2rem 0rem 13.2rem',
+    margin: blockSelected ? '5.6rem 13.2rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
 
     borderRadius: '16px',
     backgroundColor: theme.colors.gray_100,
@@ -38,6 +38,7 @@ export const daySectionStyle = () =>
     whiteSpace: 'nowrap',
     scrollBehavior: 'smooth',
     overflowX: 'scroll',
+    overscrollBehavior: 'contain',
 
     '&::-webkit-scrollbar': {
       display: 'none',
