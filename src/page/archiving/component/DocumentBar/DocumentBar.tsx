@@ -9,7 +9,9 @@ import { formattingDate } from '@/page/archiving/util/formattingDate';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useEffect, useState } from 'react';
 
+import { getTotalDocuments } from '@/shared/api/archiving/document';
 import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
+import { useTotalDocumentQuery } from '@/shared/api/hook/useTotalDocumentQuery';
 
 const DocumentBar = (
   {
@@ -31,16 +33,17 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data } = useBlockQuery(9, 8);
+  const { data: block } = useBlockQuery(9, 8);
+  const { data: document } = useTotalDocumentQuery(1, 'executive');
 
   // 탭 클릭시 문서리스트 받아오기
   useEffect(() => {
     if (selectedId === 'selected') {
-      setDocumentData(data);
+      setDocumentData(block);
     } else if (selectedId === 'total') {
-      setDocumentData(TOTAL_DATA);
+      setDocumentData(document);
     }
-  }, [selectedId, data]);
+  }, [selectedId, block, document]);
 
   return (
     <aside css={containerStyle(blockSelected.title)} ref={ref}>
