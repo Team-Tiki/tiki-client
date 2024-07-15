@@ -11,7 +11,7 @@ export const containerStyle = (blockSelected: string) =>
     zIndex: theme.zIndex.overlayTop,
 
     width: blockSelected ? '28rem' : 0,
-    height: '100vh',
+    height: 'calc(100vh - 0.8rem);',
 
     borderRadius: '16px',
 

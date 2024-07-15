@@ -16,11 +16,12 @@ interface LeftSidebarItemProps {
   isExpansion: boolean;
   children?: ReactNode;
   url: string;
+  onClick?: () => void;
 }
 
-const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url }: LeftSidebarItemProps) => {
+const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url, onClick }: LeftSidebarItemProps) => {
   return (
-    <li css={leftSidebarItemStyle}>
+    <li css={leftSidebarItemStyle} onClick={onClick}>
       <ClickStick isClicked={isClicked} />
       <Flex css={itemStyle(isClicked)}>
         <div css={logoBoxStyle(isClicked)}>

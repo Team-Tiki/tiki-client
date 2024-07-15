@@ -11,31 +11,27 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
   {
-    path: '/signup',
-    element: <TermPage />,
-  },
-  {
-    path: '/signup/info',
-    element: <InfoFormPage />,
-  },
-  {
-    path: '/password',
-    element: <PasswordPage />,
-  },
-  {
-    path: '/password/auth',
-    element: <p>인증</p>,
-  },
-  {
-    path: '/password/reset',
-    element: <p>재설정</p>,
-  },
-  {
     path: '/',
     element: <App />,
     children: [
       { path: 'showcase', element: <ShowcasePage /> },
       { path: 'archiving', element: <ArchivingPage /> },
+      {
+        path: '/signin',
+        element: <TermPage />,
+      },
+      {
+        path: '/signin/info',
+        element: <InfoFormPage />,
+      },
+      {
+        path: '/password/auth',
+        element: <p>인증</p>,
+      },
+      {
+        path: '/password/reset',
+        element: <p>재설정</p>,
+      },
     ],
   },
 ]);
