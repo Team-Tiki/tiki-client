@@ -1,17 +1,17 @@
 export const TEST_DATA = [
   {
     id: 1,
-    name: 'Showcase',
-    iconImageUrl: 'src/common/asset/svg/earth.svg',
+    name: 'Team 1',
+    iconImageUrl: 'src/common/asset/svg/polder.svg',
   },
   {
     id: 2,
-    name: 'Team 1',
-    iconImageUrl: 'src/common/asset/svg/add.svg',
+    name: 'Team 2',
+    iconImageUrl: 'src/common/asset/svg/polder.svg',
   },
   {
     id: 3,
-    name: '워크스페이스 생성',
+    name: 'Team 3',
     iconImageUrl: 'src/common/asset/svg/polder.svg',
   },
 ];

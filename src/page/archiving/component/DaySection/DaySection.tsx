@@ -1,34 +1,32 @@
 import {
   bodyStyle,
-  dayBtnStyle,
+  dayHeaderStyle,
   dayStyle,
   selectedDayStyle,
 } from '@/page/archiving/component/DaySection/DaySection.style';
 
 import Circle from '@/common/asset/svg/circle.svg?react';
 import Dotted from '@/common/asset/svg/dotted_line.svg?react';
+import Flex from '@/common/component/Flex/Flex';
 
 interface DaySectionProps {
   day: number;
-  isClicked: boolean;
   isEven: boolean;
-  onDayClick: () => void;
+  isToday: boolean;
 }
 
-const DaySection = ({ day, isClicked, isEven, onDayClick }: DaySectionProps) => {
+const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
   return (
-    <div css={dayStyle(isEven)}>
-      <button css={dayBtnStyle(isClicked)} type="button" onClick={onDayClick}>
-        {day}
-      </button>
-      {isClicked && (
-        <div css={selectedDayStyle}>
-          <Circle width={8} height={8} css={{ backgroundColor: 'transparent' }} />
-          <Dotted width={2} height={'80%'} css={{ display: 'flex' }} />
-        </div>
+    <Flex css={dayStyle(isEven)}>
+      <Flex css={dayHeaderStyle}>{day}</Flex>
+      <Flex css={bodyStyle(isEven)} />
+      {isToday && (
+        <>
+          <Circle width={8} height={8} css={selectedDayStyle} />
+          <Dotted width={2} height={500} css={[selectedDayStyle, { top: '3rem', left: '2.8rem' }]} />
+        </>
       )}
-      <div css={bodyStyle(isEven)} />
-    </div>
+    </Flex>
   );
 };
 

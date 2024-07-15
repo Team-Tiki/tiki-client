@@ -1,17 +1,23 @@
+import { BlockType } from '@/page/archiving/type/blockType';
+import { css } from '@emotion/react';
+
 import { theme } from '@/common/style/theme/theme';
 
-export const headerStyle = {
-  display: 'flex',
+export const headerStyle = (blockSelected: BlockType | undefined) =>
+  css({
+    display: 'flex',
 
-  borderRadius: '8px',
+    width: '100%',
 
-  padding: '0.4rem',
-  gap: '4.4rem',
+    borderRadius: '8px',
 
-  backgroundColor: theme.colors.white,
-};
+    padding: '0.4rem',
+    gap: blockSelected ? '2.4rem' : '4.4rem',
 
-export const monthBtnStyle = {
+    backgroundColor: theme.colors.white,
+  });
+
+export const monthBtnStyle = css({
   padding: '1rem 1.2rem',
 
   color: theme.colors.black,
@@ -29,4 +35,4 @@ export const monthBtnStyle = {
     color: theme.colors.blue_900,
     backgroundColor: theme.colors.blue_100,
   },
-};
+});
