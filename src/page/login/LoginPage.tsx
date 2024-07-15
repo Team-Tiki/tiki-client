@@ -22,6 +22,10 @@ const LoginPage = () => {
     navigate('/signup');
   };
 
+  const 비밀번호찾기페이지로이동 = () => {
+    navigate('/password/auth');
+  };
+
   return (
     <section css={pageStyle}>
       <Logo width={108} height={40} />
@@ -44,7 +48,7 @@ const LoginPage = () => {
             학교 메일로 회원가입
           </Button>
         </Flex>
-        <Button size="small" variant="text" css={findPasswordButtonStyle} onClick={() => navigate('/password/auth')}>
+        <Button size="small" variant="text" css={findPasswordButtonStyle} onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기
         </Button>
       </form>
