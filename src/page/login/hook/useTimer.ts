@@ -4,6 +4,13 @@ const useTimer = (initialTime: number) => {
   const [time, setTime] = useState(initialTime);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
   const startTimer = useCallback(() => {
     setTime(initialTime);
     timerRef.current = setInterval(() => {
@@ -11,22 +18,12 @@ const useTimer = (initialTime: number) => {
         if (prevTime > 0) {
           return prevTime - 1;
         } else {
-          if (timerRef.current) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-          }
+          stopTimer();
           return 0;
         }
       });
     }, 1000);
   }, [initialTime]);
-
-  const stopTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
 
   return { time, startTimer, stopTimer };
 };

@@ -20,7 +20,7 @@ const PasswordAuthPage = () => {
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
-  const { time: remainTime, startTimer, stopTimer } = useTimer(10);
+  const { time: remainTime, startTimer, stopTimer } = useTimer(180);
 
   useEffect(() => {
     const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
