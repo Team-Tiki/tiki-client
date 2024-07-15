@@ -5,11 +5,6 @@ const meta = {
   title: 'page/Landing/Overview',
   component: Overview,
 
-  args: {
-    title: '동아리 일정과 문서 관리하기',
-    description:
-      '기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명 기능 설명',
-  },
   argTypes: {},
 } satisfies Meta<typeof Overview>;
 
