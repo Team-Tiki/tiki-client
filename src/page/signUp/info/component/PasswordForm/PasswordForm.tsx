@@ -1,6 +1,6 @@
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
-import { PLACEHOLDER } from '@/page/signUp/info/constant';
+import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { useInput } from '@/page/signUp/info/hook/useInput';
 
 import React, { HTMLAttributes, useContext } from 'react';
@@ -27,9 +27,9 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
   if (context === undefined) throw new Error();
 
   const formValidate = () => {
-    if (!onValidate('비밀번호를 입력해주세요') || !onCheckerValidate('비밀번호 확인을 입력해주세요')) return false;
+    if (!onValidate(SUPPORTING_TEXT.PASSWORD) || !onCheckerValidate(SUPPORTING_TEXT.PASSWORD_CHECKER)) return false;
 
-    if (!onCheckerValidate('비밀번호가 일치하지 않습니다', password !== passwordChecker)) return false;
+    if (!onCheckerValidate(SUPPORTING_TEXT.PASSWORD_NO_EQUAL, password !== passwordChecker)) return false;
 
     return true;
   };

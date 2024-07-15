@@ -5,7 +5,7 @@ import {
   selectTriggerStyle,
   timeStyle,
 } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER } from '@/page/signUp/info/constant';
+import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { useInput } from '@/page/signUp/info/hook/useInput';
 import { useSelect } from '@/page/signUp/info/hook/useSelect';
 import { useTimer } from '@/page/signUp/info/hook/useTimer';
@@ -42,10 +42,10 @@ const InfoForm = () => {
 
   const formValidate = () => {
     if (
-      !onNameValidate('이름을 입력해주세요') ||
-      !onBirthValidate('생년월일을 입력해주세요') ||
+      !onNameValidate(SUPPORTING_TEXT.NAME) ||
+      !onBirthValidate(SUPPORTING_TEXT.BIRTH) ||
       !onValidate() ||
-      !onEmailValidate('이메일을 입력해주세요')
+      !onEmailValidate(SUPPORTING_TEXT.EMAIL)
     )
       return false;
 
