@@ -1,4 +1,4 @@
-import { termStyle, wrapperStyle } from '@/page/signIn/index/component/TermArea/TermArea.style';
+import { termStyle, wrapperStyle } from '@/page/signUp/index/component/TermArea/TermArea.style';
 
 import { HTMLAttributes } from 'react';
 

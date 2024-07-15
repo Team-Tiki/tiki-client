@@ -1,8 +1,8 @@
-import InfoFormPage from '@/page/signIn/info/InfoFormPage';
+import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'page/signIn/InfoFormPage',
+  title: 'page/signUp/InfoFormPage',
   component: InfoFormPage,
   parameters: {
     layout: 'centered',

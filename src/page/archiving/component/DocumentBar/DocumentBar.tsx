@@ -3,17 +3,27 @@ import DocumentBarInfo from '@/page/archiving/component/DocumentBarInfo/Document
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
-import { BLOCK_INFO, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
+import { BLOCK_INFO, BLOCK_TEST_DATA, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
+import { BlockType } from '@/page/archiving/type/blockType';
+import { formattingDate } from '@/page/archiving/util/formattingDate';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, ForwardedRef, useEffect, useState } from 'react';
 
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import { useGetBlockData } from '@/shared/api/hook/useGetBlockData';
 
-const DocumentBar = () => {
-  const { close } = useOverlay();
-  const documentBarRef = useOutsideClick(close);
+const DocumentBar = ({
+  blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
+}: {
+  blockSelected: BlockType;
+}) => {
+  //const documentBarRef = useOutsideClick(onCloseBar);
+
+  // const { isOpen, close, open } = useOverlay();
+  // console.log(isOpen);
+
+  // const sideBarRef = useOutsideClick(close);
 
   const [selectedId, setSelectedId] = useState('selected');
 
@@ -42,11 +52,15 @@ const DocumentBar = () => {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <aside css={containerStyle} ref={documentBarRef} onClick={(e) => e.stopPropagation()}>
+    <aside css={containerStyle(blockSelected)}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
         {selectedId === 'selected' ? (
-          <DocumentBarInfo blockName={BLOCK_INFO.title} startDate={BLOCK_INFO.startDate} endDate={BLOCK_INFO.endDate} />
+          <DocumentBarInfo
+            blockName={blockSelected.title}
+            startDate={formattingDate(blockSelected.startDate)}
+            endDate={formattingDate(blockSelected.endDate)}
+          />
         ) : (
           <DocumentBarTool onSearchWord={handleSearchWord} searchWord={searchWord} />
         )}

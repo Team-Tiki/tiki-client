@@ -1,57 +1,64 @@
+import { BlockType } from '@/page/archiving/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const pageStyle = css({
-  padding: '2.6rem 2.4rem',
+export const timelineStyle = (blockSelected: BlockType | undefined) =>
+  css({
+    display: 'flex',
 
-  borderRadius: '16px',
+    flexDirection: 'column',
 
-  backgroundColor: theme.colors.gray_100,
-});
+    width: '100%',
 
-export const headerStyle = css({
-  display: 'flex',
+    margin: blockSelected ? '10.2rem 4rem 0rem 13.2rem' : '10.2rem 5.2rem 0rem 13.2rem',
+    padding: '2.6rem 2.4rem',
 
-  padding: '0rem 0rem 2.4rem 0rem',
-});
+    borderRadius: '16px',
+    backgroundColor: theme.colors.gray_100,
+
+    overflow: 'hidden',
+  });
 
 export const contentStyle = css({
   flexDirection: 'column',
   gap: '2rem',
-
-  overflow: 'hidden',
 });
 
-export const daySectionStyle = css({
-  position: 'relative',
-  display: 'flex',
+export const daySectionStyle = () =>
+  css({
+    position: 'relative',
+    display: 'flex',
 
-  width: '104.6rem',
-  height: '46.4rem',
-  borderRadius: '6px',
+    width: '100%',
+    height: '46.4rem',
 
-  overflowX: 'scroll',
+    borderRadius: '6px',
 
-  scrollBehavior: 'smooth',
+    whiteSpace: 'nowrap',
+    scrollBehavior: 'smooth',
+    overflowX: 'scroll',
 
-  '&::-webkit-scrollbar': {
-    display: 'none',
-  },
-});
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  });
 
-export const buttonStyle = css({
-  width: '13.2rem',
+export const buttonStyle = () =>
+  css({
+    position: 'relative',
 
-  marginLeft: 'auto',
+    bottom: '3rem',
 
-  borderRadius: '28px',
+    width: '13.2rem',
 
-  ...theme.text.body04,
+    marginLeft: 'auto',
 
-  boxShadow: '0px 2px 10px 0px rgba(70, 109, 235, 0.30)',
+    borderRadius: '28px',
+    ...theme.text.body04,
+    boxShadow: '0px 2px 10px 0px rgba(70, 109, 235, 0.30)',
 
-  '&:hover': {
-    backgroundColor: theme.colors.blue_300,
-  },
-});
+    '&:hover': {
+      backgroundColor: theme.colors.blue_300,
+    },
+  });

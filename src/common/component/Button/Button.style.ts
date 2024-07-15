@@ -34,10 +34,18 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
     primary: css({
       color: theme.colors.white,
       backgroundColor: theme.colors.blue_900,
+
+      '&:hover': {
+        backgroundColor: theme.colors.blue_700,
+      },
     }),
     secondary: css({
       color: theme.colors.black,
       backgroundColor: theme.colors.gray_100,
+
+      '&:hover': {
+        backgroundColor: theme.colors.blue_100,
+      },
     }),
     text: css({
       backgroundColor: 'transparent',

@@ -1,4 +1,3 @@
-import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import { css } from '@emotion/react';
 
 import { Outlet } from 'react-router-dom';
@@ -11,7 +10,6 @@ const App = () => {
       <Header />
 
       <main css={layoutStyle}>
-        {/* <DocumentBar /> */}
         <Outlet />
       </main>
     </>
@@ -23,6 +21,7 @@ const layoutStyle = css({
   flexDirection: 'column',
   alignItems: 'center',
 
+  width: '100vw',
   minHeight: 'calc(100vh - 95px)',
 });
 
