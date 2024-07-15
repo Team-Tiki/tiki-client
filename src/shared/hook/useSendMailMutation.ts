@@ -7,5 +7,6 @@ export const useSendMailMutation = (address: string) => {
     mutationKey: ['useSendMailQuery'],
     mutationFn: () => postEmail(address),
   });
+
   return mutate;
 };

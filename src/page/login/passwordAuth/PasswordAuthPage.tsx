@@ -14,6 +14,7 @@ import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 import { useSendMailMutation } from '@/shared/hook/useSendMailMutation';
+import { useVerifyCodeMutation } from '@/shared/hook/useVerifyCodeMutation';
 
 const PasswordAuthPage = () => {
   const [isMainSent, setIsMainSent] = useState(false);
@@ -23,7 +24,8 @@ const PasswordAuthPage = () => {
   const [authCode, setAuthCode] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
-  const mutate = useSendMailMutation(email);
+  const sendMail = useSendMailMutation(email);
+  const verifyCode = useVerifyCodeMutation(email, authCode);
 
   useEffect(() => {
     const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
@@ -34,7 +36,7 @@ const PasswordAuthPage = () => {
   const handleMailSend = useCallback(() => {
     setIsMainSent(true);
     startTimer();
-    mutate();
+    sendMail();
   }, []);
 
   const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +90,7 @@ const PasswordAuthPage = () => {
                     onChange={handleVerify}
                   />
                   <span css={timestyle}>{formatTime(remainTime)}</span>
-                  <Button css={{ width: '13rem' }} size="large" disabled={!isVerified}>
+                  <Button css={{ width: '13rem' }} size="large" disabled={!isVerified} onClick={verifyCode}>
                     인증하기
                   </Button>
                 </Flex>

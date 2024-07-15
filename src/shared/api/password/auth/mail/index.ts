@@ -5,6 +5,5 @@ export const postEmail = async (address: string) => {
     address: address,
   });
 
-  console.log(response);
   return response;
 };
