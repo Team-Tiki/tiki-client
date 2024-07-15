@@ -8,9 +8,9 @@ import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
 const ComingsoonPage = () => {
-  const navi = useNavigate();
+  const navigate = useNavigate();
   const handleBack = () => {
-    navi(-1);
+    navigate(-1);
   };
   return (
     <Flex
@@ -18,19 +18,19 @@ const ComingsoonPage = () => {
       styles={{
         direction: 'column',
         align: 'center',
-        justify: 'center',
+        justify: 'space-around',
         height: '100vh',
-        gap: '1rem',
+        gap: '1.2rem',
         padding: '15rem 50.3rem',
       }}>
-      <img src={comingsoonImg} alt="comingsoon character" css={{ marginBottom: '1rem' }} />
+      <img src={comingsoonImg} alt="comingsoon character" />
       <Heading tag="H3" css={{ fontWeight: '600', whiteSpace: 'nowrap' }}>
         아직 티키가 열심히 준비중이에요
       </Heading>
       <Text tag="body3" css={{ color: theme.colors.gray_700, whiteSpace: 'nowrap' }}>
         더 좋은 서비스를 위해 조금만 기다려주세요!
       </Text>
-      <Button variant="action" onClick={handleBack} css={{ marginTop: '2rem' }}>
+      <Button variant="action" onClick={handleBack}>
         쇼케이스 페이지로 돌아가기
       </Button>
     </Flex>
