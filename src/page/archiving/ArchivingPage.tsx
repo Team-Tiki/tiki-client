@@ -13,13 +13,21 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import { useOutsideClick } from '@/common/hook';
 
 import { useGetTimeBlockQuery } from '@/shared/hook/useGetTimeBlockQuery';
 
 const ArchivingPage = () => {
+  const handleClose = () => {
+    blockSelected && setBlockSelected(undefined);
+  };
+
+  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
-  const [blockSelected, setBlockSelected] = useState<Block>();
+  // const [blockSelected, setBlockSelected] = useState<Block>();
+  const [blockSelected, setBlockSelected] = useState<BlockType | undefined>(undefined);
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
   const { data } = useGetTimeBlockQuery(
@@ -29,7 +37,7 @@ const ArchivingPage = () => {
   );
 
   return (
-    <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden' }}>
+    <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
@@ -52,7 +60,7 @@ const ArchivingPage = () => {
               );
             })}
             {data?.timeBlocks
-              ?.filter((blocks: Block) => {
+              .filter((blocks: Block) => {
                 const blockStartDate = new Date(blocks.startDate);
                 const blockMonth = blockStartDate.getMonth() + 1;
                 const clickedMonth = parseInt(selectedMonth.split('월')[0]);
@@ -66,7 +74,9 @@ const ArchivingPage = () => {
                   endDate={block.endDate}
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
-                  onBlockClick={() => setBlockSelected(block)}>
+                  onBlockClick={() => {
+                    setBlockSelected(block);
+                  }}>
                   {block.name}
                 </TimeBlock>
               ))}
@@ -79,7 +89,7 @@ const ArchivingPage = () => {
           </Button>
         </Flex>
       </section>
-      {blockSelected && <DocumentBar blockSelected={blockSelected} />}
+      <DocumentBar blockSelected={blockSelected} ref={sideBarRef} />
     </Flex>
   );
 };
