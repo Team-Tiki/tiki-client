@@ -13,7 +13,7 @@ export const useDateInput = () => {
     if (birth !== '') setError(false);
 
     if (value.length === DATE_MAXLENGTH && birth.length === FORMATTED_DATE_MAXLENGTH) {
-      value = birth.replace(/\./g, '');
+      value = birth.replace(/-/g, '');
     } else {
       value = getFormatDateString(getFormatNumberString(value, 8));
     }
