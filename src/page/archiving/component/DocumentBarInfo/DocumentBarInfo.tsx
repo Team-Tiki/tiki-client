@@ -18,7 +18,16 @@ const DocumentBarInfo = ({ blockName, startDate, endDate }: DocumentBarInfoProps
     <Flex tag="section" styles={{ direction: 'column', marginBottom: '2.4rem', gap: '0.8rem' }}>
       <Laptop width={24} height={24} />
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
-        <Heading tag="H6" css={{ fontWeight: '500' }}>
+        <Heading
+          tag="H6"
+          css={{
+            fontWeight: '500',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            paddingRight: '0.5rem',
+            wordBreack: 'keep-all',
+          }}>
           {blockName}
         </Heading>
         <Button variant="text" size="small" css={deleteBtnStyle}>

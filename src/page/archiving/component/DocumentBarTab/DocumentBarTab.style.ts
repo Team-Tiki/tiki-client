@@ -11,6 +11,8 @@ export const tabDefaultStyle = (selected: string, tabId: string) => {
 
           color: theme.colors.blue_900,
           backgroundColor: theme.colors.white,
+
+          pointerEvents: 'none',
         })
       : css({
           font: `${theme.text.body04}`,
