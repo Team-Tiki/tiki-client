@@ -5,6 +5,7 @@ import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfi
 import { CATEGORY } from '@/page/showcase/constant/category';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -94,6 +95,7 @@ const CLUBDATA = [
 ];
 
 const ShowcasePage = () => {
+  const navi = useNavigate();
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
   const handleChipClick = (category: string) => {
@@ -123,7 +125,15 @@ const ShowcasePage = () => {
         {CLUBDATA.map((club) => {
           if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
             return (
-              <ClubProfileCard key={club.name} title={club.name} detail={club.overview} imageUrl={club.imageUrl} />
+              <ClubProfileCard
+                key={club.name}
+                title={club.name}
+                detail={club.overview}
+                imageUrl={club.imageUrl}
+                onClick={() => {
+                  navi('/comingsoon');
+                }}
+              />
             );
           }
         })}
