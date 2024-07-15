@@ -48,7 +48,7 @@ const PasswordAuthPage = () => {
   };
 
   return (
-    <Flex tag="section" css={[pageStyle]}>
+    <Flex tag="section" css={pageStyle}>
       <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
       <form css={formStyle} onSubmit={handleSubmit}>
         <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem' }}>
