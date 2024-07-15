@@ -6,6 +6,7 @@ import {
   timeStyle,
 } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
+import { useDateInput } from '@/page/signUp/info/hook/useDateInput';
 import { useInput } from '@/page/signUp/info/hook/useInput';
 import { useSelect } from '@/page/signUp/info/hook/useSelect';
 import { useTimer } from '@/page/signUp/info/hook/useTimer';
@@ -27,23 +28,23 @@ const InfoForm = () => {
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick(close);
-  const { remainTime } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
 
+  const { remainTime } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
   const { selectedItem, onSelect, error, onValidate, onReset } = useSelect('');
+
   const { value: name, onChange: onNameChange, error: nameError, onValidate: onNameValidate } = useInput('');
-  const { value: birth, onChange: onBirthChange, error: birthError, onValidate: onBirthValidate } = useInput('');
+  const { birth, onBirthChange, error: dateError, onDateValidate } = useDateInput();
   const { value: email, onChange: onEmailChange, error: emailError, onValidate: onEmailValidate } = useInput('');
 
   const context = useContext(SignUpContext);
+  const navigate = useNavigate();
 
   if (context === undefined) throw new Error();
-
-  const navigate = useNavigate();
 
   const formValidate = () => {
     if (
       !onNameValidate(SUPPORTING_TEXT.NAME) ||
-      !onBirthValidate(SUPPORTING_TEXT.BIRTH) ||
+      !onDateValidate() ||
       !onValidate() ||
       !onEmailValidate(SUPPORTING_TEXT.EMAIL)
     )
@@ -82,7 +83,7 @@ const InfoForm = () => {
         <Input
           value={birth}
           onChange={onBirthChange}
-          isError={Boolean(birthError)}
+          isError={dateError}
           variant="underline"
           label="생년월일"
           placeholder={PLACEHOLDER.BIRTHDAY}
