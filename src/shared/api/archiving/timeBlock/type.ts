@@ -7,7 +7,7 @@ export interface fileData {
   fileFormat: string;
 }
 
-export interface timeBlockData {
+export interface TimeBlockCreate {
   name: string;
   color: string;
   startDate: string;

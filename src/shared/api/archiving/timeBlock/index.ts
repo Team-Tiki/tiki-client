@@ -1,27 +1,28 @@
-import { isAxiosError } from 'axios';
+import axios from 'axios';
 
 import axiosInstance from '@/shared/api/instance';
 
-import { fileResponse } from './type';
+import { TimeBlockCreate } from './type';
 
-const FILE_URL = {
-  FILE: '/file/upload',
+export const getFile = async (fileFormat: string) => {
+  const response = await axiosInstance.get('/file/upload', {
+    params: {
+      fileFormat: fileFormat,
+    },
+  });
+  console.log(response.data.data);
+  return response.data.data;
 };
 
-const MESSAGES = {
-  UNKNOWN_ERROR: '알수없는 오류가 발생했습니다. 다시 시도해주세요.',
-};
-
-export const getFile = async (fileFormat: string): Promise<fileResponse> => {
-  try {
-    const response = await axiosInstance.get(FILE_URL.FILE, {
-      params: {
-        fileFormat: fileFormat,
-      },
-    });
-    return response.data.data;
-  } catch (error) {
-    if (isAxiosError(error)) throw error;
-    else throw new Error(MESSAGES.UNKNOWN_ERROR);
-  }
+export const postTimeBlock = async (teamId: number, type: string, data: TimeBlockCreate) => {
+  const response = await axios.post(`/api/v1/time-blocks/team/${teamId}/time-block`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: {
+      type: type,
+    },
+  });
+  console.log(response.data);
+  return response.data;
 };

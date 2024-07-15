@@ -2,8 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 
 import { putUploadToS3 } from '@/shared/api/extermal';
 
-import { UploadVariables } from '../api/extermal/type';
-
 /*export const usePutUploadS3 = () => {
   return useMutation<string, AxiosError, { presignedUrl: string; file: File }>({
     mutationFn: async ({ presignedUrl, file }) => {
@@ -23,8 +21,9 @@ import { UploadVariables } from '../api/extermal/type';
 };
 */
 
-export const usePutUploadS3 = () => {
+/*export const usePutUploadS3 = () => {
   return useMutation<string, Error, UploadVariables>({
     mutationFn: ({ presignedUrl, file }: UploadVariables) => putUploadToS3(presignedUrl, file),
   });
 };
+*/
