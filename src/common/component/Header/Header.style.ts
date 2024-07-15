@@ -7,7 +7,7 @@ export const headerStyle = css({
   alignItems: 'center',
   justifyContent: 'space-between',
 
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
   borderTopLeftRadius: '16px',
   borderTopRightRadius: '16px',
