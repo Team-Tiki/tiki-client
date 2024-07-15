@@ -22,7 +22,7 @@ interface DocumentBarToolProps {
 }
 
 const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: DocumentBarToolProps) => {
-  const filteredDocuments = documentList.filter((document) => document.fileName.includes(searchWord));
+  const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
   return (
     <Flex css={containerStyle}>
       <Flex css={toolStyle}>
