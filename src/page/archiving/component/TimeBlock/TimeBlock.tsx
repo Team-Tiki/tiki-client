@@ -14,8 +14,8 @@ interface TimeBlockProps {
 }
 
 const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick }: TimeBlockProps) => {
-  const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
-  const startPosition = (startDate.getDate() - 1) * 6;
+  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
+  const startPosition = (new Date(startDate).getDate() - 1) * 6;
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */

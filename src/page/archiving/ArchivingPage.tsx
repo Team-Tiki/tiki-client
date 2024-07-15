@@ -54,10 +54,11 @@ const ArchivingPage = () => {
             })}
             {data?.timeBlocks
               ?.filter((blocks: Block) => {
-                const blockMonth = blocks.startDate.getMonth() + 1;
+                const blockStartDate = new Date(blocks.startDate);
+                const blockMonth = blockStartDate.getMonth() + 1;
                 const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
-                return blockMonth === clickedMonth && blocks.startDate.getFullYear() === currentYear;
+                return blockMonth === clickedMonth && new Date(blocks.startDate).getFullYear() === currentYear;
               })
               .map((block) => (
                 <TimeBlock
