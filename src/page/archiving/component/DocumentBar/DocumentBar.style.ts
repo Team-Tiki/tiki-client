@@ -11,7 +11,8 @@ export const containerStyle = css({
   zIndex: theme.zIndex.overlayTop,
 
   width: '28rem',
-  height: '100vh',
+
+  height: 'calc(100vh - 0.8rem);',
 
   borderRadius: '16px',
 
