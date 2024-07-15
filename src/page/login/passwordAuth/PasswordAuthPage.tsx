@@ -13,7 +13,7 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
-import { useSendMailQuery } from '@/shared/api/hook/useSendMailQuery';
+import { useSendMailMutation } from '@/shared/hook/useSendMailMutation';
 
 const PasswordAuthPage = () => {
   const [isMainSent, setIsMainSent] = useState(false);
@@ -23,7 +23,7 @@ const PasswordAuthPage = () => {
   const [authCode, setAuthCode] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
-  const mutate = useSendMailQuery(email);
+  const mutate = useSendMailMutation(email);
 
   useEffect(() => {
     const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
