@@ -23,7 +23,11 @@ const ArchivingPage = () => {
   const [blockSelected, setBlockSelected] = useState<Block>();
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
-  const { data } = useGetTimeBlockQuery(Number(7), 'executive', `${currentYear}-${selectedMonth.split('월')[0]}`);
+  const { data } = useGetTimeBlockQuery(
+    Number(7),
+    'executive',
+    `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
+  );
 
   return (
     <Flex styles={{ width: '100%' }}>
