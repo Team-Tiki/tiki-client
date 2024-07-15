@@ -8,6 +8,8 @@ import PasswordPage from '@/page/signUp/password/PasswordPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import ErrorPage from '@/shared/page/errorPage/ErrorPage';
+
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
   {
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/password/reset',
     element: <p>재설정</p>,
+  },
+  {
+    path: '/error',
+    element: <ErrorPage />,
   },
   {
     path: '/',
