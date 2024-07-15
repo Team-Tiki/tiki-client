@@ -13,6 +13,8 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
+import { useSendMailQuery } from '@/shared/api/hook/useSendMailQuery';
+
 const PasswordAuthPage = () => {
   const [isMainSent, setIsMainSent] = useState(false);
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const PasswordAuthPage = () => {
   const [authCode, setAuthCode] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
+  const mutate = useSendMailQuery(email);
 
   useEffect(() => {
     const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
@@ -31,6 +34,7 @@ const PasswordAuthPage = () => {
   const handleMailSend = useCallback(() => {
     setIsMainSent(true);
     startTimer();
+    mutate();
   }, []);
 
   const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
