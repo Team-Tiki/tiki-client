@@ -10,7 +10,6 @@ export const useModal = () => {
   const openModal = useCallback((content: ReactElement) => {
     setCurrentContent(content);
     setIsOpen(true);
-    console.log('Opening Modal');
   }, []);
 
   // 닫기

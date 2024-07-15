@@ -13,6 +13,7 @@ export const containerStyle = (isNavOpen: boolean) =>
     transformOrigin: 'left',
 
     height: '100vh',
+
     padding: '2.4rem 2rem 0 0',
 
     backgroundColor: theme.colors.blue_900,
@@ -30,6 +31,7 @@ export const LogoSymbolStyle = css({
 
   width: '4rem',
   height: '4rem',
+
   margin: '0 0 2.4rem 2rem',
   borderRadius: '10px',
 

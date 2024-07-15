@@ -17,19 +17,13 @@ const App = () => {
     }
   }, []);
 
-  return showSidebar ? (
+  return (
     <div css={containerStyle}>
       <LeftSidebar />
       <main css={layoutStyle}>
         <Outlet />
       </main>
     </div>
-  ) : (
-    <>
-      <main css={layoutStyle}>
-        <Outlet />
-      </main>
-    </>
   );
 };
 
@@ -37,7 +31,6 @@ const layoutStyle = css({
   height: '100%',
 
   borderRadius: '16px',
-
   backgroundColor: theme.colors.white,
 });
 
@@ -45,8 +38,6 @@ const containerStyle = css({
   padding: '0.4rem 0.4rem 0.4rem 8.4rem ',
 
   backgroundColor: theme.colors.blue_900,
-
-  overflow: 'hidden',
 });
 
 export default App;
