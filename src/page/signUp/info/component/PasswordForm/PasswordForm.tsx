@@ -60,7 +60,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
           placeholder={PLACEHOLDER.PASSWORD}
         />
         <Input
-          isError={Boolean(checkerError || passwordChecker)}
+          isError={Boolean(checkerError || passwordError)}
           supportingText={checkerError || passwordError}
           value={passwordChecker}
           onChange={onPasswordCheckerChange}
