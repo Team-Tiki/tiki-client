@@ -17,17 +17,23 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { useOutsideClick, useOverlay } from '@/common/hook';
+import { useOutsideClick } from '@/common/hook';
 
 const ArchivingPage = () => {
+  const handleClose = () => {
+    blockSelected && setBlockSelected(undefined);
+  };
+
+  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
-  const [blockSelected, setBlockSelected] = useState<BlockType | undefined>();
+  const [blockSelected, setBlockSelected] = useState<BlockType | undefined>(undefined);
 
   const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
 
   return (
-    <Flex styles={{ width: '100%' }}>
+    <Flex styles={{ width: '100%' }} css={{ overflowX: 'hidden' }}>
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
@@ -81,7 +87,7 @@ const ArchivingPage = () => {
           </Button>
         </Flex>
       </section>
-      <DocumentBar blockSelected={blockSelected} />
+      <DocumentBar blockSelected={blockSelected} ref={sideBarRef} />
     </Flex>
   );
 };

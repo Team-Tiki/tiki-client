@@ -3,29 +3,22 @@ import DocumentBarInfo from '@/page/archiving/component/DocumentBarInfo/Document
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
 import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
-import { BLOCK_INFO, BLOCK_TEST_DATA, Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
+import { Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
 import { BlockType } from '@/page/archiving/type/blockType';
 import { formattingDate } from '@/page/archiving/util/formattingDate';
 
-import { ChangeEvent, ForwardedRef, useEffect, useState } from 'react';
-
-import { useOutsideClick, useOverlay } from '@/common/hook';
+import { ChangeEvent, ForwardedRef, forwardRef, useEffect, useState } from 'react';
 
 import { useGetBlockData } from '@/shared/api/hook/useGetBlockData';
 
-const DocumentBar = ({
-  blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
-}: {
-  blockSelected: BlockType;
-}) => {
-  console.log(blockSelected);
-  //const documentBarRef = useOutsideClick(onCloseBar);
-
-  // const { isOpen, close, open } = useOverlay();
-  // console.log(isOpen);
-
-  // const sideBarRef = useOutsideClick(close);
-
+const DocumentBar = (
+  {
+    blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
+  }: {
+    blockSelected: BlockType | undefined;
+  },
+  ref: ForwardedRef<HTMLDivElement>
+) => {
   const [selectedId, setSelectedId] = useState('selected');
 
   const [documentData, setDocumentData] = useState<Total | Block>([]);
@@ -52,8 +45,7 @@ const DocumentBar = ({
   }, [selectedId, data]);
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <aside css={containerStyle(blockSelected.title)}>
+    <aside css={containerStyle(blockSelected.title)} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
         {selectedId === 'selected' ? (
@@ -70,4 +62,4 @@ const DocumentBar = ({
   );
 };
 
-export default DocumentBar;
+export default forwardRef(DocumentBar);

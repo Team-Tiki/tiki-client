@@ -19,5 +19,5 @@ export const containerStyle = (blockSelected: string) =>
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 
     transform: blockSelected ? 'translateX(0)' : 'translateX(28rem)',
-    transition: '0.5s',
+    transition: '0.4s ease-in-out',
   });
