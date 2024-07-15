@@ -31,7 +31,7 @@ const PasswordAuthPage = () => {
   const handleMailSend = useCallback(() => {
     setIsMainSent(true);
     startTimer();
-  }, []);
+  }, [startTimer]);
 
   const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
