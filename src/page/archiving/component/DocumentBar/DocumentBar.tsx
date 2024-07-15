@@ -1,61 +1,89 @@
-import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
-import DocumentBarInfo from '@/page/archiving/component/DocumentBarInfo/DocumentBarInfo';
+// import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
+// import DocumentBarInfo from '@/page/archiving/component/DocumentBarInfo/DocumentBarInfo';
+// import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
+// import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
+// import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
+// import { Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
+// import { BlockType } from '@/page/archiving/type/blockType';
+// import { formattingDate } from '@/page/archiving/util/formattingDate';
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
-import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
-import DocumentWrapper from '@/page/archiving/component/DocumentWrapper/DocumentWrapper';
-import { Block, TOTAL_DATA, Total } from '@/page/archiving/constant/document';
-import { BlockType } from '@/page/archiving/type/blockType';
-import { formattingDate } from '@/page/archiving/util/formattingDate';
-
+import Laptop from '@/common/asset/svg/laptop.svg?react';
 import { ChangeEvent, ForwardedRef, forwardRef, useEffect, useState } from 'react';
+import Flex from '@/common/component/Flex/Flex';
+import Heading from '@/common/component/Heading/Heading';
+import Button from '@/common/component/Button/Button';
+import Text from '@/common/component/Text/Text';
+import SelectedBlock from '@/page/archiving/component/DocumentBarInfo/DocumentBarInfo';
+import DocumentBarTool from '@/page/archiving/component/DocumentBarTool/DocumentBarTool';
 
-import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
+// import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
 
-const DocumentBar = (
-  {
-    blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
-  }: {
-    blockSelected: BlockType | undefined;
-  },
-  ref: ForwardedRef<HTMLDivElement>
-) => {
+// const DocumentBar = (
+//   {
+//     blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
+//   }: {
+//     blockSelected: BlockType | undefined;
+//   },
+//   ref: ForwardedRef<HTMLDivElement>
+// ) => {
+//   const [selectedId, setSelectedId] = useState('selected');
+//   const [documentData, setDocumentData] = useState<Total | Block>([]);
+//   const [searchWord, setSearchWord] = useState('');
+
+//   const handleTabClick = (selectedId: string, tabId: string) => {
+//     tabId !== selectedId && setSelectedId(tabId);
+//   };
+
+//   const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
+//     setSearchWord(e.target.value);
+//   };
+
+//   const { data } = useBlockQuery(9, 8);
+
+//   // 탭 클릭시 문서리스트 받아오기
+//   useEffect(() => {
+//     if (selectedId === 'selected') {
+//       setDocumentData(data);
+//     } else if (selectedId === 'total') {
+//       setDocumentData(TOTAL_DATA);
+//     }
+//   }, [selectedId, data]);
+
+//   return (
+//     <aside css={containerStyle(blockSelected.title)} ref={ref}>
+//       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
+//       <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
+//         {selectedId === 'selected' ? (
+//           <DocumentBarInfo
+//             blockName={blockSelected.title}
+//             startDate={formattingDate(blockSelected.startDate)}
+//             endDate={formattingDate(blockSelected.endDate)}
+//           />
+//         ) : (
+//           <DocumentBarTool onSearchWord={handleSearchWord} searchWord={searchWord} />
+//         )}
+//       </DocumentWrapper>
+//     </aside>
+//   );
+// };
+
+// export default forwardRef(DocumentBar);
+
+const DocumentBar = () => {
   const [selectedId, setSelectedId] = useState('selected');
-  const [documentData, setDocumentData] = useState<Total | Block>([]);
-  const [searchWord, setSearchWord] = useState('');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
     tabId !== selectedId && setSelectedId(tabId);
   };
-
-  const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchWord(e.target.value);
-  };
-
-  const { data } = useBlockQuery(9, 8);
-
-  // 탭 클릭시 문서리스트 받아오기
-  useEffect(() => {
-    if (selectedId === 'selected') {
-      setDocumentData(data);
-    } else if (selectedId === 'total') {
-      setDocumentData(TOTAL_DATA);
-    }
-  }, [selectedId, data]);
-
+  
   return (
-    <aside css={containerStyle(blockSelected.title)} ref={ref}>
+    <aside>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
-        {selectedId === 'selected' ? (
-          <DocumentBarInfo
-            blockName={blockSelected.title}
-            startDate={formattingDate(blockSelected.startDate)}
-            endDate={formattingDate(blockSelected.endDate)}
-          />
-        ) : (
-          <DocumentBarTool onSearchWord={handleSearchWord} searchWord={searchWord} />
-        )}
-      </DocumentWrapper>
+      {selectedId === 'selected' ? (
+        <SelectedBlock selectedId={selectedId} blockName={'1주차 활동'} startDate={'2024.06.01'} endDate={'2024.06.01'} documentList={}/>
+      ) : (
+        <DocumentBarTool/>
+      )}
     </aside>
   );
 };
