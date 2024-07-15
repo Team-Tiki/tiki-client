@@ -9,6 +9,8 @@ import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
+
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: '/password/reset',
     element: <PasswordResetPage />,
+  },
+  {
+    path: '/comingsoon',
+    element: <ComingsoonPage />,
   },
   {
     path: '/',

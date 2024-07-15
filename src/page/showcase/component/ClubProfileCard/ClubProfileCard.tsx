@@ -13,11 +13,13 @@ interface ClubProfileCardProps {
   title: string;
   detail: string;
   imageUrl?: string;
+  onClick?: () => void;
 }
 
-const ClubProfileCard = ({ title, detail, imageUrl }: ClubProfileCardProps) => {
+const ClubProfileCard = ({ title, detail, imageUrl, onClick }: ClubProfileCardProps) => {
   return (
-    <article css={containerStyle}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+    <section css={containerStyle} onClick={onClick}>
       <img src={imageUrl ? imageUrl : defaultImage} alt={`${title}-image`} css={imageStyle} />
       <div css={descriptionStyle}>
         <Heading tag="H6">{title}</Heading>
@@ -25,7 +27,7 @@ const ClubProfileCard = ({ title, detail, imageUrl }: ClubProfileCardProps) => {
           {detail}
         </Text>
       </div>
-    </article>
+    </section>
   );
 };
 
