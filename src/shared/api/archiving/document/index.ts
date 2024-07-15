@@ -7,3 +7,13 @@ export const getDocuments = async (teamId: number, blockId: number) => {
 
   return documentList;
 };
+
+export const getTotalDocuments = async (teamId: number, type: string) => {
+  const response = await axiosInstance.get(`/documents/team/${teamId}/timeline?type=${type}`);
+
+  console.log(response);
+
+  const totalDocumentList = await response.data.data.documents;
+
+  return totalDocumentList;
+};

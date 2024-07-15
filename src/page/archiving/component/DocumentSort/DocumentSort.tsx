@@ -7,7 +7,6 @@ import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
 import ArrowUpThin from '@/common/asset/svg/arrow-up-thin.svg?react';
 import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import ArrowDown from '@/common/asset/svg/arrow.svg?react';
-import Button from '@/common/component/Button/Button';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 const DocumentSort = () => {
@@ -34,10 +33,10 @@ const DocumentSort = () => {
       isOpen={isOpen}
       onSelect={handleSelect}
       trigger={
-        <Button css={buttonStyle} onClick={toggle}>
+        <button css={buttonStyle} onClick={toggle}>
           {selected || '최근 업로드 순'}
           {isOpen ? <ArrowUp width={120} height={12} /> : <ArrowDown width={12} height={12} />}
-        </Button>
+        </button>
       }
       css={fontStyle}
     />
