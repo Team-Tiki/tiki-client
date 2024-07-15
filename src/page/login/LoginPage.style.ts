@@ -4,18 +4,33 @@ import { theme } from '@/common/style/theme/theme';
 
 export const pageStyle = css({
   display: 'flex',
-  flexDirection: 'column',
+
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '6rem',
+
+  flexDirection: 'column',
 
   height: '100vh',
+});
+
+export const formStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+
+  width: '51.1rem',
+  height: '53rem',
+
+  padding: '6rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  gap: '3.2rem',
 });
 
 export const findPasswordButtonStyle = css({
   width: '100%',
 
-  marginTop: '3.2rem',
+  marginTop: '4.8rem',
 
   color: theme.colors.gray_800,
 

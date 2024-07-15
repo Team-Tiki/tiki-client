@@ -8,7 +8,6 @@ const App = () => {
   return (
     <>
       <Header />
-
       <main css={layoutStyle}>
         <Outlet />
       </main>
@@ -21,6 +20,7 @@ const layoutStyle = css({
   flexDirection: 'column',
   alignItems: 'center',
 
+  width: '100vw',
   minHeight: 'calc(100vh - 95px)',
 });
 

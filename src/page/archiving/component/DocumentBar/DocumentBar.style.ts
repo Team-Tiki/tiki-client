@@ -3,9 +3,11 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
-  position: 'fixed',
+  position: 'sticky',
+
   top: '0',
   right: '0',
+
   zIndex: theme.zIndex.overlayTop,
 
   width: '28rem',

@@ -5,22 +5,19 @@ import { theme } from '@/common/style/theme/theme';
 
 export const timelineStyle = (blockSelected: Block | undefined) =>
   css({
-    position: 'relative',
-
-    left: blockSelected ? '-5rem' : '5.2rem',
-    padding: '1.2rem 13.2rem 6.2rem 0rem',
+    display: 'flex',
 
     flexDirection: 'column',
-  });
 
-export const pageStyle = (blockSelected: Block | undefined) =>
-  css({
-    width: blockSelected ? '89rem' : '100%',
+    width: '100%',
+
     padding: '2.6rem 2.4rem',
+    margin: blockSelected ? '10.2rem 4rem 0rem 13.2rem' : '10.2rem 5.2rem 0rem 13.2rem',
 
     borderRadius: '16px',
-
     backgroundColor: theme.colors.gray_100,
+
+    overflow: 'hidden',
   });
 
 export const contentStyle = css({
@@ -28,36 +25,36 @@ export const contentStyle = css({
   gap: '2rem',
 });
 
-export const daySectionStyle = (blockSelected: Block | undefined) =>
+export const daySectionStyle = () =>
   css({
     position: 'relative',
     display: 'flex',
 
-    width: blockSelected ? '84.2rem' : '104.6rem',
+    width: '100%',
     height: '46.4rem',
+
     borderRadius: '6px',
 
-    overflowX: 'scroll',
-
+    whiteSpace: 'nowrap',
     scrollBehavior: 'smooth',
+    overflowX: 'scroll',
 
     '&::-webkit-scrollbar': {
       display: 'none',
     },
   });
 
-export const buttonStyle = (blockSelected: Block | undefined) =>
+export const buttonStyle = () =>
   css({
     position: 'relative',
-    width: '13.2rem',
 
     bottom: '3rem',
 
+    width: '13.2rem',
+
     marginLeft: 'auto',
-    marginRight: blockSelected ? '30rem' : '0',
 
     borderRadius: '28px',
-
     ...theme.text.body04,
     boxShadow: '0px 2px 10px 0px rgba(70, 109, 235, 0.30)',
 
