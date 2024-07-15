@@ -4,30 +4,25 @@ import { theme } from '@/common/style/theme/theme';
 
 export const dayStyle = (isEven: boolean) =>
   css({
-    dixplay: 'flex',
-
+    position: 'relative',
     width: '6rem',
+    height: '100vh',
 
     backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
   });
 
-export const dayBtnStyle = (isClicked: boolean) =>
-  css({
-    display: 'flex',
+export const dayHeaderStyle = css({
+  width: '6rem',
 
-    width: '6rem',
+  padding: '0.8rem 2.6rem',
+  justifyContent: 'center',
 
-    padding: '0.8rem 2.6rem',
-    justifyContent: 'center',
+  border: 'none',
 
-    border: 'none',
-
-    color: isClicked ? theme.colors.blue_900 : theme.colors.black,
-    backgroundColor: theme.colors.gray_100,
-    ...theme.text.body04,
-
-    cursor: 'pointer',
-  });
+  color: theme.colors.black,
+  backgroundColor: theme.colors.gray_100,
+  ...theme.text.body04,
+});
 
 export const bodyStyle = (isEven: boolean) =>
   css({
@@ -39,16 +34,10 @@ export const bodyStyle = (isEven: boolean) =>
   });
 
 export const selectedDayStyle = css({
-  display: 'flex',
-  position: 'relative',
+  position: 'absolute',
 
-  bottom: '0.5rem',
+  left: '2.5rem',
+  top: '2.8rem',
 
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  '& > svg': {
-    zIndex: theme.zIndex.overlayTop,
-  },
+  zIndex: theme.zIndex.overlayTop,
 });

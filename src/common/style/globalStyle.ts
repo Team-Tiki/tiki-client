@@ -14,6 +14,9 @@ export const globalStyle = css({
 
   'html, body': {
     fontSize: '62.5%',
+    '&::-webkit-scrollbar': {
+      width: '0rem',
+    },
   },
 
   a: {

@@ -5,6 +5,7 @@ import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfi
 import { CATEGORY } from '@/page/showcase/constant/category';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -12,6 +13,7 @@ import Heading from '@/common/component/Heading/Heading';
 import { useClubListQuery } from '@/shared/hook/useClubListQuery';
 
 const ShowcasePage = () => {
+  const navi = useNavigate();
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
   const { data: clubs } = useClubListQuery();
@@ -49,6 +51,9 @@ const ShowcasePage = () => {
                   title={club.name}
                   detail={club.overview || ''}
                   imageUrl={club.imageUrl}
+                  onClick={() => {
+                    navi('/comingsoon');
+                  }}
                 />
               );
             }

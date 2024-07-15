@@ -1,4 +1,4 @@
-import { findPasswordButtonStyle, pageStyle } from '@/page/login/LoginPage.style';
+import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/LoginPage.style';
 
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,22 +19,27 @@ const LoginPage = () => {
   };
 
   const 회원가입페이지로이동 = () => {
-    navigate('/signin');
+    navigate('/signup');
+  };
+
+  const 비밀번호찾기페이지로이동 = () => {
+    navigate('/password/auth');
   };
 
   return (
     <section css={pageStyle}>
-      <Logo width={100} height={40} />
-
-      <form onSubmit={handleLogin}>
-        <Input value={email} onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
-        <Input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          variant="underline"
-          placeholder="비밀번호"
-        />
+      <Logo width={108} height={40} />
+      <form onSubmit={handleLogin} css={formStyle}>
+        <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
+          <Input value={email} onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            variant="underline"
+            placeholder="비밀번호"
+          />
+        </Flex>
         <Flex styles={{ marginTop: '3.6rem', direction: 'column', width: '100%', gap: '1.2rem' }}>
           <Button type="submit" variant="primary">
             로그인
@@ -43,7 +48,7 @@ const LoginPage = () => {
             학교 메일로 회원가입
           </Button>
         </Flex>
-        <Button size="small" variant="text" css={findPasswordButtonStyle}>
+        <Button size="small" variant="text" css={findPasswordButtonStyle} onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기
         </Button>
       </form>

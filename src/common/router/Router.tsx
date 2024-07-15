@@ -1,29 +1,46 @@
 import App from '@/App';
 import ArchivingPage from '@/page/archiving/ArchivingPage';
 import LoginPage from '@/page/login/LoginPage';
+import PasswordAuthPage from '@/page/login/passwordAuth/PasswordAuthPage';
+import PasswordResetPage from '@/page/login/passwordReset/PasswordResetPage';
 import ShowcasePage from '@/page/showcase/ShowcasePage';
-import TermPage from '@/page/signIn/index/TermPage';
-import InfoFormPage from '@/page/signIn/info/InfoFormPage';
+import TermPage from '@/page/signUp/index/TermPage';
+import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
+import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
+import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
   {
-    path: '/signin',
+    path: '/signup',
     element: <TermPage />,
   },
   {
-    path: '/signin/info',
+    path: '/signup/info',
+    element: <InfoFormPage />,
+  },
+  {
+    path: '/signup/info/password',
     element: <InfoFormPage />,
   },
   {
     path: '/password/auth',
-    element: <p>인증</p>,
+    element: <PasswordAuthPage />,
   },
   {
     path: '/password/reset',
-    element: <p>재설정</p>,
+    element: <PasswordResetPage />,
+  },
+  {
+    path: '/comingsoon',
+    element: <ComingsoonPage />,
+  },
+  {
+    path: '/error',
+    element: <ErrorPage />,
   },
   {
     path: '/',
