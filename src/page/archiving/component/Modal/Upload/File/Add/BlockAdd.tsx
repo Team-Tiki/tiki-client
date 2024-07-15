@@ -8,6 +8,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
 import useGetFileData from '@/shared/hook/useGetFileData';
+import { usePutUploadS3 } from '@/shared/hook/usePutUploadS3';
 
 interface BlockAddProps {
   files: File[];
@@ -22,21 +23,24 @@ const BlockAdd = ({ files, onFilesChange, isDeleted }: BlockAddProps) => {
   });
 
   const { data, error } = useGetFileData(files);
+  const uploadMutation = usePutUploadS3();
 
   useEffect(() => {
-    console.log('데이터', data);
     if (!isDeleted && data) {
       data.forEach((fileData, index) => {
-        const fileName = files[index]?.name;
-        if (fileData) {
-          console.log(`API 데이터 (${fileName}):`, fileData);
+        const presignedUrl = fileData?.url;
+        const file = files[index];
+
+        if (presignedUrl && file) {
+          uploadMutation.mutate({ presignedUrl, file });
         }
       });
     }
+
     if (error) {
       console.error('API 오류:', error);
     }
-  }, [data, error, files, isDeleted]);
+  }, [data, error, files, isDeleted, uploadMutation]);
 
   return (
     <Flex

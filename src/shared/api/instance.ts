@@ -6,7 +6,6 @@ const TOKEN = `${import.meta.env.VITE_TOKEN}`;
 const axiosInstance = axios.create({
   baseURL: `${API_URL}/api/v1`,
   headers: {
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
   },
 });
