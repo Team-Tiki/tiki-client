@@ -6,6 +6,7 @@ export const PLACEHOLDER = {
   AUTH_CODE: '인증코드 6자리 입력',
   PASSWORD: '비밀번호 (문자/숫자/기호를 포함한 8자 이상)',
   PASSWORD_CONFIRM: '비밀번호 확인',
+  SCHOOL_EMAIL: '학교 웹메일 입력',
 } as const;
 
 export const EMAIL_REMAIN_TIME = 180 as const;
@@ -19,6 +20,7 @@ export const SUPPORTING_TEXT = {
   PASSWORD: '비밀번호를 입력해주세요',
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
+  AUTH_CODE: '회원 인증 메일이 전송되었습니다. 메일함에서 인증번호를 확인해주세요.',
 } as const;
 
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;
