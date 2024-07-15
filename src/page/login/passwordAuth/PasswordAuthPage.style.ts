@@ -3,10 +3,11 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const pageStyle = css({
-  height: '78rem',
-  width: '51.1rem',
-
   flexDirection: 'column',
+
+  width: '51.1rem',
+  height: '78rem',
+
   justifyContent: 'space-between',
 
   padding: '12.3rem 42.75rem 12rem 42.75rem',
@@ -15,8 +16,8 @@ export const pageStyle = css({
 });
 
 export const formStyle = css({
-  position: 'relative',
   display: 'flex',
+  position: 'relative',
   flexDirection: 'column',
   flex: '1',
 
