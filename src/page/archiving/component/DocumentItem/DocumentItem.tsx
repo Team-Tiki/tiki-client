@@ -16,10 +16,10 @@ interface DocumentItemProps {
   selectedId: string;
   blockName?: string;
   fileUrl?: string;
-  color: string;
+  color?: string;
 }
 
-const DocumentItem = ({ children, selectedId, blockName, color }: DocumentItemProps) => {
+const DocumentItem = ({ children, selectedId, blockName, color = '#DBDBFC' }: DocumentItemProps) => {
   // 문서 클릭시 띄워주는 함수
   // const onClickDocumentItem = () => {
   //   window.open(
