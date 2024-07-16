@@ -73,6 +73,7 @@ const ArchivingPage = () => {
                   endDate={block.endDate}
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
+                  blockType={block.blockType}
                   onBlockClick={() => {
                     setBlockSelected(block);
                   }}>
