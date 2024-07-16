@@ -2,13 +2,12 @@ import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentB
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/component/TotalDocument/TotalDocument';
+import { useBlockQuery } from '@/page/archiving/hook/api/useBlockQuery';
+import { useTotalDocumentQuery } from '@/page/archiving/hook/api/useTotalDocumentQuery';
 import { BlockType } from '@/page/archiving/type/blockType';
 import { formattingDate } from '@/page/archiving/util/formattingDate';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
-
-import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
-import { useTotalDocumentQuery } from '@/shared/api/hook/useTotalDocumentQuery';
 
 const DocumentBar = (
   {

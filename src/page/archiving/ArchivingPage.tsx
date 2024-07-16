@@ -6,7 +6,7 @@ import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/component/YearHeader/YearHeader';
 import { TIME_BLOCK } from '@/page/archiving/constant/timeBlock';
-import { useDate } from '@/page/archiving/hook/useDate';
+import { useDate } from '@/page/archiving/hook/common/useDate';
 import { BlockType } from '@/page/archiving/type/blockType';
 import { MonthType } from '@/page/archiving/type/monthType';
 import { alignBlocks } from '@/page/archiving/util/alignBlocks';
