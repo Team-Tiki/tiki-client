@@ -2,7 +2,7 @@ import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentB
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/component/TotalDocument/TotalDocument';
-import { BlockType } from '@/page/archiving/type/blockType';
+import { Block } from '@/page/archiving/type/blockType';
 import { formattingDate } from '@/page/archiving/util/formattingDate';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
@@ -12,9 +12,9 @@ import { useTotalDocumentQuery } from '@/shared/api/hook/useTotalDocumentQuery';
 
 const DocumentBar = (
   {
-    blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
+    blockSelected = { timeBlockId: 0, name: '', color: '', startDate: new Date(), endDate: new Date() },
   }: {
-    blockSelected: BlockType | undefined;
+    blockSelected: Block | undefined;
   },
   ref: ForwardedRef<HTMLDivElement>
 ) => {
@@ -31,18 +31,19 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockDataList } = useBlockQuery(9, 8, selectedId);
+  const { data: blockDataList } = useBlockQuery(7, blockSelected.timeBlockId, selectedId);
   const { data: documentList } = useTotalDocumentQuery(1, 'executive', selectedId);
 
   return (
-    <aside css={containerStyle(blockSelected.title)} ref={ref}>
+    <aside css={containerStyle(blockSelected.name)} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       {selectedId === 'selected' ? (
         <SelectedBlock
           selectedId={selectedId}
-          blockName={blockSelected.title}
+          blockName={blockSelected.name}
           startDate={formattingDate(blockSelected.startDate)}
           endDate={formattingDate(blockSelected.endDate)}
+          color={blockSelected.color}
           documentList={blockDataList}
         />
       ) : (
