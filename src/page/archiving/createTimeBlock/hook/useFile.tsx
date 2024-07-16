@@ -1,46 +1,45 @@
 import { useCallback, useRef } from 'react';
 
-import useGetFileData from '@/shared/hook/useGetFileQuery';
+import useGetFileQuery from '@/shared/hook/useGetFileQuery';
 import { usePutUploadMutation } from '@/shared/hook/usePutUploadMutation';
 
 interface useFileProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
-  setFileUrls: (urls: Map<string, string>) => void;
+  setFileUrls: React.Dispatch<React.SetStateAction<Map<string, string>>>;
 }
 
 const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { mutate: uploadToS3 } = usePutUploadMutation();
-  const { data: fileData } = useGetFileData(files);
+  const { mutateAsync: uploadToS3 } = usePutUploadMutation();
+  const { data: fileData, isLoading } = useGetFileQuery(files);
 
   const handleFiles = useCallback(
     async (newFiles: FileList | null) => {
       if (!newFiles) return;
       const fileArray = Array.from(newFiles);
-      const uniqueFiles = fileArray.filter((newFile) => !files.some((file) => file.name === newFile.name));
-      onFilesChange([...files, ...uniqueFiles]);
+      onFilesChange([...files, ...fileArray]);
 
-      if (fileData) {
+      if (!isLoading && fileData) {
         const fileUrlMap = new Map<string, string>();
-        for (let index = 0; index < fileData.length; index++) {
-          const file = uniqueFiles[index];
-          const presignedUrl = fileData[index]?.url;
+        for (let index = 0; index < fileArray.length; index++) {
+          const file = fileArray[index];
+          const fileInfo = fileData[index];
+          const fileName = fileInfo?.fileName;
+          const presignedUrl = fileInfo?.url;
           if (file && presignedUrl) {
-            await uploadToS3(
-              { presignedUrl, file },
-              {
-                onSuccess: () => {
-                  fileUrlMap.set(file.name, presignedUrl); // 업로드 후 URL 저장
-                },
-              }
-            );
+            try {
+              await uploadToS3({ presignedUrl, file });
+              fileUrlMap.set(fileName, presignedUrl);
+            } catch (error) {
+              console.error(`Error uploading file ${file.name}:`, error);
+            }
           }
         }
-        setFileUrls(fileUrlMap);
+        setFileUrls((prevUrls) => new Map([...Array.from(prevUrls), ...Array.from(fileUrlMap)]));
       }
     },
-    [files, onFilesChange, fileData, uploadToS3, setFileUrls]
+    [files, onFilesChange, fileData, isLoading, uploadToS3, setFileUrls]
   );
 
   const handleFileChange = useCallback(

@@ -1,6 +1,8 @@
 import { boxStyle, buttonStyle } from '@/page/archiving/createTimeBlock/component/Upload/File/Add/BlockAdd.style';
 import useFile from '@/page/archiving/createTimeBlock/hook/useFile';
 
+import { Dispatch, SetStateAction } from 'react';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
@@ -8,7 +10,7 @@ import Text from '@/common/component/Text/Text';
 interface BlockAddProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
-  setFileUrls: (urls: Map<string, string>) => void;
+  setFileUrls: Dispatch<SetStateAction<Map<string, string>>>;
 }
 
 const BlockAdd = ({ files, onFilesChange, setFileUrls }: BlockAddProps) => {
