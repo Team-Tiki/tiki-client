@@ -20,7 +20,7 @@ import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceIm
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 
 const LeftSidebar = () => {
-  const { isOpen: isNavOpen, toggle, close, open } = useOverlay();
+  const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
 

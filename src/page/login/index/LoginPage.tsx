@@ -1,4 +1,4 @@
-import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/LoginPage.style';
+import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
 
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

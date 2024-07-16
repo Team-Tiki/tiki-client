@@ -1,4 +1,4 @@
-import { buttonStyle } from '@/page/showcase/component/CategoryChip/CategoryChip.style';
+import { buttonStyle } from '@/page/showcase/index/component/CategoryChip/CategoryChip.style';
 
 import { ButtonHTMLAttributes } from 'react';
 

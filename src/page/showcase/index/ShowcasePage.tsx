@@ -1,8 +1,8 @@
-import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/ShowcasePage.style';
-import BannerSlider from '@/page/showcase/component/BannerSlider/BannerSlider';
-import CategoryChip from '@/page/showcase/component/CategoryChip/CategoryChip';
-import ClubProfileCard from '@/page/showcase/component/ClubProfileCard/ClubProfileCard';
-import { CATEGORY } from '@/page/showcase/constant/category';
+import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/index/ShowcasePage.style';
+import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
+import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
+import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
+import { CATEGORY } from '@/page/showcase/index/constant/category';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
