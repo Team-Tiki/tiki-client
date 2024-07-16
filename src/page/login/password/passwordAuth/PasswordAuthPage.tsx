@@ -16,6 +16,7 @@ import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 import { useSendMailMutation } from '@/shared/hook/useSendMailMutation';
 import { useVerifyCodeMutation } from '@/shared/hook/useVerifyCodeMutation';
+import { useToastStore } from '@/shared/store/toast';
 
 const PasswordAuthPage = () => {
   const [isMailSent, setIsMailSent] = useState(false);
@@ -27,6 +28,7 @@ const PasswordAuthPage = () => {
   const navigate = useNavigate();
   const sendMail = useSendMailMutation(email);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
+  const { createToast } = useToastStore();
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) setIsMailSent(true);
@@ -41,10 +43,11 @@ const PasswordAuthPage = () => {
           setIsVerifyCode(true);
         },
         onError: () => {
+          createToast('에러에러에러에러', 'success');
           setIsVerifyCode(false);
         },
       });
-      setIsVerifyCode(true);
+      setIsVerifyCode(false);
     }
   }, [authCode, mutate]);
 
