@@ -1,7 +1,7 @@
 import useTimer from '@/page/login/hook/useTimer';
 import { formStyle, pageStyle, timestyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
 import { validateInput } from '@/page/login/util/validateInput';
-import { PLACEHOLDER, SUPPORTINGTXT } from '@/page/signUp/info/constant';
+import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -66,7 +66,7 @@ const PasswordAuthPage = () => {
           </Flex>
           {isMainSent && (
             <>
-              <SupportingText isNotice={true}>{SUPPORTINGTXT.AUTH_CODE}</SupportingText>
+              <SupportingText isNotice={true}>{SUPPORTING_TEXT.AUTH_CODE}</SupportingText>
               <Flex
                 styles={{
                   align: 'end',
