@@ -15,7 +15,7 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
 
-import { useGetTimeBlockQuery } from '@/shared/hook/useGetTimeBlockQuery';
+import { useGetTimeBlockQuery } from '@/shared/hook/archiving/useGetTimeBlockQuery';
 
 const ArchivingPage = () => {
   const handleClose = () => {
