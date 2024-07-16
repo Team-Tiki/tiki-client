@@ -4,7 +4,7 @@ import LandingPage from '@/page/landing/LandingPage';
 import LoginPage from '@/page/login/index/LoginPage';
 import PasswordAuthPage from '@/page/login/password/passwordAuth/PasswordAuthPage';
 import PasswordResetPage from '@/page/login/password/passwordReset/PasswordResetPage';
-import ShowcasePage from '@/page/showcase/ShowcasePage';
+import ShowcasePage from '@/page/showcase/index/ShowcasePage';
 import TermPage from '@/page/signUp/index/TermPage';
 import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
