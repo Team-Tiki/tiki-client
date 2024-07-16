@@ -9,6 +9,7 @@ export const headerStyle = (blockSelected: Block | undefined) =>
 
     width: '100%',
 
+    border: `2px solid ${theme.colors.gray_100}`,
     borderRadius: '8px',
 
     padding: '0.4rem',

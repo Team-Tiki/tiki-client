@@ -13,7 +13,6 @@ export const timelineStyle = (blockSelected: Block | undefined) =>
     margin: blockSelected ? '5.6rem 13.2rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
 
     borderRadius: '16px',
-    backgroundColor: theme.colors.gray_100,
 
     overflow: 'hidden',
   });
@@ -31,6 +30,7 @@ export const daySectionStyle = () =>
     width: '100%',
     height: '46.4rem',
 
+    border: `2px solid ${theme.colors.gray_100}`,
     borderRadius: '6px',
 
     whiteSpace: 'nowrap',
