@@ -3,7 +3,7 @@ import {
   containerStyle,
   contentStyle,
   titleStyle,
-} from '@/page/showcase/component/AdvBanner/AdvBanner.style';
+} from '@/page/showcase/index/component/AdvBanner/AdvBanner.style';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';

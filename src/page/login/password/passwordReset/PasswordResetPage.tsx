@@ -1,4 +1,4 @@
-import { formStyle, pageStyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
+import { formStyle, pageStyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
 
 import { useState } from 'react';
