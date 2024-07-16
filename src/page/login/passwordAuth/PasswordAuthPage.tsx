@@ -19,13 +19,14 @@ import { useVerifyCodeMutation } from '@/shared/hook/useVerifyCodeMutation';
 
 const PasswordAuthPage = () => {
   const [isMailSent, setIsMailSent] = useState(false);
+  const [isVerifyCode, setIsVerifyCode] = useState(false);
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
 
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
   const navigate = useNavigate();
   const sendMail = useSendMailMutation(email);
-  const verifyCode = useVerifyCodeMutation(email, authCode);
+  const { mutate: verifyCode, isError } = useVerifyCodeMutation(email, authCode);
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) setIsMailSent(true);
@@ -36,16 +37,17 @@ const PasswordAuthPage = () => {
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
       verifyCode();
-      stopTimer();
       setAuthCode(authCode);
+      setIsVerifyCode(true);
     }
-  }, [verifyCode, stopTimer, authCode]);
+    console.log(isVerifyCode);
+    console.log(isError);
+  }, [verifyCode, authCode]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isMailSent || !authCode) return false;
-
-    navigate('/password/reset');
+    stopTimer();
+    if (!isError || isMailSent) navigate('/password/reset');
   };
 
   return (
@@ -96,7 +98,7 @@ const PasswordAuthPage = () => {
               </>
             )}
           </Flex>
-          <Button type="submit" variant="primary" size="large" disabled={!isMailSent || !validateCode(authCode)}>
+          <Button type="submit" variant="primary" size="large" disabled={!isVerifyCode || isError}>
             완료
           </Button>
         </form>
