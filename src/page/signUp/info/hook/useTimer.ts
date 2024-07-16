@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-type Timeout = ReturnType<typeof setTimeout>;
+import { Timeout } from '@/shared/type/time';
+
 export const useTimer = (initialTime: number, message: string) => {
   const [isTriggered, setIsTriggered] = useState(false);
   const [remainTime, setRemainTime] = useState(initialTime);

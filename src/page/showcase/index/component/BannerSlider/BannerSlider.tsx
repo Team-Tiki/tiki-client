@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import AdvBanner from '@/page/showcase/component/AdvBanner/AdvBanner';
-import { arrowStyle, dotsContaierStyle } from '@/page/showcase/component/BannerSlider/BannerSlider.style';
+import AdvBanner from '@/page/showcase/index/component/AdvBanner/AdvBanner';
+import { arrowStyle, dotsContaierStyle } from '@/page/showcase/index/component/BannerSlider/BannerSlider.style';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
