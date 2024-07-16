@@ -1,6 +1,10 @@
 import { css } from '@emotion/react';
 
-export const containerStyle = css({ width: '100%', maxWidth: '24.4rem' });
+export const containerStyle = css({
+  minWidth: '21.15rem',
+  maxWidth: '27.55rem',
+  cursor: 'pointer',
+});
 
 export const imageStyle = css({
   width: '100%',
@@ -9,6 +13,8 @@ export const imageStyle = css({
 
   objectFit: 'cover',
   aspectRatio: 16 / 9,
+
+  backgroundImage: '',
 });
 
 export const descriptionStyle = css({

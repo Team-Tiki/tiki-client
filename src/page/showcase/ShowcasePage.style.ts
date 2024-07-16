@@ -20,7 +20,7 @@ export const chipStyle = css({
   flexWrap: 'wrap',
 
   width: '100%',
-  minWidth: '60rem',
+  minWidth: '20rem',
 });
 
 export const clubProfileStyle = css({
@@ -29,5 +29,16 @@ export const clubProfileStyle = css({
   gap: '2.4rem',
 
   width: '100%',
-  minWidth: '60rem',
+
+  '@media (max-width: 1300px)': {
+    gridTemplateColumns: 'repeat(3, 1fr)',
+  },
+
+  '@media (max-width: 1000px)': {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+
+  '@media (max-width: 700px)': {
+    gridTemplateColumns: 'repeat(1, 1fr)',
+  },
 });

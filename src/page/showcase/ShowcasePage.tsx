@@ -28,7 +28,7 @@ const ShowcasePage = () => {
         <Heading tag="H4" css={{ fontWeight: 600 }}>
           우리 학교 동아리
         </Heading>
-        <div css={{ width: '100%' }}>
+        <div css={{ width: '100%', minWidth: '25rem' }}>
           <BannerSlider />
         </div>
       </Flex>
