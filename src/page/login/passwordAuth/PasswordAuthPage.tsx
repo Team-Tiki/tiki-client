@@ -37,11 +37,8 @@ const PasswordAuthPage = () => {
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
       verifyCode();
-      setAuthCode(authCode);
       setIsVerifyCode(true);
     }
-    console.log(isVerifyCode);
-    console.log(isError);
   }, [verifyCode, authCode]);
 
   const handleSubmit = (e: React.FormEvent) => {
