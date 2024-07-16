@@ -47,15 +47,16 @@ const Toast = ({ variant, children, showDuration = 3000, onClose, ...props }: To
     return () => clearTimeout(hideRef.current);
   }, [showDuration]);
 
-  return isRendered
-    ? createPortal(
-        <div role="alert" aria-live="assertive" css={containerStyle(isShown)} {...props}>
-          <span>{children}</span>
-          <Icon />
-        </div>,
-        document.getElementById('toast-container') as Element
-      )
-    : createPortal(<div />, document.getElementById('toast-container') as Element);
+  return (
+    isRendered &&
+    createPortal(
+      <div role="alert" aria-live="assertive" css={containerStyle(isShown)} {...props}>
+        <span>{children}</span>
+        <Icon />
+      </div>,
+      document.getElementById('toast-container') as Element
+    )
+  );
 };
 
 export default Toast;
