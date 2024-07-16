@@ -10,9 +10,21 @@ export const pageStyle = css({
   height: '100vh',
 });
 
+export const formStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  flex: 1,
+
+  width: '100%',
+
+  '& > div': {
+    width: '100%',
+  },
+});
+
 export const selectTriggerStyle = css({
   display: 'flex',
-
   justifyContent: 'space-between',
   alignItems: 'center',
 
@@ -38,22 +50,20 @@ export const selectTriggerStyle = css({
   },
 });
 
-export const identifyStyle = (isMailSent: boolean) =>
-  css({
-    position: 'relative',
-    visibility: isMailSent ? 'visible' : 'hidden',
-    width: '100%',
+export const identifyStyle = css({
+  alignItems: 'end',
+  justifyContent: 'space-between',
+  gap: '0.8rem',
 
-    alignItems: 'end',
-    justifyContent: 'space-between',
-    gap: '0.8rem',
-  });
+  position: 'relative',
 
-export const timestyle = css({
+  width: '100%',
+});
+
+export const timeStyle = css({
   position: 'absolute',
-
-  top: '1.8rem',
-  right: '13rem',
+  bottom: '1.5rem',
+  right: '20rem',
 
   color: theme.colors.blue_900,
   ...theme.text.body04,
