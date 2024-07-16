@@ -46,7 +46,7 @@ const PasswordAuthPage = () => {
       });
       setIsVerifyCode(true);
     }
-  }, [authCode]);
+  }, [authCode, mutate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
