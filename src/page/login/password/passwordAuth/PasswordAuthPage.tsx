@@ -26,15 +26,24 @@ const PasswordAuthPage = () => {
 
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
   const navigate = useNavigate();
-  const sendMail = useSendMailMutation(email);
+  const { sendMailMutation } = useSendMailMutation(email);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
   const { createToast } = useToastStore();
 
   const handleMailSend = useCallback(() => {
-    if (validateEmail(email)) setIsMailSent(true);
-    startTimer();
-    sendMail();
-  }, [sendMail, startTimer, email]);
+    if (validateEmail(email)) {
+      sendMailMutation(undefined, {
+        onSuccess: () => {
+          setIsMailSent(true);
+          startTimer();
+        },
+        onError: () => {
+          createToast('유효하지 않은 메일 주소입니다.', 'error');
+          setIsMailSent(false);
+        },
+      });
+    }
+  }, [startTimer, email, sendMailMutation, createToast]);
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
@@ -49,7 +58,7 @@ const PasswordAuthPage = () => {
       });
       setIsVerifyCode(false);
     }
-  }, [authCode, mutate]);
+  }, [authCode, mutate, createToast]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
