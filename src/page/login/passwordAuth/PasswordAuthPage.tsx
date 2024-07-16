@@ -1,7 +1,8 @@
+import { SUPPORTING_TEXT } from '@/page/login/constant';
 import useTimer from '@/page/login/hook/useTimer';
 import { formStyle, pageStyle, timestyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
 import { validateCode, validateEmail } from '@/page/login/util/validateInput';
-import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
+import { PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import { useCallback, useState } from 'react';
