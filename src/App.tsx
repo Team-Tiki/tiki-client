@@ -6,6 +6,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { theme } from '@/common/style/theme/theme';
 
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
+import Login from '@/shared/component/Login/Login';
 
 const App = () => {
   const location = useLocation();
@@ -18,12 +19,14 @@ const App = () => {
   }, [isAuth]);
 
   return (
-    <div css={containerStyle}>
-      <LeftSidebar />
-      <main css={layoutStyle}>
-        <Outlet />
-      </main>
-    </div>
+    <Login>
+      <div css={containerStyle}>
+        <LeftSidebar />
+        <main css={layoutStyle}>
+          <Outlet />
+        </main>
+      </div>
+    </Login>
   );
 };
 
