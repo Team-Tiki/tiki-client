@@ -1,4 +1,5 @@
 import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
+import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
 
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +15,12 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
+  const { mutate } = useLoginMutation();
+
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    mutate({ email, password });
   };
 
   const 회원가입페이지로이동 = () => {
