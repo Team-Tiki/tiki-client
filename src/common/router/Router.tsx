@@ -1,37 +1,40 @@
 import App from '@/App';
 import ArchivingPage from '@/page/archiving/ArchivingPage';
-import LoginPage from '@/page/login/LoginPage';
-import PasswordAuthPage from '@/page/login/passwordAuth/PasswordAuthPage';
-import PasswordResetPage from '@/page/login/passwordReset/PasswordResetPage';
-import ShowcasePage from '@/page/showcase/ShowcasePage';
+import LandingPage from '@/page/landing/LandingPage';
+import LoginPage from '@/page/login/index/LoginPage';
+import PasswordAuthPage from '@/page/login/password/passwordAuth/PasswordAuthPage';
+import PasswordResetPage from '@/page/login/password/passwordReset/PasswordResetPage';
+import ShowcasePage from '@/page/showcase/index/ShowcasePage';
 import TermPage from '@/page/signUp/index/TermPage';
 import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import { PATH } from '@/shared/constant/path';
 import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const router = createBrowserRouter([
-  { path: '/login', element: <LoginPage /> },
+  { path: PATH.LANDING, element: <LandingPage /> },
+  { path: PATH.LOGIN, element: <LoginPage /> },
   {
-    path: '/signup',
+    path: PATH.SIGNUP,
     element: <TermPage />,
   },
   {
-    path: '/signup/info',
+    path: PATH.SIGNUP_INFO,
     element: <InfoFormPage />,
   },
   {
-    path: '/signup/info/password',
+    path: PATH.SIGNUP_INFO_PASSWORD,
     element: <InfoFormPage />,
   },
   {
-    path: '/password/auth',
+    path: PATH.PASSWORD_AUTH,
     element: <PasswordAuthPage />,
   },
   {
-    path: '/password/reset',
+    path: PATH.PASSWORD_RESET,
     element: <PasswordResetPage />,
   },
   {
@@ -43,11 +46,11 @@ const router = createBrowserRouter([
     element: <ErrorPage />,
   },
   {
-    path: '/',
+    path: PATH.ROOT,
     element: <App />,
     children: [
-      { path: 'showcase', element: <ShowcasePage /> },
-      { path: 'archiving', element: <ArchivingPage /> },
+      { index: true, element: <ShowcasePage /> },
+      { path: PATH.ARCHIVING, element: <ArchivingPage /> },
     ],
   },
 ]);
