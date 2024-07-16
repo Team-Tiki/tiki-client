@@ -26,7 +26,7 @@ const PasswordAuthPage = () => {
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
   const navigate = useNavigate();
   const sendMail = useSendMailMutation(email);
-  const { mutate: verifyCode, isError } = useVerifyCodeMutation(email, authCode);
+  const { mutate, isError } = useVerifyCodeMutation(email, authCode);
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) setIsMailSent(true);
@@ -36,10 +36,17 @@ const PasswordAuthPage = () => {
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
-      verifyCode();
+      mutate(undefined, {
+        onSuccess: () => {
+          setIsVerifyCode(true);
+        },
+        onError: () => {
+          setIsVerifyCode(false);
+        },
+      });
       setIsVerifyCode(true);
     }
-  }, [verifyCode, authCode]);
+  }, [authCode]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +102,7 @@ const PasswordAuthPage = () => {
               </>
             )}
           </Flex>
-          <Button type="submit" variant="primary" size="large" disabled={!isVerifyCode || isError}>
+          <Button type="submit" variant="primary" size="large" disabled={!isVerifyCode}>
             완료
           </Button>
         </form>
