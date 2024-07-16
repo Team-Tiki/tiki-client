@@ -1,10 +1,10 @@
 import useTimer from '@/page/login/hook/useTimer';
 import { formStyle, pageStyle, timestyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
-import { validateInput } from '@/page/login/util/validateInput';
-import { PLACEHOLDER, SUPPORTINGTXT } from '@/page/signUp/info/constant';
+import { validateCode, validateEmail } from '@/page/login/util/validateInput';
+import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -17,40 +17,34 @@ import { useSendMailMutation } from '@/shared/hook/useSendMailMutation';
 import { useVerifyCodeMutation } from '@/shared/hook/useVerifyCodeMutation';
 
 const PasswordAuthPage = () => {
-  const [isMainSent, setIsMainSent] = useState(false);
-  const navigate = useNavigate();
-  const [isVerified, setIsVerified] = useState(false);
+  const [isMailSent, setIsMailSent] = useState(false);
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(false);
+
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
+  const navigate = useNavigate();
   const sendMail = useSendMailMutation(email);
   const verifyCode = useVerifyCodeMutation(email, authCode);
 
-  useEffect(() => {
-    const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
-    setIsEmailValid(isEmailValid);
-    setIsVerified(isAuthCodeValid);
-  }, [email, authCode]);
-
   const handleMailSend = useCallback(() => {
-    setIsMainSent(true);
+    if (validateEmail(email)) setIsMailSent(true);
     startTimer();
     sendMail();
-  }, []);
+  }, [sendMail, startTimer, email]);
 
-  const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setAuthCode(value);
-    setIsVerified(value.length === 6);
-  };
+  const handleVerifyCode = useCallback(() => {
+    if (validateCode(authCode)) {
+      verifyCode();
+      stopTimer();
+      setAuthCode(authCode);
+    }
+  }, [verifyCode, stopTimer, authCode]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isVerified) {
-      stopTimer();
-      navigate('/password/reset');
-    }
+    if (!isMailSent || !authCode) return false;
+
+    navigate('/password/reset');
   };
 
   return (
@@ -67,13 +61,13 @@ const PasswordAuthPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!isEmailValid}>
+              <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
                 인증 메일 발송
               </Button>
             </Flex>
-            {isMainSent && (
+            {isMailSent && (
               <>
-                <SupportingText isNotice={true}>{SUPPORTINGTXT.AUTH_CODE}</SupportingText>
+                <SupportingText isNotice={true}>{SUPPORTING_TEXT.AUTH_CODE}</SupportingText>
                 <Flex
                   styles={{
                     align: 'end',
@@ -87,17 +81,21 @@ const PasswordAuthPage = () => {
                     label="인증 코드"
                     placeholder={PLACEHOLDER.AUTH_CODE}
                     value={authCode}
-                    onChange={handleVerify}
+                    onChange={(e) => setAuthCode(e.target.value)}
                   />
                   <span css={timestyle}>{formatTime(remainTime)}</span>
-                  <Button css={{ width: '13rem' }} size="large" disabled={!isVerified} onClick={verifyCode}>
+                  <Button
+                    css={{ width: '13rem' }}
+                    size="large"
+                    onClick={handleVerifyCode}
+                    disabled={!validateCode(authCode)}>
                     인증하기
                   </Button>
                 </Flex>
               </>
             )}
           </Flex>
-          <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
+          <Button type="submit" variant="primary" size="large" disabled={!isMailSent || !validateCode(authCode)}>
             완료
           </Button>
         </form>
