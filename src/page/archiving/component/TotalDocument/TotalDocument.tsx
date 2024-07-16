@@ -24,7 +24,7 @@ interface DocumentBarToolProps {
 const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: DocumentBarToolProps) => {
   const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
   return (
-    <Flex css={containerStyle}>
+    <Flex tag={'section'} css={containerStyle}>
       <Flex css={toolStyle}>
         <Input
           size="small"
@@ -39,7 +39,7 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
 
       <Flex tag="ul" css={documentListStyle}>
         {filteredDocuments?.map((data: Document) => (
-          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName}>
+          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} fileUrl={data.fileUrl}>
             {data.fileName}
           </DocumentItem>
         ))}

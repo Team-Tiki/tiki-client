@@ -33,9 +33,9 @@ const DocumentSort = () => {
       isOpen={isOpen}
       onSelect={handleSelect}
       trigger={
-        <button css={buttonStyle} onClick={toggle}>
+        <button type="button" css={buttonStyle} onClick={toggle}>
           {selected || '최근 업로드 순'}
-          {isOpen ? <ArrowUp width={120} height={12} /> : <ArrowDown width={12} height={12} />}
+          {isOpen ? <ArrowUp width={12} height={12} /> : <ArrowDown width={12} height={12} />}
         </button>
       }
       css={fontStyle}
