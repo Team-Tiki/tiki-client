@@ -43,7 +43,7 @@ const PasswordAuthPage = () => {
           setIsVerifyCode(true);
         },
         onError: () => {
-          createToast('에러에러에러에러', 'success');
+          createToast('인증번호가 일치하지 않습니다.', 'error');
           setIsVerifyCode(false);
         },
       });
