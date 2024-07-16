@@ -32,7 +32,7 @@ const LeftSidebar = () => {
   const sidebarRef = useOutsideClick(close);
 
   const { data } = useClubInfoQuery();
-  console.log(data);
+
   // 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
