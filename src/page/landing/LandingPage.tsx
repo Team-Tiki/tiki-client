@@ -34,7 +34,7 @@ const LandingPage = () => {
   };
   const option = {
     root: document.getElementById('landing_view'),
-    threshold: 1,
+    threshold: 0.5,
   };
 
   const { targetRef: overviewRef } = useIntersectionObserver(handleObserve, option);
