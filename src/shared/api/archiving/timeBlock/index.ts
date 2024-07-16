@@ -8,7 +8,6 @@ export const getFile = async (fileFormat: string) => {
       fileFormat: fileFormat,
     },
   });
-  console.log(response.data.data);
   return response.data.data;
 };
 
@@ -21,7 +20,6 @@ export const postTimeBlock = async (teamId: number, type: string, data: TimeBloc
       type: type,
     },
   });
-  console.log(response.data);
   return response.data;
 };
 
@@ -31,6 +29,5 @@ export const deleteTimeBlock = async (data: DeleteFile) => {
       'Content-Type': 'application/json',
     },
   });
-  console.log('삭제', response.data);
   return response;
 };

@@ -12,6 +12,7 @@ export interface TimeBlockCreate {
   color: string;
   startDate: string;
   endDate: string;
+  blockType: string;
   files: Map<string, string>;
 }
 

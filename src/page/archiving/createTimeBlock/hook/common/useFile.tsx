@@ -1,8 +1,8 @@
+import { usePutUploadMutation } from '@/page/archiving/createTimeBlock/hook/api/usePutUploadMutation';
+
 import { useCallback, useRef } from 'react';
 
 import { getFile } from '@/shared/api/archiving/timeBlock';
-import useGetFileQuery from '@/shared/hook/useGetFileQuery';
-import { usePutUploadMutation } from '@/shared/hook/usePutUploadMutation';
 
 interface useFileProps {
   files: File[];
@@ -24,16 +24,13 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
 
       for (let index = 0; index < fileArray.length; index++) {
         const file = fileArray[index];
-        try {
-          const fileData = await getFile(file.name);
-          const fileName = fileData?.fileName;
-          const presignedUrl = fileData?.url;
-          if (file && presignedUrl) {
-            await uploadToS3({ presignedUrl, file });
-            fileUrlMap.set(fileName, presignedUrl);
-          }
-        } catch (error) {
-          console.error(`Error uploading file ${file.name}:`, error);
+
+        const fileData = await getFile(file.name);
+        const fileName = fileData?.fileName;
+        const presignedUrl = fileData?.url;
+        if (file && presignedUrl) {
+          await uploadToS3({ presignedUrl, file });
+          fileUrlMap.set(fileName, presignedUrl);
         }
       }
 

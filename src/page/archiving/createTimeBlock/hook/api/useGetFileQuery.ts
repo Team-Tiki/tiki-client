@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 
 import { getFile } from '@/shared/api/archiving/timeBlock';
 import { extractFileExtension } from '@/shared/constant/fileFormat';
 
-const useGetFileQuery = (file: File) => {
+/*const useGetFileQuery = (file: File) => {
   const fileExtension = extractFileExtension(file.name); // 확장자 추출
   return useQuery({
     queryKey: ['fileFormat', file.name, fileExtension],
@@ -12,9 +13,9 @@ const useGetFileQuery = (file: File) => {
   });
 };
 
-export default useGetFileQuery;
+export default useGetFileQuery;*/
 
-/*const useGetFileQuery = (files: File[]) => {
+const useGetFileQuery = (files: File[]) => {
   const queryConfigs = files.map((file) => {
     const fileExtension = extractFileExtension(file.name); // 확장자 추출
     return {
@@ -35,4 +36,4 @@ export default useGetFileQuery;
   return { data, error, isLoading };
 };
 
-export default useGetFileQuery;*/
+export default useGetFileQuery;

@@ -1,6 +1,8 @@
 import BlockAdd from '@/page/archiving/createTimeBlock/component/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem';
 import { scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
+import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
+import { usePostTimeBlock } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
 import { formatDatePost } from '@/page/archiving/createTimeBlock/util/dateUtils';
 
 import { useState } from 'react';
@@ -10,15 +12,13 @@ import Flex from '@/common/component/Flex/Flex';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { COLORS } from '@/shared/constant';
-import { useDeleteFileMutation } from '@/shared/hook/useDeleteFileMutation';
-import { usePostTimeBlock } from '@/shared/hook/usePostTimeBlockMutation';
 import { getRandomColor } from '@/shared/util/getRandomColor';
 
 interface UploadModalProps {
   onClose: () => void;
   teamId: number;
   type: string;
-  blockData: { blockName: string; dates: { startDate: string; endDate: string } };
+  blockData: { blockName: string; dates: { startDate: string; endDate: string }; blockType: string };
 }
 
 const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
@@ -54,17 +54,13 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
       color: getRandomColor(COLORS),
       startDate: formatDatePost(blockData.dates.startDate),
       endDate: formatDatePost(blockData.dates.endDate),
+      blockType: blockData.blockType,
       files: fileUrls,
     };
-    console.log('데이터', data);
 
     postTimeBlock(data, {
       onSuccess: () => {
-        console.log('post성공');
         onClose();
-      },
-      onError: (error) => {
-        console.error('Error uploading data:', error);
       },
     });
   };

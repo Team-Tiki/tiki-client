@@ -3,16 +3,16 @@ import {
   iconStyle,
   selectedIconStyle,
 } from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon.style';
-import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
+import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/icon';
 
 interface BlockIconProps {
-  selectedBlockIcon: number | null;
-  onBlockIconSelect: (index: number | null) => void;
+  selectedBlockIcon: number;
+  onBlockIconSelect: (index: number) => void;
 }
 
 const BlockIcon = ({ selectedBlockIcon, onBlockIconSelect }: BlockIconProps) => {
   const handleIconClick = (index: number) => {
-    onBlockIconSelect(selectedBlockIcon === index ? null : index);
+    onBlockIconSelect(selectedBlockIcon === index ? -1 : index); // Set to -1 if the same icon is clicked
   };
 
   return (

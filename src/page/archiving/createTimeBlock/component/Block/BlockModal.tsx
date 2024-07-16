@@ -2,6 +2,7 @@ import { buttonStyle, textStyle } from '@/page/archiving/createTimeBlock/compone
 import BlockDate from '@/page/archiving/createTimeBlock/component/Block/Date/BlockDate';
 import BlockIcon from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/createTimeBlock/component/Box/BlockBox';
+import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/icon';
 
 import { useState } from 'react';
 
@@ -15,14 +16,15 @@ import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo
 interface BlockModalProps {
   onNext: (blockData: {
     blockName: string;
-    selectedIcon: number | null;
+    selectedIcon: number;
     dates: { startDate: string; endDate: string };
+    blockType: string;
   }) => void;
 }
 
 const BlockModal = ({ onNext }: BlockModalProps) => {
   const [blockName, setBlockName] = useState('');
-  const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
+  const [selectedIcon, setSelectedIcon] = useState<number>(-1); // Initial state set to -1
   const [dates, setDates] = useState({ startDate: '', endDate: '' });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
@@ -34,14 +36,15 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
 
   const isButtonActive =
     blockName.trim() !== '' &&
-    selectedIcon !== null &&
+    selectedIcon !== -1 &&
     dates.startDate.length === 10 &&
     dates.endDate.length === 10 &&
     isDateRangeValid;
 
   const handleNext = () => {
     if (isButtonActive) {
-      onNext({ blockName, selectedIcon, dates });
+      const blockType = BLOCK_ICON[selectedIcon].type;
+      onNext({ blockName, selectedIcon, dates, blockType });
     }
   };
 
