@@ -5,13 +5,17 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
+import useGetFileData from '@/shared/hook/useGetFileQuery';
+import { usePutUploadMutation } from '@/shared/hook/usePutUploadMutation';
+
 interface BlockAddProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
+  setFileUrls: (urls: Map<string, string>) => void;
 }
 
-const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
-  const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({ files, onFilesChange });
+const BlockAdd = ({ files, onFilesChange, setFileUrls }: BlockAddProps) => {
+  const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({ files, onFilesChange, setFileUrls });
 
   return (
     <Flex
@@ -24,15 +28,9 @@ const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
       }}
       css={boxStyle}
       onDragOver={handleDragOver}
-      onDrop={(event) => handleDrop(event, onFilesChange)}>
+      onDrop={(event) => handleDrop(event)}>
       <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <input
-          type="file"
-          multiple
-          style={{ display: 'none' }}
-          ref={fileInputRef}
-          onChange={(event) => handleFileChange(event, onFilesChange)}
-        />
+        <input type="file" multiple style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
         <Text tag="body6">업로드할 파일을 여기로 드래그 하세요</Text>
         <Flex
           styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.3rem' }}

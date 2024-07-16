@@ -1,30 +1,51 @@
 import { useCallback, useRef } from 'react';
 
+import useGetFileData from '@/shared/hook/useGetFileQuery';
+import { usePutUploadMutation } from '@/shared/hook/usePutUploadMutation';
+
 interface useFileProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
+  setFileUrls: (urls: Map<string, string>) => void;
 }
 
-const useFile = ({ files, onFilesChange }: useFileProps) => {
+const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { mutate: uploadToS3 } = usePutUploadMutation();
+  const { data: fileData } = useGetFileData(files);
 
   const handleFiles = useCallback(
-    (newFiles: FileList | null) => {
+    async (newFiles: FileList | null) => {
       if (!newFiles) return;
       const fileArray = Array.from(newFiles);
-      // 중복된 파일 제거
       const uniqueFiles = fileArray.filter((newFile) => !files.some((file) => file.name === newFile.name));
       onFilesChange([...files, ...uniqueFiles]);
+
+      if (fileData) {
+        const fileUrlMap = new Map<string, string>();
+        for (let index = 0; index < fileData.length; index++) {
+          const file = uniqueFiles[index];
+          const presignedUrl = fileData[index]?.url;
+          if (file && presignedUrl) {
+            await uploadToS3(
+              { presignedUrl, file },
+              {
+                onSuccess: () => {
+                  fileUrlMap.set(file.name, presignedUrl); // 업로드 후 URL 저장
+                },
+              }
+            );
+          }
+        }
+        setFileUrls(fileUrlMap);
+      }
     },
-    [files, onFilesChange]
+    [files, onFilesChange, fileData, uploadToS3, setFileUrls]
   );
 
   const handleFileChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>, handleNewFilesCallback?: (newFiles: File[]) => void) => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       handleFiles(event.target.files);
-      if (handleNewFilesCallback) {
-        handleNewFilesCallback(Array.from(event.target.files || []));
-      }
     },
     [handleFiles]
   );
@@ -34,12 +55,9 @@ const useFile = ({ files, onFilesChange }: useFileProps) => {
   }, []);
 
   const handleDrop = useCallback(
-    (event: React.DragEvent<HTMLDivElement>, handleNewFilesCallback?: (newFiles: File[]) => void) => {
+    (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
       handleFiles(event.dataTransfer.files);
-      if (handleNewFilesCallback) {
-        handleNewFilesCallback(Array.from(event.dataTransfer.files || []));
-      }
     },
     [handleFiles]
   );
