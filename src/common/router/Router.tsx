@@ -11,6 +11,8 @@ import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { PATH } from '@/shared/constant/path';
+import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
+import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const router = createBrowserRouter([
   { path: PATH.LANDING, element: <LandingPage /> },
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
   {
     path: PATH.PASSWORD_RESET,
     element: <PasswordResetPage />,
+  },
+  {
+    path: '/comingsoon',
+    element: <ComingsoonPage />,
+  },
+  {
+    path: '/error',
+    element: <ErrorPage />,
   },
   {
     path: PATH.ROOT,
