@@ -5,9 +5,6 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import useGetFileData from '@/shared/hook/useGetFileQuery';
-import { usePutUploadMutation } from '@/shared/hook/usePutUploadMutation';
-
 interface BlockAddProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
