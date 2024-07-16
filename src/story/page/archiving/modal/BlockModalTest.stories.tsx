@@ -28,7 +28,11 @@ export const BlockModalTest: Story = {
   render: () => {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
-    const handleNext = () => setCurrentContent(<UploadModal onClose={closeModal} />);
+    const handleNext = (blockData: { blockName: string; dates: { startDate: string; endDate: string } }) => {
+      const teamId = 6;
+      const type = 'executive';
+      setCurrentContent(<UploadModal onClose={closeModal} teamId={teamId} type={type} blockData={blockData} />);
+    };
 
     return (
       <div>

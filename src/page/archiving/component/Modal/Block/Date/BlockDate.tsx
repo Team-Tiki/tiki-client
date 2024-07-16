@@ -15,7 +15,7 @@ interface BlockDateProps {
 }
 
 const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDateRangeValid }: BlockDateProps) => {
-  const { dates, validation, isDateRangeValid, handleChange } = useDateRange(
+  const { dates, validation, handleChange } = useDateRange(
     startDate,
     endDate,
     onSetStartDate,
@@ -23,7 +23,7 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
     onSetIsDateRangeValid
   );
 
-  const inputStyle = (isValid: boolean, value: string, isError: boolean) => css`
+  const inputStyle = (value: string) => css`
     text-align: ${value.length === 10 ? 'center' : 'left'};
   `;
 
@@ -34,12 +34,9 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
           variant="default"
           size="large"
           placeholder="YYYY.MM.DD"
-          css={[
-            { width: '9.7rem' },
-            inputStyle(validation.isStartDateValid, dates.startDate, validation.isStartDateError),
-          ]}
+          css={[{ width: '9.7rem' }, inputStyle(dates.startDate)]}
           value={dates.startDate}
-          onChange={(e) => handleChange('startDate', e.target.value, dates.endDate, validation.isEndDateValid, true)}
+          onChange={(e) => handleChange('startDate', e.target.value, validation.isEndDateValid, true)}
           maxLength={10}
           isError={validation.isStartDateError}
         />
@@ -48,9 +45,9 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
           variant="default"
           size="large"
           placeholder="YYYY.MM.DD"
-          css={[{ width: '9.7rem' }, inputStyle(validation.isEndDateValid, dates.endDate, validation.isEndDateError)]}
+          css={[{ width: '9.7rem' }, inputStyle(dates.endDate)]}
           value={dates.endDate}
-          onChange={(e) => handleChange('endDate', e.target.value, dates.startDate, validation.isStartDateValid, false)}
+          onChange={(e) => handleChange('endDate', e.target.value, validation.isStartDateValid, false)}
           maxLength={10}
           isError={validation.isEndDateError}
         />

@@ -1,21 +1,32 @@
 import BlockAdd from '@/page/archiving/component/Modal/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/component/Modal/Upload/File/List/BlockItem';
 import { scrollStyle } from '@/page/archiving/component/Modal/Upload/UploadModal.style';
+import { formatDatePost } from '@/page/archiving/util/dateUtils';
 
 import { useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
+import { putUploadToS3 } from '@/shared/api/extermal';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import { COLORS } from '@/shared/constant';
+import useGetFileData from '@/shared/hook/useGetFileData';
+import { usePostTimeBlock } from '@/shared/hook/usePostTimeBlock';
+import { getRandomColor } from '@/shared/util/getRandomColor';
 
 interface UploadModalProps {
   onClose: () => void;
+  teamId: number;
+  type: string;
+  blockData: { blockName: string; dates: { startDate: string; endDate: string } };
 }
 
-const UploadModal = ({ onClose }: UploadModalProps) => {
+const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [isDeleted, setIsDeleted] = useState(false);
+
+  const mutation = usePostTimeBlock(teamId, type);
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles((prevFiles) => {
@@ -30,9 +41,48 @@ const UploadModal = ({ onClose }: UploadModalProps) => {
     setIsDeleted(true);
   };
 
-  const handleSave = () => {
-    onClose();
+  const { data: fileData, isLoading } = useGetFileData(files);
+  console.log(fileData);
+
+  const handleSave = async () => {
+    const fileMap = new Map<string, string>();
+    if (fileData) {
+      for (let index = 0; index < fileData.length; index++) {
+        const file = files[index];
+        const presignedUrl = fileData[index]?.url;
+        console.log(presignedUrl);
+        if (file && presignedUrl) {
+          const uploadedUrl = await putUploadToS3(presignedUrl, file);
+          console.log(uploadedUrl);
+          if (uploadedUrl) {
+            fileMap.set(file.name, uploadedUrl);
+            console.log(fileMap);
+          }
+        }
+      }
+    }
+
+    const data = {
+      name: blockData.blockName,
+      color: getRandomColor(COLORS),
+      startDate: formatDatePost(blockData.dates.startDate),
+      endDate: formatDatePost(blockData.dates.endDate),
+      files: fileMap,
+    };
+    console.log('데이터', data);
+
+    mutation.mutate(data, {
+      onSuccess: () => {
+        console.log('post성공');
+        onClose();
+      },
+      onError: (error) => {
+        console.error('Error uploading data:', error);
+      },
+    });
   };
+
+  console.log(isLoading);
 
   return (
     <Flex

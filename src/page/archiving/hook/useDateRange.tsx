@@ -20,13 +20,7 @@ const useDateRange = (
   });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
-  const handleChange = (
-    dateType: 'startDate' | 'endDate',
-    value: string,
-    otherDate: string,
-    otherIsValid: boolean,
-    isStart: boolean
-  ) => {
+  const handleChange = (dateType: 'startDate' | 'endDate', value: string, otherIsValid: boolean, isStart: boolean) => {
     const input = value.replace(/\D/g, '');
     const formattedDate = input.length <= 8 ? formatDateString(input) : input;
     setDates((prev) => {

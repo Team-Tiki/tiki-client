@@ -1,7 +1,6 @@
 import { useQueries } from '@tanstack/react-query';
 
 import { getFile } from '@/shared/api/archiving/timeBlock';
-import { fileResponse } from '@/shared/api/archiving/timeBlock/type';
 
 import { extractFileExtension } from '../constant/fileFormat';
 

@@ -24,3 +24,7 @@ export const parseDate = (dateString: string): Date | null => {
 
   return null;
 };
+
+export const formatDatePost = (dateString: string): string => {
+  return dateString.replace(/\./g, '-');
+};

@@ -1,14 +1,9 @@
 import { boxStyle, buttonStyle } from '@/page/archiving/component/Modal/Upload/File/Add/BlockAdd.style';
 import useFile from '@/page/archiving/hook/useFile';
 
-import { useEffect, useRef } from 'react';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
-
-import { putUploadToS3 } from '@/shared/api/extermal';
-import useGetFileData from '@/shared/hook/useGetFileData';
 
 interface BlockAddProps {
   files: File[];
@@ -16,50 +11,8 @@ interface BlockAddProps {
   isDeleted: boolean;
 }
 
-const BlockAdd = ({ files, onFilesChange, isDeleted }: BlockAddProps) => {
+const BlockAdd = ({ files, onFilesChange }: BlockAddProps) => {
   const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({ files, onFilesChange });
-  const { data } = useGetFileData(files);
-
-  // 업로드된 파일을 추적하는 상태
-  const uploadedFilesRef = useRef<Set<string>>(new Set());
-
-  useEffect(() => {
-    const uploadFiles = async () => {
-      if (isDeleted || !data) return;
-
-      const newUploadedFiles = new Set(uploadedFilesRef.current);
-
-      for (let index = 0; index < data.length; index++) {
-        const fileData = data[index];
-        const fileName = files[index]?.name;
-        const presignedUrl = fileData?.url;
-        const file = files[index];
-
-        if (file && presignedUrl && !newUploadedFiles.has(fileName)) {
-          try {
-            const response = await putUploadToS3(presignedUrl, file);
-            console.log(`파일 (${fileName}) 업로드 성공:`, response);
-            newUploadedFiles.add(fileName); // 업로드 성공 시 상태 업데이트
-          } catch (uploadError) {
-            console.error(`파일 (${fileName}) 업로드 실패:`, uploadError);
-          }
-        }
-      }
-
-      uploadedFilesRef.current = newUploadedFiles;
-    };
-
-    if (data) {
-      uploadFiles();
-    }
-  }, [data, files, isDeleted]);
-
-  // 파일이 변경되면 업로드 상태를 초기화
-  useEffect(() => {
-    const currentFiles = new Set(files.map((file) => file.name));
-    const intersection = new Set([...uploadedFilesRef.current].filter((x) => currentFiles.has(x)));
-    uploadedFilesRef.current = intersection;
-  }, [files]);
 
   return (
     <Flex

@@ -13,7 +13,11 @@ import Text from '@/common/component/Text/Text';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
 interface BlockModalProps {
-  onNext: () => void;
+  onNext: (blockData: {
+    blockName: string;
+    selectedIcon: number | null;
+    dates: { startDate: string; endDate: string };
+  }) => void;
 }
 
 const BlockModal = ({ onNext }: BlockModalProps) => {
@@ -34,6 +38,12 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
     dates.startDate.length === 10 &&
     dates.endDate.length === 10 &&
     isDateRangeValid;
+
+  const handleNext = () => {
+    if (isButtonActive) {
+      onNext({ blockName, selectedIcon, dates });
+    }
+  };
 
   return (
     <Flex
@@ -91,7 +101,7 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         size="medium"
         css={buttonStyle(isButtonActive)}
         disabled={!isButtonActive}
-        onClick={onNext}>
+        onClick={handleNext}>
         다음
       </Button>
     </Flex>
