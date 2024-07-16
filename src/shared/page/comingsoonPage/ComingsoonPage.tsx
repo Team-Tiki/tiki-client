@@ -22,7 +22,8 @@ const ComingsoonPage = () => {
         height: '100vh',
         gap: '1.2rem',
         padding: '15rem 50.3rem',
-      }}>
+      }}
+      css={{ backgroundColor: theme.colors.white }}>
       <img src={comingsoonImg} alt="comingsoon character" />
       <Heading tag="H3" css={{ fontWeight: '600', whiteSpace: 'nowrap' }}>
         아직 티키가 열심히 준비중이에요
