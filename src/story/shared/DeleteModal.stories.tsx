@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Delete: Story = {
   render: () => {
-    const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+    const { isOpen, openModal, closeModal, currentContent } = useModal();
 
     return (
       <>

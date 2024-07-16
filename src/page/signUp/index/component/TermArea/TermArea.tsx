@@ -19,9 +19,7 @@ const TermArea = ({ term, isChecked, isRequired = true, children, ...props }: Te
       <Text css={termStyle} tag="body4">
         {isChecked ? <CheckActive /> : <Check />}
         {term}
-        <Text css={{ color: theme.colors.blue_900 }} tag="body4">
-          {isRequired ? '[필수]' : '[선택]'}
-        </Text>
+        <span css={{ ...theme.text.body04, color: theme.colors.blue_900 }}>{isRequired ? '[필수]' : '[선택]'}</span>
       </Text>
 
       {children}

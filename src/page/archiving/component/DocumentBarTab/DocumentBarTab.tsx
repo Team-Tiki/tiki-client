@@ -10,7 +10,7 @@ interface DocumentBarTabProps {
 
 const DocumentBarTab = ({ selectedId, onTabClick }: DocumentBarTabProps) => {
   return (
-    <Flex>
+    <Flex tag={'nav'}>
       <Button
         onClick={() => onTabClick(selectedId, 'selected')}
         css={[tabDefaultStyle(selectedId, 'selected'), { borderRadius: '16px 0px 0px 0px' }]}>
