@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Toast from '@/common/component/Toast/Toast';
 import ToastContainer from '@/common/component/ToastContainer/ToastContainer';
-import ToastFactory from '@/common/component/ToastContainer/ToastFactory';
+import ToastProvider from '@/common/component/ToastContainer/ToastProvider';
 
 import { useToastStore } from '@/shared/store/toast';
 
@@ -31,7 +31,7 @@ export const Default: Story = {
     return (
       <>
         <ToastContainer />
-        <ToastFactory />
+        <ToastProvider />
 
         <button onClick={() => createToast('토스트 띄우기 성공!')}>Create Toast</button>
       </>
@@ -46,7 +46,7 @@ export const Error: Story = {
     return (
       <>
         <ToastContainer />
-        <ToastFactory />
+        <ToastProvider />
 
         <button onClick={() => createToast('에러가 발생하였어요 에러가 발생하였어요 에러가 발생하였어요', 'error')}>
           Create Toast
@@ -63,7 +63,7 @@ export const Success: Story = {
     return (
       <>
         <ToastContainer />
-        <ToastFactory />
+        <ToastProvider />
 
         <button onClick={() => createToast('축하드려요 ! 성공했습니다.', 'success')}>Create Toast</button>
       </>
