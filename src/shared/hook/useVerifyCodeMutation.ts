@@ -6,9 +6,6 @@ export const useVerifyCodeMutation = (email: string, code: string) => {
   const verifyCodeMutation = useMutation({
     mutationKey: ['verifyCode', email, code],
     mutationFn: () => checkAuthCode(email, code),
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries({ queryKey: ['verifyCode'] });
-    // },
   });
 
   return verifyCodeMutation;
