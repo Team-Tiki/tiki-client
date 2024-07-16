@@ -9,13 +9,13 @@ import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 
 const App = () => {
   const location = useLocation();
-  const showSidebar = ['/showcase', '/archiving'].includes(location.pathname);
+  const isAuth = ['/showcase', '/archiving'].includes(location.pathname);
 
   useEffect(() => {
-    if (showSidebar) {
+    if (isAuth) {
       document.body.style.backgroundColor = theme.colors.blue_900;
     }
-  }, []);
+  }, [isAuth]);
 
   return (
     <div css={containerStyle}>

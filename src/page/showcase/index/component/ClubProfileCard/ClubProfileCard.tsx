@@ -3,7 +3,7 @@ import {
   descriptionStyle,
   detailStyle,
   imageStyle,
-} from '@/page/showcase/component/ClubProfileCard/ClubProfileCard.style';
+} from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard.style';
 
 import defaultImage from '@/common/asset/svg/default_profile.svg';
 import Heading from '@/common/component/Heading/Heading';

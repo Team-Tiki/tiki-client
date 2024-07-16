@@ -1,7 +1,7 @@
 import { SUPPORTING_TEXT } from '@/page/login/constant';
-import useTimer from '@/page/login/hook/useTimer';
-import { formStyle, pageStyle, timestyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
-import { validateCode, validateEmail } from '@/page/login/util/validateInput';
+import useTimer from '@/page/login/password/hook/useTimer';
+import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
+import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
