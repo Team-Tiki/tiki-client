@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
+import useCategoryListQuery from '@/shared/hook/useCategoryListQuery';
 import { useClubListQuery } from '@/shared/hook/useClubListQuery';
 
 const ShowcasePage = () => {
@@ -17,6 +18,8 @@ const ShowcasePage = () => {
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
   const { data: clubs } = useClubListQuery();
+
+  const { data: categoryList } = useCategoryListQuery();
 
   const handleChipClick = (category: string) => {
     setSelectedChip(category);
@@ -34,11 +37,15 @@ const ShowcasePage = () => {
       </Flex>
 
       <section css={chipStyle}>
-        {CATEGORY.map((category) => (
-          <CategoryChip key={category} onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
-            {category}
-          </CategoryChip>
-        ))}
+        {categoryList &&
+          categoryList.map((category) => (
+            <CategoryChip
+              key={category}
+              onClick={() => handleChipClick(category)}
+              isSelected={selectedChip === category}>
+              {category}
+            </CategoryChip>
+          ))}
       </section>
 
       <section css={clubProfileStyle}>
