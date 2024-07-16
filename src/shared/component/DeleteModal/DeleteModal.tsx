@@ -3,6 +3,8 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
+import { useDeleteBlockMutation } from '@/shared/api/hook/useDeleteBlockMutaion';
+import { useDeleteDocumentMutation } from '@/shared/api/hook/useDeleteDocumentMutation';
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
 
@@ -13,13 +15,19 @@ interface DeleteModalProps {
 }
 
 const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
+  const { mutate: blockMutate } = useDeleteBlockMutation();
+  const { mutate: documentMutate } = useDeleteDocumentMutation();
+  console.log(title);
+
   const handleDeleteBlock = () => {
-    //블록 삭제 api 추가
+    blockMutate({ teamId: 9, blockId: 63 });
     onClose();
   };
 
   const handleDeleteDocs = () => {
     //문서 삭제 api 추가
+    documentMutate({ teamId: 1, documentId: 4 });
+    console.log('여긴가?');
     onClose();
   };
 

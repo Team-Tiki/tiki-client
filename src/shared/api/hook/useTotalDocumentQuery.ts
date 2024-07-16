@@ -4,7 +4,7 @@ import { getTotalDocuments } from '@/shared/api/archiving/document';
 
 export const useTotalDocumentQuery = (teamId: number, type: string, selectedId: string) => {
   return useQuery({
-    queryKey: ['totalDocument', type],
+    queryKey: ['document', 'total', type],
     queryFn: () => getTotalDocuments(teamId, type),
     enabled: selectedId === 'total',
   });

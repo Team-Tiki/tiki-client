@@ -31,7 +31,7 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockDataList } = useBlockQuery(9, 8, selectedId);
+  const { data: blockDataList } = useBlockQuery(9, 63, selectedId);
   const { data: documentList } = useTotalDocumentQuery(1, 'executive', selectedId);
 
   return (

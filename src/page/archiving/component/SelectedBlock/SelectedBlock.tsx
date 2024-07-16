@@ -5,10 +5,13 @@ import Laptop from '@/common/asset/svg/laptop.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
+import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import { Document } from '@/shared/api/archiving/document/type';
+import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 
 import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
 
@@ -21,6 +24,8 @@ interface DocumentBarInfoProps {
 }
 
 const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList }: DocumentBarInfoProps) => {
+  const { isOpen, openModal, closeModal, currentContent } = useModal();
+
   return (
     <Flex tag="section" css={containerStyle}>
       <Laptop width={24} height={24} />
@@ -28,7 +33,11 @@ const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList
         <Heading tag="H6" css={blockNameStyle}>
           {blockName}
         </Heading>
-        <Button variant="text" size="small" css={deleteBtnStyle}>
+        <Button
+          variant="text"
+          size="small"
+          css={deleteBtnStyle}
+          onClick={() => openModal(<DeleteModal title="block" detail="block" onClose={closeModal} />)}>
           블록삭제
         </Button>
       </Flex>
@@ -43,6 +52,7 @@ const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList
           </DocumentItem>
         ))}
       </Flex>
+      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </Flex>
   );
 };
