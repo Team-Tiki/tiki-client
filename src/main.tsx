@@ -6,6 +6,8 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
+import ToastContainer from '@/common/component/ToastContainer/ToastContainer';
+import ToastFactory from '@/common/component/ToastContainer/ToastFactory';
 import { AppRouter } from '@/common/router/Router';
 import { globalStyle } from '@/common/style/globalStyle';
 import { theme } from '@/common/style/theme/theme';
@@ -31,6 +33,8 @@ const main = async () => {
         <ThemeProvider theme={theme}>
           <Global styles={globalStyle} />
           <AppRouter />
+          <ToastContainer />
+          <ToastFactory />
         </ThemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
