@@ -1,5 +1,5 @@
 import App from '@/App';
-import ArchivingPage from '@/page/archiving/ArchivingPage';
+import ArchivingPage from '@/page/archiving/index/ArchivingPage';
 import LoginPage from '@/page/login/LoginPage';
 import ShowcasePage from '@/page/showcase/ShowcasePage';
 import TermPage from '@/page/signUp/index/TermPage';

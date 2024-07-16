@@ -1,5 +1,5 @@
-import BlockModal from '@/page/archiving/component/Modal/Block/BlockModal';
-import UploadModal from '@/page/archiving/component/Modal/Upload/UploadModal';
+import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
+import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { Meta, StoryObj } from '@storybook/react';
 
 import Modal from '@/common/component/Modal/Modal';

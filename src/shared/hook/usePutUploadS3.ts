@@ -27,3 +27,7 @@ import { putUploadToS3 } from '@/shared/api/extermal';
   });
 };
 */
+
+export const usePutUploadMutation = () => {
+  return useMutation;
+};

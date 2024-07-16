@@ -14,3 +14,7 @@ export interface TimeBlockCreate {
   endDate: string;
   files: Map<string, string>;
 }
+
+export interface DeleteFile {
+  fileName: string;
+}
