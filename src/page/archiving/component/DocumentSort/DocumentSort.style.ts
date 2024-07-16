@@ -4,19 +4,23 @@ import { theme } from '@/common/style/theme/theme';
 
 export const buttonStyle = css({
   display: 'flex',
-
+  justifyContent: 'center',
   alignItems: 'center',
-
-  gap: 0,
-  padding: '0 1.2rem',
 
   width: '10.5rem',
   height: '1.2rem',
+  gap: 0,
+  padding: '0 1.2rem',
 
   color: theme.colors.black,
   backgroundColor: theme.colors.white,
 
   ...theme.text.body08,
+  whiteSpace: 'nowrap',
+
+  border: 'none',
+
+  cursor: 'pointer',
 });
 
 export const fontStyle = css({

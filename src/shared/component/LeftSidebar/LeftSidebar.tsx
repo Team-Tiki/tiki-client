@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
@@ -22,8 +20,7 @@ import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceIm
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 
 const LeftSidebar = () => {
-  const { isOpen: isNavOpen, toggle, close, open } = useOverlay();
-  const navigate = useNavigate();
+  const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
 

@@ -1,4 +1,4 @@
-import CategoryChip from '@/page/showcase/component/CategoryChip/CategoryChip';
+import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

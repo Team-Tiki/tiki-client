@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/page/login/passwordAuth/PasswordAuthPage.tsx
 import useTimer from '@/page/login/hook/useTimer';
 import { formStyle, pageStyle, timestyle } from '@/page/login/passwordAuth/PasswordAuthPage.style';
 import { validateInput } from '@/page/login/util/validateInput';
+=======
+import useTimer from '@/page/login/password/hook/useTimer';
+import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
+import { validateInput } from '@/page/login/password/util/validateInput';
+>>>>>>> f0e6b38fb410723d36e94f49db795a9ae24c4020:src/page/login/password/passwordAuth/PasswordAuthPage.tsx
 import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
