@@ -9,13 +9,6 @@ import { useToastStore } from '@/shared/store/toast';
 const meta = {
   title: 'Common/Toast',
   component: Toast,
-  decorators: [
-    (Story) => (
-      <div css={{ width: '240px' }}>
-        <Story />
-      </div>
-    ),
-  ],
   args: {
     children: '토스트 컴포넌트라고 합니다 !',
   },
