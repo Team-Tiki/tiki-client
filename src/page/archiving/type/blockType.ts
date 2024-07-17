@@ -4,7 +4,7 @@ export interface Block {
   color: string;
   startDate: Date;
   endDate: Date;
-  blockType?: 'MEETING' | 'ACCOUNTING' | 'TASK' | 'NOTICE' | 'STUDY' | 'EVENT';
+  blockType: 'MEETING' | 'ACCOUNTING' | 'TASK' | 'NOTICE' | 'STUDY' | 'EVENT';
 }
 
 export interface TimeBlockList {
