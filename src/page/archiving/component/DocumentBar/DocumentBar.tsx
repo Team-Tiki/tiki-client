@@ -12,7 +12,14 @@ import { useTotalDocumentQuery } from '@/shared/api/hook/useTotalDocumentQuery';
 
 const DocumentBar = (
   {
-    blockSelected = { timeBlockId: 0, name: '', color: '', startDate: new Date(), endDate: new Date() },
+    blockSelected = {
+      timeBlockId: 0,
+      name: '',
+      color: '',
+      blockType: 'MEETING',
+      startDate: new Date(),
+      endDate: new Date(),
+    },
   }: {
     blockSelected: Block | undefined;
   },

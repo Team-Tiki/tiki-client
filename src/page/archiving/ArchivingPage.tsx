@@ -66,7 +66,7 @@ const ArchivingPage = () => {
 
                 return blockMonth === clickedMonth && new Date(blocks.startDate).getFullYear() === currentYear;
               })
-              .map((block) => (
+              .map((block: Block) => (
                 <TimeBlock
                   key={block.timeBlockId}
                   startDate={block.startDate}
