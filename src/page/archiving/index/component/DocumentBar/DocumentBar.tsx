@@ -5,7 +5,7 @@ import DocumentBarTool from '@/page/archiving/index/component/DocumentBarTool/Do
 import DocumentWrapper from '@/page/archiving/index/component/DocumentWrapper/DocumentWrapper';
 import { BLOCK_INFO, BLOCK_TEST_DATA, Block, TOTAL_DATA, Total } from '@/page/archiving/index/constant/document';
 import { BlockType } from '@/page/archiving/index/type/blockType';
-import { formattingDate } from '@/page/archiving/index/util/formattingDate';
+import { formattingDate } from '@/page/archiving/index/util/date';
 import { format } from 'date-fns';
 
 import { ChangeEvent, useEffect, useState } from 'react';

@@ -4,6 +4,7 @@ import { scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/U
 import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
 import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
+import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { useState } from 'react';
 
@@ -12,7 +13,6 @@ import Flex from '@/common/component/Flex/Flex';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { COLORS } from '@/shared/constant';
-import { getRandomColor } from '@/shared/util/getRandomColor';
 
 interface UploadModalProps {
   onClose: () => void;
@@ -25,8 +25,8 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Map<string, string>>(new Map());
 
-  const { mutate: postTimeBlock } = usePostTimeBlockMutation(teamId, type);
-  const { mutate: deleteTimeBlock } = useDeleteFileMutation();
+  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
+  const { mutate: fileDeleteMutate } = useDeleteFileMutation();
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles((prevFiles) => {
@@ -38,7 +38,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const handleDelete = (fileName: string) => {
     const fileToDelete = files.find((file) => file.name === fileName);
     if (fileToDelete) {
-      deleteTimeBlock({ fileName: fileToDelete.name });
+      fileDeleteMutate({ fileName: fileToDelete.name });
       setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
       setFileUrls((prevUrls) => {
         const newUrls = new Map(prevUrls);
@@ -51,14 +51,14 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const handleSave = () => {
     const data = {
       name: blockData.blockName,
-      color: getRandomColor(COLORS),
+      color: getRandomColor(),
       startDate: formatDatePost(blockData.dates.startDate),
       endDate: formatDatePost(blockData.dates.endDate),
       blockType: blockData.blockType,
       files: fileUrls,
     };
 
-    postTimeBlock(data, {
+    timeBlockMutate(data, {
       onSuccess: () => {
         onClose();
       },

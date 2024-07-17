@@ -11,8 +11,8 @@ import { TIME_BLOCK } from '@/page/archiving/index/constant/timeBlock';
 import { useDate } from '@/page/archiving/index/hook/useDate';
 import { BlockType } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
-import { alignBlocks } from '@/page/archiving/index/util/alignBlocks';
-import { getRandomColor } from '@/page/archiving/index/util/getRandomColor';
+import { alignBlocks } from '@/page/archiving/index/util/block';
+import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { useState } from 'react';
 

@@ -24,7 +24,7 @@ interface BlockModalProps {
 
 const BlockModal = ({ onNext }: BlockModalProps) => {
   const [blockName, setBlockName] = useState('');
-  const [selectedIcon, setSelectedIcon] = useState<number>(-1); // Initial state set to -1
+  const [selectedIcon, setSelectedIcon] = useState<number>(-1);
   const [dates, setDates] = useState({ startDate: '', endDate: '' });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
