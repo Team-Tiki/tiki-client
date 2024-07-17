@@ -21,7 +21,6 @@ interface DocumentBarInfoProps {
   blockName: string;
   startDate: string;
   endDate: string;
-  color: string;
   documentList?: DocumentType[];
   blockSelected: Block;
 }
@@ -29,7 +28,6 @@ interface DocumentBarInfoProps {
 const SelectedBlock = ({
   selectedId,
   blockName,
-  color,
   startDate,
   endDate,
   documentList,
@@ -70,10 +68,9 @@ const SelectedBlock = ({
         {documentList?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
-            documentId={data.documentId}
+            documentId={data.documentId || 1}
             selectedId={selectedId}
-            blockName={data.blockName}
-            color={color}>
+            blockName={data.blockName}>
             {data.fileName}
           </DocumentItem>
         ))}

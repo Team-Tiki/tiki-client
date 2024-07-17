@@ -16,12 +16,19 @@ import Input from '@/common/component/Input/Input';
 interface DocumentBarToolProps {
   onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
   searchWord: string;
-  documentList?: DocumentType[];
+  documentList: DocumentType[];
   selectedId: string;
 }
 
 const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: DocumentBarToolProps) => {
   const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
+
+  let documents;
+
+  const handleReverseDocuments = (selected: string) => {
+    documents = selected === '최근 업로드 순' ? filteredDocuments : filteredDocuments.reverse();
+  };
+
   return (
     <Flex tag={'section'} css={containerStyle}>
       <Flex css={toolStyle}>
@@ -33,13 +40,19 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
           value={searchWord}
           onChange={onSearchWord}
         />
-        <DocumentSort />
+        <DocumentSort filteredDocuments={filteredDocuments} onReverseDocuments={handleReverseDocuments} />
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
         {filteredDocuments?.map((data: DocumentType) => (
-          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} fileUrl={data.fileUrl}>
-            {data?.fileName}
+          <DocumentItem
+            key={data.documentId}
+            documentId={data.documentId || 1}
+            selectedId={selectedId}
+            blockName={data.blockName}
+            fileUrl={data.fileUrl}
+            color={data.color}>
+            {data.fileName}
           </DocumentItem>
         ))}
       </Flex>
