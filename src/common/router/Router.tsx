@@ -16,7 +16,10 @@ import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const router = createBrowserRouter([
   { path: PATH.LANDING, element: <LandingPage /> },
-  { path: PATH.LOGIN, element: <LoginPage /> },
+  {
+    path: PATH.LOGIN,
+    element: <LoginPage />,
+  },
   {
     path: PATH.SIGNUP,
     element: <TermPage />,
@@ -38,16 +41,13 @@ const router = createBrowserRouter([
     element: <PasswordResetPage />,
   },
   {
-    path: '/comingsoon',
+    path: 'comingsoon',
     element: <ComingsoonPage />,
-  },
-  {
-    path: '/error',
-    element: <ErrorPage />,
   },
   {
     path: PATH.ROOT,
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <ShowcasePage /> },
       { path: PATH.ARCHIVING, element: <ArchivingPage /> },

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { theme } from '@/common/style/theme/theme';
 
@@ -9,14 +9,13 @@ import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 import Login from '@/shared/component/Login/Login';
 
 const App = () => {
-  const location = useLocation();
-  const isAuth = ['/showcase', '/archiving'].includes(location.pathname);
-
   useEffect(() => {
-    if (isAuth) {
-      document.body.style.backgroundColor = theme.colors.blue_900;
-    }
-  }, [isAuth]);
+    document.body.style.backgroundColor = theme.colors.blue_900;
+
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
 
   return (
     <Login>
