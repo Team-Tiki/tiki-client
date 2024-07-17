@@ -55,7 +55,7 @@ const SettingModal = ({ setOpen, setState, ...props }: SettingModalProps) => {
           tag="body6"
           css={textStyle}
           onClick={() => {
-            navigate(PATH.PASSWORD_RESET);
+            navigate(PATH.PASSWORD_AUTH);
           }}>
           비밀번호 재설정
         </Text>
