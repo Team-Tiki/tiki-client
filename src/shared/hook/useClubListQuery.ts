@@ -3,11 +3,11 @@ import { useCallback } from 'react';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
 import { getClubInfo } from '@/shared/api/teams';
-import { TeamsType } from '@/shared/api/teams/type';
+import { TeamsInfo } from '@/shared/api/teams/type';
 
-export const useClubListQuery = (selectedChip: string): UseQueryResult<TeamsType, Error> => {
+export const useClubListQuery = (selectedChip: string) => {
   const filterChips = useCallback(
-    (data: TeamsType) => {
+    (data: TeamsInfo) => {
       if (selectedChip === '전체') {
         return data;
       }
@@ -16,7 +16,7 @@ export const useClubListQuery = (selectedChip: string): UseQueryResult<TeamsType
       return {
         ...data,
         data: {
-          ...data.data,
+          ...data,
           teams: filteredTeams,
         },
       };
@@ -24,9 +24,9 @@ export const useClubListQuery = (selectedChip: string): UseQueryResult<TeamsType
     [selectedChip]
   );
 
-  return useQuery<TeamsType, Error>({
+  return useQuery({
     queryKey: ['teams'],
-    queryFn: () => getClubInfo<TeamsType>(),
+    queryFn: () => getClubInfo(),
     select: (data) => filterChips(data),
   });
 };
