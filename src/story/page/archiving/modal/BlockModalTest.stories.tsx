@@ -1,5 +1,5 @@
-import BlockModal from '@/page/archiving/component/Modal/Block/BlockModal';
-import UploadModal from '@/page/archiving/component/Modal/Upload/UploadModal';
+import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
+import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { Meta, StoryObj } from '@storybook/react';
 
 import Modal from '@/common/component/Modal/Modal';
@@ -28,7 +28,15 @@ export const BlockModalTest: Story = {
   render: () => {
     const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
-    const handleNext = () => setCurrentContent(<UploadModal onClose={closeModal} />);
+    const handleNext = (blockData: {
+      blockName: string;
+      blockType: string;
+      dates: { startDate: string; endDate: string };
+    }) => {
+      const teamId = 6;
+      const type = 'executive';
+      setCurrentContent(<UploadModal onClose={closeModal} teamId={teamId} type={type} blockData={blockData} />);
+    };
 
     return (
       <div>
