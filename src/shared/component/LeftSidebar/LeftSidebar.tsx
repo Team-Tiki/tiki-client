@@ -17,6 +17,7 @@ import {
   settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
+import SettingModal from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
@@ -49,10 +50,11 @@ const LeftSidebar = () => {
       <nav>
         <ul css={leftSidebarListStyle}>
           <LeftSidebarItem
-            isClicked={true}
+            isClicked={clicked === 'showcase'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/earth.svg"
             onClick={() => {
+              setClicked('showcase');
               navigate('');
               close();
             }}>
@@ -62,10 +64,11 @@ const LeftSidebar = () => {
             return (
               <LeftSidebarItem
                 key={data.id}
-                isClicked={true}
+                isClicked={clicked === data.name}
                 isExpansion={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
+                  setClicked(data.name);
                   navigate('/archiving');
                   close();
                 }}>
@@ -74,10 +77,11 @@ const LeftSidebar = () => {
             );
           })}
           <LeftSidebarItem
-            isClicked={true}
+            isClicked={clicked === '워크스페이스 생성'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
             onClick={() => {
+              setClicked('워크스페이스 생성');
               openModal(<WorkSpaceName onNext={handleNext1} />);
               close();
             }}>
@@ -87,14 +91,18 @@ const LeftSidebar = () => {
       </nav>
       <div css={settingStyle}>
         <LeftSidebarItem
+          isClicked={clicked === '환경설정'}
           isExpansion={isNavOpen}
           url={'src/common/asset/svg/settings.svg'}
           onClick={() => {
+            setClicked('환경설정');
             console.log('ddd');
           }}>
           환경설정
         </LeftSidebarItem>
-        <div>dd</div>
+        <SettingModal isOpen={true} css={{ backgroundColor: 'red' }}>
+          dddd
+        </SettingModal>
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
