@@ -12,5 +12,5 @@ export const postSignIn = async ({ email, password }: PostLoginRequestBody) => {
     }
   );
 
-  return response;
+  return response.data;
 };

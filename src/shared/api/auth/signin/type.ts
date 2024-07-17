@@ -4,9 +4,8 @@ export interface PostLoginRequestBody {
 }
 
 export interface PostLoginResonse {
-  success: boolean;
-  message: string;
   data: {
     accessToken: string;
+    refreshToken: string;
   };
 }
