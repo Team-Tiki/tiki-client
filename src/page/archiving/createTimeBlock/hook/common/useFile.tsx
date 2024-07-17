@@ -2,7 +2,7 @@ import { usePutUploadMutation } from '@/page/archiving/createTimeBlock/hook/api/
 
 import { useCallback, useRef } from 'react';
 
-import { getFile } from '@/shared/api/archiving/timeBlock';
+import { getFile } from '@/shared/api/file/upload';
 
 interface useFileProps {
   files: File[];

@@ -2,8 +2,8 @@ import BlockAdd from '@/page/archiving/createTimeBlock/component/Upload/File/Add
 import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem';
 import { scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
 import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
-import { usePostTimeBlock } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
-import { formatDatePost } from '@/page/archiving/createTimeBlock/util/dateUtils';
+import { usePostTimeBlockMutation } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
+import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
 
 import { useState } from 'react';
 
@@ -25,7 +25,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Map<string, string>>(new Map());
 
-  const { mutate: postTimeBlock } = usePostTimeBlock(teamId, type);
+  const { mutate: postTimeBlock } = usePostTimeBlockMutation(teamId, type);
   const { mutate: deleteTimeBlock } = useDeleteFileMutation();
 
   const handleFilesChange = (newFiles: File[]) => {

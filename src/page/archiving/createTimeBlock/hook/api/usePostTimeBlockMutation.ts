@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { postTimeBlock } from '@/shared/api/archiving/timeBlock';
-import { TimeBlockCreate } from '@/shared/api/archiving/timeBlock/type';
+import { postTimeBlock } from '@/shared/api/time-blocks/team/time-block';
+import { TimeBlockCreate } from '@/shared/api/time-blocks/team/time-block/type';
 
-export const usePostTimeBlock = (teamId: number, type: string) => {
+export const usePostTimeBlockMutation = (teamId: number, type: string) => {
   return useMutation({
     mutationFn: (data: TimeBlockCreate) => postTimeBlock(teamId, type, data),
   });

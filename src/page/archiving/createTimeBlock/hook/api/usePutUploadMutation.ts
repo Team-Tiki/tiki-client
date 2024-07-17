@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { putUploadToS3 } from '@/shared/api/extermal';
+import { putUploadToS3 } from '@/shared/api/external';
 
 export const usePutUploadMutation = () => {
   return useMutation({

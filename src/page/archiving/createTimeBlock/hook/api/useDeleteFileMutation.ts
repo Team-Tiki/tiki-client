@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { deleteTimeBlock } from '@/shared/api/archiving/timeBlock';
-import { DeleteFile } from '@/shared/api/archiving/timeBlock/type';
+import { deleteTimeBlock } from '@/shared/api/file';
+import { DeleteFile } from '@/shared/api/file/type';
 
 export const useDeleteFileMutation = () => {
   return useMutation({
