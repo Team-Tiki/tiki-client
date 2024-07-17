@@ -3,11 +3,13 @@ import { usePutUploadMutation } from '@/page/archiving/createTimeBlock/hook/api/
 import { useCallback, useRef } from 'react';
 
 import { getFile } from '@/shared/api/file/upload';
+import { Files } from '@/shared/api/time-blocks/team/time-block/type';
+import { extractFileExtension } from '@/shared/util/file';
 
 interface useFileProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
-  setFileUrls: React.Dispatch<React.SetStateAction<Map<string, string>>>;
+  setFileUrls: React.Dispatch<React.SetStateAction<Files>>;
 }
 
 const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
@@ -20,21 +22,28 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
       const fileArray = Array.from(newFiles);
       onFilesChange([...files, ...fileArray]);
 
-      const fileUrlMap = new Map<string, string>();
+      const fileUrlMap: Files = {};
 
       for (let index = 0; index < fileArray.length; index++) {
         const file = fileArray[index];
 
-        const fileData = await getFile(file.name);
-        const fileName = fileData?.fileName;
+        const fileExtension = extractFileExtension(file.name);
+        console.log('확장자', fileExtension);
+
+        const fileData = await getFile(fileExtension);
+        const fileName = file.name;
+        console.log('파일명', fileName);
         const presignedUrl = fileData?.url;
         if (file && presignedUrl) {
-          await uploadToS3({ presignedUrl, file });
-          fileUrlMap.set(fileName, presignedUrl);
+          const uploadedFileUrl = await uploadToS3({ presignedUrl, file });
+          if (uploadedFileUrl) {
+            fileUrlMap[fileName] = uploadedFileUrl;
+          }
+          console.log('파일', fileUrlMap);
         }
       }
 
-      setFileUrls((prevUrls) => new Map([...Array.from(prevUrls), ...Array.from(fileUrlMap)]));
+      setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
     },
     [files, onFilesChange, uploadToS3, setFileUrls]
   );

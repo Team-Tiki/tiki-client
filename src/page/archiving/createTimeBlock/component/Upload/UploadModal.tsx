@@ -12,6 +12,7 @@ import { useState } from 'react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
+import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
 interface UploadModalProps {
@@ -23,7 +24,7 @@ interface UploadModalProps {
 
 const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [fileUrls, setFileUrls] = useState<Map<string, string>>(new Map());
+  const [fileUrls, setFileUrls] = useState<Files>({});
 
   const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
@@ -41,13 +42,14 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
       fileDeleteMutate({ fileName: fileToDelete.name });
       setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
       setFileUrls((prevUrls) => {
-        const newUrls = new Map(prevUrls);
-        newUrls.delete(fileName);
+        const newUrls = { ...prevUrls };
+        delete newUrls[fileName];
         return newUrls;
       });
     }
   };
 
+  console.log('파일업로드', fileUrls);
   const handleSave = () => {
     const data = {
       name: blockData.blockName,
@@ -58,6 +60,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
       files: fileUrls,
     };
 
+    console.log('데이터', data);
     timeBlockMutate(data, {
       onSuccess: () => {
         onClose();

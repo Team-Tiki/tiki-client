@@ -6,11 +6,15 @@ export interface TimeBlockCreate {
   startDate: string;
   endDate: string;
   blockType: string;
-  files: Map<string, string>;
+  files: Files;
 }
 
 export interface TimeBlockData {
   success: boolean;
   message: string;
   data: { documents: DocumentType[] };
+}
+
+export interface Files {
+  [key: string]: string;
 }
