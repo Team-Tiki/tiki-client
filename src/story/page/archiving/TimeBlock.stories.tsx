@@ -1,4 +1,4 @@
-import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
+import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { theme } from '@/common/style/theme/theme';

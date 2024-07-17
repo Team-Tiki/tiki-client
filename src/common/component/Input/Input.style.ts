@@ -44,6 +44,7 @@ export const inputStyle = css({
 
 export const variantStyle = (variant: Required<InputProps>['variant'], isError: boolean) => {
   const borderColor = isError ? `${theme.colors.red}` : `${theme.colors.gray_400}`;
+  const focusBorderColor = isError ? `${theme.colors.red}` : `${theme.colors.blue_900}`;
 
   const style = {
     default: {
@@ -51,14 +52,14 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
       borderRadius: '8px',
 
       '&:focus-within': {
-        boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+        boxShadow: `inset 0px 0px 0px 1px ${focusBorderColor}`,
       },
     },
     underline: {
       boxShadow: `inset 0px -1px 0px ${borderColor}`,
 
       '&:focus-within': {
-        boxShadow: `inset 0px -1px 0px ${theme.colors.blue_900}`,
+        boxShadow: `inset 0px -1px 0px ${focusBorderColor}`,
       },
     },
     colored: {
@@ -72,7 +73,7 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isError: 
         },
 
         '&:focus-within': {
-          boxShadow: `inset 0px 0px 0px 1px ${theme.colors.blue_900}`,
+          boxShadow: `inset 0px 0px 0px 1px ${focusBorderColor}`,
         },
       },
     },
