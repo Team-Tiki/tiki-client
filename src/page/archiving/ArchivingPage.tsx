@@ -26,7 +26,7 @@ const ArchivingPage = () => {
 
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
-  const [blockSelected, setBlockSelected] = useState<Block | undefined>(undefined);
+  const [blockSelected, setBlockSelected] = useState<Block>();
   const { data } = useGetTimeBlockQuery(
     Number(7),
     'executive',
