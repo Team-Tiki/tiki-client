@@ -10,15 +10,17 @@ import Download from '@/common/asset/svg/download.svg?react';
 import TrashBox from '@/common/asset/svg/trash_box.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
+import { theme } from '@/common/style/theme/theme';
 
 interface DocumentItemProps {
   children: ReactNode;
   selectedId: string;
   blockName?: string;
   fileUrl?: string;
+  color?: string;
 }
 
-const DocumentItem = ({ children, selectedId, blockName }: DocumentItemProps) => {
+const DocumentItem = ({ children, selectedId, blockName, color = `${theme.colors.blue_100}` }: DocumentItemProps) => {
   // 문서 클릭시 띄워주는 함수
   // const onClickDocumentItem = () => {
   //   window.open(
@@ -29,7 +31,7 @@ const DocumentItem = ({ children, selectedId, blockName }: DocumentItemProps) =>
     <li css={containerStyle(selectedId)}>
       {selectedId === 'total' && (
         <div>
-          <Text tag="body8" css={blockNameTextStyle('blue_100')}>
+          <Text tag="body8" css={blockNameTextStyle(color)}>
             {blockName}
           </Text>
         </div>

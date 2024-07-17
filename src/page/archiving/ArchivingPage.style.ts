@@ -1,22 +1,18 @@
-import { BlockType } from '@/page/archiving/type/blockType';
+import { Block } from '@/page/archiving/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const timelineStyle = (blockSelected: BlockType | undefined) =>
+export const timelineStyle = (blockSelected: Block | undefined) =>
   css({
-    display: 'flex',
-
     flexDirection: 'column',
 
     width: '100%',
 
-    margin: blockSelected ? '5.6rem 5.6rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
-
     padding: '2.6rem 2.4rem',
+    margin: blockSelected ? '5.6rem 13.2rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
 
     borderRadius: '16px',
-    backgroundColor: theme.colors.gray_100,
 
     overflow: 'hidden',
   });
@@ -34,6 +30,7 @@ export const daySectionStyle = () =>
     width: '100%',
     height: '46.4rem',
 
+    border: `2px solid ${theme.colors.gray_100}`,
     borderRadius: '6px',
 
     whiteSpace: 'nowrap',
