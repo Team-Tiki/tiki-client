@@ -1,5 +1,5 @@
 import useTimer from '@/page/login/password/hook/useTimer';
-import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
+import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuth.style';
 import { validateInput } from '@/page/login/password/util/validateInput';
 import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
