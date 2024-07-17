@@ -20,9 +20,10 @@ interface DocumentItemProps {
   selectedId: string;
   blockName?: string;
   fileUrl?: string;
+  color?: string;
 }
 
-const DocumentItem = ({ children, selectedId, blockName }: DocumentItemProps) => {
+const DocumentItem = ({ children, selectedId, blockName, color = `${theme.colors.blue_100}` }: DocumentItemProps) => {
   // 문서 클릭시 띄워주는 함수
   // const onClickDocumentItem = () => {
   //   window.open(
@@ -36,7 +37,7 @@ const DocumentItem = ({ children, selectedId, blockName }: DocumentItemProps) =>
       <li css={containerStyle(selectedId)}>
         {selectedId === 'total' && (
           <div>
-            <Text tag="body8" css={blockNameTextStyle('blue_100')}>
+            <Text tag="body8" css={blockNameTextStyle(color)}>
               {blockName}
             </Text>
           </div>
