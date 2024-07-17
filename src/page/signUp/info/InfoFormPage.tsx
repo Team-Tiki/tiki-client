@@ -42,7 +42,6 @@ const InfoFormPage = () => {
   };
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    console.log(SignUpContext);
     mutate(info, {
       onSuccess: () => {
         goToLoginPage();
