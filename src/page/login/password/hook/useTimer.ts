@@ -1,3 +1,5 @@
+import { EMAIL_EXPIRED } from '@/page/login/constant';
+
 import { useCallback, useRef, useState } from 'react';
 
 const useTimer = (initialTime: number) => {
@@ -19,6 +21,7 @@ const useTimer = (initialTime: number) => {
           return prevTime - 1;
         } else {
           stopTimer();
+          alert(EMAIL_EXPIRED);
           return 0;
         }
       });
