@@ -2,7 +2,6 @@ import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/ind
 import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
 import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
 import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
-import { CATEGORY } from '@/page/showcase/index/constant/category';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,7 @@ import useCategoryListQuery from '@/shared/hook/useCategoryListQuery';
 import { useClubListQuery } from '@/shared/hook/useClubListQuery';
 
 const ShowcasePage = () => {
-  const navi = useNavigate();
+  const navigate = useNavigate();
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
   const { data: clubs } = useClubListQuery();
@@ -37,34 +36,29 @@ const ShowcasePage = () => {
       </Flex>
 
       <section css={chipStyle}>
-        {categoryList &&
-          categoryList.map((category) => (
-            <CategoryChip
-              key={category}
-              onClick={() => handleChipClick(category)}
-              isSelected={selectedChip === category}>
-              {category}
-            </CategoryChip>
-          ))}
+        {categoryList?.map((category) => (
+          <CategoryChip key={category} onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
+            {category}
+          </CategoryChip>
+        ))}
       </section>
 
       <section css={clubProfileStyle}>
-        {clubs &&
-          clubs.map((club) => {
-            if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
-              return (
-                <ClubProfileCard
-                  key={club.name}
-                  title={club.name}
-                  detail={club.overview || ''}
-                  imageUrl={club.imageUrl}
-                  onClick={() => {
-                    navi('/comingsoon');
-                  }}
-                />
-              );
-            }
-          })}
+        {clubs?.map((club) => {
+          if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
+            return (
+              <ClubProfileCard
+                key={club.name}
+                title={club.name}
+                detail={club.overview || ''}
+                imageUrl={club.imageUrl}
+                onClick={() => {
+                  navigate('/comingsoon');
+                }}
+              />
+            );
+          }
+        })}
       </section>
     </div>
   );

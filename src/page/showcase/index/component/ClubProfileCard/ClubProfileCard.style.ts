@@ -13,8 +13,6 @@ export const imageStyle = css({
 
   objectFit: 'cover',
   aspectRatio: 16 / 9,
-
-  backgroundImage: '',
 });
 
 export const descriptionStyle = css({

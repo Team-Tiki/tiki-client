@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
@@ -21,6 +23,7 @@ import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName
 
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
+  const navigate = useNavigate();
 
   const sidebarRef = useOutsideClick(close);
 
@@ -32,6 +35,7 @@ const LeftSidebar = () => {
   const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <aside css={containerStyle(isNavOpen)} ref={sidebarRef} onClick={(e) => e.stopPropagation()}>
       {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
       <LogoSymbol css={LogoSymbolStyle} />

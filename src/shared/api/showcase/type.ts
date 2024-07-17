@@ -1,5 +1,5 @@
 export interface ClubType {
-  id: string;
+  id: number;
   name: string;
   overview?: string;
   category: string;
