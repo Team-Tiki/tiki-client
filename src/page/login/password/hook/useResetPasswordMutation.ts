@@ -1,12 +1,11 @@
-import { PasswordResetInfo } from '@/page/login/password/type/type';
-
 import { useMutation } from '@tanstack/react-query';
 
 import { resetPassword } from '@/shared/api/members/password';
+import { PasswordReset } from '@/shared/api/members/password/type';
 
 export const useResetPasswordMutation = () => {
   const resetPasswordMutation = useMutation({
-    mutationFn: (data: PasswordResetInfo) => resetPassword(data),
+    mutationFn: (data: PasswordReset) => resetPassword(data),
   });
 
   return resetPasswordMutation;
