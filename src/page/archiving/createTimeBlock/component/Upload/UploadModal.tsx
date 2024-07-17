@@ -9,9 +9,12 @@ import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
+//import { queryClient } from '@/shared/api/queryClient';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
@@ -26,8 +29,8 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
 
-  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
-  const { mutate: fileDeleteMutate } = useDeleteFileMutation();
+  const { mutateAsync: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
+  const { mutateAsync: fileDeleteMutate } = useDeleteFileMutation();
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles((prevFiles) => {
@@ -49,21 +52,27 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
     }
   };
 
-  console.log('파일업로드', fileUrls);
-  const handleSave = () => {
-    const data = {
-      name: blockData.blockName,
-      color: getRandomColor(),
-      startDate: formatDatePost(blockData.dates.startDate),
-      endDate: formatDatePost(blockData.dates.endDate),
-      blockType: blockData.blockType,
-      files: fileUrls,
-    };
+  const data = {
+    name: blockData.blockName,
+    color: getRandomColor(),
+    startDate: formatDatePost(blockData.dates.startDate),
+    endDate: formatDatePost(blockData.dates.endDate),
+    blockType: blockData.blockType,
+    files: fileUrls,
+  };
 
+  const queryClient = useQueryClient();
+
+  const handleSave = () => {
     console.log('데이터', data);
+
     timeBlockMutate(data, {
       onSuccess: () => {
         onClose();
+
+        queryClient.invalidateQueries({
+          queryKey: ['timeBlock'],
+        });
       },
     });
   };
