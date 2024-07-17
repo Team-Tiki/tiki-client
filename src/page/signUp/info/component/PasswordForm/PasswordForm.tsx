@@ -34,7 +34,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formValidate()) return;
@@ -68,7 +68,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
           placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
         />
       </Flex>
-      <Button type="submit" variant="primary" size="large">
+      <Button type="submit" variant="primary" size="large" disabled={password !== passwordChecker}>
         다음
       </Button>
     </form>

@@ -4,9 +4,7 @@ import { postSignup } from '@/shared/api/signup/info';
 import { UserInfo } from '@/shared/api/signup/info/type';
 
 export const useSignupMutation = () => {
-  const signUpMutation = useMutation({
+  return useMutation({
     mutationFn: (formData: UserInfo) => postSignup(formData),
   });
-
-  return signUpMutation;
 };

@@ -1,3 +1,4 @@
+import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -9,10 +10,11 @@ import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT 
 import { useDateInput } from '@/page/signUp/info/hook/useDateInput';
 import { useInput } from '@/page/signUp/info/hook/useInput';
 import { useSelect } from '@/page/signUp/info/hook/useSelect';
+import { useSendMailMutation } from '@/page/signUp/info/hook/useSendMailMutation';
 import { useTimer } from '@/page/signUp/info/hook/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
@@ -22,6 +24,8 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+
+import { useToastStore } from '@/shared/store/toast';
 
 const InfoForm = () => {
   const { isOpen, close, toggle } = useOverlay();
@@ -37,9 +41,42 @@ const InfoForm = () => {
   const { value: name, onChange: onNameChange, error: nameError, onValidate: onNameValidate } = useInput('');
   const { birth, onBirthChange, error: dateError, onDateValidate } = useDateInput();
   const { value: email, onChange: onEmailChange, error: emailError, onValidate: onEmailValidate } = useInput('');
+  const {
+    value: authCode,
+    onChange: onAuthCodeChange,
+    error: authCodeError,
+    onValidate: onAuthCodeValidate,
+  } = useInput('');
 
   const context = useContext(SignUpContext);
   const navigate = useNavigate();
+  const [isVerified, setIsVerified] = useState(false);
+  const mutate = useSendMailMutation(email, handleSend);
+  const { mutate: verifyCode } = useVerifyCodeMutation(email, authCode);
+  const { createToast } = useToastStore();
+
+  const handleMailSend = () => {
+    mutate(undefined, {
+      onSuccess: () => {
+        handleSend();
+      },
+      onError: (error) => {
+        console.log(error);
+        createToast('유효하지 않은 메일 주소입니다.', 'error');
+      },
+    });
+  };
+
+  const handleVerifyCode = () => {
+    verifyCode(undefined, {
+      onSuccess: () => {
+        setIsVerified(true);
+      },
+      onError: () => {
+        createToast('인증번호가 일치하지 않습니다.', 'error');
+      },
+    });
+  };
 
   if (context === undefined) throw new Error();
 
@@ -48,7 +85,8 @@ const InfoForm = () => {
       !onNameValidate(SUPPORTING_TEXT.NAME) ||
       !onDateValidate() ||
       !onValidate() ||
-      !onEmailValidate(SUPPORTING_TEXT.EMAIL)
+      !onEmailValidate(SUPPORTING_TEXT.EMAIL) ||
+      !onAuthCodeValidate(SUPPORTING_TEXT.AUTHCODE_NO_EQUAL)
     )
       return false;
 
@@ -122,19 +160,28 @@ const InfoForm = () => {
             label="학교 인증"
             placeholder={PLACEHOLDER.VERIFY}
           />
-          <Button size="large" onClick={handleSend}>
+          <Button size="large" onClick={handleMailSend}>
             인증 메일 발송
           </Button>
         </Flex>
         {isMailSent && (
           <Flex css={identifyStyle}>
-            <Input css={{ width: '30rem' }} variant="underline" placeholder={PLACEHOLDER.AUTH_CODE} />
+            <Input
+              value={authCode}
+              onChange={onAuthCodeChange}
+              isError={Boolean(authCodeError)}
+              css={{ width: '30rem' }}
+              variant="underline"
+              placeholder={PLACEHOLDER.AUTH_CODE}
+            />
             <span css={timeStyle}>{formatTime(remainTime)}</span>
-            <Button size="large">인증하기</Button>
+            <Button size="large" onClick={() => handleVerifyCode()}>
+              인증하기
+            </Button>
           </Flex>
         )}
       </Flex>
-      <Button type="submit" variant="primary" size="large">
+      <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
         다음
       </Button>
     </form>
