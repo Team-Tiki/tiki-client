@@ -20,6 +20,7 @@ export const SUPPORTING_TEXT = {
   PASSWORD: '비밀번호를 입력해주세요',
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
+  AUTHCODE_NO_EQUAL: '인증번호가 일치하지 않습니다.',
 } as const;
 
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;

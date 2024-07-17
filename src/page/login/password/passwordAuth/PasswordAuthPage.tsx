@@ -36,8 +36,7 @@ const PasswordAuthPage = () => {
         onSuccess: () => {
           setIsMailSent(true);
         },
-        onError: (error) => {
-          console.log(error);
+        onError: () => {
           createToast('유효하지 않은 메일 주소입니다.', 'error');
           setIsMailSent(false);
         },
