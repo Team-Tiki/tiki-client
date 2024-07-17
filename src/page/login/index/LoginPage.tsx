@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const { mutate } = useLoginMutation();
 
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     mutate({ email, password });
@@ -53,7 +53,12 @@ const LoginPage = () => {
             학교 메일로 회원가입
           </Button>
         </Flex>
-        <Button size="small" variant="text" css={findPasswordButtonStyle} onClick={비밀번호찾기페이지로이동}>
+        <Button
+          type="button"
+          size="small"
+          variant="text"
+          css={findPasswordButtonStyle}
+          onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기
         </Button>
       </form>
