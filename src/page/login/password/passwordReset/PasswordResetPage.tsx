@@ -2,7 +2,7 @@ import { useResetPasswordMutation } from '@/page/login/password/hook/useResetPas
 import { formStyle, pageStyle } from '@/page/login/password/passwordReset/PasswordResetPage.style';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -19,12 +19,6 @@ const PasswordResetPage = () => {
   const { state } = useLocation();
   const { mutate } = useResetPasswordMutation();
   const { createToast } = useToastStore();
-
-  useEffect(() => {
-    console.log(state);
-    console.log(updatePassword);
-    console.log(setUpdatePasswordConfirm);
-  });
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatePassword(e.target.value);
