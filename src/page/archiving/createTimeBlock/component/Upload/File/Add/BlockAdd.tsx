@@ -28,7 +28,7 @@ const BlockAdd = ({ files, onFilesChange, setFileUrls }: BlockAddProps) => {
       css={boxStyle}
       onDragOver={handleDragOver}
       onDrop={(event) => handleDrop(event)}>
-      <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <Flex tag={'form'} styles={{ direction: 'column', align: 'center', justify: 'center' }}>
         <input type="file" multiple style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
         <Text tag="body6">업로드할 파일을 여기로 드래그 하세요</Text>
         <Flex
@@ -43,7 +43,7 @@ const BlockAdd = ({ files, onFilesChange, setFileUrls }: BlockAddProps) => {
         <Text tag="body6" css={{ marginTop: '0.5rem' }}>
           업로드할 파일을 선택하세요
         </Text>
-      </form>
+      </Flex>
     </Flex>
   );
 };

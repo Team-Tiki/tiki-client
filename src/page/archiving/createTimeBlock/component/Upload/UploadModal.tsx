@@ -1,8 +1,9 @@
 import BlockAdd from '@/page/archiving/createTimeBlock/component/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem';
-import { scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
+import { flexStyle, scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
 import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
+import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
 
@@ -17,7 +18,7 @@ interface UploadModalProps {
   onClose: () => void;
   teamId: number;
   type: string;
-  blockData: { blockName: string; dates: { startDate: string; endDate: string }; blockType: string };
+  blockData: BlockData;
 }
 
 const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
@@ -65,17 +66,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   };
 
   return (
-    <Flex
-      tag={'section'}
-      styles={{
-        direction: 'column',
-        justify: 'space-between',
-        align: 'center',
-        height: '55.11rem',
-        paddingLeft: '6.8rem',
-        paddingRight: '6.8rem',
-        gap: '2.4rem',
-      }}>
+    <Flex tag={'section'} css={flexStyle}>
       <WorkSapceInfo step="upload" title="블록 생성하기" info="해당 블록에 업로드할 문서를 선택해주세요" />
       <Flex
         styles={{

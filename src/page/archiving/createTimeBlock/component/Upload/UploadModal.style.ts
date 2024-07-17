@@ -29,3 +29,13 @@ export const scrollStyle = css({
     backgroundColor: 'transparent',
   },
 });
+
+export const flexStyle = css({
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  height: '55.11rem',
+  paddingLeft: '6.8rem',
+  paddingRight: '6.8rem',
+  gap: '2.4rem',
+});

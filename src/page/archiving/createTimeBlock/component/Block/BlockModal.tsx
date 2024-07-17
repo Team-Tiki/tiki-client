@@ -3,6 +3,7 @@ import BlockDate from '@/page/archiving/createTimeBlock/component/Block/Date/Blo
 import BlockIcon from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/createTimeBlock/component/Box/BlockBox';
 import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/icon';
+import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 
 import { useState } from 'react';
 
@@ -14,12 +15,7 @@ import Text from '@/common/component/Text/Text';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
 interface BlockModalProps {
-  onNext: (blockData: {
-    blockName: string;
-    selectedIcon: number;
-    dates: { startDate: string; endDate: string };
-    blockType: string;
-  }) => void;
+  onNext: (blockData: BlockData) => void;
 }
 
 const BlockModal = ({ onNext }: BlockModalProps) => {
@@ -44,7 +40,7 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
   const handleNext = () => {
     if (isButtonActive) {
       const blockType = BLOCK_ICON[selectedIcon].type;
-      onNext({ blockName, selectedIcon, dates, blockType });
+      onNext({ blockName, dates, blockType });
     }
   };
 

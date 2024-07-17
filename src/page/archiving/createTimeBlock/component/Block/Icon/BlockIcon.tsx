@@ -12,7 +12,7 @@ interface BlockIconProps {
 
 const BlockIcon = ({ selectedBlockIcon, onBlockIconSelect }: BlockIconProps) => {
   const handleIconClick = (index: number) => {
-    onBlockIconSelect(selectedBlockIcon === index ? -1 : index); // Set to -1 if the same icon is clicked
+    onBlockIconSelect(selectedBlockIcon === index ? -1 : index);
   };
 
   return (
