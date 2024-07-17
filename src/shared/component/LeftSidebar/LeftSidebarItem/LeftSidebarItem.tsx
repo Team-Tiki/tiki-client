@@ -21,6 +21,7 @@ interface LeftSidebarItemProps {
 
 const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url, onClick }: LeftSidebarItemProps) => {
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <li css={leftSidebarItemStyle} onClick={onClick}>
       <ClickStick isClicked={isClicked} />
       <Flex css={itemStyle(isClicked)}>

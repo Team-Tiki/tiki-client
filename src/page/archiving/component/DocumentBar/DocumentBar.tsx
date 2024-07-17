@@ -2,12 +2,11 @@ import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentB
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/component/TotalDocument/TotalDocument';
+import { useBlockQuery } from '@/page/archiving/hook/api/useBlockQuery';
+import { useTotalDocumentQuery } from '@/page/archiving/hook/api/useTotalDocumentQuery';
 import { formattingDate } from '@/page/archiving/util/formattingDate';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
-
-import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
-import { useTotalDocumentQuery } from '@/shared/api/hook/useTotalDocumentQuery';
 
 type SelectedBlockProps = {
   timeBlockId: number;
@@ -36,8 +35,8 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
     setSearchWord(e.target.value);
   };
 
-  const { data: blockDataList } = useBlockQuery(7, blockSelected?.timeBlockId ?? 0, selectedId);
-  const { data: documentList } = useTotalDocumentQuery(1, 'executive', selectedId);
+  const { data: blockData } = useBlockQuery(7, blockSelected?.timeBlockId ?? 0, selectedId);
+  const { data: documentData } = useTotalDocumentQuery(1, 'executive', selectedId);
 
   return (
     <aside css={containerStyle(blockSelected?.name || '')} ref={ref}>
@@ -50,12 +49,12 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
             startDate={formattingDate(blockSelected.startDate)}
             endDate={formattingDate(blockSelected.endDate)}
             color={blockSelected.color}
-            documentList={blockDataList}
+            documentList={blockData?.data.documents}
           />
         )
       ) : (
         <TotalDocument
-          documentList={documentList}
+          documentList={documentData?.data.documents}
           onSearchWord={handleSearchWord}
           searchWord={searchWord}
           selectedId={selectedId}

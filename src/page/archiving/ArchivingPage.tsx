@@ -4,7 +4,7 @@ import DocumentBar from '@/page/archiving/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/component/YearHeader/YearHeader';
-import { useDate } from '@/page/archiving/hook/useDate';
+import { useDate } from '@/page/archiving/hook/common/useDate';
 import { Block } from '@/page/archiving/type/blockType';
 import { alignBlocks } from '@/page/archiving/util/block';
 
