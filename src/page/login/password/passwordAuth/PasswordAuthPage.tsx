@@ -33,6 +33,9 @@ const PasswordAuthPage = () => {
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) {
       sendMailMutation(undefined, {
+        onSuccess: () => {
+          setIsMailSent(true);
+        },
         onError: (error) => {
           console.log(error);
           createToast('유효하지 않은 메일 주소입니다.', 'error');
@@ -40,7 +43,7 @@ const PasswordAuthPage = () => {
         },
       });
     }
-  }, [startTimer, email, sendMailMutation, createToast]);
+  }, [email, sendMailMutation, createToast]);
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
