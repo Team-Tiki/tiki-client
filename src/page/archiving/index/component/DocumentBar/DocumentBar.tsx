@@ -1,9 +1,9 @@
-import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
-import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/component/TotalDocument/TotalDocument';
-import { BlockType } from '@/page/archiving/type/blockType';
-import { formattingDate } from '@/page/archiving/util/formattingDate';
+import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
+import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
+import { BlockType } from '@/page/archiving/index/type/blockType';
+import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
 
