@@ -20,7 +20,6 @@ export const containerStyle = (selectedId: string) =>
     },
   });
 
-// 추후에 color 받아서 쓸거임 진짜임 지우라 하지마셈 반박불가
 export const blockNameTextStyle = (color: string) =>
   css({
     display: 'inline-block',
@@ -28,7 +27,7 @@ export const blockNameTextStyle = (color: string) =>
 
     borderRadius: '0.4rem',
     backgroundColor: theme.colors.blue_100,
-    color: theme.colors.gray_800,
+    color: color,
   });
 
 export const fileNameStyle = css({

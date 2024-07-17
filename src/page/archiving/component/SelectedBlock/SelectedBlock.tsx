@@ -17,10 +17,11 @@ interface DocumentBarInfoProps {
   blockName: string;
   startDate: string;
   endDate: string;
+  color: string;
   documentList: Document[];
 }
 
-const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList }: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, documentList }: DocumentBarInfoProps) => {
   return (
     <Flex tag="section" css={containerStyle}>
       <Laptop width={24} height={24} />
@@ -38,7 +39,7 @@ const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList
 
       <Flex tag="ul" css={documentListStyle}>
         {documentList?.map((data: Document) => (
-          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName}>
+          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} color={color}>
             {data.fileName}
           </DocumentItem>
         ))}
