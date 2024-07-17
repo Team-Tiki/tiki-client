@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Logout from '@/common/asset/svg/logout.svg?react';
 import PWResetting from '@/common/asset/svg/password.svg?react';
+import Text from '@/common/component/Text/Text';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import {
@@ -13,6 +14,7 @@ import {
   contentStyle,
   textStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal.style';
+import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 interface SettingModalProps extends HTMLAttributes<HTMLDivElement> {
@@ -37,23 +39,26 @@ const SettingModal = ({ setOpen, setState, ...props }: SettingModalProps) => {
     <div ref={settingRef} css={containerStyle(isOpen)} {...props}>
       <button css={contentStyle} onClick={close}>
         <Logout width="1.6rem" height="1.6rem" />
-        <p
+        <Text
+          tag="body6"
           css={textStyle}
           onClick={() => {
-            console.log('log out');
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            navigate(PATH.LOGIN);
           }}>
           로그아웃
-        </p>
+        </Text>
       </button>
       <button css={contentStyle} onClick={close}>
         <PWResetting width="1.6rem" height="1.6rem" />
-        <p
+        <Text
+          tag="body6"
           css={textStyle}
           onClick={() => {
             navigate(PATH.PASSWORD_RESET);
           }}>
           비밀번호 재설정
-        </p>
+        </Text>
       </button>
     </div>
   );
