@@ -1,7 +1,7 @@
-import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
-import TotalDocument from '@/page/archiving/component/TotalDocument/TotalDocument';
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
+import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
+import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';

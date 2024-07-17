@@ -1,10 +1,10 @@
-import DocumentItem from '@/page/archiving/component/DocumentItem/DocumentItem';
-import DocumentSort from '@/page/archiving/component/DocumentSort/DocumentSort';
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
 import {
   containerStyle,
   documentListStyle,
   toolStyle,
-} from '@/page/archiving/component/TotalDocument/TotalDocument.style';
+} from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 
 import { ChangeEvent } from 'react';
 

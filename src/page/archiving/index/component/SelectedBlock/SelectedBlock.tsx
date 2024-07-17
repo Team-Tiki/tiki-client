@@ -1,5 +1,5 @@
-import DocumentItem from '@/page/archiving/component/DocumentItem/DocumentItem';
-import { documentListStyle } from '@/page/archiving/component/TotalDocument/TotalDocument.style';
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 
 import Laptop from '@/common/asset/svg/laptop.svg?react';
 import Button from '@/common/component/Button/Button';
