@@ -17,6 +17,8 @@ import { formatTime } from '@/page/signUp/info/util/formatTime';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { isAxiosError } from 'axios';
+
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -61,8 +63,9 @@ const InfoForm = () => {
         handleSend();
       },
       onError: (error) => {
-        console.log(error);
-        createToast('유효하지 않은 메일 주소입니다.', 'error');
+        if (isAxiosError<{ message: string }>(error)) {
+          createToast(`${error.response?.data.message}`, 'error');
+        }
       },
     });
   };
@@ -72,8 +75,10 @@ const InfoForm = () => {
       onSuccess: () => {
         setIsVerified(true);
       },
-      onError: () => {
-        createToast('인증번호가 일치하지 않습니다.', 'error');
+      onError: (error) => {
+        if (isAxiosError<{ message: string }>(error)) {
+          createToast(`${error.response?.data.message}`, 'error');
+        }
       },
     });
   };

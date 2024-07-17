@@ -6,6 +6,8 @@ import { useSignupMutation } from '@/page/signUp/info/hook/useSignupMutation';
 import React, { SetStateAction, createContext, useEffect, useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
 
+import { isAxiosError } from 'axios';
+
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
@@ -42,12 +44,18 @@ const InfoFormPage = () => {
   };
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    mutate(info, {
-      onSuccess: () => {
-        goToLoginPage();
-        createToast('회원가입이 완료되었습니다.', 'success');
-      },
-    });
+    if (!isInfoMatched)
+      mutate(info, {
+        onSuccess: () => {
+          goToLoginPage();
+          createToast('회원가입이 완료되었습니다.', 'success');
+        },
+        onError: (error) => {
+          if (isAxiosError<{ message: string }>(error)) {
+            createToast(`${error.response?.data.message}`, 'error');
+          }
+        },
+      });
   }, [isCompleted]);
 
   return (

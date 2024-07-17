@@ -5,6 +5,8 @@ import { PLACEHOLDER } from '@/page/signUp/info/constant';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { isAxiosError } from 'axios';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -42,8 +44,10 @@ const PasswordResetPage = () => {
           navigate('/login');
           createToast('비밀번호 재설정에 성공했습니다.', 'success');
         },
-        onError: () => {
-          createToast('비밀번호 재설정에 실패했습니다', 'error');
+        onError: (error) => {
+          if (isAxiosError<{ message: string }>(error)) {
+            createToast(`${error.response?.data.message}`, 'error');
+          }
         },
       }
     );

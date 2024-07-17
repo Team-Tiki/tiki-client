@@ -11,6 +11,8 @@ import { formatTime } from '@/page/signUp/info/util/formatTime';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { isAxiosError } from 'axios';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -37,9 +39,11 @@ const PasswordAuthPage = () => {
         onSuccess: () => {
           setIsMailSent(true);
         },
-        onError: () => {
-          createToast('유효하지 않은 메일 주소입니다.', 'error');
-          setIsMailSent(false);
+        onError: (error) => {
+          if (isAxiosError<{ message: string }>(error)) {
+            createToast(`${error.response?.data.message}`, 'error');
+            setIsMailSent(false);
+          }
         },
       });
     }
