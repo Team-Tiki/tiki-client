@@ -12,7 +12,6 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
-import { COLORS } from '@/shared/constant';
 
 interface UploadModalProps {
   onClose: () => void;
