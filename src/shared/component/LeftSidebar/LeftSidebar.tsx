@@ -28,12 +28,15 @@ import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
-  const navigate = useNavigate();
-  const [clicked, setClicked] = useState('');
 
   const sidebarRef = useOutsideClick(close);
 
   const { data } = useClubInfoQuery();
+
+  const navigate = useNavigate();
+
+  const [clicked, setClicked] = useState('showcase');
+  const [isSetting, setIsSetting] = useState(false);
 
   // 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
@@ -77,11 +80,11 @@ const LeftSidebar = () => {
             );
           })}
           <LeftSidebarItem
-            isClicked={clicked === '워크스페이스 생성'}
+            isClicked={clicked === 'createWorkspace'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
             onClick={() => {
-              setClicked('워크스페이스 생성');
+              setClicked('createWorkspace');
               openModal(<WorkSpaceName onNext={handleNext1} />);
               close();
             }}>
@@ -91,16 +94,16 @@ const LeftSidebar = () => {
       </nav>
       <div css={settingStyle}>
         <LeftSidebarItem
-          isClicked={clicked === '환경설정'}
+          isClicked={false}
           isExpansion={isNavOpen}
           url={'src/common/asset/svg/settings.svg'}
           onClick={() => {
-            setClicked('환경설정');
+            setIsSetting(true);
             close();
           }}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal setOpen={clicked === '환경설정'} />
+        <SettingModal setOpen={isSetting} setState={setIsSetting} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
