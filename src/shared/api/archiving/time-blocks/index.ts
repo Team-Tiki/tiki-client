@@ -1,4 +1,4 @@
-import { TimeBlockList } from '@/page/archiving/type/blockType';
+import { TimeBlockList } from '@/page/archiving/index/type/blockType';
 
 import { axiosInstance } from '@/shared/api/instance';
 
