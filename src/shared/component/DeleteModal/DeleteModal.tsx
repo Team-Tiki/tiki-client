@@ -1,10 +1,11 @@
+import { useDeleteBlockMutation } from '@/page/archiving/hook/api/useDeleteBlockMutaion';
+import { useDeleteDocumentMutation } from '@/page/archiving/hook/api/useDeleteDocumentMutation';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
-import { useDeleteBlockMutation } from '@/shared/api/hook/useDeleteBlockMutaion';
-import { useDeleteDocumentMutation } from '@/shared/api/hook/useDeleteDocumentMutation';
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
 
@@ -12,21 +13,23 @@ interface DeleteModalProps {
   title: 'block' | 'docs';
   detail: 'block' | 'docs';
   onClose: () => void;
+  teamId: number;
+  id: number;
 }
 
-const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
+const DeleteModal = ({ title, detail, onClose, teamId, id }: DeleteModalProps) => {
   const { mutate: blockMutate } = useDeleteBlockMutation();
   const { mutate: documentMutate } = useDeleteDocumentMutation();
   console.log(title);
 
-  const handleDeleteBlock = () => {
-    blockMutate({ teamId: 9, blockId: 73 });
+  const handleDeleteBlock = (teamId: number, id: number) => {
+    blockMutate({ teamId: teamId, blockId: id });
     onClose();
   };
 
-  const handleDeleteDocs = () => {
+  const handleDeleteDocs = (teamId: number, id: number) => {
     //문서 삭제 api 추가
-    documentMutate({ teamId: 1, documentId: 4 });
+    documentMutate({ teamId: teamId, documentId: id });
     console.log('여긴가?');
     onClose();
   };
@@ -53,7 +56,7 @@ const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
         <Button variant="secondary" size="large" onClick={onClose} css={cancelStyle}>
           취소
         </Button>
-        <Button variant="primary" size="large" onClick={handleDelete} css={deleteStyle}>
+        <Button variant="primary" size="large" onClick={() => handleDelete(teamId, id)} css={deleteStyle}>
           삭제
         </Button>
       </Flex>

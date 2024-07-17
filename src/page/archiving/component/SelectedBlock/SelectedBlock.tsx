@@ -1,5 +1,6 @@
 import DocumentItem from '@/page/archiving/component/DocumentItem/DocumentItem';
 import { documentListStyle } from '@/page/archiving/component/TotalDocument/TotalDocument.style';
+import { Block } from '@/page/archiving/type/blockType';
 import { DocumentType } from '@/page/archiving/type/documentType';
 
 import Laptop from '@/common/asset/svg/laptop.svg?react';
@@ -21,10 +22,19 @@ interface DocumentBarInfoProps {
   startDate: string;
   endDate: string;
   color: string;
-  documentList: DocumentType[];
+  documentList?: DocumentType[];
+  blockSelected: Block;
 }
 
-const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, documentList }: DocumentBarInfoProps) => {
+const SelectedBlock = ({
+  selectedId,
+  blockName,
+  color,
+  startDate,
+  endDate,
+  documentList,
+  blockSelected,
+}: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   return (
@@ -38,7 +48,17 @@ const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, docum
           variant="text"
           size="small"
           css={deleteBtnStyle}
-          onClick={() => openModal(<DeleteModal title="block" detail="block" onClose={closeModal} />)}>
+          onClick={() =>
+            openModal(
+              <DeleteModal
+                title="block"
+                detail="block"
+                onClose={closeModal}
+                teamId={9}
+                id={blockSelected.timeBlockId}
+              />
+            )
+          }>
           블록삭제
         </Button>
       </Flex>
@@ -48,7 +68,12 @@ const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, docum
 
       <Flex tag="ul" css={documentListStyle}>
         {documentList?.map((data: DocumentType) => (
-          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} color={color}>
+          <DocumentItem
+            key={data.documentId}
+            documentId={data.documentId}
+            selectedId={selectedId}
+            blockName={data.blockName}
+            color={color}>
             {data.fileName}
           </DocumentItem>
         ))}

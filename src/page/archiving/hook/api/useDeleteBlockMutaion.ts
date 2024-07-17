@@ -13,7 +13,7 @@ export const useDeleteBlockMutation = () => {
     mutationFn: ({ teamId, blockId }: DeleteParams) => deleteBlock(teamId, blockId),
     onSuccess: () => {
       console.log('블록 삭제 성공');
-      queryClient.invalidateQueries({ queryKey: ['document'] });
+      queryClient.invalidateQueries({ queryKey: ['document', 'timeBlock'] });
     },
   });
 

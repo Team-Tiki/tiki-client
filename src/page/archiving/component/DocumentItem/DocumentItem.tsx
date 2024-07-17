@@ -16,6 +16,7 @@ import { useModal } from '@/common/hook';
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 
 interface DocumentItemProps {
+  documentId?: number;
   children: ReactNode;
   selectedId: string;
   blockName?: string;
@@ -23,7 +24,7 @@ interface DocumentItemProps {
   color?: string;
 }
 
-const DocumentItem = ({ children, selectedId, blockName, color = `${theme.colors.blue_100}` }: DocumentItemProps) => {
+const DocumentItem = ({ documentId, children, selectedId, blockName, color }: DocumentItemProps) => {
   // 문서 클릭시 띄워주는 함수
   // const onClickDocumentItem = () => {
   //   window.open(
@@ -35,7 +36,7 @@ const DocumentItem = ({ children, selectedId, blockName, color = `${theme.colors
   return (
     <>
       <li css={containerStyle(selectedId)}>
-        {selectedId === 'total' && (
+        {color && (
           <div>
             <Text tag="body8" css={blockNameTextStyle(color)}>
               {blockName}
@@ -50,7 +51,9 @@ const DocumentItem = ({ children, selectedId, blockName, color = `${theme.colors
           <TrashBox
             width={20}
             height={20}
-            onClick={() => openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} />)}
+            onClick={() =>
+              openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={9} id={documentId} />)
+            }
           />
         </Flex>
       </li>

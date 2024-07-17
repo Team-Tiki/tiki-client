@@ -16,7 +16,7 @@ import Input from '@/common/component/Input/Input';
 interface DocumentBarToolProps {
   onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
   searchWord: string;
-  documentList: DocumentType[];
+  documentList?: DocumentType[];
   selectedId: string;
 }
 
@@ -39,7 +39,7 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
       <Flex tag="ul" css={documentListStyle}>
         {filteredDocuments?.map((data: DocumentType) => (
           <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} fileUrl={data.fileUrl}>
-            {data.fileName}
+            {data?.fileName}
           </DocumentItem>
         ))}
       </Flex>
