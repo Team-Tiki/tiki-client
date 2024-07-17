@@ -31,9 +31,9 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockDataList } = useBlockQuery(9, 63, selectedId);
+  const { data: blockDataList } = useBlockQuery(9, 69, selectedId);
   const { data: documentList } = useTotalDocumentQuery(1, 'executive', selectedId);
-
+  console.log(selectedId);
   return (
     <aside css={containerStyle(blockSelected.title)} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />

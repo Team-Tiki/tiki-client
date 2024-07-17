@@ -20,7 +20,7 @@ const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
   console.log(title);
 
   const handleDeleteBlock = () => {
-    blockMutate({ teamId: 9, blockId: 63 });
+    blockMutate({ teamId: 9, blockId: 73 });
     onClose();
   };
 
