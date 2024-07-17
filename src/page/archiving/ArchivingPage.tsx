@@ -6,7 +6,7 @@ import TimeBlock from '@/page/archiving/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/component/YearHeader/YearHeader';
 import { useDate } from '@/page/archiving/hook/useDate';
 import { Block } from '@/page/archiving/type/blockType';
-import { alignBlocks } from '@/page/archiving/util/alignBlocks';
+import { alignBlocks } from '@/page/archiving/util/block';
 
 import { useState } from 'react';
 
