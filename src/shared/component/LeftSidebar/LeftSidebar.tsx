@@ -96,13 +96,11 @@ const LeftSidebar = () => {
           url={'src/common/asset/svg/settings.svg'}
           onClick={() => {
             setClicked('환경설정');
-            console.log('ddd');
+            close();
           }}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal isOpen={true} css={{ backgroundColor: 'red' }}>
-          dddd
-        </SettingModal>
+        <SettingModal setOpen={clicked === '환경설정'} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>

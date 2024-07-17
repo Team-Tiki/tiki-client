@@ -1,16 +1,16 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes } from 'react';
 
 import { containerStyle } from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal.style';
 
 interface SettingModalProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-  isOpen: boolean;
+  setOpen: boolean;
 }
 
-const SettingModal = ({ isOpen, children, ...props }: SettingModalProps) => {
+const SettingModal = ({ setOpen, ...props }: SettingModalProps) => {
   return (
-    <div css={containerStyle(isOpen)} {...props}>
-      {children}
+    <div css={containerStyle(setOpen)} {...props}>
+      <div>로그아웃</div>
+      <div>비밀번호 재설정</div>
     </div>
   );
 };
