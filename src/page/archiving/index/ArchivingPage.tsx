@@ -6,7 +6,7 @@ import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBa
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
-import { useDate } from '@/page/archiving/index/hook/useDate';
+import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks } from '@/page/archiving/index/util/block';
 

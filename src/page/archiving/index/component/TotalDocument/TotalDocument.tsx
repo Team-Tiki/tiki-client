@@ -5,6 +5,7 @@ import {
   documentListStyle,
   toolStyle,
 } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 import { ChangeEvent } from 'react';
 
@@ -12,12 +13,10 @@ import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 
-import { Document } from '@/shared/api/archiving/document/type';
-
 interface DocumentBarToolProps {
   onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
   searchWord: string;
-  documentList: Document[];
+  documentList?: DocumentType[];
   selectedId: string;
 }
 
@@ -38,7 +37,7 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
-        {filteredDocuments?.map((data: Document) => (
+        {filteredDocuments?.map((data: DocumentType) => (
           <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} fileUrl={data.fileUrl}>
             {data.fileName}
           </DocumentItem>
