@@ -9,7 +9,7 @@ export const containerStyle = css({
   width: '100%',
   minHeight: '100vh',
 
-  padding: '5.6rem 15.6rem 20rem 7.6rem',
+  padding: '5.6rem 11.6rem 20rem 11.6rem',
 
   borderRadius: '16px',
 });

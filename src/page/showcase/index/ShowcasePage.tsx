@@ -17,7 +17,6 @@ const ShowcasePage = () => {
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
   const { data: clubs } = useClubListQuery(selectedChip);
-
   const { data: categoryList } = useCategoryListQuery();
 
   const handleChipClick = (category: string) => {
@@ -36,7 +35,7 @@ const ShowcasePage = () => {
       </Flex>
 
       <section css={chipStyle}>
-        {categoryList?.map((category) => (
+        {categoryList?.data.categories.map((category) => (
           <CategoryChip key={category} onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
             {category}
           </CategoryChip>

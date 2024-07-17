@@ -7,6 +7,6 @@ export type ClubType = {
   imageUrl?: string;
 };
 
-export type teams = {
+export type TeamsType = {
   data: { teams: ClubType[] };
 };
