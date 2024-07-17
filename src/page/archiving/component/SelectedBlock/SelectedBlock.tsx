@@ -1,5 +1,6 @@
 import DocumentItem from '@/page/archiving/component/DocumentItem/DocumentItem';
 import { documentListStyle } from '@/page/archiving/component/TotalDocument/TotalDocument.style';
+import { DocumentType } from '@/page/archiving/type/documentType';
 
 import Laptop from '@/common/asset/svg/laptop.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -8,8 +9,6 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-import { Document } from '@/shared/api/archiving/document/type';
-
 import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
@@ -17,7 +16,7 @@ interface DocumentBarInfoProps {
   blockName: string;
   startDate: string;
   endDate: string;
-  documentList: Document[];
+  documentList: DocumentType[];
 }
 
 const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList }: DocumentBarInfoProps) => {
@@ -37,7 +36,7 @@ const SelectedBlock = ({ selectedId, blockName, startDate, endDate, documentList
       </Text>
 
       <Flex tag="ul" css={documentListStyle}>
-        {documentList?.map((data: Document) => (
+        {documentList?.map((data: DocumentType) => (
           <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName}>
             {data.fileName}
           </DocumentItem>

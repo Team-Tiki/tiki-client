@@ -30,8 +30,8 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockDataList } = useBlockQuery(9, 8, selectedId);
-  const { data: documentList } = useTotalDocumentQuery(1, 'executive', selectedId);
+  const { data: blockData } = useBlockQuery(9, 8, selectedId);
+  const { data: documentData } = useTotalDocumentQuery(1, 'executive', selectedId);
 
   return (
     <aside css={containerStyle(blockSelected.title)} ref={ref}>
@@ -42,11 +42,11 @@ const DocumentBar = (
           blockName={blockSelected.title}
           startDate={formattingDate(blockSelected.startDate)}
           endDate={formattingDate(blockSelected.endDate)}
-          documentList={blockDataList}
+          documentList={blockData?.data.documents}
         />
       ) : (
         <TotalDocument
-          documentList={documentList}
+          documentList={documentData?.data.documents}
           onSearchWord={handleSearchWord}
           searchWord={searchWord}
           selectedId={selectedId}

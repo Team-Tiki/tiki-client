@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getClubInfo } from '@/shared/api';
+import { getClubInfo } from '@/shared/api/members/teams';
 
 export const useClubInfoQuery = () => {
   return useQuery({

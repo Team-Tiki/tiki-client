@@ -6,7 +6,6 @@ import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
-import { useClubInfoQuery } from '@/shared/api/useClubInfoQuery';
 import {
   LogoSymbolStyle,
   arrowStyle,
@@ -19,6 +18,7 @@ import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkS
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { DEFAULT_LOGO } from '@/shared/constant';
+import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 
 interface Team {
   id: number;
@@ -54,7 +54,7 @@ const LeftSidebar = () => {
             onClick={close}>
             Showcase
           </LeftSidebarItem>
-          {data?.map((data: Team) => {
+          {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
               <LeftSidebarItem
                 key={data.id}
