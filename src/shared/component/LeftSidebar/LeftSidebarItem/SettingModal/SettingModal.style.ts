@@ -8,7 +8,9 @@ export const containerStyle = (isOpen: boolean) =>
     bottom: '1rem',
     left: '7rem',
 
-    display: `${isOpen ? '' : 'none'}`,
+    display: `${isOpen ? 'flex' : 'none'}`,
+    flexDirection: 'column',
+    gap: '0.4rem',
 
     padding: '1rem 1.2rem',
 
@@ -28,18 +30,19 @@ export const contentStyle = css({
   gap: '0.8rem',
 
   width: '100%',
-  padding: '0.4rem',
+  padding: '0.8rem',
 
   border: 'none',
   borderRadius: '8px',
 
   backgroundColor: 'transparent',
-  ':hover': { backgroundColor: theme.colors.blue_100 },
+
+  ':hover': {
+    backgroundColor: theme.colors.blue_100,
+  },
 });
 
 export const textStyle = css({
-  ...theme.text.body06,
-
   fontWeight: 600,
   color: theme.colors.black,
 });
