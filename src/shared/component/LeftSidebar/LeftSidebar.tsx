@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
@@ -13,6 +14,7 @@ import {
   arrowStyle,
   containerStyle,
   leftSidebarListStyle,
+  settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
@@ -26,6 +28,7 @@ import { Team } from '@/shared/type/team';
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
   const navigate = useNavigate();
+  const [clicked, setClicked] = useState('');
 
   const sidebarRef = useOutsideClick(close);
 
@@ -82,6 +85,17 @@ const LeftSidebar = () => {
           </LeftSidebarItem>
         </ul>
       </nav>
+      <div css={settingStyle}>
+        <LeftSidebarItem
+          isExpansion={isNavOpen}
+          url={'src/common/asset/svg/settings.svg'}
+          onClick={() => {
+            console.log('ddd');
+          }}>
+          환경설정
+        </LeftSidebarItem>
+        <div>dd</div>
+      </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
   );
