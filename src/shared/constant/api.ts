@@ -18,8 +18,13 @@ export const HTTP_ERROR_MESSAGE = {
     REDIRECT: '다시 접속하기',
   },
   [HTTP_STATUS_CODE.NOT_FOUND]: {
-    HEADING: '아직 티키가 열심히 준비중이에요',
-    TEXT: '더 좋은 서비스를 위해 조금만 기다려주세요!',
+    HEADING: '길을 잃었나요 ?',
+    TEXT: '요청하신 페이지를 찾을 수 없습니다.',
+    REDIRECT: '쇼케이스 페이지로 돌아가기',
+  },
+  [HTTP_STATUS_CODE.BAD_REQUEST]: {
+    HEADING: '잘못된 요청입니다.',
+    TEXT: '확인 후 다시 시도해주세요.',
     REDIRECT: '쇼케이스 페이지로 돌아가기',
   },
 } as const;
