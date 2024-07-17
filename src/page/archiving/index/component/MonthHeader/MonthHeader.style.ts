@@ -13,7 +13,7 @@ export const headerStyle = (blockSelected: BlockType | undefined) =>
 
     padding: '0.4rem',
     gap: blockSelected ? '2.4rem' : '4.4rem',
-
+    transition: 'all 0.4s ease-in-out',
     backgroundColor: theme.colors.white,
   });
 
@@ -24,7 +24,7 @@ export const monthBtnStyle = css({
   backgroundColor: theme.colors.white,
   ...theme.text.body06,
 
-  transition: 'all 0.2s ease-in-out',
+  transition: 'all 0.4s ease-in-out',
 
   '&:hover': {
     color: theme.colors.blue_900,

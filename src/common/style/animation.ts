@@ -16,5 +16,23 @@ export const rotate = keyframes`
 100% {
     transform: rotate(360deg);
 }
+`;
+
+export const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+export const moveUp = keyframes`
+    0%{
+        transform: translateY(50%);
+    }
+    100%{
+        transform: translateY(0);
+    }
 
 `;

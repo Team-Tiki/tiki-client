@@ -1,4 +1,4 @@
-import ShowcasePage from '@/page/showcase/ShowcasePage';
+import ShowcasePage from '@/page/showcase/index/ShowcasePage';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

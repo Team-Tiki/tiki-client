@@ -15,9 +15,16 @@ interface DocumentItemProps {
   children: ReactNode;
   selectedId: string;
   blockName?: string;
+  fileUrl?: string;
 }
 
 const DocumentItem = ({ children, selectedId, blockName }: DocumentItemProps) => {
+  // 문서 클릭시 띄워주는 함수
+  // const onClickDocumentItem = () => {
+  //   window.open(
+  //     'https://docs.google.com/spreadsheets/d/1vFy_-hBj7IUPulzk2hlTelVRkCimJw39/edit?usp=share_link&ouid=115368206250146821866&rtpof=true&sd=true'
+  //   );
+  // };
   return (
     <li css={containerStyle(selectedId)}>
       {selectedId === 'total' && (

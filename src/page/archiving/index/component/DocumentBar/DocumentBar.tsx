@@ -1,54 +1,60 @@
-import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
-import DocumentBarInfo from '@/page/archiving/index/component/DocumentBarInfo/DocumentBarInfo';
-import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
-import DocumentBarTool from '@/page/archiving/index/component/DocumentBarTool/DocumentBarTool';
-import DocumentWrapper from '@/page/archiving/index/component/DocumentWrapper/DocumentWrapper';
-import { BLOCK_INFO, BLOCK_TEST_DATA, Block, TOTAL_DATA, Total } from '@/page/archiving/index/constant/document';
-import { BlockType } from '@/page/archiving/index/type/blockType';
-import { formattingDate } from '@/page/archiving/index/util/date';
-import { format } from 'date-fns';
+import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
+import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
+import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
+import TotalDocument from '@/page/archiving/component/TotalDocument/TotalDocument';
+import { BlockType } from '@/page/archiving/type/blockType';
+import { formattingDate } from '@/page/archiving/util/formattingDate';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
 
-const DocumentBar = ({ blockSelected }: { blockSelected: BlockType }) => {
+import { useBlockQuery } from '@/shared/api/hook/useBlockQuery';
+import { useTotalDocumentQuery } from '@/shared/api/hook/useTotalDocumentQuery';
+
+const DocumentBar = (
+  {
+    blockSelected = { id: 0, title: '', startDate: new Date(), endDate: new Date() },
+  }: {
+    blockSelected: BlockType | undefined;
+  },
+  ref: ForwardedRef<HTMLDivElement>
+) => {
   const [selectedId, setSelectedId] = useState('selected');
-  const formattedDate = format(blockSelected.startDate, 'yyyy.MM.dd');
-  const [documentData, setDocumentData] = useState<Total | Block>([]);
   const [searchWord, setSearchWord] = useState('');
 
+  // 문서 바 tab 클릭시 실행
   const handleTabClick = (selectedId: string, tabId: string) => {
     tabId !== selectedId && setSelectedId(tabId);
   };
 
+  // 검색 타이핑시 실행
   const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchWord(e.target.value);
   };
 
-  // 탭 클릭시 문서리스트 받아오기
-  useEffect(() => {
-    if (selectedId === 'selected') {
-      setDocumentData(BLOCK_TEST_DATA);
-    } else if (selectedId === 'total') {
-      setDocumentData(TOTAL_DATA);
-    }
-  }, [selectedId]);
+  const { data: blockDataList } = useBlockQuery(9, 8, selectedId);
+  const { data: documentList } = useTotalDocumentQuery(1, 'executive', selectedId);
 
   return (
-    <aside css={containerStyle}>
+    <aside css={containerStyle(blockSelected.title)} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      <DocumentWrapper selectedId={selectedId} documentData={documentData} searchWord={searchWord}>
-        {selectedId === 'selected' ? (
-          <DocumentBarInfo
-            blockName={blockSelected.title}
-            startDate={formattingDate(blockSelected.startDate)}
-            endDate={formattingDate(blockSelected.endDate)}
-          />
-        ) : (
-          <DocumentBarTool onSearchWord={handleSearchWord} searchWord={searchWord} />
-        )}
-      </DocumentWrapper>
+      {selectedId === 'selected' ? (
+        <SelectedBlock
+          selectedId={selectedId}
+          blockName={blockSelected.title}
+          startDate={formattingDate(blockSelected.startDate)}
+          endDate={formattingDate(blockSelected.endDate)}
+          documentList={blockDataList}
+        />
+      ) : (
+        <TotalDocument
+          documentList={documentList}
+          onSearchWord={handleSearchWord}
+          searchWord={searchWord}
+          selectedId={selectedId}
+        />
+      )}
     </aside>
   );
 };
 
-export default DocumentBar;
+export default forwardRef(DocumentBar);

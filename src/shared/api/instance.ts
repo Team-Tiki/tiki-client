@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const API_URL = `${import.meta.env.VITE_BASE_URL}`;
-const TOKEN = `${import.meta.env.VITE_TOKEN}`;
+export const axiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`,
 
-const axiosInstance = axios.create({
-  baseURL: `${API_URL}/api/v1`,
   headers: {
-    Authorization: `Bearer ${TOKEN}`,
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
   },
 });
 

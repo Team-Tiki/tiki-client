@@ -1,4 +1,4 @@
-import BannerSlider from '@/page/showcase/component/BannerSlider/BannerSlider';
+import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

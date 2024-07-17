@@ -1,37 +1,56 @@
 import App from '@/App';
 import ArchivingPage from '@/page/archiving/index/ArchivingPage';
-import LoginPage from '@/page/login/LoginPage';
-import ShowcasePage from '@/page/showcase/ShowcasePage';
+import LandingPage from '@/page/landing/LandingPage';
+import LoginPage from '@/page/login/index/LoginPage';
+import PasswordAuthPage from '@/page/login/password/passwordAuth/PasswordAuthPage';
+import PasswordResetPage from '@/page/login/password/passwordReset/PasswordResetPage';
+import ShowcasePage from '@/page/showcase/index/ShowcasePage';
 import TermPage from '@/page/signUp/index/TermPage';
 import InfoFormPage from '@/page/signUp/info/InfoFormPage';
-import PasswordPage from '@/page/signUp/password/PasswordPage';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import { PATH } from '@/shared/constant/path';
+import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
+import ErrorPage from '@/shared/page/errorPage/ErrorPage';
+
 const router = createBrowserRouter([
-  { path: '/login', element: <LoginPage /> },
+  { path: PATH.LANDING, element: <LandingPage /> },
+  { path: PATH.LOGIN, element: <LoginPage /> },
   {
-    path: '/',
+    path: PATH.SIGNUP,
+    element: <TermPage />,
+  },
+  {
+    path: PATH.SIGNUP_INFO,
+    element: <InfoFormPage />,
+  },
+  {
+    path: PATH.SIGNUP_INFO_PASSWORD,
+    element: <InfoFormPage />,
+  },
+  {
+    path: PATH.PASSWORD_AUTH,
+    element: <PasswordAuthPage />,
+  },
+  {
+    path: PATH.PASSWORD_RESET,
+    element: <PasswordResetPage />,
+  },
+  {
+    path: '/comingsoon',
+    element: <ComingsoonPage />,
+  },
+  {
+    path: '/error',
+    element: <ErrorPage />,
+  },
+  {
+    path: PATH.ROOT,
     element: <App />,
     children: [
-      { path: 'showcase', element: <ShowcasePage /> },
-      { path: 'archiving', element: <ArchivingPage /> },
-      {
-        path: '/signin',
-        element: <TermPage />,
-      },
-      {
-        path: '/signin/info',
-        element: <InfoFormPage />,
-      },
-      {
-        path: '/password/auth',
-        element: <p>인증</p>,
-      },
-      {
-        path: '/password/reset',
-        element: <p>재설정</p>,
-      },
+      { index: true, element: <ShowcasePage /> },
+      { path: PATH.ARCHIVING, element: <ArchivingPage /> },
     ],
   },
 ]);

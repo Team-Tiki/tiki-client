@@ -2,18 +2,26 @@ import { useCallback, useEffect, useRef } from 'react';
 
 type Callback = () => void;
 
-export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose: Callback) => {
+export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose: Callback, componentName?: string) => {
   const ref = useRef<T>(null);
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
-      if (!ref.current) return;
+      if (!ref.current || !(event.target instanceof HTMLElement)) return;
 
-      if (!ref.current.contains(event.target as Node)) {
-        onClose?.();
+      const isOutSide = !ref.current.contains(event.target as Node);
+
+      if (componentName) {
+        if (isOutSide && !event.target?.className.includes(componentName)) {
+          onClose?.();
+        }
+      } else {
+        if (isOutSide) {
+          onClose?.();
+        }
       }
     },
-    [onClose]
+    [onClose, componentName]
   );
 
   const handleEscKeyDown = useCallback(

@@ -1,4 +1,4 @@
-import LoginPage from '@/page/login/LoginPage';
+import LoginPage from '@/page/login/index/LoginPage';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
