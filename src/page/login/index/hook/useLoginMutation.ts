@@ -20,12 +20,10 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: postSignIn,
 
-    onSuccess: ({
-      data: {
-        data: { accessToken },
-      },
-    }) => {
+    onSuccess: ({ data: { accessToken, refreshToken } }) => {
       localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+      localStorage.setItem('refresh', refreshToken);
+
       axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
       navigate(PATH.SHOWCASE);

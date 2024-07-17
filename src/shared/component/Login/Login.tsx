@@ -18,6 +18,8 @@ const Login = ({ children }: { children: ReactNode }) => {
 
     const { accessToken } = response.data.data;
 
+    console.log(accessToken);
+
     axiosInstance.defaults.headers.Authorization = accessToken;
   };
 
