@@ -1,5 +1,7 @@
 import { SUPPORTING_TEXT } from '@/page/login/constant';
+import { useSendMailMutation } from '@/page/login/password/hook/useSendMailMutation';
 import useTimer from '@/page/login/password/hook/useTimer';
+import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
 import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
@@ -14,8 +16,6 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
-import { useSendMailMutation } from '@/shared/hook/passwordAuthPage/useSendMailMutation';
-import { useVerifyCodeMutation } from '@/shared/hook/passwordAuthPage/useVerifyCodeMutation';
 import { useToastStore } from '@/shared/store/toast';
 
 const PasswordAuthPage = () => {

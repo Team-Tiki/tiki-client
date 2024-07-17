@@ -1,3 +1,4 @@
+import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -9,6 +10,7 @@ import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT 
 import { useDateInput } from '@/page/signUp/info/hook/useDateInput';
 import { useInput } from '@/page/signUp/info/hook/useInput';
 import { useSelect } from '@/page/signUp/info/hook/useSelect';
+import { useSendMailMutation } from '@/page/signUp/info/hook/useSendMailMutation';
 import { useTimer } from '@/page/signUp/info/hook/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
@@ -23,8 +25,6 @@ import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import { useVerifyCodeMutation } from '@/shared/hook/passwordAuthPage/useVerifyCodeMutation';
-import { useSendMailMutation } from '@/shared/hook/signup/useSendMailMutation';
 import { useToastStore } from '@/shared/store/toast';
 
 const InfoForm = () => {

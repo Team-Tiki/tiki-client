@@ -6,6 +6,7 @@ import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBa
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
+import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks } from '@/page/archiving/index/util/block';
@@ -18,8 +19,6 @@ import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import { useOutsideClick } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
-
-import { useGetTimeBlockQuery } from '@/shared/hook/archiving/useGetTimeBlockQuery';
 
 const ArchivingPage = () => {
   const handleClose = () => {
