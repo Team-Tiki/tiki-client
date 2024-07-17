@@ -40,7 +40,7 @@ const ArchivingPage = () => {
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
-          <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} blockSelected={blockSelected} />
+          <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} />
           <div css={daySectionStyle}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
