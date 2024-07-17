@@ -1,4 +1,4 @@
-import BlockModal from '@/page/archiving/component/Modal/Block/BlockModal';
+import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BlockModal> = {

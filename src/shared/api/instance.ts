@@ -8,3 +8,5 @@ export const axiosInstance = axios.create({
     Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
   },
 });
+
+export default axiosInstance;

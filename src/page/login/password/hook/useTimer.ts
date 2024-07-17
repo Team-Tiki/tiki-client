@@ -23,7 +23,7 @@ const useTimer = (initialTime: number) => {
         }
       });
     }, 1000);
-  }, [initialTime]);
+  }, [initialTime, stopTimer]);
 
   return { time, startTimer, stopTimer };
 };
