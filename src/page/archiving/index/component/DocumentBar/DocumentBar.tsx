@@ -41,25 +41,25 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
   return (
     <aside css={containerStyle(blockSelected?.name || '')} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      {selectedId === 'selected' ? (
-        blockSelected && (
-          <SelectedBlock
-            selectedId={selectedId}
-            blockName={blockSelected.name}
-            startDate={formattingDate(blockSelected.startDate)}
-            endDate={formattingDate(blockSelected.endDate)}
-            color={blockSelected.color}
-            documentList={blockData?.data.documents}
-          />
-        )
-      ) : (
-        <TotalDocument
-          documentList={documentData?.data.documents}
-          onSearchWord={handleSearchWord}
-          searchWord={searchWord}
-          selectedId={selectedId}
-        />
-      )}
+      {selectedId === 'selected'
+        ? blockSelected && (
+            <SelectedBlock
+              selectedId={selectedId}
+              blockName={blockSelected.name}
+              startDate={formattingDate(blockSelected.startDate)}
+              endDate={formattingDate(blockSelected.endDate)}
+              color={blockSelected.color}
+              documentList={blockData?.data.documents}
+            />
+          )
+        : documentData && (
+            <TotalDocument
+              documentList={documentData?.data.documents}
+              onSearchWord={handleSearchWord}
+              searchWord={searchWord}
+              selectedId={selectedId}
+            />
+          )}
     </aside>
   );
 };

@@ -1,4 +1,4 @@
-import DocumentItem from '@/page/archiving/component/DocumentItem/DocumentItem';
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
