@@ -25,7 +25,7 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
   const [selectedId, setSelectedId] = useState('selected');
   const [searchWord, setSearchWord] = useState('');
 
-  const handleTabClick = (tabId: string) => {
+  const handleTabClick = (tabId: string, selectedId: string) => {
     if (tabId !== selectedId) {
       setSelectedId(tabId);
     }
