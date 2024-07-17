@@ -1,8 +1,12 @@
-export interface ClubType {
-  id: number;
+export type ClubType = {
+  teamId: number;
   name: string;
-  overview?: string;
   category: string;
-  teamtype: string;
+  univ: string;
+  overview?: string;
   imageUrl?: string;
-}
+};
+
+export type teams = {
+  data: { teams: ClubType[] };
+};

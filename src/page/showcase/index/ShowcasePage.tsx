@@ -16,7 +16,7 @@ const ShowcasePage = () => {
   const navigate = useNavigate();
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
-  const { data: clubs } = useClubListQuery();
+  const { data: clubs } = useClubListQuery(selectedChip);
 
   const { data: categoryList } = useCategoryListQuery();
 
@@ -44,20 +44,18 @@ const ShowcasePage = () => {
       </section>
 
       <section css={clubProfileStyle}>
-        {clubs?.map((club) => {
-          if ((club.teamtype === '건국대학교' && club.category === selectedChip) || selectedChip === '전체') {
-            return (
-              <ClubProfileCard
-                key={club.name}
-                title={club.name}
-                detail={club.overview || ''}
-                imageUrl={club.imageUrl}
-                onClick={() => {
-                  navigate('/comingsoon');
-                }}
-              />
-            );
-          }
+        {clubs?.data.teams.map((club) => {
+          return (
+            <ClubProfileCard
+              key={club.name}
+              title={club.name}
+              detail={club.overview || ''}
+              imageUrl={club.imageUrl}
+              onClick={() => {
+                navigate('/comingsoon');
+              }}
+            />
+          );
         })}
       </section>
     </div>
