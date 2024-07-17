@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { checkAuthCode } from '@/shared/api/password/auth/code';
+import { checkAuthCode } from '@/shared/api/mail/signup';
 
 export const useVerifyCodeMutation = (email: string, code: string) => {
   const verifyCodeMutation = useMutation({

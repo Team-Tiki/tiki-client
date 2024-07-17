@@ -14,8 +14,8 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
-import { useSendMailMutation } from '@/shared/hook/useSendMailMutation';
-import { useVerifyCodeMutation } from '@/shared/hook/useVerifyCodeMutation';
+import { useSendMailMutation } from '@/shared/hook/passwordAuthPage/useSendMailMutation';
+import { useVerifyCodeMutation } from '@/shared/hook/passwordAuthPage/useVerifyCodeMutation';
 import { useToastStore } from '@/shared/store/toast';
 
 const PasswordAuthPage = () => {
@@ -26,18 +26,15 @@ const PasswordAuthPage = () => {
 
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
   const navigate = useNavigate();
-  const { sendMailMutation } = useSendMailMutation(email);
+  const { sendMailMutation } = useSendMailMutation(email, setIsMailSent, startTimer);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
   const { createToast } = useToastStore();
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) {
       sendMailMutation(undefined, {
-        onSuccess: () => {
-          setIsMailSent(true);
-          startTimer();
-        },
-        onError: () => {
+        onError: (error) => {
+          console.log(error);
           createToast('유효하지 않은 메일 주소입니다.', 'error');
           setIsMailSent(false);
         },

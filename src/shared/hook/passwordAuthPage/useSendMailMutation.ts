@@ -1,11 +1,22 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { postEmail } from '@/shared/api/password/auth/mail';
+import { postEmail } from '@/shared/api/mail/checking';
 
-export const useSendMailMutation = (address: string) => {
+export const useSendMailMutation = (
+  email: string,
+  setIsMailSent: React.Dispatch<React.SetStateAction<boolean>>,
+  startTimer: () => void
+) => {
+  const queryClient = useQueryClient();
   const { mutate: sendMailMutation, isError: sendMailError } = useMutation({
-    mutationKey: ['useSendMailQuery'],
-    mutationFn: () => postEmail(address),
+    mutationFn: () => postEmail(email),
+    onMutate: async () => {
+      setIsMailSent(true);
+      startTimer();
+    },
+    onSettled: () => {
+      return queryClient.invalidateQueries({ queryKey: ['useSendMailQuery'] });
+    },
   });
 
   return { sendMailMutation, sendMailError };

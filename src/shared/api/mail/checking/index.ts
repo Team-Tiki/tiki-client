@@ -1,9 +1,10 @@
 import { axiosInstance } from '@/shared/api/instance';
 
-export const postEmail = async (address: string) => {
+export const postEmail = async (email: string) => {
   const response = await axiosInstance.post('/mail/signup', {
-    address: address,
+    email: email,
   });
+  console.log(response);
 
   return response;
 };
