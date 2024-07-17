@@ -19,12 +19,7 @@ import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceIm
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { DEFAULT_LOGO } from '@/shared/constant';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-
-interface Team {
-  id: number;
-  name: string;
-  iconImageUrl: string | null;
-}
+import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
