@@ -1,8 +1,7 @@
 import { blockStyle, spanStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
+import { BLOCK_TYPE } from '@/page/archiving/index/constant/blockIcon';
 
 import { ReactNode } from 'react';
-
-import Eclipse from '@/common/asset/svg/eclipse.svg?react';
 
 interface TimeBlockProps {
   children: ReactNode;
@@ -10,17 +9,18 @@ interface TimeBlockProps {
   endDate: Date;
   color: string;
   floor: number;
+  blockType: string;
   onBlockClick: () => void;
 }
 
-const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick }: TimeBlockProps) => {
-  const blockWidth = (endDate.getDate() - startDate.getDate() + 1) * 6;
-  const startPosition = (startDate.getDate() - 1) * 6;
+const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick, blockType }: TimeBlockProps) => {
+  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
+  const startPosition = (new Date(startDate).getDate() - 1) * 6;
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     <div css={blockStyle(blockWidth, startPosition, floor, color)} onClick={onBlockClick}>
-      <Eclipse width={46} height={46} css={{ flexShrink: 0 }} />
+      {BLOCK_TYPE.filter((icon) => icon.name === blockType).map((icon) => icon.icon)}
       <p css={spanStyle}>{children}</p>
     </div>
   );

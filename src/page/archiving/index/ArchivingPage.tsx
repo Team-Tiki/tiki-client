@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
 import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
@@ -7,12 +6,9 @@ import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBa
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
-import { TIME_BLOCK } from '@/page/archiving/index/constant/timeBlock';
 import { useDate } from '@/page/archiving/index/hook/useDate';
-import { BlockType } from '@/page/archiving/index/type/blockType';
-import { MonthType } from '@/page/archiving/index/type/monthType';
+import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks } from '@/page/archiving/index/util/block';
-import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { useState } from 'react';
 
@@ -23,6 +19,8 @@ import Modal from '@/common/component/Modal/Modal';
 import { useOutsideClick } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
 
+import { useGetTimeBlockQuery } from '@/shared/hook/archiving/useGetTimeBlockQuery';
+
 const ArchivingPage = () => {
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
@@ -32,9 +30,14 @@ const ArchivingPage = () => {
 
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
-  const [blockSelected, setBlockSelected] = useState<BlockType | undefined>(undefined);
-
-  const blockFloors = alignBlocks(endDay, selectedMonth, currentYear);
+  const [blockSelected, setBlockSelected] = useState<Block>();
+  const { data } = useGetTimeBlockQuery(
+    Number(7),
+    'executive',
+    `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
+  );
+  const timeBlocks: Block[] = data?.timeBlocks || [];
+  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   // 블록 생성 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
@@ -54,12 +57,7 @@ const ArchivingPage = () => {
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
-          <MonthHeader
-            onMonthClick={(month: MonthType) => {
-              setSelectedMonth(month);
-            }}
-            blockSelected={blockSelected}
-          />
+          <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} />
           <div css={daySectionStyle}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
@@ -77,24 +75,27 @@ const ArchivingPage = () => {
                 />
               );
             })}
-            {TIME_BLOCK.filter((block) => {
-              const blockMonth = block.startDate.getMonth() + 1;
-              const clickedMonth = parseInt(selectedMonth.split('월')[0]);
-
-              return blockMonth === clickedMonth && block.startDate.getFullYear() === currentYear;
-            }).map((block) => (
-              <TimeBlock
-                key={block.id}
-                startDate={block.startDate}
-                endDate={block.endDate}
-                color={getRandomColor()}
-                floor={blockFloors[block.id] || 1}
-                onBlockClick={() => {
-                  setBlockSelected(block);
-                }}>
-                {block.title}
-              </TimeBlock>
-            ))}
+            {data?.timeBlocks
+              .filter((blocks: Block) => {
+                return (
+                  new Date(blocks.startDate).getMonth() + 1 === parseInt(selectedMonth) &&
+                  new Date(blocks.startDate).getFullYear() === currentYear
+                );
+              })
+              .map((block: Block) => (
+                <TimeBlock
+                  key={block.timeBlockId}
+                  startDate={block.startDate}
+                  endDate={block.endDate}
+                  color={block.color}
+                  floor={blockFloors[block.timeBlockId] || 1}
+                  blockType={block.blockType}
+                  onBlockClick={() => {
+                    setBlockSelected(block);
+                  }}>
+                  {block.name}
+                </TimeBlock>
+              ))}
           </div>
         </Flex>
         <Flex css={{ marginLeft: 'auto' }}>
