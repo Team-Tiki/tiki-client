@@ -2,7 +2,6 @@ import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { useInput } from '@/page/signUp/info/hook/useInput';
-import { useSignupMutation } from '@/page/signUp/info/hook/useSignupMutation';
 
 import React, { HTMLAttributes, useContext } from 'react';
 
@@ -24,7 +23,6 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
   } = useInput('');
 
   const context = useContext(SignUpContext);
-  const signupMutation = useSignupMutation();
 
   if (context === undefined) throw new Error();
 
@@ -36,7 +34,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formValidate()) return;
@@ -70,7 +68,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
           placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
         />
       </Flex>
-      <Button type="submit" variant="primary" size="large" onClick={() => signupMutation}>
+      <Button type="submit" variant="primary" size="large" disabled={password !== passwordChecker}>
         다음
       </Button>
     </form>

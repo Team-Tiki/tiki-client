@@ -60,7 +60,8 @@ const InfoForm = () => {
       onSuccess: () => {
         handleSend();
       },
-      onError: () => {
+      onError: (error) => {
+        console.log(error);
         createToast('유효하지 않은 메일 주소입니다.', 'error');
       },
     });
@@ -104,6 +105,8 @@ const InfoForm = () => {
       univ: selectedItem,
       email,
     }));
+
+    navigate('password');
   };
 
   return (
@@ -178,7 +181,7 @@ const InfoForm = () => {
           </Flex>
         )}
       </Flex>
-      <Button type="submit" variant="primary" size="large" disabled={!isVerified} onClick={() => navigate('password')}>
+      <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
         다음
       </Button>
     </form>
