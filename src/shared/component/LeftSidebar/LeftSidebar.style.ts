@@ -60,8 +60,4 @@ export const arrowStyle = css({
 export const settingStyle = css({
   position: 'absolute',
   bottom: '2.4rem',
-
-  display: 'flex',
-  gap: '1.2rem',
-  alignItems: 'center',
 });

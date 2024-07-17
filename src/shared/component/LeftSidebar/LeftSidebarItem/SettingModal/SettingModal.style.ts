@@ -4,12 +4,16 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = (isOpen: boolean) =>
   css({
+    position: 'fixed',
+    bottom: '1rem',
+    left: '7rem',
+
     display: `${isOpen ? '' : 'none'}`,
-    padding: '0.4rem 0.8rem',
-    gap: '0.4rem',
+
+    padding: '1rem 1.2rem',
 
     border: `1px solid ${theme.colors.gray_300}`,
-    borderRadius: '4px',
+    borderRadius: '10px',
 
     backgroundColor: theme.colors.gray_100,
 
@@ -23,12 +27,19 @@ export const contentStyle = css({
   alignItems: 'center',
   gap: '0.8rem',
 
+  width: '100%',
+  padding: '0.4rem',
+
   border: 'none',
+  borderRadius: '8px',
 
   backgroundColor: 'transparent',
+  ':hover': { backgroundColor: theme.colors.blue_100 },
 });
 
 export const textStyle = css({
-  fontSize: '1.2rem',
+  ...theme.text.body06,
+
+  fontWeight: 600,
   color: theme.colors.black,
 });
