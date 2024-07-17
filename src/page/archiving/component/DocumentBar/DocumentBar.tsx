@@ -19,7 +19,7 @@ type SelectedBlockProps = {
 };
 
 type DocumentBarProps = {
-  blockSelected?: SelectedBlockProps;
+  blockSelected: SelectedBlockProps;
 };
 
 const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTMLDivElement>) => {
