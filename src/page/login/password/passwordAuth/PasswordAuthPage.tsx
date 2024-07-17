@@ -1,4 +1,5 @@
 import { SUPPORTING_TEXT } from '@/page/login/constant';
+import { useInput } from '@/page/login/password/hook/useInput';
 import { useResendMailMutation } from '@/page/login/password/hook/useResendMailMutation';
 import useTimer from '@/page/login/password/hook/useTimer';
 import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
@@ -21,8 +22,8 @@ import { useToastStore } from '@/shared/store/toast';
 const PasswordAuthPage = () => {
   const [isMailSent, setIsMailSent] = useState(false);
   const [isVerifyCode, setIsVerifyCode] = useState(false);
-  const [email, setEmail] = useState('');
-  const [authCode, setAuthCode] = useState('');
+  const { value: email, onChange: onEmailChange } = useInput();
+  const { value: authCode, onChange: onAuthCodeChange } = useInput();
 
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ const PasswordAuthPage = () => {
                 label="회원 정보"
                 placeholder={PLACEHOLDER.SCHOOL_EMAIL}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={onEmailChange}
               />
               <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
                 인증 메일 발송
@@ -99,7 +100,7 @@ const PasswordAuthPage = () => {
                     label="인증 코드"
                     placeholder={PLACEHOLDER.AUTH_CODE}
                     value={authCode}
-                    onChange={(e) => setAuthCode(e.target.value)}
+                    onChange={onAuthCodeChange}
                   />
                   <span css={timestyle}>{formatTime(remainTime)}</span>
                   <Button
