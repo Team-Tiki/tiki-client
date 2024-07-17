@@ -1,5 +1,5 @@
 import { MonthType } from '@/page/archiving/index/type/monthType';
-import { getMonthDate } from '@/page/archiving/index/util/getMonthDate';
+import { getMonthDate } from '@/page/archiving/index/util/date';
 import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
