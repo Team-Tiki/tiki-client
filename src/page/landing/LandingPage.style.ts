@@ -89,11 +89,11 @@ export const firstImgWrapperStyle = css({
 
   position: 'sticky',
 
-  width: 'calc(100vw - 26.8rem)',
+  width: 'calc(100vw - 39rem)',
 
   margin: '0 auto',
 
-  aspectRatio: '2.37 / 1',
+  aspectRatio: '1.87 / 1',
 
   /** observe 시 스타일 적용 전 */
   opacity: 0,
