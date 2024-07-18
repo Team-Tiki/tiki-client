@@ -1,5 +1,5 @@
 import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
-import { validateEmail } from '@/page/login/password/util/validateInput';
+import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -126,6 +126,12 @@ const InfoForm = () => {
           label="학교"
           onSelect={onSelect}
           isOpen={isOpen}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              toggle();
+              onReset();
+            }
+          }}
           trigger={
             <button
               type="button"
@@ -166,7 +172,7 @@ const InfoForm = () => {
               placeholder={PLACEHOLDER.AUTH_CODE}
             />
             <span css={timeStyle}>{formatTime(remainTime)}</span>
-            <Button size="large" onClick={() => handleVerifyCode()}>
+            <Button size="large" onClick={() => handleVerifyCode()} disabled={!validateCode(authCode)}>
               인증하기
             </Button>
           </Flex>

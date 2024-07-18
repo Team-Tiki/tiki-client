@@ -13,6 +13,7 @@ import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
+import { useTeamStore } from '@/shared/store/team';
 
 import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
 
@@ -36,10 +37,14 @@ const SelectedBlock = ({
   onClickClose,
 }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
+
   const handleCloseClick = () => {
     onClickClose();
     closeModal;
   };
+
+  const { teamId } = useTeamStore();
+
   return (
     <Flex tag="section" css={containerStyle}>
       {ICON_TYPE.filter((icon) => icon.name === blockSelected.blockType).map((icon) => icon.icon)}
@@ -57,7 +62,7 @@ const SelectedBlock = ({
                 title="block"
                 detail="block"
                 onClose={handleCloseClick}
-                teamId={9}
+                teamId={+teamId}
                 id={blockSelected.timeBlockId}
               />
             )
