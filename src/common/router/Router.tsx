@@ -1,5 +1,5 @@
 import App from '@/App';
-import ArchivingPage from '@/page/archiving/ArchivingPage';
+import ArchivingPage from '@/page/archiving/index/ArchivingPage';
 import LandingPage from '@/page/landing/LandingPage';
 import LoginPage from '@/page/login/index/LoginPage';
 import PasswordAuthPage from '@/page/login/password/passwordAuth/PasswordAuthPage';
