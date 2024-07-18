@@ -9,7 +9,9 @@ export const useVerifyCodeMutation = (email: string, code: string) => {
   const verifyCodeMutation = useMutation({
     mutationKey: ['verifyCode', email, code],
     mutationFn: () => checkAuthCode(email, code),
-
+    onSuccess: () => {
+      createToast('인증이 완료되었습니다.', 'success');
+    },
     onError: () => {
       createToast('인증번호가 일치하지 않습니다.', 'error');
     },

@@ -63,8 +63,9 @@ const LeftSidebar = () => {
 
     if (isComplete) {
       postTeamMutate(postData, {
-        onSuccess: () => {
+        onSuccess: async () => {
           refetch();
+          setIsComplete(false);
         },
       });
     }
@@ -72,8 +73,11 @@ const LeftSidebar = () => {
   }, [isComplete]);
 
   const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
-  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} />);
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete isComplete={setIsComplete} />);
+  const handleNext2 = () =>
+    setCurrentContent(
+      <WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} isComplete={setIsComplete} />
+    );
+  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
 
   const handleShowcaseClick = () => {
     setClicked('showcase');

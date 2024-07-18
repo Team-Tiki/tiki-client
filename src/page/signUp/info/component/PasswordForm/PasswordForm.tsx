@@ -68,7 +68,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
           placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
         />
       </Flex>
-      <Button type="submit" variant="primary" size="large" disabled={password !== passwordChecker}>
+      <Button type="submit" variant="primary" size="large" disabled={!!(passwordError || checkerError)}>
         다음
       </Button>
     </form>
