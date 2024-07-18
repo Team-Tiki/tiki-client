@@ -1,8 +1,8 @@
 export const PATH = {
   ROOT: '/',
-  LOGIN: '/login',
+  LANDING: '/',
 
-  LANDING: '/landing',
+  LOGIN: '/login',
 
   SIGNUP: '/signup',
   SIGNUP_INFO: '/signup/info',
@@ -12,8 +12,7 @@ export const PATH = {
   PASSWORD_RESET: '/password/reset',
 
   ARCHIVING: '/archiving',
+  SHOWCASE: '/showcase',
 
   COMING_SOON: '/comingsoon',
-
-  SHOWCASE: '/',
 } as const;
