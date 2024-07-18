@@ -1,5 +1,5 @@
-import { useDeleteBlockMutation } from '@/page/archiving/hook/api/useDeleteBlockMutaion';
-import { useDeleteDocumentMutation } from '@/page/archiving/hook/api/useDeleteDocumentMutation';
+import { useDeleteBlockMutation } from '@/page/archiving/index/hook/api/useDeleteBlockMutaion';
+import { useDeleteDocumentMutation } from '@/page/archiving/index/hook/api/useDeleteDocumentMutation';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';

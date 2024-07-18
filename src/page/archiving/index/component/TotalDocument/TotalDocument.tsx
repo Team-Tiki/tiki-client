@@ -16,7 +16,7 @@ import Input from '@/common/component/Input/Input';
 interface DocumentBarToolProps {
   onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
   searchWord: string;
-  documentList?: DocumentType[];
+  documentList: DocumentType[];
   selectedId: string;
 }
 

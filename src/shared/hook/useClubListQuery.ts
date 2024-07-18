@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getClubInfo } from '@/shared/api/teams';
 import { TeamsInfo } from '@/shared/api/teams/type';

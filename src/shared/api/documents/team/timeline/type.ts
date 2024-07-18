@@ -1,4 +1,4 @@
-import { DocumentType } from '@/page/archiving/type/documentType';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 export interface TotalDocumentList {
   success: boolean;
