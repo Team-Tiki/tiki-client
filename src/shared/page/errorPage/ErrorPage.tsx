@@ -7,35 +7,39 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-const ErrorPage = () => {
+import { HTTP_ERROR_MESSAGE, HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { pageStyle, viewStyle } from '@/shared/page/errorPage/ErrorPage.style';
+
+interface ErrorPageProps {
+  statusCode?: number;
+  resetError?: () => void;
+}
+
+const ErrorPage = ({ statusCode = HTTP_STATUS_CODE.NOT_FOUND, resetError }: ErrorPageProps) => {
+  const isHTTPError =
+    statusCode === HTTP_STATUS_CODE.BAD_REQUEST || HTTP_STATUS_CODE.NOT_FOUND || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR;
+
   const navigate = useNavigate();
+
+  if (!isHTTPError) return null;
+
   return (
-    <Flex
-      tag="section"
-      styles={{
-        direction: 'column',
-        align: 'center',
-        justify: 'space-around',
-        height: '100vh',
-        gap: '1.2rem',
-        padding: '15rem 52.3rem',
-      }}
-      css={{ backgroundColor: theme.colors.white }}>
-      <img src={errorImg} alt="error character" />
-      <Heading tag="H3" css={{ fontWeight: '600', whiteSpace: 'nowrap' }}>
-        오류가 발생했어요
-      </Heading>
-      <Text tag="body3" css={{ color: theme.colors.gray_700, whiteSpace: 'nowrap' }}>
-        잠시후에 다시 시도해주세요
-      </Text>
-      <Button
-        variant="action"
-        onClick={() => {
-          navigate(-1);
-        }}>
-        돌아가기
-      </Button>
-    </Flex>
+    <section css={viewStyle}>
+      <div css={pageStyle}>
+        <img src={errorImg} alt="error character" />
+        <Flex styles={{ direction: 'column', align: 'center', gap: '1.2rem' }}>
+          <Heading tag="H3" css={{ fontWeight: '600', whiteSpace: 'nowrap' }}>
+            {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].HEADING}
+          </Heading>
+          <Text tag="body3" css={{ color: theme.colors.gray_700, whiteSpace: 'nowrap' }}>
+            {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].TEXT}
+          </Text>
+        </Flex>
+        <Button variant="action" onClick={resetError ?? (() => navigate(-1))}>
+          {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].REDIRECT}
+        </Button>
+      </div>
+    </section>
   );
 };
 

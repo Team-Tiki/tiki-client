@@ -9,9 +9,12 @@ import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
+import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
 interface UploadModalProps {
@@ -23,7 +26,7 @@ interface UploadModalProps {
 
 const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [fileUrls, setFileUrls] = useState<Map<string, string>>(new Map());
+  const [fileUrls, setFileUrls] = useState<Files>({});
 
   const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
@@ -41,23 +44,23 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
       fileDeleteMutate({ fileName: fileToDelete.name });
       setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
       setFileUrls((prevUrls) => {
-        const newUrls = new Map(prevUrls);
-        newUrls.delete(fileName);
+        const newUrls = { ...prevUrls };
+        delete newUrls[fileName];
         return newUrls;
       });
     }
   };
 
-  const handleSave = () => {
-    const data = {
-      name: blockData.blockName,
-      color: getRandomColor(),
-      startDate: formatDatePost(blockData.dates.startDate),
-      endDate: formatDatePost(blockData.dates.endDate),
-      blockType: blockData.blockType,
-      files: fileUrls,
-    };
+  const data = {
+    name: blockData.blockName,
+    color: getRandomColor(),
+    startDate: formatDatePost(blockData.dates.startDate),
+    endDate: formatDatePost(blockData.dates.endDate),
+    blockType: blockData.blockType,
+    files: fileUrls,
+  };
 
+  const handleSave = () => {
     timeBlockMutate(data, {
       onSuccess: () => {
         onClose();

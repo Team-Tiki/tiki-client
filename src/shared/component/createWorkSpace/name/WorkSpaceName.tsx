@@ -13,10 +13,17 @@ import {
 
 interface WorkSpaceNameProps {
   onNext: () => void;
+  setName: (name: string) => void;
 }
 
-const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
+const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
   const [inputValue, setInputValue] = useState('');
+
+  const handleNext = () => {
+    setName(inputValue);
+
+    onNext();
+  };
 
   const isButtonActive = inputValue.trim().length > 0;
 
@@ -27,7 +34,7 @@ const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="name" title="새로운 워크 스페이스 생성하기" info="워크스페이스의 이름을 입력해주세요." />
-      <div css={{ marginTop: '2.4rem', width: '32rem' }}>
+      <article css={{ marginTop: '2.4rem', width: '32rem' }}>
         <Input
           variant="default"
           size="large"
@@ -36,13 +43,13 @@ const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
           onChange={handleInputChange}
           css={inputWrapperStyle}
         />
-      </div>
+      </article>
       <Button
         variant="primary"
         size="medium"
         css={buttonStyle(isButtonActive)}
         disabled={!isButtonActive}
-        onClick={onNext}>
+        onClick={handleNext}>
         다음
       </Button>
     </Flex>
