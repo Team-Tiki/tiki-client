@@ -14,9 +14,3 @@ export interface TimeBlockList {
     timeBlocks: Block[];
   };
 }
-
-export interface TotalDocumentType {
-  documenyId: number;
-  fileName: string;
-  fileUrl: string;
-}

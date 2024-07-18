@@ -8,10 +8,12 @@ export const containerStyle = (blockSelected: string) =>
 
     top: '0',
     right: '0',
-    zIndex: theme.zIndex.overlayTop,
+    zIndex: theme.zIndex.overlayMiddle,
 
     width: blockSelected ? '28rem' : 0,
     height: 'calc(100vh - 0.8rem);',
+
+    marginLeft: '6rem',
 
     borderRadius: '16px',
 

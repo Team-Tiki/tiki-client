@@ -1,8 +1,9 @@
+import { Block } from '@/page/archiving/index/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const headerStyle = () =>
+export const headerStyle = (blockSelected?: Block) =>
   css({
     display: 'flex',
 
@@ -12,6 +13,8 @@ export const headerStyle = () =>
     borderRadius: '8px',
 
     padding: '0.4rem',
+
+    gap: blockSelected ? '2.4rem' : '4.4rem',
     transition: 'all 0.4s ease-in-out',
     backgroundColor: theme.colors.white,
   });
