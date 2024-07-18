@@ -18,8 +18,19 @@ import { useOutsideClick } from '@/common/hook';
 import { useGetTimeBlockQuery } from '@/shared/hook/archiving/useGetTimeBlockQuery';
 
 const ArchivingPage = () => {
+  const [selectedId, setSelectedId] = useState('selected');
+
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
+  };
+
+  const handleSelectedId = (Id: string) => {
+    setSelectedId(Id);
+  };
+
+  const handleBlockClick = (block: Block) => {
+    setBlockSelected(block);
+    setSelectedId('selected');
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
@@ -32,6 +43,7 @@ const ArchivingPage = () => {
     'executive',
     `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
   );
+
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
@@ -75,9 +87,7 @@ const ArchivingPage = () => {
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
                   blockType={block.blockType}
-                  onBlockClick={() => {
-                    setBlockSelected(block);
-                  }}>
+                  onBlockClick={() => handleBlockClick(block)}>
                   {block.name}
                 </TimeBlock>
               ))}
@@ -90,7 +100,12 @@ const ArchivingPage = () => {
           </Button>
         </Flex>
       </section>
-      <DocumentBar blockSelected={blockSelected} ref={sideBarRef} />
+      <DocumentBar
+        blockSelected={blockSelected}
+        ref={sideBarRef}
+        selectedId={selectedId}
+        handleSelectedId={handleSelectedId}
+      />
     </Flex>
   );
 };

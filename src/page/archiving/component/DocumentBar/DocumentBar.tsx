@@ -14,15 +14,20 @@ import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
 
 type DocumentBarProps = {
   blockSelected?: Block;
+  selectedId: string;
+  handleSelectedId: (Id: string) => void;
 };
 
-const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTMLDivElement>) => {
-  const [selectedId, setSelectedId] = useState('selected');
+const DocumentBar = (
+  { blockSelected, selectedId, handleSelectedId }: DocumentBarProps,
+  ref: ForwardedRef<HTMLDivElement>
+) => {
+  // const [selectedId, setSelectedId] = useState('selected');
   const [searchWord, setSearchWord] = useState('');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
     if (tabId !== selectedId) {
-      setSelectedId(tabId);
+      handleSelectedId(tabId);
     }
   };
 
