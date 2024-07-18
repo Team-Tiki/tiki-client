@@ -49,8 +49,8 @@ interface ArrowProps {
   onClick?: () => void;
 }
 
-const NextArrow = (props: ArrowProps) => {
-  const { onClick } = props;
+const NextArrow = ({ onClick }: ArrowProps) => {
+  //const { onClick } = props;
   return (
     <button type="button" onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
       <RightArrow width="1.6rem" height="1.6rem" />
@@ -58,8 +58,8 @@ const NextArrow = (props: ArrowProps) => {
   );
 };
 
-const PrevArrow = (props: ArrowProps) => {
-  const { onClick } = props;
+const PrevArrow = ({ onClick }: ArrowProps) => {
+  //const { onClick } = props;
   return (
     <button type="button" onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
       <LeftArrow width="1.6rem" height="1.6rem" />

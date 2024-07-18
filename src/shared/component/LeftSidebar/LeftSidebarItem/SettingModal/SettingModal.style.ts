@@ -32,10 +32,9 @@ export const contentStyle = css({
   width: '100%',
   padding: '0.8rem',
 
-  border: 'none',
   borderRadius: '8px',
 
-  backgroundColor: 'transparent',
+  cursor: 'pointer',
 
   ':hover': {
     backgroundColor: theme.colors.blue_100,

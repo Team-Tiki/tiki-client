@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -17,27 +19,29 @@ import {
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
-interface SettingModalProps extends HTMLAttributes<HTMLDivElement> {
-  setOpen: boolean;
+interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
+  isOpen: boolean;
   setState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SettingModal = ({ setOpen, setState, ...props }: SettingModalProps) => {
-  const { isOpen, close, open } = useOverlay();
-  const settingRef = useOutsideClick(close);
+const SettingModal = ({ isOpen, setState, ...props }: SettingModalProps) => {
+  const { isOpen: isModalOpen, close, open } = useOverlay();
+  const settingRef = useOutsideClick<HTMLUListElement>(close);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (setOpen) {
+    if (isOpen) {
       open();
       setState(false);
     }
-  }, [open, setOpen, setState]);
+  }, [open, isOpen, setState]);
 
   return (
-    <div ref={settingRef} css={containerStyle(isOpen)} {...props}>
-      <button
+    <ul ref={settingRef} css={containerStyle(isModalOpen)} {...props}>
+      <li
+        role="button"
+        tabIndex={0}
         css={contentStyle}
         onClick={() => {
           localStorage.removeItem(ACCESS_TOKEN_KEY);
@@ -48,9 +52,10 @@ const SettingModal = ({ setOpen, setState, ...props }: SettingModalProps) => {
         <Text tag="body6" css={textStyle}>
           로그아웃
         </Text>
-      </button>
-
-      <button
+      </li>
+      <li
+        role="button"
+        tabIndex={0}
         css={contentStyle}
         onClick={() => {
           navigate(PATH.PASSWORD_AUTH);
@@ -60,8 +65,8 @@ const SettingModal = ({ setOpen, setState, ...props }: SettingModalProps) => {
         <Text tag="body6" css={textStyle}>
           비밀번호 재설정
         </Text>
-      </button>
-    </div>
+      </li>
+    </ul>
   );
 };
 

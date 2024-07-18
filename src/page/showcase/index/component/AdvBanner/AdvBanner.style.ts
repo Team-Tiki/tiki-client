@@ -55,7 +55,9 @@ export const contentStyle = css({
 });
 
 export const buttonStyle = css({
-  padding: '1rem 7.65rem',
+  padding: '1.2rem 7.65rem',
 
   borderRadius: '1.4rem',
+
+  //text 양옆 공백 없애기
 });

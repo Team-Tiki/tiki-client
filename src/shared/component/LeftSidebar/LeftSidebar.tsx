@@ -45,6 +45,29 @@ const LeftSidebar = () => {
   const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} />);
   const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
 
+  const handleShowcaseClick = () => {
+    setClicked('showcase');
+    navigate('');
+    close();
+  };
+
+  const handleTeamClick = (teamName: string) => {
+    setClicked(teamName);
+    navigate('/archiving');
+    close();
+  };
+
+  const handleWorkspaceClick = () => {
+    setClicked('createWorkspace');
+    openModal(<WorkSpaceName onNext={handleNext1} />);
+    close();
+  };
+
+  const handleSettingClick = () => {
+    setIsSetting(true);
+    close();
+  };
+
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <aside css={containerStyle(isNavOpen)} ref={sidebarRef} onClick={(e) => e.stopPropagation()}>
@@ -56,11 +79,7 @@ const LeftSidebar = () => {
             isClicked={clicked === 'showcase'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/earth.svg"
-            onClick={() => {
-              setClicked('showcase');
-              navigate('');
-              close();
-            }}>
+            onClick={handleShowcaseClick}>
             Showcase
           </LeftSidebarItem>
           {data?.data.belongTeamGetResponses.map((data: Team) => {
@@ -71,9 +90,7 @@ const LeftSidebar = () => {
                 isExpansion={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
-                  setClicked(data.name);
-                  navigate('/archiving');
-                  close();
+                  handleTeamClick(data.name);
                 }}>
                 {data.name}
               </LeftSidebarItem>
@@ -83,11 +100,7 @@ const LeftSidebar = () => {
             isClicked={clicked === 'createWorkspace'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
-            onClick={() => {
-              setClicked('createWorkspace');
-              openModal(<WorkSpaceName onNext={handleNext1} />);
-              close();
-            }}>
+            onClick={handleWorkspaceClick}>
             워크스페이스 생성
           </LeftSidebarItem>
         </ul>
@@ -97,13 +110,10 @@ const LeftSidebar = () => {
           isClicked={false}
           isExpansion={isNavOpen}
           url={'src/common/asset/svg/settings.svg'}
-          onClick={() => {
-            setIsSetting(true);
-            close();
-          }}>
+          onClick={handleSettingClick}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal setOpen={isSetting} setState={setIsSetting} />
+        <SettingModal isOpen={isSetting} setState={setIsSetting} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
