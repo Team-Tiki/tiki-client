@@ -90,6 +90,7 @@ export const firstImgWrapperStyle = css({
   position: 'sticky',
 
   width: 'calc(100vw - 39rem)',
+  minWidth: '40rem',
 
   margin: '0 auto',
 
