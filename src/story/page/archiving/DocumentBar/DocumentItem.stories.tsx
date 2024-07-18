@@ -10,6 +10,8 @@ const meta = {
   args: {
     children: '6월 회의록(1).word',
     selectedId: 'total',
+    documentId: 1,
+    fileUrl: '',
   },
   argTypes: {
     children: {

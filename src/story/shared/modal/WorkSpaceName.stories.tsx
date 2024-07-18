@@ -8,6 +8,9 @@ const meta = {
 
   args: {
     onNext: () => {},
+    setName: (name: string) => {
+      name;
+    },
   },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceName>;

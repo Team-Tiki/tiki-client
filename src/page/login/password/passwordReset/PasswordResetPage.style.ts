@@ -3,10 +3,10 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const pageStyle = css({
+  flexDirection: 'column',
+
   height: '78rem',
   width: '51.1rem',
-
-  flexDirection: 'column',
 
   whiteSpace: 'nowrap',
 });
@@ -23,7 +23,7 @@ export const formStyle = css({
   margin: '0 auto',
 
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
 });
 
 export const timestyle = css({

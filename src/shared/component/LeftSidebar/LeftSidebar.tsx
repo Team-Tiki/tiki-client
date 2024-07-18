@@ -53,13 +53,13 @@ const LeftSidebar = () => {
 
   const { setTeamId } = useTeamStore();
 
-  const postData = {
-    name: name,
-    category: category,
-    iconImageUrl: fileUrlData,
-  };
-
   useEffect(() => {
+    const postData = {
+      name: name,
+      category: category,
+      iconImageUrl: fileUrlData,
+    };
+
     if (isComplete) {
       postTeamMutate(postData, {
         onSuccess: () => {

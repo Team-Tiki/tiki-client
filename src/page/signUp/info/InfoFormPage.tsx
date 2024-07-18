@@ -29,11 +29,10 @@ const InfoFormPage = () => {
     passwordChecker: '',
   });
   const [isCompleted, setIsCompleted] = useState(false);
-  const { createToast } = useToastStore();
 
   const { mutate } = useSignupMutation();
   const navigate = useNavigate();
-
+  const { createToast } = useToastStore();
   const isInfoMatched = useMatch('/signup/info');
   const isPasswordMatched = useMatch('/signup/info/password');
 

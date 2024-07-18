@@ -1,7 +1,9 @@
-import { formStyle, pageStyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
+import { useResetPasswordMutation } from '@/page/login/password/hook/api/useResetPasswordMutation';
+import { formStyle, pageStyle } from '@/page/login/password/passwordReset/PasswordResetPage.style';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
 
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -11,6 +13,9 @@ import Input from '@/common/component/Input/Input';
 const PasswordResetPage = () => {
   const [updatePassword, setUpdatePassword] = useState('');
   const [updatePasswordConfirm, setUpdatePasswordConfirm] = useState('');
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { mutate } = useResetPasswordMutation();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatePassword(e.target.value);
@@ -20,11 +25,28 @@ const PasswordResetPage = () => {
     setUpdatePasswordConfirm(e.target.value);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    mutate(
+      {
+        email: state,
+        password: updatePassword,
+        passwordChecker: updatePasswordConfirm,
+      },
+      {
+        onSuccess: () => {
+          navigate('/login');
+        },
+      }
+    );
+  };
+
   return (
     <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <Flex tag="section" css={pageStyle}>
         <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
-        <form css={formStyle}>
+        <form css={formStyle} onSubmit={handleSubmit}>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
             <Input
               variant="underline"

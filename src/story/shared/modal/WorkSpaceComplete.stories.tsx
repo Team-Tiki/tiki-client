@@ -6,7 +6,11 @@ const meta = {
   title: 'page/Modal/WorkSpace',
   component: WorkSpaceComplete,
 
-  args: {},
+  args: {
+    isComplete: (isComplete: boolean) => {
+      isComplete;
+    },
+  },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceComplete>;
 
