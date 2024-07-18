@@ -1,3 +1,5 @@
+import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
+import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
@@ -13,7 +15,8 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { useOutsideClick } from '@/common/hook';
+import Modal from '@/common/component/Modal/Modal';
+import { useModal, useOutsideClick } from '@/common/hook';
 
 import { useGetTimeBlockQuery } from '@/shared/hook/archiving/useGetTimeBlockQuery';
 
@@ -24,8 +27,8 @@ const ArchivingPage = () => {
     blockSelected && setBlockSelected(undefined);
   };
 
-  const handleSelectedId = (Id: string) => {
-    setSelectedId(Id);
+  const handleSelectedId = (id: string) => {
+    setSelectedId(id);
   };
 
   const handleBlockClick = (block: Block) => {
@@ -46,6 +49,19 @@ const ArchivingPage = () => {
 
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
+
+  // 블록 생성 모달 관련 코드
+  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+
+  const handleNext = (blockData: {
+    blockName: string;
+    blockType: string;
+    dates: { startDate: string; endDate: string };
+  }) => {
+    const teamId = 6;
+    const type = 'executive';
+    setCurrentContent(<UploadModal onClose={closeModal} teamId={teamId} type={type} blockData={blockData} />);
+  };
 
   return (
     <Flex
@@ -94,18 +110,19 @@ const ArchivingPage = () => {
           </div>
         </Flex>
         <Flex css={{ marginLeft: 'auto' }}>
-          <Button variant="action" css={buttonStyle} onClick={() => alert('모달')}>
+          <Button variant="action" css={buttonStyle} onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
             <AddIc width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
+      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       <DocumentBar
         blockSelected={blockSelected}
         ref={sideBarRef}
         selectedId={selectedId}
         handleSelectedId={handleSelectedId}
-        handleClose={handleClose}
+        onClickClose={handleClose}
       />
     </Flex>
   );

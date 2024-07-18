@@ -23,7 +23,7 @@ interface DocumentBarInfoProps {
   endDate: string;
   documentList?: DocumentType[];
   blockSelected: Block;
-  handleClose: () => void;
+  onClickClose: () => void;
 }
 
 const SelectedBlock = ({
@@ -33,11 +33,11 @@ const SelectedBlock = ({
   endDate,
   documentList,
   blockSelected,
-  handleClose,
+  onClickClose,
 }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
   const handleCloseClick = () => {
-    handleClose();
+    onClickClose();
     closeModal;
   };
   return (

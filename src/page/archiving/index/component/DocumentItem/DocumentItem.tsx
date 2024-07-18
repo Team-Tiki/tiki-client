@@ -44,11 +44,9 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
       <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
         {color && (
-          <div>
-            <Text tag="body8" css={blockNameTextStyle(color)}>
-              {blockName}
-            </Text>
-          </div>
+          <Text tag="body8" css={blockNameTextStyle(color)}>
+            {blockName}
+          </Text>
         )}
         <Flex>
           <Text tag="body6" css={fileNameStyle}>
@@ -59,7 +57,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
             width={20}
             height={20}
             onClick={(e) => handleTrashClick(e)}
-            css={{ zIndex: theme.zIndex.overlayMiddle }}
+            css={{ zIndex: theme.zIndex.overlayMiddle, cursor: 'pointer' }}
           />
         </Flex>
       </li>

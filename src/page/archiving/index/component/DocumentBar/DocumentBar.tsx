@@ -16,11 +16,11 @@ type DocumentBarProps = {
   blockSelected?: Block;
   selectedId: string;
   handleSelectedId: (Id: string) => void;
-  handleClose: () => void;
+  onClickClose: () => void;
 };
 
 const DocumentBar = (
-  { blockSelected, selectedId, handleSelectedId, handleClose }: DocumentBarProps,
+  { blockSelected, selectedId, handleSelectedId, onClickClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   const [searchWord, setSearchWord] = useState('');
@@ -50,7 +50,7 @@ const DocumentBar = (
               endDate={formattingDate(blockSelected.endDate)}
               documentList={blockData?.data.documents}
               blockSelected={blockSelected}
-              handleClose={handleClose}
+              onClickClose={onClickClose}
             />
           )
         : documentData && (
