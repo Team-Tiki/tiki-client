@@ -7,7 +7,7 @@ import {
 } from '@/page/archiving/component/TotalDocument/TotalDocument.style';
 import { DocumentType } from '@/page/archiving/type/documentType';
 
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -21,13 +21,16 @@ interface DocumentBarToolProps {
 }
 
 const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: DocumentBarToolProps) => {
-  const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
+  const [selected, setSelected] = useState('최근 업로드 순');
+  const filteredDocuments = useRef<DocumentType[]>(documentList);
 
-  let documents;
-
-  const handleReverseDocuments = (selected: string) => {
-    documents = selected === '최근 업로드 순' ? filteredDocuments : filteredDocuments.reverse();
+  const handleSelected = (option: string) => {
+    setSelected(option);
   };
+
+  useEffect(() => {
+    filteredDocuments.current = filteredDocuments.current?.filter((document) => document.fileName.includes(searchWord));
+  }, [searchWord]);
 
   return (
     <Flex tag={'section'} css={containerStyle}>
@@ -40,21 +43,23 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
           value={searchWord}
           onChange={onSearchWord}
         />
-        <DocumentSort filteredDocuments={filteredDocuments} onReverseDocuments={handleReverseDocuments} />
+        <DocumentSort selected={selected} onSelected={handleSelected} />
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
-        {filteredDocuments?.map((data: DocumentType) => (
-          <DocumentItem
-            key={data.documentId}
-            documentId={data.documentId || 1}
-            selectedId={selectedId}
-            blockName={data.blockName}
-            fileUrl={data.fileUrl}
-            color={data.color}>
-            {data.fileName}
-          </DocumentItem>
-        ))}
+        {(selected === '최근 업로드 순' ? filteredDocuments.current : [...filteredDocuments.current].reverse())?.map(
+          (data: DocumentType) => (
+            <DocumentItem
+              key={data.documentId}
+              documentId={data.documentId || 1}
+              selectedId={selectedId}
+              blockName={data.blockName}
+              fileUrl={data.fileUrl}
+              color={data.color}>
+              {data.fileName}
+            </DocumentItem>
+          )
+        )}
       </Flex>
     </Flex>
   );
