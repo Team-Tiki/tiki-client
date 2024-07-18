@@ -5,11 +5,11 @@ import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
 interface WorkSpaceCompleteProps {
-  isComplete: (isComplete: boolean) => void;
+  //isComplete: (isComplete: boolean) => void;
 }
 
-const WorkSpaceComplete = ({ isComplete }: WorkSpaceCompleteProps) => {
-  isComplete(true);
+const WorkSpaceComplete = () => {
+  //isComplete(true);
   return (
     <Flex
       tag={'section'}
