@@ -7,7 +7,7 @@ import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -25,27 +25,46 @@ interface UploadModalProps {
 const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
+  const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
+  const [isAllUploaded, setIsAllUploaded] = useState(true);
 
   const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
+
+  useEffect(() => {
+    const allUploaded = files.length > 0 && Object.values(uploadStatus).every((status) => status);
+    setIsAllUploaded(allUploaded);
+  }, [uploadStatus, files.length]);
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles((prevFiles) => {
       const uniqueNewFiles = newFiles.filter((newFile) => !prevFiles.some((file) => file.name === newFile.name));
       return [...prevFiles, ...uniqueNewFiles];
     });
+    setIsAllUploaded(false); // 파일이 추가될 때마다 저장 버튼을 비활성화합니다.
   };
 
   const handleDelete = (fileName: string) => {
     const fileToDelete = files.find((file) => file.name === fileName);
     if (fileToDelete) {
-      fileDeleteMutate({ fileName: fileToDelete.name });
-      setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-      setFileUrls((prevUrls) => {
-        const newUrls = { ...prevUrls };
-        delete newUrls[fileName];
-        return newUrls;
-      });
+      fileDeleteMutate(
+        { fileName: fileToDelete.name },
+        {
+          onSuccess: () => {
+            setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+            setFileUrls((prevUrls) => {
+              const newUrls = { ...prevUrls };
+              delete newUrls[fileName];
+              return newUrls;
+            });
+            setUploadStatus((prevStatus) => {
+              const newStatus = { ...prevStatus };
+              delete newStatus[fileName];
+              return newStatus;
+            });
+          },
+        }
+      );
     }
   };
 
@@ -77,14 +96,24 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
           width: '100%',
           gap: '2.4rem',
         }}>
-        <BlockAdd files={files} onFilesChange={handleFilesChange} setFileUrls={setFileUrls} />
+        <BlockAdd
+          files={files}
+          onFilesChange={handleFilesChange}
+          setFileUrls={setFileUrls}
+          setUploadStatus={setUploadStatus}
+        />
         <div className="scroll" css={scrollStyle}>
           {files.map((file) => (
-            <BlockItem key={file.lastModified} title={file.name} onDelete={() => handleDelete(file.name)} />
+            <BlockItem
+              key={file.lastModified}
+              title={file.name}
+              onDelete={() => handleDelete(file.name)}
+              isUploading={!uploadStatus[file.name]}
+            />
           ))}
         </div>
       </Flex>
-      <Button variant="primary" size="medium" css={{ width: '32rem' }} onClick={handleSave}>
+      <Button variant="primary" size="medium" css={{ width: '32rem' }} onClick={handleSave} disabled={!isAllUploaded}>
         저장
       </Button>
     </Flex>

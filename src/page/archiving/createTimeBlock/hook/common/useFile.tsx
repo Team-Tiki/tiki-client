@@ -10,9 +10,10 @@ interface useFileProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
   setFileUrls: React.Dispatch<React.SetStateAction<Files>>;
+  setUploadStatus: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
 }
 
-const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
+const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFileProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { mutateAsync: uploadToS3 } = usePutUploadMutation();
 
@@ -23,6 +24,7 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
       onFilesChange([...files, ...fileArray]);
 
       const fileUrlMap: Files = {};
+      const newUploadStatus: { [key: string]: boolean } = {};
 
       for (let index = 0; index < fileArray.length; index++) {
         const file = fileArray[index];
@@ -31,19 +33,30 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
 
         const fileData = await getFile(fileExtension);
         const fileName = file.name;
+        newUploadStatus[fileName] = false; // 업로드 시작
+        setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
 
         const presignedUrl = fileData?.url;
         if (file && presignedUrl) {
-          const uploadedFileUrl = await uploadToS3({ presignedUrl, file });
+          const uploadedFileUrl = await uploadToS3(
+            { presignedUrl, file },
+            {
+              onSuccess: () => {
+                console.log('파일 업로드 성공');
+              },
+            }
+          );
           if (uploadedFileUrl) {
             fileUrlMap[fileName] = uploadedFileUrl;
+            newUploadStatus[fileName] = true; // 업로드 성공
           }
         }
       }
 
       setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
+      setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
     },
-    [files, onFilesChange, uploadToS3, setFileUrls]
+    [files, onFilesChange, uploadToS3, setFileUrls, setUploadStatus]
   );
 
   const handleFileChange = useCallback(
@@ -65,20 +78,11 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
     [handleFiles]
   );
 
-  const handleFileDelete = useCallback(
-    (index: number) => {
-      const newFiles = files.filter((_, i) => i !== index);
-      onFilesChange(newFiles);
-    },
-    [files, onFilesChange]
-  );
-
   return {
     fileInputRef,
     handleFileChange,
     handleDragOver,
     handleDrop,
-    handleFileDelete,
   };
 };
 
