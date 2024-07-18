@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-import React, { HTMLAttributes, useEffect, useState } from 'react';
+import React, { HTMLAttributes, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logout from '@/common/asset/svg/logout.svg?react';
