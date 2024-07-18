@@ -32,7 +32,7 @@ const ArchivingPage = () => {
     useDate();
   const [blockSelected, setBlockSelected] = useState<Block>();
   const { data } = useGetTimeBlockQuery(
-    Number(7),
+    Number(6),
     'executive',
     `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
@@ -26,12 +26,14 @@ import { DEFAULT_LOGO } from '@/shared/constant';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { Team } from '@/shared/type/team';
 
+import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
+
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
 
-  const { data } = useClubInfoQuery();
+  const { data, refetch } = useClubInfoQuery();
 
   const navigate = useNavigate();
 
@@ -40,10 +42,32 @@ const LeftSidebar = () => {
 
   // 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [fileUrlData, setFileUrlData] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
 
-  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} />);
-  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} />);
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
+  const { mutateAsync: postTeamMutate } = usePostTeamMutation();
+
+  const postData = {
+    name: name,
+    category: category,
+    iconImageUrl: fileUrlData,
+  };
+
+  useEffect(() => {
+    if (isComplete) {
+      postTeamMutate(postData, {
+        onSuccess: () => {
+          refetch();
+        },
+      });
+    }
+  }, [isComplete]);
+
+  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
+  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} />);
+  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete isComplete={setIsComplete} />);
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
@@ -59,7 +83,7 @@ const LeftSidebar = () => {
 
   const handleWorkspaceClick = () => {
     setClicked('createWorkspace');
-    openModal(<WorkSpaceName onNext={handleNext1} />);
+    openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
     close();
   };
 
