@@ -32,8 +32,6 @@ export const logoBoxStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
 
-  padding: '1.2rem',
-
   borderRadius: '10px',
 });
 
@@ -58,6 +56,8 @@ export const textStyle = (isExpansion: boolean) =>
 export const imgStyle = css({
   objectFit: 'cover',
 
-  width: '1.6rem',
-  height: '1.6rem',
+  width: '4rem',
+  height: '4rem',
+
+  borderRadius: '10px',
 });

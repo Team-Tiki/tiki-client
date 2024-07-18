@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import addUrl from '@/common/asset/svg/add.svg';
+import addUrl from '@/common/asset/svg/add_2.svg';
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
-import earthUrl from '@/common/asset/svg/earth.svg';
+import earthUrl from '@/common/asset/svg/global_2.svg';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
-import settingUrl from '@/common/asset/svg/settings.svg';
+import settingUrl from '@/common/asset/svg/setting.svg';
 import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
