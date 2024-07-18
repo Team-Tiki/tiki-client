@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <ShowcasePage /> },
+      { path: PATH.SHOWCASE, element: <ShowcasePage /> },
       { path: PATH.ARCHIVING, element: <ArchivingPage /> },
     ],
   },
