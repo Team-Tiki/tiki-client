@@ -7,16 +7,14 @@ import {
   timeStyle,
 } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
-import { useDateInput } from '@/page/signUp/info/hook/useDateInput';
-import { useSelect } from '@/page/signUp/info/hook/useSelect';
-import { useSendMailMutation } from '@/page/signUp/info/hook/useSendMailMutation';
-import { useTimer } from '@/page/signUp/info/hook/useTimer';
+import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
+import { useDateInput } from '@/page/signUp/info/hook/common/useDateInput';
+import { useSelect } from '@/page/signUp/info/hook/common/useSelect';
+import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { isAxiosError } from 'axios';
 
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
@@ -26,8 +24,6 @@ import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
-
-import { useToastStore } from '@/shared/store/toast';
 
 const InfoForm = () => {
   const { isOpen, close, toggle } = useOverlay();
@@ -55,17 +51,11 @@ const InfoForm = () => {
   const [isVerified, setIsVerified] = useState(false);
   const mutate = useSendMailMutation(email, handleSend);
   const { mutate: verifyCode } = useVerifyCodeMutation(email, authCode);
-  const { createToast } = useToastStore();
 
   const handleMailSend = () => {
     mutate(undefined, {
       onSuccess: () => {
         handleSend();
-      },
-      onError: (error) => {
-        if (isAxiosError<{ message: string }>(error)) {
-          createToast(`${error.response?.data.message}`, 'error');
-        }
       },
     });
   };
@@ -74,11 +64,6 @@ const InfoForm = () => {
     verifyCode(undefined, {
       onSuccess: () => {
         setIsVerified(true);
-      },
-      onError: (error) => {
-        if (isAxiosError<{ message: string }>(error)) {
-          createToast(`${error.response?.data.message}`, 'error');
-        }
       },
     });
   };

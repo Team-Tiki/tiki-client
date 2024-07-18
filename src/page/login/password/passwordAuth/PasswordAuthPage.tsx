@@ -9,8 +9,6 @@ import { formatTime } from '@/page/signUp/info/util/formatTime';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { isAxiosError } from 'axios';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -18,8 +16,6 @@ import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { useInput } from '@/common/hook/useInput';
 import useTimer from '@/common/hook/useTimer';
-
-import { useToastStore } from '@/shared/store/toast';
 
 const PasswordAuthPage = () => {
   const [isMailSent, setIsMailSent] = useState(false);
@@ -31,23 +27,17 @@ const PasswordAuthPage = () => {
   const navigate = useNavigate();
   const { resendMailMutation } = useResendMailMutation(email, setIsMailSent, startTimer);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
-  const { createToast } = useToastStore();
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) {
       resendMailMutation(undefined, {
         onSuccess: () => {
           setIsMailSent(true);
-        },
-        onError: (error) => {
-          if (isAxiosError<{ message: string }>(error)) {
-            createToast(`${error.response?.data.message}`, 'error');
-            setIsMailSent(false);
-          }
+          startTimer();
         },
       });
     }
-  }, [email, resendMailMutation, createToast]);
+  }, [email, resendMailMutation, startTimer]);
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
@@ -55,14 +45,10 @@ const PasswordAuthPage = () => {
         onSuccess: () => {
           setIsVerifyCode(true);
         },
-        onError: () => {
-          createToast('인증번호가 일치하지 않습니다.', 'error');
-          setIsVerifyCode(false);
-        },
       });
       setIsVerifyCode(false);
     }
-  }, [authCode, mutate, createToast]);
+  }, [authCode, mutate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
