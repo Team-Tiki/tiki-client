@@ -23,6 +23,7 @@ interface DocumentBarInfoProps {
   endDate: string;
   documentList?: DocumentType[];
   blockSelected: Block;
+  handleClose: () => void;
 }
 
 const SelectedBlock = ({
@@ -32,9 +33,14 @@ const SelectedBlock = ({
   endDate,
   documentList,
   blockSelected,
+  handleClose,
 }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
+  const handleCloseClick = () => {
+    handleClose();
+    closeModal;
+  };
   return (
     <Flex tag="section" css={containerStyle}>
       <Laptop width={24} height={24} />
@@ -51,7 +57,7 @@ const SelectedBlock = ({
               <DeleteModal
                 title="block"
                 detail="block"
-                onClose={closeModal}
+                onClose={handleCloseClick}
                 teamId={9}
                 id={blockSelected.timeBlockId}
               />

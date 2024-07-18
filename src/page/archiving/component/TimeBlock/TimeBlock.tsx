@@ -1,6 +1,5 @@
 import { blockStyle, spanStyle } from '@/page/archiving/component/TimeBlock/TimeBlock.style';
 import { BLOCK_TYPE } from '@/page/archiving/constant/blockIcon';
-import { Block } from '@/page/archiving/type/blockType';
 
 import { ReactNode } from 'react';
 
@@ -11,7 +10,7 @@ interface TimeBlockProps {
   color: string;
   floor: number;
   blockType: string;
-  onBlockClick: (block: Block) => void;
+  onBlockClick: () => void;
 }
 
 const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick, blockType }: TimeBlockProps) => {

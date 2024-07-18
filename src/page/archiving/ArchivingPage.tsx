@@ -105,6 +105,7 @@ const ArchivingPage = () => {
         ref={sideBarRef}
         selectedId={selectedId}
         handleSelectedId={handleSelectedId}
+        handleClose={handleClose}
       />
     </Flex>
   );

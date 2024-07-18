@@ -16,10 +16,11 @@ type DocumentBarProps = {
   blockSelected?: Block;
   selectedId: string;
   handleSelectedId: (Id: string) => void;
+  handleClose: () => void;
 };
 
 const DocumentBar = (
-  { blockSelected, selectedId, handleSelectedId }: DocumentBarProps,
+  { blockSelected, selectedId, handleSelectedId, handleClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   // const [selectedId, setSelectedId] = useState('selected');
@@ -50,6 +51,7 @@ const DocumentBar = (
               endDate={formattingDate(blockSelected.endDate)}
               documentList={blockData?.data.documents}
               blockSelected={blockSelected}
+              handleClose={handleClose}
             />
           )
         : documentData && (
