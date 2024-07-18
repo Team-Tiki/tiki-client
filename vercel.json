@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "src/*",
+      "destination": "http://3.37.199.133:8080"
+    }
+  ]
+}
