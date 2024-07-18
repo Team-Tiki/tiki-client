@@ -1,13 +1,13 @@
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
-import { useInput } from '@/page/signUp/info/hook/useInput';
 
 import React, { HTMLAttributes, useContext } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
+import { useInput } from '@/common/hook/useInput';
 
 interface PasswordFormProps extends HTMLAttributes<HTMLFormElement> {
   onComplete?: () => void;
