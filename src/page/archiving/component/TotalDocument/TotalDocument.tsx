@@ -7,7 +7,7 @@ import {
 } from '@/page/archiving/component/TotalDocument/TotalDocument.style';
 import { DocumentType } from '@/page/archiving/type/documentType';
 
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -22,13 +22,12 @@ interface DocumentBarToolProps {
 
 const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: DocumentBarToolProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
-  const filteredDocuments = useRef<DocumentType[]>(documentList);
 
   const handleSelected = (option: string) => {
     setSelected(option);
   };
 
-  const filtered = filteredDocuments.current?.filter((document) => document.fileName.includes(searchWord));
+  const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
 
   return (
     <Flex tag={'section'} css={containerStyle}>
@@ -45,17 +44,19 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
-        {(selected === '최근 업로드 순' ? filtered : [...filtered].reverse())?.map((data: DocumentType) => (
-          <DocumentItem
-            key={data.documentId}
-            documentId={data.documentId || 1}
-            selectedId={selectedId}
-            blockName={data.blockName}
-            fileUrl={data.fileUrl}
-            color={data.color}>
-            {data.fileName}
-          </DocumentItem>
-        ))}
+        {(selected === '최근 업로드 순' ? filteredDocuments : [...filteredDocuments].reverse())?.map(
+          (data: DocumentType) => (
+            <DocumentItem
+              key={data.documentId}
+              documentId={data.documentId || 1}
+              selectedId={selectedId}
+              blockName={data.blockName}
+              fileUrl={data.fileUrl}
+              color={data.color}>
+              {data.fileName}
+            </DocumentItem>
+          )
+        )}
       </Flex>
     </Flex>
   );
