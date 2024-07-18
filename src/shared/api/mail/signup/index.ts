@@ -1,7 +1,7 @@
-import { axiosInstance } from '@/shared/api/instance';
+import { axiosPublicInstance } from '@/shared/api/instance';
 
 export const checkAuthCode = async (email: string, code: string) => {
-  const response = await axiosInstance.post(`/mail/checking`, {
+  const response = await axiosPublicInstance.post(`/mail/checking`, {
     email: email,
     code: code,
   });
