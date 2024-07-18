@@ -26,13 +26,13 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.maxWidth = `${document.body.clientWidth}px`;
-      window.addEventListener('keypress', handleKeyDown);
+      window.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
       document.body.style.overflow = 'auto';
       document.body.style.maxWidth = '100vw';
-      window.removeEventListener('keypress', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
 
@@ -41,7 +41,9 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
     createPortal(
       <>
         <div onClick={() => onClose?.()} css={backgroundStyle} />
-        <dialog css={dialogStyle}>{children}</dialog>
+        <dialog onClick={(e) => e.stopPropagation()} css={dialogStyle}>
+          {children}
+        </dialog>
       </>,
       document.body
     )

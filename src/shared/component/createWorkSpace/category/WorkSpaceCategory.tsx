@@ -26,8 +26,6 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState('');
 
-  console.log(selected);
-
   // 카테고리 데이터
   const { data } = useCategoryListQuery();
   const categoryList = data?.data.categories ?? [];

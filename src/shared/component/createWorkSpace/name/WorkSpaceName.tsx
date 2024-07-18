@@ -19,10 +19,7 @@ interface WorkSpaceNameProps {
 const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
   const [inputValue, setInputValue] = useState('');
 
-  console.log(inputValue);
-
   const handleNext = () => {
-    console.log(inputValue);
     setName(inputValue);
 
     onNext();

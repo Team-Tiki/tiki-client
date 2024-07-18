@@ -1,4 +1,4 @@
-import axiosInstance from '@/shared/api/instance';
+import { axiosInstance } from '@/shared/api/instance';
 import { TimeBlockCreate, TimeBlockData } from '@/shared/api/time-blocks/team/time-block/type';
 
 export const postTimeBlock = async (teamId: number, type: string, data: TimeBlockCreate) => {
