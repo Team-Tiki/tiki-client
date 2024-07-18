@@ -1,29 +1,56 @@
 import { css } from '@emotion/react';
 
 import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
+import { AxiosError } from 'axios';
+
+import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import { theme } from '@/common/style/theme/theme';
 
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
+import Login from '@/shared/component/Login/Login';
+import { HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { PATH } from '@/shared/constant/path';
+import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const App = () => {
-  const location = useLocation();
-  const isAuth = ['/showcase', '/archiving'].includes(location.pathname);
-
   useEffect(() => {
-    if (isAuth) {
-      document.body.style.backgroundColor = theme.colors.blue_900;
+    document.body.style.backgroundColor = theme.colors.blue_900;
+
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
+
+  const navigate = useNavigate();
+
+  const handleResetError = (error: Error | AxiosError) => {
+    if (error instanceof Error && !(error instanceof AxiosError)) {
+      navigate(PATH.ROOT);
+      return;
     }
-  }, [isAuth]);
+
+    if (error instanceof AxiosError) {
+      if (error.response?.status === HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR) {
+        navigate(0);
+      } else {
+        navigate(PATH.ROOT);
+      }
+    }
+  };
 
   return (
-    <div css={containerStyle}>
-      <LeftSidebar />
-      <main css={layoutStyle}>
-        <Outlet />
-      </main>
-    </div>
+    <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
+      <Login>
+        <div css={containerStyle}>
+          <LeftSidebar />
+          <main css={layoutStyle}>
+            <Outlet />
+          </main>
+        </div>
+      </Login>
+    </ErrorBoundary>
   );
 };
 
