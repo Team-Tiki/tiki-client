@@ -13,7 +13,7 @@ import {
 } from '@/shared/component/createWorkSpace/category/WorkSpaceCategory.style';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import useCategoryListQuery from '@/shared/hook/useCategoryListQuery';
+import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 
 interface WorkSpaceCategoryProps {
   onNext: () => void;

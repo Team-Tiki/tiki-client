@@ -29,7 +29,7 @@ const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url, on
           <img
             src={url}
             alt={`${children?.toString()} icon`}
-            css={{ objectFit: 'cover', width: '4rem', height: '4rem' }}
+            css={{ objectFit: 'cover', width: '4rem', height: '4rem', padding: '0.8rem' }}
           />
         </div>
         <Text tag="body4" css={textStyle(isExpansion)}>
