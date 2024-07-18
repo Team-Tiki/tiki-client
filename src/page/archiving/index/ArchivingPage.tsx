@@ -19,8 +19,12 @@ import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
 
+import { useTeamStore } from '@/shared/store/team';
+
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('selected');
+
+  const { teamId } = useTeamStore();
 
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
@@ -32,6 +36,7 @@ const ArchivingPage = () => {
 
   const handleBlockClick = (block: Block) => {
     setBlockSelected(block);
+
     setSelectedId('selected');
   };
 
@@ -41,7 +46,7 @@ const ArchivingPage = () => {
     useDate();
   const [blockSelected, setBlockSelected] = useState<Block>();
   const { data } = useGetTimeBlockQuery(
-    Number(9),
+    Number(teamId),
     'executive',
     `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
   );
@@ -57,9 +62,8 @@ const ArchivingPage = () => {
     blockType: string;
     dates: { startDate: string; endDate: string };
   }) => {
-    const teamId = 6;
     const type = 'executive';
-    setCurrentContent(<UploadModal onClose={closeModal} teamId={teamId} type={type} blockData={blockData} />);
+    setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
   };
 
   return (
@@ -120,7 +124,7 @@ const ArchivingPage = () => {
         blockSelected={blockSelected}
         ref={sideBarRef}
         selectedId={selectedId}
-        handleSelectedId={handleSelectedId}
+        onSelectId={handleSelectedId}
         onClickClose={handleClose}
       />
     </Flex>

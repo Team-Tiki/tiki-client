@@ -23,7 +23,9 @@ import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkS
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { DEFAULT_LOGO } from '@/shared/constant';
+import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
+import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
 import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
@@ -47,7 +49,9 @@ const LeftSidebar = () => {
   const [fileUrlData, setFileUrlData] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
-  const { mutateAsync: postTeamMutate } = usePostTeamMutation();
+  const { mutate: postTeamMutate } = usePostTeamMutation();
+
+  const { setTeamId } = useTeamStore();
 
   useEffect(() => {
     const postData = {
@@ -63,7 +67,8 @@ const LeftSidebar = () => {
         },
       });
     }
-  }, [isComplete, category, fileUrlData, name, postTeamMutate, refetch]);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [isComplete]);
 
   const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
   const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} />);
@@ -71,13 +76,17 @@ const LeftSidebar = () => {
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
-    navigate('');
+    navigate(PATH.SHOWCASE);
     close();
   };
 
-  const handleTeamClick = (teamName: string) => {
+  const handleTeamClick = (teamName: string, teamId: string) => {
     setClicked(teamName);
-    navigate('/archiving');
+
+    setTeamId(teamId);
+    localStorage.setItem('teamId', teamId);
+
+    navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
     close();
   };
 
@@ -93,8 +102,7 @@ const LeftSidebar = () => {
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <aside css={containerStyle(isNavOpen)} ref={sidebarRef} onClick={(e) => e.stopPropagation()}>
+    <aside css={containerStyle(isNavOpen)} ref={sidebarRef}>
       {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
       <LogoSymbol css={LogoSymbolStyle} />
       <nav>
@@ -114,7 +122,7 @@ const LeftSidebar = () => {
                 isExpansion={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
-                  handleTeamClick(data.name);
+                  handleTeamClick(data.name, String(data.id));
                 }}>
                 {data.name}
               </LeftSidebarItem>

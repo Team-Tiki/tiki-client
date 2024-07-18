@@ -36,7 +36,6 @@ export const itemStyle = (isClicked: boolean) =>
     marginLeft: '1.2rem',
 
     borderRadius: '10px',
-
     backgroundColor: `${isClicked && theme.colors.blue_300}`,
 
     '&: hover': { backgroundColor: theme.colors.blue_700, '& > div': { backgroundColor: theme.colors.blue_700 } },
