@@ -14,7 +14,6 @@ import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { useTeamStore } from '@/shared/store/team';
