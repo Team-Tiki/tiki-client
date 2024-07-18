@@ -36,6 +36,10 @@ export const inputStyle = css({
 
   outline: 'none',
 
+  '&:focus': {
+    outline: 'none',
+  },
+
   '::placeholder': {
     color: theme.colors.gray_500,
     ...theme.text.body04,
