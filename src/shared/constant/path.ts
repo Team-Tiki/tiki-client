@@ -13,5 +13,7 @@ export const PATH = {
 
   ARCHIVING: '/archiving',
 
-  SHOWCASE: '/showcase',
+  COMING_SOON: '/comingsoon',
+
+  SHOWCASE: '/',
 } as const;

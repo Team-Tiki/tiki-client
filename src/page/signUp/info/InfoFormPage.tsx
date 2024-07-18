@@ -40,9 +40,11 @@ const InfoFormPage = () => {
   };
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    mutate(info, {
-      onSuccess: goToLoginPage,
-    });
+    if (isCompleted) {
+      mutate(info, {
+        onSuccess: goToLoginPage,
+      });
+    }
   }, [isCompleted]);
 
   return (
