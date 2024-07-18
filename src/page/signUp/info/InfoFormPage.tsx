@@ -39,6 +39,7 @@ const InfoFormPage = () => {
   const goToLoginPage = () => {
     navigate('/login');
   };
+
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (isCompleted) {

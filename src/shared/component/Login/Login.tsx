@@ -19,7 +19,6 @@ const Login = ({ children }: { children: ReactNode }) => {
     const { accessToken } = response.data.data;
 
     localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-
     axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
   };
 

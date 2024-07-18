@@ -1,7 +1,7 @@
-import { axiosInstance } from '@/shared/api/instance';
+import { axiosPublicInstance } from '@/shared/api/instance';
 
 export const reSendEmail = async (email: string) => {
-  const response = await axiosInstance.post('/mail/password', {
+  const response = await axiosPublicInstance.post('/mail/password', {
     email: email,
   });
 
