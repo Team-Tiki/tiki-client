@@ -17,6 +17,7 @@ import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
+import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentItemProps {
   documentId: number;
@@ -32,6 +33,8 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
 
   const fileName = children?.toString();
 
+  const { teamId } = useTeamStore();
+
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {
     window.open(fileUrl);
@@ -44,7 +47,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
 
   const handleTrashClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-    openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={9} id={documentId} />);
+    openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={+teamId} id={documentId} />);
   };
 
   return (
