@@ -42,7 +42,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
       const uniqueNewFiles = newFiles.filter((newFile) => !prevFiles.some((file) => file.name === newFile.name));
       return [...prevFiles, ...uniqueNewFiles];
     });
-    setIsAllUploaded(false); // 파일이 추가될 때마다 저장 버튼을 비활성화합니다.
+    setIsAllUploaded(false);
   };
 
   const handleDelete = (fileName: string) => {

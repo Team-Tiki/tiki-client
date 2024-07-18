@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
@@ -38,6 +38,7 @@ const LeftSidebar = () => {
   const { data, refetch } = useClubInfoQuery();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [clicked, setClicked] = useState('showcase');
   const [isSetting, setIsSetting] = useState(false);
@@ -72,6 +73,15 @@ const LeftSidebar = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [isComplete]);
 
+  useEffect(() => {
+    const teamId = localStorage.getItem('teamId');
+    if (teamId) {
+      setTeamId(teamId);
+      setClicked(teamId);
+      navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
+    }
+  }, [setTeamId, navigate]);
+
   const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
   const handleNext2 = () =>
     setCurrentContent(
@@ -81,12 +91,13 @@ const LeftSidebar = () => {
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
+    localStorage.removeItem('teamId');
     navigate(PATH.SHOWCASE);
     close();
   };
 
-  const handleTeamClick = (teamName: string, teamId: string) => {
-    setClicked(teamName);
+  const handleTeamClick = (teamId: string) => {
+    setClicked(teamId);
 
     setTeamId(teamId);
     localStorage.setItem('teamId', teamId);
@@ -123,11 +134,11 @@ const LeftSidebar = () => {
             return (
               <LeftSidebarItem
                 key={data.id}
-                isClicked={clicked === data.name}
+                isClicked={clicked === String(data.id)}
                 isExpansion={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
-                  handleTeamClick(data.name, String(data.id));
+                  handleTeamClick(String(data.id));
                 }}>
                 {data.name}
               </LeftSidebarItem>
