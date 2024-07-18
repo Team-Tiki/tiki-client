@@ -19,10 +19,6 @@ const ShowcasePage = () => {
   const { data: clubs } = useClubListQuery(selectedChip);
   const { data: categoryList } = useCategoryListQuery();
 
-  const handleChipClick = (category: string) => {
-    setSelectedChip(category);
-  };
-
   return (
     <div css={containerStyle}>
       <Flex tag="section" styles={{ direction: 'column', gap: '2.4rem', width: '100%' }}>
@@ -36,7 +32,12 @@ const ShowcasePage = () => {
 
       <section css={chipStyle}>
         {categoryList?.data.categories.map((category) => (
-          <CategoryChip key={category} onClick={() => handleChipClick(category)} isSelected={selectedChip === category}>
+          <CategoryChip
+            key={category}
+            onClick={() => {
+              setSelectedChip(category);
+            }}
+            isSelected={selectedChip === category}>
             {category}
           </CategoryChip>
         ))}
@@ -46,7 +47,7 @@ const ShowcasePage = () => {
         {clubs?.data.teams.map((club) => {
           return (
             <ClubProfileCard
-              key={club.name}
+              key={club.teamId}
               title={club.name}
               detail={club.overview || ''}
               imageUrl={club.imageUrl}

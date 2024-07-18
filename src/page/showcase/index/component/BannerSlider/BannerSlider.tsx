@@ -53,7 +53,7 @@ const NextArrow = (props: ArrowProps) => {
   const { onClick } = props;
   return (
     <button type="button" onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
-      <RightArrow />
+      <RightArrow width="1.6rem" height="1.6rem" />
     </button>
   );
 };
@@ -62,7 +62,7 @@ const PrevArrow = (props: ArrowProps) => {
   const { onClick } = props;
   return (
     <button type="button" onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
-      <LeftArrow />
+      <LeftArrow width="1.6rem" height="1.6rem" />
     </button>
   );
 };

@@ -6,6 +6,10 @@ export const arrowStyle = css({
   position: 'absolute',
   top: '9.6rem',
 
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
   zIndex: theme.zIndex.overlayBottom,
 
   width: '3.2rem',
