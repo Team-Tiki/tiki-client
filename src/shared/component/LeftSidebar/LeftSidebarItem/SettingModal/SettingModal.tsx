@@ -37,18 +37,21 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
     }
   }, [open, isModalOpen, setSettingClickState]);
 
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    close();
+  };
+
   const handleLogoutKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     if (e.key === 'Enter') {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
-      navigate(PATH.LOGIN);
-      close();
+      handleNavClick(PATH.LOGIN);
     }
   };
 
   const handlePwResetKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     if (e.key === 'Enter') {
-      navigate(PATH.PASSWORD_AUTH);
-      close();
+      handleNavClick(PATH.PASSWORD_AUTH);
     }
   };
 
@@ -61,8 +64,7 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
         onKeyDown={handleLogoutKeyDown}
         onClick={() => {
           localStorage.removeItem(ACCESS_TOKEN_KEY);
-          navigate(PATH.LOGIN);
-          close();
+          handleNavClick(PATH.LOGIN);
         }}>
         <Logout width="1.6rem" height="1.6rem" />
         <Text tag="body6" css={textStyle}>
@@ -75,8 +77,7 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
         css={contentStyle}
         onKeyDown={handlePwResetKeyDown}
         onClick={() => {
-          navigate(PATH.PASSWORD_AUTH);
-          close();
+          handleNavClick(PATH.PASSWORD_AUTH);
         }}>
         <PWResetting width="1.6rem" height="1.6rem" />
         <Text tag="body6" css={textStyle}>
