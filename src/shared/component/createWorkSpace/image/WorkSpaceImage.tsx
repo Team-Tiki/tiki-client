@@ -21,9 +21,10 @@ import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceN
 interface WorkSpaceImageProps {
   onNext: () => void;
   onFileUrlData: (file: string) => void;
+  isComplete: (isComplete: boolean) => void;
 }
 
-const WorkSpaceImage = ({ onNext, onFileUrlData }: WorkSpaceImageProps) => {
+const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImageProps) => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -61,6 +62,7 @@ const WorkSpaceImage = ({ onNext, onFileUrlData }: WorkSpaceImageProps) => {
       setFileURL(newFileURL);
       setFile(selectedFile);
       refetch();
+      onFileUrlData('');
     }
   };
 
@@ -82,6 +84,7 @@ const WorkSpaceImage = ({ onNext, onFileUrlData }: WorkSpaceImageProps) => {
   };
 
   const handleSave = () => {
+    isComplete(true);
     onNext();
   };
 

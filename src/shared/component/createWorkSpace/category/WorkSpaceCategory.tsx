@@ -22,7 +22,8 @@ interface WorkSpaceCategoryProps {
 
 const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close);
+  const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
+
   const [selected, setSelected] = useState('');
 
   // 카테고리 데이터
@@ -53,10 +54,11 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
               maxHeight: '25rem',
             },
           }}
-          ref={ref}
           isOpen={isOpen}
           onSelect={handleSelect}
           options={categoryList}
+          className="select-container"
+          ref={ref}
           trigger={
             <Button css={selectButtonStyle(isOpen)} onClick={toggle}>
               <span css={selected ? selectedTextStyle : null}>{selected || '선택'}</span>
