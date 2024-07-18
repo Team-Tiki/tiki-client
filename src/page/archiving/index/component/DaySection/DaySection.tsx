@@ -6,14 +6,36 @@ import {
 } from '@/page/archiving/index/component/DaySection/DaySection.style';
 
 import Circle from '@/common/asset/svg/circle.svg?react';
-import Dotted from '@/common/asset/svg/dotted_line.svg?react';
 import Flex from '@/common/component/Flex/Flex';
+import { theme } from '@/common/style/theme/theme';
 
 interface DaySectionProps {
   day: number;
   isEven: boolean;
   isToday: boolean;
 }
+const DottedDayLine = () => {
+  const element = document.getElementById('block_area');
+
+  if (!element) return null;
+
+  const sectionHeight = element.scrollHeight;
+
+  return (
+    <div
+      css={{
+        position: 'absolute',
+        top: '3.2rem',
+        right: '2.8rem',
+
+        width: '0.2rem',
+        height: `${sectionHeight / 10}rem`,
+
+        borderLeft: `1px dashed ${theme.colors.black}`,
+      }}
+    />
+  );
+};
 
 const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
   return (
@@ -23,7 +45,7 @@ const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
       {isToday && (
         <>
           <Circle width={8} height={8} css={selectedDayStyle} />
-          <Dotted width={2} height={500} css={[selectedDayStyle, { top: '3rem', left: '2.8rem' }]} />
+          <DottedDayLine />
         </>
       )}
     </Flex>
