@@ -5,6 +5,7 @@ import Text from '@/common/component/Text/Text';
 
 import ClickStick from '@/shared/component/LeftSidebar/LeftSidebarItem/ClickStick/ClickStick';
 import {
+  imgStyle,
   itemStyle,
   leftSidebarItemStyle,
   logoBoxStyle,
@@ -25,12 +26,8 @@ const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url, on
     <li css={leftSidebarItemStyle} onClick={onClick}>
       <ClickStick isClicked={isClicked} />
       <Flex css={itemStyle(isClicked)}>
-        <div css={logoBoxStyle(isClicked)}>
-          <img
-            src={url}
-            alt={`${children?.toString()} icon`}
-            css={{ objectFit: 'cover', width: '4rem', height: '4rem', padding: '0.8rem' }}
-          />
+        <div css={logoBoxStyle}>
+          <img src={url} alt={`${children?.toString()} icon`} css={imgStyle} />
         </div>
         <Text tag="body4" css={textStyle(isExpansion)}>
           {children}
