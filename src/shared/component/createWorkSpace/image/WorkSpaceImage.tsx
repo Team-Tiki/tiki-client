@@ -36,7 +36,6 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
   const { data: fileData, refetch } = useGetFileQuery(file as File);
 
   useEffect(() => {
-    console.log(fileData);
     if (file && fileData) {
       const url = fileData?.url;
       if (url) {
