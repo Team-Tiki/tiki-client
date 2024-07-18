@@ -27,7 +27,7 @@ const WorkSpaceImage = ({ onNext, onFileUrlData }: WorkSpaceImageProps) => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [presignedUrl, setPresignedUrl] = useState<string | null>(null);
+  const [, setPresignedUrl] = useState<string | null>(null);
 
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
   const { mutate: deleteFileMutate } = useDeleteFileMutation();

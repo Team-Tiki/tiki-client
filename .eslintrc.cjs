@@ -46,6 +46,12 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelAttributes: ['htmlFor'],
+      },
+    ],
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/extensions': 0,
     'no-use-before-define': 0,

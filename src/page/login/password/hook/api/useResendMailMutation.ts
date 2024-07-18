@@ -2,14 +2,14 @@ import { useMutation } from '@tanstack/react-query';
 
 import { isAxiosError } from 'axios';
 
-import { postEmail } from '@/shared/api/mail/checking';
+import { reSendEmail } from '@/shared/api/mail/password';
 import { useToastStore } from '@/shared/store/toast';
 
-export const useSendMailMutation = (email: string) => {
+export const useResendMailMutation = (email: string) => {
   const { createToast } = useToastStore();
+  const { mutate: resendMailMutation, isError: resendMailError } = useMutation({
+    mutationFn: () => reSendEmail(email),
 
-  const { mutate: sendMailMutation } = useMutation({
-    mutationFn: () => postEmail(email),
     onError: (error) => {
       if (isAxiosError<{ message: string }>(error)) {
         createToast(`${error.response?.data.message}`, 'error');
@@ -17,5 +17,5 @@ export const useSendMailMutation = (email: string) => {
     },
   });
 
-  return sendMailMutation;
+  return { resendMailMutation, resendMailError };
 };

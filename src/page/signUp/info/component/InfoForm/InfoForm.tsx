@@ -1,4 +1,4 @@
-import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
+import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -25,8 +25,6 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
 
-import { useToastStore } from '@/shared/store/toast';
-
 const InfoForm = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick(close);
@@ -51,18 +49,13 @@ const InfoForm = () => {
   const context = useContext(SignUpContext);
   const navigate = useNavigate();
   const [isVerified, setIsVerified] = useState(false);
-  const mutate = useSendMailMutation(email, handleSend);
+  const mutate = useSendMailMutation(email);
   const { mutate: verifyCode } = useVerifyCodeMutation(email, authCode);
-  const { createToast } = useToastStore();
 
   const handleMailSend = () => {
     mutate(undefined, {
       onSuccess: () => {
         handleSend();
-      },
-      onError: (error) => {
-        console.log(error);
-        createToast('유효하지 않은 메일 주소입니다.', 'error');
       },
     });
   };
@@ -71,9 +64,6 @@ const InfoForm = () => {
     verifyCode(undefined, {
       onSuccess: () => {
         setIsVerified(true);
-      },
-      onError: () => {
-        createToast('인증번호가 일치하지 않습니다.', 'error');
       },
     });
   };

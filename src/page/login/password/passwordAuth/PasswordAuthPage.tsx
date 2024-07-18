@@ -1,10 +1,9 @@
 import { SUPPORTING_TEXT } from '@/page/login/constant';
-import { useSendMailMutation } from '@/page/login/password/hook/useSendMailMutation';
-import useTimer from '@/page/login/password/hook/useTimer';
-import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
+import { useResendMailMutation } from '@/page/login/password/hook/api/useResendMailMutation';
+import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
 import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
-import { PLACEHOLDER } from '@/page/signUp/info/constant';
+import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import { useCallback, useState } from 'react';
@@ -15,34 +14,33 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
-
-import { useToastStore } from '@/shared/store/toast';
+import { useInput } from '@/common/hook/useInput';
+import { useTimer } from '@/common/hook/useTimer';
 
 const PasswordAuthPage = () => {
-  const [isMailSent, setIsMailSent] = useState(false);
   const [isVerifyCode, setIsVerifyCode] = useState(false);
-  const [email, setEmail] = useState('');
-  const [authCode, setAuthCode] = useState('');
+  const { value: email, onChange: onEmailChange } = useInput('');
+  const { value: authCode, onChange: onAuthCodeChange } = useInput('');
 
-  const { time: remainTime, startTimer, stopTimer } = useTimer(180);
+  const {
+    remainTime,
+    isTriggered: isMailSent,
+    handleTrigger: handleSend,
+  } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
+
   const navigate = useNavigate();
-  const { sendMailMutation } = useSendMailMutation(email, setIsMailSent, startTimer);
+  const { resendMailMutation } = useResendMailMutation(email);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
-  const { createToast } = useToastStore();
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) {
-      sendMailMutation(undefined, {
+      resendMailMutation(undefined, {
         onSuccess: () => {
-          setIsMailSent(true);
-        },
-        onError: () => {
-          createToast('유효하지 않은 메일 주소입니다.', 'error');
-          setIsMailSent(false);
+          handleSend();
         },
       });
     }
-  }, [email, sendMailMutation, createToast]);
+  }, [email, resendMailMutation, handleSend]);
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
@@ -50,19 +48,15 @@ const PasswordAuthPage = () => {
         onSuccess: () => {
           setIsVerifyCode(true);
         },
-        onError: () => {
-          createToast('인증번호가 일치하지 않습니다.', 'error');
-          setIsVerifyCode(false);
-        },
       });
       setIsVerifyCode(false);
     }
-  }, [authCode, mutate, createToast]);
+  }, [authCode, mutate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    stopTimer();
-    if (!isError || isMailSent) navigate('/password/reset');
+
+    if (!isError || isMailSent) navigate('/password/reset', { state: email });
   };
 
   return (
@@ -77,7 +71,7 @@ const PasswordAuthPage = () => {
                 label="회원 정보"
                 placeholder={PLACEHOLDER.SCHOOL_EMAIL}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={onEmailChange}
               />
               <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
                 인증 메일 발송
@@ -99,7 +93,7 @@ const PasswordAuthPage = () => {
                     label="인증 코드"
                     placeholder={PLACEHOLDER.AUTH_CODE}
                     value={authCode}
-                    onChange={(e) => setAuthCode(e.target.value)}
+                    onChange={onAuthCodeChange}
                   />
                   <span css={timestyle}>{formatTime(remainTime)}</span>
                   <Button
