@@ -11,6 +11,9 @@ const meta = {
     onFileUrlData: (file: string) => {
       file;
     },
+    isComplete: (isComplete: boolean) => {
+      isComplete;
+    },
   },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceImage>;
