@@ -55,6 +55,9 @@ const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFile
 
       setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
       setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''; // 파일 입력 필드를 초기화
+      }
     },
     [files, onFilesChange, uploadToS3, setFileUrls, setUploadStatus]
   );

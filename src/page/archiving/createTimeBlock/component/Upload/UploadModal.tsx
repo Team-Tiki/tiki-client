@@ -32,7 +32,8 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
 
   useEffect(() => {
-    const allUploaded = files.length > 0 && Object.values(uploadStatus).every((status) => status);
+    const allUploaded =
+      files.length === 0 || (files.length > 0 && Object.values(uploadStatus).every((status) => status));
     setIsAllUploaded(allUploaded);
   }, [uploadStatus, files.length]);
 
@@ -51,7 +52,13 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
         { fileName: fileToDelete.name },
         {
           onSuccess: () => {
-            setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+            setFiles((prevFiles) => {
+              const updatedFiles = prevFiles.filter((file) => file.name !== fileName);
+              if (updatedFiles.length === 0) {
+                setIsAllUploaded(true);
+              }
+              return updatedFiles;
+            });
             setFileUrls((prevUrls) => {
               const newUrls = { ...prevUrls };
               delete newUrls[fileName];
@@ -77,6 +84,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
     files: fileUrls,
   };
 
+  console.log('데이터', data);
   const handleSave = () => {
     timeBlockMutate(data, {
       onSuccess: () => {
@@ -105,7 +113,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
         <div className="scroll" css={scrollStyle}>
           {files.map((file) => (
             <BlockItem
-              key={file.lastModified}
+              key={file.name}
               title={file.name}
               onDelete={() => handleDelete(file.name)}
               isUploading={!uploadStatus[file.name]}
