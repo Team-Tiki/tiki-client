@@ -11,7 +11,6 @@ export const axiosInstance = axios.create({
   },
 });
 
-
 export const axiosPublicInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`,
   withCredentials: true,
@@ -21,4 +20,3 @@ export const axiosPublicInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(checkAndUpateToken);
-

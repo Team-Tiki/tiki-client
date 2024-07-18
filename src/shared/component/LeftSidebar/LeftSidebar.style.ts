@@ -61,3 +61,8 @@ export const arrowStyle = css({
 
   cursor: 'pointer',
 });
+
+export const settingStyle = css({
+  position: 'absolute',
+  bottom: '2.4rem',
+});
