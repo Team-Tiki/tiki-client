@@ -8,10 +8,6 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  args: {
-    onMonthClick: () => {},
-  },
-  argTypes: {},
 } satisfies Meta<typeof LeftSidebar>;
 
 export default meta;

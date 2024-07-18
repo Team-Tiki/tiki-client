@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import WorkSpaceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
 const meta = {
-  title: 'page/Modal/WorkSpace',
-  component: WorkSapceInfo,
+  title: 'page/Modal/WorkSpaceInfo',
+  component: WorkSpaceInfo,
 
   args: {
     step: 'name',
@@ -12,7 +12,7 @@ const meta = {
     info: '워크스페이스의 이름을 입력해주세요.',
   },
   argTypes: {},
-} satisfies Meta<typeof WorkSapceInfo>;
+} satisfies Meta<typeof WorkSpaceInfo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

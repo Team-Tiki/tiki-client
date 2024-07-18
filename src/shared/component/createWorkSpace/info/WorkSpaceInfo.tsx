@@ -5,13 +5,13 @@ import Text from '@/common/component/Text/Text';
 import { headingStyle, textStyle, topStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
 import { STEPS, STEPS_BY_CATEGORY } from '@/shared/constant';
 
-interface WorkSapceInfoProps {
+interface WorkSpaceInfoProps {
   step?: 'name' | 'category' | 'image' | 'block' | 'upload';
   title: string;
   info: string;
 }
 
-const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
+const WorkSpaceInfo = ({ step, title, info }: WorkSpaceInfoProps) => {
   const getTotalSteps = (step: string | undefined) => {
     if (!step) return undefined;
     const upperCaseStep = step.toUpperCase() as keyof typeof STEPS_BY_CATEGORY;
@@ -35,4 +35,4 @@ const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
   );
 };
 
-export default WorkSapceInfo;
+export default WorkSpaceInfo;
