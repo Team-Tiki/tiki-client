@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
@@ -17,7 +17,6 @@ import {
   settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
-import Setting from '@/shared/component/LeftSidebar/LeftSidebarItem/Setting/Setting';
 import SettingModal from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
@@ -41,7 +40,7 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
 
   const [clicked, setClicked] = useState('showcase');
-  const [isSetting, setIsSetting] = useState(false);
+  const [isClickSetting, setIsClickSetting] = useState(false);
 
   // 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
@@ -102,7 +101,7 @@ const LeftSidebar = () => {
   };
 
   const handleSettingClick = () => {
-    setIsSetting(true);
+    setIsClickSetting((prev) => !prev);
     close();
   };
 
@@ -150,7 +149,7 @@ const LeftSidebar = () => {
           onClick={handleSettingClick}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal isModalOpen={isSetting} setIsModalOpen={setIsSetting} />
+        <SettingModal isModalOpen={isClickSetting} setIsModalOpen={setIsClickSetting} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
