@@ -46,7 +46,6 @@ const InfoFormPage = () => {
       mutate(info, {
         onSuccess: () => {
           goToLoginPage();
-          createToast('회원가입이 완료되었습니다.', 'success');
         },
       });
     }
