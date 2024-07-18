@@ -17,6 +17,7 @@ import {
   settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
+import Setting from '@/shared/component/LeftSidebar/LeftSidebarItem/Setting/Setting';
 import SettingModal from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
@@ -98,7 +99,6 @@ const LeftSidebar = () => {
 
   const handleSettingClick = () => {
     setIsSetting(true);
-    console.log(isSetting);
     close();
   };
 
@@ -146,7 +146,7 @@ const LeftSidebar = () => {
           onClick={handleSettingClick}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal isModalOpen={isSetting} setSettingClickState={setIsSetting} />
+        <SettingModal isModalOpen={isSetting} setIsModalOpen={setIsSetting} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>

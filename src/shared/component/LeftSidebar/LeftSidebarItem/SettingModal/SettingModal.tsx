@@ -17,26 +17,24 @@ import { PATH } from '@/shared/constant/path';
 
 interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
   isModalOpen: boolean;
-  setSettingClickState: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingModalProps) => {
-  const { close, open } = useOverlay();
+const SettingModal = ({ isModalOpen, setIsModalOpen, ...props }: SettingModalProps) => {
+  const { isOpen, close, open } = useOverlay();
   const settingRef = useOutsideClick<HTMLUListElement>(close);
-
-  const [isOpening, setIsOpening] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isModalOpen) {
       open();
-      setIsOpening(true);
-      setSettingClickState(false);
-    } else {
-      setIsOpening(false);
+      console.log(isOpen);
+      setIsModalOpen(false);
+      return;
     }
-  }, [isModalOpen, open, setSettingClickState]);
+    return;
+  }, [isModalOpen, isOpen, open, setIsModalOpen]);
 
   const handleNavClick = (path: string) => {
     navigate(path);
@@ -57,7 +55,7 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
   };
 
   return (
-    <ul ref={settingRef} css={containerStyle(isOpening)} {...props}>
+    <ul ref={settingRef} css={containerStyle(isOpen)} {...props}>
       <li
         role="button"
         tabIndex={0}

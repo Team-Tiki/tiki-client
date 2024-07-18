@@ -5,8 +5,8 @@ import { theme } from '@/common/style/theme/theme';
 export const containerStyle = (isOpen: boolean) =>
   css({
     position: 'fixed',
-    bottom: '0rem',
-    left: '0rem',
+    bottom: '1rem',
+    left: '7rem',
 
     display: `${isOpen ? 'flex' : 'none'}`,
     flexDirection: 'column',
