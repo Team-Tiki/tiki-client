@@ -13,7 +13,7 @@ export const postTimeBlock = async (teamId: number, type: string, data: TimeBloc
 
 export const getDocuments = async (teamId: number, blockId: number) => {
   const response = await axiosInstance.get<TimeBlockData>(`/time-blocks/team/${teamId}/time-block/${blockId}`);
-
+  console.log('문서 조회');
   return response.data;
 };
 

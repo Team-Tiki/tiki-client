@@ -28,10 +28,12 @@ const ArchivingPage = () => {
 
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
+    console.log('사이드바 닫기');
   };
 
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
+    console.log('실행');
   };
 
   const handleBlockClick = (block: Block) => {

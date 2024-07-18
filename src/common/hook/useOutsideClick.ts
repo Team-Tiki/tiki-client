@@ -5,6 +5,7 @@ type Callback = () => void;
 export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose: Callback, componentName?: string) => {
   const ref = useRef<T>(null);
 
+  console.log('OutsideHook 실행');
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
       if (!ref.current || !(event.target instanceof HTMLElement)) return;
