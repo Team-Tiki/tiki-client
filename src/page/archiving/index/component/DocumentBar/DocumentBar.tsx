@@ -35,8 +35,8 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
     setSearchWord(e.target.value);
   };
 
-  const { data: blockData } = useBlockQuery(7, blockSelected?.timeBlockId ?? 0, selectedId);
-  const { data: documentData } = useTotalDocumentQuery(1, 'executive', selectedId);
+  const { data: blockData } = useBlockQuery(6, blockSelected?.timeBlockId ?? 0, selectedId);
+  const { data: documentData } = useTotalDocumentQuery(6, 'executive', selectedId);
 
   return (
     <aside css={containerStyle(blockSelected?.name || '')} ref={ref}>

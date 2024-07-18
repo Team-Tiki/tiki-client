@@ -10,7 +10,7 @@ export const selectButtonStyle = (isOpen: boolean) =>
 
     height: '4.8rem',
     padding: '1.2rem',
-    marginTop: '2.8rem',
+    marginTop: '2.4rem',
 
     border: `1px solid ${isOpen ? theme.colors.blue_900 : theme.colors.gray_400}`,
     borderRadius: '8px',
@@ -25,7 +25,7 @@ export const selectedTextStyle = css({
 
 export const arrowStyle = (isOpen: boolean) =>
   css({
-    width: '1.2rem',
-    height: '0.7rem',
+    width: '2.4rem',
+    height: '2.4rem',
     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
   });
