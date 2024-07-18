@@ -22,7 +22,7 @@ export const iconStyle = css({
 });
 
 export const selectedIconStyle = css({
-  border: `1.2px solid ${theme.colors.blue_900}`,
+  border: `1.6px solid ${theme.colors.blue_900}`,
   backgroundColor: theme.colors.blue_100,
 });
 
