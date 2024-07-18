@@ -6,5 +6,6 @@ export const getFile = async (fileFormat: string) => {
       fileFormat: fileFormat,
     },
   });
+  console.log('파일 url', response);
   return response.data.data;
 };
