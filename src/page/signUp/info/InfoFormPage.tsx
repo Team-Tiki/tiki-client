@@ -1,7 +1,7 @@
 import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
 import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
-import { useSignupMutation } from '@/page/signUp/info/hook/useSignupMutation';
+import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
 
 import React, { SetStateAction, createContext, useEffect, useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
@@ -42,12 +42,14 @@ const InfoFormPage = () => {
   };
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    mutate(info, {
-      onSuccess: () => {
-        goToLoginPage();
-        createToast('회원가입이 완료되었습니다.', 'success');
-      },
-    });
+    if (isCompleted) {
+      mutate(info, {
+        onSuccess: () => {
+          goToLoginPage();
+          createToast('회원가입이 완료되었습니다.', 'success');
+        },
+      });
+    }
   }, [isCompleted]);
 
   return (

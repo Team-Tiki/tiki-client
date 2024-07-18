@@ -7,7 +7,7 @@ import {
 } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -16,12 +16,19 @@ import Input from '@/common/component/Input/Input';
 interface DocumentBarToolProps {
   onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
   searchWord: string;
-  documentList?: DocumentType[];
+  documentList: DocumentType[];
   selectedId: string;
 }
 
 const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: DocumentBarToolProps) => {
+  const [selected, setSelected] = useState('최근 업로드 순');
+
+  const handleSelected = (option: string) => {
+    setSelected(option);
+  };
+
   const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
+
   return (
     <Flex tag={'section'} css={containerStyle}>
       <Flex css={toolStyle}>
@@ -33,15 +40,23 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
           value={searchWord}
           onChange={onSearchWord}
         />
-        <DocumentSort />
+        <DocumentSort selected={selected} onSelected={handleSelected} />
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
-        {filteredDocuments?.map((data: DocumentType) => (
-          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} fileUrl={data.fileUrl}>
-            {data.fileName}
-          </DocumentItem>
-        ))}
+        {(selected === '최근 업로드 순' ? filteredDocuments : [...filteredDocuments].reverse())?.map(
+          (data: DocumentType) => (
+            <DocumentItem
+              key={data.documentId}
+              documentId={data.documentId || 1}
+              selectedId={selectedId}
+              blockName={data.blockName}
+              fileUrl={data.fileUrl}
+              color={data.color}>
+              {data.fileName}
+            </DocumentItem>
+          )
+        )}
       </Flex>
     </Flex>
   );

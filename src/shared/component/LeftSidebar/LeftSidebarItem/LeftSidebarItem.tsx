@@ -26,7 +26,11 @@ const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url, on
       <ClickStick isClicked={isClicked} />
       <Flex css={itemStyle(isClicked)}>
         <div css={logoBoxStyle(isClicked)}>
-          <img src={url} alt={`${children?.toString()} icon`} />
+          <img
+            src={url}
+            alt={`${children?.toString()} icon`}
+            css={{ objectFit: 'cover', width: '4rem', height: '4rem' }}
+          />
         </div>
         <Text tag="body4" css={textStyle(isExpansion)}>
           {children}

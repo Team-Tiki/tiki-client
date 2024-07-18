@@ -1,4 +1,5 @@
 import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
+import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
 
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +15,12 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  const { mutate } = useLoginMutation();
+
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    mutate({ email, password });
   };
 
   const 회원가입페이지로이동 = () => {
@@ -48,7 +53,12 @@ const LoginPage = () => {
             학교 메일로 회원가입
           </Button>
         </Flex>
-        <Button size="small" variant="text" css={findPasswordButtonStyle} onClick={비밀번호찾기페이지로이동}>
+        <Button
+          type="button"
+          size="small"
+          variant="text"
+          css={findPasswordButtonStyle}
+          onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기
         </Button>
       </form>
