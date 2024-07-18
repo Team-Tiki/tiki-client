@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const detailStyle = css({
+  position: 'relative',
+
   maxHeight: '14rem',
 
   padding: '1.6rem',

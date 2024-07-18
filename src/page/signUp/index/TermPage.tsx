@@ -59,7 +59,7 @@ const TermPage = () => {
 
           <TermArea
             term="이용 약관"
-            onClick={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
+            onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
             isChecked={requiredTermsStatus.serviceTerm}>
             <Text tag="body5" css={detailStyle}>
               {DUMMY}
@@ -68,7 +68,7 @@ const TermPage = () => {
 
           <TermArea
             term="개인정보 처리방침"
-            onClick={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
+            onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
             isChecked={requiredTermsStatus.privatePolicy}>
             <Text tag="body5" css={detailStyle}>
               {DUMMY}
@@ -77,7 +77,7 @@ const TermPage = () => {
 
           <TermArea
             term="개인정보 수집 및 이용"
-            onClick={() => setOptionalTermsStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
+            onCheck={() => setOptionalTermsStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
             isChecked={optionalTermsStatus.collectionAgree}
             isRequired={false}>
             <Text tag="body4" css={{ fontWeight: 400, marginLeft: '3.2rem' }}>
