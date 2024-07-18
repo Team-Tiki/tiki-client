@@ -9,8 +9,7 @@ export const timelineStyle = (blockSelected: Block | undefined) =>
 
     width: '100%',
 
-    padding: '2.6rem 2.4rem',
-    margin: blockSelected ? '5.6rem 13.2rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
+    // margin: blockSelected ? '5.6rem 13.2rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
 
     borderRadius: '16px',
 

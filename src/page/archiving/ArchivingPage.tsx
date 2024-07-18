@@ -36,7 +36,9 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   return (
-    <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
+    <Flex
+      styles={{ justify: 'center', align: 'center', width: '100%', height: '100vh', paddingLeft: '6rem' }}
+      css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
       <section css={timelineStyle(blockSelected)}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>

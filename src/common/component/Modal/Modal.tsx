@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ReactElement, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
@@ -41,7 +43,9 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
     createPortal(
       <>
         <div onClick={() => onClose?.()} css={backgroundStyle} />
-        <dialog css={dialogStyle}>{children}</dialog>
+        <dialog onClick={(e) => e.stopPropagation()} css={dialogStyle}>
+          {children}
+        </dialog>
       </>,
       document.body
     )

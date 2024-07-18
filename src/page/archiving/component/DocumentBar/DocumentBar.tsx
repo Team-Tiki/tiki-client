@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { containerStyle } from '@/page/archiving/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/component/SelectedBlock/SelectedBlock';
@@ -17,10 +20,8 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
   const [selectedId, setSelectedId] = useState('selected');
   const [searchWord, setSearchWord] = useState('');
 
-  const handleTabClick = (tabId: string) => {
+  const handleTabClick = (selectedId: string, tabId: string) => {
     if (tabId !== selectedId) {
-      console.log('click', selectedId, tabId);
-
       setSelectedId(tabId);
     }
   };
@@ -33,28 +34,27 @@ const DocumentBar = ({ blockSelected }: DocumentBarProps, ref: ForwardedRef<HTML
   const { data: documentData } = useTotalDocumentQuery(9, 'executive', selectedId);
 
   return (
-    <aside css={containerStyle(blockSelected?.name || '')} ref={ref}>
+    <aside onClick={(e) => e.stopPropagation()} css={containerStyle(blockSelected?.name || '')} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      {selectedId === 'selected' ? (
-        blockSelected && (
-          <SelectedBlock
-            selectedId={selectedId}
-            blockName={blockSelected.name}
-            startDate={formattingDate(blockSelected.startDate)}
-            endDate={formattingDate(blockSelected.endDate)}
-            color={blockSelected.color}
-            documentList={blockData?.data.documents}
-            blockSelected={blockSelected}
-          />
-        )
-      ) : (
-        <TotalDocument
-          documentList={documentData?.data.documents}
-          onSearchWord={handleSearchWord}
-          searchWord={searchWord}
-          selectedId={selectedId}
-        />
-      )}
+      {selectedId === 'selected'
+        ? blockSelected && (
+            <SelectedBlock
+              selectedId={selectedId}
+              blockName={blockSelected.name}
+              startDate={formattingDate(blockSelected.startDate)}
+              endDate={formattingDate(blockSelected.endDate)}
+              documentList={blockData?.data.documents}
+              blockSelected={blockSelected}
+            />
+          )
+        : documentData && (
+            <TotalDocument
+              documentList={documentData?.data.documents}
+              onSearchWord={handleSearchWord}
+              searchWord={searchWord}
+              selectedId={selectedId}
+            />
+          )}
     </aside>
   );
 };

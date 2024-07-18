@@ -18,20 +18,30 @@ interface DeleteModalProps {
 }
 
 const DeleteModal = ({ title, detail, onClose, teamId, id }: DeleteModalProps) => {
-  const { mutate: blockMutate } = useDeleteBlockMutation();
-  const { mutate: documentMutate } = useDeleteDocumentMutation();
+  const { mutateAsync: blockMutate } = useDeleteBlockMutation();
+  const { mutateAsync: documentMutate } = useDeleteDocumentMutation();
   console.log(title);
 
   const handleDeleteBlock = (teamId: number, id: number) => {
-    blockMutate({ teamId: teamId, blockId: id });
-    onClose();
+    blockMutate(
+      { teamId: teamId, blockId: id },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   const handleDeleteDocs = (teamId: number, id: number) => {
-    //문서 삭제 api 추가
-    documentMutate({ teamId: teamId, documentId: id });
-    console.log('여긴가?');
-    onClose();
+    documentMutate(
+      { teamId: teamId, documentId: id },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   const handleDelete = title === 'block' ? handleDeleteBlock : handleDeleteDocs;

@@ -13,6 +13,8 @@ export const containerStyle = (blockSelected: string) =>
     width: blockSelected ? '28rem' : 0,
     height: 'calc(100vh - 0.8rem);',
 
+    marginLeft: '6rem',
+
     borderRadius: '16px',
 
     backgroundColor: theme.colors.white,

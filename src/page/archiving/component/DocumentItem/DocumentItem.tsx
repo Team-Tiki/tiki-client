@@ -18,7 +18,7 @@ import { theme } from '@/common/style/theme/theme';
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 
 interface DocumentItemProps {
-  documentId?: number;
+  documentId: number;
   children: ReactNode;
   selectedId: string;
   blockName?: string;
@@ -43,7 +43,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
     <>
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
       <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
-        {selectedId === 'total' && (
+        {color && (
           <div>
             <Text tag="body8" css={blockNameTextStyle(color)}>
               {blockName}

@@ -1,7 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { deleteBlock } from '@/shared/api/archiving/document';
-import { queryClient } from '@/shared/api/queryClient';
 
 interface DeleteParams {
   teamId: number;
@@ -9,11 +8,13 @@ interface DeleteParams {
 }
 
 export const useDeleteBlockMutation = () => {
+  const queryClient = useQueryClient();
+
   const deleteBlockMutation = useMutation({
     mutationFn: ({ teamId, blockId }: DeleteParams) => deleteBlock(teamId, blockId),
     onSuccess: () => {
-      console.log('블록 삭제 성공');
-      queryClient.invalidateQueries({ queryKey: ['document', 'timeBlock'] });
+      queryClient.invalidateQueries({ queryKey: ['timeBlock'] });
+      queryClient.invalidateQueries({ queryKey: ['document'] });
     },
   });
 
