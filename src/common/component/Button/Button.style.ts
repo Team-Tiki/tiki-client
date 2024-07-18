@@ -23,7 +23,7 @@ export const buttonStyle = css({
 
   cursor: 'pointer',
 
-  '&:disabled': {
+  '&:disabled:not(:focus)': {
     backgroundColor: theme.colors.gray_400,
     color: theme.colors.white,
   },
