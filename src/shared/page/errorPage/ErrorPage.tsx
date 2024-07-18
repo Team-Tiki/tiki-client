@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import errorImg from '@/common/asset/img/error.png';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -10,12 +12,14 @@ import { pageStyle, viewStyle } from '@/shared/page/errorPage/ErrorPage.style';
 
 interface ErrorPageProps {
   statusCode?: number;
-  onReset?: () => void;
+  resetError?: () => void;
 }
 
-const ErrorPage = ({ statusCode = HTTP_STATUS_CODE.NOT_FOUND, onReset }: ErrorPageProps) => {
+const ErrorPage = ({ statusCode = HTTP_STATUS_CODE.NOT_FOUND, resetError }: ErrorPageProps) => {
   const isHTTPError =
     statusCode === HTTP_STATUS_CODE.BAD_REQUEST || HTTP_STATUS_CODE.NOT_FOUND || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR;
+
+  const navigate = useNavigate();
 
   if (!isHTTPError) return null;
 
@@ -31,8 +35,8 @@ const ErrorPage = ({ statusCode = HTTP_STATUS_CODE.NOT_FOUND, onReset }: ErrorPa
             {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].TEXT}
           </Text>
         </Flex>
-        <Button variant="action" onClick={onReset}>
-          돌아가기
+        <Button variant="action" onClick={resetError ?? (() => navigate(-1))}>
+          {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].REDIRECT}
         </Button>
       </div>
     </section>
