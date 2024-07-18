@@ -49,13 +49,13 @@ const LeftSidebar = () => {
 
   const { mutateAsync: postTeamMutate } = usePostTeamMutation();
 
-  const postData = {
-    name: name,
-    category: category,
-    iconImageUrl: fileUrlData,
-  };
-
   useEffect(() => {
+    const postData = {
+      name: name,
+      category: category,
+      iconImageUrl: fileUrlData,
+    };
+
     if (isComplete) {
       postTeamMutate(postData, {
         onSuccess: () => {
@@ -63,7 +63,7 @@ const LeftSidebar = () => {
         },
       });
     }
-  }, [isComplete]);
+  }, [isComplete, category, fileUrlData, name, postTeamMutate, refetch]);
 
   const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
   const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} />);

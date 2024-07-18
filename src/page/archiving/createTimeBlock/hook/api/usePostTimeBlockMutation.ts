@@ -1,5 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { postTimeBlock } from '@/shared/api/time-blocks/team/time-block';
 import { TimeBlockCreate } from '@/shared/api/time-blocks/team/time-block/type';

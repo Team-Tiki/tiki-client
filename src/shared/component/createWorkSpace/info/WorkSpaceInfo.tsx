@@ -2,10 +2,8 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
-
 import { headingStyle, textStyle, topStyle } from '@/shared/component/createWorkSpace/info/WorkSpaceInfo.style';
 import { STEPS, STEPS_BY_CATEGORY } from '@/shared/constant';
-
 
 interface WorkSapceInfoProps {
   step?: 'name' | 'category' | 'image' | 'block' | 'upload';
@@ -22,7 +20,6 @@ const WorkSapceInfo = ({ step, title, info }: WorkSapceInfoProps) => {
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }}>
-
       {step !== undefined && (
         <Text css={topStyle}>
           {STEPS[step.toUpperCase() as keyof typeof STEPS]}/{getTotalSteps(step)}
