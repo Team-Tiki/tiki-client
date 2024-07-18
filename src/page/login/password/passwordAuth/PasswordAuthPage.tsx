@@ -3,7 +3,7 @@ import { useResendMailMutation } from '@/page/login/password/hook/api/useResendM
 import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
 import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
-import { PLACEHOLDER } from '@/page/signUp/info/constant';
+import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import { useCallback, useState } from 'react';
@@ -15,29 +15,32 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { useInput } from '@/common/hook/useInput';
-import useTimer from '@/common/hook/useTimer';
+import { useTimer } from '@/common/hook/useTimer';
 
 const PasswordAuthPage = () => {
-  const [isMailSent, setIsMailSent] = useState(false);
   const [isVerifyCode, setIsVerifyCode] = useState(false);
   const { value: email, onChange: onEmailChange } = useInput('');
   const { value: authCode, onChange: onAuthCodeChange } = useInput('');
 
-  const { time: remainTime, startTimer, stopTimer } = useTimer(180);
+  const {
+    remainTime,
+    isTriggered: isMailSent,
+    handleTrigger: handleSend,
+  } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
+
   const navigate = useNavigate();
-  const { resendMailMutation } = useResendMailMutation(email, setIsMailSent, startTimer);
+  const { resendMailMutation } = useResendMailMutation(email);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
 
   const handleMailSend = useCallback(() => {
     if (validateEmail(email)) {
       resendMailMutation(undefined, {
         onSuccess: () => {
-          setIsMailSent(true);
-          startTimer();
+          handleSend();
         },
       });
     }
-  }, [email, resendMailMutation, startTimer]);
+  }, [email, resendMailMutation, handleSend]);
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
@@ -52,7 +55,7 @@ const PasswordAuthPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    stopTimer();
+
     if (!isError || isMailSent) navigate('/password/reset', { state: email });
   };
 

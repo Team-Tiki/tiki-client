@@ -1,34 +1,33 @@
-import { EMAIL_EXPIRED } from '@/page/login/constant';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useCallback, useRef, useState } from 'react';
+import { Timeout } from '@/shared/type/time';
 
-const useTimer = (initialTime: number) => {
-  const [time, setTime] = useState(initialTime);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+export const useTimer = (initialTime: number, message: string) => {
+  const [isTriggered, setIsTriggered] = useState(false);
+  const [remainTime, setRemainTime] = useState(initialTime);
+  const ref = useRef<Timeout>();
 
-  const stopTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
+  const handleTrigger = useCallback(() => {
+    setIsTriggered(true);
   }, []);
 
-  const startTimer = useCallback(() => {
-    setTime(initialTime);
-    timerRef.current = setInterval(() => {
-      setTime((prevTime) => {
-        if (prevTime > 0) {
-          return prevTime - 1;
-        } else {
-          stopTimer();
-          alert(EMAIL_EXPIRED);
-          return 0;
-        }
-      });
+  useEffect(() => {
+    ref.current = setInterval(() => {
+      if (remainTime > 0) {
+        setRemainTime((prevTime) => prevTime - 1);
+      } else {
+        alert(message);
+
+        setIsTriggered(false);
+        setRemainTime(initialTime);
+
+        clearInterval(ref.current);
+      }
     }, 1000);
-  }, [initialTime, stopTimer]);
 
-  return { time, startTimer, stopTimer };
+    return () => clearInterval(ref.current);
+  }, [remainTime]);
+
+  return { remainTime, isTriggered, handleTrigger };
 };
-
-export default useTimer;
