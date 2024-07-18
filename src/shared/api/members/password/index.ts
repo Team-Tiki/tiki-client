@@ -1,4 +1,4 @@
-import axiosInstance from '@/shared/api/instance';
+import { axiosInstance } from '@/shared/api/instance';
 import { PasswordReset } from '@/shared/api/members/password/type';
 
 export const resetPassword = (data: PasswordReset) => {
