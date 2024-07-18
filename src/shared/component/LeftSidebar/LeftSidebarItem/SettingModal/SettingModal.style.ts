@@ -39,6 +39,9 @@ export const contentStyle = css({
   ':hover': {
     backgroundColor: theme.colors.blue_100,
   },
+  ':focus': {
+    backgroundColor: theme.colors.blue_100,
+  },
 });
 
 export const textStyle = css({

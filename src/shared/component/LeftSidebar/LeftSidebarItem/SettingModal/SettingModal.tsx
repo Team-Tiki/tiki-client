@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { HTMLAttributes, useEffect } from 'react';
+import React, { HTMLAttributes, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logout from '@/common/asset/svg/logout.svg?react';
@@ -37,12 +37,28 @@ const SettingModal = ({ isOpen, setState, ...props }: SettingModalProps) => {
     }
   }, [open, isOpen, setState]);
 
+  const handleLogoutKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Enter') {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      navigate(PATH.LOGIN);
+      close();
+    }
+  };
+
+  const handlePwResetKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Enter') {
+      navigate(PATH.PASSWORD_AUTH);
+      close();
+    }
+  };
+
   return (
     <ul ref={settingRef} css={containerStyle(isModalOpen)} {...props}>
       <li
         role="button"
         tabIndex={0}
         css={contentStyle}
+        onKeyDown={handleLogoutKeyDown}
         onClick={() => {
           localStorage.removeItem(ACCESS_TOKEN_KEY);
           navigate(PATH.LOGIN);
@@ -57,6 +73,7 @@ const SettingModal = ({ isOpen, setState, ...props }: SettingModalProps) => {
         role="button"
         tabIndex={0}
         css={contentStyle}
+        onKeyDown={handlePwResetKeyDown}
         onClick={() => {
           navigate(PATH.PASSWORD_AUTH);
           close();
