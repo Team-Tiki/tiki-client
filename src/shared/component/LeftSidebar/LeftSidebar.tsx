@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
@@ -38,13 +38,13 @@ const LeftSidebar = () => {
   const { data, refetch } = useClubInfoQuery();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [clicked, setClicked] = useState('showcase');
   const [isSetting, setIsSetting] = useState(false);
+  const [isWorkspaceClicked, setIsWorkspaceClicked] = useState(false);
 
   // 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [fileUrlData, setFileUrlData] = useState('');
@@ -92,12 +92,14 @@ const LeftSidebar = () => {
   const handleShowcaseClick = () => {
     setClicked('showcase');
     localStorage.removeItem('teamId');
+    setIsWorkspaceClicked(false);
     navigate(PATH.SHOWCASE);
     close();
   };
 
   const handleTeamClick = (teamId: string) => {
     setClicked(teamId);
+    setIsWorkspaceClicked(false); // 워크스페이스 클릭 상태 해제
 
     setTeamId(teamId);
     localStorage.setItem('teamId', teamId);
@@ -107,14 +109,18 @@ const LeftSidebar = () => {
   };
 
   const handleWorkspaceClick = () => {
-    setClicked('createWorkspace');
+    setIsWorkspaceClicked(true);
     openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
-    close();
   };
 
   const handleSettingClick = () => {
     setIsSetting(true);
     close();
+  };
+
+  const closeModal = () => {
+    closeModalBase();
+    setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
   };
 
   return (
@@ -145,7 +151,7 @@ const LeftSidebar = () => {
             );
           })}
           <LeftSidebarItem
-            isClicked={clicked === 'createWorkspace'}
+            isClicked={isWorkspaceClicked}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
             onClick={handleWorkspaceClick}>
