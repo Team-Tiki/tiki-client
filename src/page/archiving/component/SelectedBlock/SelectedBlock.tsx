@@ -70,7 +70,8 @@ const SelectedBlock = ({
             key={data.documentId}
             documentId={data.documentId || 1}
             selectedId={selectedId}
-            blockName={data.blockName}>
+            blockName={data.blockName}
+            fileUrl={data.fileUrl}>
             {data.fileName}
           </DocumentItem>
         ))}

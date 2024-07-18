@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { deleteBlock } from '@/shared/api/archiving/document';
+import { deleteBlock } from '@/shared/api/time-blocks/team/time-block';
 
 interface DeleteParams {
   teamId: number;

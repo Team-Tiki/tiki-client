@@ -16,7 +16,6 @@ export const useModal = () => {
   const closeModal = useCallback(() => {
     setIsOpen(false);
     setCurrentContent(undefined);
-    console.log('모달 닫기');
   }, []);
 
   // 뒤로가기 이벤트 처리

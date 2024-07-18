@@ -22,7 +22,7 @@ interface DocumentItemProps {
   children: ReactNode;
   selectedId: string;
   blockName?: string;
-  fileUrl?: string;
+  fileUrl: string;
   color?: string;
 }
 

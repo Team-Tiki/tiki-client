@@ -7,7 +7,7 @@ import {
 } from '@/page/archiving/component/TotalDocument/TotalDocument.style';
 import { DocumentType } from '@/page/archiving/type/documentType';
 
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -28,9 +28,7 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
     setSelected(option);
   };
 
-  useEffect(() => {
-    filteredDocuments.current = filteredDocuments.current?.filter((document) => document.fileName.includes(searchWord));
-  }, [searchWord]);
+  const filtered = filteredDocuments.current?.filter((document) => document.fileName.includes(searchWord));
 
   return (
     <Flex tag={'section'} css={containerStyle}>
@@ -47,19 +45,17 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
-        {(selected === '최근 업로드 순' ? filteredDocuments.current : [...filteredDocuments.current].reverse())?.map(
-          (data: DocumentType) => (
-            <DocumentItem
-              key={data.documentId}
-              documentId={data.documentId || 1}
-              selectedId={selectedId}
-              blockName={data.blockName}
-              fileUrl={data.fileUrl}
-              color={data.color}>
-              {data.fileName}
-            </DocumentItem>
-          )
-        )}
+        {(selected === '최근 업로드 순' ? filtered : [...filtered].reverse())?.map((data: DocumentType) => (
+          <DocumentItem
+            key={data.documentId}
+            documentId={data.documentId || 1}
+            selectedId={selectedId}
+            blockName={data.blockName}
+            fileUrl={data.fileUrl}
+            color={data.color}>
+            {data.fileName}
+          </DocumentItem>
+        ))}
       </Flex>
     </Flex>
   );

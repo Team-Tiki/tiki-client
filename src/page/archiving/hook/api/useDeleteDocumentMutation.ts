@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { deleteDocument } from '@/shared/api/archiving/document';
+import { deleteDocument } from '@/shared/api/documents/team/document';
 
 interface DeleteParams {
   teamId: number;
