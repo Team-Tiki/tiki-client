@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-import React, { HTMLAttributes, useEffect } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logout from '@/common/asset/svg/logout.svg?react';
@@ -21,18 +21,22 @@ interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
 }
 
 const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingModalProps) => {
-  const { isOpen, close, open } = useOverlay();
+  const { close, open } = useOverlay();
   const settingRef = useOutsideClick<HTMLUListElement>(close);
+
+  const [isOpening, setIsOpening] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isModalOpen) {
-      open;
-      console.log(isOpen);
+      open();
+      setIsOpening(true);
       setSettingClickState(false);
+    } else {
+      setIsOpening(false);
     }
-  }, [open, isModalOpen, setSettingClickState]);
+  }, [isModalOpen, open, setSettingClickState]);
 
   const handleNavClick = (path: string) => {
     navigate(path);
@@ -53,7 +57,7 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
   };
 
   return (
-    <ul ref={settingRef} css={containerStyle(isOpen)} {...props}>
+    <ul ref={settingRef} css={containerStyle(isOpening)} {...props}>
       <li
         role="button"
         tabIndex={0}
