@@ -5,7 +5,6 @@ export const checkAuthCode = async (email: string, code: string) => {
     email: email,
     code: code,
   });
-  console.log(response);
 
   return response;
 };
