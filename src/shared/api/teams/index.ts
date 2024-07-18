@@ -1,7 +1,13 @@
 import { axiosInstance } from '@/shared/api/instance';
-import { TeamsInfo } from '@/shared/api/teams/type';
+import { CreateTeam, TeamsInfo } from '@/shared/api/teams/type';
 
 export const getClubInfo = async () => {
   const response = await axiosInstance.get<TeamsInfo>('/teams');
+  return response.data;
+};
+
+export const postTeam = async (data: CreateTeam) => {
+  const response = await axiosInstance.post('/teams', data);
+  console.log('팀생성', response.data);
   return response.data;
 };

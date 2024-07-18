@@ -13,10 +13,20 @@ import {
 
 interface WorkSpaceNameProps {
   onNext: () => void;
+  setName: (name: string) => void;
 }
 
-const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
+const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
   const [inputValue, setInputValue] = useState('');
+
+  console.log(inputValue);
+
+  const handleNext = () => {
+    console.log(inputValue);
+    setName(inputValue);
+
+    onNext();
+  };
 
   const isButtonActive = inputValue.trim().length > 0;
 
@@ -42,7 +52,7 @@ const WorkSpaceName = ({ onNext }: WorkSpaceNameProps) => {
         size="medium"
         css={buttonStyle(isButtonActive)}
         disabled={!isButtonActive}
-        onClick={onNext}>
+        onClick={handleNext}>
         다음
       </Button>
     </Flex>

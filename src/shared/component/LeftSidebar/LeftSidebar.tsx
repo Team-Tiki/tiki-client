@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
@@ -23,23 +24,46 @@ import { DEFAULT_LOGO } from '@/shared/constant';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { Team } from '@/shared/type/team';
 
+import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
+
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
   const navigate = useNavigate();
 
   const sidebarRef = useOutsideClick(close);
 
-  const { data } = useClubInfoQuery();
+  const { data, refetch } = useClubInfoQuery();
 
-  // 모달 관련 코드
+  // 모달 관련 상태
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [fileUrlData, setFileUrlData] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
 
-  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} />);
-  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} />);
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
+  const { mutateAsync: postTeamMutate } = usePostTeamMutation();
+
+  const postData = {
+    name: name,
+    category: category,
+    iconImageUrl: fileUrlData,
+  };
+
+  useEffect(() => {
+    if (isComplete) {
+      postTeamMutate(postData, {
+        onSuccess: () => {
+          refetch();
+        },
+      });
+    }
+  }, [isComplete]);
+
+  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} setCategory={setCategory} />);
+  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} setFileUrlData={setFileUrlData} />);
+  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete setIsComplete={setIsComplete} />);
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <aside css={containerStyle(isNavOpen)} ref={sidebarRef} onClick={(e) => e.stopPropagation()}>
       {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
       <LogoSymbol css={LogoSymbolStyle} />
@@ -55,24 +79,22 @@ const LeftSidebar = () => {
             }}>
             Showcase
           </LeftSidebarItem>
-          {data?.data.belongTeamGetResponses.map((data: Team) => {
-            return (
-              <LeftSidebarItem
-                key={data.id}
-                isClicked={true}
-                isExpansion={isNavOpen}
-                url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
-                onClick={close}>
-                {data.name}
-              </LeftSidebarItem>
-            );
-          })}
+          {data?.data.belongTeamGetResponses.map((data: Team) => (
+            <LeftSidebarItem
+              key={data.id}
+              isClicked={true}
+              isExpansion={isNavOpen}
+              url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
+              onClick={close}>
+              {data.name}
+            </LeftSidebarItem>
+          ))}
           <LeftSidebarItem
             isClicked={true}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
             onClick={() => {
-              openModal(<WorkSpaceName onNext={handleNext1} />);
+              openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
               close();
             }}>
             워크스페이스 생성

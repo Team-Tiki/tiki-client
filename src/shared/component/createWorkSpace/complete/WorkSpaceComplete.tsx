@@ -4,7 +4,12 @@ import Flex from '@/common/component/Flex/Flex';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 
-const WorkSpaceComplete = () => {
+interface WorkSpaceCompleteProps {
+  setIsComplete: (isComplete: boolean) => void;
+}
+
+const WorkSpaceComplete = ({ setIsComplete }: WorkSpaceCompleteProps) => {
+  setIsComplete(true);
   return (
     <Flex
       tag={'section'}

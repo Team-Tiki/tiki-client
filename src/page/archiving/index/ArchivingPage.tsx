@@ -19,7 +19,6 @@ import Modal from '@/common/component/Modal/Modal';
 import { useOutsideClick } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
 
-import { queryClient } from '@/shared/api/queryClient';
 import { useGetTimeBlockQuery } from '@/shared/hook/archiving/useGetTimeBlockQuery';
 
 const ArchivingPage = () => {

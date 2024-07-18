@@ -25,7 +25,7 @@ export const selectedTextStyle = css({
 
 export const arrowStyle = (isOpen: boolean) =>
   css({
-    width: '1.2rem',
-    height: '0.7rem',
+    width: '2.4rem',
+    height: '2.4rem',
     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
   });
