@@ -28,7 +28,8 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
 
   useEffect(() => {
     if (isModalOpen) {
-      open();
+      open;
+      console.log(isOpen);
       setSettingClickState(false);
     }
   }, [open, isModalOpen, setSettingClickState]);

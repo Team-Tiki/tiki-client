@@ -98,6 +98,7 @@ const LeftSidebar = () => {
 
   const handleSettingClick = () => {
     setIsSetting(true);
+    console.log(isSetting);
     close();
   };
 
