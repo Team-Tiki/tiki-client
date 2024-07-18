@@ -8,7 +8,6 @@ export const getClubInfo = async () => {
 
 export const postTeam = async (data: CreateTeam) => {
   const response = await axiosInstance.post('/teams', data);
-  console.log('팀생성', response);
 
   return response.data;
 };

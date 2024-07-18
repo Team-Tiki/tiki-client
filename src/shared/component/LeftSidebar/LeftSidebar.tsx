@@ -59,8 +59,6 @@ const LeftSidebar = () => {
       category: category,
       iconImageUrl: fileUrlData,
     };
-    console.log(postData.iconImageUrl);
-    console.log(isComplete);
 
     if (isComplete) {
       postTeamMutate(postData, {
