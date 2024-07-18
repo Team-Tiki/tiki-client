@@ -12,12 +12,12 @@ export const useDate = () => {
   const dateOfMonth = getMonthDate(selectedMonth, currentYear);
   const endDay = endOfMonth(dateOfMonth);
 
-  const handlePrevYear = (currentYear: number) => {
-    setCurrentYear(currentYear - 1);
+  const handlePrevYear = () => {
+    setCurrentYear((prevYear) => prevYear - 1);
   };
 
-  const handleNextYear = (currentYear: number) => {
-    setCurrentYear(currentYear + 1);
+  const handleNextYear = () => {
+    setCurrentYear((prevYear) => prevYear + 1);
   };
 
   return {
@@ -29,5 +29,6 @@ export const useDate = () => {
     handleNextYear,
     dateOfMonth,
     endDay,
+    handleDateChange,
   };
 };

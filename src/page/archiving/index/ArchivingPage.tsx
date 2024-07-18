@@ -11,7 +11,7 @@ import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks } from '@/page/archiving/index/util/block';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -23,8 +23,21 @@ import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('selected');
-
   const { teamId } = useTeamStore();
+  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
+    useDate();
+
+  const selectedMonthNumber = selectedMonth.split('월')[0].padStart(2, '0');
+
+  const { data, refetch } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, +selectedMonthNumber);
+
+  useEffect(() => {
+    refetch();
+  }, [selectedMonthNumber, currentYear, refetch]);
+
+  useEffect(() => {
+    console.log(`year: ${currentYear}, month: ${selectedMonthNumber}`);
+  }, [currentYear, selectedMonthNumber]);
 
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
@@ -36,20 +49,12 @@ const ArchivingPage = () => {
 
   const handleBlockClick = (block: Block) => {
     setBlockSelected(block);
-
     setSelectedId('selected');
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
 
-  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate();
   const [blockSelected, setBlockSelected] = useState<Block>();
-  const { data } = useGetTimeBlockQuery(
-    Number(teamId),
-    'executive',
-    `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
-  );
 
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
@@ -91,25 +96,18 @@ const ArchivingPage = () => {
                 />
               );
             })}
-            {data?.timeBlocks
-              .filter((blocks: Block) => {
-                return (
-                  new Date(blocks.startDate).getMonth() + 1 === parseInt(selectedMonth) &&
-                  new Date(blocks.startDate).getFullYear() === currentYear
-                );
-              })
-              .map((block: Block) => (
-                <TimeBlock
-                  key={block.timeBlockId}
-                  startDate={block.startDate}
-                  endDate={block.endDate}
-                  color={block.color}
-                  floor={blockFloors[block.timeBlockId] || 1}
-                  blockType={block.blockType}
-                  onBlockClick={() => handleBlockClick(block)}>
-                  {block.name}
-                </TimeBlock>
-              ))}
+            {timeBlocks.map((block: Block) => (
+              <TimeBlock
+                key={block.timeBlockId}
+                startDate={block.startDate}
+                endDate={block.endDate}
+                color={block.color}
+                floor={blockFloors[block.timeBlockId] || 1}
+                blockType={block.blockType}
+                onBlockClick={() => handleBlockClick(block)}>
+                {block.name}
+              </TimeBlock>
+            ))}
           </div>
         </Flex>
         <Flex css={{ marginLeft: 'auto' }}>
