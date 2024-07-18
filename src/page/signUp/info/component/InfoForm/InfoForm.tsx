@@ -126,6 +126,12 @@ const InfoForm = () => {
           label="학교"
           onSelect={onSelect}
           isOpen={isOpen}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              toggle();
+              onReset();
+            }
+          }}
           trigger={
             <button
               type="button"
