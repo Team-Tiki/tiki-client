@@ -41,7 +41,6 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
 
   const handleSelect = (id: string) => {
     setSelected(id);
-    console.log(setCategory(id));
     setCategory(id);
   };
 
@@ -50,7 +49,7 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <article css={{ width: '32rem', height: '7.6rem' }}>
+      <div css={{ width: '32rem', height: '7.6rem' }}>
         <Select
           css={{
             '& ul': {
@@ -68,7 +67,7 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
             </Button>
           }
         />
-      </article>
+      </div>
       <Button
         variant="primary"
         size="medium"
