@@ -5,7 +5,6 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
 
 import {
   arrowStyle,
@@ -18,10 +17,10 @@ import useCategoryListQuery from '@/shared/hook/useCategoryListQuery';
 
 interface WorkSpaceCategoryProps {
   onNext: () => void;
-  setCategory: (category: string) => void;
+  onCategory: (category: string) => void;
 }
 
-const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
+const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState('');
@@ -32,14 +31,14 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
 
   useEffect(() => {
     if (selected) {
-      setCategory(selected);
+      onCategory(selected);
     }
     close?.();
-  }, [selected, setCategory, close]);
+  }, [selected, onCategory, close]);
 
   const handleSelect = (id: string) => {
     setSelected(id);
-    setCategory(id);
+    onCategory(id);
   };
 
   const isButtonActive = selected.trim().length > 0;

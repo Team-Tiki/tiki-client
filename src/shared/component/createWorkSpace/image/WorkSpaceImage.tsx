@@ -20,10 +20,10 @@ import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceN
 
 interface WorkSpaceImageProps {
   onNext: () => void;
-  setFileUrlData: (file: string) => void;
+  onFileUrlData: (file: string) => void;
 }
 
-const WorkSpaceImage = ({ onNext, setFileUrlData }: WorkSpaceImageProps) => {
+const WorkSpaceImage = ({ onNext, onFileUrlData }: WorkSpaceImageProps) => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -45,14 +45,14 @@ const WorkSpaceImage = ({ onNext, setFileUrlData }: WorkSpaceImageProps) => {
             onSuccess: (uploadedFileUrl) => {
               if (uploadedFileUrl) {
                 setFileURL(uploadedFileUrl);
-                setFileUrlData(uploadedFileUrl);
+                onFileUrlData(uploadedFileUrl);
               }
             },
           }
         );
       }
     }
-  }, [file, fileData, uploadToS3Mutate, setFileUrlData]);
+  }, [file, fileData, uploadToS3Mutate, onFileUrlData]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -74,7 +74,7 @@ const WorkSpaceImage = ({ onNext, setFileUrlData }: WorkSpaceImageProps) => {
             setFileURL('');
             setFile(null);
             setPresignedUrl(null);
-            setFileUrlData('');
+            onFileUrlData('');
           },
         }
       );

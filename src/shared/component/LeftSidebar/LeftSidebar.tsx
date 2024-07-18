@@ -59,9 +59,9 @@ const LeftSidebar = () => {
     }
   }, [isComplete]);
 
-  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} setCategory={setCategory} />);
-  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} setFileUrlData={setFileUrlData} />);
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete setIsComplete={setIsComplete} />);
+  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
+  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} />);
+  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete isComplete={setIsComplete} />);
 
   return (
     <aside css={containerStyle(isNavOpen)} ref={sidebarRef} onClick={(e) => e.stopPropagation()}>

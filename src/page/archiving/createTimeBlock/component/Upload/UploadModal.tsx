@@ -28,8 +28,8 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
 
-  const { mutateAsync: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
-  const { mutateAsync: fileDeleteMutate } = useDeleteFileMutation();
+  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
+  const { mutate: fileDeleteMutate } = useDeleteFileMutation();
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles((prevFiles) => {
