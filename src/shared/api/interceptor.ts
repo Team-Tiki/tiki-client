@@ -9,7 +9,7 @@ export const checkAndUpateToken = (config: InternalAxiosRequestConfig) => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 
   if (!accessToken) {
-    window.location.href = PATH.ROOT;
+    window.location.href = PATH.LOGIN;
     throw new Error('토큰이 존재하지 않습니다.');
   }
 
