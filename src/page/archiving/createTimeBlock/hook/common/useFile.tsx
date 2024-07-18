@@ -28,18 +28,16 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
         const file = fileArray[index];
 
         const fileExtension = extractFileExtension(file.name);
-        console.log('확장자', fileExtension);
 
         const fileData = await getFile(fileExtension);
         const fileName = file.name;
-        console.log('파일명', fileName);
+
         const presignedUrl = fileData?.url;
         if (file && presignedUrl) {
           const uploadedFileUrl = await uploadToS3({ presignedUrl, file });
           if (uploadedFileUrl) {
             fileUrlMap[fileName] = uploadedFileUrl;
           }
-          console.log('파일', fileUrlMap);
         }
       }
 

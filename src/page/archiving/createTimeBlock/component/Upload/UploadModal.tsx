@@ -14,7 +14,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
-//import { queryClient } from '@/shared/api/queryClient';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 
@@ -61,18 +60,10 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
     files: fileUrls,
   };
 
-  const queryClient = useQueryClient();
-
   const handleSave = () => {
-    console.log('데이터', data);
-
     timeBlockMutate(data, {
       onSuccess: () => {
         onClose();
-
-        queryClient.invalidateQueries({
-          queryKey: ['timeBlock'],
-        });
       },
     });
   };
