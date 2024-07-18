@@ -7,11 +7,10 @@ import {
   timeStyle,
 } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
-import { useDateInput } from '@/page/signUp/info/hook/useDateInput';
-import { useInput } from '@/page/signUp/info/hook/useInput';
-import { useSelect } from '@/page/signUp/info/hook/useSelect';
-import { useSendMailMutation } from '@/page/signUp/info/hook/useSendMailMutation';
-import { useTimer } from '@/page/signUp/info/hook/useTimer';
+import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
+import { useDateInput } from '@/page/signUp/info/hook/common/useDateInput';
+import { useSelect } from '@/page/signUp/info/hook/common/useSelect';
+import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import React, { useContext, useState } from 'react';
@@ -24,6 +23,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+import { useInput } from '@/common/hook/useInput';
 
 import { useToastStore } from '@/shared/store/toast';
 
