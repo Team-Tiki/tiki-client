@@ -29,6 +29,5 @@ export const useDate = () => {
     handleNextYear,
     dateOfMonth,
     endDay,
-    handleDateChange,
   };
 };
