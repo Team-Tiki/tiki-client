@@ -4,6 +4,7 @@ import {
   containerStyle,
   fileNameStyle,
 } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import { handleDownload } from '@/page/archiving/index/util/document';
 
 import { ReactNode } from 'react';
 
@@ -29,9 +30,16 @@ interface DocumentItemProps {
 const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, color }: DocumentItemProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
+  const fileName = children?.toString();
+
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {
     window.open(fileUrl);
+  };
+
+  const handleDownloadClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    handleDownload(fileUrl, fileName);
+    e.stopPropagation();
   };
 
   const handleTrashClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
@@ -44,21 +52,18 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
       <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
         {color && (
-          <Text tag="body8" css={blockNameTextStyle(color)}>
-            {blockName}
-          </Text>
+          <div>
+            <Text tag="body8" css={blockNameTextStyle(color)}>
+              {blockName}
+            </Text>
+          </div>
         )}
         <Flex>
           <Text tag="body6" css={fileNameStyle}>
-            {children?.toString()}
+            {fileName}
           </Text>
-          <Download width={20} height={20} css={{ zIndex: theme.zIndex.overlayMiddle }} />
-          <TrashBox
-            width={20}
-            height={20}
-            onClick={(e) => handleTrashClick(e)}
-            css={{ zIndex: theme.zIndex.overlayMiddle, cursor: 'pointer' }}
-          />
+          <Download width={20} height={20} css={{ cursor: 'pointer' }} onClick={handleDownloadClick} />
+          <TrashBox width={20} height={20} onClick={(e) => handleTrashClick(e)} css={{ cursor: 'pointer' }} />
         </Flex>
       </li>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
