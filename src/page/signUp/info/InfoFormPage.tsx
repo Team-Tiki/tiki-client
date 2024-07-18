@@ -1,7 +1,7 @@
 import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
 import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
-import { useSignupMutation } from '@/page/signUp/info/hook/useSignupMutation';
+import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
 
 import React, { SetStateAction, createContext, useEffect, useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
+import { useToastStore } from '@/shared/store/toast';
 
 type Context = {
   userInfo: UserInfo;
@@ -28,6 +29,7 @@ const InfoFormPage = () => {
     passwordChecker: '',
   });
   const [isCompleted, setIsCompleted] = useState(false);
+  const { createToast } = useToastStore();
 
   const { mutate } = useSignupMutation();
   const navigate = useNavigate();
@@ -42,7 +44,10 @@ const InfoFormPage = () => {
   useEffect(() => {
     if (isCompleted) {
       mutate(info, {
-        onSuccess: goToLoginPage,
+        onSuccess: () => {
+          goToLoginPage();
+          createToast('회원가입이 완료되었습니다.', 'success');
+        },
       });
     }
   }, [isCompleted]);
