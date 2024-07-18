@@ -44,9 +44,11 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
       <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
         {color && (
-          <Text tag="body8" css={blockNameTextStyle(color)}>
-            {blockName}
-          </Text>
+          <div>
+            <Text tag="body8" css={blockNameTextStyle(color)}>
+              {blockName}
+            </Text>
+          </div>
         )}
         <Flex>
           <Text tag="body6" css={fileNameStyle}>
