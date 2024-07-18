@@ -7,6 +7,7 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
+      console.log('useOutsideClick 실행');
       if (!ref.current || !(event.target instanceof HTMLElement)) return;
 
       const isOutSide = !ref.current.contains(event.target as Node);
@@ -36,11 +37,11 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
   );
 
   useEffect(() => {
-    window.addEventListener('click', handleOutsideClick);
+    window.addEventListener('mousedown', handleOutsideClick);
     window.addEventListener('keydown', handleEscKeyDown);
 
     return () => {
-      window.removeEventListener('click', handleOutsideClick);
+      window.removeEventListener('mousedown', handleOutsideClick);
       window.removeEventListener('keydown', handleEscKeyDown);
     };
   }, [onClose, handleEscKeyDown, handleOutsideClick]);

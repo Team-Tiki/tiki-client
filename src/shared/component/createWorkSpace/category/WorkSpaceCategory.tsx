@@ -48,7 +48,7 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem', height: '7.6rem' }}>
+      <div css={{ width: '32rem', height: '7.6rem' }} ref={ref}>
         <Select
           css={{
             '& ul': {
@@ -59,7 +59,6 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
           onSelect={handleSelect}
           options={categoryList}
           className="select-container"
-          ref={ref}
           trigger={
             <Button css={selectButtonStyle(isOpen)} onClick={toggle}>
               <span css={selected ? selectedTextStyle : null}>{selected || '선택'}</span>
