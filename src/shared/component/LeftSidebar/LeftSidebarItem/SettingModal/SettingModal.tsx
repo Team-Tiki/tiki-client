@@ -20,22 +20,22 @@ import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
-  isOpen: boolean;
-  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: boolean;
+  setSettingClickState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SettingModal = ({ isOpen, setState, ...props }: SettingModalProps) => {
-  const { isOpen: isModalOpen, close, open } = useOverlay();
+const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingModalProps) => {
+  const { isOpen, close, open } = useOverlay();
   const settingRef = useOutsideClick<HTMLUListElement>(close);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isOpen) {
+    if (isModalOpen) {
       open();
-      setState(false);
+      setSettingClickState(false);
     }
-  }, [open, isOpen, setState]);
+  }, [open, isModalOpen, setSettingClickState]);
 
   const handleLogoutKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     if (e.key === 'Enter') {
@@ -53,7 +53,7 @@ const SettingModal = ({ isOpen, setState, ...props }: SettingModalProps) => {
   };
 
   return (
-    <ul ref={settingRef} css={containerStyle(isModalOpen)} {...props}>
+    <ul ref={settingRef} css={containerStyle(isOpen)} {...props}>
       <li
         role="button"
         tabIndex={0}

@@ -113,7 +113,7 @@ const LeftSidebar = () => {
           onClick={handleSettingClick}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal isOpen={isSetting} setState={setIsSetting} />
+        <SettingModal isModalOpen={isSetting} setSettingClickState={setIsSetting} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
