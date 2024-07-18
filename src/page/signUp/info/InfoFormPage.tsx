@@ -10,6 +10,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
+import { useToastStore } from '@/shared/store/toast';
 
 type Context = {
   userInfo: UserInfo;
@@ -31,7 +32,7 @@ const InfoFormPage = () => {
 
   const { mutate } = useSignupMutation();
   const navigate = useNavigate();
-
+  const { createToast } = useToastStore();
   const isInfoMatched = useMatch('/signup/info');
   const isPasswordMatched = useMatch('/signup/info/password');
 
@@ -40,12 +41,14 @@ const InfoFormPage = () => {
   };
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (!isInfoMatched)
+    if (isCompleted) {
       mutate(info, {
         onSuccess: () => {
           goToLoginPage();
+          createToast('회원가입이 완료되었습니다.', 'success');
         },
       });
+    }
   }, [isCompleted]);
 
   return (

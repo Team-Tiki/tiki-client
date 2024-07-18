@@ -1,16 +1,12 @@
-import { Block } from '@/page/archiving/index/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const timelineStyle = (blockSelected: Block | undefined) =>
+export const timelineStyle = () =>
   css({
     flexDirection: 'column',
 
     width: '100%',
-
-    padding: '2.6rem 2.4rem',
-    margin: blockSelected ? '5.6rem 13.2rem 0rem 5.2rem' : '5.6rem 13.2rem 0rem 5.2rem',
 
     borderRadius: '16px',
 

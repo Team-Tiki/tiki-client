@@ -10,3 +10,9 @@ export type ClubType = {
 export type TeamsInfo = {
   data: { teams: ClubType[] };
 };
+
+export interface CreateTeam {
+  name: string;
+  category: string;
+  iconImageUrl: string;
+}

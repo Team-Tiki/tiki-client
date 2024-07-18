@@ -10,6 +10,7 @@ import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT 
 import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
 import { useDateInput } from '@/page/signUp/info/hook/common/useDateInput';
 import { useSelect } from '@/page/signUp/info/hook/common/useSelect';
+import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import React, { useContext, useState } from 'react';
@@ -23,7 +24,6 @@ import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
-import { useTimer } from '@/common/hook/useTimer';
 
 const InfoForm = () => {
   const { isOpen, close, toggle } = useOverlay();

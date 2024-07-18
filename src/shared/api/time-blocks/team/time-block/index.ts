@@ -7,6 +7,7 @@ export const postTimeBlock = async (teamId: number, type: string, data: TimeBloc
       type: type,
     },
   });
+
   return response.data;
 };
 
@@ -14,4 +15,10 @@ export const getDocuments = async (teamId: number, blockId: number) => {
   const response = await axiosInstance.get<TimeBlockData>(`/time-blocks/team/${teamId}/time-block/${blockId}`);
 
   return response.data;
+};
+
+export const deleteBlock = async (teamId: number, timeBlockId: number) => {
+  const response = await axiosInstance.delete(`/time-blocks/team/${teamId}/time-block/${timeBlockId}`);
+
+  return response;
 };

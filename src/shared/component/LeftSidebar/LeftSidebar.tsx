@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
@@ -13,8 +14,10 @@ import {
   arrowStyle,
   containerStyle,
   leftSidebarListStyle,
+  settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
+import SettingModal from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
@@ -23,20 +26,71 @@ import { DEFAULT_LOGO } from '@/shared/constant';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { Team } from '@/shared/type/team';
 
+import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
+
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
-  const navigate = useNavigate();
 
   const sidebarRef = useOutsideClick(close);
 
-  const { data } = useClubInfoQuery();
+  const { data, refetch } = useClubInfoQuery();
+
+  const navigate = useNavigate();
+
+  const [clicked, setClicked] = useState('showcase');
+  const [isSetting, setIsSetting] = useState(false);
 
   // 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [fileUrlData, setFileUrlData] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
 
-  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} />);
-  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} />);
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
+  const { mutateAsync: postTeamMutate } = usePostTeamMutation();
+
+  const postData = {
+    name: name,
+    category: category,
+    iconImageUrl: fileUrlData,
+  };
+
+  useEffect(() => {
+    if (isComplete) {
+      postTeamMutate(postData, {
+        onSuccess: () => {
+          refetch();
+        },
+      });
+    }
+  }, [isComplete]);
+
+  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
+  const handleNext2 = () => setCurrentContent(<WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} />);
+  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete isComplete={setIsComplete} />);
+
+  const handleShowcaseClick = () => {
+    setClicked('showcase');
+    navigate('');
+    close();
+  };
+
+  const handleTeamClick = (teamName: string) => {
+    setClicked(teamName);
+    navigate('/archiving');
+    close();
+  };
+
+  const handleWorkspaceClick = () => {
+    setClicked('createWorkspace');
+    openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
+    close();
+  };
+
+  const handleSettingClick = () => {
+    setIsSetting(true);
+    close();
+  };
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
@@ -46,39 +100,45 @@ const LeftSidebar = () => {
       <nav>
         <ul css={leftSidebarListStyle}>
           <LeftSidebarItem
-            isClicked={true}
+            isClicked={clicked === 'showcase'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/earth.svg"
-            onClick={() => {
-              navigate('/showcase');
-              close();
-            }}>
+            onClick={handleShowcaseClick}>
             Showcase
           </LeftSidebarItem>
           {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
               <LeftSidebarItem
                 key={data.id}
-                isClicked={true}
+                isClicked={clicked === data.name}
                 isExpansion={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
-                onClick={close}>
+                onClick={() => {
+                  handleTeamClick(data.name);
+                }}>
                 {data.name}
               </LeftSidebarItem>
             );
           })}
           <LeftSidebarItem
-            isClicked={true}
+            isClicked={clicked === 'createWorkspace'}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
-            onClick={() => {
-              openModal(<WorkSpaceName onNext={handleNext1} />);
-              close();
-            }}>
+            onClick={handleWorkspaceClick}>
             워크스페이스 생성
           </LeftSidebarItem>
         </ul>
       </nav>
+      <div css={settingStyle}>
+        <LeftSidebarItem
+          isClicked={false}
+          isExpansion={isNavOpen}
+          url={'src/common/asset/svg/settings.svg'}
+          onClick={handleSettingClick}>
+          환경설정
+        </LeftSidebarItem>
+        <SettingModal isModalOpen={isSetting} setSettingClickState={setIsSetting} />
+      </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
   );

@@ -17,12 +17,22 @@ import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
-import { useOutsideClick } from '@/common/hook';
-import { useModal } from '@/common/hook/useModal';
+import { useModal, useOutsideClick } from '@/common/hook';
 
 const ArchivingPage = () => {
+  const [selectedId, setSelectedId] = useState('selected');
+
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
+  };
+
+  const handleSelectedId = (id: string) => {
+    setSelectedId(id);
+  };
+
+  const handleBlockClick = (block: Block) => {
+    setBlockSelected(block);
+    setSelectedId('selected');
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
@@ -31,10 +41,11 @@ const ArchivingPage = () => {
     useDate();
   const [blockSelected, setBlockSelected] = useState<Block>();
   const { data } = useGetTimeBlockQuery(
-    Number(7),
+    Number(9),
     'executive',
     `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
   );
+
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
@@ -52,11 +63,13 @@ const ArchivingPage = () => {
   };
 
   return (
-    <Flex styles={{ width: '100%', height: '100vh' }} css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
-      <section css={timelineStyle(blockSelected)}>
+    <Flex
+      styles={{ justify: 'center', align: 'center', width: '100%', height: '100vh', paddingLeft: '6rem' }}
+      css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
+      <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
-          <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} />
+          <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} blockSelected={blockSelected} />
           <div css={daySectionStyle}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
@@ -89,9 +102,7 @@ const ArchivingPage = () => {
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
                   blockType={block.blockType}
-                  onBlockClick={() => {
-                    setBlockSelected(block);
-                  }}>
+                  onBlockClick={() => handleBlockClick(block)}>
                   {block.name}
                 </TimeBlock>
               ))}
@@ -105,7 +116,13 @@ const ArchivingPage = () => {
         </Flex>
       </section>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      <DocumentBar blockSelected={blockSelected} ref={sideBarRef} />
+      <DocumentBar
+        blockSelected={blockSelected}
+        ref={sideBarRef}
+        selectedId={selectedId}
+        handleSelectedId={handleSelectedId}
+        onClickClose={handleClose}
+      />
     </Flex>
   );
 };

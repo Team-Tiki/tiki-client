@@ -14,7 +14,7 @@ export const containerStyle = (isNavOpen: boolean) =>
 
     height: '100vh',
 
-    padding: '2.4rem 2rem 0 0',
+    padding: '2.4rem 2rem 3rem 0',
 
     backgroundColor: theme.colors.blue_900,
     color: theme.colors.blue_200,
@@ -22,6 +22,11 @@ export const containerStyle = (isNavOpen: boolean) =>
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 
     transitionDuration: '0.5s',
+
+    overflowY: 'auto',
+    '&::-webkit-scrollbar': {
+      width: '0rem',
+    },
   });
 
 export const LogoSymbolStyle = css({
@@ -55,4 +60,9 @@ export const arrowStyle = css({
   width: '1.2rem',
 
   cursor: 'pointer',
+});
+
+export const settingStyle = css({
+  position: 'absolute',
+  bottom: '2.4rem',
 });
