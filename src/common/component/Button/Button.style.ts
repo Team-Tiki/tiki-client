@@ -27,6 +27,8 @@ export const buttonStyle = css({
     backgroundColor: theme.colors.gray_400,
     color: theme.colors.white,
   },
+
+  transition: 'all .2s ease-in',
 });
 
 export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
