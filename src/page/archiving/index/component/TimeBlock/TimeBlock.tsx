@@ -10,16 +10,26 @@ interface TimeBlockProps {
   color: string;
   floor: number;
   blockType: string;
+  onSelected?: boolean;
   onBlockClick: () => void;
 }
 
-const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick, blockType }: TimeBlockProps) => {
+const TimeBlock = ({
+  startDate,
+  endDate,
+  children,
+  color,
+  floor,
+  onBlockClick,
+  onSelected = false,
+  blockType,
+}: TimeBlockProps) => {
   const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
   const startPosition = (new Date(startDate).getDate() - 1) * 6;
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-    <div css={blockStyle(blockWidth, startPosition, floor, color)} onClick={onBlockClick}>
+    <div css={blockStyle(blockWidth, startPosition, floor, color, onSelected)} onClick={onBlockClick}>
       {BLOCK_TYPE.filter((icon) => icon.name === blockType).map((icon) => icon.icon)}
       <p css={spanStyle}>{children}</p>
     </div>
