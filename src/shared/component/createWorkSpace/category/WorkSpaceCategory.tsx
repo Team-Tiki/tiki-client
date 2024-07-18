@@ -5,6 +5,7 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+import { theme } from '@/common/style/theme/theme';
 
 import {
   arrowStyle,
@@ -49,7 +50,7 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem' }}>
+      <article css={{ width: '32rem', height: '7.6rem' }}>
         <Select
           css={{
             '& ul': {
@@ -67,7 +68,7 @@ const WorkSpaceCategory = ({ onNext, setCategory }: WorkSpaceCategoryProps) => {
             </Button>
           }
         />
-      </div>
+      </article>
       <Button
         variant="primary"
         size="medium"

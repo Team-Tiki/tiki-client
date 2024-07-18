@@ -37,7 +37,7 @@ const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="name" title="새로운 워크 스페이스 생성하기" info="워크스페이스의 이름을 입력해주세요." />
-      <div css={{ marginTop: '2.4rem', width: '32rem' }}>
+      <article css={{ marginTop: '2.4rem', width: '32rem' }}>
         <Input
           variant="default"
           size="large"
@@ -46,7 +46,7 @@ const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
           onChange={handleInputChange}
           css={inputWrapperStyle}
         />
-      </div>
+      </article>
       <Button
         variant="primary"
         size="medium"
