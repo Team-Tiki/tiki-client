@@ -30,7 +30,10 @@ export const Delete: Story = {
 
     return (
       <>
-        <button onClick={() => openModal(<DeleteModal title="block" detail="block" onClose={closeModal} />)}>
+        <button
+          onClick={() =>
+            openModal(<DeleteModal teamId={1} id={1} title="block" detail="block" onClose={closeModal} />)
+          }>
           Open Modal
         </button>
         <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />

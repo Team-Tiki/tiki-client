@@ -8,6 +8,9 @@ const meta = {
 
   args: {
     onNext: () => {},
+    onCategory: (category: string) => {
+      category;
+    },
   },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceCategory>;
@@ -15,4 +18,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Category: Story = {};
+export const Category: Story = {
+  args: {},
+};

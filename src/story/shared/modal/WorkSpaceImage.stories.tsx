@@ -8,6 +8,9 @@ const meta = {
 
   args: {
     onNext: () => {},
+    onFileUrlData: (file: string) => {
+      file;
+    },
   },
   argTypes: {},
 } satisfies Meta<typeof WorkSpaceImage>;

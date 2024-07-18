@@ -5,19 +5,13 @@ import {
   documentListStyle,
   toolStyle,
 } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 import { ChangeEvent, useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
-
-interface DocumentType {
-  documentId?: number;
-  fileName: string;
-  fileUrl?: string;
-  blockName?: string;
-}
 
 interface DocumentBarToolProps {
   onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
