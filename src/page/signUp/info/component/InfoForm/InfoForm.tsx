@@ -63,8 +63,8 @@ const InfoForm = () => {
 
   const [isVerified, setIsVerified] = useState(false);
 
-  const mutate = useSendMailMutation(email);
-  const { mutate: verifyCode } = useVerifyCodeMutation(email, authCode);
+  const { mutate: sendMailMutate } = useSendMailMutation(email);
+  const { mutate: verifyCodeMutate } = useVerifyCodeMutation(email, authCode);
 
   const { createToast } = useToastStore();
 
@@ -78,13 +78,13 @@ const InfoForm = () => {
     }
     onSend();
 
-    mutate(undefined, {
+    sendMailMutate(undefined, {
       onError: onFail,
     });
   };
 
   const handleVerifyCode = () => {
-    verifyCode(undefined, {
+    verifyCodeMutate(undefined, {
       onSuccess: () => {
         setIsVerified(true);
       },
@@ -211,7 +211,7 @@ const InfoForm = () => {
           </Flex>
         )}
       </Flex>
-      <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
+      <Button type="submit" variant="primary" size="large" disabled={isVerified}>
         다음
       </Button>
     </form>

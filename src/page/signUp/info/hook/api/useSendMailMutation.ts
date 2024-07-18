@@ -8,7 +8,7 @@ import { useToastStore } from '@/shared/store/toast';
 export const useSendMailMutation = (email: string) => {
   const { createToast } = useToastStore();
 
-  const { mutate: sendMailMutation } = useMutation({
+  const sendMailMutation = useMutation({
     mutationFn: () => postEmail(email),
 
     onError: (error) => {
