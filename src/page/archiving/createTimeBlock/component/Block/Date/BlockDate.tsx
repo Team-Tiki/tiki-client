@@ -33,8 +33,8 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
         <Input
           variant="default"
           size="large"
-          placeholder="YYYY.MM.DD"
-          css={[{ width: '9.7rem' }, inputStyle(dates.startDate)]}
+          placeholder="YYYY-MM-DD"
+          css={[{ width: '10.3rem' }, inputStyle(dates.startDate)]}
           value={dates.startDate}
           onChange={(e) => handleChange('startDate', e.target.value, validation.isEndDateValid, true)}
           maxLength={10}
@@ -44,8 +44,8 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
         <Input
           variant="default"
           size="large"
-          placeholder="YYYY.MM.DD"
-          css={[{ width: '9.7rem' }, inputStyle(dates.endDate)]}
+          placeholder="YYYY-MM-DD"
+          css={[{ width: '10.3rem' }, inputStyle(dates.endDate)]}
           value={dates.endDate}
           onChange={(e) => handleChange('endDate', e.target.value, validation.isStartDateValid, false)}
           maxLength={10}
