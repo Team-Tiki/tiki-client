@@ -10,7 +10,6 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
-import { useToastStore } from '@/shared/store/toast';
 
 type Context = {
   userInfo: UserInfo;
@@ -32,7 +31,6 @@ const InfoFormPage = () => {
 
   const { mutate } = useSignupMutation();
   const navigate = useNavigate();
-  const { createToast } = useToastStore();
   const isInfoMatched = useMatch('/signup/info');
   const isPasswordMatched = useMatch('/signup/info/password');
 
