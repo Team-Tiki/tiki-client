@@ -1,10 +1,13 @@
+import { SUPPORTING_TEXT } from '@/page/login/constant';
+import { useSendMailMutation } from '@/page/login/password/hook/useSendMailMutation';
 import useTimer from '@/page/login/password/hook/useTimer';
+import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
-import { validateInput } from '@/page/login/password/util/validateInput';
-import { PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
+import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
+import { PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -13,87 +16,108 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
+import { useToastStore } from '@/shared/store/toast';
+
 const PasswordAuthPage = () => {
-  const [isMainSent, setIsMainSent] = useState(false);
-  const navigate = useNavigate();
-  const [isVerified, setIsVerified] = useState(false);
+  const [isMailSent, setIsMailSent] = useState(false);
+  const [isVerifyCode, setIsVerifyCode] = useState(false);
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const { time: remainTime, startTimer, stopTimer } = useTimer(180);
 
-  useEffect(() => {
-    const { isEmailValid, isAuthCodeValid } = validateInput({ email, authCode });
-    setIsEmailValid(isEmailValid);
-    setIsVerified(isAuthCodeValid);
-  }, [email, authCode]);
+  const { time: remainTime, startTimer, stopTimer } = useTimer(180);
+  const navigate = useNavigate();
+  const { sendMailMutation } = useSendMailMutation(email, setIsMailSent, startTimer);
+  const { mutate, isError } = useVerifyCodeMutation(email, authCode);
+  const { createToast } = useToastStore();
 
   const handleMailSend = useCallback(() => {
-    setIsMainSent(true);
-    startTimer();
-  }, [startTimer]);
+    if (validateEmail(email)) {
+      sendMailMutation(undefined, {
+        onSuccess: () => {
+          setIsMailSent(true);
+        },
+        onError: () => {
+          createToast('유효하지 않은 메일 주소입니다.', 'error');
+          setIsMailSent(false);
+        },
+      });
+    }
+  }, [email, sendMailMutation, createToast]);
 
-  const handleVerify = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setAuthCode(value);
-    setIsVerified(value.length === 6);
-  };
+  const handleVerifyCode = useCallback(() => {
+    if (validateCode(authCode)) {
+      mutate(undefined, {
+        onSuccess: () => {
+          setIsVerifyCode(true);
+        },
+        onError: () => {
+          createToast('인증번호가 일치하지 않습니다.', 'error');
+          setIsVerifyCode(false);
+        },
+      });
+      setIsVerifyCode(false);
+    }
+  }, [authCode, mutate, createToast]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isVerified) {
-      stopTimer();
-      navigate('/password/reset');
-    }
+    stopTimer();
+    if (!isError || isMailSent) navigate('/password/reset');
   };
 
   return (
-    <Flex tag="section" css={pageStyle}>
-      <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
-      <form css={formStyle} onSubmit={handleSubmit}>
-        <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
-          <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
-            <Input
-              variant="underline"
-              label="회원 정보"
-              placeholder={PLACEHOLDER.SCHOOL_EMAIL}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!isEmailValid}>
-              인증 메일 발송
-            </Button>
+    <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Flex tag="section" css={pageStyle}>
+        <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
+        <form css={[formStyle, { width: '51.1rem', height: '78rem' }]} onSubmit={handleSubmit}>
+          <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
+            <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
+              <Input
+                variant="underline"
+                label="회원 정보"
+                placeholder={PLACEHOLDER.SCHOOL_EMAIL}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
+                인증 메일 발송
+              </Button>
+            </Flex>
+            {isMailSent && (
+              <>
+                <SupportingText isNotice={true}>{SUPPORTING_TEXT.AUTH_CODE}</SupportingText>
+                <Flex
+                  styles={{
+                    align: 'end',
+                    justify: 'space-between',
+                    width: '100%',
+                    marginTop: '1.6rem',
+                    gap: '1.6rem',
+                  }}>
+                  <Input
+                    variant="underline"
+                    label="인증 코드"
+                    placeholder={PLACEHOLDER.AUTH_CODE}
+                    value={authCode}
+                    onChange={(e) => setAuthCode(e.target.value)}
+                  />
+                  <span css={timestyle}>{formatTime(remainTime)}</span>
+                  <Button
+                    css={{ width: '13rem' }}
+                    size="large"
+                    onClick={handleVerifyCode}
+                    disabled={!validateCode(authCode)}>
+                    인증하기
+                  </Button>
+                </Flex>
+              </>
+            )}
           </Flex>
-          {isMainSent && (
-            <>
-              <SupportingText isNotice={true}>{SUPPORTING_TEXT.AUTH_CODE}</SupportingText>
-              <Flex
-                styles={{
-                  align: 'end',
-                  justify: 'space-between',
-                  width: '100%',
-                  marginTop: '1.6rem',
-                  gap: '1.6rem',
-                }}>
-                <Input
-                  variant="underline"
-                  label="인증 코드"
-                  placeholder={PLACEHOLDER.AUTH_CODE}
-                  value={authCode}
-                  onChange={handleVerify}
-                />
-                <span css={timestyle}>{formatTime(remainTime)}</span>
-                <Button css={{ width: '13rem' }} size="large" disabled={!isVerified}>
-                  인증하기
-                </Button>
-              </Flex>
-            </>
-          )}
-        </Flex>
-        <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
-          완료
-        </Button>
-      </form>
+          <Button type="submit" variant="primary" size="large" disabled={!isVerifyCode}>
+            완료
+          </Button>
+        </form>
+      </Flex>
     </Flex>
   );
 };

@@ -16,3 +16,9 @@ export const getDocuments = async (teamId: number, blockId: number) => {
 
   return response.data;
 };
+
+export const deleteBlock = async (teamId: number, timeBlockId: number) => {
+  const response = await axiosInstance.delete(`/time-blocks/team/${teamId}/time-block/${timeBlockId}`);
+
+  return response;
+};

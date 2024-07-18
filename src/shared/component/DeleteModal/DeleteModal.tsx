@@ -1,3 +1,6 @@
+import { useDeleteBlockMutation } from '@/page/archiving/index/hook/api/useDeleteBlockMutaion';
+import { useDeleteDocumentMutation } from '@/page/archiving/index/hook/api/useDeleteDocumentMutation';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -10,17 +13,34 @@ interface DeleteModalProps {
   title: 'block' | 'docs';
   detail: 'block' | 'docs';
   onClose: () => void;
+  teamId: number;
+  id: number;
 }
 
-const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
-  const handleDeleteBlock = () => {
-    //블록 삭제 api 추가
-    onClose();
+const DeleteModal = ({ title, detail, onClose, teamId, id }: DeleteModalProps) => {
+  const { mutateAsync: blockMutate } = useDeleteBlockMutation();
+  const { mutateAsync: documentMutate } = useDeleteDocumentMutation();
+
+  const handleDeleteBlock = (teamId: number, id: number) => {
+    blockMutate(
+      { teamId: teamId, blockId: id },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
-  const handleDeleteDocs = () => {
-    //문서 삭제 api 추가
-    onClose();
+  const handleDeleteDocs = (teamId: number, id: number) => {
+    documentMutate(
+      { teamId: teamId, documentId: id },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   const handleDelete = title === 'block' ? handleDeleteBlock : handleDeleteDocs;
@@ -45,7 +65,7 @@ const DeleteModal = ({ title, detail, onClose }: DeleteModalProps) => {
         <Button variant="secondary" size="large" onClick={onClose} css={cancelStyle}>
           취소
         </Button>
-        <Button variant="primary" size="large" onClick={handleDelete} css={deleteStyle}>
+        <Button variant="primary" size="large" onClick={() => handleDelete(teamId, id)} css={deleteStyle}>
           삭제
         </Button>
       </Flex>

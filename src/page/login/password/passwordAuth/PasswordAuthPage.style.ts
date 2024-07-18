@@ -8,10 +8,6 @@ export const pageStyle = css({
   width: '51.1rem',
   height: '78rem',
 
-  justifyContent: 'space-between',
-
-  padding: '12.3rem 42.75rem 12rem 42.75rem',
-
   whiteSpace: 'nowrap',
 });
 

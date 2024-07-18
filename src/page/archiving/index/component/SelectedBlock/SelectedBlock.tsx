@@ -1,5 +1,6 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
+import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 import Laptop from '@/common/asset/svg/laptop.svg?react';
@@ -20,13 +21,25 @@ interface DocumentBarInfoProps {
   blockName: string;
   startDate: string;
   endDate: string;
-  color: string;
   documentList?: DocumentType[];
+  blockSelected: Block;
+  onClickClose: () => void;
 }
 
-const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, documentList }: DocumentBarInfoProps) => {
-  const { isOpen, openModal, closeModal, currentContent, setCurrentContent } = useModal();
-
+const SelectedBlock = ({
+  selectedId,
+  blockName,
+  startDate,
+  endDate,
+  documentList,
+  blockSelected,
+  onClickClose,
+}: DocumentBarInfoProps) => {
+  const { isOpen, openModal, closeModal, currentContent } = useModal();
+  const handleCloseClick = () => {
+    onClickClose();
+    closeModal;
+  };
   return (
     <Flex tag="section" css={containerStyle}>
       <Laptop width={24} height={24} />
@@ -38,7 +51,17 @@ const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, docum
           variant="text"
           size="small"
           css={deleteBtnStyle}
-          onClick={() => openModal(<DeleteModal title="block" detail="block" onClose={closeModal} />)}>
+          onClick={() =>
+            openModal(
+              <DeleteModal
+                title="block"
+                detail="block"
+                onClose={handleCloseClick}
+                teamId={9}
+                id={blockSelected.timeBlockId}
+              />
+            )
+          }>
           블록삭제
         </Button>
       </Flex>
@@ -48,7 +71,12 @@ const SelectedBlock = ({ selectedId, blockName, color, startDate, endDate, docum
 
       <Flex tag="ul" css={documentListStyle}>
         {documentList?.map((data: DocumentType) => (
-          <DocumentItem key={data.documentId} selectedId={selectedId} blockName={data.blockName} color={color}>
+          <DocumentItem
+            key={data.documentId}
+            documentId={data.documentId || 1}
+            selectedId={selectedId}
+            blockName={data.blockName}
+            fileUrl={data.fileUrl}>
             {data.fileName}
           </DocumentItem>
         ))}
