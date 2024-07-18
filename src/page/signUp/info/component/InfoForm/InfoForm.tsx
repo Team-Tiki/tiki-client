@@ -1,4 +1,5 @@
 import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
+import { validateEmail } from '@/page/login/password/util/validateInput';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -150,7 +151,7 @@ const InfoForm = () => {
             label="학교 인증"
             placeholder={PLACEHOLDER.VERIFY}
           />
-          <Button size="large" onClick={handleMailSend}>
+          <Button size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
             인증 메일 발송
           </Button>
         </Flex>
