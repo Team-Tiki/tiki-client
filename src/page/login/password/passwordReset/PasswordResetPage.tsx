@@ -1,4 +1,4 @@
-import { useResetPasswordMutation } from '@/page/login/password/hook/useResetPasswordMutation';
+import { useResetPasswordMutation } from '@/page/login/password/hook/api/useResetPasswordMutation';
 import { formStyle, pageStyle } from '@/page/login/password/passwordReset/PasswordResetPage.style';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
 

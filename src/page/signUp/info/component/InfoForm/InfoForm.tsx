@@ -1,4 +1,4 @@
-import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
+import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -8,7 +8,6 @@ import {
 } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 import { useDateInput } from '@/page/signUp/info/hook/useDateInput';
-import { useInput } from '@/page/signUp/info/hook/useInput';
 import { useSelect } from '@/page/signUp/info/hook/useSelect';
 import { useSendMailMutation } from '@/page/signUp/info/hook/useSendMailMutation';
 import { useTimer } from '@/page/signUp/info/hook/useTimer';
@@ -26,6 +25,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+import { useInput } from '@/common/hook/useInput';
 
 import { useToastStore } from '@/shared/store/toast';
 

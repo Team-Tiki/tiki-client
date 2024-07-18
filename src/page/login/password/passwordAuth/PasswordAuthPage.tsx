@@ -1,8 +1,6 @@
 import { SUPPORTING_TEXT } from '@/page/login/constant';
-import { useInput } from '@/page/login/password/hook/useInput';
-import { useResendMailMutation } from '@/page/login/password/hook/useResendMailMutation';
-import useTimer from '@/page/login/password/hook/useTimer';
-import { useVerifyCodeMutation } from '@/page/login/password/hook/useVerifyCodeMutation';
+import { useResendMailMutation } from '@/page/login/password/hook/api/useResendMailMutation';
+import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
 import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
 import { PLACEHOLDER } from '@/page/signUp/info/constant';
@@ -18,14 +16,16 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
+import { useInput } from '@/common/hook/useInput';
+import useTimer from '@/common/hook/useTimer';
 
 import { useToastStore } from '@/shared/store/toast';
 
 const PasswordAuthPage = () => {
   const [isMailSent, setIsMailSent] = useState(false);
   const [isVerifyCode, setIsVerifyCode] = useState(false);
-  const { value: email, onChange: onEmailChange } = useInput();
-  const { value: authCode, onChange: onAuthCodeChange } = useInput();
+  const { value: email, onChange: onEmailChange } = useInput('');
+  const { value: authCode, onChange: onAuthCodeChange } = useInput('');
 
   const { time: remainTime, startTimer, stopTimer } = useTimer(180);
   const navigate = useNavigate();
