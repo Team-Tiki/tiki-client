@@ -9,8 +9,6 @@ import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { useState } from 'react';
 
-import { useQueryClient } from '@tanstack/react-query';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 

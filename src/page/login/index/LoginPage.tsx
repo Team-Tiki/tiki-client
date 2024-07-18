@@ -22,7 +22,10 @@ const LoginPage = () => {
 
   const { isLoggedIn } = useStore();
 
-  if (isLoggedIn) return navigate(PATH.SHOWCASE);
+  if (isLoggedIn) {
+    navigate(PATH.SHOWCASE);
+    return null;
+  }
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

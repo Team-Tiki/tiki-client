@@ -12,22 +12,26 @@ import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
 
+import { useTeamStore } from '@/shared/store/team';
+
 type DocumentBarProps = {
   blockSelected?: Block;
   selectedId: string;
-  handleSelectedId: (Id: string) => void;
+  onSelectId: (Id: string) => void;
   onClickClose: () => void;
 };
 
 const DocumentBar = (
-  { blockSelected, selectedId, handleSelectedId, onClickClose }: DocumentBarProps,
+  { blockSelected, selectedId, onSelectId, onClickClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   const [searchWord, setSearchWord] = useState('');
 
+  const { teamId } = useTeamStore();
+
   const handleTabClick = (selectedId: string, tabId: string) => {
     if (tabId !== selectedId) {
-      handleSelectedId(tabId);
+      onSelectId(tabId);
     }
   };
 
@@ -35,11 +39,11 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockData } = useBlockQuery(9, blockSelected?.timeBlockId ?? 69, selectedId);
-  const { data: documentData } = useTotalDocumentQuery(9, 'executive', selectedId);
+  const { data: blockData } = useBlockQuery(+teamId, blockSelected?.timeBlockId ?? 69, selectedId);
+  const { data: documentData } = useTotalDocumentQuery(+teamId, 'executive', selectedId);
 
   return (
-    <aside onClick={(e) => e.stopPropagation()} css={containerStyle(blockSelected?.name || '')} ref={ref}>
+    <aside css={containerStyle(blockSelected?.name || '')} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       {selectedId === 'selected'
         ? blockSelected && (
