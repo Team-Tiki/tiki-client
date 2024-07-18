@@ -9,6 +9,9 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 
+import { PATH } from '@/shared/constant/path';
+import useStore from '@/shared/store/auth';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +19,10 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const { mutate } = useLoginMutation();
+
+  const { isLoggedIn } = useStore();
+
+  if (isLoggedIn) return navigate(PATH.SHOWCASE);
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
