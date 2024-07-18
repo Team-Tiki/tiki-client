@@ -23,6 +23,7 @@ export const iconStyle = css({
 
 export const selectedIconStyle = css({
   border: `1.2px solid ${theme.colors.blue_900}`,
+  backgroundColor: theme.colors.blue_100,
 });
 
 export const boxStyle = css({
