@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
@@ -23,6 +25,7 @@ import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
+  const navigate = useNavigate();
 
   const sidebarRef = useOutsideClick(close);
 
@@ -46,7 +49,10 @@ const LeftSidebar = () => {
             isClicked={true}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/earth.svg"
-            onClick={close}>
+            onClick={() => {
+              navigate('/showcase');
+              close();
+            }}>
             Showcase
           </LeftSidebarItem>
           {data?.data.belongTeamGetResponses.map((data: Team) => {

@@ -19,7 +19,8 @@ const ErrorPage = () => {
         height: '100vh',
         gap: '1.2rem',
         padding: '15rem 52.3rem',
-      }}>
+      }}
+      css={{ backgroundColor: theme.colors.white }}>
       <img src={errorImg} alt="error character" />
       <Heading tag="H3" css={{ fontWeight: '600', whiteSpace: 'nowrap' }}>
         오류가 발생했어요
