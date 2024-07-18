@@ -87,36 +87,3 @@ const SettingModal = ({ isModalOpen, setIsModalOpen, ...props }: SettingModalPro
 };
 
 export default SettingModal;
-
-/*
-interface SettingModalProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
-  isOpen?: boolean;
-  trigger: JSX.Element;
-  label?: string;
-  onSelect?: (id: string) => void;
-  options: string[];
-}
-
-const SettingModal = (
-  { isOpen, trigger, onSelect, options, ...props }: SettingModalProps,
-  ref: ForwardedRef<HTMLDivElement>
-) => {
-  return (
-    <Dropdown ref={ref} role="listbox" css={containerStyle} {...props}>
-      <Dropdown.Trigger as={trigger} />
-      <Dropdown.List css={listStyle} isOpen={isOpen}>
-        {options.map((item) => (
-          <Dropdown.Item
-            key={item}
-            css={{ backgroundColor: 'black', position: 'fixed', left: '10rem', bottom: '3rem' }}
-            onSelect={() => onSelect?.(item)}>
-            {item}
-          </Dropdown.Item>
-        ))}
-      </Dropdown.List>
-    </Dropdown>
-  );
-};
-
-export default forwardRef(SettingModal);
-*/
