@@ -28,7 +28,8 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
 
   // 카테고리 데이터
   const { data } = useCategoryListQuery();
-  const categoryList = data?.data.categories ?? [];
+  let categoryList = data?.data.categories ?? [];
+  categoryList = categoryList.filter((category) => category !== '전체');
 
   useEffect(() => {
     if (selected) {
