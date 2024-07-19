@@ -1,37 +1,25 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-import React, { HTMLAttributes, useEffect } from 'react';
+import React, { HTMLAttributes } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logout from '@/common/asset/svg/logout.svg?react';
 import PWResetting from '@/common/asset/svg/password.svg?react';
 import Text from '@/common/component/Text/Text';
-import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import {
   containerStyle,
   contentStyle,
   textStyle,
-} from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal.style';
+} from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu.style';
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
   isModalOpen: boolean;
-  setSettingClickState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingModalProps) => {
-  const { isOpen, close, open } = useOverlay();
-  const settingRef = useOutsideClick<HTMLUListElement>(close);
-
+const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isModalOpen) {
-      open();
-      setSettingClickState(false);
-    }
-  }, [open, isModalOpen, setSettingClickState]);
 
   const handleNavClick = (path: string) => {
     navigate(path);
@@ -52,7 +40,7 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
   };
 
   return (
-    <ul ref={settingRef} css={containerStyle(isOpen)} {...props}>
+    <ul css={containerStyle(isModalOpen)} {...props}>
       <li
         role="button"
         tabIndex={0}
@@ -84,4 +72,4 @@ const SettingModal = ({ isModalOpen, setSettingClickState, ...props }: SettingMo
   );
 };
 
-export default SettingModal;
+export default SettingMenu;

@@ -24,4 +24,4 @@ export const DELETE_DETAIL = {
   DOCS: '삭제된 문서는 복구할 수 없습니다.',
 } as const;
 
-export const DEFAULT_LOGO = 'src/common/asset/svg/polder.svg';
+export const DEFAULT_LOGO = 'src/common/asset/svg/teamprofile_2.svg';

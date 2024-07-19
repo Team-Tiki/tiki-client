@@ -12,4 +12,6 @@ export const borderStyle = css({
 export const textStyle = css({
   color: theme.colors.gray_800,
   fontWeight: 500,
+
+  maxWidth: '30rem',
 });

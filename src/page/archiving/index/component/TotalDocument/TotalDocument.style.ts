@@ -18,5 +18,6 @@ export const documentListStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
+  marginTop: '1.6rem',
   gap: '0.8rem',
 });

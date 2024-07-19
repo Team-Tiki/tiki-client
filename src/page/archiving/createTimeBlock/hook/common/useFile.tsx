@@ -10,9 +10,10 @@ interface useFileProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
   setFileUrls: React.Dispatch<React.SetStateAction<Files>>;
+  setUploadStatus: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
 }
 
-const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
+const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFileProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { mutateAsync: uploadToS3 } = usePutUploadMutation();
 
@@ -20,30 +21,44 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
     async (newFiles: FileList | null) => {
       if (!newFiles) return;
       const fileArray = Array.from(newFiles);
-      onFilesChange([...files, ...fileArray]);
+      const uniqueNewFiles = fileArray.filter(
+        (newFile) => !files.some((file) => file.name === newFile.name && file.size === newFile.size)
+      );
+      onFilesChange([...files, ...uniqueNewFiles]);
 
       const fileUrlMap: Files = {};
+      const newUploadStatus: { [key: string]: boolean } = {};
 
-      for (let index = 0; index < fileArray.length; index++) {
-        const file = fileArray[index];
-
+      for (let index = 0; index < uniqueNewFiles.length; index++) {
+        const file = uniqueNewFiles[index];
         const fileExtension = extractFileExtension(file.name);
-
         const fileData = await getFile(fileExtension);
         const fileName = file.name;
+        newUploadStatus[fileName] = false;
+        setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
 
         const presignedUrl = fileData?.url;
         if (file && presignedUrl) {
+          const start = Date.now();
           const uploadedFileUrl = await uploadToS3({ presignedUrl, file });
-          if (uploadedFileUrl) {
-            fileUrlMap[fileName] = uploadedFileUrl;
-          }
+          const duration = Date.now() - start;
+          const delay = Math.max(0, 2000 - duration);
+          setTimeout(() => {
+            if (uploadedFileUrl) {
+              fileUrlMap[fileName] = uploadedFileUrl;
+              newUploadStatus[fileName] = true;
+              setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
+              setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap })); // setFileUrls를 여기서 호출합니다.
+            }
+          }, delay);
         }
       }
 
-      setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     },
-    [files, onFilesChange, uploadToS3, setFileUrls]
+    [files, onFilesChange, uploadToS3, setFileUrls, setUploadStatus]
   );
 
   const handleFileChange = useCallback(
@@ -65,20 +80,11 @@ const useFile = ({ files, onFilesChange, setFileUrls }: useFileProps) => {
     [handleFiles]
   );
 
-  const handleFileDelete = useCallback(
-    (index: number) => {
-      const newFiles = files.filter((_, i) => i !== index);
-      onFilesChange(newFiles);
-    },
-    [files, onFilesChange]
-  );
-
   return {
     fileInputRef,
     handleFileChange,
     handleDragOver,
     handleDrop,
-    handleFileDelete,
   };
 };
 

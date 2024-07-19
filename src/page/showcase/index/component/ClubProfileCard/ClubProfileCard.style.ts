@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
 
 export const containerStyle = css({
+  width: '100%',
   minWidth: '21.15rem',
-  maxWidth: '27.55rem',
+
   cursor: 'pointer',
 });
 

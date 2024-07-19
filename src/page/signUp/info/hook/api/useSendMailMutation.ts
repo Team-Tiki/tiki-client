@@ -10,7 +10,6 @@ export const useSendMailMutation = (email: string) => {
 
   const sendMailMutation = useMutation({
     mutationFn: () => postEmail(email),
-
     onError: (error) => {
       if (isAxiosError<{ message: string }>(error)) {
         createToast(`${error.response?.data.message}`, 'error');
