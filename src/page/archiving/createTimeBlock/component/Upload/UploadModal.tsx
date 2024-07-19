@@ -84,7 +84,6 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   };
 
   const handleSave = () => {
-    console.log(data);
     timeBlockMutate(data, {
       onSuccess: () => {
         onClose();

@@ -17,7 +17,7 @@ export const containerStyle = (isNavOpen: boolean) =>
     padding: '2.4rem 2rem 3rem 0',
 
     backgroundColor: theme.colors.blue_900,
-    color: theme.colors.blue_200,
+    color: theme.colors.white,
 
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 

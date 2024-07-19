@@ -22,7 +22,7 @@ import { useModal, useOutsideClick } from '@/common/hook';
 import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
-  const [selectedId, setSelectedId] = useState('selected');
+  const [selectedId, setSelectedId] = useState('total');
 
   const { teamId } = useTeamStore();
 

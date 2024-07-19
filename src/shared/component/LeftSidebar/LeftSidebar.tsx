@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import addUrl from '@/common/asset/svg/add_2.svg';
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
+import earthUrl from '@/common/asset/svg/global_2.svg';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
+import settingUrl from '@/common/asset/svg/setting.svg';
 import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
@@ -129,7 +132,7 @@ const LeftSidebar = () => {
           <LeftSidebarItem
             isClicked={clicked === 'showcase'}
             isExpansion={isNavOpen}
-            url="src/common/asset/svg/earth.svg"
+            url={earthUrl}
             onClick={handleShowcaseClick}>
             Showcase
           </LeftSidebarItem>
@@ -150,17 +153,18 @@ const LeftSidebar = () => {
           <LeftSidebarItem
             isClicked={isWorkspaceClicked}
             isExpansion={isNavOpen}
-            url="src/common/asset/svg/add.svg"
+            url={addUrl}
             onClick={handleWorkspaceClick}>
             워크스페이스 생성
           </LeftSidebarItem>
         </ul>
       </nav>
+
       <div ref={settingRef} css={settingStyle}>
         <LeftSidebarItem
           isClicked={false}
           isExpansion={isNavOpen}
-          url={'src/common/asset/svg/settings.svg'}
+          url={settingUrl}
           onClick={() => {
             toggle();
             close();
