@@ -62,7 +62,7 @@ const layoutStyle = css({
 });
 
 const containerStyle = css({
-  padding: '0.4rem 0.4rem 0.4rem 8.4rem ',
+  padding: '0.4rem 0.4rem 0.4rem 8.9rem ',
 
   backgroundColor: theme.colors.blue_900,
 });
