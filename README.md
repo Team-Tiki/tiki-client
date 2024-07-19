@@ -13,6 +13,21 @@
 | <center><img src="https://github.com/Team-Tiki/TIKI_CLIENT/assets/121484561/bff950d1-54a4-4eec-852b-61e4e5366450" width="130" height="130"></center> | <center><img src="https://github.com/Team-Tiki/TIKI_CLIENT/assets/121484561/559a4e1f-ca65-4a07-ae2e-39e2f1fc9356" width="130" height="130"></center> | <center><img src="https://github.com/Team-Tiki/TIKI_CLIENT/assets/121484561/9952aef1-89f8-4426-bcca-6862e970389c" width="130" height="130"></center> | <center><img src="https://github.com/Team-Tiki/TIKI_CLIENT/assets/121484561/b8709f5b-3a81-48ea-b60a-a22d78fe4a10" width="130" height="130"></center> | <center><img src="https://github.com/Team-Tiki/TIKI_CLIENT/assets/121484561/eed93861-179b-4298-a7f7-8a1f76b8a0cb" width="130" height="130"></center> |
 |                                                          [wuzoo](https://github.com/wuzoo)                                                           |                                                       [namdaeun](https://github.com/namdaeun)                                                        |                                                  [cindy-chaewon](https://github.com/cindy-chaewon)                                                   |                                                         [rtttr1](https://github.com/rtttr1)                                                          |                                                     [Bowoon1216](https://github.com/Bowoon1216)                                                      |
 
+## ⭐️ 서비스 플로우
+
+<img src="https://github.com/user-attachments/assets/76808058-2ebf-4170-974f-8439f2899f84" />
+
+## 💥 핵심기능
+
+1. <strong>Solution 1</strong>
+   <img src="https://github.com/user-attachments/assets/d1f31ff0-263f-4b76-b3f5-438fd1bbc46a" />
+
+2. <strong>Solution 2</strong>
+   <img src="https://github.com/user-attachments/assets/4fdc42cb-c33d-466e-b4e9-db773ed616df" />
+
+3. <strong>Solution 3</strong>
+   <img src="https://github.com/user-attachments/assets/a1f35996-9502-40fc-b4d0-21815d6b073d" />
+
 ## 🔗 기술스택
 
 | **category**  |                                                                                                                                                                                                      **stack**                                                                                                                                                                                                       |
