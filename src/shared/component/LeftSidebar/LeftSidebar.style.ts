@@ -2,19 +2,18 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (isNavOpen: boolean) =>
+export const containerStyle = () =>
   css({
     position: 'fixed',
     top: '0',
     left: '0',
     zIndex: theme.zIndex.overlayHigh,
 
-    transform: isNavOpen ? 'scaleX(1.05)' : 'scaleX(1)',
     transformOrigin: 'left',
 
     height: '100vh',
 
-    padding: '2.4rem 2rem 3rem 0',
+    padding: '2.4rem 2rem 2rem 0',
 
     backgroundColor: theme.colors.blue_900,
     color: theme.colors.white,

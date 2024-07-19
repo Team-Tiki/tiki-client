@@ -8,6 +8,7 @@ const meta = {
     layout: 'centered',
   },
   args: {
+    currentMonth: '7월',
     onMonthClick: () => {},
   },
   argTypes: {},
@@ -16,6 +17,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {},
-};
+export const Default: Story = {};
