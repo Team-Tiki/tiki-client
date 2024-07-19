@@ -31,7 +31,7 @@ const ShowcasePage = () => {
       </Flex>
 
       <section css={chipStyle}>
-        {categoryList?.data.categories.map((category) => (
+        {categoryList.data.categories.map((category) => (
           <CategoryChip
             key={category}
             onClick={() => {

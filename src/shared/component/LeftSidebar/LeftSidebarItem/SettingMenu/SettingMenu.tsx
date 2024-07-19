@@ -10,7 +10,7 @@ import {
   containerStyle,
   contentStyle,
   textStyle,
-} from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal.style';
+} from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu.style';
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
@@ -18,7 +18,7 @@ interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
   isModalOpen: boolean;
 }
 
-const SettingModal = ({ isModalOpen, ...props }: SettingModalProps) => {
+const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
   const navigate = useNavigate();
 
   const handleNavClick = (path: string) => {
@@ -72,4 +72,4 @@ const SettingModal = ({ isModalOpen, ...props }: SettingModalProps) => {
   );
 };
 
-export default SettingModal;
+export default SettingMenu;
