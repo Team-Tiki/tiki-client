@@ -44,10 +44,6 @@ export const selectTriggerStyle = (isError: boolean) =>
   });
 
 export const identifyStyle = css({
-  alignItems: 'end',
-  justifyContent: 'space-between',
-  gap: '0.8rem',
-
   position: 'relative',
 
   width: '100%',
@@ -55,8 +51,8 @@ export const identifyStyle = css({
 
 export const timeStyle = css({
   position: 'absolute',
-  bottom: '1.5rem',
-  right: '20rem',
+  bottom: '1rem',
+  right: '12.5rem',
 
   color: theme.colors.blue_900,
   ...theme.text.body04,

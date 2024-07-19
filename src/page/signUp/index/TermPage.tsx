@@ -1,6 +1,7 @@
 import { buttonStyle, detailStyle } from '@/page/signUp/index/TermPage.style';
 import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
+import { DUMMY } from '@/page/signUp/index/constant';
 
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -15,26 +16,38 @@ import useStore from '@/shared/store/auth';
 
 const TermPage = () => {
   const [totalAgreeClicked, setTotalAgreeClicked] = useState(false);
-  const [termStatus, setTermStatus] = useState({ serviceTerm: false, privatePolicy: false, collectionAgree: false });
+  const [requiredTermsStatus, setRequiredTermsStatus] = useState({
+    serviceTerm: false,
+    privatePolicy: false,
+  });
+  const [optionalTermsStatus, setOptionalTermsStatus] = useState({ collectionAgree: false });
 
   const navigate = useNavigate();
 
   const { isLoggedIn } = useStore();
   if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
 
-  const isConfirmed = Object.values(termStatus).every((item) => item === true);
+  const isConfirmed = Object.values(requiredTermsStatus).every((item) => item === true);
 
-  const dummy =
-    '이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용이용약관 내용입력 이용약관 내용입력 이용약관 내용입력 이용약관 내용입력';
+  useEffect(() => {
+    if (
+      !requiredTermsStatus.serviceTerm ||
+      !requiredTermsStatus.privatePolicy ||
+      !optionalTermsStatus.collectionAgree
+    ) {
+      setTotalAgreeClicked(false);
+    }
+  }, [optionalTermsStatus, requiredTermsStatus, totalAgreeClicked]);
 
   const 약관전체동의클릭 = () => {
     setTotalAgreeClicked((prev) => !prev);
 
-    setTermStatus({
+    setRequiredTermsStatus({
       serviceTerm: totalAgreeClicked ? false : true,
       privatePolicy: totalAgreeClicked ? false : true,
-      collectionAgree: totalAgreeClicked ? false : true,
     });
+
+    setOptionalTermsStatus({ collectionAgree: !optionalTermsStatus.collectionAgree });
   };
 
   const handleNextStep = () => {
@@ -52,26 +65,26 @@ const TermPage = () => {
 
           <TermArea
             term="이용 약관"
-            onClick={() => setTermStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
-            isChecked={termStatus.serviceTerm}>
+            onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
+            isChecked={requiredTermsStatus.serviceTerm}>
             <Text tag="body5" css={detailStyle}>
-              {dummy}
+              {DUMMY}
             </Text>
           </TermArea>
 
           <TermArea
             term="개인정보 처리방침"
-            onClick={() => setTermStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
-            isChecked={termStatus.privatePolicy}>
+            onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
+            isChecked={requiredTermsStatus.privatePolicy}>
             <Text tag="body5" css={detailStyle}>
-              {dummy}
+              {DUMMY}
             </Text>
           </TermArea>
 
           <TermArea
             term="개인정보 수집 및 이용"
-            onClick={() => setTermStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
-            isChecked={termStatus.collectionAgree}
+            onCheck={() => setOptionalTermsStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
+            isChecked={optionalTermsStatus.collectionAgree}
             isRequired={false}>
             <Text tag="body4" css={{ fontWeight: 400, marginLeft: '3.2rem' }}>
               이벤트 혜택 정보 수신

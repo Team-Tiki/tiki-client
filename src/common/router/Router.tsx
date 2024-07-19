@@ -43,6 +43,7 @@ const router = createBrowserRouter([
   {
     path: PATH.ROOT,
     element: <NoAuthWrapper />,
+    errorElement: <ErrorPage />,
     children: [
       { path: PATH.LANDING, element: <LandingPage /> },
       {

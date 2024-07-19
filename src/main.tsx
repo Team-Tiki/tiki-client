@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ToastContainer from '@/common/component/ToastContainer/ToastContainer';
 import ToastProvider from '@/common/component/ToastContainer/ToastProvider';
 import { AppRouter } from '@/common/router/Router';
-import { globalStyle } from '@/common/style/globalStyle';
+import { GlobalStyle } from '@/common/style/globalStyle';
 import { theme } from '@/common/style/theme/theme';
 
 import { worker } from '@/mock/browser';
@@ -31,7 +31,7 @@ const main = async () => {
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <Global styles={globalStyle} />
+          <Global styles={GlobalStyle} />
           <AppRouter />
           <ToastContainer />
           <ToastProvider />
