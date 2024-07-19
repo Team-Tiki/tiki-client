@@ -41,12 +41,10 @@ const SelectedBlock = ({
   const handleCloseClick = () => {
     onClickClose();
     closeModal;
-    console.log('모달 닫기 실행');
   };
 
   const { teamId } = useTeamStore();
 
-  console.log('selected 블록 랜더링');
   return (
     <Flex tag="section" css={containerStyle}>
       {ICON_TYPE.filter((icon) => icon.name === blockSelected.blockType).map((icon) => icon.icon)}

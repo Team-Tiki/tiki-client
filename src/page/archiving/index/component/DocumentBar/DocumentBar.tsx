@@ -29,12 +29,10 @@ const DocumentBar = (
 
   const { teamId } = useTeamStore();
 
-  console.log('documentBar 랜더링');
   const handleTabClick = (selectedId: string, tabId: string) => {
     if (tabId !== selectedId) {
       onSelectId(tabId);
     }
-    console.log(selectedId);
   };
 
   const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {

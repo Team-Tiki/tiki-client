@@ -9,7 +9,6 @@ interface DocumentBarTabProps {
 }
 
 const DocumentBarTab = ({ selectedId, onTabClick }: DocumentBarTabProps) => {
-  console.log('documentBarTab 랜더링');
   return (
     <Flex tag={'nav'}>
       <Button
