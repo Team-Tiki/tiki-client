@@ -31,7 +31,7 @@ const DottedDayLine = () => {
         width: '0.2rem',
         height: `${sectionHeight / 10}rem`,
 
-        borderLeft: `1px dashed ${theme.colors.black}`,
+        borderLeft: `1px dashed ${theme.colors.blue_900}`,
       }}
     />
   );
@@ -39,9 +39,9 @@ const DottedDayLine = () => {
 
 const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
   return (
-    <Flex css={dayStyle(isEven)}>
+    <Flex css={dayStyle(isEven, isToday)}>
       <Flex css={dayHeaderStyle}>{day}</Flex>
-      <Flex css={bodyStyle(isEven)} />
+      <Flex css={bodyStyle} />
       {isToday && (
         <>
           <Circle width={8} height={8} css={selectedDayStyle} />
