@@ -28,6 +28,8 @@ const DottedDayLine = () => {
         zIndex: theme.zIndex.overlayMiddle,
 
         borderLeft: `1px dashed ${theme.colors.blue_900}`,
+
+        pointerEvents: 'none',
       }}
     />
   );
