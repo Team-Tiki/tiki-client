@@ -19,8 +19,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     borderRadius: '100px',
 
     backgroundColor: `${color}`,
-    boxShadow: isSelected ? `0px 0px 2px ${theme.colors.gray_600}` : '',
-    // boxShadow: isSelected ? `0 4px 6px ${theme.colors.gray_200}` : '',
+    boxShadow: isSelected ? `0px 2px 2px 0px rgba(0, 0, 0, 0.25)` : '',
     ...theme.text.body04,
 
     overflow: 'hidden',

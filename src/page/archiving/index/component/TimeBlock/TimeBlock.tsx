@@ -29,7 +29,7 @@ const TimeBlock = ({
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-    <div css={blockStyle(blockWidth, startPosition, floor, color)} onClick={onBlockClick}>
+    <div css={blockStyle(blockWidth, startPosition, floor, color, onSelected)} onClick={onBlockClick}>
       {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
       <p css={spanStyle}>{children}</p>
     </div>
