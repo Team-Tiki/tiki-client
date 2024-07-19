@@ -5,6 +5,12 @@ interface Floors {
   [key: string]: number;
 }
 
+export const getLastDayOfMonth = (date: Date): Date => {
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth();
+  return new Date(Date.UTC(year, month + 1, 0));
+};
+
 const parseLocalDate = (localDateString: string): Date => {
   const [year, month, day] = localDateString.split('-').map(Number);
   return new Date(Date.UTC(year, month - 1, day));

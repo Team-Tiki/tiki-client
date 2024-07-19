@@ -9,7 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { alignBlocks } from '@/page/archiving/index/util/block';
+import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
 
 import { useEffect, useState } from 'react';
 
@@ -18,26 +18,13 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
+import { theme } from '@/common/style/theme/theme';
 
 import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('selected');
   const { teamId } = useTeamStore();
-  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate();
-
-  const selectedMonthNumber = selectedMonth.split('월')[0].padStart(2, '0');
-
-  const { data, refetch } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, +selectedMonthNumber);
-
-  useEffect(() => {
-    refetch();
-  }, [selectedMonthNumber, currentYear, refetch]);
-
-  useEffect(() => {
-    console.log(`year: ${currentYear}, month: ${selectedMonthNumber}`);
-  }, [currentYear, selectedMonthNumber]);
 
   const handleClose = () => {
     blockSelected && setBlockSelected(undefined);
@@ -54,8 +41,18 @@ const ArchivingPage = () => {
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
 
-  const [blockSelected, setBlockSelected] = useState<Block>();
+  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
+    useDate();
 
+  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
+
+  const { data, refetch } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
+
+  useEffect(() => {
+    refetch();
+  }, [selectedMonthNumber, currentYear, refetch]);
+
+  const [blockSelected, setBlockSelected] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
@@ -73,7 +70,13 @@ const ArchivingPage = () => {
 
   return (
     <Flex
-      styles={{ justify: 'center', align: 'center', width: '100%', height: '100vh', paddingLeft: '6rem' }}
+      styles={{
+        justify: 'center',
+        align: 'center',
+        width: '100%',
+        height: '100vh',
+        paddingLeft: '6rem',
+      }}
       css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
       <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
@@ -96,27 +99,71 @@ const ArchivingPage = () => {
                 />
               );
             })}
-            {timeBlocks.map((block: Block) => (
-              <TimeBlock
-                key={block.timeBlockId}
-                startDate={block.startDate}
-                endDate={block.endDate}
-                color={block.color}
-                floor={blockFloors[block.timeBlockId] || 1}
-                blockType={block.blockType}
-                onBlockClick={() => handleBlockClick(block)}>
-                {block.name}
-              </TimeBlock>
-            ))}
+            {timeBlocks.map((block: Block) => {
+              const blockStartDate = new Date(block.startDate);
+              const blockEndDate = new Date(block.endDate);
+              const startMonth = blockStartDate.getUTCMonth() + 1;
+              const endMonth = blockEndDate.getUTCMonth() + 1;
+
+              if (startMonth !== endMonth) {
+                if (startMonth === selectedMonthNumber) {
+                  const lastDayOfStartMonth = getLastDayOfMonth(blockStartDate);
+                  return (
+                    <TimeBlock
+                      key={`${block.timeBlockId}-part1`}
+                      startDate={block.startDate}
+                      endDate={lastDayOfStartMonth}
+                      color={block.color}
+                      floor={blockFloors[block.timeBlockId] || 1}
+                      blockType={block.blockType}
+                      onBlockClick={() => handleBlockClick(block)}>
+                      {block.name}
+                    </TimeBlock>
+                  );
+                } else if (endMonth === selectedMonthNumber) {
+                  const firstDayOfEndMonth = new Date(Date.UTC(currentYear, endMonth - 1, 1));
+                  return (
+                    <TimeBlock
+                      key={`${block.timeBlockId}-part2`}
+                      startDate={firstDayOfEndMonth}
+                      endDate={block.endDate}
+                      color={block.color}
+                      floor={blockFloors[block.timeBlockId] || 1}
+                      blockType={block.blockType}
+                      onBlockClick={() => handleBlockClick(block)}>
+                      {block.name}
+                    </TimeBlock>
+                  );
+                }
+              } else {
+                return (
+                  <TimeBlock
+                    key={block.timeBlockId}
+                    startDate={block.startDate}
+                    endDate={block.endDate}
+                    color={block.color}
+                    floor={blockFloors[block.timeBlockId] || 1}
+                    blockType={block.blockType}
+                    onBlockClick={() => handleBlockClick(block)}>
+                    {block.name}
+                  </TimeBlock>
+                );
+              }
+              return null;
+            })}
           </div>
         </Flex>
-        <Flex css={{ marginLeft: 'auto' }}>
-          <Button variant="action" css={buttonStyle} onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
+        <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
+          <Button
+            variant="action"
+            css={buttonStyle(blockSelected)}
+            onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
             <AddIc width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
+
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       <DocumentBar
         blockSelected={blockSelected}

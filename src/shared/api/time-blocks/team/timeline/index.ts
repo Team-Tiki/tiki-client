@@ -7,5 +7,7 @@ export const getTimeline = async (teamId: number, timeline: string, date: string
     `/time-blocks/team/${teamId}/timeline?type=${timeline}&date=${date}`
   );
 
+  console.log(response);
+
   return response.data.data;
 };
