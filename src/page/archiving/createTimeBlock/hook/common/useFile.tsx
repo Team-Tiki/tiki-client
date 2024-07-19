@@ -28,35 +28,32 @@ const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFile
 
       for (let index = 0; index < fileArray.length; index++) {
         const file = fileArray[index];
-
         const fileExtension = extractFileExtension(file.name);
-
         const fileData = await getFile(fileExtension);
         const fileName = file.name;
-        newUploadStatus[fileName] = false; // 업로드 시작
+        newUploadStatus[fileName] = false;
         setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
 
         const presignedUrl = fileData?.url;
         if (file && presignedUrl) {
-          const uploadedFileUrl = await uploadToS3(
-            { presignedUrl, file },
-            {
-              onSuccess: () => {
-                console.log('파일 업로드 성공');
-              },
+          const start = Date.now();
+          const uploadedFileUrl = await uploadToS3({ presignedUrl, file });
+          const duration = Date.now() - start;
+          const delay = Math.max(0, 2000 - duration);
+          setTimeout(() => {
+            if (uploadedFileUrl) {
+              fileUrlMap[fileName] = uploadedFileUrl;
+              newUploadStatus[fileName] = true;
+              setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
             }
-          );
-          if (uploadedFileUrl) {
-            fileUrlMap[fileName] = uploadedFileUrl;
-            newUploadStatus[fileName] = true; // 업로드 성공
-          }
+          }, delay);
         }
       }
 
       setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
       setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
       if (fileInputRef.current) {
-        fileInputRef.current.value = ''; // 파일 입력 필드를 초기화
+        fileInputRef.current.value = '';
       }
     },
     [files, onFilesChange, uploadToS3, setFileUrls, setUploadStatus]

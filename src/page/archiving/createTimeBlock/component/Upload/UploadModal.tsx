@@ -84,7 +84,6 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
     files: fileUrls,
   };
 
-  console.log('데이터', data);
   const handleSave = () => {
     timeBlockMutate(data, {
       onSuccess: () => {

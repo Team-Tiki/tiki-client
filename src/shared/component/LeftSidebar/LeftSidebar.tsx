@@ -60,7 +60,6 @@ const LeftSidebar = () => {
       category: category,
       iconImageUrl: fileUrlData,
     };
-    console.log('데이터', postData);
 
     if (isComplete) {
       postTeamMutate(postData, {

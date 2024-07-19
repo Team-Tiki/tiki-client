@@ -10,7 +10,6 @@ export const putUploadToS3 = async (presignedUrl: string, file: File) => {
       'Content-Type': contentType,
     },
   });
-  console.log('S3', response);
 
   if (response.status === 200 || response.status === 204) {
     // Presigned URL에서 쿼리 문자열을 제거하여 파일 URL을 생성
