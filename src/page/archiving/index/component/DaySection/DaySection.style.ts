@@ -2,33 +2,37 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const dayStyle = (isEven: boolean) =>
+export const dayStyle = (isEven: boolean, isToday: boolean) =>
   css({
     position: 'relative',
     width: '6rem',
     height: '100vh',
 
-    backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
+    backgroundColor:
+      isToday && isEven
+        ? theme.colors.blue_100
+        : isToday && !isEven
+          ? theme.colors.blue_100
+          : !isToday && !isEven
+            ? theme.colors.gray_100
+            : theme.colors.white,
   });
 
-export const dayHeaderStyle = css({
-  width: '6rem',
-
-  padding: '0.8rem 2.6rem',
-  justifyContent: 'center',
-
-  border: 'none',
-
-  color: theme.colors.black,
-  backgroundColor: theme.colors.gray_100,
-  ...theme.text.body04,
-});
-
-export const bodyStyle = (isEven: boolean) =>
+export const dayHeaderStyle = () =>
   css({
-    height: '48.4rem',
+    width: '6rem',
+    padding: '1.2rem 2.6rem',
+    justifyContent: 'center',
 
-    backgroundColor: isEven ? theme.colors.white : theme.colors.gray_100,
+    border: 'none',
+
+    color: theme.colors.black,
+    ...theme.text.body04,
+  });
+
+export const bodyStyle = () =>
+  css({
+    height: '100dvh',
 
     overflow: 'scroll',
   });

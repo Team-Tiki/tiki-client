@@ -26,7 +26,7 @@ export const daySectionStyle = () =>
     display: 'flex',
 
     width: '100%',
-    height: '46.4rem',
+    height: '46rem',
 
     border: `2px solid ${theme.colors.gray_100}`,
     borderRadius: '6px',
