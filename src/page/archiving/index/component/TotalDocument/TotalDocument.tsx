@@ -29,7 +29,6 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
 
   const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
 
-  console.log('totaldocument 랜더링');
   return (
     <Flex tag={'section'} css={containerStyle}>
       <Flex css={toolStyle}>

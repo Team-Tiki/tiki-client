@@ -8,10 +8,6 @@ export const globalStyle = css({
     fontFamily: `'Pretendard Variable', sans-serif`,
   },
 
-  '*:focus': {
-    outline: '0',
-  },
-
   'ul, ol, li': {
     listStyle: 'none',
   },
