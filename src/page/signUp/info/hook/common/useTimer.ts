@@ -25,6 +25,11 @@ export const useTimer = (initialTime: number, message: string) => {
     clearInterval(ref.current);
   }, []);
 
+  /** 실패 시 인증 번호 입력칸 끄고, 타이머 초기화 */
+  const handleStop = useCallback(() => {
+    clearInterval(ref.current);
+  }, []);
+
   useEffect(() => {
     if (isTriggered) {
       ref.current = setInterval(() => {
@@ -44,5 +49,5 @@ export const useTimer = (initialTime: number, message: string) => {
     return () => clearInterval(ref.current);
   }, [remainTime, isTriggered]);
 
-  return { remainTime, isTriggered, handleTrigger, handleReset, handleFail };
+  return { remainTime, isTriggered, handleTrigger, handleReset, handleFail, handleStop };
 };

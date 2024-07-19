@@ -15,12 +15,6 @@ interface DaySectionProps {
   isToday: boolean;
 }
 const DottedDayLine = () => {
-  const element = document.getElementById('block_area');
-
-  if (!element) return null;
-
-  const sectionHeight = element.scrollHeight;
-
   return (
     <div
       css={{
@@ -29,7 +23,7 @@ const DottedDayLine = () => {
         right: '2.8rem',
 
         width: '0.2rem',
-        height: `${sectionHeight / 10}rem`,
+        height: '100vh',
 
         borderLeft: `1px dashed ${theme.colors.blue_900}`,
       }}

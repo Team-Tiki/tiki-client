@@ -7,6 +7,7 @@ import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import earthUrl from '@/common/asset/svg/global_2.svg';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
 import settingUrl from '@/common/asset/svg/setting.svg';
+import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
 import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
@@ -25,7 +26,6 @@ import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkS
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
-import { DEFAULT_LOGO } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useTeamStore } from '@/shared/store/team';
@@ -124,7 +124,7 @@ const LeftSidebar = () => {
   };
 
   return (
-    <aside css={containerStyle(isNavOpen)} ref={sidebarRef}>
+    <aside css={containerStyle} ref={sidebarRef}>
       {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
       <LogoSymbol css={LogoSymbolStyle} />
       <nav>
