@@ -25,17 +25,17 @@ const getDays = (startDate: Date, endDate: Date): number[] => {
   }
   return days;
 };
+
 export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthType, currentYear: number): Floors => {
   const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(data.length).fill(false));
   const floors: Floors = {};
-  const clickedMonth = parseInt(selectedMonth.split('월')[0]);
+  const clickedMonth = parseInt(selectedMonth.split('월')[0]); // 클릭한 헤더의 달
 
   data.forEach((block) => {
-    const blockStartDate = parseLocalDate(block.startDate.toString());
-    const blockEndDate = parseLocalDate(block.endDate.toString());
-    const blockMonth = blockStartDate.getUTCMonth() + 1;
+    const blockStartDate = parseLocalDate(block.startDate.toString()); // 블럭의 시작 날짜
+    const blockEndDate = parseLocalDate(block.endDate.toString()); // 블럭의 끝 날짜
 
-    if (blockMonth === clickedMonth && blockStartDate.getUTCFullYear() === currentYear) {
+    const stackBlocks = (blockStartDate: Date, blockEndDate: Date) => {
       const days = getDays(blockStartDate, blockEndDate);
       let floor = 0;
 
@@ -50,6 +50,18 @@ export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthTyp
           timeTable[day][floor] = true;
         });
         floors[block.timeBlockId] = floor;
+      }
+    };
+
+    if (blockStartDate.getUTCFullYear() === currentYear) {
+      if (blockStartDate.getUTCMonth() + 1 === clickedMonth) {
+        stackBlocks(blockStartDate, blockEndDate);
+      } else if (blockStartDate.getUTCMonth() + 1 !== clickedMonth) {
+        blockStartDate.setDate(1);
+        stackBlocks(blockStartDate, blockEndDate);
+      } else if (blockEndDate.getUTCMonth() + 1 !== clickedMonth) {
+        blockEndDate.setMonth(new Date(clickedMonth).getMonth() + 1);
+        stackBlocks(blockStartDate, blockEndDate);
       }
     }
   });
