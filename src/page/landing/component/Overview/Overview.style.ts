@@ -9,6 +9,8 @@ export const containerStyle = css({
   justifyContent: 'center',
   gap: '9.6rem',
 
+  position: 'relative',
+
   padding: '14rem 0',
 
   backgroundColor: theme.colors.blue_900,
