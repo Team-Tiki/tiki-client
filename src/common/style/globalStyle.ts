@@ -1,25 +1,34 @@
 import { css } from '@emotion/react';
 
-export const globalStyle = css({
-  '*': {
-    padding: 0,
-    margin: 0,
-    boxSizing: 'border-box',
-    fontFamily: `'Pretendard Variable', sans-serif`,
-  },
+import { theme } from '@/common/style/theme/theme';
 
-  'ul, ol, li': {
-    listStyle: 'none',
-  },
+export const GlobalStyle = css`
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard Variable', sans-serif;
+  }
 
-  'html, body': {
-    fontSize: '62.5%',
-    '&::-webkit-scrollbar': {
-      width: '0rem',
-    },
-  },
+  ul,
+  ol,
+  li {
+    list-style: none;
+  }
 
-  a: {
-    textDecoration: 'none',
-  },
-});
+  html,
+  body {
+    font-size: 62.5%;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.colors.gray_300};
+    border-radius: 10rem;
+  }
+  a {
+    text-decoration: none;
+  }
+`;

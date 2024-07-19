@@ -14,9 +14,8 @@ import { TEXT } from '@/page/landing/constant';
 
 import { useNavigate } from 'react-router-dom';
 
-import firstCharacter from '@/common/asset/img/landing01.png';
+import firstView from '@/common/asset/img/landing01.png';
 import secondCharacter from '@/common/asset/img/landing02.png';
-import firstView from '@/common/asset/img/service01.png';
 import secondView from '@/common/asset/img/service02.png';
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -64,7 +63,7 @@ const LandingPage = () => {
         <ArrowDown />
       </section>
       <LandingOverview ref={overviewRef} />
-      <section ref={feature1Ref} css={[featureSectionStyle, { textAlign: 'end' }]}>
+      <section ref={feature1Ref} css={[featureSectionStyle, { textAlign: 'start' }]}>
         <div css={textWrapperStyle}>
           <Heading css={hideStyle} tag="H1">
             {TEXT.FEATURE_HEADING.FIRST}
@@ -74,14 +73,6 @@ const LandingPage = () => {
           </Text>
         </div>
         <div css={firstImgWrapperStyle}>
-          <img
-            css={{
-              width: '15%',
-              height: '30%',
-            }}
-            src={firstCharacter}
-            alt="티키 캐릭터 1"
-          />
           <img css={viewImgStyle} src={firstView} alt="서비스 뷰 1" />
         </div>
       </section>

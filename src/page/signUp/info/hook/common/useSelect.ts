@@ -1,10 +1,14 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-export const useSelect = <T>(initialValue: T) => {
-  const [selectedItem, setSelectedItem] = useState<T>(initialValue);
+export const useSelect = (onClose: () => void) => {
+  const [selectedItem, setSelectedItem] = useState('');
   const [error, setError] = useState(false);
 
-  const onSelect = useCallback((item: T) => {
+  useEffect(() => {
+    onClose?.();
+  }, [selectedItem, onClose]);
+
+  const onSelect = useCallback((item: string) => {
     setSelectedItem(item);
   }, []);
 
