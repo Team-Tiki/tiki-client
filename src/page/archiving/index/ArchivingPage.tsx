@@ -9,7 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { alignBlocks } from '@/page/archiving/index/util/block';
+import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
 
@@ -18,11 +18,12 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
+import { theme } from '@/common/style/theme/theme';
 
 import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
-  const [selectedId, setSelectedId] = useState('selected');
+  const [selectedId, setSelectedId] = useState('total');
 
   const { teamId } = useTeamStore();
 
@@ -36,7 +37,6 @@ const ArchivingPage = () => {
 
   const handleBlockClick = (block: Block) => {
     setBlockSelected(block);
-
     setSelectedId('selected');
   };
 
@@ -44,13 +44,12 @@ const ArchivingPage = () => {
 
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
-  const [blockSelected, setBlockSelected] = useState<Block>();
-  const { data } = useGetTimeBlockQuery(
-    Number(teamId),
-    'executive',
-    `${currentYear}-${selectedMonth.split('월')[0].padStart(2, '0')}`
-  );
 
+  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
+
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
+
+  const [blockSelected, setBlockSelected] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
@@ -68,7 +67,13 @@ const ArchivingPage = () => {
 
   return (
     <Flex
-      styles={{ justify: 'center', align: 'center', width: '100%', height: '100vh', paddingLeft: '6rem' }}
+      styles={{
+        justify: 'center',
+        align: 'center',
+        width: '100%',
+        height: '100vh',
+        paddingLeft: '6rem',
+      }}
       css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
       <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
@@ -91,15 +96,47 @@ const ArchivingPage = () => {
                 />
               );
             })}
-            {data?.timeBlocks
-              .filter((blocks: Block) => {
+            {timeBlocks.map((block: Block) => {
+              const blockStartDate = new Date(block.startDate);
+              const blockEndDate = new Date(block.endDate);
+              const startMonth = blockStartDate.getUTCMonth() + 1;
+              const endMonth = blockEndDate.getUTCMonth() + 1;
+              const firstDayOfEndMonth = new Date(Date.UTC(currentYear, endMonth - 1, 1));
+              const lastDayOfStartMonth = getLastDayOfMonth(blockStartDate);
+
+              if (startMonth !== endMonth) {
+                if (startMonth === selectedMonthNumber) {
+                  return (
+                    <TimeBlock
+                      key={`${block.timeBlockId}-overflow1`}
+                      startDate={block.startDate}
+                      endDate={lastDayOfStartMonth}
+                      color={block.color}
+                      floor={blockFloors[block.timeBlockId] || 1}
+                      blockType={block.blockType}
+                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                      onBlockClick={() => handleBlockClick(block)}>
+                      {block.name}
+                    </TimeBlock>
+                  );
+                } else if (endMonth === selectedMonthNumber) {
+                  return (
+                    <TimeBlock
+                      key={`${block.timeBlockId}-overflow2`}
+                      startDate={firstDayOfEndMonth}
+                      endDate={block.endDate}
+                      color={block.color}
+                      floor={blockFloors[block.timeBlockId] || 1}
+                      blockType={block.blockType}
+                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                      onBlockClick={() => handleBlockClick(block)}>
+                      {block.name}
+                    </TimeBlock>
+                  );
+                }
+              } else {
                 return (
-                  new Date(blocks.startDate).getMonth() + 1 === parseInt(selectedMonth) &&
-                  new Date(blocks.startDate).getFullYear() === currentYear
-                );
-              })
-              .map((block: Block) => (
-                <TimeBlock
+                  <TimeBlock
                   key={block.timeBlockId}
                   startDate={block.startDate}
                   endDate={block.endDate}
@@ -110,16 +147,23 @@ const ArchivingPage = () => {
                   onBlockClick={() => handleBlockClick(block)}>
                   {block.name}
                 </TimeBlock>
-              ))}
+                );
+              }
+              return null;
+            })}
           </div>
         </Flex>
-        <Flex css={{ marginLeft: 'auto' }}>
-          <Button variant="action" css={buttonStyle} onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
+        <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
+          <Button
+            variant="action"
+            css={buttonStyle(blockSelected)}
+            onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
             <AddIc width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
+
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       <DocumentBar
         blockSelected={blockSelected}

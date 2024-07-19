@@ -58,4 +58,8 @@ export const buttonStyle = css({
   padding: '1.2rem 7.65rem',
 
   borderRadius: '1.4rem',
+
+  ':hover': {
+    backgroundColor: theme.colors.blue_300,
+  },
 });

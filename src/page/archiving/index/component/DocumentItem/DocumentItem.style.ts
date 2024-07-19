@@ -23,17 +23,28 @@ export const containerStyle = (selectedId: string) =>
 export const blockNameTextStyle = (color: string) =>
   css({
     display: 'inline-block',
+
+    maxWidth: '21.8rem',
     padding: '0.2rem 0.4rem',
 
     borderRadius: '0.4rem',
+
     backgroundColor: color,
     color: theme.colors.gray_800,
+
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   });
 
 export const fileNameStyle = css({
   width: '18rem',
+  maxHeight: '2.8rem',
 
   alignSelf: 'center',
 
   color: theme.colors.gray_800,
+
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 });

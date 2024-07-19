@@ -7,7 +7,13 @@ import {
   selectTriggerStyle,
   timeStyle,
 } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
+import {
+  EMAIL_EXPIRED_MESSAGE,
+  EMAIL_REMAIN_TIME,
+  PLACEHOLDER,
+  SUPPORTING_TEXT,
+  UNIV_EMAIL_FORMAT,
+} from '@/page/signUp/info/constant';
 import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
 import { useDateInput } from '@/page/signUp/info/hook/common/useDateInput';
 import { useSelect } from '@/page/signUp/info/hook/common/useSelect';
@@ -26,16 +32,20 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
 
+import { useToastStore } from '@/shared/store/toast';
+
 const InfoForm = () => {
-  const { isOpen, close, toggle } = useOverlay();
+  const { isOpen, close, toggle, open } = useOverlay();
   const ref = useOutsideClick(close);
 
   const {
     remainTime,
     isTriggered: isMailSent,
-    handleTrigger: handleSend,
+    handleTrigger: onSend,
+    handleReset: onTimerReset,
+    handleFail: onFail,
   } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
-  const { selectedItem, onSelect, error, onValidate, onReset } = useSelect('');
+  const { selectedItem, onSelect, error, onValidate, onReset } = useSelect(close);
 
   const { value: name, onChange: onNameChange, error: nameError, onValidate: onNameValidate } = useInput('');
   const { birth, onBirthChange, error: dateError, onDateValidate } = useDateInput();
@@ -48,21 +58,33 @@ const InfoForm = () => {
   } = useInput('');
 
   const context = useContext(SignUpContext);
+
   const navigate = useNavigate();
+
   const [isVerified, setIsVerified] = useState(false);
-  const mutate = useSendMailMutation(email);
-  const { mutate: verifyCode } = useVerifyCodeMutation(email, authCode);
+
+  const { mutate: sendMailMutate } = useSendMailMutation(email);
+  const { mutate: verifyCodeMutate } = useVerifyCodeMutation(email, authCode);
+
+  const { createToast } = useToastStore();
 
   const handleMailSend = () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        handleSend();
-      },
+    if (!UNIV_EMAIL_FORMAT.test(email)) {
+      createToast(SUPPORTING_TEXT.EMAIL_INVALID, 'error');
+      return;
+    }
+    if (isMailSent) {
+      onTimerReset();
+    }
+    onSend();
+
+    sendMailMutate(undefined, {
+      onError: onFail,
     });
   };
 
   const handleVerifyCode = () => {
-    verifyCode(undefined, {
+    verifyCodeMutate(undefined, {
       onSuccess: () => {
         setIsVerified(true);
       },
@@ -136,6 +158,11 @@ const InfoForm = () => {
             <button
               type="button"
               css={selectTriggerStyle(error)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  open();
+                }
+              }}
               onClick={() => {
                 toggle();
                 onReset();
@@ -152,33 +179,39 @@ const InfoForm = () => {
             value={email}
             onChange={onEmailChange}
             isError={Boolean(emailError)}
-            css={{ width: '30rem' }}
             variant="underline"
             label="학교 인증"
             placeholder={PLACEHOLDER.VERIFY}
           />
-          <Button size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
+          <Button
+            css={{ padding: '1rem 1.6rem', width: '11rem' }}
+            size="large"
+            onClick={handleMailSend}
+            disabled={!validateEmail(email)}>
             인증 메일 발송
           </Button>
         </Flex>
         {isMailSent && (
-          <Flex css={identifyStyle}>
+          <Flex css={identifyStyle} styles={{ align: 'end', justify: 'space-between', gap: '0.8rem' }}>
             <Input
               value={authCode}
               onChange={onAuthCodeChange}
               isError={Boolean(authCodeError)}
-              css={{ width: '30rem' }}
               variant="underline"
               placeholder={PLACEHOLDER.AUTH_CODE}
             />
             <span css={timeStyle}>{formatTime(remainTime)}</span>
-            <Button size="large" onClick={() => handleVerifyCode()} disabled={!validateCode(authCode)}>
+            <Button
+              css={{ padding: '1rem 1.6rem', width: '13rem' }}
+              size="large"
+              onClick={() => handleVerifyCode()}
+              disabled={!validateCode(authCode)}>
               인증하기
             </Button>
           </Flex>
         )}
       </Flex>
-      <Button type="submit" variant="primary" size="large" disabled={!isVerified}>
+      <Button type="submit" variant="primary" size="large" disabled={isVerified}>
         다음
       </Button>
     </form>

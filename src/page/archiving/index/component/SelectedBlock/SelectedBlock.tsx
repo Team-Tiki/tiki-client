@@ -1,9 +1,9 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
+import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-import Laptop from '@/common/asset/svg/laptop.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -47,7 +47,7 @@ const SelectedBlock = ({
 
   return (
     <Flex tag="section" css={containerStyle}>
-      <Laptop width={24} height={24} />
+      {ICON_TYPE.find((icon) => icon.name === blockSelected.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
           {blockName}

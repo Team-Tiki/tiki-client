@@ -1,7 +1,7 @@
 import Filter from '@/page/archiving/index/component/DocumentFilter/DocumentFilter';
 import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentSort/DocumentSort.style';
 
-import { forwardRef, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
 import ArrowUpThin from '@/common/asset/svg/arrow-up-thin.svg?react';
@@ -13,6 +13,7 @@ interface DocumentSortProps {
   selected: string;
   onSelected: (option: string) => void;
 }
+
 const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
@@ -47,4 +48,4 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
   );
 };
 
-export default forwardRef(DocumentSort);
+export default DocumentSort;
