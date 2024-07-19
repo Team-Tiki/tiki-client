@@ -11,7 +11,7 @@ import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -47,11 +47,7 @@ const ArchivingPage = () => {
 
   const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
 
-  const { data, refetch } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
-
-  useEffect(() => {
-    refetch();
-  }, [selectedMonthNumber, currentYear, refetch]);
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
 
   const [blockSelected, setBlockSelected] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
