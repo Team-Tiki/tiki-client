@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-import React, { HTMLAttributes, useEffect } from 'react';
+import React, { HTMLAttributes } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logout from '@/common/asset/svg/logout.svg?react';
 import PWResetting from '@/common/asset/svg/password.svg?react';
 import Text from '@/common/component/Text/Text';
-import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import {
   containerStyle,
@@ -21,15 +20,6 @@ interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
 
 const SettingModal = ({ isModalOpen, ...props }: SettingModalProps) => {
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (isModalOpen) {
-  //     open();
-  //   } else {
-  //     setIsModalOpen((prev) => !prev);
-  //     close();
-  //   }
-  // }, [close, isModalOpen, open, setIsModalOpen]);
 
   const handleNavClick = (path: string) => {
     navigate(path);
