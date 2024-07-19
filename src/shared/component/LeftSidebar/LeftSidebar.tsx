@@ -40,10 +40,12 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
 
   const [clicked, setClicked] = useState('showcase');
-  const [isClickSetting, setIsClickSetting] = useState(false);
+  const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
+  const settingRef = useOutsideClick(onSettingClose);
 
   // 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [fileUrlData, setFileUrlData] = useState('');
@@ -100,11 +102,6 @@ const LeftSidebar = () => {
     close();
   };
 
-  const handleSettingClick = () => {
-    setIsClickSetting((prev) => !prev);
-    close();
-  };
-
   return (
     <aside css={containerStyle(isNavOpen)} ref={sidebarRef}>
       {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
@@ -141,15 +138,18 @@ const LeftSidebar = () => {
           </LeftSidebarItem>
         </ul>
       </nav>
-      <div css={settingStyle}>
+      <div ref={settingRef} css={settingStyle}>
         <LeftSidebarItem
           isClicked={false}
           isExpansion={isNavOpen}
           url={'src/common/asset/svg/settings.svg'}
-          onClick={handleSettingClick}>
+          onClick={() => {
+            toggle();
+            close();
+          }}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal isModalOpen={isClickSetting} setIsModalOpen={setIsClickSetting} />
+        <SettingModal isModalOpen={isSettingOpen} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
