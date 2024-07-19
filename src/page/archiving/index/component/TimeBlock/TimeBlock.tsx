@@ -1,7 +1,7 @@
 import { blockStyle, spanStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
 import { BLOCK_TYPE } from '@/page/archiving/index/constant/blockIcon';
 
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface TimeBlockProps {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface TimeBlockProps {
   floor: number;
   blockType: string;
   isSelected?: boolean;
-  onBlockClick: () => void;
+  onBlockClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const TimeBlock = ({

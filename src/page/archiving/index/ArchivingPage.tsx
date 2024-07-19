@@ -35,7 +35,9 @@ const ArchivingPage = () => {
     setSelectedId(id);
   };
 
-  const handleBlockClick = (block: Block) => {
+  const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
+    e.stopPropagation();
+
     setSelectedBlock(block);
     setSelectedId('selected');
   };
@@ -119,7 +121,7 @@ const ArchivingPage = () => {
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
                       isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-                      onBlockClick={() => handleBlockClick(block)}>
+                      onBlockClick={(e) => handleBlockClick(e, block)}>
                       {block.name}
                     </TimeBlock>
                   );
@@ -133,7 +135,7 @@ const ArchivingPage = () => {
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
                       isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-                      onBlockClick={() => handleBlockClick(block)}>
+                      onBlockClick={(e) => handleBlockClick(e, block)}>
                       {block.name}
                     </TimeBlock>
                   );
@@ -148,7 +150,7 @@ const ArchivingPage = () => {
                     floor={blockFloors[block.timeBlockId] || 1}
                     blockType={block.blockType}
                     isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-                    onBlockClick={() => handleBlockClick(block)}>
+                    onBlockClick={(e) => handleBlockClick(e, block)}>
                     {block.name}
                   </TimeBlock>
                 );

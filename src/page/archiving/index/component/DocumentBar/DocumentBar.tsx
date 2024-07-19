@@ -43,7 +43,7 @@ const DocumentBar = (
   const { data: documentData } = useTotalDocumentQuery(+teamId, 'executive', selectedId);
 
   return (
-    <aside css={containerStyle(selectedBlock?.name || '')} ref={ref}>
+    <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       {selectedId === 'selected'
         ? selectedBlock && (
