@@ -22,7 +22,7 @@ export const BLOCK_ICON: BlockIconType[] = [
     icon: <Accounting width={24} height={24} css={{ flexShrink: 0 }} />,
   },
   {
-    name: 'Task',
+    name: 'TASK',
     icon: <Task width={24} height={24} css={{ flexShrink: 0 }} />,
   },
   {
