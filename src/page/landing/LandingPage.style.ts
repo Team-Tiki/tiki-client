@@ -106,7 +106,8 @@ export const secondImgWrapperStyle = css({
 
   position: 'absolute',
   right: 0,
-  bottom: '7.4rem',
+
+  bottom: '10.4rem',
 
   width: '70%',
   aspectRatio: '3 / 2',
@@ -120,4 +121,11 @@ export const hideStyle = css({
   /** observe 시 스타일 적용 전 */
   opacity: 0,
   transform: 'translateY(2rem)',
+});
+
+export const arrowStyle = css({
+  position: 'absolute',
+  bottom: '4rem',
+
+  cursor: 'pointer',
 });
