@@ -12,8 +12,6 @@ import {
 import LandingOverview from '@/page/landing/component/Overview/Overview';
 import { TEXT } from '@/page/landing/constant';
 
-import { useNavigate } from 'react-router-dom';
-
 import firstView from '@/common/asset/img/landing01.png';
 import secondCharacter from '@/common/asset/img/landing02.png';
 import secondView from '@/common/asset/img/service02.png';
@@ -24,6 +22,7 @@ import Text from '@/common/component/Text/Text';
 import { useIntersectionObserver } from '@/common/hook/useObserver';
 
 import { PATH } from '@/shared/constant/path';
+import useStore from '@/shared/store/auth';
 
 const LandingPage = () => {
   const handleObserve = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
@@ -44,10 +43,10 @@ const LandingPage = () => {
   const { targetRef: feature1Ref } = useIntersectionObserver(handleObserve, option);
   const { targetRef: feature2Ref } = useIntersectionObserver(handleObserve, option);
 
-  const navigate = useNavigate();
+  const { isLoggedIn } = useStore();
 
-  const 로그인페이지로 = () => {
-    navigate(PATH.LOGIN);
+  const 다음페이지로 = () => {
+    window.location.href = isLoggedIn ? PATH.SHOWCASE : PATH.LOGIN;
   };
 
   return (
@@ -57,7 +56,7 @@ const LandingPage = () => {
         <Heading tag="H2" css={{ fontWeight: 500 }}>
           {TEXT.LANDING_SUBTITLE}
         </Heading>
-        <Button onClick={로그인페이지로} css={startedButtonStyle} variant="action">
+        <Button onClick={다음페이지로} css={startedButtonStyle} variant="action">
           시작하기
         </Button>
         <ArrowDown />

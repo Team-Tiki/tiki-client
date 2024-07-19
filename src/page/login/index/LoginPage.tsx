@@ -2,7 +2,7 @@ import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/inde
 import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
 
 import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -22,10 +22,7 @@ const LoginPage = () => {
 
   const { isLoggedIn } = useStore();
 
-  if (isLoggedIn) {
-    navigate(PATH.SHOWCASE);
-    return null;
-  }
+  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

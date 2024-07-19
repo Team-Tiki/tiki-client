@@ -114,7 +114,7 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
-                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                      isSelected={block.timeBlockId === blockSelected?.timeBlockId}
                       onBlockClick={() => handleBlockClick(block)}>
                       {block.name}
                     </TimeBlock>
@@ -128,7 +128,7 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
-                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                      isSelected={block.timeBlockId === blockSelected?.timeBlockId}
                       onBlockClick={() => handleBlockClick(block)}>
                       {block.name}
                     </TimeBlock>
@@ -143,7 +143,7 @@ const ArchivingPage = () => {
                     color={block.color}
                     floor={blockFloors[block.timeBlockId] || 1}
                     blockType={block.blockType}
-                    onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                    isSelected={block.timeBlockId === blockSelected?.timeBlockId}
                     onBlockClick={() => handleBlockClick(block)}>
                     {block.name}
                   </TimeBlock>

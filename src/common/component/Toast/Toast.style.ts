@@ -17,7 +17,7 @@ export const containerStyle = (isShown: boolean) =>
     backgroundColor: 'rgba(44, 48, 48, 0.8)',
 
     fontSize: theme.text.body06.fontSize,
-    lineHeight: theme.text.body06.fontSize,
+    lineHeight: theme.text.body06.lineHeight,
 
     animation: isShown ? `${moveUp} 0.2s ease-in, ${fadeIn} .2s ease-in` : `${fadeOut} .2s ease-in forwards`,
 
