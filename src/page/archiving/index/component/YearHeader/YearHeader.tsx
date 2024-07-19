@@ -19,7 +19,7 @@ const YearHeader = ({ handlePrevYear, handleNextYear, currentYear }: YearHeaderP
       <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem', whiteSpace: 'nowrap' }}>
         타임라인
       </Heading>
-      <Flex styles={{ align: 'center', gap: '0.8rem' }}>
+      <Flex styles={{ align: 'center', justify: 'center', gap: '0.8rem' }}>
         <Calendar width={24} height={24} />
         <PreviousYearArrow
           width={16}
@@ -27,7 +27,7 @@ const YearHeader = ({ handlePrevYear, handleNextYear, currentYear }: YearHeaderP
           onClick={() => handlePrevYear(currentYear)}
           css={{ cursor: 'pointer' }}
         />
-        <Text tag="body1" css={{ marginTop: '0.4rem' }}>
+        <Text tag="body1" css={{ marginTop: '0.4rem', lineHeight: '' }}>
           {currentYear}
         </Text>
         <NextYearArrow width={16} height={16} onClick={() => handleNextYear(currentYear)} css={{ cursor: 'pointer' }} />
