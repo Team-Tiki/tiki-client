@@ -10,6 +10,8 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 
+import { PATH } from '@/shared/constant/path';
+
 const PasswordResetPage = () => {
   const [updatePassword, setUpdatePassword] = useState('');
   const [updatePasswordConfirm, setUpdatePasswordConfirm] = useState('');
@@ -36,7 +38,7 @@ const PasswordResetPage = () => {
       },
       {
         onSuccess: () => {
-          navigate('/login');
+          navigate(PATH.LOGIN);
         },
       }
     );

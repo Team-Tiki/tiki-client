@@ -11,8 +11,8 @@ import {
   contentStyle,
   textStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu.style';
-import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
+import { useLogout } from '@/shared/hook/common/useLogout';
 
 interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
   isModalOpen: boolean;
@@ -21,6 +21,8 @@ interface SettingModalProps extends HTMLAttributes<HTMLUListElement> {
 const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
   const navigate = useNavigate();
 
+  const { logout } = useLogout();
+
   const handleNavClick = (path: string) => {
     navigate(path);
     close();
@@ -28,8 +30,7 @@ const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
 
   const handleLogoutKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     if (e.key === 'Enter') {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      handleNavClick(PATH.LOGIN);
+      logout();
     }
   };
 
@@ -41,15 +42,7 @@ const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
 
   return (
     <ul css={containerStyle(isModalOpen)} {...props}>
-      <li
-        role="button"
-        tabIndex={0}
-        css={contentStyle}
-        onKeyDown={handleLogoutKeyDown}
-        onClick={() => {
-          localStorage.removeItem(ACCESS_TOKEN_KEY);
-          handleNavClick(PATH.LOGIN);
-        }}>
+      <li role="button" tabIndex={0} css={contentStyle} onKeyDown={handleLogoutKeyDown} onClick={logout}>
         <Logout width="1.6rem" height="1.6rem" />
         <Text tag="body6" css={textStyle}>
           로그아웃
