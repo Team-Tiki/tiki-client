@@ -83,7 +83,7 @@ const ArchivingPage = () => {
         justify: 'center',
         align: 'center',
         width: '100%',
-        height: '100vh',
+        height: '100%',
         paddingLeft: '6rem',
       }}
       css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
