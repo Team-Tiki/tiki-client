@@ -114,7 +114,7 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
-                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                      isSelected={block.timeBlockId === blockSelected?.timeBlockId}
                       onBlockClick={() => handleBlockClick(block)}>
                       {block.name}
                     </TimeBlock>
@@ -128,7 +128,7 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
-                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                      isSelected={block.timeBlockId === blockSelected?.timeBlockId}
                       onBlockClick={() => handleBlockClick(block)}>
                       {block.name}
                     </TimeBlock>
@@ -137,16 +137,16 @@ const ArchivingPage = () => {
               } else {
                 return (
                   <TimeBlock
-                  key={block.timeBlockId}
-                  startDate={block.startDate}
-                  endDate={block.endDate}
-                  color={block.color}
-                  floor={blockFloors[block.timeBlockId] || 1}
-                  blockType={block.blockType}
-                  onSelected={block.timeBlockId === blockSelected?.timeBlockId}
-                  onBlockClick={() => handleBlockClick(block)}>
-                  {block.name}
-                </TimeBlock>
+                    key={block.timeBlockId}
+                    startDate={block.startDate}
+                    endDate={block.endDate}
+                    color={block.color}
+                    floor={blockFloors[block.timeBlockId] || 1}
+                    blockType={block.blockType}
+                    isSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                    onBlockClick={() => handleBlockClick(block)}>
+                    {block.name}
+                  </TimeBlock>
                 );
               }
               return null;
