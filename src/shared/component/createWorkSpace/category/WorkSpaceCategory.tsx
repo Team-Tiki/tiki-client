@@ -26,9 +26,30 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
 
   const [selected, setSelected] = useState('');
 
+  useEffect(() => {
+    const handleMouseDown = (event: MouseEvent) => {
+      if (!ref.current || !(event.target instanceof HTMLElement)) return;
+      const isOutside = !ref.current.contains(event.target as Node);
+
+      if (isOutside && !event.target?.className.includes('select-container')) {
+        close?.();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('mousedown', handleMouseDown);
+    } else {
+      window.removeEventListener('mousedown', handleMouseDown);
+    }
+
+    return () => {
+      window.removeEventListener('mousedown', handleMouseDown);
+    };
+  }, [isOpen, close, ref]);
+
   // 카테고리 데이터
   const { data } = useCategoryListQuery();
-  const categoryList = data?.data.categories ?? [];
+  const categoryList = data.data.categories.filter((category) => category !== '전체');
 
   useEffect(() => {
     if (selected) {
@@ -47,7 +68,7 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem', height: '7.6rem' }}>
+      <div css={{ width: '32rem', height: '7.6rem' }} ref={ref}>
         <Select
           css={{
             '& ul': {
@@ -58,7 +79,6 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
           onSelect={handleSelect}
           options={categoryList}
           className="select-container"
-          ref={ref}
           trigger={
             <Button css={selectButtonStyle(isOpen)} onClick={toggle}>
               <span css={selected ? selectedTextStyle : null}>{selected || '선택'}</span>

@@ -2,7 +2,7 @@ import { buttonStyle, textStyle } from '@/page/archiving/createTimeBlock/compone
 import BlockDate from '@/page/archiving/createTimeBlock/component/Block/Date/BlockDate';
 import BlockIcon from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/createTimeBlock/component/Box/BlockBox';
-import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/icon';
+import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/iconBlock';
 import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 
 import { useState } from 'react';
@@ -39,7 +39,7 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
 
   const handleNext = () => {
     if (isButtonActive) {
-      const blockType = BLOCK_ICON[selectedIcon].type;
+      const blockType = BLOCK_ICON[selectedIcon].name;
       onNext({ blockName, dates, blockType });
     }
   };

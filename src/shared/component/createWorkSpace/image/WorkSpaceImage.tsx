@@ -33,7 +33,7 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
   const { mutate: deleteFileMutate } = useDeleteFileMutation();
 
-  const { data: fileData, refetch } = useGetFileQuery(file as File);
+  const { data: fileData } = useGetFileQuery(file as File);
 
   useEffect(() => {
     if (file && fileData) {
@@ -61,7 +61,6 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
       const newFileURL = URL.createObjectURL(selectedFile);
       setFileURL(newFileURL);
       setFile(selectedFile);
-      refetch();
       onFileUrlData('');
     }
   };
@@ -77,6 +76,9 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
             setFile(null);
             setPresignedUrl(null);
             onFileUrlData('');
+            if (imgUploadInput.current) {
+              imgUploadInput.current.value = '';
+            }
           },
         }
       );

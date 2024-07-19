@@ -10,6 +10,7 @@ const meta = {
     onDelete: () => {
       console.log('Delete clicked');
     },
+    isUploading: false,
   },
   argTypes: {},
 } satisfies Meta<typeof BlockItem>;
@@ -17,4 +18,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const ItemFile: Story = {};
+export const ItemFile: Story = {
+  args: {
+    title: '6월 회의록(1).word',
+    onDelete: () => {
+      console.log('Delete clicked');
+    },
+    isUploading: false,
+  },
+};

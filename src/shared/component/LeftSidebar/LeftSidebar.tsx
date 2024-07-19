@@ -40,11 +40,13 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
 
   const [clicked, setClicked] = useState('showcase');
-  const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
-  const settingRef = useOutsideClick(onSettingClose);
+  const [isWorkspaceClicked, setIsWorkspaceClicked] = useState(false);
 
   // 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
+
+  const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
+  const settingRef = useOutsideClick(onSettingClose);
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -73,6 +75,15 @@ const LeftSidebar = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [isComplete]);
 
+  useEffect(() => {
+    const teamId = localStorage.getItem('teamId');
+    if (teamId) {
+      setTeamId(teamId);
+      setClicked(teamId);
+      navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
+    }
+  }, [setTeamId, navigate]);
+
   const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
   const handleNext2 = () =>
     setCurrentContent(
@@ -82,12 +93,15 @@ const LeftSidebar = () => {
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
+    localStorage.removeItem('teamId');
+    setIsWorkspaceClicked(false);
     navigate(PATH.SHOWCASE);
     close();
   };
 
-  const handleTeamClick = (teamName: string, teamId: string) => {
-    setClicked(teamName);
+  const handleTeamClick = (teamId: string) => {
+    setClicked(teamId);
+    setIsWorkspaceClicked(false); // 워크스페이스 클릭 상태 해제
 
     setTeamId(teamId);
     localStorage.setItem('teamId', teamId);
@@ -97,9 +111,13 @@ const LeftSidebar = () => {
   };
 
   const handleWorkspaceClick = () => {
-    setClicked('createWorkspace');
+    setIsWorkspaceClicked(true);
     openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
-    close();
+  };
+
+  const closeModal = () => {
+    closeModalBase();
+    setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
   };
 
   return (
@@ -119,18 +137,18 @@ const LeftSidebar = () => {
             return (
               <LeftSidebarItem
                 key={data.id}
-                isClicked={clicked === data.name}
+                isClicked={clicked === String(data.id)}
                 isExpansion={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
-                  handleTeamClick(data.name, String(data.id));
+                  handleTeamClick(String(data.id));
                 }}>
                 {data.name}
               </LeftSidebarItem>
             );
           })}
           <LeftSidebarItem
-            isClicked={clicked === 'createWorkspace'}
+            isClicked={isWorkspaceClicked}
             isExpansion={isNavOpen}
             url="src/common/asset/svg/add.svg"
             onClick={handleWorkspaceClick}>
