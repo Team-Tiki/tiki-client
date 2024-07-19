@@ -28,15 +28,17 @@ const ArchivingPage = () => {
   const { teamId } = useTeamStore();
 
   const handleClose = () => {
-    blockSelected && setBlockSelected(undefined);
+    selectedBlock && setSelectedBlock(undefined);
   };
 
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
   };
 
-  const handleBlockClick = (block: Block) => {
-    setBlockSelected(block);
+  const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
+    e.stopPropagation();
+
+    setSelectedBlock(block);
     setSelectedId('selected');
   };
 
@@ -49,7 +51,7 @@ const ArchivingPage = () => {
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
 
-  const [blockSelected, setBlockSelected] = useState<Block>();
+  const [selectedBlock, setSelectedBlock] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
@@ -78,7 +80,11 @@ const ArchivingPage = () => {
       <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
-          <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} blockSelected={blockSelected} />
+          <MonthHeader
+            currentMonth={selectedMonth}
+            onMonthClick={(month) => setSelectedMonth(month)}
+            selectedBlock={selectedBlock}
+          />
           <div id="block_area" css={daySectionStyle}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
@@ -114,8 +120,8 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
-                      isSelected={block.timeBlockId === blockSelected?.timeBlockId}
-                      onBlockClick={() => handleBlockClick(block)}>
+                      isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
+                      onBlockClick={(e) => handleBlockClick(e, block)}>
                       {block.name}
                     </TimeBlock>
                   );
@@ -128,8 +134,8 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
-                      isSelected={block.timeBlockId === blockSelected?.timeBlockId}
-                      onBlockClick={() => handleBlockClick(block)}>
+                      isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
+                      onBlockClick={(e) => handleBlockClick(e, block)}>
                       {block.name}
                     </TimeBlock>
                   );
@@ -143,8 +149,8 @@ const ArchivingPage = () => {
                     color={block.color}
                     floor={blockFloors[block.timeBlockId] || 1}
                     blockType={block.blockType}
-                    isSelected={block.timeBlockId === blockSelected?.timeBlockId}
-                    onBlockClick={() => handleBlockClick(block)}>
+                    isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
+                    onBlockClick={(e) => handleBlockClick(e, block)}>
                     {block.name}
                   </TimeBlock>
                 );
@@ -156,7 +162,7 @@ const ArchivingPage = () => {
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
           <Button
             variant="action"
-            css={buttonStyle(blockSelected)}
+            css={buttonStyle(selectedBlock)}
             onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
             <AddIc width={24} height={24} />
             블록 생성
@@ -166,7 +172,7 @@ const ArchivingPage = () => {
 
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       <DocumentBar
-        blockSelected={blockSelected}
+        selectedBlock={selectedBlock}
         ref={sideBarRef}
         selectedId={selectedId}
         onSelectId={handleSelectedId}

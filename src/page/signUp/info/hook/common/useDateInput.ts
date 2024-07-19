@@ -19,13 +19,6 @@ export const useDateInput = () => {
     }
 
     setBirth(value);
-
-    if (value.length < FORMATTED_DATE_MAXLENGTH) {
-      setError(true);
-      return;
-    }
-
-    setError(!isValidDate(value));
   };
 
   const onDateValidate = useCallback(() => {
