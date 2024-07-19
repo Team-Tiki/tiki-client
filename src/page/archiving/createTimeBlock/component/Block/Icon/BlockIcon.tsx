@@ -6,7 +6,7 @@ import {
   iconStyle,
   selectedIconStyle,
 } from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon.style';
-import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/icon';
+import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/iconBlock';
 
 interface BlockIconProps {
   selectedBlockIcon: number;
@@ -25,7 +25,7 @@ const BlockIcon = ({ selectedBlockIcon, onBlockIconSelect }: BlockIconProps) => 
           key={index}
           css={[iconStyle, selectedBlockIcon === index && selectedIconStyle]}
           onClick={() => handleIconClick(index)}>
-          <img src={icon.img} alt={icon.title} />
+          {icon.icon}
         </div>
       ))}
     </div>

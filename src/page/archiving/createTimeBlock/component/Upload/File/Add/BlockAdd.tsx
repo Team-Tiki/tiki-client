@@ -13,10 +13,16 @@ interface BlockAddProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
   setFileUrls: Dispatch<SetStateAction<Files>>;
+  setUploadStatus: Dispatch<SetStateAction<{ [key: string]: boolean }>>;
 }
 
-const BlockAdd = ({ files, onFilesChange, setFileUrls }: BlockAddProps) => {
-  const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({ files, onFilesChange, setFileUrls });
+const BlockAdd = ({ files, onFilesChange, setFileUrls, setUploadStatus }: BlockAddProps) => {
+  const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
+    files,
+    onFilesChange,
+    setFileUrls,
+    setUploadStatus,
+  });
 
   return (
     <Flex

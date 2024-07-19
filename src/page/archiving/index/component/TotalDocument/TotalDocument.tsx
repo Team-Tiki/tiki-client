@@ -39,6 +39,7 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
           LeftIcon={<Search width={14} height={14} style={{ marginRight: '1rem' }} />}
           value={searchWord}
           onChange={onSearchWord}
+          style={{ boxShadow: 'none' }}
         />
         <DocumentSort selected={selected} onSelected={handleSelected} />
       </Flex>
