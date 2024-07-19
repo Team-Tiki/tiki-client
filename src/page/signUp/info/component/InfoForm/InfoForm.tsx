@@ -45,6 +45,7 @@ const InfoForm = () => {
     handleTrigger: onSend,
     handleReset: onTimerReset,
     handleFail: onFail,
+    handleStop: onStop,
   } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
   const { selectedItem, onSelect, error, onValidate, onReset } = useSelect(close);
 
@@ -87,6 +88,8 @@ const InfoForm = () => {
   const handleVerifyCode = () => {
     verifyCodeMutate(undefined, {
       onSuccess: () => {
+        onStop();
+
         setIsVerified(true);
       },
     });
@@ -103,6 +106,8 @@ const InfoForm = () => {
       !onAuthCodeValidate(SUPPORTING_TEXT.AUTHCODE_NO_EQUAL)
     )
       return false;
+
+    if (!isVerified) return false;
 
     return true;
   };
@@ -212,7 +217,7 @@ const InfoForm = () => {
           </Flex>
         )}
       </Flex>
-      <Button type="submit" variant="primary" size="large" disabled={isVerified}>
+      <Button type="submit" variant="primary" size="large">
         다음
       </Button>
     </form>
