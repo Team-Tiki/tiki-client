@@ -25,6 +25,7 @@ import Text from '@/common/component/Text/Text';
 import { useIntersectionObserver } from '@/common/hook/useObserver';
 
 import { PATH } from '@/shared/constant/path';
+import useStore from '@/shared/store/auth';
 
 const LandingPage = () => {
   const handleObserve = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
@@ -47,8 +48,10 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
 
-  const 로그인페이지로 = () => {
-    navigate(PATH.LOGIN);
+  const { isLoggedIn } = useStore();
+
+  const 다음페이지로 = () => {
+    navigate(isLoggedIn ? PATH.SHOWCASE : PATH.LOGIN);
   };
 
   return (
@@ -58,7 +61,7 @@ const LandingPage = () => {
         <Heading tag="H2" css={{ fontWeight: 500 }}>
           {TEXT.LANDING_SUBTITLE}
         </Heading>
-        <Button onClick={로그인페이지로} css={startedButtonStyle} variant="action">
+        <Button onClick={다음페이지로} css={startedButtonStyle} variant="action">
           시작하기
         </Button>
         <ArrowDown />

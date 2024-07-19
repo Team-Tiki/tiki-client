@@ -3,18 +3,24 @@ import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
+import { PATH } from '@/shared/constant/path';
+import useStore from '@/shared/store/auth';
+
 const TermPage = () => {
   const [totalAgreeClicked, setTotalAgreeClicked] = useState(false);
   const [termStatus, setTermStatus] = useState({ serviceTerm: false, privatePolicy: false, collectionAgree: false });
 
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useStore();
+  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
 
   const isConfirmed = Object.values(termStatus).every((item) => item === true);
 
@@ -32,7 +38,7 @@ const TermPage = () => {
   };
 
   const handleNextStep = () => {
-    navigate('info');
+    navigate(PATH.SIGNUP_INFO);
   };
 
   return (

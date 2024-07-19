@@ -10,6 +10,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
+import { PATH } from '@/shared/constant/path';
 
 type Context = {
   userInfo: UserInfo;
@@ -35,7 +36,7 @@ const InfoFormPage = () => {
   const isPasswordMatched = useMatch('/signup/info/password');
 
   const goToLoginPage = () => {
-    navigate('/login');
+    navigate(PATH.LOGIN);
   };
 
   /* eslint-disable react-hooks/exhaustive-deps */

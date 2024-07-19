@@ -26,6 +26,8 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
 
+import { PATH } from '@/shared/constant/path';
+
 const InfoForm = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick(close);
@@ -97,7 +99,7 @@ const InfoForm = () => {
       email,
     }));
 
-    navigate('password');
+    navigate(PATH.SIGNUP_PASSWORD);
   };
 
   return (
