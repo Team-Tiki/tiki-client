@@ -5,11 +5,11 @@ export const PATH = {
   LOGIN: '/login',
 
   SIGNUP: '/signup',
-  SIGNUP_INFO: '/signup/info',
-  SIGNUP_INFO_PASSWORD: '/signup/info/password',
+  SIGNUP_INFO: '/signup-info',
+  SIGNUP_PASSWORD: '/signup-password',
 
-  PASSWORD_AUTH: '/password/auth',
-  PASSWORD_RESET: '/password/reset',
+  PASSWORD_AUTH: '/password-auth',
+  PASSWORD_RESET: '/password-reset',
 
   ARCHIVING: '/archiving',
   SHOWCASE: '/showcase',

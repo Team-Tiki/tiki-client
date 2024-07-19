@@ -19,7 +19,7 @@ export const containerStyle = (isShown: boolean) =>
     backgroundColor: theme.colors.black,
 
     fontSize: theme.text.body06.fontSize,
-    lineHeight: theme.text.body06.fontSize,
+    lineHeight: theme.text.body06.lineHeight,
 
     animation: isShown ? `${moveUp} 0.2s ease-in, ${fadeIn} .2s ease-in` : `${fadeOut} .2s ease-in forwards`,
 
