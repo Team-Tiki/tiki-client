@@ -26,6 +26,27 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
 
   const [selected, setSelected] = useState('');
 
+  useEffect(() => {
+    const handleMouseDown = (event: MouseEvent) => {
+      if (!ref.current || !(event.target instanceof HTMLElement)) return;
+      const isOutside = !ref.current.contains(event.target as Node);
+
+      if (isOutside && !event.target?.className.includes('select-container')) {
+        close?.();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('mousedown', handleMouseDown);
+    } else {
+      window.removeEventListener('mousedown', handleMouseDown);
+    }
+
+    return () => {
+      window.removeEventListener('mousedown', handleMouseDown);
+    };
+  }, [isOpen, close, ref]);
+
   // 카테고리 데이터
   const { data } = useCategoryListQuery();
   let categoryList = data?.data.categories ?? [];

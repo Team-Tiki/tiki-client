@@ -36,11 +36,11 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
   );
 
   useEffect(() => {
-    window.addEventListener('mousedown', handleOutsideClick);
+    window.addEventListener('click', handleOutsideClick);
     window.addEventListener('keydown', handleEscKeyDown);
 
     return () => {
-      window.removeEventListener('mousedown', handleOutsideClick);
+      window.removeEventListener('click', handleOutsideClick);
       window.removeEventListener('keydown', handleEscKeyDown);
     };
   }, [onClose, handleEscKeyDown, handleOutsideClick]);
