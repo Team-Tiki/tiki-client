@@ -27,7 +27,9 @@ const TotalDocument = ({ onSearchWord, searchWord, documentList, selectedId }: D
     setSelected(option);
   };
 
-  const filteredDocuments = documentList?.filter((document) => document.fileName.includes(searchWord));
+  const filteredDocuments = documentList?.filter((document) =>
+    document.fileName.normalize('NFC').includes(searchWord.normalize('NFC'))
+  );
 
   return (
     <Flex tag={'section'} css={containerStyle}>
