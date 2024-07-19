@@ -38,3 +38,10 @@ export const monthBtnStyle = css({
     backgroundColor: theme.colors.blue_100,
   },
 });
+
+export const currentMonthStyle = (isCurrent: boolean) =>
+  isCurrent &&
+  css({
+    color: theme.colors.blue_900,
+    backgroundColor: theme.colors.blue_100,
+  });

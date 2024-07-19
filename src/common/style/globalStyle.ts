@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 
-import { theme } from '@/common/style/theme/theme';
-
 export const GlobalStyle = css`
   * {
     padding: 0;
@@ -36,13 +34,6 @@ export const GlobalStyle = css`
     font-size: 62.5%;
   }
 
-  ::-webkit-scrollbar {
-    width: 0.8rem;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${theme.colors.gray_300};
-    border-radius: 10rem;
-  }
   a {
     text-decoration: none;
   }

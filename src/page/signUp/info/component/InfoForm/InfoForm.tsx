@@ -32,6 +32,7 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
 
+import { PATH } from '@/shared/constant/path';
 import { useToastStore } from '@/shared/store/toast';
 
 const InfoForm = () => {
@@ -44,6 +45,7 @@ const InfoForm = () => {
     handleTrigger: onSend,
     handleReset: onTimerReset,
     handleFail: onFail,
+    handleStop: onStop,
   } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
   const { selectedItem, onSelect, error, onValidate, onReset } = useSelect(close);
 
@@ -86,6 +88,8 @@ const InfoForm = () => {
   const handleVerifyCode = () => {
     verifyCodeMutate(undefined, {
       onSuccess: () => {
+        onStop();
+
         setIsVerified(true);
       },
     });
@@ -103,6 +107,8 @@ const InfoForm = () => {
     )
       return false;
 
+    if (!isVerified) return false;
+
     return true;
   };
 
@@ -119,7 +125,7 @@ const InfoForm = () => {
       email,
     }));
 
-    navigate('password');
+    navigate(PATH.SIGNUP_PASSWORD);
   };
 
   return (
@@ -211,7 +217,7 @@ const InfoForm = () => {
           </Flex>
         )}
       </Flex>
-      <Button type="submit" variant="primary" size="large" disabled={isVerified}>
+      <Button type="submit" variant="primary" size="large">
         다음
       </Button>
     </form>

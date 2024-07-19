@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { globalStyle } from '../src/common/style/globalStyle';
+import { GlobalStyle } from '../src/common/style/globalStyle';
 import { theme } from '../src/common/style/theme/theme';
 
 const customViewports = {
@@ -42,7 +42,7 @@ export const decorators = [
     <MemoryRouter initialEntries={['/']}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <Global styles={globalStyle} />
+          <Global styles={GlobalStyle} />
           <Story />
         </ThemeProvider>
       </QueryClientProvider>

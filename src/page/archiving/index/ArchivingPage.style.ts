@@ -1,3 +1,4 @@
+import { Block } from '@/page/archiving/index/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
@@ -9,6 +10,7 @@ export const timelineStyle = () =>
     width: '100%',
 
     borderRadius: '16px',
+    padding: '2.6rem 2.4rem',
 
     overflow: 'hidden',
   });
@@ -24,7 +26,7 @@ export const daySectionStyle = () =>
     display: 'flex',
 
     width: '100%',
-    height: '46.4rem',
+    height: '46rem',
 
     border: `2px solid ${theme.colors.gray_100}`,
     borderRadius: '6px',
@@ -39,11 +41,14 @@ export const daySectionStyle = () =>
     },
   });
 
-export const buttonStyle = () =>
+export const buttonStyle = (blockSelected?: Block) =>
   css({
-    position: 'relative',
+    position: 'absolute',
 
-    bottom: '3rem',
+    zIndex: theme.zIndex.overlayTop,
+
+    bottom: '4rem',
+    right: blockSelected ? '33rem' : '4rem',
 
     width: '13.2rem',
 
@@ -52,6 +57,8 @@ export const buttonStyle = () =>
     borderRadius: '28px',
     ...theme.text.body04,
     boxShadow: '0px 2px 10px 0px rgba(70, 109, 235, 0.30)',
+
+    transition: 'right 0.3s ease-in-out',
 
     '&:hover': {
       backgroundColor: theme.colors.blue_300,

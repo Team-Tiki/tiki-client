@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const blockStyle = (width: number, startPosition: number, floor: number, color: string) =>
+export const blockStyle = (width: number, startPosition: number, floor: number, color: string, isSelected: boolean) =>
   css({
     position: 'absolute',
     display: 'flex',
@@ -19,6 +19,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     borderRadius: '100px',
 
     backgroundColor: `${color}`,
+    boxShadow: isSelected ? `0px 2px 2px 0px rgba(0, 0, 0, 0.25)` : '',
     ...theme.text.body04,
 
     overflow: 'hidden',

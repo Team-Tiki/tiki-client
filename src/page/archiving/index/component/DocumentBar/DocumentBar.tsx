@@ -15,14 +15,14 @@ import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
 import { useTeamStore } from '@/shared/store/team';
 
 type DocumentBarProps = {
-  blockSelected?: Block;
+  selectedBlock?: Block;
   selectedId: string;
   onSelectId: (Id: string) => void;
   onClickClose: () => void;
 };
 
 const DocumentBar = (
-  { blockSelected, selectedId, onSelectId, onClickClose }: DocumentBarProps,
+  { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   const [searchWord, setSearchWord] = useState('');
@@ -39,21 +39,21 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockData } = useBlockQuery(+teamId, blockSelected?.timeBlockId ?? 69, selectedId);
+  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 69, selectedId);
   const { data: documentData } = useTotalDocumentQuery(+teamId, 'executive', selectedId);
 
   return (
-    <aside css={containerStyle(blockSelected?.name || '')} ref={ref}>
+    <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
       <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
       {selectedId === 'selected'
-        ? blockSelected && (
+        ? selectedBlock && (
             <SelectedBlock
               selectedId={selectedId}
-              blockName={blockSelected.name}
-              startDate={formattingDate(blockSelected.startDate)}
-              endDate={formattingDate(blockSelected.endDate)}
+              blockName={selectedBlock.name}
+              startDate={formattingDate(selectedBlock.startDate)}
+              endDate={formattingDate(selectedBlock.endDate)}
               documentList={blockData?.data.documents}
-              blockSelected={blockSelected}
+              selectedBlock={selectedBlock}
               onClickClose={onClickClose}
             />
           )

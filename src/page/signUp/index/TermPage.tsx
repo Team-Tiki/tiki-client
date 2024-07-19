@@ -1,15 +1,20 @@
 import { buttonStyle, detailStyle } from '@/page/signUp/index/TermPage.style';
 import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
-import { DUMMY } from '@/page/signUp/index/constant';
 
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
+import { scrollStyle } from '@/common/style/theme/scroll';
+
+import { PATH } from '@/shared/constant/path';
+import useStore from '@/shared/store/auth';
+
+import { PERSONAL, TERM } from '@/mock/data/term';
 
 const TermPage = () => {
   const [totalAgreeClicked, setTotalAgreeClicked] = useState(false);
@@ -33,6 +38,9 @@ const TermPage = () => {
     }
   }, [optionalTermsStatus, requiredTermsStatus, totalAgreeClicked]);
 
+  const { isLoggedIn } = useStore();
+  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
+
   const 약관전체동의클릭 = () => {
     setTotalAgreeClicked((prev) => !prev);
 
@@ -45,7 +53,7 @@ const TermPage = () => {
   };
 
   const handleNextStep = () => {
-    navigate('info');
+    navigate(PATH.SIGNUP_INFO);
   };
 
   return (
@@ -61,8 +69,8 @@ const TermPage = () => {
             term="이용 약관"
             onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
             isChecked={requiredTermsStatus.serviceTerm}>
-            <Text tag="body5" css={detailStyle}>
-              {DUMMY}
+            <Text tag="body5" css={[detailStyle, scrollStyle]}>
+              {TERM}
             </Text>
           </TermArea>
 
@@ -70,8 +78,8 @@ const TermPage = () => {
             term="개인정보 처리방침"
             onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
             isChecked={requiredTermsStatus.privatePolicy}>
-            <Text tag="body5" css={detailStyle}>
-              {DUMMY}
+            <Text tag="body5" css={[detailStyle, scrollStyle]}>
+              {PERSONAL}
             </Text>
           </TermArea>
 

@@ -18,6 +18,7 @@ const meta = {
   ],
   args: {
     term: '이용 약관',
+    onCheck: () => {},
     isChecked: false,
   },
 } satisfies Meta<typeof TermArea>;
@@ -34,7 +35,7 @@ export const Default: Story = {
     };
 
     return (
-      <TermArea {...args} onClick={handleCheck} isChecked={isClicked} isRequired>
+      <TermArea {...args} onCheck={handleCheck} isChecked={isClicked} term="이용 약관" isRequired={true}>
         이용약관
       </TermArea>
     );

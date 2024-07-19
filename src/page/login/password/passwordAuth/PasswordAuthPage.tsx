@@ -17,6 +17,8 @@ import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { useInput } from '@/common/hook/useInput';
 import { useTimer } from '@/common/hook/useTimer';
 
+import { PATH } from '@/shared/constant/path';
+
 const PasswordAuthPage = () => {
   const [isVerifyCode, setIsVerifyCode] = useState(false);
   const { value: email, onChange: onEmailChange } = useInput('');
@@ -56,7 +58,7 @@ const PasswordAuthPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isError || isMailSent) navigate('/password/reset', { state: email });
+    if (!isError || isMailSent) navigate(PATH.PASSWORD_RESET, { state: email });
   };
 
   return (

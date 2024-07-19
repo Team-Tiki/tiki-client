@@ -23,7 +23,7 @@ interface DocumentBarInfoProps {
   startDate: string;
   endDate: string;
   documentList?: DocumentType[];
-  blockSelected: Block;
+  selectedBlock: Block;
   onClickClose: () => void;
 }
 
@@ -33,7 +33,7 @@ const SelectedBlock = ({
   startDate,
   endDate,
   documentList,
-  blockSelected,
+  selectedBlock,
   onClickClose,
 }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
@@ -47,7 +47,7 @@ const SelectedBlock = ({
 
   return (
     <Flex tag="section" css={containerStyle}>
-      {ICON_TYPE.find((icon) => icon.name === blockSelected.blockType)?.icon}
+      {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
           {blockName}
@@ -63,7 +63,7 @@ const SelectedBlock = ({
                 detail="block"
                 onClose={handleCloseClick}
                 teamId={+teamId}
-                id={blockSelected.timeBlockId}
+                id={selectedBlock.timeBlockId}
               />
             )
           }>
