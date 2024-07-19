@@ -47,7 +47,7 @@ const SelectedBlock = ({
 
   return (
     <Flex tag="section" css={containerStyle}>
-      {ICON_TYPE.filter((icon) => icon.name === blockSelected.blockType)[0].icon}
+      {ICON_TYPE.find((icon) => icon.name === blockSelected.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
           {blockName}

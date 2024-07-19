@@ -20,7 +20,7 @@ const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick, b
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     <div css={blockStyle(blockWidth, startPosition, floor, color)} onClick={onBlockClick}>
-      {BLOCK_TYPE.filter((icon) => icon.name === blockType)[0].icon}
+      {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
       <p css={spanStyle}>{children}</p>
     </div>
   );
