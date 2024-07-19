@@ -39,7 +39,9 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles((prevFiles) => {
-      const uniqueNewFiles = newFiles.filter((newFile) => !prevFiles.some((file) => file.name === newFile.name));
+      const uniqueNewFiles = newFiles.filter(
+        (newFile) => !prevFiles.some((file) => file.name === newFile.name && file.size === newFile.size)
+      );
       return [...prevFiles, ...uniqueNewFiles];
     });
     setIsAllUploaded(false);
@@ -54,9 +56,6 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
           onSuccess: () => {
             setFiles((prevFiles) => {
               const updatedFiles = prevFiles.filter((file) => file.name !== fileName);
-              if (updatedFiles.length === 0) {
-                setIsAllUploaded(true);
-              }
               return updatedFiles;
             });
             setFileUrls((prevUrls) => {
@@ -85,6 +84,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   };
 
   const handleSave = () => {
+    console.log(data);
     timeBlockMutate(data, {
       onSuccess: () => {
         onClose();

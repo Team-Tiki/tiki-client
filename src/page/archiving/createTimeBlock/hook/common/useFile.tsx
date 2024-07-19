@@ -21,13 +21,16 @@ const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFile
     async (newFiles: FileList | null) => {
       if (!newFiles) return;
       const fileArray = Array.from(newFiles);
-      onFilesChange([...files, ...fileArray]);
+      const uniqueNewFiles = fileArray.filter(
+        (newFile) => !files.some((file) => file.name === newFile.name && file.size === newFile.size)
+      );
+      onFilesChange([...files, ...uniqueNewFiles]);
 
       const fileUrlMap: Files = {};
       const newUploadStatus: { [key: string]: boolean } = {};
 
-      for (let index = 0; index < fileArray.length; index++) {
-        const file = fileArray[index];
+      for (let index = 0; index < uniqueNewFiles.length; index++) {
+        const file = uniqueNewFiles[index];
         const fileExtension = extractFileExtension(file.name);
         const fileData = await getFile(fileExtension);
         const fileName = file.name;
@@ -45,13 +48,12 @@ const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFile
               fileUrlMap[fileName] = uploadedFileUrl;
               newUploadStatus[fileName] = true;
               setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
+              setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap })); // setFileUrls를 여기서 호출합니다.
             }
           }, delay);
         }
       }
 
-      setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
-      setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }

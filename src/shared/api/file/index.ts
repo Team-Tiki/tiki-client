@@ -3,5 +3,6 @@ import { axiosInstance } from '@/shared/api/instance';
 
 export const deleteTimeBlock = async (data: DeleteFile) => {
   const response = await axiosInstance.post('/file', data);
+  console.log('삭제', response);
   return response;
 };

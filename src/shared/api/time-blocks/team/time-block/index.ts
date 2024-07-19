@@ -7,6 +7,7 @@ export const postTimeBlock = async (teamId: number, type: string, data: TimeBloc
       type: type,
     },
   });
+  console.log(response);
 
   return response.data;
 };
