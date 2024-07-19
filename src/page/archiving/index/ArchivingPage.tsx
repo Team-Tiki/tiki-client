@@ -103,59 +103,36 @@ const ArchivingPage = () => {
               );
             })}
             {timeBlocks.map((block: Block) => {
-              const blockStartDate = new Date(block.startDate);
-              const blockEndDate = new Date(block.endDate);
+              let { startDate, endDate } = block;
+              const blockStartDate = new Date(startDate);
+              const blockEndDate = new Date(endDate);
               const startMonth = blockStartDate.getUTCMonth() + 1;
               const endMonth = blockEndDate.getUTCMonth() + 1;
-              const firstDayOfEndMonth = new Date(Date.UTC(currentYear, endMonth - 1, 1));
-              const lastDayOfStartMonth = getLastDayOfMonth(blockStartDate);
 
-              if (startMonth !== endMonth) {
-                if (startMonth === selectedMonthNumber) {
-                  return (
-                    <TimeBlock
-                      key={`${block.timeBlockId}-overflow1`}
-                      startDate={block.startDate}
-                      endDate={lastDayOfStartMonth}
-                      color={block.color}
-                      floor={blockFloors[block.timeBlockId] || 1}
-                      blockType={block.blockType}
-                      isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-                      onBlockClick={(e) => handleBlockClick(e, block)}>
-                      {block.name}
-                    </TimeBlock>
-                  );
-                } else if (endMonth === selectedMonthNumber) {
-                  return (
-                    <TimeBlock
-                      key={`${block.timeBlockId}-overflow2`}
-                      startDate={firstDayOfEndMonth}
-                      endDate={block.endDate}
-                      color={block.color}
-                      floor={blockFloors[block.timeBlockId] || 1}
-                      blockType={block.blockType}
-                      isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-                      onBlockClick={(e) => handleBlockClick(e, block)}>
-                      {block.name}
-                    </TimeBlock>
-                  );
-                }
-              } else {
-                return (
-                  <TimeBlock
-                    key={block.timeBlockId}
-                    startDate={block.startDate}
-                    endDate={block.endDate}
-                    color={block.color}
-                    floor={blockFloors[block.timeBlockId] || 1}
-                    blockType={block.blockType}
-                    isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-                    onBlockClick={(e) => handleBlockClick(e, block)}>
-                    {block.name}
-                  </TimeBlock>
-                );
+              const firstDayOfMonth = new Date(Date.UTC(currentYear, selectedMonthNumber - 1, 1));
+              const lastDayOfMonth = getLastDayOfMonth(firstDayOfMonth);
+
+              if (blockStartDate.getFullYear() !== currentYear || startMonth !== selectedMonthNumber) {
+                startDate = firstDayOfMonth;
               }
-              return null;
+
+              if (blockEndDate.getFullYear() !== currentYear || endMonth !== selectedMonthNumber) {
+                endDate = lastDayOfMonth;
+              }
+
+              return (
+                <TimeBlock
+                  key={block.timeBlockId}
+                  startDate={startDate}
+                  endDate={endDate}
+                  color={block.color}
+                  floor={blockFloors[block.timeBlockId] || 1}
+                  blockType={block.blockType}
+                  isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
+                  onBlockClick={(e) => handleBlockClick(e, block)}>
+                  {block.name}
+                </TimeBlock>
+              );
             })}
           </div>
         </Flex>
