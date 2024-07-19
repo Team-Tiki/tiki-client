@@ -8,7 +8,6 @@ import {
   imgStyle,
   itemStyle,
   leftSidebarItemStyle,
-  logoBoxStyle,
   textStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem.style';
 
@@ -25,10 +24,8 @@ const LeftSidebarItem = ({ isClicked = true, isExpansion, children = '', url, on
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <li css={leftSidebarItemStyle} onClick={onClick}>
       <ClickStick isClicked={isClicked} />
-      <Flex css={itemStyle(isClicked)}>
-        <div css={logoBoxStyle}>
-          <img src={url} alt={`${children?.toString()} icon`} css={imgStyle} />
-        </div>
+      <Flex css={itemStyle(isClicked, isExpansion)}>
+        <img src={url} alt={`${children?.toString()} icon`} css={imgStyle} />
         <Text tag="body4" css={textStyle(isExpansion)}>
           {children}
         </Text>

@@ -11,14 +11,11 @@ export const leftSidebarItemStyle = css({
   cursor: 'pointer',
 });
 
-export const itemStyle = (isClicked: boolean) =>
+export const itemStyle = (isClicked: boolean, isExpansion: boolean) =>
   css({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    marginLeft: '1.6rem',
+    gap: `${isExpansion ? '0.8rem' : 0}`,
     padding: '0.4rem',
+    marginLeft: '1.6rem',
 
     borderRadius: '10px',
     backgroundColor: `${isClicked && theme.colors.blue_300}`,
@@ -26,20 +23,11 @@ export const itemStyle = (isClicked: boolean) =>
     '&: hover': { backgroundColor: theme.colors.blue_700 },
   });
 
-export const logoBoxStyle = css({
-  display: 'flex',
-  flexShrink: '0',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  borderRadius: '10px',
-});
-
 export const textStyle = (isExpansion: boolean) =>
   css({
     alignSelf: 'center',
     width: isExpansion ? '14.9rem' : '0rem',
-    marginLeft: isExpansion ? '0.8rem' : 0,
+    // marginLeft: isExpansion ? '0.8rem' : 0,
 
     opacity: isExpansion ? '1' : '0',
 
