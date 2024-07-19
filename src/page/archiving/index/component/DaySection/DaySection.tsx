@@ -25,6 +25,8 @@ const DottedDayLine = () => {
         width: '0.2rem',
         height: '100vh',
 
+        zIndex: theme.zIndex.overlayMiddle,
+
         borderLeft: `1px dashed ${theme.colors.blue_900}`,
       }}
     />

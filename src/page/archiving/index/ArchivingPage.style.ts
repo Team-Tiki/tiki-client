@@ -16,6 +16,8 @@ export const timelineStyle = () =>
   });
 
 export const contentStyle = css({
+  maxHeight: '60rem',
+
   flexDirection: 'column',
   gap: '2rem',
 });
@@ -26,15 +28,17 @@ export const daySectionStyle = () =>
     display: 'flex',
 
     width: '100%',
-    height: '46rem',
+    height: '100%',
 
     border: `2px solid ${theme.colors.gray_100}`,
     borderRadius: '6px',
 
     whiteSpace: 'nowrap',
-    scrollBehavior: 'smooth',
+
     overflowX: 'scroll',
     overscrollBehavior: 'contain',
+
+    scrollBehavior: 'smooth',
 
     '&::-webkit-scrollbar': {
       display: 'none',
@@ -45,7 +49,7 @@ export const buttonStyle = (blockSelected?: Block) =>
   css({
     position: 'absolute',
 
-    zIndex: theme.zIndex.overlayTop,
+    zIndex: theme.zIndex.overlayMiddle,
 
     bottom: '4rem',
     right: blockSelected ? '33rem' : '4rem',

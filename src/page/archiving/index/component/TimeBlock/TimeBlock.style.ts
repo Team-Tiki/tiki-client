@@ -17,10 +17,12 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     padding: '0.5rem',
 
     borderRadius: '100px',
-
     backgroundColor: `${color}`,
-    boxShadow: isSelected ? `0px 2px 2px 0px rgba(0, 0, 0, 0.25)` : '',
+
     ...theme.text.body04,
+
+    transform: `scale(${isSelected && 1.05})`,
+    transition: 'all .1s ease-in',
 
     overflow: 'hidden',
     cursor: 'pointer',

@@ -16,7 +16,7 @@ interface YearHeaderProps {
 const YearHeader = ({ handlePrevYear, handleNextYear, currentYear }: YearHeaderProps) => {
   return (
     <header css={headerStyle}>
-      <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem' }}>
+      <Heading tag="H4" css={{ marginRight: '1.6rem', marginTop: '0.4rem', whiteSpace: 'nowrap' }}>
         타임라인
       </Heading>
       <Flex styles={{ align: 'center', gap: '0.8rem' }}>
