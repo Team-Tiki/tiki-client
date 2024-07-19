@@ -1,9 +1,13 @@
 import { css } from '@emotion/react';
 
+import { theme } from '@/common/style/theme/theme';
+
 export const viewStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
+  backgroundColor: theme.colors.white,
 
   width: '100%',
   height: '100vh',
