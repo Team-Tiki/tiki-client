@@ -104,13 +104,14 @@ const ArchivingPage = () => {
               const blockEndDate = new Date(block.endDate);
               const startMonth = blockStartDate.getUTCMonth() + 1;
               const endMonth = blockEndDate.getUTCMonth() + 1;
+              const firstDayOfEndMonth = new Date(Date.UTC(currentYear, endMonth - 1, 1));
+              const lastDayOfStartMonth = getLastDayOfMonth(blockStartDate);
 
               if (startMonth !== endMonth) {
                 if (startMonth === selectedMonthNumber) {
-                  const lastDayOfStartMonth = getLastDayOfMonth(blockStartDate);
                   return (
                     <TimeBlock
-                      key={`${block.timeBlockId}-part1`}
+                      key={`${block.timeBlockId}-overflow1`}
                       startDate={block.startDate}
                       endDate={lastDayOfStartMonth}
                       color={block.color}
@@ -121,10 +122,9 @@ const ArchivingPage = () => {
                     </TimeBlock>
                   );
                 } else if (endMonth === selectedMonthNumber) {
-                  const firstDayOfEndMonth = new Date(Date.UTC(currentYear, endMonth - 1, 1));
                   return (
                     <TimeBlock
-                      key={`${block.timeBlockId}-part2`}
+                      key={`${block.timeBlockId}-overflow2`}
                       startDate={firstDayOfEndMonth}
                       endDate={block.endDate}
                       color={block.color}
