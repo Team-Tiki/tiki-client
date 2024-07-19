@@ -10,10 +10,20 @@ interface TimeBlockProps {
   color: string;
   floor: number;
   blockType: string;
+  onSelected?: boolean;
   onBlockClick: () => void;
 }
 
-const TimeBlock = ({ startDate, endDate, children, color, floor, onBlockClick, blockType }: TimeBlockProps) => {
+const TimeBlock = ({
+  startDate,
+  endDate,
+  children,
+  color,
+  floor,
+  onBlockClick,
+  onSelected = false,
+  blockType,
+}: TimeBlockProps) => {
   const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
   const startPosition = (new Date(startDate).getDate() - 1) * 6;
 

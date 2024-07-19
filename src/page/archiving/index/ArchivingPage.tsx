@@ -79,7 +79,7 @@ const ArchivingPage = () => {
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
           <MonthHeader onMonthClick={(month) => setSelectedMonth(month)} blockSelected={blockSelected} />
-          <div css={daySectionStyle}>
+          <div id="block_area" css={daySectionStyle}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
               const isEven = day % 2 === 0;
@@ -114,6 +114,7 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
+                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
                       onBlockClick={() => handleBlockClick(block)}>
                       {block.name}
                     </TimeBlock>
@@ -127,6 +128,7 @@ const ArchivingPage = () => {
                       color={block.color}
                       floor={blockFloors[block.timeBlockId] || 1}
                       blockType={block.blockType}
+                      onSelected={block.timeBlockId === blockSelected?.timeBlockId}
                       onBlockClick={() => handleBlockClick(block)}>
                       {block.name}
                     </TimeBlock>
@@ -135,15 +137,16 @@ const ArchivingPage = () => {
               } else {
                 return (
                   <TimeBlock
-                    key={block.timeBlockId}
-                    startDate={block.startDate}
-                    endDate={block.endDate}
-                    color={block.color}
-                    floor={blockFloors[block.timeBlockId] || 1}
-                    blockType={block.blockType}
-                    onBlockClick={() => handleBlockClick(block)}>
-                    {block.name}
-                  </TimeBlock>
+                  key={block.timeBlockId}
+                  startDate={block.startDate}
+                  endDate={block.endDate}
+                  color={block.color}
+                  floor={blockFloors[block.timeBlockId] || 1}
+                  blockType={block.blockType}
+                  onSelected={block.timeBlockId === blockSelected?.timeBlockId}
+                  onBlockClick={() => handleBlockClick(block)}>
+                  {block.name}
+                </TimeBlock>
                 );
               }
               return null;

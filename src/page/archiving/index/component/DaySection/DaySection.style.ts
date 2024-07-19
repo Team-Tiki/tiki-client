@@ -36,7 +36,7 @@ export const bodyStyle = (isEven: boolean) =>
 export const selectedDayStyle = css({
   position: 'absolute',
 
-  left: '2.5rem',
+  left: '2.6rem',
   top: '2.8rem',
 
   zIndex: theme.zIndex.overlayTop,
