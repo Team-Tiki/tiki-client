@@ -6,17 +6,15 @@ import { theme } from '@/common/style/theme/theme';
 export const containerStyle = (isShown: boolean) =>
   css({
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: '2rem',
-
-    minWidth: '20rem',
+    gap: '0.6rem',
 
     padding: '1rem 2rem',
 
     borderRadius: '24px',
     color: theme.colors.white,
-    backgroundColor: theme.colors.black,
+    backgroundColor: 'rgba(44, 48, 48, 0.8)',
 
     fontSize: theme.text.body06.fontSize,
     lineHeight: theme.text.body06.fontSize,

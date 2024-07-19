@@ -17,7 +17,10 @@ export const SUPPORTING_TEXT = {
   NAME: '이름을 입력해주세요',
   BIRTH: '생년월일을 입력해주세요',
   EMAIL: '이메일을 입력해주세요',
+  EMAIL_INVALID: '유효하지 않은 이메일 주소입니다.',
+  EMAIL_SUCCESS: '메일을 성공적으로 전송하였습니다.',
   PASSWORD: '비밀번호를 입력해주세요',
+  PASSWORD_INVALID: '영문/숫자/특수문자를 사용해 8자 이상으로 만들어주세요.',
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
   AUTHCODE_NO_EQUAL: '인증번호가 일치하지 않습니다.',
@@ -26,3 +29,7 @@ export const SUPPORTING_TEXT = {
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;
 
 export const DATE_MAXLENGTH = 8 as const;
+
+export const UNIV_EMAIL_FORMAT = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(ac\.kr|edu)$/;
+
+export const PASSWORD_VALID_FORMAT = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;

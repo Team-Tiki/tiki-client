@@ -17,7 +17,7 @@ import {
   settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
-import SettingModal from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingModal/SettingModal';
+import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
@@ -40,11 +40,14 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
 
   const [clicked, setClicked] = useState('showcase');
-  const [isSetting, setIsSetting] = useState(false);
   const [isWorkspaceClicked, setIsWorkspaceClicked] = useState(false);
 
   // 모달 관련 코드
   const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
+
+  const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
+  const settingRef = useOutsideClick(onSettingClose);
+
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [fileUrlData, setFileUrlData] = useState('');
@@ -112,11 +115,6 @@ const LeftSidebar = () => {
     openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
   };
 
-  const handleSettingClick = () => {
-    setIsSetting(true);
-    close();
-  };
-
   const closeModal = () => {
     closeModalBase();
     setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
@@ -158,15 +156,18 @@ const LeftSidebar = () => {
           </LeftSidebarItem>
         </ul>
       </nav>
-      <div css={settingStyle}>
+      <div ref={settingRef} css={settingStyle}>
         <LeftSidebarItem
           isClicked={false}
           isExpansion={isNavOpen}
           url={'src/common/asset/svg/settings.svg'}
-          onClick={handleSettingClick}>
+          onClick={() => {
+            toggle();
+            close();
+          }}>
           환경설정
         </LeftSidebarItem>
-        <SettingModal isModalOpen={isSetting} setSettingClickState={setIsSetting} />
+        <SettingMenu isModalOpen={isSettingOpen} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>

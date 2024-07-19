@@ -10,13 +10,14 @@ import { theme } from '@/common/style/theme/theme';
 interface TermAreaProps extends HTMLAttributes<HTMLDivElement> {
   term: string;
   isChecked: boolean;
+  onCheck: () => void;
   isRequired?: boolean;
 }
 
-const TermArea = ({ term, isChecked, isRequired = true, children, ...props }: TermAreaProps) => {
+const TermArea = ({ term, onCheck, isChecked, isRequired = true, children, ...props }: TermAreaProps) => {
   return (
     <div css={wrapperStyle} {...props}>
-      <Text css={termStyle} tag="body4">
+      <Text onClick={onCheck} css={termStyle} tag="body4">
         {isChecked ? <CheckActive /> : <Check />}
         {term}
         <span css={{ ...theme.text.body04, color: theme.colors.blue_900 }}>{isRequired ? '[필수]' : '[선택]'}</span>
