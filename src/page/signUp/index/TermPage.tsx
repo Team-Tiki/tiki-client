@@ -1,7 +1,6 @@
 import { buttonStyle, detailStyle } from '@/page/signUp/index/TermPage.style';
 import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
-import { DUMMY } from '@/page/signUp/index/constant';
 
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -13,6 +12,8 @@ import Text from '@/common/component/Text/Text';
 
 import { PATH } from '@/shared/constant/path';
 import useStore from '@/shared/store/auth';
+
+import { PERSONAL, TERM } from '@/mock/data/term';
 
 const TermPage = () => {
   const [totalAgreeClicked, setTotalAgreeClicked] = useState(false);
@@ -68,7 +69,7 @@ const TermPage = () => {
             onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
             isChecked={requiredTermsStatus.serviceTerm}>
             <Text tag="body5" css={detailStyle}>
-              {DUMMY}
+              {TERM}
             </Text>
           </TermArea>
 
@@ -77,7 +78,7 @@ const TermPage = () => {
             onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
             isChecked={requiredTermsStatus.privatePolicy}>
             <Text tag="body5" css={detailStyle}>
-              {DUMMY}
+              {PERSONAL}
             </Text>
           </TermArea>
 
