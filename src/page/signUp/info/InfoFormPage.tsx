@@ -4,13 +4,14 @@ import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm
 import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
 
 import React, { SetStateAction, createContext, useEffect, useState } from 'react';
-import { useMatch, useNavigate } from 'react-router-dom';
+import { Navigate, useMatch, useNavigate } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PATH } from '@/shared/constant/path';
+import useStore from '@/shared/store/auth';
 
 type Context = {
   userInfo: UserInfo;
@@ -32,12 +33,9 @@ const InfoFormPage = () => {
 
   const { mutate } = useSignupMutation();
   const navigate = useNavigate();
-  const isInfoMatched = useMatch('/signup/info');
-  const isPasswordMatched = useMatch('/signup/info/password');
-
-  const goToLoginPage = () => {
-    navigate(PATH.LOGIN);
-  };
+  const isInfoMatched = useMatch(PATH.SIGNUP_INFO);
+  const isPasswordMatched = useMatch(PATH.SIGNUP_PASSWORD);
+  const { isLoggedIn } = useStore();
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -49,6 +47,12 @@ const InfoFormPage = () => {
       });
     }
   }, [isCompleted]);
+
+  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
+
+  const goToLoginPage = () => {
+    navigate(PATH.LOGIN);
+  };
 
   return (
     <Flex tag="main" css={pageStyle}>

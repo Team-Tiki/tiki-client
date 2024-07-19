@@ -3,7 +3,7 @@ import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
 import { DUMMY } from '@/page/signUp/index/constant';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -24,9 +24,6 @@ const TermPage = () => {
 
   const navigate = useNavigate();
 
-  const { isLoggedIn } = useStore();
-  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
-
   const isConfirmed = Object.values(requiredTermsStatus).every((item) => item === true);
 
   useEffect(() => {
@@ -38,6 +35,9 @@ const TermPage = () => {
       setTotalAgreeClicked(false);
     }
   }, [optionalTermsStatus, requiredTermsStatus, totalAgreeClicked]);
+
+  const { isLoggedIn } = useStore();
+  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
 
   const 약관전체동의클릭 = () => {
     setTotalAgreeClicked((prev) => !prev);
