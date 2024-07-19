@@ -22,11 +22,6 @@ export const containerStyle = (isNavOpen: boolean) =>
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
 
     transitionDuration: '0.5s',
-
-    overflowY: 'auto',
-    '&::-webkit-scrollbar': {
-      width: '0rem',
-    },
   });
 
 export const LogoSymbolStyle = css({
