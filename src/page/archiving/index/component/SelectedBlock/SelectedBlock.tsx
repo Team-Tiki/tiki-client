@@ -1,8 +1,10 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
+import { useBlockQuery } from '@/page/archiving/index/hook/api/useBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
+import { formattingDate } from '@/page/archiving/index/util/date';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -20,30 +22,24 @@ import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.
 interface DocumentBarInfoProps {
   selectedId: string;
   blockName: string;
-  startDate: string;
-  endDate: string;
-  documentList?: DocumentType[];
   selectedBlock: Block;
   onClickClose: () => void;
 }
 
-const SelectedBlock = ({
-  selectedId,
-  blockName,
-  startDate,
-  endDate,
-  documentList,
-  selectedBlock,
-  onClickClose,
-}: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
+
+  const { teamId } = useTeamStore();
+
+  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 69);
+
+  const startDate = formattingDate(selectedBlock.startDate);
+  const endDate = formattingDate(selectedBlock.endDate);
 
   const handleCloseClick = () => {
     onClickClose();
     closeModal;
   };
-
-  const { teamId } = useTeamStore();
 
   return (
     <Flex tag="section" css={containerStyle}>
@@ -75,7 +71,7 @@ const SelectedBlock = ({
       </Text>
 
       <Flex tag="ul" css={documentListStyle}>
-        {documentList?.map((data: DocumentType) => (
+        {blockData?.data.documents?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
             documentId={data.documentId || 1}
