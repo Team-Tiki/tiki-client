@@ -8,7 +8,7 @@ import {
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -17,13 +17,12 @@ import Input from '@/common/component/Input/Input';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentBarToolProps {
-  onSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
-  searchWord: string;
   selectedId: string;
 }
 
-const TotalDocument = ({ onSearchWord, searchWord, selectedId }: DocumentBarToolProps) => {
+const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
+  const [searchWord, setSearchWord] = useState('');
 
   const { teamId } = useTeamStore();
 
@@ -47,7 +46,9 @@ const TotalDocument = ({ onSearchWord, searchWord, selectedId }: DocumentBarTool
           variant={'colored'}
           LeftIcon={<Search width={14} height={14} style={{ marginRight: '1rem' }} />}
           value={searchWord}
-          onChange={onSearchWord}
+          onChange={(e) => {
+            setSearchWord(e.target.value);
+          }}
           style={{ boxShadow: 'none' }}
         />
         <DocumentSort selected={selected} onSelected={handleSelected} />
@@ -60,7 +61,7 @@ const TotalDocument = ({ onSearchWord, searchWord, selectedId }: DocumentBarTool
         )?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
-            documentId={data.documentId || 1}
+            documentId={data.documentId}
             selectedId={selectedId}
             blockName={data.blockName}
             fileUrl={data.fileUrl}

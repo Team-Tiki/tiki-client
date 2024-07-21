@@ -4,7 +4,7 @@ import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/Select
 import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
 import { Block } from '@/page/archiving/index/type/blockType';
 
-import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 
 type DocumentBarProps = {
   selectedBlock?: Block;
@@ -17,16 +17,10 @@ const DocumentBar = (
   { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const [searchWord, setSearchWord] = useState('');
-
   const handleTabClick = (selectedId: string, tabId: string) => {
     if (tabId !== selectedId) {
       onSelectId(tabId);
     }
-  };
-
-  const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchWord(e.target.value);
   };
 
   return (
@@ -42,7 +36,7 @@ const DocumentBar = (
           />
         )
       ) : (
-        <TotalDocument onSearchWord={handleSearchWord} searchWord={searchWord} selectedId={selectedId} />
+        <TotalDocument selectedId={selectedId} />
       )}
     </aside>
   );
