@@ -8,7 +8,7 @@ import {
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -23,6 +23,7 @@ interface DocumentBarToolProps {
 const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
   const [searchWord, setSearchWord] = useState('');
+  const [filteredDocuments, setFilteredDocuments] = useState<DocumentType[]>();
 
   const { teamId } = useTeamStore();
 
@@ -32,10 +33,17 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
     setSelected(option);
   };
 
-  const filteredDocuments = documentData?.data.documents?.filter((document) =>
-    document.fileName.normalize('NFC').includes(searchWord.normalize('NFC'))
-  );
-  console.log(filteredDocuments);
+  useEffect(() => {
+    const dalayDebounceTimer = setTimeout(() => {
+      setFilteredDocuments(
+        documentData?.data.documents?.filter((document) =>
+          document.fileName.normalize('NFC').includes(searchWord.normalize('NFC'))
+        )
+      );
+    }, 500);
+
+    return () => clearTimeout(dalayDebounceTimer);
+  }, [searchWord, documentData]);
 
   return (
     <Flex tag={'section'} css={containerStyle}>
