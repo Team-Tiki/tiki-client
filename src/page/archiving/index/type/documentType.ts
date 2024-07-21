@@ -1,5 +1,5 @@
 export interface DocumentType {
-  documentId?: number;
+  documentId: number;
   fileName: string;
   fileUrl: string;
   blockName?: string;

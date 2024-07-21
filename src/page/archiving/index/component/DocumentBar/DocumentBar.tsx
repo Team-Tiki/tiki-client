@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';

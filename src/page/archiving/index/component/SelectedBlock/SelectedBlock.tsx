@@ -74,7 +74,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
         {blockData?.data.documents?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
-            documentId={data.documentId || 1}
+            documentId={data.documentId}
             selectedId={selectedId}
             blockName={data.blockName}
             fileUrl={data.fileUrl}>
