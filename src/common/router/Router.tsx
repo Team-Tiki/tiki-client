@@ -8,29 +8,18 @@ import ShowcasePage from '@/page/showcase/index/ShowcasePage';
 import TermPage from '@/page/signUp/index/TermPage';
 import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
-import { useEffect } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
-import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
-import useStore from '@/shared/store/auth';
 
-const NoAuthWrapper = () => {
+const Public = () => {
   const navigate = useNavigate();
 
   const handleReset = () => navigate(-1);
-
-  const { login } = useStore();
-
-  useEffect(() => {
-    if (localStorage.getItem(ACCESS_TOKEN_KEY)) {
-      login();
-    }
-  }, [login]);
 
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleReset}>
@@ -42,7 +31,7 @@ const NoAuthWrapper = () => {
 const router = createBrowserRouter([
   {
     path: PATH.ROOT,
-    element: <NoAuthWrapper />,
+    element: <Public />,
     errorElement: <ErrorPage />,
     children: [
       { path: PATH.LANDING, element: <LandingPage /> },
@@ -70,10 +59,6 @@ const router = createBrowserRouter([
         path: PATH.PASSWORD_RESET,
         element: <PasswordResetPage />,
       },
-      {
-        path: PATH.COMING_SOON,
-        element: <ComingsoonPage />,
-      },
     ],
   },
   {
@@ -83,6 +68,10 @@ const router = createBrowserRouter([
     children: [
       { path: PATH.SHOWCASE, element: <ShowcasePage /> },
       { path: PATH.ARCHIVING, element: <ArchivingPage /> },
+      {
+        path: PATH.COMING_SOON,
+        element: <ComingsoonPage />,
+      },
     ],
   },
 ]);
