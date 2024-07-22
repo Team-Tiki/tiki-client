@@ -36,7 +36,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
 
   const { status } = error.response;
 
-  if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+  if (status === HTTP_STATUS_CODE.UNAUTHORIZED || status === HTTP_STATUS_CODE.NOT_FOUND) {
     const refreshToken = localStorage.getItem('refresh');
 
     if (!refreshToken) {

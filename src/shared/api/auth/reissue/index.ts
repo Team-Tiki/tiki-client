@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { axiosPublicInstance } from '@/shared/api/instance';
 
 export const getReissuedToken = async () => {
-  const response = await axios.get('/auth/reissue');
+  const response = await axiosPublicInstance.get('/auth/reissue');
 
   return response.data;
 };
