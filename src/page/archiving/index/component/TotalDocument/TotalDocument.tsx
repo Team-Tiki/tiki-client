@@ -27,23 +27,24 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
 
   const { teamId } = useTeamStore();
 
-  const { data: documentData } = useTotalDocumentQuery(+teamId, 'executive');
+  const { data: documentDatas } = useTotalDocumentQuery(+teamId, 'executive');
 
   const handleSelected = (option: string) => {
     setSelected(option);
   };
 
+  // 검색 디바운싱
   useEffect(() => {
     const dalayDebounceTimer = setTimeout(() => {
       setFilteredDocuments(
-        documentData?.data.documents?.filter((document) =>
+        documentDatas?.data.documents?.filter((document) =>
           document.fileName.normalize('NFC').includes(searchWord.normalize('NFC'))
         )
       );
     }, 500);
 
     return () => clearTimeout(dalayDebounceTimer);
-  }, [searchWord, documentData]);
+  }, [searchWord, documentDatas]);
 
   return (
     <Flex tag={'section'} css={containerStyle}>
