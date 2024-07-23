@@ -11,7 +11,9 @@ interface ErrorResponse {
 }
 
 type TokenResponse = {
-  accessToken: string;
+  data: {
+    accessToken: string;
+  };
 };
 
 export const handleCheckAndSetToken = (config: InternalAxiosRequestConfig) => {
@@ -20,7 +22,7 @@ export const handleCheckAndSetToken = (config: InternalAxiosRequestConfig) => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 
   if (!accessToken) {
-    window.location.href = PATH.ROOT;
+    window.location.replace(PATH.ROOT);
     throw new Error('토큰이 존재하지 않습니다.');
   }
 
@@ -40,7 +42,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
     const refreshToken = localStorage.getItem('refresh');
 
     if (!refreshToken) {
-      window.location.href = PATH.ROOT;
+      window.location.replace(PATH.ROOT);
       throw new Error('리프레시 토큰이 존재하지 않습니다.');
     }
 
@@ -51,14 +53,14 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
         },
       });
 
-      localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
-      originRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+      localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
+      originRequest.data.headers.Authorization = `Bearer ${data.data.accessToken}`;
 
       return axiosInstance(originRequest);
     } catch (error) {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
       localStorage.removeItem('refresh');
-      window.location.href = PATH.ROOT;
+      window.location.replace(PATH.ROOT);
       throw new Error('토큰 갱신에 실패하였습니다.');
     }
   }
