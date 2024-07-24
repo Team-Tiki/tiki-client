@@ -39,7 +39,7 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 69, selectedId);
+  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
   const { data: documentData } = useTotalDocumentQuery(+teamId, 'executive', selectedId);
 
   return (
