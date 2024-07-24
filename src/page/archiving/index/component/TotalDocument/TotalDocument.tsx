@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
+import useDebounce from '@/common/hook/useDebounce';
 
 import { useTeamStore } from '@/shared/store/team';
 
@@ -22,30 +23,31 @@ interface DocumentBarToolProps {
 
 const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
-  const [searchWord, setSearchWord] = useState('');
-  const [filteredDocuments, setFilteredDocuments] = useState<DocumentType[]>();
 
   const { teamId } = useTeamStore();
 
   const { data: documentDatas } = useTotalDocumentQuery(+teamId, 'executive');
+  const [filteredDocuments, setFilteredDocuments] = useState(documentDatas?.data.documents);
+
+  // input에 입력되는 값
+  const [searchWord, setSearchWord] = useState('');
+
+  // 디바운스 되어 문서 필터링할때 사용될 검색어
+  const filterKeyword = useDebounce(searchWord, 500);
+
+  // filterKeyword 값이 변할때 이벤트 발생
+  useEffect(() => {
+    console.log('필터 동작');
+    setFilteredDocuments(
+      documentDatas?.data.documents?.filter((document) =>
+        document.fileName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
+      )
+    );
+  }, [filterKeyword, documentDatas]);
 
   const handleSelected = (option: string) => {
     setSelected(option);
   };
-
-  // 검색 디바운싱
-  useEffect(() => {
-    const dalayDebounceTimer = setTimeout(() => {
-      setFilteredDocuments(
-        documentDatas?.data.documents?.filter((document) =>
-          document.fileName.normalize('NFC').includes(searchWord.normalize('NFC'))
-        )
-      );
-    }, 500);
-
-    return () => clearTimeout(dalayDebounceTimer);
-  }, [searchWord, documentDatas]);
-
   return (
     <Flex tag={'section'} css={containerStyle}>
       <Flex css={toolStyle}>
