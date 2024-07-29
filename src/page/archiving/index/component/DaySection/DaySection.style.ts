@@ -27,6 +27,7 @@ export const dayHeaderStyle = () =>
     border: 'none',
 
     color: theme.colors.black,
+    backgroundColor: theme.colors.gray_100,
     ...theme.text.body04,
   });
 
