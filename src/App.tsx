@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 
-import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { AxiosError } from 'axios';
@@ -15,14 +14,6 @@ import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const App = () => {
-  useEffect(() => {
-    document.body.style.backgroundColor = theme.colors.blue_900;
-
-    return () => {
-      document.body.style.backgroundColor = '';
-    };
-  }, []);
-
   const navigate = useNavigate();
 
   const handleResetError = (error: Error | AxiosError) => {
