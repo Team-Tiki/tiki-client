@@ -6,12 +6,12 @@ import { Block } from '@/page/archiving/index/type/blockType';
 
 import { ForwardedRef, forwardRef } from 'react';
 
-type DocumentBarProps = {
+interface DocumentBarProps {
   selectedBlock?: Block;
   selectedId: string;
   onSelectId: (Id: string) => void;
   onClickClose: () => void;
-};
+}
 
 const DocumentBar = (
   { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,

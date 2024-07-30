@@ -8,7 +8,7 @@ import {
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -27,27 +27,22 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   const { teamId } = useTeamStore();
 
   const { data: documentDatas } = useTotalDocumentQuery(+teamId, 'executive');
-  const [filteredDocuments, setFilteredDocuments] = useState(documentDatas?.data.documents);
 
-  // input에 입력되는 값
+  // input에 입력되는 검색값
   const [searchWord, setSearchWord] = useState('');
 
   // 디바운스 되어 문서 필터링할때 사용될 검색어
   const filterKeyword = useDebounce(searchWord, 500);
 
-  // filterKeyword 값이 변할때 이벤트 발생
-  useEffect(() => {
-    console.log('필터 동작');
-    setFilteredDocuments(
-      documentDatas?.data.documents?.filter((document) =>
-        document.fileName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
-      )
-    );
-  }, [filterKeyword, documentDatas]);
+  // 필터링된 문서 배열
+  const filteredDocuments = documentDatas?.data.documents?.filter((document) =>
+    document.fileName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
+  );
 
   const handleSelected = (option: string) => {
     setSelected(option);
   };
+
   return (
     <Flex tag={'section'} css={containerStyle}>
       <Flex css={toolStyle}>
