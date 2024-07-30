@@ -3,15 +3,14 @@ import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
 import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
 import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
 
-import React, { SetStateAction, createContext, useEffect, useState } from 'react';
-import { Navigate, useMatch, useNavigate } from 'react-router-dom';
+import React, { SetStateAction, createContext, useState } from 'react';
+import { useMatch, useNavigate } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
 
 type Context = {
   userInfo: UserInfo;
@@ -29,29 +28,22 @@ const InfoFormPage = () => {
     password: '',
     passwordChecker: '',
   });
-  const [isCompleted, setIsCompleted] = useState(false);
 
   const { mutate } = useSignupMutation();
   const navigate = useNavigate();
   const isInfoMatched = useMatch(PATH.SIGNUP_INFO);
   const isPasswordMatched = useMatch(PATH.SIGNUP_PASSWORD);
-  const { isLoggedIn } = useStore();
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    if (isCompleted) {
-      mutate(info, {
-        onSuccess: () => {
-          goToLoginPage();
-        },
-      });
-    }
-  }, [isCompleted]);
-
-  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
-
-  const goToLoginPage = () => {
+  const 로그인페이지로 = () => {
     navigate(PATH.LOGIN);
+  };
+
+  const handleComplete = () => {
+    mutate(info, {
+      onSuccess: () => {
+        로그인페이지로();
+      },
+    });
   };
 
   return (
@@ -62,7 +54,7 @@ const InfoFormPage = () => {
         <SignUpContext.Provider value={{ userInfo: info, onRegister: setInfo }}>
           {isInfoMatched && <InfoForm />}
 
-          {isPasswordMatched && <PasswordForm onComplete={() => setIsCompleted(true)} />}
+          {isPasswordMatched && <PasswordForm onComplete={handleComplete} />}
         </SignUpContext.Provider>
       </Flex>
     </Flex>
