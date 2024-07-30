@@ -9,7 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { alignBlocks, getLastDay } from '@/page/archiving/index/util/block';
+import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
 
@@ -113,36 +113,20 @@ const ArchivingPage = () => {
               );
             })}
             {timeBlocks.map((block: Block) => {
-              let { startDate, endDate } = block;
-              const blockStartDate = new Date(startDate);
-              const blockEndDate = new Date(endDate);
-              const startMonth = blockStartDate.getMonth() + 1;
-              const endMonth = blockEndDate.getMonth() + 1;
-
-              const firstDay = new Date(currentYear, selectedMonthNumber - 1, 1);
-              const lastDate = getLastDay(firstDay);
-
-              if (blockStartDate.getFullYear() === currentYear && blockEndDate.getFullYear() === currentYear) {
-                if (startMonth < selectedMonthNumber && selectedMonthNumber < endMonth) {
-                  // 중간 달
-                  startDate = firstDay;
-                  endDate = lastDate;
-                } else {
-                  if (startMonth !== selectedMonthNumber) {
-                    startDate = firstDay;
-                  }
-                  if (endMonth !== selectedMonthNumber) {
-                    endDate = lastDate;
-                  }
-                }
-              }
+              const { startDate, endDate } = block;
+              const { startDate: blockStartDate, endDate: blockEndDate } = createTimeBlock({
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
+                currentYear,
+                selectedMonthNumber,
+              });
 
               return (
                 <TimeBlock
                   id={String(block.timeBlockId)}
                   key={block.timeBlockId}
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={blockStartDate}
+                  endDate={blockEndDate}
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
                   blockType={block.blockType}
