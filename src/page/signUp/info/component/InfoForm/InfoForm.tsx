@@ -1,24 +1,12 @@
-import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
-import {
-  formStyle,
-  identifyStyle,
-  selectTriggerStyle,
-  timeStyle,
-} from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-import {
-  EMAIL_EXPIRED_MESSAGE,
-  EMAIL_REMAIN_TIME,
-  PLACEHOLDER,
-  SUPPORTING_TEXT,
-  UNIV_EMAIL_FORMAT,
-} from '@/page/signUp/info/constant';
+import { formStyle, identifyStyle, timeStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
+import UnivSelectTriggerButton from '@/page/signUp/info/component/UnivSelectTriggerButton/Button';
 import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
 import { useDateInput } from '@/page/signUp/info/hook/common/useDateInput';
 import { useSelect } from '@/page/signUp/info/hook/common/useSelect';
 import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
-import React, { useContext, useState } from 'react';
+import React, { SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
@@ -30,12 +18,18 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
 
+import { UserInfo } from '@/shared/api/signup/info/type';
+import { EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT, UNIV_EMAIL_FORMAT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
 import { useToastStore } from '@/shared/store/toast';
 import { validateCode, validateEmail } from '@/shared/util/validate';
 
-const InfoForm = () => {
+interface InfoFormProps {
+  onInfoChange: React.Dispatch<SetStateAction<UserInfo>>;
+}
+
+const InfoForm = ({ onInfoChange }: InfoFormProps) => {
   const { isOpen, close, toggle, open } = useOverlay();
   const ref = useOutsideClick(close);
 
@@ -46,7 +40,8 @@ const InfoForm = () => {
     handleReset: onTimerReset,
     handleFail: onFail,
     handleStop: onStop,
-  } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
+  } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
+
   const { selectedItem, onSelect, error, onValidate, onReset } = useSelect(close);
 
   const { value: name, onChange: onNameChange, error: nameError, onValidate: onNameValidate } = useInput('');
@@ -59,43 +54,29 @@ const InfoForm = () => {
     onValidate: onAuthCodeValidate,
   } = useInput('');
 
-  const context = useContext(SignUpContext);
-
   const navigate = useNavigate();
 
-  const [isVerified, setIsVerified] = useState(false);
+  const { mutate: sendMailMutate } = useSendMailMutation(email, onFail);
+  const { mutate: verifyCodeMutate, isSuccess: isVerified } = useVerifyCodeMutation(email, authCode);
 
-  const { mutate: sendMailMutate } = useSendMailMutation(email);
-  const { mutate: verifyCodeMutate } = useVerifyCodeMutation(email, authCode);
+  if (isVerified) onStop();
 
   const { createToast } = useToastStore();
 
   const handleMailSend = () => {
     if (!UNIV_EMAIL_FORMAT.test(email)) {
       createToast(SUPPORTING_TEXT.EMAIL_INVALID, 'error');
+
       return;
     }
     if (isMailSent) {
       onTimerReset();
     }
+
     onSend();
 
-    sendMailMutate(undefined, {
-      onError: onFail,
-    });
+    sendMailMutate();
   };
-
-  const handleVerifyCode = () => {
-    verifyCodeMutate(undefined, {
-      onSuccess: () => {
-        onStop();
-
-        setIsVerified(true);
-      },
-    });
-  };
-
-  if (context === undefined) throw new Error();
 
   const formValidate = () => {
     if (
@@ -103,11 +84,10 @@ const InfoForm = () => {
       !onDateValidate() ||
       !onValidate() ||
       !onEmailValidate(SUPPORTING_TEXT.EMAIL) ||
-      !onAuthCodeValidate(SUPPORTING_TEXT.AUTHCODE_NO_EQUAL)
+      !onAuthCodeValidate(SUPPORTING_TEXT.AUTHCODE_NO_EQUAL) ||
+      !isVerified
     )
       return false;
-
-    if (!isVerified) return false;
 
     return true;
   };
@@ -117,7 +97,7 @@ const InfoForm = () => {
 
     if (!formValidate()) return;
 
-    context?.onRegister((prev) => ({
+    onInfoChange((prev) => ({
       ...prev,
       name,
       birth,
@@ -154,28 +134,17 @@ const InfoForm = () => {
           label="학교"
           onSelect={onSelect}
           isOpen={isOpen}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              toggle();
-              onReset();
-            }
-          }}
           trigger={
-            <button
-              type="button"
-              css={selectTriggerStyle(error)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  open();
-                }
-              }}
-              onClick={() => {
+            <UnivSelectTriggerButton
+              onOpen={open}
+              isError={error}
+              onSelectClick={() => {
                 toggle();
                 onReset();
               }}>
               {selectedItem || PLACEHOLDER.SCHOOL}
               {isOpen ? <ArrowUp /> : <ArrowDown />}
-            </button>
+            </UnivSelectTriggerButton>
           }
           options={['인하대학교', '건국대학교', '숙명여자대학교', '시립대학교', '중앙대학교']}
         />
@@ -193,7 +162,7 @@ const InfoForm = () => {
             css={{ padding: '1rem 1.6rem', width: '11rem' }}
             size="large"
             onClick={handleMailSend}
-            disabled={!validateEmail(email)}>
+            disabled={!validateEmail(email) || isVerified}>
             인증 메일 발송
           </Button>
         </Flex>
@@ -210,7 +179,7 @@ const InfoForm = () => {
             <Button
               css={{ padding: '1rem 1.6rem', width: '13rem' }}
               size="large"
-              onClick={() => handleVerifyCode()}
+              onClick={verifyCodeMutate}
               disabled={!validateCode(authCode)}>
               인증하기
             </Button>

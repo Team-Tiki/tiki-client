@@ -39,6 +39,8 @@ export const selectTriggerStyle = (isError: boolean) =>
     },
 
     '&:focus': {
+      outline: 'none',
+
       borderColor: theme.colors.blue_900,
     },
   });
