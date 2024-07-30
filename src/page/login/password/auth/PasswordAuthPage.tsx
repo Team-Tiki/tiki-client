@@ -1,8 +1,6 @@
-import { SUPPORTING_TEXT } from '@/page/login/constant';
-import { useResendMailMutation } from '@/page/login/password/hook/api/useResendMailMutation';
-import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
-import { formStyle, pageStyle, timestyle } from '@/page/login/password/passwordAuth/PasswordAuthPage.style';
-import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
+import { formStyle, pageStyle, timestyle } from '@/page/login/password/auth/PasswordAuthPage.style';
+import { SUPPORTING_TEXT } from '@/page/login/password/auth/constant';
+import { useResendMailMutation } from '@/page/login/password/auth/hook/useResendMailMutation';
 import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
@@ -18,6 +16,8 @@ import { useInput } from '@/common/hook/useInput';
 import { useTimer } from '@/common/hook/useTimer';
 
 import { PATH } from '@/shared/constant/path';
+import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
+import { validateCode, validateEmail } from '@/shared/util/validate';
 
 const PasswordAuthPage = () => {
   const [isVerifyCode, setIsVerifyCode] = useState(false);

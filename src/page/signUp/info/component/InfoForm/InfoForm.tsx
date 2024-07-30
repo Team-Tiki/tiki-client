@@ -1,5 +1,3 @@
-import { useVerifyCodeMutation } from '@/page/login/password/hook/api/useVerifyCodeMutation';
-import { validateCode, validateEmail } from '@/page/login/password/util/validateInput';
 import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import {
   formStyle,
@@ -33,7 +31,9 @@ import { useOutsideClick, useOverlay } from '@/common/hook';
 import { useInput } from '@/common/hook/useInput';
 
 import { PATH } from '@/shared/constant/path';
+import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
 import { useToastStore } from '@/shared/store/toast';
+import { validateCode, validateEmail } from '@/shared/util/validate';
 
 const InfoForm = () => {
   const { isOpen, close, toggle, open } = useOverlay();
