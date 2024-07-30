@@ -31,11 +31,11 @@ const LoginPage = () => {
   };
 
   const 회원가입페이지로이동 = () => {
-    navigate('/signup');
+    navigate(PATH.SIGNUP);
   };
 
   const 비밀번호찾기페이지로이동 = () => {
-    navigate('/password/auth');
+    navigate(PATH.PASSWORD_AUTH);
   };
 
   return (
