@@ -9,7 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
+import { alignBlocks, getLastDay } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
 
@@ -116,18 +116,25 @@ const ArchivingPage = () => {
               let { startDate, endDate } = block;
               const blockStartDate = new Date(startDate);
               const blockEndDate = new Date(endDate);
-              const startMonth = blockStartDate.getUTCMonth() + 1;
-              const endMonth = blockEndDate.getUTCMonth() + 1;
+              const startMonth = blockStartDate.getMonth() + 1;
+              const endMonth = blockEndDate.getMonth() + 1;
 
-              const firstDayOfMonth = new Date(Date.UTC(currentYear, selectedMonthNumber - 1, 1));
-              const lastDayOfMonth = getLastDayOfMonth(firstDayOfMonth);
+              const firstDay = new Date(currentYear, selectedMonthNumber - 1, 1);
+              const lastDate = getLastDay(firstDay);
 
-              if (blockStartDate.getFullYear() !== currentYear || startMonth !== selectedMonthNumber) {
-                startDate = firstDayOfMonth;
-              }
-
-              if (blockEndDate.getFullYear() !== currentYear || endMonth !== selectedMonthNumber) {
-                endDate = lastDayOfMonth;
+              if (blockStartDate.getFullYear() === currentYear && blockEndDate.getFullYear() === currentYear) {
+                if (startMonth < selectedMonthNumber && selectedMonthNumber < endMonth) {
+                  // 중간 달
+                  startDate = firstDay;
+                  endDate = lastDate;
+                } else {
+                  if (startMonth !== selectedMonthNumber) {
+                    startDate = firstDay;
+                  }
+                  if (endMonth !== selectedMonthNumber) {
+                    endDate = lastDate;
+                  }
+                }
               }
 
               return (

@@ -5,64 +5,67 @@ interface Floors {
   [key: string]: number;
 }
 
-export const getLastDayOfMonth = (date: Date): Date => {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth();
-  return new Date(Date.UTC(year, month + 1, 0));
+export const getLastDay = (date: Date): Date => {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
 };
 
 const parseLocalDate = (localDateString: string): Date => {
   const [year, month, day] = localDateString.split('-').map(Number);
-  return new Date(Date.UTC(year, month - 1, day));
+  return new Date(year, month - 1, day);
 };
 
 const getDays = (startDate: Date, endDate: Date): number[] => {
   const days: number[] = [];
   const date = new Date(startDate);
   while (date <= endDate) {
-    days.push(date.getUTCDate());
-    date.setUTCDate(date.getUTCDate() + 1);
+    days.push(date.getDate());
+    date.setDate(date.getDate() + 1);
   }
   return days;
 };
 
 export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthType, currentYear: number): Floors => {
-  const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(data.length).fill(false));
+  const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(100).fill(false));
   const floors: Floors = {};
-  const clickedMonth = parseInt(selectedMonth.split('월')[0]); // 클릭한 헤더의 달
+  const clickedMonth = parseInt(selectedMonth.split('월')[0]); // 클릭한 달
 
   data.forEach((block) => {
     const blockStartDate = parseLocalDate(block.startDate.toString()); // 블럭의 시작 날짜
-    const blockEndDate = parseLocalDate(block.endDate.toString()); // 블럭의 끝 날짜
+    let blockEndDate = parseLocalDate(block.endDate.toString()); // 블럭의 끝 날짜
 
-    const stackBlocks = (blockStartDate: Date, blockEndDate: Date) => {
+    const setTimeBlocks = (blockStartDate: Date, blockEndDate: Date) => {
       const days = getDays(blockStartDate, blockEndDate);
-      let floor = 0;
 
-      for (let depth = 1; depth <= data.length; depth++) {
-        if (days.every((day) => !timeTable[day][depth])) {
-          floor = depth;
+      for (let depth = 1; depth <= 100; depth++) {
+        let isAvailable = true;
+        for (const day of days) {
+          if (timeTable[day][depth]) {
+            isAvailable = false;
+            break;
+          }
+        }
+        if (isAvailable) {
+          days.forEach((day) => (timeTable[day][depth] = true));
+          floors[block.timeBlockId] = depth;
           break;
         }
       }
-      if (floor !== 0) {
-        days.forEach((day) => {
-          timeTable[day][floor] = true;
-        });
-        floors[block.timeBlockId] = floor;
-      }
     };
 
-    if (blockStartDate.getUTCFullYear() === currentYear) {
-      if (blockStartDate.getUTCMonth() + 1 === clickedMonth) {
-        stackBlocks(blockStartDate, blockEndDate);
-      } else if (blockStartDate.getUTCMonth() + 1 !== clickedMonth) {
-        blockStartDate.setDate(1);
-        stackBlocks(blockStartDate, blockEndDate);
-      } else if (blockEndDate.getUTCMonth() + 1 !== clickedMonth) {
-        blockEndDate.setMonth(new Date(clickedMonth).getMonth() + 1);
-        stackBlocks(blockStartDate, blockEndDate);
+    if (blockStartDate.getFullYear() === currentYear) {
+      if (blockStartDate.getMonth() + 1 < clickedMonth && blockEndDate.getMonth() + 1 > clickedMonth) {
+        // 중간 달인 경우
+        blockStartDate.setFullYear(currentYear, clickedMonth - 1, 1); // 블록의 시작 날짜 - 해당 월의 첫째 날
+        blockEndDate = getLastDay(new Date(currentYear, clickedMonth - 1)); // 블록의 끝 날짜 - 해당 월의 마지막 날
+      } else {
+        if (blockStartDate.getMonth() + 1 < clickedMonth) {
+          blockStartDate.setFullYear(currentYear, clickedMonth - 1, 1); // 해당 월의 첫째 날
+        }
+        if (blockEndDate.getMonth() + 1 > clickedMonth) {
+          blockEndDate = getLastDay(new Date(currentYear, clickedMonth - 1)); // 해당 월의 마지막 날
+        }
       }
+      setTimeBlocks(blockStartDate, blockEndDate);
     }
   });
 
