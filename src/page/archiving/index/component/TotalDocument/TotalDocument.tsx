@@ -61,20 +61,19 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
       </Flex>
 
       <Flex tag="ul" css={documentListStyle}>
-        {(selected === '최근 업로드 순'
-          ? filteredDocuments
-          : filteredDocuments && [...filteredDocuments].reverse()
-        )?.map((data: DocumentType) => (
-          <DocumentItem
-            key={data.documentId}
-            documentId={data.documentId}
-            selectedId={selectedId}
-            blockName={data.blockName}
-            fileUrl={data.fileUrl}
-            color={data.color}>
-            {data.fileName}
-          </DocumentItem>
-        ))}
+        {(selected === '최근 업로드 순' ? filteredDocuments : filteredDocuments && filteredDocuments.reverse())?.map(
+          (data: DocumentType) => (
+            <DocumentItem
+              key={data.documentId}
+              documentId={data.documentId}
+              selectedId={selectedId}
+              blockName={data.blockName}
+              fileUrl={data.fileUrl}
+              color={data.color}>
+              {data.fileName}
+            </DocumentItem>
+          )
+        )}
       </Flex>
     </Flex>
   );
