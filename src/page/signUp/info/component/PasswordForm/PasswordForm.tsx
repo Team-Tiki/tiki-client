@@ -1,8 +1,6 @@
-import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
 import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
-import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 
-import React, { HTMLAttributes, useContext } from 'react';
+import React, { HTMLAttributes, SetStateAction } from 'react';
 import { flushSync } from 'react-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -10,11 +8,15 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import { useInput } from '@/common/hook/useInput';
 
+import { UserInfo } from '@/shared/api/signup/info/type';
+import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
+
 interface PasswordFormProps extends HTMLAttributes<HTMLFormElement> {
+  onInfoChange: React.Dispatch<SetStateAction<UserInfo>>;
   onComplete?: () => void;
 }
 
-const PasswordForm = ({ onComplete }: PasswordFormProps) => {
+const PasswordForm = ({ onInfoChange, onComplete }: PasswordFormProps) => {
   const { value: password, onChange: onPasswordChange, onValidate, error: passwordError } = useInput('');
   const {
     value: passwordChecker,
@@ -22,10 +24,6 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
     onValidate: onCheckerValidate,
     error: checkerError,
   } = useInput('');
-
-  const context = useContext(SignUpContext);
-
-  if (context === undefined) throw new Error();
 
   const formValidate = () => {
     if (!onValidate(SUPPORTING_TEXT.PASSWORD) || !onCheckerValidate(SUPPORTING_TEXT.PASSWORD_CHECKER)) return false;
@@ -43,7 +41,7 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
     if (!formValidate()) return;
 
     flushSync(() => {
-      context?.onRegister((prev) => ({
+      onInfoChange((prev) => ({
         ...prev,
         password,
         passwordChecker,
