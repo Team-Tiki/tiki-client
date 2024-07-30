@@ -9,15 +9,11 @@ interface TimeBlockPeriod {
   startDate: Date;
   endDate: Date;
   currentYear: number;
-  selectedMonthNumber: number;
+  selectedMonth: number;
 }
 
-export const getLastDay = (date: Date): Date => {
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
-};
-
-const parseLocalDate = (localDateString: string): Date => {
-  const [year, month, day] = localDateString.split('-').map(Number);
+const parseLocalDate = (localDate: string): Date => {
+  const [year, month, day] = localDate.split('-').map(Number);
 
   return new Date(year, month - 1, day);
 };
@@ -34,36 +30,43 @@ const getDays = (startDate: Date, endDate: Date): number[] => {
   return days;
 };
 
-export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonthNumber }: TimeBlockPeriod) => {
+export const getLastDay = (date: Date): Date => {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+};
+
+// 입력된 기간에 따라 타임블록의 시작/끝 지정하는 함수
+export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth }: TimeBlockPeriod) => {
   let blockStartDate = new Date(startDate);
   let blockEndDate = new Date(endDate);
 
   const startMonth = blockStartDate.getMonth() + 1;
   const endMonth = blockEndDate.getMonth() + 1;
 
-  const firstDay = new Date(currentYear, selectedMonthNumber - 1, 1);
-  const lastDate = getLastDay(firstDay);
+  const firstDay = new Date(currentYear, selectedMonth - 1, 1);
+  const lastDay = getLastDay(firstDay);
 
   if (blockStartDate.getFullYear() === currentYear && blockEndDate.getFullYear() === currentYear) {
-    if (startMonth < selectedMonthNumber && selectedMonthNumber < endMonth) {
+    if (startMonth < selectedMonth && selectedMonth < endMonth) {
+      // 타임블록이 3달 이상의 기간을 가질 때
       blockStartDate = firstDay;
-      blockEndDate = lastDate;
+      blockEndDate = lastDay;
     } else {
-      if (startMonth !== selectedMonthNumber) {
+      if (startMonth !== selectedMonth) {
         blockStartDate = firstDay;
       }
-      if (endMonth !== selectedMonthNumber) {
-        blockEndDate = lastDate;
+      if (endMonth !== selectedMonth) {
+        blockEndDate = lastDay;
       }
     }
   }
   return { startDate: blockStartDate, endDate: blockEndDate };
 };
 
+// 타임블록의 상하 배치 함수
 export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthType, currentYear: number): Floors => {
   const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(100).fill(false));
   const floors: Floors = {};
-  const clickedMonth = parseInt(selectedMonth.split('월')[0]); // 클릭한 달
+  const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
   data.forEach((block) => {
     const { startDate, endDate } = block;
@@ -72,7 +75,7 @@ export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthTyp
       startDate: parseLocalDate(startDate.toString()),
       endDate: parseLocalDate(endDate.toString()),
       currentYear,
-      selectedMonthNumber: clickedMonth,
+      selectedMonth: clickedMonth,
     });
 
     const days = getDays(blockStartDate, blockEndDate);

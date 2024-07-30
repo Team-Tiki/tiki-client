@@ -118,7 +118,7 @@ const ArchivingPage = () => {
                 startDate: new Date(startDate),
                 endDate: new Date(endDate),
                 currentYear,
-                selectedMonthNumber,
+                selectedMonth: selectedMonthNumber,
               });
 
               return (
