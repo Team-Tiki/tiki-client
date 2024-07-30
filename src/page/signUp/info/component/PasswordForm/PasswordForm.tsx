@@ -3,6 +3,7 @@ import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
 
 import React, { HTMLAttributes, useContext } from 'react';
+import { flushSync } from 'react-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -41,11 +42,13 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
 
     if (!formValidate()) return;
 
-    context?.onRegister((prev) => ({
-      ...prev,
-      password,
-      passwordChecker,
-    }));
+    flushSync(() => {
+      context?.onRegister((prev) => ({
+        ...prev,
+        password,
+        passwordChecker,
+      }));
+    });
 
     onComplete?.();
   };
