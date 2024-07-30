@@ -1,7 +1,5 @@
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/auth/PasswordAuthPage.style';
-import { SUPPORTING_TEXT } from '@/page/login/password/auth/constant';
 import { useResendMailMutation } from '@/page/login/password/auth/hook/useResendMailMutation';
-import { EMAIL_EXPIRED_MESSAGE, EMAIL_REMAIN_TIME, PLACEHOLDER } from '@/page/signUp/info/constant';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import { useCallback, useState } from 'react';
@@ -15,6 +13,7 @@ import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { useInput } from '@/common/hook/useInput';
 import { useTimer } from '@/common/hook/useTimer';
 
+import { EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
 import { validateCode, validateEmail } from '@/shared/util/validate';
@@ -28,7 +27,7 @@ const PasswordAuthPage = () => {
     remainTime,
     isTriggered: isMailSent,
     handleTrigger: handleSend,
-  } = useTimer(EMAIL_REMAIN_TIME, EMAIL_EXPIRED_MESSAGE);
+  } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
 
   const navigate = useNavigate();
   const { resendMailMutation } = useResendMailMutation(email);
