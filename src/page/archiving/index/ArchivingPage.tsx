@@ -99,6 +99,7 @@ const ArchivingPage = () => {
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
               const isEven = day % 2 === 0;
+
               return (
                 <DaySection
                   key={day}
@@ -112,6 +113,7 @@ const ArchivingPage = () => {
                 />
               );
             })}
+
             {timeBlocks.map((block: Block) => {
               const { startDate, endDate } = block;
               const { startDate: blockStartDate, endDate: blockEndDate } = createTimeBlock({
@@ -138,6 +140,7 @@ const ArchivingPage = () => {
             })}
           </div>
         </Flex>
+
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
           <Button
             variant="action"
