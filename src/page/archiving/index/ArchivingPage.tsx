@@ -13,7 +13,7 @@ import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/bloc
 
 import { useState } from 'react';
 
-import AddIc from '@/common/asset/svg/add_btn.svg?react';
+import Add from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
@@ -54,16 +54,15 @@ const ArchivingPage = () => {
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
 
-  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate();
+  const { currentYear, selectedMonthType, setSelectedMonthType, handlePrevYear, handleNextYear, endDay } = useDate();
 
-  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
+  const selectedMonth = parseInt(selectedMonthType.split('월')[0]);
 
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
 
   const [selectedBlock, setSelectedBlock] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
+  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonthType, currentYear);
 
   // 블록 생성 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
@@ -91,8 +90,8 @@ const ArchivingPage = () => {
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
           <MonthHeader
-            currentMonth={selectedMonth}
-            onMonthClick={(month) => setSelectedMonth(month)}
+            currentMonth={selectedMonthType}
+            onMonthClick={(month) => setSelectedMonthType(month)}
             selectedBlock={selectedBlock}
           />
           <div id="block_area" css={daySectionStyle}>
@@ -104,14 +103,14 @@ const ArchivingPage = () => {
               const startMonth = blockStartDate.getUTCMonth() + 1;
               const endMonth = blockEndDate.getUTCMonth() + 1;
 
-              const firstDayOfMonth = new Date(Date.UTC(currentYear, selectedMonthNumber - 1, 1));
+              const firstDayOfMonth = new Date(Date.UTC(currentYear, selectedMonth - 1, 1));
               const lastDayOfMonth = getLastDayOfMonth(firstDayOfMonth);
 
-              if (blockStartDate.getFullYear() !== currentYear || startMonth !== selectedMonthNumber) {
+              if (blockStartDate.getFullYear() !== currentYear || startMonth !== selectedMonth) {
                 startDate = firstDayOfMonth;
               }
 
-              if (blockEndDate.getFullYear() !== currentYear || endMonth !== selectedMonthNumber) {
+              if (blockEndDate.getFullYear() !== currentYear || endMonth !== selectedMonth) {
                 endDate = lastDayOfMonth;
               }
 
@@ -137,7 +136,7 @@ const ArchivingPage = () => {
             variant="action"
             css={buttonStyle(selectedBlock)}
             onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
-            <AddIc width={24} height={24} />
+            <Add width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
