@@ -39,17 +39,16 @@ const DaySection = ({ endDay }: DaySectionProps) => {
 
   return (
     <>
-      {Array.from({ length: endDay.getDate() }, (_, index) => {
-        const day = index + 1;
-        const isEven = day % 2 === 0;
+      {Array.from({ length: endDay.getDate() }, (_, day) => {
+        const isEven = (day + 1) % 2 === 0;
         const isToday =
-          day === currentDate.getDate() &&
+          day + 1 === currentDate.getDate() &&
           currentYear === currentDate.getFullYear() &&
           selectedMonth === `${currentDate.getMonth() + 1}월`;
 
         return (
           <Flex css={dayStyle(isEven, isToday)}>
-            <Flex css={dayHeaderStyle}>{day}</Flex>
+            <Flex css={dayHeaderStyle}>{day + 1}</Flex>
             <Flex css={bodyStyle} />
             {isToday && (
               <>
