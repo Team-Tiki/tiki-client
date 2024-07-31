@@ -1,5 +1,4 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { useBlockQuery } from '@/page/archiving/index/hook/api/useBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
@@ -70,7 +69,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
         {startDate} ~ {endDate}
       </Text>
 
-      <Flex tag="ul" css={documentListStyle}>
+      <Flex tag="ul" styles={{ direction: 'column', marginTop: '1.6rem', gap: '0.8rem' }}>
         {blockData?.data.documents?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
