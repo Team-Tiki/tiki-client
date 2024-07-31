@@ -17,7 +17,7 @@ import { theme } from '@/common/style/theme/theme';
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { useTeamStore } from '@/shared/store/team';
 
-import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
+import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
   selectedId: string;
@@ -42,7 +42,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
   };
 
   return (
-    <Flex tag="section" css={containerStyle}>
+    <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>
       {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
