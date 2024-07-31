@@ -10,6 +10,8 @@ import {
   inputWrapperStyle,
   sectionStyle,
 } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
+import { useModalStore } from '@/shared/store/modal';
+import Modal from '@/common/component/Modal/Modal';
 
 interface WorkSpaceNameProps {
   onNext: () => void;
@@ -18,11 +20,13 @@ interface WorkSpaceNameProps {
 
 const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
   const [inputValue, setInputValue] = useState('');
+  const { workspaceModal, openModal, closeModal } = useModalStore();
 
   const handleNext = () => {
     setName(inputValue);
+    closeModal('work')
 
-    onNext();
+
   };
 
   const isButtonActive = inputValue.trim().length > 0;
@@ -32,6 +36,9 @@ const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
   };
 
   return (
+    <Modal isOpen={}>
+
+    
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="name" title="새로운 워크 스페이스 생성하기" info="워크스페이스의 이름을 입력해주세요." />
       <article css={{ marginTop: '2.4rem', width: '32rem' }}>
@@ -53,6 +60,7 @@ const WorkSpaceName = ({ onNext, setName }: WorkSpaceNameProps) => {
         다음
       </Button>
     </Flex>
+    </Modal>
   );
 };
 

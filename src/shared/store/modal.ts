@@ -1,32 +1,46 @@
 import { create } from 'zustand';
 
+// 모달의 타입을 정의
+type ModalType = 'workspace' | 'category' | 'image' | 'complete' | 'block' | 'upload' | 'delete';
+
 interface ModalState {
-  //워크 스페이스 생성 모달
-  workspaceModal: boolean;
-  categoryModal: boolean;
-  imageModal: boolean;
-  completeModal: boolean;
+  // 모달 상태
+  modals: {
+    workspace: boolean;
+    category: boolean;
+    image: boolean;
+    complete: boolean;
+    block: boolean;
+    upload: boolean;
+    delete: boolean;
+  };
 
-  //타임블록 생성 모달
-  blockModal: boolean;
-  uploadModal: boolean;
-
-  //삭제 모달
-  deleteModal: boolean;
-
-  openModal: (modalName: string) => void;
-  closeModal: (modalName: string) => void;
+  // 모달 상태를 토글하는 액션
+  toggleModal: (type: ModalType) => void;
 }
 
-export const useModalStore = create<ModalState>((set) => ({
-  workspaceModal: false,
-  categoryModal: false,
-  imageModal: false,
-  completeModal: false,
-  blockModal: false,
-  uploadModal: false,
-  deleteModal: false,
+const useModalStore = create<ModalState>((set) => ({
+  modals: {
+    workspace: false,
+    category: false,
+    image: false,
+    complete: false,
+    block: false,
+    upload: false,
+    delete: false,
+  },
 
-  openModal: (modalName) => set((state) => ({ ...state, [modalName]: true })),
-  closeModal: (modalName) => set((state) => ({ ...state, [modalName]: false })),
+  // 모달의 열고 닫는 행위를 토글하는 함수
+  toggleModal: (type: ModalType) =>
+    set((state) => ({
+      modals: { ...state.modals, [type]: !state.modals[type] },
+    })),
 }));
+
+// 각 모달 상태를 가져오는 훅
+export const useModalState = (type: ModalType) => useModalStore((state) => state.modals[type]);
+
+// 모달 토글 액션을 사용하는 훅
+export const useToggleModal = () => useModalStore((state) => state.toggleModal);
+
+export default useModalStore;
