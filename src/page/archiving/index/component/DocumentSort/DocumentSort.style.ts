@@ -8,23 +8,22 @@ export const buttonStyle = css({
   alignItems: 'center',
 
   width: '10.5rem',
-  height: '1.2rem',
   gap: 0,
   padding: '0 1.2rem',
 
-  color: theme.colors.black,
+  border: 'none',
   backgroundColor: theme.colors.white,
 
+  color: theme.colors.black,
   ...theme.text.body08,
   whiteSpace: 'nowrap',
-
-  border: 'none',
 
   cursor: 'pointer',
 });
 
 export const fontStyle = css({
   marginBottom: '1.2rem',
+
   '& ul': {
     display: 'flex',
     flexDirection: 'column',
@@ -35,6 +34,7 @@ export const fontStyle = css({
 
     overflowX: 'hidden',
   },
+
   '& li': {
     ...theme.text.body08,
     whiteSpace: 'nowrap',
