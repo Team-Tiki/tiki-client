@@ -9,7 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
+import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
 
@@ -96,30 +96,22 @@ const ArchivingPage = () => {
           />
           <div id="block_area" css={daySectionStyle}>
             <DaySection endDay={endDay} />
+
             {timeBlocks.map((block: Block) => {
-              let { startDate, endDate } = block;
-              const blockStartDate = new Date(startDate);
-              const blockEndDate = new Date(endDate);
-              const startMonth = blockStartDate.getUTCMonth() + 1;
-              const endMonth = blockEndDate.getUTCMonth() + 1;
-
-              const firstDayOfMonth = new Date(Date.UTC(currentYear, selectedMonth - 1, 1));
-              const lastDayOfMonth = getLastDayOfMonth(firstDayOfMonth);
-
-              if (blockStartDate.getFullYear() !== currentYear || startMonth !== selectedMonth) {
-                startDate = firstDayOfMonth;
-              }
-
-              if (blockEndDate.getFullYear() !== currentYear || endMonth !== selectedMonth) {
-                endDate = lastDayOfMonth;
-              }
+              const { startDate, endDate } = block;
+              const { startDate: blockStartDate, endDate: blockEndDate } = createTimeBlock({
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
+                currentYear,
+                selectedMonth: selectedMonth,
+              });
 
               return (
                 <TimeBlock
                   id={String(block.timeBlockId)}
                   key={block.timeBlockId}
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={blockStartDate}
+                  endDate={blockEndDate}
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
                   blockType={block.blockType}
@@ -131,6 +123,7 @@ const ArchivingPage = () => {
             })}
           </div>
         </Flex>
+
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
           <Button
             variant="action"

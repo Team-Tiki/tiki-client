@@ -35,7 +35,7 @@ const DottedDayLine = () => {
 };
 
 const DaySection = ({ endDay }: DaySectionProps) => {
-  const { currentDate, currentYear, selectedMonth } = useDate();
+  const { currentDate, currentYear, selectedMonthType } = useDate();
 
   return (
     <>
@@ -44,11 +44,11 @@ const DaySection = ({ endDay }: DaySectionProps) => {
         const isToday =
           day + 1 === currentDate.getDate() &&
           currentYear === currentDate.getFullYear() &&
-          selectedMonth === `${currentDate.getMonth() + 1}월`;
+          selectedMonthType === `${currentDate.getMonth() + 1}월`;
 
         return (
           <Flex css={dayStyle(isEven, isToday)}>
-            <Flex css={dayHeaderStyle}>{day + 1}</Flex>
+            <Flex css={dayHeaderStyle(isToday)}>{day + 1}</Flex>
             <Flex css={bodyStyle} />
             {isToday && (
               <>
