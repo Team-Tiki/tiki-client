@@ -51,13 +51,10 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
       // 타임블록이 3달 이상의 기간을 가질 때
       blockStartDate = firstDay;
       blockEndDate = lastDay;
-    } else {
-      if (startMonth !== selectedMonth) {
-        blockStartDate = firstDay;
-      }
-      if (endMonth !== selectedMonth) {
-        blockEndDate = lastDay;
-      }
+    } else if (startMonth !== selectedMonth) {
+      blockStartDate = firstDay;
+    } else if (endMonth !== selectedMonth) {
+      blockEndDate = lastDay;
     }
   }
   return { startDate: blockStartDate, endDate: blockEndDate };
