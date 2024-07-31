@@ -4,15 +4,14 @@ import {
   dayStyle,
   selectedDayStyle,
 } from '@/page/archiving/index/component/DaySection/DaySection.style';
+import { useDate } from '@/page/archiving/index/hook/common/useDate';
 
 import Circle from '@/common/asset/svg/circle.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import { theme } from '@/common/style/theme/theme';
 
 interface DaySectionProps {
-  day: number;
-  isEven: boolean;
-  isToday: boolean;
+  endDay: Date;
 }
 const DottedDayLine = () => {
   return (
@@ -35,18 +34,33 @@ const DottedDayLine = () => {
   );
 };
 
-const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
+const DaySection = ({ endDay }: DaySectionProps) => {
+  const { currentDate, currentYear, selectedMonth } = useDate();
+
   return (
-    <Flex css={dayStyle(isEven, isToday)}>
-      <Flex css={dayHeaderStyle}>{day}</Flex>
-      <Flex css={bodyStyle} />
-      {isToday && (
-        <>
-          <Circle width={8} height={8} css={selectedDayStyle} />
-          <DottedDayLine />
-        </>
-      )}
-    </Flex>
+    <>
+      {Array.from({ length: endDay.getDate() }, (_, index) => {
+        const day = index + 1;
+        const isEven = day % 2 === 0;
+        const isToday =
+          day === currentDate.getDate() &&
+          currentYear === currentDate.getFullYear() &&
+          selectedMonth === `${currentDate.getMonth() + 1}월`;
+
+        return (
+          <Flex css={dayStyle(isEven, isToday)}>
+            <Flex css={dayHeaderStyle}>{day}</Flex>
+            <Flex css={bodyStyle} />
+            {isToday && (
+              <>
+                <Circle width={8} height={8} css={selectedDayStyle} />
+                <DottedDayLine />
+              </>
+            )}
+          </Flex>
+        );
+      })}
+    </>
   );
 };
 

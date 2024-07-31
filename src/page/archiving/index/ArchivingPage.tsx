@@ -96,22 +96,7 @@ const ArchivingPage = () => {
             selectedBlock={selectedBlock}
           />
           <div id="block_area" css={daySectionStyle}>
-            {Array.from({ length: endDay.getDate() }, (_, index) => {
-              const day = index + 1;
-              const isEven = day % 2 === 0;
-              return (
-                <DaySection
-                  key={day}
-                  day={day}
-                  isEven={isEven}
-                  isToday={
-                    day === currentDate.getDate() &&
-                    currentYear === currentDate.getFullYear() &&
-                    selectedMonth === `${currentDate.getMonth() + 1}월`
-                  }
-                />
-              );
-            })}
+            <DaySection endDay={endDay} />
             {timeBlocks.map((block: Block) => {
               let { startDate, endDate } = block;
               const blockStartDate = new Date(startDate);
