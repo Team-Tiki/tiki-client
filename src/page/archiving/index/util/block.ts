@@ -18,6 +18,7 @@ const parseLocalDate = (localDate: string): Date => {
   return new Date(year, month - 1, day);
 };
 
+// 일수 만큼의 배열을 리턴
 const getDays = (startDate: Date, endDate: Date): number[] => {
   const days: number[] = [];
   const date = new Date(startDate);
