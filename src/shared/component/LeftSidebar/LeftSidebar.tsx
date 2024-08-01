@@ -112,8 +112,6 @@ const LeftSidebar = () => {
     close();
   };
   // 모달 관련 코드
-  const isOpenModal = useModalState('workspace');
-  const ModalContent = useModalComponent(); // 현재 단계에 해당하는 컴포넌트 가져오기
   const toggleModal = useToggleModal();
 
   const handleWorkspaceClick = () => {
@@ -121,8 +119,7 @@ const LeftSidebar = () => {
     toggleModal('workspace');
   };
 
-  const closeModal = () => {
-    //closeModalBase();
+  const handleModalClose = () => {
     setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
   };
 
@@ -177,7 +174,7 @@ const LeftSidebar = () => {
           </LeftSidebarItem>
           <SettingMenu isModalOpen={isSettingOpen} />
         </div>
-        <ModalManager />
+        <ModalManager onClose={handleModalClose} />
       </aside>
     </WorkSpaceProvider>
   );
