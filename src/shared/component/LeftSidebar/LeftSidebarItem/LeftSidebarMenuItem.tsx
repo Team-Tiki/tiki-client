@@ -15,7 +15,7 @@ interface LeftSidebarMenuItemProps {
   isClicked?: boolean;
   isExpanded: boolean;
   children?: ReactNode;
-  url: string;
+  logoUrl: string;
   onClick?: () => void;
 }
 
@@ -23,7 +23,7 @@ const LeftSidebarMenuItem = ({
   isClicked = true,
   isExpanded,
   children = '',
-  url,
+  logoUrl,
   onClick,
 }: LeftSidebarMenuItemProps) => {
   return (
@@ -31,7 +31,7 @@ const LeftSidebarMenuItem = ({
     <li css={leftSidebarMenuItemStyle} onClick={onClick}>
       <PageIndicatorStick isClicked={isClicked} />
       <Flex css={itemStyle(isClicked, isExpanded)}>
-        <img src={url} alt={`${children?.toString()} icon`} css={imgStyle} />
+        <img src={logoUrl} alt={`${children?.toString()} icon`} css={imgStyle} />
         <Text tag="body4" css={textStyle(isExpanded)}>
           {children}
         </Text>

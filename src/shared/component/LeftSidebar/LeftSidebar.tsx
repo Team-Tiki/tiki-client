@@ -131,7 +131,7 @@ const LeftSidebar = () => {
           <LeftSidebarMenuItem
             isClicked={clicked === 'showcase'}
             isExpanded={isNavOpen}
-            url={earthUrl}
+            logoUrl={earthUrl}
             onClick={handleShowcaseClick}>
             Showcase
           </LeftSidebarMenuItem>
@@ -141,7 +141,7 @@ const LeftSidebar = () => {
                 key={data.id}
                 isClicked={clicked === String(data.id)}
                 isExpanded={isNavOpen}
-                url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
+                logoUrl={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
                   handleTeamClick(String(data.id));
                 }}>
@@ -152,7 +152,7 @@ const LeftSidebar = () => {
           <LeftSidebarMenuItem
             isClicked={isWorkspaceClicked}
             isExpanded={isNavOpen}
-            url={addUrl}
+            logoUrl={addUrl}
             onClick={handleWorkspaceClick}>
             워크스페이스 생성
           </LeftSidebarMenuItem>
@@ -163,7 +163,7 @@ const LeftSidebar = () => {
         <LeftSidebarMenuItem
           isClicked={false}
           isExpanded={isNavOpen}
-          url={settingUrl}
+          logoUrl={settingUrl}
           onClick={() => {
             toggle();
             close();
