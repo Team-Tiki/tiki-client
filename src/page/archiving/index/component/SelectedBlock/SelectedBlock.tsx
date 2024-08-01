@@ -13,6 +13,7 @@ import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
+import { useDeleteModalStore, useModalState, useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
@@ -34,16 +35,16 @@ const SelectedBlock = ({
   endDate,
   documentList,
   selectedBlock,
-  onClickClose,
 }: DocumentBarInfoProps) => {
-  const { isOpen, openModal, closeModal, currentContent } = useModal();
-
-  const handleCloseClick = () => {
-    onClickClose();
-    closeModal;
-  };
-
+  //const { toggleModal } = useModalStore();
   const { teamId } = useTeamStore();
+
+  //const isDeleteModalOpen = useModalState('deleteBlock');
+  const { openModal } = useDeleteModalStore();
+
+  const handleDeleteClick = () => {
+    openModal();
+  };
 
   return (
     <Flex tag="section" css={containerStyle}>
@@ -52,21 +53,7 @@ const SelectedBlock = ({
         <Heading tag="H6" css={blockNameStyle}>
           {blockName}
         </Heading>
-        <Button
-          variant="text"
-          size="small"
-          css={deleteBtnStyle}
-          onClick={() =>
-            openModal(
-              <DeleteModal
-                title="block"
-                detail="block"
-                onClose={handleCloseClick}
-                teamId={+teamId}
-                id={selectedBlock.timeBlockId}
-              />
-            )
-          }>
+        <Button variant="text" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
           블록삭제
         </Button>
       </Flex>
@@ -86,7 +73,7 @@ const SelectedBlock = ({
           </DocumentItem>
         ))}
       </Flex>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
+      <DeleteModal title="block" detail="block" teamId={+teamId} id={selectedBlock.timeBlockId} />
     </Flex>
   );
 };

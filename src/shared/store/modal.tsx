@@ -8,25 +8,42 @@ import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkS
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 
+import DeleteModal from '../component/DeleteModal/DeleteModal';
+
+interface ModalData {
+  teamId: number;
+  id: number;
+  title: 'block' | 'docs';
+  detail: 'block' | 'docs';
+}
+
+interface DeleteModalState {
+  isOpen: boolean;
+  //modalData: ModalData | null;
+  openModal: () => void;
+  closeModal: () => void;
+}
+
 // 모달의 타입을 정의
-type ModalType = 'workspace' | 'category' | 'image' | 'complete' | 'block' | 'upload' | 'delete';
+type ModalType = 'workspace' | 'category' | 'image' | 'complete' | 'block' | 'upload' | 'deleteBlock' | 'deleteDocs';
 
 interface ModalState {
   modals: {
-    workspace: boolean;
-    category: boolean;
-    image: boolean;
-    complete: boolean;
-    block: boolean;
-    upload: boolean;
-    delete: boolean;
+    [key in ModalType]: boolean;
   };
-  step: number; // 현재 모달의 단계
+  step: number;
   toggleModal: (type: ModalType) => void;
-  setStep: (step: number) => void; // 모달 단계 설정 함수
-  nextStep: () => void; // 다음 단계로 넘어가는 함수
-  resetStep: () => void; // 단계 초기화 함수
+  setStep: (step: number) => void;
+  nextStep: () => void;
+  resetStep: () => void;
 }
+
+export const useDeleteModalStore = create<DeleteModalState>((set) => ({
+  isOpen: false,
+  //modalData: null,
+  openModal: () => set({ isOpen: true }),
+  closeModal: () => set({ isOpen: false }),
+}));
 
 export const useModalStore = create<ModalState>((set) => ({
   modals: {
@@ -36,20 +53,18 @@ export const useModalStore = create<ModalState>((set) => ({
     complete: false,
     block: false,
     upload: false,
-    delete: false,
+    deleteBlock: false,
+    deleteDocs: false,
   },
-  step: 1, // 초기 단계 설정
+  modalData: null,
+  step: 1,
   toggleModal: (type: ModalType) =>
-    set((state) => {
-      const isModalOpening = !state.modals[type];
-      return {
-        modals: {
-          ...state.modals,
-          [type]: isModalOpening,
-        },
-        step: isModalOpening ? 1 : state.step, // 모달이 열릴 때 step을 1로 초기화
-      };
-    }),
+    set((state) => ({
+      modals: {
+        ...state.modals,
+        [type]: !state.modals[type],
+      },
+    })),
   setStep: (step: number) => set({ step }),
   nextStep: () => set((state) => ({ step: state.step + 1 })),
   resetStep: () => set({ step: 1 }),

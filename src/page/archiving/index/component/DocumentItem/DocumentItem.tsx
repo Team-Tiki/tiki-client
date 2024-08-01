@@ -16,6 +16,7 @@ import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
+import { useDeleteModalStore, useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentItemProps {
@@ -28,12 +29,10 @@ interface DocumentItemProps {
 }
 
 const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, color }: DocumentItemProps) => {
-  const { isOpen, openModal, closeModal, currentContent } = useModal();
-
   const fileName = children?.toString();
 
   const { teamId } = useTeamStore();
-
+  const { openModal } = useDeleteModalStore();
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {
     window.open(fileUrl);
@@ -46,7 +45,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
 
   const handleTrashClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-    openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={+teamId} id={documentId} />);
+    openModal();
   };
 
   return (
@@ -67,8 +66,8 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
           <Download width={20} height={20} css={{ cursor: 'pointer' }} onClick={handleDownloadClick} />
           <TrashBox width={20} height={20} onClick={(e) => handleTrashClick(e)} css={{ cursor: 'pointer' }} />
         </Flex>
+        <DeleteModal title="docs" detail="docs" teamId={+teamId} id={documentId} />
       </li>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </>
   );
 };
