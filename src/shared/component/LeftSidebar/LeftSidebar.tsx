@@ -18,7 +18,6 @@ import {
   arrowStyle,
   containerStyle,
   leftSidebarListStyle,
-  settingStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
@@ -125,9 +124,9 @@ const LeftSidebar = () => {
 
   return (
     <aside css={containerStyle} ref={sidebarRef}>
-      {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
-      <LogoSymbol css={LogoSymbolStyle} />
       <nav>
+        {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
+        <LogoSymbol css={LogoSymbolStyle} />
         <ul css={leftSidebarListStyle}>
           <LeftSidebarItem
             isClicked={clicked === 'showcase'}
@@ -160,7 +159,7 @@ const LeftSidebar = () => {
         </ul>
       </nav>
 
-      <div ref={settingRef} css={settingStyle}>
+      <div ref={settingRef}>
         <LeftSidebarItem
           isClicked={false}
           isExpansion={isNavOpen}

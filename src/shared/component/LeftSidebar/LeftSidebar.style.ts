@@ -4,6 +4,10 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = () =>
   css({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+
     position: 'fixed',
 
     top: '0',
@@ -31,9 +35,11 @@ export const LogoSymbolStyle = css({
   height: '4rem',
 
   margin: '0 0 2.4rem 2rem',
-  borderRadius: '10px',
 
+  borderRadius: '10px',
   color: theme.colors.blue_900,
+
+  cursor: 'pointer',
 });
 
 export const leftSidebarListStyle = css({
@@ -60,3 +66,4 @@ export const settingStyle = css({
 
   bottom: '2.4rem',
 });
+

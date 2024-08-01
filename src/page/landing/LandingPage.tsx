@@ -21,8 +21,8 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { useIntersectionObserver } from '@/common/hook/useObserver';
 
+import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
 
 const LandingPage = () => {
   const handleObserve = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
@@ -43,7 +43,7 @@ const LandingPage = () => {
   const { targetRef: feature1Ref } = useIntersectionObserver(handleObserve, option);
   const { targetRef: feature2Ref } = useIntersectionObserver(handleObserve, option);
 
-  const { isLoggedIn } = useStore();
+  const isAuth = !!localStorage.getItem(ACCESS_TOKEN_KEY);
 
   const 세번째뷰로 = () => {
     const next = feature1Ref.current;
@@ -55,7 +55,7 @@ const LandingPage = () => {
   };
 
   const 다음페이지로 = () => {
-    window.location.href = isLoggedIn ? PATH.SHOWCASE : PATH.LOGIN;
+    window.location.href = isAuth ? PATH.SHOWCASE : PATH.LOGIN;
   };
 
   return (
