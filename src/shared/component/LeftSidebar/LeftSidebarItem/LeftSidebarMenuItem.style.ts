@@ -11,7 +11,7 @@ export const leftSidebarMenuItemStyle = css({
   cursor: 'pointer',
 });
 
-export const itemStyle = (isClicked: boolean, isExpanded: boolean) =>
+export const clubInfoStyle = (isClicked: boolean, isExpanded: boolean) =>
   css({
     gap: `${isExpanded ? '0.8rem' : 0}`,
     padding: '0.4rem',
@@ -23,7 +23,7 @@ export const itemStyle = (isClicked: boolean, isExpanded: boolean) =>
     '&: hover': { backgroundColor: theme.colors.blue_700 },
   });
 
-export const textStyle = (isExpanded: boolean) =>
+export const clubNameStyle = (isExpanded: boolean) =>
   css({
     opacity: isExpanded ? '1' : '0',
 
@@ -39,7 +39,7 @@ export const textStyle = (isExpanded: boolean) =>
     animation: isExpanded ? `${fadeIn} 0.5s ease-in` : `${fadeOut} 0.4s ease-out`,
   });
 
-export const imgStyle = css({
+export const clubLogoStyle = css({
   width: '4rem',
   height: '4rem',
 

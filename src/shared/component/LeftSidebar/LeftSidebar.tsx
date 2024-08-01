@@ -5,7 +5,7 @@ import addUrl from '@/common/asset/svg/add_2.svg';
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import earthUrl from '@/common/asset/svg/global_2.svg';
-import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
+import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
 import settingUrl from '@/common/asset/svg/setting.svg';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
 import Modal from '@/common/component/Modal/Modal';
@@ -14,10 +14,10 @@ import { useModal } from '@/common/hook/useModal';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
 import {
-  LogoSymbolStyle,
-  arrowStyle,
+  arrowBtnStyle,
   containerStyle,
-  leftSidebarListStyle,
+  leftSidebarMenuStyle,
+  tikiLogoStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
@@ -125,9 +125,13 @@ const LeftSidebar = () => {
   return (
     <aside css={containerStyle} ref={sidebarRef}>
       <nav>
-        {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
-        <LogoSymbol css={LogoSymbolStyle} />
-        <ul css={leftSidebarListStyle}>
+        {isNavOpen ? (
+          <LeftArrow css={arrowBtnStyle} onClick={close} />
+        ) : (
+          <RightArrow css={arrowBtnStyle} onClick={open} />
+        )}
+        <TikiLogo css={tikiLogoStyle} />
+        <ul css={leftSidebarMenuStyle}>
           <LeftSidebarMenuItem
             isClicked={clicked === 'showcase'}
             isExpanded={isNavOpen}
