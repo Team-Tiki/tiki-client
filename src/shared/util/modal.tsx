@@ -1,4 +1,4 @@
-import Modal from '@/common/component/Modal/Modal';
+/*import Modal from '@/common/component/Modal/Modal';
 
 import { useModalComponent, useModalStore, useResetStep, useToggleModal } from '@/shared/store/modal';
 import { ModalType } from '@/shared/type/block';
@@ -29,4 +29,6 @@ export const ModalManager = ({ onClose }: ModalManagerProps) => {
       {ModalContent}
     </Modal>
   ) : null;
-};
+
+
+};*/

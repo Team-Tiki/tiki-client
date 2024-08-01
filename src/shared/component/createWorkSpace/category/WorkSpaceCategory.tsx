@@ -14,14 +14,12 @@ import {
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
-import { useNextStep } from '@/shared/store/modal';
-import { useWorkSpaceContext } from '@/shared/store/modalContext';
+import { useWorkSpaceContext } from '@/shared/store/useWorkSpaceContext';
 
 const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
-  const nextStep = useNextStep();
-  const { setCategory } = useWorkSpaceContext();
+  const { setCategory, nextStep } = useWorkSpaceContext();
   const [selected, setSelected] = useState('');
 
   // 카테고리 데이터

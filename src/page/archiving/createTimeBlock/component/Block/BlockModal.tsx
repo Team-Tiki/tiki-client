@@ -12,16 +12,14 @@ import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
-import { useNextStep } from '@/shared/store/modal';
-import { useBlockModalContext } from '@/shared/store/modalContext';
+import { useBlockContext } from '@/shared/store/useBlockContext';
 
 const BlockModal = () => {
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
-  const { blockName, setBlockName, setBlockType, startDate, setStartDate, endDate, setEndDate } =
-    useBlockModalContext();
-  const nextStep = useNextStep();
+  const { blockName, setBlockName, setBlockType, startDate, setStartDate, endDate, setEndDate, nextStep } =
+    useBlockContext();
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {

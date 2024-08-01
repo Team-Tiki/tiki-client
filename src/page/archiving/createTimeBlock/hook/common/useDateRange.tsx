@@ -6,8 +6,8 @@ import { useState } from 'react';
 const useDateRange = (
   initialStartDate = '',
   initialEndDate = '',
-  onSetStartDate: (date: string | ((prev: string) => string)) => void,
-  onSetEndDate: (date: string | ((prev: string) => string)) => void,
+  onSetStartDate: (date: string) => void,
+  onSetEndDate: (date: string) => void,
   onSetIsDateRangeValid: (isValid: boolean) => void
 ) => {
   const [dates, setDates] = useState({ startDate: initialStartDate, endDate: initialEndDate });

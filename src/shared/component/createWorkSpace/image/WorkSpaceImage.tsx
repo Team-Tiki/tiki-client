@@ -18,8 +18,7 @@ import {
 } from '@/shared/component/createWorkSpace/image/WorkSpaceImage.style';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import { useNextStep } from '@/shared/store/modal';
-import { useWorkSpaceContext } from '@/shared/store/modalContext';
+import { useWorkSpaceContext } from '@/shared/store/useWorkSpaceContext';
 
 const WorkSpaceImage = () => {
   const [fileURL, setFileURL] = useState<string>('');
@@ -33,8 +32,7 @@ const WorkSpaceImage = () => {
   const { data: fileData } = useGetFileQuery(file as File);
 
   // 모달
-  const nextStep = useNextStep();
-  const { setFileUrlData, name, category, resetBlockData } = useWorkSpaceContext();
+  const { setFileUrlData, nextStep, reset, name, category } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
   useEffect(() => {
@@ -100,7 +98,7 @@ const WorkSpaceImage = () => {
       {
         onSuccess: () => {
           nextStep();
-          resetBlockData();
+          reset();
         },
       }
     );

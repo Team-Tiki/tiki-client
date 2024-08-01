@@ -22,12 +22,12 @@ import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/Left
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useToggleModal } from '@/shared/store/modal';
+import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
-import { ModalManager } from '@/shared/util/modal';
 
 const LeftSidebar = () => {
+  const openModal = useModalStore((state) => state.openModal);
   const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
@@ -72,11 +72,9 @@ const LeftSidebar = () => {
     close();
   };
 
-  const toggleModal = useToggleModal();
-
   const handleWorkspaceClick = () => {
     setIsWorkspaceClicked(true);
-    toggleModal('workspace');
+    openModal('workspace', null);
   };
 
   const handleModalClose = () => {
@@ -133,7 +131,6 @@ const LeftSidebar = () => {
         </LeftSidebarItem>
         <SettingMenu isModalOpen={isSettingOpen} />
       </div>
-      <ModalManager onClose={handleModalClose} />
     </aside>
   );
 };

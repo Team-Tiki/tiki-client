@@ -9,8 +9,8 @@ import SupportingText from '@/common/component/SupportingText/SupportingText';
 interface BlockDateProps {
   startDate: string;
   endDate: string;
-  onSetStartDate: (date: string | ((prev: string) => string)) => void;
-  onSetEndDate: (date: string | ((prev: string) => string)) => void;
+  onSetStartDate: (date: string) => void;
+  onSetEndDate: (date: string) => void;
   onSetIsDateRangeValid: (isValid: boolean) => void;
 }
 
@@ -18,8 +18,8 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
   const { dates, validation, handleChange } = useDateRange(
     startDate,
     endDate,
-    onSetStartDate,
-    onSetEndDate,
+    (date: string) => onSetStartDate(date),
+    (date: string) => onSetEndDate(date),
     onSetIsDateRangeValid
   );
 

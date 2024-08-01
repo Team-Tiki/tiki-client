@@ -10,17 +10,15 @@ import {
   inputWrapperStyle,
   sectionStyle,
 } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import {useNextStep} from '@/shared/store/modal';
-import { useWorkSpaceContext } from '@/shared/store/modalContext';
+import { useWorkSpaceContext } from '@/shared/store/useWorkSpaceContext';
 
 const WorkSpaceName = () => {
   const [inputValue, setInputValue] = useState('');
-  const nextStep = useNextStep();
-  const { setName } = useWorkSpaceContext();
+  const { setName, nextStep } = useWorkSpaceContext();
 
   const handleNext = () => {
     setName(inputValue);
-    nextStep(); 
+    nextStep();
   };
 
   const isButtonActive = inputValue.trim().length > 0;

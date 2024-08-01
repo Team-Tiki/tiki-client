@@ -14,12 +14,11 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { useOutsideClick } from '@/common/hook';
+import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useToggleModal } from '@/shared/store/modal';
+import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
-import { ModalManager } from '@/shared/util/modal';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
@@ -65,7 +64,11 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   // 블록 생성 모달 관련 코드
-  const toggleModal = useToggleModal();
+  const openModal = useModalStore((state) => state.openModal);
+
+  const handleOpenBlockModal = () => {
+    openModal('block', null);
+  };
 
   return (
     <Flex
@@ -138,7 +141,7 @@ const ArchivingPage = () => {
           </div>
         </Flex>
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
-          <Button variant="action" css={buttonStyle(selectedBlock)} onClick={() => toggleModal('block')}>
+          <Button variant="action" css={buttonStyle(selectedBlock)} onClick={handleOpenBlockModal}>
             <AddIc width={24} height={24} />
             블록 생성
           </Button>
@@ -152,7 +155,6 @@ const ArchivingPage = () => {
         onSelectId={handleSelectedId}
         onClickClose={handleClose}
       />
-      <ModalManager />
     </Flex>
   );
 };
