@@ -1,19 +1,21 @@
-import { SignUpContext } from '@/page/signUp/info/InfoFormPage';
-import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
-import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/page/signUp/info/constant';
+import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
-import React, { HTMLAttributes, useContext } from 'react';
+import React, { HTMLAttributes } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import { useInput } from '@/common/hook/useInput';
 
-interface PasswordFormProps extends HTMLAttributes<HTMLFormElement> {
-  onComplete?: () => void;
+import { UserInfo } from '@/shared/api/signup/info/type';
+import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
+
+interface PasswordFormProps extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+  userInfo: UserInfo;
+  onSubmit?: (info: UserInfo) => void;
 }
 
-const PasswordForm = ({ onComplete }: PasswordFormProps) => {
+const PasswordForm = ({ userInfo, onSubmit }: PasswordFormProps) => {
   const { value: password, onChange: onPasswordChange, onValidate, error: passwordError } = useInput('');
   const {
     value: passwordChecker,
@@ -21,10 +23,6 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
     onValidate: onCheckerValidate,
     error: checkerError,
   } = useInput('');
-
-  const context = useContext(SignUpContext);
-
-  if (context === undefined) throw new Error();
 
   const formValidate = () => {
     if (!onValidate(SUPPORTING_TEXT.PASSWORD) || !onCheckerValidate(SUPPORTING_TEXT.PASSWORD_CHECKER)) return false;
@@ -41,13 +39,13 @@ const PasswordForm = ({ onComplete }: PasswordFormProps) => {
 
     if (!formValidate()) return;
 
-    context?.onRegister((prev) => ({
-      ...prev,
+    const formData = {
+      ...userInfo,
       password,
       passwordChecker,
-    }));
+    };
 
-    onComplete?.();
+    onSubmit?.(formData);
   };
 
   return (
