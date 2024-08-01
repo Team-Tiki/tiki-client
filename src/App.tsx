@@ -13,8 +13,7 @@ import Login from '@/shared/component/Login/Login';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
-
-import { BlockModalProvider, WorkSpaceProvider } from './shared/store/modalContext';
+import { BlockModalProvider, WorkSpaceProvider } from '@/shared/store/modalContext';
 
 const App = () => {
   useEffect(() => {
