@@ -6,9 +6,10 @@ export const formStyle = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  flex: 1,
+  gap: '3.2rem',
 
   width: '100%',
+  minHeight: '70dvh',
 
   '& > div': {
     width: '100%',
@@ -39,6 +40,8 @@ export const selectTriggerStyle = (isError: boolean) =>
     },
 
     '&:focus': {
+      outline: 'none',
+
       borderColor: theme.colors.blue_900,
     },
   });

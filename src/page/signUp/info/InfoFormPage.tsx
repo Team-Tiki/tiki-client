@@ -3,22 +3,14 @@ import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
 import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
 import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
 
-import React, { SetStateAction, createContext, useEffect, useState } from 'react';
-import { Navigate, useMatch, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useMatch } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
-
-type Context = {
-  userInfo: UserInfo;
-  onRegister: React.Dispatch<SetStateAction<UserInfo>>;
-};
-
-export const SignUpContext = createContext<Context | undefined>(undefined);
 
 const InfoFormPage = () => {
   const [info, setInfo] = useState<UserInfo>({
@@ -29,41 +21,24 @@ const InfoFormPage = () => {
     password: '',
     passwordChecker: '',
   });
-  const [isCompleted, setIsCompleted] = useState(false);
 
   const { mutate } = useSignupMutation();
-  const navigate = useNavigate();
+
   const isInfoMatched = useMatch(PATH.SIGNUP_INFO);
   const isPasswordMatched = useMatch(PATH.SIGNUP_PASSWORD);
-  const { isLoggedIn } = useStore();
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    if (isCompleted) {
-      mutate(info, {
-        onSuccess: () => {
-          goToLoginPage();
-        },
-      });
-    }
-  }, [isCompleted]);
-
-  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
-
-  const goToLoginPage = () => {
-    navigate(PATH.LOGIN);
+  const handleComplete = (info: UserInfo) => {
+    mutate(info);
   };
 
   return (
     <Flex tag="main" css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', height: '78rem', width: '51.1rem' }}>
+      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', width: '51.1rem' }}>
         <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
 
-        <SignUpContext.Provider value={{ userInfo: info, onRegister: setInfo }}>
-          {isInfoMatched && <InfoForm />}
+        {isInfoMatched && <InfoForm onInfoChange={setInfo} />}
 
-          {isPasswordMatched && <PasswordForm onComplete={() => setIsCompleted(true)} />}
-        </SignUpContext.Provider>
+        {isPasswordMatched && <PasswordForm userInfo={info} onSubmit={handleComplete} />}
       </Flex>
     </Flex>
   );

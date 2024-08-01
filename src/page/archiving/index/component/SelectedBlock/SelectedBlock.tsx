@@ -1,8 +1,9 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
+import { useBlockQuery } from '@/page/archiving/index/hook/api/useBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
+import { formattingDate } from '@/page/archiving/index/util/date';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -15,38 +16,32 @@ import { theme } from '@/common/style/theme/theme';
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { useTeamStore } from '@/shared/store/team';
 
-import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
+import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
   selectedId: string;
   blockName: string;
-  startDate: string;
-  endDate: string;
-  documentList?: DocumentType[];
   selectedBlock: Block;
   onClickClose: () => void;
 }
 
-const SelectedBlock = ({
-  selectedId,
-  blockName,
-  startDate,
-  endDate,
-  documentList,
-  selectedBlock,
-  onClickClose,
-}: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
+
+  const { teamId } = useTeamStore();
+
+  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
+
+  const startDate = formattingDate(selectedBlock.startDate);
+  const endDate = formattingDate(selectedBlock.endDate);
 
   const handleCloseClick = () => {
     onClickClose();
     closeModal;
   };
 
-  const { teamId } = useTeamStore();
-
   return (
-    <Flex tag="section" css={containerStyle}>
+    <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>
       {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
@@ -74,11 +69,11 @@ const SelectedBlock = ({
         {startDate} ~ {endDate}
       </Text>
 
-      <Flex tag="ul" css={documentListStyle}>
-        {documentList?.map((data: DocumentType) => (
+      <Flex tag="ul" styles={{ direction: 'column', marginTop: '1.6rem', gap: '0.8rem' }}>
+        {blockData?.data.documents?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
-            documentId={data.documentId || 1}
+            documentId={data.documentId}
             selectedId={selectedId}
             blockName={data.blockName}
             fileUrl={data.fileUrl}>

@@ -11,7 +11,7 @@ interface TermsAgreeButtonProps extends ComponentPropsWithoutRef<'button'> {
 
 const TermsAgreeButton = ({ isClicked = false, ...props }: TermsAgreeButtonProps) => {
   return (
-    <button css={buttonStyle(isClicked)} {...props}>
+    <button type="button" css={buttonStyle(isClicked)} {...props}>
       {isClicked ? <CheckActive /> : <Check />}
       약관 전체 동의
     </button>

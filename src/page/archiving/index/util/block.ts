@@ -51,13 +51,10 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
       // 타임블록이 3달 이상의 기간을 가질 때
       blockStartDate = firstDay;
       blockEndDate = lastDay;
-    } else {
-      if (startMonth !== selectedMonth) {
-        blockStartDate = firstDay;
-      }
-      if (endMonth !== selectedMonth) {
-        blockEndDate = lastDay;
-      }
+    } else if (startMonth !== selectedMonth) {
+      blockStartDate = firstDay;
+    } else if (endMonth !== selectedMonth) {
+      blockEndDate = lastDay;
     }
   }
   return { startDate: blockStartDate, endDate: blockEndDate };
@@ -65,7 +62,7 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
 
 // 타임블록의 상하 배치 함수
 export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthType, currentYear: number): Floors => {
-  const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(100).fill(false));
+  const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(data.length).fill(false));
   const floors: Floors = {};
   const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
