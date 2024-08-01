@@ -38,15 +38,11 @@ const ArchivingPage = () => {
   const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
     e.stopPropagation();
 
-    const clickedBlock = document.getElementById(String(block.timeBlockId));
-
-    if (clickedBlock) {
-      clickedBlock.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'center',
-      });
-    }
+    e.currentTarget.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'center',
+    });
 
     setSelectedBlock(block);
     setSelectedId('selected');
@@ -132,7 +128,6 @@ const ArchivingPage = () => {
 
               return (
                 <TimeBlock
-                  id={String(block.timeBlockId)}
                   key={block.timeBlockId}
                   startDate={startDate}
                   endDate={endDate}
