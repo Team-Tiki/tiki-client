@@ -9,6 +9,7 @@ export const useDate = () => {
 
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [selectedMonthType, setSelectedMonthType] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
+
   const dateOfMonth = getMonthDate(selectedMonthType, currentYear);
   const endDay = endOfMonth(dateOfMonth);
 
