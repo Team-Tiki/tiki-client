@@ -4,16 +4,16 @@ import { theme } from '@/common/style/theme/theme';
 
 import { fadeIn, fadeOut } from '@/shared/style/animation';
 
-export const leftSidebarItemStyle = css({
+export const leftSidebarMenuItemStyle = css({
   display: 'flex',
   alignItems: 'center',
 
   cursor: 'pointer',
 });
 
-export const itemStyle = (isClicked: boolean, isExpansion: boolean) =>
+export const itemStyle = (isClicked: boolean, isExpanded: boolean) =>
   css({
-    gap: `${isExpansion ? '0.8rem' : 0}`,
+    gap: `${isExpanded ? '0.8rem' : 0}`,
     padding: '0.4rem',
     marginLeft: '1.6rem',
 
@@ -23,22 +23,22 @@ export const itemStyle = (isClicked: boolean, isExpansion: boolean) =>
     '&: hover': { backgroundColor: theme.colors.blue_700 },
   });
 
-export const textStyle = (isExpansion: boolean) =>
+export const textStyle = (isExpanded: boolean) =>
   css({
     alignSelf: 'center',
-    width: isExpansion ? '14.9rem' : '0rem',
+    width: isExpanded ? '14.9rem' : '0rem',
     // marginLeft: isExpansion ? '0.8rem' : 0,
 
-    opacity: isExpansion ? '1' : '0',
+    opacity: isExpanded ? '1' : '0',
 
     fontWeight: '500',
 
     whiteSpace: 'nowrap',
     overflow: 'hidden',
 
-    transform: isExpansion ? 'translateX(0)' : 'translateX(-30rem)',
+    transform: isExpanded ? 'translateX(0)' : 'translateX(-30rem)',
     transition: '0.5s',
-    animation: isExpansion ? `${fadeIn} 0.5s ease-in` : `${fadeOut} 0.4s ease-out`,
+    animation: isExpanded ? `${fadeIn} 0.5s ease-in` : `${fadeOut} 0.4s ease-out`,
   });
 
 export const imgStyle = css({

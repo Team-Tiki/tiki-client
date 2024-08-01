@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const stickStyle = (isClicked: boolean) =>
+export const PageIndicatorStickStyle = (isClicked: boolean) =>
   css({
     flexShrink: '0',
 

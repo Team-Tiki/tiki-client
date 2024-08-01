@@ -19,7 +19,7 @@ import {
   containerStyle,
   leftSidebarListStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
-import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
+import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
@@ -128,48 +128,48 @@ const LeftSidebar = () => {
         {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
         <LogoSymbol css={LogoSymbolStyle} />
         <ul css={leftSidebarListStyle}>
-          <LeftSidebarItem
+          <LeftSidebarMenuItem
             isClicked={clicked === 'showcase'}
-            isExpansion={isNavOpen}
+            isExpanded={isNavOpen}
             url={earthUrl}
             onClick={handleShowcaseClick}>
             Showcase
-          </LeftSidebarItem>
+          </LeftSidebarMenuItem>
           {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
-              <LeftSidebarItem
+              <LeftSidebarMenuItem
                 key={data.id}
                 isClicked={clicked === String(data.id)}
-                isExpansion={isNavOpen}
+                isExpanded={isNavOpen}
                 url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
                   handleTeamClick(String(data.id));
                 }}>
                 {data.name}
-              </LeftSidebarItem>
+              </LeftSidebarMenuItem>
             );
           })}
-          <LeftSidebarItem
+          <LeftSidebarMenuItem
             isClicked={isWorkspaceClicked}
-            isExpansion={isNavOpen}
+            isExpanded={isNavOpen}
             url={addUrl}
             onClick={handleWorkspaceClick}>
             워크스페이스 생성
-          </LeftSidebarItem>
+          </LeftSidebarMenuItem>
         </ul>
       </nav>
 
       <div ref={settingRef}>
-        <LeftSidebarItem
+        <LeftSidebarMenuItem
           isClicked={false}
-          isExpansion={isNavOpen}
+          isExpanded={isNavOpen}
           url={settingUrl}
           onClick={() => {
             toggle();
             close();
           }}>
           환경설정
-        </LeftSidebarItem>
+        </LeftSidebarMenuItem>
         <SettingMenu isModalOpen={isSettingOpen} />
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
