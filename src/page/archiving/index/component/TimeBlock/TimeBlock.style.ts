@@ -9,7 +9,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
 
     zIndex: theme.zIndex.overlayBottom,
 
-    top: `${floor * 6 - 2.4}rem`,
+    top: `${floor * 6 - 1.6}rem`,
     left: `${startPosition + 0.2}rem`,
 
     width: `${width - 0.4}rem`,
@@ -28,7 +28,7 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     cursor: 'pointer',
   });
 
-export const spanStyle = {
+export const blockNameStyle = {
   margin: 'auto 0.7rem',
 
   lineHeight: '120%',

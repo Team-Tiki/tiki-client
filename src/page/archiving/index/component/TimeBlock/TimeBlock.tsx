@@ -1,4 +1,4 @@
-import { blockStyle, spanStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
+import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
 import { BLOCK_TYPE } from '@/page/archiving/index/constant/blockIcon';
 
 import React, { HTMLAttributes, ReactNode } from 'react';
@@ -32,7 +32,7 @@ const TimeBlock = ({
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     <div css={blockStyle(blockWidth, startPosition, floor, color, isSelected)} onClick={onBlockClick} {...props}>
       {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
-      <p css={spanStyle}>{children}</p>
+      <span css={blockNameStyle}>{children}</span>
     </div>
   );
 };
