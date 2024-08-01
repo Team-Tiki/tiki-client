@@ -24,6 +24,7 @@ import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
+import { WorkSpaceFlow, WorkSpaceProvider } from '@/shared/store/useWorkSpaceContext';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
@@ -74,7 +75,13 @@ const LeftSidebar = () => {
 
   const handleWorkspaceClick = () => {
     setIsWorkspaceClicked(true);
-    openModal('workspace', null);
+    openModal(
+      'workspace',
+      <WorkSpaceProvider>
+        <WorkSpaceFlow />
+      </WorkSpaceProvider>,
+      handleModalClose
+    );
   };
 
   const handleModalClose = () => {

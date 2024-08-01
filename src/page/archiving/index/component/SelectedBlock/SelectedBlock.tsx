@@ -1,4 +1,9 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import {
+  blockNameStyle,
+  containerStyle,
+  deleteBtnStyle,
+} from '@/page/archiving/index/component/SelectedBlock/SelectedBlock.style';
 import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { Block } from '@/page/archiving/index/type/blockType';
@@ -11,10 +16,8 @@ import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useDeleteModalStore } from '@/shared/store/modal';
+import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
-
-import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
   selectedId: string;
@@ -36,10 +39,10 @@ const SelectedBlock = ({
 }: DocumentBarInfoProps) => {
   const { teamId } = useTeamStore();
 
-  const { openModal } = useDeleteModalStore();
-
   const handleDeleteClick = () => {
-    openModal();
+    //모달 띄우기
+    const modalContent = <DeleteModal title="block" detail="block" teamId={+teamId} id={selectedBlock.timeBlockId} />;
+    useModalStore.getState().openModal('delete', modalContent);
   };
 
   return (
@@ -69,7 +72,6 @@ const SelectedBlock = ({
           </DocumentItem>
         ))}
       </Flex>
-      <DeleteModal title="block" detail="block" teamId={+teamId} id={selectedBlock.timeBlockId} />
     </Flex>
   );
 };

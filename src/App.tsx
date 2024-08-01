@@ -14,6 +14,8 @@ import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
+import ModalManager from './common/component/Modal/ModalManager';
+
 const App = () => {
   useEffect(() => {
     document.body.style.backgroundColor = theme.colors.blue_900;
@@ -43,6 +45,7 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
+        <ModalManager />
         <div css={containerStyle}>
           <LeftSidebar />
           <main css={layoutStyle}>

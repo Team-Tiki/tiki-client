@@ -14,11 +14,12 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { useModal, useOutsideClick } from '@/common/hook';
+import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
+import { BlockFlow, BlockProvider } from '@/shared/store/useBlockContext';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
@@ -67,7 +68,12 @@ const ArchivingPage = () => {
   const openModal = useModalStore((state) => state.openModal);
 
   const handleOpenBlockModal = () => {
-    openModal('block', null);
+    openModal(
+      'block',
+      <BlockProvider>
+        <BlockFlow />
+      </BlockProvider>
+    );
   };
 
   return (

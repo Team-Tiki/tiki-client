@@ -3,8 +3,6 @@ import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/Uploa
 
 import { ReactNode, createContext, useContext, useState } from 'react';
 
-import { Block } from '@/story/page/archiving/modal/BlockModal.stories';
-
 interface BlockContextType {
   step: number;
   nextStep: () => void;

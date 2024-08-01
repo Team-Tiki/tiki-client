@@ -4,7 +4,6 @@ import { useDeleteDocumentMutation } from '@/page/archiving/index/hook/api/useDe
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
-import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
 
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';

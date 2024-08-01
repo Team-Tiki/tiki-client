@@ -1,9 +1,1 @@
-export type ModalType =
-  | 'workspace'
-  | 'category'
-  | 'image'
-  | 'complete'
-  | 'block'
-  | 'upload'
-  | 'deleteBlock'
-  | 'deleteDocs';
+export type ModalType = 'workspace' | 'block' | 'delete';

@@ -8,7 +8,8 @@ interface ModalState {
   id: ModalType | null;
   isOpen: boolean;
   content: ReactNode;
-  openModal: (id: ModalType, content: ReactNode) => void;
+  closeCallback: (() => void) | null;
+  openModal: (id: ModalType, content: ReactNode, closeCallback?: (() => void) | null) => void;
   closeModal: () => void;
 }
 
@@ -16,6 +17,14 @@ export const useModalStore = create<ModalState>((set) => ({
   id: null,
   isOpen: false,
   content: null,
-  openModal: (id, content) => set({ id, content, isOpen: true }),
-  closeModal: () => set({ id: null, content: null, isOpen: false }),
+  closeCallback: null,
+  openModal: (id, content, closeCallback = null) => set({ id, content, isOpen: true, closeCallback }),
+  closeModal: () => {
+    set((state) => {
+      if (state.closeCallback) {
+        state.closeCallback();
+      }
+      return { id: null, content: null, isOpen: false, closeCallback: null };
+    });
+  },
 }));
