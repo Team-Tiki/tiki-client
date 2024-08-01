@@ -25,14 +25,12 @@ export const itemStyle = (isClicked: boolean, isExpanded: boolean) =>
 
 export const textStyle = (isExpanded: boolean) =>
   css({
-    alignSelf: 'center',
-    width: isExpanded ? '14.9rem' : '0rem',
-    // marginLeft: isExpansion ? '0.8rem' : 0,
-
     opacity: isExpanded ? '1' : '0',
 
-    fontWeight: '500',
+    width: isExpanded ? '14.9rem' : '0rem',
 
+    fontWeight: '500',
+    alignSelf: 'center',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
 
@@ -42,10 +40,10 @@ export const textStyle = (isExpanded: boolean) =>
   });
 
 export const imgStyle = css({
-  objectFit: 'cover',
-
   width: '4rem',
   height: '4rem',
 
   borderRadius: '10px',
+
+  objectFit: 'cover',
 });

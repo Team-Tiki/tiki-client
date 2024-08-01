@@ -38,7 +38,7 @@ const DottedDayLine = () => {
 const DaySection = ({ day, isEven, isToday }: DaySectionProps) => {
   return (
     <Flex css={dayStyle(isEven, isToday)}>
-      <Flex css={dayHeaderStyle}>{day}</Flex>
+      <Flex css={dayHeaderStyle(isToday)}>{day}</Flex>
       <Flex css={bodyStyle} />
       {isToday && (
         <>

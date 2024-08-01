@@ -10,6 +10,5 @@ export const PageIndicatorStickStyle = (isClicked: boolean) =>
     height: '4rem',
 
     borderRadius: '100px',
-
     backgroundColor: isClicked ? theme.colors.white : theme.colors.blue_900,
   });

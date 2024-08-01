@@ -11,19 +11,22 @@ export const PLACEHOLDER = {
 
 export const EMAIL_REMAIN_TIME = 180 as const;
 
-export const EMAIL_EXPIRED_MESSAGE = '인증 번호가 만료되었습니다.' as const;
-
 export const SUPPORTING_TEXT = {
   NAME: '이름을 입력해주세요',
   BIRTH: '생년월일을 입력해주세요',
+
   EMAIL: '이메일을 입력해주세요',
   EMAIL_INVALID: '유효하지 않은 이메일 주소입니다.',
   EMAIL_SUCCESS: '메일을 성공적으로 전송하였습니다.',
+  EMAIL_EXPIRED: '인증 번호가 만료되었습니다.',
+
   PASSWORD: '비밀번호를 입력해주세요',
   PASSWORD_INVALID: '영문/숫자/특수문자를 사용해 8자 이상으로 만들어주세요.',
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
+
   AUTHCODE_NO_EQUAL: '인증번호가 일치하지 않습니다.',
+  AUTH_CODE: '회원 인증 메일이 전송되었습니다. 메일함에서 인증번호를 확인해주세요.',
 } as const;
 
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;
