@@ -1,6 +1,12 @@
 import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
 import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
-import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
+import {
+  buttonStyle,
+  contentStyle,
+  daySectionStyle,
+  pageStyle,
+  timelineStyle,
+} from '@/page/archiving/index/ArchivingPage.style';
 import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
@@ -77,15 +83,7 @@ const ArchivingPage = () => {
   };
 
   return (
-    <Flex
-      styles={{
-        justify: 'center',
-        align: 'center',
-        width: '100%',
-        height: '100%',
-        paddingLeft: '6rem',
-      }}
-      css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
+    <Flex css={pageStyle}>
       <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
