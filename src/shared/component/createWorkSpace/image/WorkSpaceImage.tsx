@@ -23,11 +23,6 @@ import { useWorkSpaceContext } from '@/shared/store/modalContext';
 
 import { usePostTeamMutation } from '../hook/api/usePostTeamMutation';
 
-interface WorkSpaceImageProps {
-  onFileUrlData: (file: string) => void;
-  isComplete: (isComplete: boolean) => void;
-}
-
 const WorkSpaceImage = () => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
@@ -43,11 +38,13 @@ const WorkSpaceImage = () => {
   //const isOpenModal = useModalState('image');
   const toggleModal = useToggleModal();
   const nextStep = useNextStep();
-  const { setFileUrlData, name, category } = useWorkSpaceContext();
+  const { setFileUrlData, name, category, resetBlockData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
   useEffect(() => {
     if (file && fileData) {
+      const newFileURL = URL.createObjectURL(file);
+      setFileURL(newFileURL);
       const url = fileData?.url;
       if (url) {
         setPresignedUrl(url);
@@ -56,6 +53,7 @@ const WorkSpaceImage = () => {
           {
             onSuccess: (uploadedFileUrl) => {
               if (uploadedFileUrl) {
+                URL.revokeObjectURL(newFileURL);
                 setFileURL(uploadedFileUrl);
                 setFileUrlData(uploadedFileUrl);
               }
@@ -68,6 +66,7 @@ const WorkSpaceImage = () => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
+    console.log('선택파일', selectedFile);
     if (selectedFile) {
       const newFileURL = URL.createObjectURL(selectedFile);
       setFileURL(newFileURL);
@@ -98,6 +97,7 @@ const WorkSpaceImage = () => {
 
   console.log(name);
   console.log(category);
+  console.log('파일', fileURL);
 
   const handleSave = () => {
     postTeamMutate(
@@ -109,6 +109,7 @@ const WorkSpaceImage = () => {
       {
         onSuccess: () => {
           nextStep();
+          resetBlockData();
         },
       }
     );

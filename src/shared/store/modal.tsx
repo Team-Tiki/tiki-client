@@ -40,12 +40,16 @@ export const useModalStore = create<ModalState>((set) => ({
   },
   step: 1, // 초기 단계 설정
   toggleModal: (type: ModalType) =>
-    set((state) => ({
-      modals: {
-        ...state.modals,
-        [type]: !state.modals[type],
-      },
-    })),
+    set((state) => {
+      const isModalOpening = !state.modals[type];
+      return {
+        modals: {
+          ...state.modals,
+          [type]: isModalOpening,
+        },
+        step: isModalOpening ? 1 : state.step, // 모달이 열릴 때 step을 1로 초기화
+      };
+    }),
   setStep: (step: number) => set({ step }),
   nextStep: () => set((state) => ({ step: state.step + 1 })),
   resetStep: () => set({ step: 1 }),

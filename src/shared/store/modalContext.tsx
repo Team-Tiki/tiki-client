@@ -1,5 +1,7 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 
+import { useModalStore } from './modal';
+
 // Context의 타입 정의
 interface WorkSpaceContextType {
   name: string;
@@ -8,6 +10,7 @@ interface WorkSpaceContextType {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   fileUrlData: string;
   setFileUrlData: React.Dispatch<React.SetStateAction<string>>;
+  resetBlockData: () => void;
 }
 
 // Context 생성 및 초기값 설정
@@ -30,8 +33,17 @@ export const WorkSpaceProvider = ({ children }: WorkSpaceProviderProps) => {
   const [category, setCategory] = useState<string>('');
   const [fileUrlData, setFileUrlData] = useState<string>('');
 
+  console.log(fileUrlData);
+
+  const resetBlockData = () => {
+    setName('');
+    setCategory('');
+    setFileUrlData('');
+  };
+
   return (
-    <WorkSpaceContext.Provider value={{ name, setName, category, setCategory, fileUrlData, setFileUrlData }}>
+    <WorkSpaceContext.Provider
+      value={{ name, setName, category, setCategory, fileUrlData, setFileUrlData, resetBlockData }}>
       {children}
     </WorkSpaceContext.Provider>
   );
@@ -47,6 +59,7 @@ interface BlockModalContextType {
   endDate: string;
   setEndDate: React.Dispatch<React.SetStateAction<string>>;
   resetBlockData: () => void;
+  closeModal: () => void;
 }
 
 const BlockModalContext = createContext<BlockModalContextType | undefined>(undefined);
@@ -64,6 +77,13 @@ export const BlockModalProvider = ({ children }: { children: ReactNode }) => {
   const [blockType, setBlockType] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+
+  const { toggleModal, resetStep } = useModalStore();
+
+  const closeModal = () => {
+    toggleModal('block');
+    resetStep();
+  };
 
   const resetBlockData = () => {
     setBlockName('');
@@ -84,6 +104,7 @@ export const BlockModalProvider = ({ children }: { children: ReactNode }) => {
         endDate,
         setEndDate,
         resetBlockData,
+        closeModal,
       }}>
       {children}
     </BlockModalContext.Provider>

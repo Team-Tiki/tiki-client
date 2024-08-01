@@ -28,7 +28,7 @@ interface UploadModalProps {
 const UploadModal = () => {
   const { teamId } = useTeamStore();
 
-  const { blockName, blockType, startDate, endDate } = useBlockModalContext();
+  const { blockName, blockType, startDate, endDate, closeModal, resetBlockData } = useBlockModalContext();
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
@@ -94,6 +94,8 @@ const UploadModal = () => {
     timeBlockMutate(data, {
       onSuccess: () => {
         createToast('활동 블록이 생성되었습니다', 'success');
+        closeModal();
+        resetBlockData();
       },
     });
   };
