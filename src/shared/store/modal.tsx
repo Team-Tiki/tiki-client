@@ -7,25 +7,13 @@ import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkS
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
-
-import DeleteModal from '../component/DeleteModal/DeleteModal';
-
-interface ModalData {
-  teamId: number;
-  id: number;
-  title: 'block' | 'docs';
-  detail: 'block' | 'docs';
-}
+import { ModalType } from '@/shared/type/block';
 
 interface DeleteModalState {
   isOpen: boolean;
-  //modalData: ModalData | null;
   openModal: () => void;
   closeModal: () => void;
 }
-
-// 모달의 타입을 정의
-type ModalType = 'workspace' | 'category' | 'image' | 'complete' | 'block' | 'upload' | 'deleteBlock' | 'deleteDocs';
 
 interface ModalState {
   modals: {
@@ -40,7 +28,6 @@ interface ModalState {
 
 export const useDeleteModalStore = create<DeleteModalState>((set) => ({
   isOpen: false,
-  //modalData: null,
   openModal: () => set({ isOpen: true }),
   closeModal: () => set({ isOpen: false }),
 }));
@@ -78,7 +65,6 @@ export const useModalComponent = () => {
   const activeModalType = (Object.keys(modals) as ModalType[]).find((key) => modals[key]);
 
   if (!activeModalType) return null;
-  console.log('모달', activeModalType);
 
   switch (activeModalType) {
     case 'workspace':

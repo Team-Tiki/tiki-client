@@ -3,7 +3,6 @@ import BlockDate from '@/page/archiving/createTimeBlock/component/Block/Date/Blo
 import BlockIcon from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/createTimeBlock/component/Box/BlockBox';
 import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/iconBlock';
-import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 
 import { useState } from 'react';
 
@@ -16,17 +15,11 @@ import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo
 import { useNextStep } from '@/shared/store/modal';
 import { useBlockModalContext } from '@/shared/store/modalContext';
 
-interface BlockModalProps {
-  onNext: (blockData: BlockData) => void;
-}
-
 const BlockModal = () => {
-  //const [blockName, setBlockName] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
-  //const [dates, setDates] = useState({ startDate: '', endDate: '' });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
-  const { blockName, setBlockName, blockType, setBlockType, startDate, setStartDate, endDate, setEndDate } =
+  const { blockName, setBlockName, setBlockType, startDate, setStartDate, endDate, setEndDate } =
     useBlockModalContext();
   const nextStep = useNextStep();
 

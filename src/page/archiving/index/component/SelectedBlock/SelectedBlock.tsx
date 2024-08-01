@@ -7,13 +7,11 @@ import { DocumentType } from '@/page/archiving/index/type/documentType';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
-import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
-import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useDeleteModalStore, useModalState, useModalStore } from '@/shared/store/modal';
+import { useDeleteModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
@@ -36,10 +34,8 @@ const SelectedBlock = ({
   documentList,
   selectedBlock,
 }: DocumentBarInfoProps) => {
-  //const { toggleModal } = useModalStore();
   const { teamId } = useTeamStore();
 
-  //const isDeleteModalOpen = useModalState('deleteBlock');
   const { openModal } = useDeleteModalStore();
 
   const handleDeleteClick = () => {

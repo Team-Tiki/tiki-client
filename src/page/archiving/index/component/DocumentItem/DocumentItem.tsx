@@ -11,12 +11,10 @@ import { ReactNode } from 'react';
 import Download from '@/common/asset/svg/download.svg?react';
 import TrashBox from '@/common/asset/svg/trash_box.svg?react';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
-import { useModal } from '@/common/hook';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useDeleteModalStore, useModalStore } from '@/shared/store/modal';
+import { useDeleteModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentItemProps {
@@ -33,6 +31,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
 
   const { teamId } = useTeamStore();
   const { openModal } = useDeleteModalStore();
+
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {
     window.open(fileUrl);

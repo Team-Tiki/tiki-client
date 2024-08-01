@@ -8,9 +8,7 @@ import earthUrl from '@/common/asset/svg/global_2.svg';
 import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
 import settingUrl from '@/common/asset/svg/setting.svg';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
-import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
-import { useModal } from '@/common/hook/useModal';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
 import {
@@ -22,19 +20,12 @@ import {
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
-import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
-import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
-import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
-import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useModalComponent, useModalState, useToggleModal } from '@/shared/store/modal';
-import { WorkSpaceProvider } from '@/shared/store/modalContext';
+import { useToggleModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 import { ModalManager } from '@/shared/util/modal';
-
-import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
 
 const LeftSidebar = () => {
   const { isOpen: isNavOpen, close, open } = useOverlay();
@@ -51,31 +42,7 @@ const LeftSidebar = () => {
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
   const settingRef = useOutsideClick(onSettingClose);
 
-  /*const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [fileUrlData, setFileUrlData] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
-
-  const { mutate: postTeamMutate } = usePostTeamMutation();*/
-
   const { setTeamId } = useTeamStore();
-
-  /*useEffect(() => {
-    const postData = {
-      name: name,
-      category: category,
-      iconImageUrl: fileUrlData,
-    };
-
-    if (isComplete) {
-      postTeamMutate(postData, {
-        onSuccess: async () => {
-          refetch();
-          setIsComplete(false);
-        },
-      });
-    }
-  }, [isComplete]);*/
 
   useEffect(() => {
     const teamId = localStorage.getItem('teamId');
@@ -85,13 +52,6 @@ const LeftSidebar = () => {
       navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
     }
   }, [setTeamId, navigate]);
-
-  /*const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
-  const handleNext2 = () =>
-    setCurrentContent(
-      <WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} isComplete={setIsComplete} />
-    );
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);*/
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
@@ -111,7 +71,7 @@ const LeftSidebar = () => {
     navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
     close();
   };
-  // 모달 관련 코드
+
   const toggleModal = useToggleModal();
 
   const handleWorkspaceClick = () => {

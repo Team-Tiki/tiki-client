@@ -1,5 +1,3 @@
-import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
-import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
@@ -16,12 +14,10 @@ import { useState } from 'react';
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
-import { useModal, useOutsideClick } from '@/common/hook';
+import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useModalComponent, useToggleModal } from '@/shared/store/modal';
-import { BlockModalProvider } from '@/shared/store/modalContext';
+import { useToggleModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { ModalManager } from '@/shared/util/modal';
 
@@ -70,17 +66,6 @@ const ArchivingPage = () => {
 
   // 블록 생성 모달 관련 코드
   const toggleModal = useToggleModal();
-  const ModalContent = useModalComponent();
-  /*const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
-
-  const handleNext = (blockData: {
-    blockName: string;
-    blockType: string;
-    dates: { startDate: string; endDate: string };
-  }) => {
-    const type = 'executive';
-    setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
-  };*/
 
   return (
     <Flex

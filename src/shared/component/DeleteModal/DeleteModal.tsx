@@ -9,7 +9,7 @@ import Text from '@/common/component/Text/Text';
 
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
-import { useDeleteModalStore, useModalState, useModalStore } from '@/shared/store/modal';
+import { useDeleteModalStore } from '@/shared/store/modal';
 
 interface DeleteModalProps {
   title: 'block' | 'docs';
@@ -21,7 +21,6 @@ interface DeleteModalProps {
 const DeleteModal = ({ title, detail, teamId, id }: DeleteModalProps) => {
   const { mutateAsync: blockMutate } = useDeleteBlockMutation();
   const { mutateAsync: documentMutate } = useDeleteDocumentMutation();
-  //const toggleModal = useModalStore((state) => state.toggleModal);
 
   const { isOpen, closeModal } = useDeleteModalStore();
 
@@ -48,8 +47,6 @@ const DeleteModal = ({ title, detail, teamId, id }: DeleteModalProps) => {
   };
 
   const handleDelete = title === 'block' ? handleDeleteBlock : handleDeleteDocs;
-  //const isModalOpen = useModalState(title === 'block' ? 'deleteBlock' : 'deleteDocs');
-  //const handleModalClose = () => toggleModal(title === 'block' ? 'deleteBlock' : 'deleteDocs');
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>

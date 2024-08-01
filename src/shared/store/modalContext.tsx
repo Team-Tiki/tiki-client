@@ -1,8 +1,7 @@
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 
-import { useModalStore } from './modal';
+import { useModalStore } from '@/shared/store/modal';
 
-// Context의 타입 정의
 interface WorkSpaceContextType {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -13,13 +12,12 @@ interface WorkSpaceContextType {
   resetBlockData: () => void;
 }
 
-// Context 생성 및 초기값 설정
 const WorkSpaceContext = createContext<WorkSpaceContextType | undefined>(undefined);
 
 export const useWorkSpaceContext = () => {
   const context = useContext(WorkSpaceContext);
   if (!context) {
-    throw new Error('useWorkSpaceContext must be used within a WorkSpaceProvider');
+    throw new Error('Error WorkSpaceProvider');
   }
   return context;
 };
@@ -67,7 +65,7 @@ const BlockModalContext = createContext<BlockModalContextType | undefined>(undef
 export const useBlockModalContext = () => {
   const context = useContext(BlockModalContext);
   if (!context) {
-    throw new Error('useBlockModalContext must be used within a BlockModalProvider');
+    throw new Error('Error BlockModalProvider');
   }
   return context;
 };

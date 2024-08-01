@@ -7,9 +7,9 @@ import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
 
 import useGetFileQuery from '@/shared/component/createWorkSpace/hook/api/useGetFileQuery';
+import { usePostTeamMutation } from '@/shared/component/createWorkSpace/hook/api/usePostTeamMutation';
 import {
   buttonCompleteStyle,
   imageAddStyle,
@@ -18,10 +18,8 @@ import {
 } from '@/shared/component/createWorkSpace/image/WorkSpaceImage.style';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import { useModalState, useNextStep, useToggleModal } from '@/shared/store/modal';
+import { useNextStep } from '@/shared/store/modal';
 import { useWorkSpaceContext } from '@/shared/store/modalContext';
-
-import { usePostTeamMutation } from '../hook/api/usePostTeamMutation';
 
 const WorkSpaceImage = () => {
   const [fileURL, setFileURL] = useState<string>('');
@@ -35,8 +33,6 @@ const WorkSpaceImage = () => {
   const { data: fileData } = useGetFileQuery(file as File);
 
   // 모달
-  //const isOpenModal = useModalState('image');
-  const toggleModal = useToggleModal();
   const nextStep = useNextStep();
   const { setFileUrlData, name, category, resetBlockData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
@@ -66,7 +62,6 @@ const WorkSpaceImage = () => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
-    console.log('선택파일', selectedFile);
     if (selectedFile) {
       const newFileURL = URL.createObjectURL(selectedFile);
       setFileURL(newFileURL);
@@ -94,10 +89,6 @@ const WorkSpaceImage = () => {
       );
     }
   };
-
-  console.log(name);
-  console.log(category);
-  console.log('파일', fileURL);
 
   const handleSave = () => {
     postTeamMutate(

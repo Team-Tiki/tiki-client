@@ -3,7 +3,6 @@ import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/Li
 import { flexStyle, scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
 import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
-import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
 
@@ -17,13 +16,6 @@ import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo
 import { useBlockModalContext } from '@/shared/store/modalContext';
 import { useTeamStore } from '@/shared/store/team';
 import { useToastStore } from '@/shared/store/toast';
-
-interface UploadModalProps {
-  onClose: () => void;
-  teamId: number;
-  type: string;
-  blockData: BlockData;
-}
 
 const UploadModal = () => {
   const { teamId } = useTeamStore();

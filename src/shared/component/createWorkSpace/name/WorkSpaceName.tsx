@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
-import Modal from '@/common/component/Modal/Modal';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import {
@@ -11,30 +10,17 @@ import {
   inputWrapperStyle,
   sectionStyle,
 } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import { useModalState, useModalStore, useNextStep, useToggleModal } from '@/shared/store/modal';
+import {useNextStep} from '@/shared/store/modal';
 import { useWorkSpaceContext } from '@/shared/store/modalContext';
-
-interface WorkSpaceNameProps {
-  setName: (name: string) => void;
-}
 
 const WorkSpaceName = () => {
   const [inputValue, setInputValue] = useState('');
-  const isOpenModal = useModalState('workspace');
-  const toggleModal = useToggleModal();
   const nextStep = useNextStep();
   const { setName } = useWorkSpaceContext();
 
   const handleNext = () => {
     setName(inputValue);
-    nextStep(); // 단계 증가 후
-
-    // 다음 단계가 올바르게 업데이트되는지 확인
-    console.log(useModalStore.getState().step);
-
-    //toggleModal('category'); // 다음 모달 열기
-
-    //toggleModal('workspace'); // 현재 모달 닫기
+    nextStep(); 
   };
 
   const isButtonActive = inputValue.trim().length > 0;
