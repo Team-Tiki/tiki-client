@@ -1,6 +1,8 @@
-import { buttonStyle, detailStyle } from '@/page/signUp/index/TermPage.style';
+import { detailStyle } from '@/page/signUp/index/TermPage.style';
 import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
+import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -57,45 +59,47 @@ const TermPage = () => {
   };
 
   return (
-    <Flex tag="main" styles={{ direction: 'column', align: 'center', justify: 'center', height: '100vh' }}>
+    <Flex tag="main" css={pageStyle}>
       <Flex tag="section" styles={{ direction: 'column', width: '51.1rem', gap: '3.2rem' }}>
         <Heading tag="H3" css={{ padding: '1.6rem 0' }}>
           이용 약관 동의
         </Heading>
-        <Flex styles={{ direction: 'column', gap: '3.2rem' }}>
-          <TermsAgreeButton isClicked={totalAgreeClicked} onClick={약관전체동의클릭} />
+        <form css={formStyle}>
+          <Flex styles={{ direction: 'column', width: '100%', gap: '3.2rem' }}>
+            <TermsAgreeButton isClicked={totalAgreeClicked} onClick={약관전체동의클릭} />
 
-          <TermArea
-            term="이용 약관"
-            onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
-            isChecked={requiredTermsStatus.serviceTerm}>
-            <Text tag="body5" css={[detailStyle, scrollStyle]}>
-              {TERM}
-            </Text>
-          </TermArea>
+            <TermArea
+              term="이용 약관"
+              onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, serviceTerm: !prev.serviceTerm }))}
+              isChecked={requiredTermsStatus.serviceTerm}>
+              <Text tag="body5" css={[detailStyle, scrollStyle]}>
+                {TERM}
+              </Text>
+            </TermArea>
 
-          <TermArea
-            term="개인정보 처리방침"
-            onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
-            isChecked={requiredTermsStatus.privatePolicy}>
-            <Text tag="body5" css={[detailStyle, scrollStyle]}>
-              {PERSONAL}
-            </Text>
-          </TermArea>
+            <TermArea
+              term="개인정보 처리방침"
+              onCheck={() => setRequiredTermsStatus((prev) => ({ ...prev, privatePolicy: !prev.privatePolicy }))}
+              isChecked={requiredTermsStatus.privatePolicy}>
+              <Text tag="body5" css={[detailStyle, scrollStyle]}>
+                {PERSONAL}
+              </Text>
+            </TermArea>
 
-          <TermArea
-            term="개인정보 수집 및 이용"
-            onCheck={() => setOptionalTermsStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
-            isChecked={optionalTermsStatus.collectionAgree}
-            isRequired={false}>
-            <Text tag="body4" css={{ fontWeight: 400, marginLeft: '3.2rem' }}>
-              이벤트 혜택 정보 수신
-            </Text>
-          </TermArea>
-        </Flex>
-        <Button disabled={!isConfirmed} onClick={handleNextStep} css={buttonStyle} variant="primary" size="large">
-          다음
-        </Button>
+            <TermArea
+              term="개인정보 수집 및 이용"
+              onCheck={() => setOptionalTermsStatus((prev) => ({ ...prev, collectionAgree: !prev.collectionAgree }))}
+              isChecked={optionalTermsStatus.collectionAgree}
+              isRequired={false}>
+              <Text tag="body4" css={{ fontWeight: 400, marginLeft: '3.2rem' }}>
+                이벤트 혜택 정보 수신
+              </Text>
+            </TermArea>
+          </Flex>
+          <Button disabled={!isConfirmed} onClick={handleNextStep} variant="primary" size="large">
+            다음
+          </Button>
+        </form>
       </Flex>
     </Flex>
   );

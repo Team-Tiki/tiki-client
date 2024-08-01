@@ -23,7 +23,3 @@ export const detailStyle = css({
   /** 해당 컨텐트 위에 마우스 올리면 해당 요소만 스크롤 되게 함 */
   overscrollBehavior: 'contain',
 });
-
-export const buttonStyle = css({
-  marginTop: '6rem',
-});
