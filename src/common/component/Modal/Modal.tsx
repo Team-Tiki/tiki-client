@@ -38,6 +38,8 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
     };
   }, [isOpen, handleKeyDown]);
 
+  console.log('Modal isOpen:', isOpen);
+
   return (
     isOpen &&
     createPortal(

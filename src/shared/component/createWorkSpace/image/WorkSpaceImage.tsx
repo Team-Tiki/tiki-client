@@ -7,6 +7,7 @@ import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import Modal from '@/common/component/Modal/Modal';
 
 import useGetFileQuery from '@/shared/component/createWorkSpace/hook/api/useGetFileQuery';
 import {
@@ -17,14 +18,17 @@ import {
 } from '@/shared/component/createWorkSpace/image/WorkSpaceImage.style';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
+import { useModalState, useNextStep, useToggleModal } from '@/shared/store/modal';
+import { useWorkSpaceContext } from '@/shared/store/modalContext';
+
+import { usePostTeamMutation } from '../hook/api/usePostTeamMutation';
 
 interface WorkSpaceImageProps {
-  onNext: () => void;
   onFileUrlData: (file: string) => void;
   isComplete: (isComplete: boolean) => void;
 }
 
-const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImageProps) => {
+const WorkSpaceImage = () => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -34,6 +38,13 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
   const { mutate: deleteFileMutate } = useDeleteFileMutation();
 
   const { data: fileData } = useGetFileQuery(file as File);
+
+  // 모달
+  const isOpenModal = useModalState('image');
+  const toggleModal = useToggleModal();
+  const nextStep = useNextStep();
+  const { setFileUrlData, name, category } = useWorkSpaceContext();
+  const { mutate: postTeamMutate } = usePostTeamMutation();
 
   useEffect(() => {
     if (file && fileData) {
@@ -46,14 +57,14 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
             onSuccess: (uploadedFileUrl) => {
               if (uploadedFileUrl) {
                 setFileURL(uploadedFileUrl);
-                onFileUrlData(uploadedFileUrl);
+                setFileUrlData(uploadedFileUrl);
               }
             },
           }
         );
       }
     }
-  }, [file, fileData, uploadToS3Mutate, onFileUrlData]);
+  }, [file, fileData, uploadToS3Mutate, setFileUrlData]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -61,7 +72,7 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
       const newFileURL = URL.createObjectURL(selectedFile);
       setFileURL(newFileURL);
       setFile(selectedFile);
-      onFileUrlData('');
+      setFileUrlData('');
     }
   };
 
@@ -75,7 +86,7 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
             setFileURL('');
             setFile(null);
             setPresignedUrl(null);
-            onFileUrlData('');
+            setFileUrlData('');
             if (imgUploadInput.current) {
               imgUploadInput.current.value = '';
             }
@@ -85,9 +96,22 @@ const WorkSpaceImage = ({ onNext, onFileUrlData, isComplete }: WorkSpaceImagePro
     }
   };
 
+  console.log(name);
+  console.log(category);
+
   const handleSave = () => {
-    isComplete(true);
-    onNext();
+    postTeamMutate(
+      {
+        name,
+        category,
+        iconImageUrl: fileURL,
+      },
+      {
+        onSuccess: () => {
+          nextStep();
+        },
+      }
+    );
   };
 
   return (

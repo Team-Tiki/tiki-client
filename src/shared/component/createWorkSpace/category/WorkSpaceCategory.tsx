@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import ArrowDown from '@/common/asset/svg/arrow_drop_down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import Modal from '@/common/component/Modal/Modal';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
@@ -14,15 +15,21 @@ import {
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
+import { useModalState, useNextStep, useToggleModal } from '@/shared/store/modal';
+import { useWorkSpaceContext } from '@/shared/store/modalContext';
 
 interface WorkSpaceCategoryProps {
-  onNext: () => void;
   onCategory: (category: string) => void;
 }
 
-const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
+const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
+  // 모달
+  const isOpenModal = useModalState('category');
+  const toggleModal = useToggleModal();
+  const nextStep = useNextStep();
+  const { setCategory } = useWorkSpaceContext();
 
   const [selected, setSelected] = useState('');
 
@@ -53,14 +60,18 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
 
   useEffect(() => {
     if (selected) {
-      onCategory(selected);
+      setCategory(selected);
     }
     close?.();
-  }, [selected, onCategory, close]);
+  }, [selected, setCategory, close]);
 
   const handleSelect = (id: string) => {
     setSelected(id);
-    onCategory(id);
+    setCategory(id);
+  };
+
+  const handleNext = () => {
+    nextStep();
   };
 
   const isButtonActive = selected.trim().length > 0;
@@ -92,7 +103,7 @@ const WorkSpaceCategory = ({ onNext, onCategory }: WorkSpaceCategoryProps) => {
         size="medium"
         css={buttonStyle(isButtonActive)}
         disabled={!isButtonActive}
-        onClick={onNext}>
+        onClick={handleNext}>
         다음
       </Button>
     </Flex>

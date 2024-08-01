@@ -28,8 +28,11 @@ import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceIm
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
+import { useModalComponent, useModalState, useToggleModal } from '@/shared/store/modal';
+import { WorkSpaceProvider } from '@/shared/store/modalContext';
 import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
+import { ModalManager } from '@/shared/util/\bmodal';
 
 import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
 
@@ -38,29 +41,26 @@ const LeftSidebar = () => {
 
   const sidebarRef = useOutsideClick(close);
 
-  const { data, refetch } = useClubInfoQuery();
+  const { data } = useClubInfoQuery();
 
   const navigate = useNavigate();
 
   const [clicked, setClicked] = useState('showcase');
   const [isWorkspaceClicked, setIsWorkspaceClicked] = useState(false);
 
-  // 모달 관련 코드
-  const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
-
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
   const settingRef = useOutsideClick(onSettingClose);
 
-  const [name, setName] = useState('');
+  /*const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [fileUrlData, setFileUrlData] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
-  const { mutate: postTeamMutate } = usePostTeamMutation();
+  const { mutate: postTeamMutate } = usePostTeamMutation();*/
 
   const { setTeamId } = useTeamStore();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const postData = {
       name: name,
       category: category,
@@ -75,8 +75,7 @@ const LeftSidebar = () => {
         },
       });
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, [isComplete]);
+  }, [isComplete]);*/
 
   useEffect(() => {
     const teamId = localStorage.getItem('teamId');
@@ -87,12 +86,12 @@ const LeftSidebar = () => {
     }
   }, [setTeamId, navigate]);
 
-  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
+  /*const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
   const handleNext2 = () =>
     setCurrentContent(
       <WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} isComplete={setIsComplete} />
     );
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
+  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);*/
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
@@ -112,69 +111,75 @@ const LeftSidebar = () => {
     navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
     close();
   };
+  // 모달 관련 코드
+  const isOpenModal = useModalState('workspace');
+  const ModalContent = useModalComponent(); // 현재 단계에 해당하는 컴포넌트 가져오기
+  const toggleModal = useToggleModal();
 
   const handleWorkspaceClick = () => {
     setIsWorkspaceClicked(true);
-    openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
+    toggleModal('workspace');
   };
 
   const closeModal = () => {
-    closeModalBase();
+    //closeModalBase();
     setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
   };
 
   return (
-    <aside css={containerStyle} ref={sidebarRef}>
-      {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
-      <LogoSymbol css={LogoSymbolStyle} />
-      <nav>
-        <ul css={leftSidebarListStyle}>
-          <LeftSidebarItem
-            isClicked={clicked === 'showcase'}
-            isExpansion={isNavOpen}
-            url={earthUrl}
-            onClick={handleShowcaseClick}>
-            Showcase
-          </LeftSidebarItem>
-          {data?.data.belongTeamGetResponses.map((data: Team) => {
-            return (
-              <LeftSidebarItem
-                key={data.id}
-                isClicked={clicked === String(data.id)}
-                isExpansion={isNavOpen}
-                url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
-                onClick={() => {
-                  handleTeamClick(String(data.id));
-                }}>
-                {data.name}
-              </LeftSidebarItem>
-            );
-          })}
-          <LeftSidebarItem
-            isClicked={isWorkspaceClicked}
-            isExpansion={isNavOpen}
-            url={addUrl}
-            onClick={handleWorkspaceClick}>
-            워크스페이스 생성
-          </LeftSidebarItem>
-        </ul>
-      </nav>
+    <WorkSpaceProvider>
+      <aside css={containerStyle} ref={sidebarRef}>
+        {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
+        <LogoSymbol css={LogoSymbolStyle} />
+        <nav>
+          <ul css={leftSidebarListStyle}>
+            <LeftSidebarItem
+              isClicked={clicked === 'showcase'}
+              isExpansion={isNavOpen}
+              url={earthUrl}
+              onClick={handleShowcaseClick}>
+              Showcase
+            </LeftSidebarItem>
+            {data?.data.belongTeamGetResponses.map((data: Team) => {
+              return (
+                <LeftSidebarItem
+                  key={data.id}
+                  isClicked={clicked === String(data.id)}
+                  isExpansion={isNavOpen}
+                  url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
+                  onClick={() => {
+                    handleTeamClick(String(data.id));
+                  }}>
+                  {data.name}
+                </LeftSidebarItem>
+              );
+            })}
+            <LeftSidebarItem
+              isClicked={isWorkspaceClicked}
+              isExpansion={isNavOpen}
+              url={addUrl}
+              onClick={handleWorkspaceClick}>
+              워크스페이스 생성
+            </LeftSidebarItem>
+          </ul>
+        </nav>
 
-      <div ref={settingRef} css={settingStyle}>
-        <LeftSidebarItem
-          isClicked={false}
-          isExpansion={isNavOpen}
-          url={settingUrl}
-          onClick={() => {
-            toggle();
-            close();
-          }}>
-          환경설정
-        </LeftSidebarItem>
-        <SettingMenu isModalOpen={isSettingOpen} />
-      </div>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-    </aside>
+        <div ref={settingRef} css={settingStyle}>
+          <LeftSidebarItem
+            isClicked={false}
+            isExpansion={isNavOpen}
+            url={settingUrl}
+            onClick={() => {
+              toggle();
+              close();
+            }}>
+            환경설정
+          </LeftSidebarItem>
+          <SettingMenu isModalOpen={isSettingOpen} />
+        </div>
+        <ModalManager />
+      </aside>
+    </WorkSpaceProvider>
   );
 };
 

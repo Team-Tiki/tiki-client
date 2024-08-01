@@ -1,10 +1,16 @@
 import WorkSpaceCompleteImg from '@/common/asset/svg/workspace-complete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
+import Modal from '@/common/component/Modal/Modal';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
+import { useModalState, useToggleModal } from '@/shared/store/modal';
 
 const WorkSpaceComplete = () => {
+  // 모달
+  const isOpenModal = useModalState('complete');
+  const toggleModal = useToggleModal();
+
   return (
     <Flex
       tag={'section'}
