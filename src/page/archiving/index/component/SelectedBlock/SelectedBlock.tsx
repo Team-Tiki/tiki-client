@@ -30,7 +30,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
 
   const { teamId } = useTeamStore();
 
-  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 69);
+  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
 
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
