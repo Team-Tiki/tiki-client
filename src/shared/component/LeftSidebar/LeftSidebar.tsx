@@ -32,7 +32,7 @@ import { useModalComponent, useModalState, useToggleModal } from '@/shared/store
 import { WorkSpaceProvider } from '@/shared/store/modalContext';
 import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
-import { ModalManager } from '@/shared/util/\bmodal';
+import { ModalManager } from '@/shared/util/modal';
 
 import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
 
@@ -124,59 +124,57 @@ const LeftSidebar = () => {
   };
 
   return (
-    <WorkSpaceProvider>
-      <aside css={containerStyle} ref={sidebarRef}>
-        {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
-        <LogoSymbol css={LogoSymbolStyle} />
-        <nav>
-          <ul css={leftSidebarListStyle}>
-            <LeftSidebarItem
-              isClicked={clicked === 'showcase'}
-              isExpansion={isNavOpen}
-              url={earthUrl}
-              onClick={handleShowcaseClick}>
-              Showcase
-            </LeftSidebarItem>
-            {data?.data.belongTeamGetResponses.map((data: Team) => {
-              return (
-                <LeftSidebarItem
-                  key={data.id}
-                  isClicked={clicked === String(data.id)}
-                  isExpansion={isNavOpen}
-                  url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
-                  onClick={() => {
-                    handleTeamClick(String(data.id));
-                  }}>
-                  {data.name}
-                </LeftSidebarItem>
-              );
-            })}
-            <LeftSidebarItem
-              isClicked={isWorkspaceClicked}
-              isExpansion={isNavOpen}
-              url={addUrl}
-              onClick={handleWorkspaceClick}>
-              워크스페이스 생성
-            </LeftSidebarItem>
-          </ul>
-        </nav>
-
-        <div ref={settingRef} css={settingStyle}>
+    <aside css={containerStyle} ref={sidebarRef}>
+      {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
+      <LogoSymbol css={LogoSymbolStyle} />
+      <nav>
+        <ul css={leftSidebarListStyle}>
           <LeftSidebarItem
-            isClicked={false}
+            isClicked={clicked === 'showcase'}
             isExpansion={isNavOpen}
-            url={settingUrl}
-            onClick={() => {
-              toggle();
-              close();
-            }}>
-            환경설정
+            url={earthUrl}
+            onClick={handleShowcaseClick}>
+            Showcase
           </LeftSidebarItem>
-          <SettingMenu isModalOpen={isSettingOpen} />
-        </div>
-        <ModalManager onClose={handleModalClose} />
-      </aside>
-    </WorkSpaceProvider>
+          {data?.data.belongTeamGetResponses.map((data: Team) => {
+            return (
+              <LeftSidebarItem
+                key={data.id}
+                isClicked={clicked === String(data.id)}
+                isExpansion={isNavOpen}
+                url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
+                onClick={() => {
+                  handleTeamClick(String(data.id));
+                }}>
+                {data.name}
+              </LeftSidebarItem>
+            );
+          })}
+          <LeftSidebarItem
+            isClicked={isWorkspaceClicked}
+            isExpansion={isNavOpen}
+            url={addUrl}
+            onClick={handleWorkspaceClick}>
+            워크스페이스 생성
+          </LeftSidebarItem>
+        </ul>
+      </nav>
+
+      <div ref={settingRef} css={settingStyle}>
+        <LeftSidebarItem
+          isClicked={false}
+          isExpansion={isNavOpen}
+          url={settingUrl}
+          onClick={() => {
+            toggle();
+            close();
+          }}>
+          환경설정
+        </LeftSidebarItem>
+        <SettingMenu isModalOpen={isSettingOpen} />
+      </div>
+      <ModalManager onClose={handleModalClose} />
+    </aside>
   );
 };
 

@@ -13,16 +13,22 @@ import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import { useNextStep } from '@/shared/store/modal';
+import { useBlockModalContext } from '@/shared/store/modalContext';
 
 interface BlockModalProps {
   onNext: (blockData: BlockData) => void;
 }
 
-const BlockModal = ({ onNext }: BlockModalProps) => {
-  const [blockName, setBlockName] = useState('');
+const BlockModal = () => {
+  //const [blockName, setBlockName] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
-  const [dates, setDates] = useState({ startDate: '', endDate: '' });
+  //const [dates, setDates] = useState({ startDate: '', endDate: '' });
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
+
+  const { blockName, setBlockName, blockType, setBlockType, startDate, setStartDate, endDate, setEndDate } =
+    useBlockModalContext();
+  const nextStep = useNextStep();
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {
@@ -33,14 +39,17 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
   const isButtonActive =
     blockName.trim() !== '' &&
     selectedIcon !== -1 &&
-    dates.startDate.length === 10 &&
-    dates.endDate.length === 10 &&
+    startDate.length === 10 &&
+    endDate.length === 10 &&
     isDateRangeValid;
 
   const handleNext = () => {
     if (isButtonActive) {
-      const blockType = BLOCK_ICON[selectedIcon].name;
-      onNext({ blockName, dates, blockType });
+      const blockIconType = BLOCK_ICON[selectedIcon].name;
+      setBlockType(blockIconType);
+      setStartDate(startDate);
+      setEndDate(endDate);
+      nextStep();
     }
   };
 
@@ -86,10 +95,10 @@ const BlockModal = ({ onNext }: BlockModalProps) => {
         <BlockBox title="기간">
           <Flex styles={{ align: 'flex-start', direction: 'column', padding: '0', width: '100%' }}>
             <BlockDate
-              startDate={dates.startDate}
-              endDate={dates.endDate}
-              onSetStartDate={(date) => setDates((prev) => ({ ...prev, startDate: date as string }))}
-              onSetEndDate={(date) => setDates((prev) => ({ ...prev, endDate: date as string }))}
+              startDate={startDate}
+              endDate={endDate}
+              onSetStartDate={setStartDate}
+              onSetEndDate={setEndDate}
               onSetIsDateRangeValid={setIsDateRangeValid}
             />
           </Flex>

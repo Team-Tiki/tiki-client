@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import ArrowDown from '@/common/asset/svg/arrow_drop_down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
@@ -15,23 +14,19 @@ import {
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
-import { useModalState, useNextStep, useToggleModal } from '@/shared/store/modal';
+import { useNextStep } from '@/shared/store/modal';
 import { useWorkSpaceContext } from '@/shared/store/modalContext';
-
-interface WorkSpaceCategoryProps {
-  onCategory: (category: string) => void;
-}
 
 const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
-  // 모달
-  const isOpenModal = useModalState('category');
-  const toggleModal = useToggleModal();
   const nextStep = useNextStep();
   const { setCategory } = useWorkSpaceContext();
-
   const [selected, setSelected] = useState('');
+
+  // 카테고리 데이터
+  const { data } = useCategoryListQuery();
+  const categoryList = data?.data?.categories?.filter((category) => category !== '전체') || [];
 
   useEffect(() => {
     const handleMouseDown = (event: MouseEvent) => {
@@ -54,20 +49,15 @@ const WorkSpaceCategory = () => {
     };
   }, [isOpen, close, ref]);
 
-  // 카테고리 데이터
-  const { data } = useCategoryListQuery();
-  const categoryList = data.data.categories.filter((category) => category !== '전체');
-
   useEffect(() => {
     if (selected) {
       setCategory(selected);
+      close?.();
     }
-    close?.();
   }, [selected, setCategory, close]);
 
   const handleSelect = (id: string) => {
     setSelected(id);
-    setCategory(id);
   };
 
   const handleNext = () => {

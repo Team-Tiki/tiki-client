@@ -14,6 +14,8 @@ import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
+import { BlockModalProvider, WorkSpaceProvider } from './shared/store/modalContext';
+
 const App = () => {
   useEffect(() => {
     document.body.style.backgroundColor = theme.colors.blue_900;
@@ -42,14 +44,18 @@ const App = () => {
 
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
-      <Login>
-        <div css={containerStyle}>
-          <LeftSidebar />
-          <main css={layoutStyle}>
-            <Outlet />
-          </main>
-        </div>
-      </Login>
+      <WorkSpaceProvider>
+        <BlockModalProvider>
+          <Login>
+            <div css={containerStyle}>
+              <LeftSidebar />
+              <main css={layoutStyle}>
+                <Outlet />
+              </main>
+            </div>
+          </Login>
+        </BlockModalProvider>
+      </WorkSpaceProvider>
     </ErrorBoundary>
   );
 };

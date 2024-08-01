@@ -8,7 +8,7 @@ import { useModalState, useToggleModal } from '@/shared/store/modal';
 
 const WorkSpaceComplete = () => {
   // 모달
-  const isOpenModal = useModalState('complete');
+  //const isOpenModal = useModalState('complete');
   const toggleModal = useToggleModal();
 
   return (

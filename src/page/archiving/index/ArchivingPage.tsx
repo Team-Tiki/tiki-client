@@ -20,7 +20,10 @@ import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
+import { useModalComponent, useToggleModal } from '@/shared/store/modal';
+import { BlockModalProvider } from '@/shared/store/modalContext';
 import { useTeamStore } from '@/shared/store/team';
+import { ModalManager } from '@/shared/util/modal';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
@@ -66,7 +69,9 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  const toggleModal = useToggleModal();
+  const ModalContent = useModalComponent();
+  /*const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const handleNext = (blockData: {
     blockName: string;
@@ -75,7 +80,7 @@ const ArchivingPage = () => {
   }) => {
     const type = 'executive';
     setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
-  };
+  };*/
 
   return (
     <Flex
@@ -148,17 +153,13 @@ const ArchivingPage = () => {
           </div>
         </Flex>
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
-          <Button
-            variant="action"
-            css={buttonStyle(selectedBlock)}
-            onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
+          <Button variant="action" css={buttonStyle(selectedBlock)} onClick={() => toggleModal('block')}>
             <AddIc width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
 
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       <DocumentBar
         selectedBlock={selectedBlock}
         ref={sideBarRef}
@@ -166,6 +167,7 @@ const ArchivingPage = () => {
         onSelectId={handleSelectedId}
         onClickClose={handleClose}
       />
+      <ModalManager />
     </Flex>
   );
 };

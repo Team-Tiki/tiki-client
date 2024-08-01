@@ -11,7 +11,7 @@ import {
   inputWrapperStyle,
   sectionStyle,
 } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import { useModalState, useNextStep, useToggleModal } from '@/shared/store/modal';
+import { useModalState, useModalStore, useNextStep, useToggleModal } from '@/shared/store/modal';
 import { useWorkSpaceContext } from '@/shared/store/modalContext';
 
 interface WorkSpaceNameProps {
@@ -28,6 +28,9 @@ const WorkSpaceName = () => {
   const handleNext = () => {
     setName(inputValue);
     nextStep(); // 단계 증가 후
+
+    // 다음 단계가 올바르게 업데이트되는지 확인
+    console.log(useModalStore.getState().step);
 
     //toggleModal('category'); // 다음 모달 열기
 

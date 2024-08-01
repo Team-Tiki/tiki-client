@@ -36,3 +36,56 @@ export const WorkSpaceProvider = ({ children }: WorkSpaceProviderProps) => {
     </WorkSpaceContext.Provider>
   );
 };
+
+interface BlockModalContextType {
+  blockName: string;
+  setBlockName: React.Dispatch<React.SetStateAction<string>>;
+  blockType: string;
+  setBlockType: React.Dispatch<React.SetStateAction<string>>;
+  startDate: string;
+  setStartDate: React.Dispatch<React.SetStateAction<string>>;
+  endDate: string;
+  setEndDate: React.Dispatch<React.SetStateAction<string>>;
+  resetBlockData: () => void;
+}
+
+const BlockModalContext = createContext<BlockModalContextType | undefined>(undefined);
+
+export const useBlockModalContext = () => {
+  const context = useContext(BlockModalContext);
+  if (!context) {
+    throw new Error('useBlockModalContext must be used within a BlockModalProvider');
+  }
+  return context;
+};
+
+export const BlockModalProvider = ({ children }: { children: ReactNode }) => {
+  const [blockName, setBlockName] = useState('');
+  const [blockType, setBlockType] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const resetBlockData = () => {
+    setBlockName('');
+    setBlockType('');
+    setStartDate('');
+    setEndDate('');
+  };
+
+  return (
+    <BlockModalContext.Provider
+      value={{
+        blockName,
+        setBlockName,
+        blockType,
+        setBlockType,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
+        resetBlockData,
+      }}>
+      {children}
+    </BlockModalContext.Provider>
+  );
+};

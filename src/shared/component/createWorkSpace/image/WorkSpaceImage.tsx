@@ -40,7 +40,7 @@ const WorkSpaceImage = () => {
   const { data: fileData } = useGetFileQuery(file as File);
 
   // 모달
-  const isOpenModal = useModalState('image');
+  //const isOpenModal = useModalState('image');
   const toggleModal = useToggleModal();
   const nextStep = useNextStep();
   const { setFileUrlData, name, category } = useWorkSpaceContext();

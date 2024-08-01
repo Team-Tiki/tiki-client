@@ -14,6 +14,8 @@ import Flex from '@/common/component/Flex/Flex';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import { useBlockModalContext } from '@/shared/store/modalContext';
+import { useTeamStore } from '@/shared/store/team';
 import { useToastStore } from '@/shared/store/toast';
 
 interface UploadModalProps {
@@ -23,13 +25,16 @@ interface UploadModalProps {
   blockData: BlockData;
 }
 
-const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => {
+const UploadModal = () => {
+  const { teamId } = useTeamStore();
+
+  const { blockName, blockType, startDate, endDate } = useBlockModalContext();
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
   const [isAllUploaded, setIsAllUploaded] = useState(true);
 
-  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
+  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(+teamId, 'executive');
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
   const { createToast } = useToastStore();
 
@@ -77,18 +82,17 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
   };
 
   const data = {
-    name: blockData.blockName,
+    name: blockName,
     color: getRandomColor(),
-    startDate: formatDatePost(blockData.dates.startDate),
-    endDate: formatDatePost(blockData.dates.endDate),
-    blockType: blockData.blockType,
+    startDate: formatDatePost(startDate),
+    endDate: formatDatePost(endDate),
+    blockType: blockType,
     files: fileUrls,
   };
 
   const handleSave = () => {
     timeBlockMutate(data, {
       onSuccess: () => {
-        onClose();
         createToast('활동 블록이 생성되었습니다', 'success');
       },
     });
