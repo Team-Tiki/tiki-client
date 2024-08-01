@@ -1,7 +1,6 @@
-import { formStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
-import React, { HTMLAttributes, SetStateAction } from 'react';
-import { flushSync } from 'react-dom';
+import React, { HTMLAttributes } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -11,12 +10,12 @@ import { useInput } from '@/common/hook/useInput';
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
 
-interface PasswordFormProps extends HTMLAttributes<HTMLFormElement> {
-  onInfoChange: React.Dispatch<SetStateAction<UserInfo>>;
-  onComplete?: () => void;
+interface PasswordFormProps extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+  userInfo: UserInfo;
+  onSubmit?: (info: UserInfo) => void;
 }
 
-const PasswordForm = ({ onInfoChange, onComplete }: PasswordFormProps) => {
+const PasswordForm = ({ userInfo, onSubmit }: PasswordFormProps) => {
   const { value: password, onChange: onPasswordChange, onValidate, error: passwordError } = useInput('');
   const {
     value: passwordChecker,
@@ -40,15 +39,13 @@ const PasswordForm = ({ onInfoChange, onComplete }: PasswordFormProps) => {
 
     if (!formValidate()) return;
 
-    flushSync(() => {
-      onInfoChange((prev) => ({
-        ...prev,
-        password,
-        passwordChecker,
-      }));
-    });
+    const formData = {
+      ...userInfo,
+      password,
+      passwordChecker,
+    };
 
-    onComplete?.();
+    onSubmit?.(formData);
   };
 
   return (

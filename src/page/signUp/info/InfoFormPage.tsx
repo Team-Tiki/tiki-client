@@ -27,18 +27,18 @@ const InfoFormPage = () => {
   const isInfoMatched = useMatch(PATH.SIGNUP_INFO);
   const isPasswordMatched = useMatch(PATH.SIGNUP_PASSWORD);
 
-  const handleComplete = () => {
+  const handleComplete = (info: UserInfo) => {
     mutate(info);
   };
 
   return (
     <Flex tag="main" css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', height: '78rem', width: '51.1rem' }}>
+      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', width: '51.1rem' }}>
         <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
 
         {isInfoMatched && <InfoForm onInfoChange={setInfo} />}
 
-        {isPasswordMatched && <PasswordForm onInfoChange={setInfo} onComplete={handleComplete} />}
+        {isPasswordMatched && <PasswordForm userInfo={info} onSubmit={handleComplete} />}
       </Flex>
     </Flex>
   );
