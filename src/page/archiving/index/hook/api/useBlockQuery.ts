@@ -6,5 +6,6 @@ export const useBlockQuery = (teamId: number, blockId: number) => {
   return useQuery({
     queryKey: ['document', blockId],
     queryFn: () => getDocuments(teamId, blockId),
+    enabled: !!blockId,
   });
 };

@@ -1,6 +1,5 @@
-import { useResetPasswordMutation } from '@/page/login/password/hook/api/useResetPasswordMutation';
-import { formStyle, pageStyle } from '@/page/login/password/passwordReset/PasswordResetPage.style';
-import { PLACEHOLDER } from '@/page/signUp/info/constant';
+import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
+import { useResetPasswordMutation } from '@/page/login/password/reset/hook/useResetPasswordMutation';
 
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,6 +9,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 
+import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 
 const PasswordResetPage = () => {

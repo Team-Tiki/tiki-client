@@ -1,7 +1,8 @@
-import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH } from '@/page/signUp/info/constant';
 import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
 
 import { ChangeEvent, useCallback, useState } from 'react';
+
+import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH } from '@/shared/constant/form';
 
 export const useDateInput = () => {
   const [birth, setBirth] = useState('');

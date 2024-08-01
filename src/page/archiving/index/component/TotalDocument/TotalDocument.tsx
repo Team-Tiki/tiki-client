@@ -1,10 +1,5 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
-import {
-  containerStyle,
-  documentListStyle,
-  toolStyle,
-} from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
@@ -44,8 +39,8 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   };
 
   return (
-    <Flex tag={'section'} css={containerStyle}>
-      <Flex css={toolStyle}>
+    <Flex tag={'section'} styles={{ direction: 'column', padding: '1.6rem' }}>
+      <Flex styles={{ direction: 'column', align: 'flex-end', width: '24.8rem', gap: '1.6rem' }}>
         <Input
           size="small"
           placeholder={'문서를 검색해보세요'}
@@ -60,7 +55,7 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
         <DocumentSort selected={selected} onSelected={handleSelected} />
       </Flex>
 
-      <Flex tag="ul" css={documentListStyle}>
+      <Flex tag="ul" styles={{ direction: 'column', marginTop: '1.6rem', gap: '0.8rem' }}>
         {(selected === '최근 업로드 순' ? filteredDocuments : filteredDocuments && filteredDocuments.reverse())?.map(
           (data: DocumentType) => (
             <DocumentItem

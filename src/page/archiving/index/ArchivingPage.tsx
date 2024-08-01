@@ -9,7 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
+import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
 
@@ -38,15 +38,11 @@ const ArchivingPage = () => {
   const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
     e.stopPropagation();
 
-    const clickedBlock = document.getElementById(String(block.timeBlockId));
-
-    if (clickedBlock) {
-      clickedBlock.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'center',
-      });
-    }
+    e.currentTarget.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'center',
+    });
 
     setSelectedBlock(block);
     setSelectedId('selected');
@@ -99,6 +95,7 @@ const ArchivingPage = () => {
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
               const isEven = day % 2 === 0;
+
               return (
                 <DaySection
                   key={day}
@@ -112,30 +109,21 @@ const ArchivingPage = () => {
                 />
               );
             })}
+
             {timeBlocks.map((block: Block) => {
-              let { startDate, endDate } = block;
-              const blockStartDate = new Date(startDate);
-              const blockEndDate = new Date(endDate);
-              const startMonth = blockStartDate.getUTCMonth() + 1;
-              const endMonth = blockEndDate.getUTCMonth() + 1;
-
-              const firstDayOfMonth = new Date(Date.UTC(currentYear, selectedMonthNumber - 1, 1));
-              const lastDayOfMonth = getLastDayOfMonth(firstDayOfMonth);
-
-              if (blockStartDate.getFullYear() !== currentYear || startMonth !== selectedMonthNumber) {
-                startDate = firstDayOfMonth;
-              }
-
-              if (blockEndDate.getFullYear() !== currentYear || endMonth !== selectedMonthNumber) {
-                endDate = lastDayOfMonth;
-              }
+              const { startDate, endDate } = block;
+              const { startDate: blockStartDate, endDate: blockEndDate } = createTimeBlock({
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
+                currentYear,
+                selectedMonth: selectedMonthNumber,
+              });
 
               return (
                 <TimeBlock
-                  id={String(block.timeBlockId)}
                   key={block.timeBlockId}
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={blockStartDate}
+                  endDate={blockEndDate}
                   color={block.color}
                   floor={blockFloors[block.timeBlockId] || 1}
                   blockType={block.blockType}
@@ -147,6 +135,7 @@ const ArchivingPage = () => {
             })}
           </div>
         </Flex>
+
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
           <Button
             variant="action"

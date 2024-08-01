@@ -12,13 +12,11 @@ export const containerStyle = (blockSelected: string) =>
 
     width: blockSelected ? '28rem' : 0,
     height: 'calc(100vh - 0.8rem);',
-
     marginLeft: '6rem',
 
     borderRadius: '16px',
-
-    backgroundColor: theme.colors.white,
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
+    backgroundColor: theme.colors.white,
 
     transform: blockSelected ? 'translateX(0)' : 'translateX(28rem)',
     transition: '0.4s ease-in-out',

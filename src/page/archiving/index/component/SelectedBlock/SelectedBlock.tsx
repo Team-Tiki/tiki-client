@@ -1,5 +1,4 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { useBlockQuery } from '@/page/archiving/index/hook/api/useBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
@@ -17,7 +16,7 @@ import { theme } from '@/common/style/theme/theme';
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { useTeamStore } from '@/shared/store/team';
 
-import { blockNameStyle, containerStyle, deleteBtnStyle } from './SelectedBlock.style';
+import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
   selectedId: string;
@@ -31,7 +30,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
 
   const { teamId } = useTeamStore();
 
-  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 69);
+  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
 
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
@@ -42,7 +41,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
   };
 
   return (
-    <Flex tag="section" css={containerStyle}>
+    <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>
       {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
@@ -70,7 +69,7 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
         {startDate} ~ {endDate}
       </Text>
 
-      <Flex tag="ul" css={documentListStyle}>
+      <Flex tag="ul" styles={{ direction: 'column', marginTop: '1.6rem', gap: '0.8rem' }}>
         {blockData?.data.documents?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
