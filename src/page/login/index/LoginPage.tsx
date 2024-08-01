@@ -2,7 +2,7 @@ import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/inde
 import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
 
 import { FormEvent, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -10,7 +10,6 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -20,10 +19,6 @@ const LoginPage = () => {
 
   const { mutate } = useLoginMutation();
 
-  const { isLoggedIn } = useStore();
-
-  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
-
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -31,11 +26,11 @@ const LoginPage = () => {
   };
 
   const 회원가입페이지로이동 = () => {
-    navigate('/signup');
+    navigate(PATH.SIGNUP);
   };
 
   const 비밀번호찾기페이지로이동 = () => {
-    navigate('/password/auth');
+    navigate(PATH.PASSWORD_AUTH);
   };
 
   return (
