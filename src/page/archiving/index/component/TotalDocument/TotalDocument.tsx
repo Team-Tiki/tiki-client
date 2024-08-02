@@ -10,7 +10,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import useDebounce from '@/common/hook/useDebounce';
 
-import { useTeamStore } from '@/shared/store/team';
+import { useTeamId } from '@/shared/store/team';
 
 interface DocumentBarToolProps {
   selectedId: string;
@@ -19,7 +19,7 @@ interface DocumentBarToolProps {
 const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
-  const { teamId } = useTeamStore();
+  const teamId = useTeamId();
 
   const { data: documentDatas } = useTotalDocumentQuery(+teamId, 'executive');
 

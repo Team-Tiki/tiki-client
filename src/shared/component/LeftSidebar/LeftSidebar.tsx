@@ -27,7 +27,7 @@ import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceIm
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useTeamStore } from '@/shared/store/team';
+import { useTeamIdAction } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
 import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
@@ -57,7 +57,7 @@ const LeftSidebar = () => {
 
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
-  const { setTeamId } = useTeamStore();
+  const { setTeamId } = useTeamIdAction();
 
   useEffect(() => {
     const postData = {
