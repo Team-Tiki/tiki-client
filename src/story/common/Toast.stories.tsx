@@ -4,7 +4,7 @@ import Toast from '@/common/component/Toast/Toast';
 import ToastContainer from '@/common/component/ToastContainer/ToastContainer';
 import ToastProvider from '@/common/component/ToastContainer/ToastProvider';
 
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 const meta = {
   title: 'Common/Toast',
@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => {
-    const { createToast } = useToastStore();
+    const { createToast } = useToastAction();
 
     return (
       <>
@@ -41,7 +41,7 @@ export const Default: Story = {
 
 export const Error: Story = {
   render: () => {
-    const { createToast } = useToastStore();
+    const { createToast } = useToastAction();
 
     return (
       <>
@@ -58,7 +58,7 @@ export const Error: Story = {
 
 export const Success: Story = {
   render: () => {
-    const { createToast } = useToastStore();
+    const { createToast } = useToastAction();
 
     return (
       <>
