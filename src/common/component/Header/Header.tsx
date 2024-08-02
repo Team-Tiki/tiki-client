@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
 
-import useStore from '@/shared/store/auth';
+import { useIsLoggedIn } from '@/shared/store/auth';
 
 import Button from '../Button/Button';
 import { headerStyle } from './Header.style';
@@ -10,7 +10,7 @@ import { headerStyle } from './Header.style';
 const Header = () => {
   const { pathname } = useLocation();
 
-  const isLogin = useStore((state) => state.isLoggedIn);
+  const isLoggedIn = useIsLoggedIn();
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const Header = () => {
     <header css={headerStyle}>
       <Logo onClick={() => navigate('/showcase')} />
       <div>
-        {isLogin ? (
+        {isLoggedIn ? (
           <Button variant="secondary" size="small">
             로그아웃
           </Button>

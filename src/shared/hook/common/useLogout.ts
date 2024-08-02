@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
+import { useAuth } from '@/shared/store/auth';
 
 export const useLogout = () => {
-  const { logout: onLogout } = useStore();
+  const { logout: onLogout } = useAuth();
 
   const navigate = useNavigate();
 
