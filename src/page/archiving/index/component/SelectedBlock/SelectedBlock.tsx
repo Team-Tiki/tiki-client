@@ -35,7 +35,7 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClickClose }
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
 
-  const handleClose = () => {
+  const handleModalClose = () => {
     onClickClose();
     closeModal;
   };
@@ -56,7 +56,7 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClickClose }
               <DeleteModal
                 title="block"
                 detail="block"
-                onClose={handleClose}
+                onClose={handleModalClose}
                 teamId={+teamId}
                 id={selectedBlock.timeBlockId}
               />
