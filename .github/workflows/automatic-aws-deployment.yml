@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  ci:
+  cicd:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
@@ -32,32 +32,12 @@ jobs:
       - name: Build project
         run: pnpm build
 
-  cd:
-    name: Build and Deploy to AWS S3 for Main
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '21'
-
       - name: .env setting
         run: |
           echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build project
-        run: pnpm build
+      - name: Install dependencies and Build
+        run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
