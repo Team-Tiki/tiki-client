@@ -10,14 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
+import { PATH } from '@/shared/constant/path';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 
 const ShowcasePage = () => {
   const navigate = useNavigate();
   const [selectedChip, setSelectedChip] = useState('전체');
 
-  const { data: clubs } = useClubListQuery(selectedChip);
   const { data: categoryList } = useCategoryListQuery();
+  const { data: clubs } = useClubListQuery(selectedChip);
 
   return (
     <section css={containerStyle}>
@@ -29,9 +30,9 @@ const ShowcasePage = () => {
       </Flex>
 
       <div css={chipStyle}>
-        {categoryList.data.categories.map((category) => (
+        {categoryList.data.categories.map((category, index) => (
           <CategoryChip
-            key={category}
+            key={index}
             onClick={() => {
               setSelectedChip(category);
             }}
@@ -50,7 +51,7 @@ const ShowcasePage = () => {
               detail={club.overview || ''}
               imageUrl={club.imageUrl}
               onClick={() => {
-                navigate('/comingsoon');
+                navigate(PATH.COMING_SOON);
               }}
             />
           );

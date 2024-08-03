@@ -12,12 +12,12 @@ export const containerStyle = css({
 });
 
 export const arrowStyle = css({
-  position: 'absolute',
-  top: '9.6rem',
-
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
+  position: 'absolute',
+  top: '9.6rem',
 
   zIndex: theme.zIndex.overlayBottom,
 
