@@ -48,15 +48,24 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
 
   if (blockStartDate.getFullYear() === currentYear && blockEndDate.getFullYear() === currentYear) {
     if (startMonth < selectedMonth && selectedMonth < endMonth) {
-      // 타임블록이 3달 이상의 기간을 가질 때
+      blockStartDate = startMonth === selectedMonth ? blockStartDate : firstDay;
+      blockEndDate = endMonth === selectedMonth ? blockEndDate : lastDay;
+    } else if (startMonth !== selectedMonth && endMonth === selectedMonth) {
       blockStartDate = firstDay;
+    } else if (startMonth === selectedMonth && endMonth !== selectedMonth) {
       blockEndDate = lastDay;
-    } else if (startMonth !== selectedMonth) {
+    }
+  } else {
+    if (startMonth <= selectedMonth || selectedMonth <= endMonth) {
+      blockStartDate =
+        startMonth === selectedMonth && blockStartDate.getFullYear() === currentYear ? blockStartDate : firstDay;
+      blockEndDate = endMonth === selectedMonth && blockEndDate.getFullYear() === currentYear ? blockEndDate : lastDay;
+    } else {
       blockStartDate = firstDay;
-    } else if (endMonth !== selectedMonth) {
       blockEndDate = lastDay;
     }
   }
+
   return { startDate: blockStartDate, endDate: blockEndDate };
 };
 
