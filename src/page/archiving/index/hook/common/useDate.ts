@@ -14,10 +14,12 @@ export const useDate = () => {
 
   const handlePrevYear = () => {
     setCurrentYear((prevYear) => prevYear - 1);
+    setSelectedMonth('1월');
   };
 
   const handleNextYear = () => {
     setCurrentYear((prevYear) => prevYear + 1);
+    setSelectedMonth('1월');
   };
 
   return {
