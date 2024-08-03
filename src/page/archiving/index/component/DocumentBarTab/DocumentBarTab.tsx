@@ -4,21 +4,21 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 interface DocumentBarTabProps {
-  selectedId: string;
-  onTabClick: (selectedId: string, tabId: string) => void;
+  selectedTabId: string;
+  onTabClick: (selectedTabId: string, tabId: string) => void;
 }
 
-const DocumentBarTab = ({ selectedId, onTabClick }: DocumentBarTabProps) => {
+const DocumentBarTab = ({ selectedTabId, onTabClick }: DocumentBarTabProps) => {
   return (
     <Flex tag={'nav'}>
       <Button
-        onClick={() => onTabClick(selectedId, 'selected')}
-        css={[tabStyle('selected'), selectedStyle(selectedId, 'selected')]}>
+        onClick={() => onTabClick(selectedTabId, 'selected')}
+        css={[tabStyle('selected'), selectedStyle(selectedTabId, 'selected')]}>
         선택한 블록
       </Button>
       <Button
-        onClick={() => onTabClick(selectedId, 'total')}
-        css={[tabStyle('total'), selectedStyle(selectedId, 'total')]}>
+        onClick={() => onTabClick(selectedTabId, 'total')}
+        css={[tabStyle('total'), selectedStyle(selectedTabId, 'total')]}>
         전체 문서
       </Button>
     </Flex>

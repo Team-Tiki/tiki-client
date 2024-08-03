@@ -1,4 +1,4 @@
-import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
+import { documentBarContainerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
@@ -8,35 +8,35 @@ import { ForwardedRef, forwardRef } from 'react';
 
 interface DocumentBarProps {
   selectedBlock?: Block;
-  selectedId: string;
+  selectedTabId: string;
   onSelectId: (Id: string) => void;
   onClickClose: () => void;
 }
 
 const DocumentBar = (
-  { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,
+  { selectedBlock, selectedTabId, onSelectId, onClickClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const handleTabClick = (selectedId: string, tabId: string) => {
-    if (tabId !== selectedId) {
+  const handleTabClick = (selectedTabId: string, tabId: string) => {
+    if (tabId !== selectedTabId) {
       onSelectId(tabId);
     }
   };
 
   return (
-    <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
-      <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      {selectedId === 'selected' ? (
+    <aside css={documentBarContainerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
+      <DocumentBarTab selectedTabId={selectedTabId} onTabClick={handleTabClick} />
+      {selectedTabId === 'selected' ? (
         selectedBlock && (
           <SelectedBlock
-            selectedId={selectedId}
+            selectedTabId={selectedTabId}
             blockName={selectedBlock.name}
             selectedBlock={selectedBlock}
             onClickClose={onClickClose}
           />
         )
       ) : (
-        <TotalDocument selectedId={selectedId} />
+        <TotalDocument selectedTabId={selectedTabId} />
       )}
     </aside>
   );

@@ -12,11 +12,11 @@ import useDebounce from '@/common/hook/useDebounce';
 
 import { useTeamStore } from '@/shared/store/team';
 
-interface DocumentBarToolProps {
-  selectedId: string;
+interface TotalDocumentProps {
+  selectedTabId: string;
 }
 
-const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
+const TotalDocument = ({ selectedTabId }: TotalDocumentProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
   const { teamId } = useTeamStore();
@@ -28,10 +28,10 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
 
   // 디바운스 되어 문서 필터링할때 사용될 검색어
   const filterKeyword = useDebounce(searchWord, 500);
-
+  console.log(filterKeyword);
   // 필터링된 문서 배열
   const filteredDocuments = documentDatas?.data.documents?.filter((document) =>
-    document.fileName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
+    document.documentName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
   );
 
   const handleSelected = (option: string) => {
@@ -61,11 +61,11 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
             <DocumentItem
               key={data.documentId}
               documentId={data.documentId}
-              selectedId={selectedId}
+              selectedTabId={selectedTabId}
               blockName={data.blockName}
-              fileUrl={data.fileUrl}
-              color={data.color}>
-              {data.fileName}
+              documentUrl={data.documentUrl}
+              blockColor={data.blockColor}>
+              {data.documentName}
             </DocumentItem>
           )
         )}

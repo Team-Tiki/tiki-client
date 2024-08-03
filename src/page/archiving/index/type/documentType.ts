@@ -1,7 +1,7 @@
 export interface DocumentType {
   documentId: number;
-  fileName: string;
-  fileUrl: string;
+  documentName: string;
+  documentUrl: string;
   blockName: string;
-  color?: string;
+  blockColor?: string;
 }

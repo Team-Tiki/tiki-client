@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (selectedId: string) =>
+export const documentItemContainerStyle = (selectedTabId: string) =>
   css({
     display: 'flex',
     flexDirection: 'column',
 
     gap: '0.4rem',
-    padding: selectedId === 'total' ? '1rem 1.2rem' : '1.2rem',
+    padding: selectedTabId === 'total' ? '1rem 1.2rem' : '1.2rem',
 
     border: `1px solid ${theme.colors.gray_300}`,
     borderRadius: '8px',
@@ -20,7 +20,7 @@ export const containerStyle = (selectedId: string) =>
     },
   });
 
-export const blockNameTextStyle = (color: string) =>
+export const blockNameStyle = (color: string) =>
   css({
     display: 'inline-block',
 
@@ -36,7 +36,7 @@ export const blockNameTextStyle = (color: string) =>
     textOverflow: 'ellipsis',
   });
 
-export const fileNameStyle = css({
+export const documentNameStyle = css({
   width: '18rem',
   maxHeight: '2.8rem',
 

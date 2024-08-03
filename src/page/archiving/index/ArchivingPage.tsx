@@ -23,7 +23,7 @@ import { theme } from '@/common/style/theme/theme';
 import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
-  const [selectedId, setSelectedId] = useState('total');
+  const [selectedTabId, setSelectedTabId] = useState('total');
 
   const { teamId } = useTeamStore();
 
@@ -32,7 +32,7 @@ const ArchivingPage = () => {
   };
 
   const handleSelectedId = (id: string) => {
-    setSelectedId(id);
+    setSelectedTabId(id);
   };
 
   const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
@@ -45,7 +45,7 @@ const ArchivingPage = () => {
     });
 
     setSelectedBlock(block);
-    setSelectedId('selected');
+    setSelectedTabId('selected');
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
@@ -151,7 +151,7 @@ const ArchivingPage = () => {
       <DocumentBar
         selectedBlock={selectedBlock}
         ref={sideBarRef}
-        selectedId={selectedId}
+        selectedTabId={selectedTabId}
         onSelectId={handleSelectedId}
         onClickClose={handleClose}
       />
