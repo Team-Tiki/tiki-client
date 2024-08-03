@@ -15,11 +15,13 @@ export const useDate = () => {
   const handlePrevYear = () => {
     setCurrentYear((prevYear) => prevYear - 1);
     setSelectedMonth('1월');
+    document.getElementById('block_area')?.scrollTo(0, 0);
   };
 
   const handleNextYear = () => {
     setCurrentYear((prevYear) => prevYear + 1);
     setSelectedMonth('1월');
+    document.getElementById('block_area')?.scrollTo(0, 0);
   };
 
   return {

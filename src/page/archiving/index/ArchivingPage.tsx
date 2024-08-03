@@ -9,6 +9,7 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
+import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
@@ -73,6 +74,11 @@ const ArchivingPage = () => {
     setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
   };
 
+  const handleMonthClick = (month: MonthType) => {
+    setSelectedMonth(month);
+    document.getElementById('block_area')?.scrollTo(0, 0);
+  };
+
   return (
     <Flex
       styles={{
@@ -86,11 +92,7 @@ const ArchivingPage = () => {
       <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
-          <MonthHeader
-            currentMonth={selectedMonth}
-            onMonthClick={(month) => setSelectedMonth(month)}
-            selectedBlock={selectedBlock}
-          />
+          <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} selectedBlock={selectedBlock} />
           <div id="block_area" css={daySectionStyle}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
