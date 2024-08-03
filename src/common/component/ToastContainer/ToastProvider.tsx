@@ -1,9 +1,12 @@
 import Toast from '@/common/component/Toast/Toast';
 
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction, useToastList } from '@/shared/store/toast';
 
 const ToastFactory = () => {
-  const { toastList, removeToast } = useToastStore();
+  const toastList = useToastList();
+
+  const { removeToast } = useToastAction();
+
   return (
     <>
       {toastList.map((toast) => (

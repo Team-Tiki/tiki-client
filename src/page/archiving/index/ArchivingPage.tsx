@@ -20,12 +20,12 @@ import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useTeamStore } from '@/shared/store/team';
+import { useTeamId } from '@/shared/store/team';
 
 const ArchivingPage = () => {
   const [selectedTabId, setSelectedTabId] = useState('total');
 
-  const { teamId } = useTeamStore();
+  const teamId = useTeamId();
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);

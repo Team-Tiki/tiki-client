@@ -22,7 +22,7 @@ import { UserInfo } from '@/shared/api/signup/info/type';
 import { EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT, UNIV_EMAIL_FORMAT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 import { validateCode, validateEmail } from '@/shared/util/validate';
 
 interface InfoFormProps {
@@ -61,7 +61,7 @@ const InfoForm = ({ onInfoChange }: InfoFormProps) => {
 
   if (isVerified) onStop();
 
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   const handleMailSend = () => {
     if (!UNIV_EMAIL_FORMAT.test(email)) {

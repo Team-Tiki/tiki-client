@@ -7,26 +7,34 @@ import { Toast } from '@/shared/type/toast';
 type ToastStore = {
   toastList: Toast[];
 
-  createToast: (message: string, variant?: Required<ToastProps>['variant']) => void;
-  removeToast: (id: number) => void;
+  actions: {
+    createToast: (message: string, variant?: Required<ToastProps>['variant']) => void;
+    removeToast: (id: number) => void;
+  };
 };
 
-export const useToastStore = create<ToastStore>((set) => ({
+const useToastStore = create<ToastStore>((set) => ({
   toastList: [],
 
-  createToast: (message: string, variant: Required<ToastProps>['variant'] = 'default') =>
-    set((state) => ({
-      toastList: [
-        ...state.toastList,
-        {
-          id: Number(Date.now()),
-          message,
-          variant,
-        },
-      ],
-    })),
-  removeToast: (id: number) =>
-    set((state) => ({
-      toastList: state.toastList.filter((item) => item.id !== id),
-    })),
+  actions: {
+    createToast: (message: string, variant: Required<ToastProps>['variant'] = 'default') =>
+      set((state) => ({
+        toastList: [
+          ...state.toastList,
+          {
+            id: Number(Date.now()),
+            message,
+            variant,
+          },
+        ],
+      })),
+    removeToast: (id: number) =>
+      set((state) => ({
+        toastList: state.toastList.filter((item) => item.id !== id),
+      })),
+  },
 }));
+
+export const useToastList = () => useToastStore((state) => state.toastList);
+
+export const useToastAction = () => useToastStore((state) => state.actions);

@@ -14,7 +14,7 @@ import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useTeamStore } from '@/shared/store/team';
+import { useTeamId } from '@/shared/store/team';
 
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
@@ -28,7 +28,7 @@ interface DocumentBarInfoProps {
 const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
-  const { teamId } = useTeamStore();
+  const teamId = useTeamId();
 
   const { data: blockData } = useBlockInfoQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
 
