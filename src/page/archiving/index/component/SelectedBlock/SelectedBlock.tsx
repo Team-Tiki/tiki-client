@@ -76,8 +76,8 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClickClose }
             documentId={data.documentId}
             selectedTabId={selectedTabId}
             blockName={data.blockName}
-            documentUrl={data.documentUrl}>
-            {data.documentName}
+            documentUrl={data.fileUrl}>
+            {data.fileName}
           </DocumentItem>
         ))}
       </Flex>

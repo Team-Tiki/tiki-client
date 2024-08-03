@@ -28,10 +28,10 @@ const TotalDocument = ({ selectedTabId }: TotalDocumentProps) => {
 
   // 디바운스 되어 문서 필터링할때 사용될 검색어
   const filterKeyword = useDebounce(searchWord, 500);
-  console.log(filterKeyword);
+
   // 필터링된 문서 배열
   const filteredDocuments = documentDatas?.data.documents?.filter((document) =>
-    document.documentName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
+    document.fileName.normalize('NFC').includes(filterKeyword.normalize('NFC'))
   );
 
   const handleSelected = (option: string) => {
@@ -63,9 +63,9 @@ const TotalDocument = ({ selectedTabId }: TotalDocumentProps) => {
               documentId={data.documentId}
               selectedTabId={selectedTabId}
               blockName={data.blockName}
-              documentUrl={data.documentUrl}
-              blockColor={data.blockColor}>
-              {data.documentName}
+              documentUrl={data.fileUrl}
+              blockColor={data.color}>
+              {data.fileName}
             </DocumentItem>
           )
         )}
