@@ -9,7 +9,7 @@ import { UserInfo } from '@/shared/api/signup/info/type';
 import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 export type InfoFormData = Omit<UserInfo, 'password' | 'passwordChecker'>;
 
@@ -35,7 +35,7 @@ export const useInfoForm = () => {
 
   const { mutate: validateAuthCode, isSuccess: isAuthCodeValidated } = useVerifyCodeMutation(info.email, info.authCode);
 
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   const navigate = useNavigate();
 
