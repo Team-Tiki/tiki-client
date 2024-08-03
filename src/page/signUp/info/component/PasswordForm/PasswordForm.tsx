@@ -10,9 +10,11 @@ import Input from '@/common/component/Input/Input';
 import { PLACEHOLDER } from '@/shared/constant/form';
 
 const PasswordForm = () => {
-  const { state } = useLocation();
+  const {
+    state: { formData },
+  } = useLocation();
 
-  const { info, handleInfoChange, handleSubmit, error } = usePasswordForm(state);
+  const { info, handleInfoChange, handleSubmit, error } = usePasswordForm(formData);
 
   return (
     <form onSubmit={handleSubmit} css={formStyle}>

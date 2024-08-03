@@ -85,6 +85,8 @@ export const usePasswordForm = (prevData: InfoFormData) => {
       };
 
       signUpMutate(formData);
+
+      console.log(formData);
     },
     [validateForm, info, signUpMutate, prevData]
   );
