@@ -1,6 +1,7 @@
 import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
 import React, { HTMLAttributes } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -11,11 +12,12 @@ import { UserInfo } from '@/shared/api/signup/info/type';
 import { PASSWORD_VALID_FORMAT, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
 
 interface PasswordFormProps extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
-  userInfo: UserInfo;
   onSubmit?: (info: UserInfo) => void;
 }
 
-const PasswordForm = ({ userInfo, onSubmit }: PasswordFormProps) => {
+const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
+  const { state } = useLocation();
+
   const { value: password, onChange: onPasswordChange, onValidate, error: passwordError } = useInput('');
   const {
     value: passwordChecker,
@@ -40,7 +42,7 @@ const PasswordForm = ({ userInfo, onSubmit }: PasswordFormProps) => {
     if (!formValidate()) return;
 
     const formData = {
-      ...userInfo,
+      ...state.formData,
       password,
       passwordChecker,
     };
