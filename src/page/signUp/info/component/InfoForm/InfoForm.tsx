@@ -132,7 +132,6 @@ const InfoForm = () => {
               value={info.authCode}
               maxLength={AUTHCODE_MAXLENGTH}
               onChange={handleInfoChange}
-              isError={Boolean(error.authCode)}
               variant="underline"
               placeholder={PLACEHOLDER.AUTH_CODE}
             />

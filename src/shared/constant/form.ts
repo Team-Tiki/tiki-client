@@ -21,6 +21,8 @@ export const SUPPORTING_TEXT = {
   EMAIL_EXPIRED: '인증 번호가 만료되었습니다.',
   EMAIL_NOAUTH: '이메일을 인증해주세요.',
 
+  UNIV: '대학교를 선택해주세요.',
+
   PASSWORD: '비밀번호를 입력해주세요',
   PASSWORD_INVALID: '영문/숫자/특수문자를 사용해 8자 이상으로 만들어주세요.',
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',

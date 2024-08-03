@@ -23,9 +23,10 @@ type InfoFormUserInput = InfoFormData & {
 
 type InfoError = Partial<InfoFormUserInput>;
 
-const IS_EMPTY_STRING: { [key: string]: string } = {
+const IS_EMPTY_STRING = {
   name: SUPPORTING_TEXT.NAME,
   birth: SUPPORTING_TEXT.BIRTH,
+  univ: SUPPORTING_TEXT.UNIV,
   email: SUPPORTING_TEXT.EMAIL,
   authCode: SUPPORTING_TEXT.EMAIL_NOAUTH,
 } as const;
@@ -123,14 +124,13 @@ export const useInfoForm = () => {
       if (value === '') {
         setError((prev) => ({
           ...prev,
-          [key]: IS_EMPTY_STRING[key],
+          [key]: IS_EMPTY_STRING[key as keyof InfoFormUserInput],
         }));
 
         if (key === 'authCode') {
           createToast(SUPPORTING_TEXT.EMAIL_NOAUTH, 'error');
         }
         isFormError = true;
-
         return true;
       }
     });
