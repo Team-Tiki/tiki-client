@@ -5,17 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { useOverlay } from '@/common/hook';
 
+import { UserInfo } from '@/shared/api/signup/info/type';
 import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
 import { useToastStore } from '@/shared/store/toast';
 
-type InfoFormData = {
-  name: string;
-  birth: string;
-  univ: string;
-  email: string;
-};
+export type InfoFormData = Omit<UserInfo, 'password' | 'passwordChecker'>;
 
 type InfoFormUserInput = InfoFormData & {
   authCode: string;
