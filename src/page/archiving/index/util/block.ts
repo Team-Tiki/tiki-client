@@ -48,8 +48,8 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
 
   if (blockStartDate.getFullYear() === currentYear && blockEndDate.getFullYear() === currentYear) {
     if (startMonth < selectedMonth && selectedMonth < endMonth) {
-      blockStartDate = startMonth === selectedMonth ? blockStartDate : firstDay;
-      blockEndDate = endMonth === selectedMonth ? blockEndDate : lastDay;
+      blockStartDate = firstDay;
+      blockEndDate = lastDay;
     } else if (startMonth !== selectedMonth && endMonth === selectedMonth) {
       blockStartDate = firstDay;
     } else if (startMonth === selectedMonth && endMonth !== selectedMonth) {
@@ -60,9 +60,6 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
       blockStartDate =
         startMonth === selectedMonth && blockStartDate.getFullYear() === currentYear ? blockStartDate : firstDay;
       blockEndDate = endMonth === selectedMonth && blockEndDate.getFullYear() === currentYear ? blockEndDate : lastDay;
-    } else {
-      blockStartDate = firstDay;
-      blockEndDate = lastDay;
     }
   }
 
