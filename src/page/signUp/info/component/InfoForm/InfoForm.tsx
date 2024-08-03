@@ -20,7 +20,7 @@ import {
   SUPPORTING_TEXT,
   UNIV_EMAIL_FORMAT,
 } from '@/shared/constant/form';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 import { validateCode, validateEmail } from '@/shared/util/validate';
 
 const InfoForm = () => {
@@ -54,7 +54,7 @@ const InfoForm = () => {
 
   if (isAuthCodeValidated) onStop();
 
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   const handleMailSend = () => {
     if (!UNIV_EMAIL_FORMAT.test(info.email)) {
