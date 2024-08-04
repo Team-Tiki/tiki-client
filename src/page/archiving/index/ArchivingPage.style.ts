@@ -13,8 +13,7 @@ export const pageStyle = () =>
 
     paddingLeft: '6rem',
 
-    overflowX: 'hidden',
-    overflowY: 'hidden',
+    overflow: 'hidden',
   });
 
 export const timelineStyle = () =>
