@@ -41,7 +41,10 @@ const ArchivingPage = () => {
     setSelectedId(id);
   };
 
-  const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
+  const handleBlockClick = (
+    e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
+    block: Block
+  ) => {
     e.stopPropagation();
 
     e.currentTarget.scrollIntoView({

@@ -11,7 +11,7 @@ interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   floor: number;
   blockType: string;
   isSelected?: boolean;
-  onBlockClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onBlockClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 const TimeBlock = ({
@@ -30,7 +30,18 @@ const TimeBlock = ({
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-    <div css={blockStyle(blockWidth, startPosition, floor, color, isSelected)} onClick={onBlockClick} {...props}>
+    <div
+      role="tab"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          onBlockClick(e);
+        }
+      }}
+      css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
+      onClick={onBlockClick}
+      {...props}>
       {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
       <span css={blockNameStyle}>{children}</span>
     </div>
