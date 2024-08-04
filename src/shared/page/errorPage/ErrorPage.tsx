@@ -5,6 +5,7 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
+import { useTokenError } from '@/common/hook/useTokenError';
 import { theme } from '@/common/style/theme/theme';
 
 import { HTTP_ERROR_MESSAGE, HTTP_STATUS_CODE } from '@/shared/constant/api';
@@ -16,10 +17,18 @@ interface ErrorPageProps {
 }
 
 const ErrorPage = ({ statusCode = HTTP_STATUS_CODE.NOT_FOUND, resetError }: ErrorPageProps) => {
-  const isHTTPError =
-    statusCode === HTTP_STATUS_CODE.BAD_REQUEST || HTTP_STATUS_CODE.NOT_FOUND || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR;
+  const isHTTPError = statusCode === HTTP_STATUS_CODE.CONTENT_TOO_LARGE ? HTTP_STATUS_CODE.BAD_REQUEST : statusCode;
 
   const navigate = useNavigate();
+
+  const { handleTokenError } = useTokenError();
+
+  if (statusCode === HTTP_STATUS_CODE.UNAUTHORIZED) {
+    /** 모든 캐시 및 스토리지 clear 후 초기 화면으로 리다이렉트 */
+    handleTokenError();
+
+    return null;
+  }
 
   if (!isHTTPError) return null;
 
