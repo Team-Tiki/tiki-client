@@ -1,4 +1,4 @@
-import { documentBarContainerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
+import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
@@ -24,7 +24,7 @@ const DocumentBar = (
   };
 
   return (
-    <aside css={documentBarContainerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
+    <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
       <DocumentBarTab selectedTabId={selectedTabId} onTabClick={handleTabClick} />
       {selectedTabId === 'selected' ? (
         selectedBlock && (

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const documentItemContainerStyle = (selectedTabId: string) =>
+export const containerStyle = (selectedTabId: string) =>
   css({
     display: 'flex',
     flexDirection: 'column',

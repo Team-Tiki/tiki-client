@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const documentBarContainerStyle = (blockSelected: string) =>
+export const containerStyle = (blockSelected: string) =>
   css({
     position: 'sticky',
 

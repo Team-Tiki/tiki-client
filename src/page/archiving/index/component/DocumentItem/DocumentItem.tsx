@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   blockNameStyle,
-  documentItemContainerStyle,
+  containerStyle,
   documentNameStyle,
 } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
@@ -41,7 +41,6 @@ const DocumentItem = ({
 
   const teamId = useTeamId();
 
-  //문서 클릭시 띄워주는 함수
   const handleDocumentItemClick = () => {
     window.open(documentUrl);
   };
@@ -59,7 +58,7 @@ const DocumentItem = ({
   return (
     <>
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
-      <li css={documentItemContainerStyle(selectedTabId)} onClick={handleDocumentItemClick}>
+      <li css={containerStyle(selectedTabId)} onClick={handleDocumentItemClick}>
         {blockColor && (
           <div>
             <Text tag="body8" css={blockNameStyle(blockColor)}>
