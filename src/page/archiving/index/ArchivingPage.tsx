@@ -17,7 +17,7 @@ import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import Add from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -56,15 +56,20 @@ const ArchivingPage = () => {
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
 
-  const { currentYear, selectedMonthType, setSelectedMonthType, handlePrevYear, handleNextYear, endDay } = useDate();
+  const { currentYear, selectedMonthString, setSelectedMonthString, handlePrevYear, handleNextYear, endDay } =
+    useDate();
 
-  const selectedMonth = parseInt(selectedMonthType.split('월')[0]);
+  const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
 
   const [selectedBlock, setSelectedBlock] = useState<Block>();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonthType, currentYear);
+  const blockFloors = useMemo(
+    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
+    [currentYear, endDay, selectedMonthString, timeBlocks]
+  );
 
   // 블록 생성 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
@@ -84,8 +89,8 @@ const ArchivingPage = () => {
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
           <MonthHeader
-            currentMonth={selectedMonthType}
-            onMonthClick={(month) => setSelectedMonthType(month)}
+            currentMonth={selectedMonthString}
+            onMonthClick={setSelectedMonthString}
             selectedBlock={selectedBlock}
           />
           <div id="block_area" css={daySectionStyle}>

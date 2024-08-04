@@ -8,9 +8,11 @@ export const useDate = () => {
   const currentDate = new Date();
 
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-  const [selectedMonthType, setSelectedMonthType] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
+  const [selectedMonthString, setSelectedMonthString] = useState<MonthType>(
+    `${currentDate.getMonth() + 1}월` as MonthType
+  );
 
-  const dateOfMonth = getMonthDate(selectedMonthType, currentYear);
+  const dateOfMonth = getMonthDate(selectedMonthString, currentYear);
   const endDay = endOfMonth(dateOfMonth);
 
   const handlePrevYear = () => {
@@ -24,8 +26,8 @@ export const useDate = () => {
   return {
     currentDate,
     currentYear,
-    selectedMonthType,
-    setSelectedMonthType,
+    selectedMonthString,
+    setSelectedMonthString,
     handlePrevYear,
     handleNextYear,
     dateOfMonth,
