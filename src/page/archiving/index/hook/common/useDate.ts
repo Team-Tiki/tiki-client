@@ -4,7 +4,7 @@ import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
 
-export const useDate = () => {
+export const useDate = (ref: React.RefObject<HTMLDivElement>) => {
   const currentDate = new Date();
 
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
@@ -15,13 +15,13 @@ export const useDate = () => {
   const handlePrevYear = () => {
     setCurrentYear((prevYear) => prevYear - 1);
     setSelectedMonth('1월');
-    document.getElementById('block_area')?.scrollTo(0, 0);
+    ref.current?.scrollTo(0, 0);
   };
 
   const handleNextYear = () => {
     setCurrentYear((prevYear) => prevYear + 1);
     setSelectedMonth('1월');
-    document.getElementById('block_area')?.scrollTo(0, 0);
+    ref.current?.scrollTo(0, 0);
   };
 
   return {

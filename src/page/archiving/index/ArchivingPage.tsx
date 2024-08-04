@@ -12,7 +12,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -50,15 +50,17 @@ const ArchivingPage = () => {
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+  const daySectionRef = useRef<HTMLDivElement>(null);
 
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate();
+    useDate(daySectionRef);
 
   const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
 
   const [selectedBlock, setSelectedBlock] = useState<Block>();
+
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
@@ -76,7 +78,7 @@ const ArchivingPage = () => {
 
   const handleMonthClick = (month: MonthType) => {
     setSelectedMonth(month);
-    document.getElementById('block_area')?.scrollTo(0, 0);
+    daySectionRef.current?.scrollTo(0, 0);
   };
 
   return (
@@ -93,7 +95,7 @@ const ArchivingPage = () => {
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
           <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} selectedBlock={selectedBlock} />
-          <div id="block_area" css={daySectionStyle}>
+          <div id="block_area" css={daySectionStyle} ref={daySectionRef}>
             {Array.from({ length: endDay.getDate() }, (_, index) => {
               const day = index + 1;
               const isEven = day % 2 === 0;
