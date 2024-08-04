@@ -6,6 +6,8 @@ import {
 } from '@/page/archiving/index/component/DaySection/DaySection.style';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 
+import { memo } from 'react';
+
 import Circle from '@/common/asset/svg/circle.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import { theme } from '@/common/style/theme/theme';
@@ -34,7 +36,7 @@ const DottedDayLine = () => {
   );
 };
 
-const DaySection = ({ endDay }: DaySectionProps) => {
+const DaySection = memo(({ endDay }: DaySectionProps) => {
   const { currentDate, currentYear, selectedMonthType } = useDate();
 
   return (
@@ -61,6 +63,6 @@ const DaySection = ({ endDay }: DaySectionProps) => {
       })}
     </>
   );
-};
+});
 
 export default DaySection;
