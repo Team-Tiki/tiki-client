@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
-import useDebounce from '@/common/hook/useDebounce';
+import { useDebounce } from '@/common/hook';
 
 import { useTeamId } from '@/shared/store/team';
 

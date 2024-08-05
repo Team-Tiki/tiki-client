@@ -30,8 +30,8 @@ const InfoForm = () => {
     handleBirthChange,
     handleUnivSelect,
     handleSubmit,
-    validateAuthCode,
-    isAuthCodeValidated,
+    verityCodeMutate,
+    isVerified,
     isSelectOpen,
     onSelectOpen,
     onSelectClose,
@@ -52,7 +52,7 @@ const InfoForm = () => {
 
   const { mutate: sendMailMutate } = useSendMailMutation(info.email, onFail);
 
-  if (isAuthCodeValidated) onStop();
+  if (isVerified) onStop();
 
   const { createToast } = useToastAction();
 
@@ -121,7 +121,7 @@ const InfoForm = () => {
             css={{ padding: '1rem 1.6rem', width: '11rem' }}
             size="large"
             onClick={handleMailSend}
-            disabled={!validateEmail(info.email) || isAuthCodeValidated}>
+            disabled={!validateEmail(info.email) || isVerified}>
             인증 메일 발송
           </Button>
         </Flex>
@@ -139,7 +139,7 @@ const InfoForm = () => {
             <Button
               css={{ padding: '1rem 1.6rem', width: '13rem' }}
               size="large"
-              onClick={validateAuthCode}
+              onClick={verityCodeMutate}
               disabled={!validateCode(info.authCode)}>
               인증하기
             </Button>
