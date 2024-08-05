@@ -25,12 +25,28 @@ import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
+  const [selectedBlock, setSelectedBlock] = useState<Block>();
+  const daySectionRef = useRef<HTMLDivElement>(null);
 
   const { teamId } = useTeamStore();
+  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
+    useDate(daySectionRef);
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
+
+  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
+
+  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
+
+  // 블록 생성 모달 관련 코드
+  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+
+  const timeBlocks: Block[] = data?.timeBlocks || [];
+  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
@@ -48,24 +64,6 @@ const ArchivingPage = () => {
     setSelectedBlock(block);
     setSelectedId('selected');
   };
-
-  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
-  const daySectionRef = useRef<HTMLDivElement>(null);
-
-  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate(daySectionRef);
-
-  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
-
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
-
-  const [selectedBlock, setSelectedBlock] = useState<Block>();
-
-  const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
-
-  // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const handleNext = (blockData: {
     blockName: string;
