@@ -12,7 +12,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -26,27 +26,37 @@ import { useTeamStore } from '@/shared/store/team';
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
   const [selectedBlock, setSelectedBlock] = useState<Block>();
+  const isMounted = useRef(false);
   const daySectionRef = useRef<HTMLDivElement>(null);
 
   const { teamId } = useTeamStore();
+
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate(daySectionRef);
+
+  // 블록 생성 모달 관련 코드
+  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
 
-  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
-
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+
+  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
 
-  // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
-
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+    setSelectedMonth(`${currentDate.getMonth() + 1}월` as MonthType);
+  }, [teamId]);
 
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
