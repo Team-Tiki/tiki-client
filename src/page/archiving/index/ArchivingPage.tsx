@@ -53,9 +53,8 @@ const ArchivingPage = () => {
   useEffect(() => {
     if (!isMounted.current) {
       isMounted.current = true;
-      return;
+      setSelectedMonth(`${currentDate.getMonth() + 1}월` as MonthType);
     }
-    setSelectedMonth(`${currentDate.getMonth() + 1}월` as MonthType);
   }, [teamId]);
 
   const handleSelectedId = (id: string) => {
