@@ -19,6 +19,7 @@ const queryClient = new QueryClient();
 const main = async () => {
   if (import.meta.env.DEV) {
     await worker.start({
+      onUnhandledRequest: 'bypass',
       serviceWorker: {
         url: 'mockServiceWorker.js',
       },
