@@ -3,21 +3,20 @@ import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useOverlay } from '@/common/hook';
+import { useError, useOverlay } from '@/common/hook';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
 import { useToastAction } from '@/shared/store/toast';
+import { hasKeyInObject } from '@/shared/util/typeGuard';
 
 export type InfoFormData = Omit<UserInfo, 'password' | 'passwordChecker'>;
 
 type InfoFormUserInput = InfoFormData & {
   authCode: string;
 };
-
-type InfoError = Partial<InfoFormUserInput>;
 
 const IS_EMPTY_STRING = {
   name: SUPPORTING_TEXT.NAME,
@@ -29,42 +28,51 @@ const IS_EMPTY_STRING = {
 
 export const useInfoForm = () => {
   const [info, setInfo] = useState<InfoFormUserInput>({ name: '', birth: '', univ: '', email: '', authCode: '' });
-  const [error, setError] = useState<InfoError>({ name: '', birth: '', univ: '', email: '', authCode: '' });
+
+  const { error, updateFieldError, clearFieldError } = useError({
+    name: '',
+    birth: '',
+    univ: '',
+    email: '',
+    authCode: '',
+  });
 
   const { isOpen: isSelectOpen, open: onSelectOpen, close: onSelectClose, toggle: onSelectToggle } = useOverlay();
 
-  const { mutate: validateAuthCode, isSuccess: isAuthCodeValidated } = useVerifyCodeMutation(info.email, info.authCode);
+  const { mutate: verityCodeMutate, isSuccess: isVerified } = useVerifyCodeMutation(info.email, info.authCode);
 
   const { createToast } = useToastAction();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    setError((prev) => ({ ...prev, univ: undefined }));
+    clearFieldError('univ');
 
     onSelectClose();
-  }, [info.univ, onSelectClose]);
+  }, [onSelectClose, clearFieldError]);
 
-  const handleInfoChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name: key } = e.target;
+  const handleInfoChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { value, name: key } = e.target;
 
-    setInfo((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-    if (value !== '') {
-      setError((prev) => ({
+      setInfo((prev) => ({
         ...prev,
-        [key]: undefined,
+        [key]: value,
       }));
-    }
-  }, []);
+      if (value !== '' && hasKeyInObject(error, key)) {
+        clearFieldError(key);
+      }
+    },
+    [clearFieldError, error]
+  );
 
   const handleBirthChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       let { value } = e.target;
 
-      if (info.birth !== '') setError((prev) => ({ ...prev, birth: '' }));
+      if (info.birth !== '') {
+        clearFieldError('birth');
+      }
 
       if (value.length === DATE_MAXLENGTH && info.birth.length === FORMATTED_DATE_MAXLENGTH) {
         value = info.birth.replace(/-/g, '');
@@ -77,7 +85,7 @@ export const useInfoForm = () => {
         birth: value,
       }));
     },
-    [info.birth]
+    [info.birth, clearFieldError]
   );
 
   const handleUnivSelect = useCallback((item: string) => {
@@ -89,12 +97,12 @@ export const useInfoForm = () => {
 
   const validateDate = useCallback(() => {
     if (info.birth === '' || !isValidDate(info.birth)) {
-      setError((prev) => ({ ...prev, birth: 'error' }));
+      updateFieldError('birth', 'error');
       return false;
     }
 
     return true;
-  }, [info.birth]);
+  }, [info.birth, updateFieldError]);
 
   const validateForm = useCallback(() => {
     let isFormError = false;
@@ -109,20 +117,13 @@ export const useInfoForm = () => {
       }
       /** 선택된 대학교 검사 */
       if (key === 'univ' && value === '') {
-        setError((prev) => ({
-          ...prev,
-          univ: 'error',
-        }));
+        updateFieldError('univ', 'error');
         isFormError = true;
         return true;
       }
       /** 나머지 info 유효성 검사 */
-      if (value === '') {
-        setError((prev) => ({
-          ...prev,
-          [key]: IS_EMPTY_STRING[key as keyof InfoFormUserInput],
-        }));
-
+      if (value === '' && hasKeyInObject(error, key)) {
+        updateFieldError(key, IS_EMPTY_STRING[key]);
         if (key === 'authCode') {
           createToast(SUPPORTING_TEXT.EMAIL_NOAUTH, 'error');
         }
@@ -132,13 +133,13 @@ export const useInfoForm = () => {
     });
 
     return !isFormError;
-  }, [createToast, info, validateDate]);
+  }, [createToast, info, validateDate, updateFieldError, error]);
 
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (!validateForm() || !isAuthCodeValidated) return;
+      if (!validateForm() || !isVerified) return;
 
       const formData: InfoFormData = {
         name: info.name,
@@ -153,7 +154,7 @@ export const useInfoForm = () => {
         },
       });
     },
-    [info, isAuthCodeValidated, navigate, validateForm]
+    [info, isVerified, navigate, validateForm]
   );
 
   return {
@@ -162,8 +163,8 @@ export const useInfoForm = () => {
     handleBirthChange,
     handleUnivSelect,
     handleSubmit,
-    validateAuthCode,
-    isAuthCodeValidated,
+    verityCodeMutate,
+    isVerified,
     isSelectOpen,
     onSelectOpen,
     onSelectClose,

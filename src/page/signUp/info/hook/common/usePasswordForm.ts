@@ -3,16 +3,18 @@ import { InfoFormData } from '@/page/signUp/info/hook/common/useInfoForm';
 
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
+import { useError } from '@/common/hook';
+
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PASSWORD_VALID_FORMAT, SUPPORTING_TEXT } from '@/shared/constant/form';
+import { hasKeyInObject } from '@/shared/util/typeGuard';
 
 type PasswordFormData = Omit<UserInfo, keyof InfoFormData>;
 
-type PasswordError = Partial<PasswordFormData>;
-
 export const usePasswordForm = (prevData: InfoFormData) => {
   const [info, setInfo] = useState<PasswordFormData>({ password: '', passwordChecker: '' });
-  const [error, setError] = useState<PasswordError>({ password: '', passwordChecker: '' });
+
+  const { error, setErrors, updateFieldError, clearFieldError } = useError({ password: '', passwordChecker: '' });
 
   const { mutate: signUpMutate } = useSignupMutation();
 
@@ -24,35 +26,28 @@ export const usePasswordForm = (prevData: InfoFormData) => {
         ...prev,
         [key]: value,
       }));
-      if (value !== '') {
-        setError((prev) => ({
-          ...prev,
-          [key]: undefined,
-        }));
+      if (value !== '' && hasKeyInObject(error, key)) {
+        clearFieldError(key);
       }
     },
-    []
+    [error, clearFieldError]
   );
 
   const validateForm = useCallback(() => {
     if (info.password === '') {
-      setError({
-        password: SUPPORTING_TEXT.PASSWORD,
-      });
+      updateFieldError('password', SUPPORTING_TEXT.PASSWORD);
 
       return false;
     }
 
     if (info.passwordChecker === '') {
-      setError({
-        passwordChecker: SUPPORTING_TEXT.PASSWORD_CHECKER,
-      });
+      updateFieldError('passwordChecker', SUPPORTING_TEXT.PASSWORD_CHECKER);
 
       return false;
     }
 
     if (info.password !== info.passwordChecker) {
-      setError({
+      setErrors({
         password: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
         passwordChecker: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
       });
@@ -61,16 +56,13 @@ export const usePasswordForm = (prevData: InfoFormData) => {
     }
 
     if (!PASSWORD_VALID_FORMAT.test(info.password)) {
-      setError((prev) => ({
-        ...prev,
-        password: SUPPORTING_TEXT.PASSWORD_INVALID,
-      }));
+      updateFieldError('password', SUPPORTING_TEXT.PASSWORD_INVALID);
 
       return false;
     }
 
     return true;
-  }, [info]);
+  }, [info, updateFieldError, setErrors]);
 
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -85,8 +77,6 @@ export const usePasswordForm = (prevData: InfoFormData) => {
       };
 
       signUpMutate(formData);
-
-      console.log(formData);
     },
     [validateForm, info, signUpMutate, prevData]
   );
