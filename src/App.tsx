@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import * as Sentry from '@sentry/react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -15,6 +16,17 @@ import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const App = () => {
   const navigate = useNavigate();
+
+  Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    integrations: [Sentry.browserTracingIntegration()],
+
+    tracePropagationTargets: ['localhost', /^https:\/\/ti-kii\.com/],
+
+    tracesSampleRate: 1.0,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
+  });
 
   const handleResetError = (error: Error | AxiosError) => {
     if (error instanceof Error && !(error instanceof AxiosError)) {
