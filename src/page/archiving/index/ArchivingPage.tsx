@@ -28,9 +28,7 @@ const ArchivingPage = () => {
   const location = useLocation();
   const teamId = new URLSearchParams(location.search).get('teamId');
 
-  if (!teamId) {
-    throw new Error('has no error');
-  }
+  if (!teamId) throw new Error('has no error');
 
   const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
     useDate();
