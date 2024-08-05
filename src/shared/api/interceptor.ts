@@ -1,5 +1,8 @@
+import * as Sentry from '@sentry/react';
+
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
+import { HTTPError } from '@/shared/api/HTTPError';
 import { getReissuedToken } from '@/shared/api/auth/reissue';
 import { axiosInstance } from '@/shared/api/instance';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
@@ -33,7 +36,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
 
   const { status } = error.response;
 
-  if (status === HTTP_STATUS_CODE.UNAUTHORIZED || status === HTTP_STATUS_CODE.BAD_REQUEST) {
+  if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
     try {
       const { data } = await getReissuedToken();
 
@@ -49,4 +52,21 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
   }
 
   return Promise.reject(error);
+};
+
+export const handleAPIError = (error: AxiosError<ErrorResponse>) => {
+  if (!error.response) throw error;
+
+  Sentry.withScope((scope) => {
+    scope.setLevel('error');
+    scope.captureMessage(`[API Error] ${window.location.href}`);
+  });
+
+  const { data, status } = error.response;
+
+  if (status >= HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR) {
+    throw new HTTPError(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, data.message);
+  }
+
+  throw new HTTPError(status, data.message);
 };
