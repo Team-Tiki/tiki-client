@@ -5,10 +5,10 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
-import { useTokenError } from '@/common/hook/useTokenError';
 import { theme } from '@/common/style/theme/theme';
 
 import { HTTP_ERROR_MESSAGE, HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { useTokenError } from '@/shared/hook/common/useTokenError';
 import { pageStyle, viewStyle } from '@/shared/page/errorPage/ErrorPage.style';
 
 interface ErrorPageProps {
