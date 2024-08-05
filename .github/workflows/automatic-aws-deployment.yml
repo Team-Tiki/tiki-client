@@ -1,4 +1,4 @@
-name: 'Automatic S3 Cloudfront Deployment'
+name: Front Deployment
 
 on:
   push:
@@ -10,23 +10,33 @@ on:
 
 jobs:
   cicd:
-    name: Build and Deploy
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 21
+          node-version: '21'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: Install dependencies and build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        run: pnpm build
+
+      - name: .env setting
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
+
+      - name: Install dependencies and Build
         run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Configure AWS credentials
@@ -36,16 +46,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Upload to AWS S3
-        env:
-          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-        run: |
-          aws s3 sync \
-            ./dist s3://$BUCKET_NAME
+      - name: Upload build to AWS S3
+        run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete --cache-control "max-age=31536000"
 
-      - name: CloudFront Invalidation
-        env:
-          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID}}
-        run: |
-          aws cloudfront create-invalidation \
-            --distribution-id $CLOUD_FRONT_ID --paths /*
+      - name: Invalidate AWS CloudFront Distribution
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} --paths "/*"
