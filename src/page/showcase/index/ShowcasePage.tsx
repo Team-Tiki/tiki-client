@@ -21,7 +21,7 @@ const ShowcasePage = () => {
   const { data: clubs } = useClubListQuery(selectedChip);
 
   return (
-    <section css={containerStyle}>
+    <div css={containerStyle}>
       <Flex tag="section" styles={{ direction: 'column', gap: '2.4rem', width: '100%' }}>
         <Heading tag="H4" css={{ fontWeight: 600 }}>
           우리 학교 동아리
@@ -30,9 +30,9 @@ const ShowcasePage = () => {
       </Flex>
 
       <div css={chipStyle}>
-        {categoryList.data.categories.map((category, index) => (
+        {categoryList.data.categories.map((category) => (
           <CategoryChip
-            key={index}
+            key={category}
             onClick={() => {
               setSelectedChip(category);
             }}
@@ -57,7 +57,7 @@ const ShowcasePage = () => {
           );
         })}
       </section>
-    </section>
+    </div>
   );
 };
 
