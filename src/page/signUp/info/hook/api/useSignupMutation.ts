@@ -7,10 +7,10 @@ import { isAxiosError } from 'axios';
 import { postSignup } from '@/shared/api/signup/info';
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PATH } from '@/shared/constant/path';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 export const useSignupMutation = () => {
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   const navigate = useNavigate();
 

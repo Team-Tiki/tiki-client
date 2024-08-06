@@ -1,5 +1,6 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
+import { getReissuedToken } from '@/shared/api/auth/reissue';
 import { axiosInstance } from '@/shared/api/instance';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
@@ -9,12 +10,6 @@ interface ErrorResponse {
   message?: string;
   code?: number;
 }
-
-type TokenResponse = {
-  data: {
-    accessToken: string;
-  };
-};
 
 export const handleCheckAndSetToken = (config: InternalAxiosRequestConfig) => {
   if (!config || !config.headers || config.headers.Authorization) return config;
@@ -38,28 +33,16 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
 
   const { status } = error.response;
 
-  if (status === HTTP_STATUS_CODE.UNAUTHORIZED || status === HTTP_STATUS_CODE.NOT_FOUND) {
-    const refreshToken = localStorage.getItem('refresh');
-
-    if (!refreshToken) {
-      window.location.replace(PATH.ROOT);
-      throw new Error('리프레시 토큰이 존재하지 않습니다.');
-    }
-
+  if (status === HTTP_STATUS_CODE.UNAUTHORIZED || status === HTTP_STATUS_CODE.BAD_REQUEST) {
     try {
-      const { data } = await axios.get<TokenResponse>(`${import.meta.env.VITE_BASE_URL}/api/v1/auth/reissue`, {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
+      const { data } = await getReissuedToken();
 
-      localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
-      originRequest.data.headers.Authorization = `Bearer ${data.data.accessToken}`;
+      localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+      originRequest.data.headers.Authorization = `Bearer ${data.accessToken}`;
 
       return axiosInstance(originRequest);
     } catch (error) {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      localStorage.removeItem('refresh');
+      localStorage.clear();
       window.location.replace(PATH.ROOT);
       throw new Error('토큰 갱신에 실패하였습니다.');
     }

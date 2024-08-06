@@ -4,13 +4,12 @@ import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalD
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import useDebounce from '@/common/hook/useDebounce';
-
-import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentBarToolProps {
   selectedId: string;
@@ -19,7 +18,10 @@ interface DocumentBarToolProps {
 const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const teamId = new URLSearchParams(location.search).get('teamId');
+
+  if (!teamId) throw new Error('has no teamId');
 
   const { data: documentDatas } = useTotalDocumentQuery(+teamId, 'executive');
 

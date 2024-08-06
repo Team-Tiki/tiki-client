@@ -5,6 +5,8 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
+import { useLocation } from 'react-router-dom';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -14,7 +16,6 @@ import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useTeamStore } from '@/shared/store/team';
 
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
@@ -28,7 +29,10 @@ interface DocumentBarInfoProps {
 const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const teamId = new URLSearchParams(location.search).get('teamId');
+
+  if (!teamId) throw new Error('has no teamId');
 
   const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
 

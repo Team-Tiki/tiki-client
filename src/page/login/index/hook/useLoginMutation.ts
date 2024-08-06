@@ -10,19 +10,18 @@ import { postSignIn } from '@/shared/api/auth/signin';
 import { axiosInstance } from '@/shared/api/instance';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 export const useLoginMutation = () => {
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: postSignIn,
 
-    onSuccess: ({ data: { accessToken, refreshToken } }) => {
+    onSuccess: ({ data: { accessToken } }) => {
       localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-      localStorage.setItem('refresh', refreshToken);
 
       axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
