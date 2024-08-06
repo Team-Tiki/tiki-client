@@ -43,7 +43,7 @@ const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
   return (
     <ul css={containerStyle(isModalOpen)} {...props}>
       <li role="button" tabIndex={0} css={contentStyle} onKeyDown={handleLogoutKeyDown} onClick={logout}>
-        <Logout width="1.6rem" height="1.6rem" />
+        <Logout width={16} height={16} />
         <Text tag="body6" css={textStyle}>
           로그아웃
         </Text>
@@ -56,7 +56,7 @@ const SettingMenu = ({ isModalOpen, ...props }: SettingModalProps) => {
         onClick={() => {
           handleNavClick(PATH.PASSWORD_AUTH);
         }}>
-        <PWResetting width="1.6rem" height="1.6rem" />
+        <PWResetting width={16} height={16} />
         <Text tag="body6" css={textStyle}>
           비밀번호 재설정
         </Text>
