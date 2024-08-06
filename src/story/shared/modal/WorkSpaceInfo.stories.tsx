@@ -5,7 +5,9 @@ import WorkSpaceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpac
 const meta = {
   title: 'page/Modal/WorkSpaceInfo',
   component: WorkSpaceInfo,
-
+  parameters: {
+    layout: 'centered',
+  },
   args: {
     step: 'name',
     title: '새로운 워크 스페이스 생성하기',

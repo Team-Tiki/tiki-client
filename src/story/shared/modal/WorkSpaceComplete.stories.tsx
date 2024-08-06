@@ -1,17 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import WorkSpaceComplete from '@/shared/component/createWorkSpaceModal/modalContents/complete/WorkSpaceComplete';
+import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 
 const meta = {
   title: 'page/Modal/WorkSpaceComplete',
   component: WorkSpaceComplete,
-
-  args: {
-    isComplete: (isComplete: boolean) => {
-      isComplete;
-    },
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
+  decorators: [
+    (Story) => (
+      <WorkSpaceProvider>
+        <Story />
+      </WorkSpaceProvider>
+    ),
+  ],
 } satisfies Meta<typeof WorkSpaceComplete>;
 
 export default meta;

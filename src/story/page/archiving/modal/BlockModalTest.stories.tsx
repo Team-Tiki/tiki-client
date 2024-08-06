@@ -1,13 +1,14 @@
-import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
-import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { Meta, StoryObj } from '@storybook/react';
 
-import Modal from '@/common/component/Modal/Modal';
-import { useModal } from '@/common/hook/useModal';
+import ModalContainer from '@/common/component/Modal/ModalContainer';
 
-const meta: Meta<typeof Modal> = {
+import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
+import { BlockProvider } from '@/shared/hook/common/useBlockContext';
+import { useModalStore } from '@/shared/store/modal';
+
+const meta: Meta<typeof ModalContainer> = {
   title: 'page/Modal/Block',
-  component: Modal,
+  component: ModalContainer,
   parameters: {
     layout: 'centered',
   },
@@ -26,23 +27,13 @@ type Story = StoryObj<typeof meta>;
 
 export const BlockModalTest: Story = {
   render: () => {
-    const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
-
-    const handleNext = (blockData: {
-      blockName: string;
-      blockType: string;
-      dates: { startDate: string; endDate: string };
-    }) => {
-      const teamId = 6;
-      const type = 'executive';
-      setCurrentContent(<UploadModal onClose={closeModal} teamId={teamId} type={type} blockData={blockData} />);
-    };
+    const { openModal } = useModalStore();
 
     return (
-      <div>
-        <button onClick={() => openModal(<BlockModal onNext={handleNext} />)}>Open Modal</button>
-        <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      </div>
+      <BlockProvider>
+        <button onClick={() => openModal(<BlockFlow />)}>Open Block Modal</button>
+        <ModalContainer />
+      </BlockProvider>
     );
   },
 };

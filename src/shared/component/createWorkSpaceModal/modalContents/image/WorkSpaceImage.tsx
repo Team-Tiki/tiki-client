@@ -32,7 +32,7 @@ const WorkSpaceImage = () => {
   const { data: fileData } = useGetFileQuery(file as File);
 
   // 모달
-  const { setFormData, nextStep, reset, formData } = useWorkSpaceContext();
+  const { setFormData, nextStep, formData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
   useEffect(() => {
