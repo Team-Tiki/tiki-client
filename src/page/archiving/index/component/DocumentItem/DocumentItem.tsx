@@ -45,29 +45,27 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
     e.stopPropagation();
     // 모달 띄우기
     const modalContent = <DeleteModal title="docs" detail="docs" teamId={+teamId} id={documentId} />;
-    useModalStore.getState().openModal('delete', modalContent);
+    useModalStore.getState().openModal(modalContent);
   };
 
   return (
-    <>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
-      <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
-        {color && (
-          <div>
-            <Text tag="body8" css={blockNameTextStyle(color)}>
-              {blockName}
-            </Text>
-          </div>
-        )}
-        <Flex>
-          <Text tag="body6" css={fileNameStyle}>
-            {fileName}
+    /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */
+    <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
+      {color && (
+        <div>
+          <Text tag="body8" css={blockNameTextStyle(color)}>
+            {blockName}
           </Text>
-          <Download width={20} height={20} css={{ cursor: 'pointer' }} onClick={handleDownloadClick} />
-          <TrashBox width={20} height={20} onClick={(e) => handleTrashClick(e)} css={{ cursor: 'pointer' }} />
-        </Flex>
-      </li>
-    </>
+        </div>
+      )}
+      <Flex>
+        <Text tag="body6" css={fileNameStyle}>
+          {fileName}
+        </Text>
+        <Download width={20} height={20} css={{ cursor: 'pointer' }} onClick={handleDownloadClick} />
+        <TrashBox width={20} height={20} onClick={(e) => handleTrashClick(e)} css={{ cursor: 'pointer' }} />
+      </Flex>
+    </li>
   );
 };
 export default DocumentItem;

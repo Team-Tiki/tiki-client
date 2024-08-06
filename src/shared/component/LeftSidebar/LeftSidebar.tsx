@@ -20,11 +20,11 @@ import {
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
+import { WorkSpaceFlow } from '@/shared/component/ModalFlow/WorkSpaceFlow';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
-import { WorkSpaceFlow, WorkSpaceProvider } from '@/shared/store/useWorkSpaceContext';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
@@ -37,8 +37,7 @@ const LeftSidebar = () => {
 
   const navigate = useNavigate();
 
-  const [clicked, setClicked] = useState('showcase');
-  const [isWorkspaceClicked, setIsWorkspaceClicked] = useState(false);
+  const [selectedId, setSelectedId] = useState<string>('showcase');
 
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
   const settingRef = useOutsideClick(onSettingClose);
@@ -49,43 +48,27 @@ const LeftSidebar = () => {
     const teamId = localStorage.getItem('teamId');
     if (teamId) {
       setTeamId(teamId);
-      setClicked(teamId);
+      setSelectedId(teamId);
       navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
+    } else {
+      setSelectedId('showcase');
     }
   }, [setTeamId, navigate]);
 
-  const handleShowcaseClick = () => {
-    setClicked('showcase');
-    localStorage.removeItem('teamId');
-    setIsWorkspaceClicked(false);
-    navigate(PATH.SHOWCASE);
-    close();
-  };
-
-  const handleTeamClick = (teamId: string) => {
-    setClicked(teamId);
-    setIsWorkspaceClicked(false); // 워크스페이스 클릭 상태 해제
-
-    setTeamId(teamId);
-    localStorage.setItem('teamId', teamId);
-
-    navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
+  const handleItemClick = (id: string, path: string) => {
+    setSelectedId(id);
+    if (id !== 'showcase') {
+      setTeamId(id);
+      localStorage.setItem('teamId', id);
+    } else {
+      localStorage.removeItem('teamId');
+    }
+    navigate(path);
     close();
   };
 
   const handleWorkspaceClick = () => {
-    setIsWorkspaceClicked(true);
-    openModal(
-      'workspace',
-      <WorkSpaceProvider>
-        <WorkSpaceFlow />
-      </WorkSpaceProvider>,
-      handleModalClose
-    );
-  };
-
-  const handleModalClose = () => {
-    setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
+    openModal(<WorkSpaceFlow />);
   };
 
   return (
@@ -95,31 +78,23 @@ const LeftSidebar = () => {
       <nav>
         <ul css={leftSidebarListStyle}>
           <LeftSidebarItem
-            isClicked={clicked === 'showcase'}
+            isClicked={selectedId === 'showcase'}
             isExpansion={isNavOpen}
             url={earthUrl}
-            onClick={handleShowcaseClick}>
+            onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
             Showcase
           </LeftSidebarItem>
-          {data?.data.belongTeamGetResponses.map((data: Team) => {
-            return (
-              <LeftSidebarItem
-                key={data.id}
-                isClicked={clicked === String(data.id)}
-                isExpansion={isNavOpen}
-                url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
-                onClick={() => {
-                  handleTeamClick(String(data.id));
-                }}>
-                {data.name}
-              </LeftSidebarItem>
-            );
-          })}
-          <LeftSidebarItem
-            isClicked={isWorkspaceClicked}
-            isExpansion={isNavOpen}
-            url={addUrl}
-            onClick={handleWorkspaceClick}>
+          {data?.data.belongTeamGetResponses.map((data: Team) => (
+            <LeftSidebarItem
+              key={data.id}
+              isClicked={selectedId === String(data.id)}
+              isExpansion={isNavOpen}
+              url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
+              onClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}>
+              {data.name}
+            </LeftSidebarItem>
+          ))}
+          <LeftSidebarItem isClicked={false} isExpansion={isNavOpen} url={addUrl} onClick={handleWorkspaceClick}>
             워크스페이스 생성
           </LeftSidebarItem>
         </ul>

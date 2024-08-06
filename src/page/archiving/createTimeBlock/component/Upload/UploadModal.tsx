@@ -12,16 +12,16 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
-import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
+import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { useToastStore } from '@/shared/store/toast';
-import { useBlockContext } from '@/shared/store/useBlockContext';
 
 const UploadModal = () => {
   const { teamId } = useTeamStore();
 
-  const { blockName, blockType, startDate, endDate, reset } = useBlockContext();
+  const { formData, reset } = useBlockContext();
   const { closeModal } = useModalStore();
 
   const [files, setFiles] = useState<File[]>([]);
@@ -77,11 +77,11 @@ const UploadModal = () => {
   };
 
   const data = {
-    name: blockName,
+    name: formData.blockName,
     color: getRandomColor(),
-    startDate: formatDatePost(startDate),
-    endDate: formatDatePost(endDate),
-    blockType: blockType,
+    startDate: formatDatePost(formData.startDate),
+    endDate: formatDatePost(formData.endDate),
+    blockType: formData.blockType,
     files: fileUrls,
   };
 

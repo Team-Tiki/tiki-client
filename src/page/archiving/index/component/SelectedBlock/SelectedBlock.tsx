@@ -42,7 +42,7 @@ const SelectedBlock = ({
   const handleDeleteClick = () => {
     //모달 띄우기
     const modalContent = <DeleteModal title="block" detail="block" teamId={+teamId} id={selectedBlock.timeBlockId} />;
-    useModalStore.getState().openModal('delete', modalContent);
+    useModalStore.getState().openModal(modalContent);
   };
 
   return (

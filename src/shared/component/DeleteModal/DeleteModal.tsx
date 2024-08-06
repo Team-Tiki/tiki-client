@@ -18,8 +18,8 @@ interface DeleteModalProps {
 }
 
 const DeleteModal = ({ title, detail, teamId, id }: DeleteModalProps) => {
-  const { mutateAsync: blockMutate } = useDeleteBlockMutation();
-  const { mutateAsync: documentMutate } = useDeleteDocumentMutation();
+  const { mutate: blockMutate } = useDeleteBlockMutation();
+  const { mutate: documentMutate } = useDeleteDocumentMutation();
 
   const { closeModal } = useModalStore();
 

@@ -4,20 +4,20 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 
-import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import {
   buttonStyle,
   inputWrapperStyle,
   sectionStyle,
-} from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
-import { useWorkSpaceContext } from '@/shared/store/useWorkSpaceContext';
+} from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
+import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 const WorkSpaceName = () => {
   const [inputValue, setInputValue] = useState('');
-  const { setName, nextStep } = useWorkSpaceContext();
+  const { setFormData, nextStep } = useWorkSpaceContext();
 
   const handleNext = () => {
-    setName(inputValue);
+    setFormData({ name: inputValue });
     nextStep();
   };
 

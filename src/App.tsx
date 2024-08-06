@@ -6,6 +6,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
+import ModalContainer from '@/common/component/Modal/ModalContainer';
 import { theme } from '@/common/style/theme/theme';
 
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
@@ -13,8 +14,6 @@ import Login from '@/shared/component/Login/Login';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
-
-import ModalManager from './common/component/Modal/ModalManager';
 
 const App = () => {
   useEffect(() => {
@@ -45,7 +44,7 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
-        <ModalManager />
+        <ModalContainer />
         <div css={containerStyle}>
           <LeftSidebar />
           <main css={layoutStyle}>

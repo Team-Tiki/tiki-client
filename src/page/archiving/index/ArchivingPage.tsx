@@ -17,9 +17,9 @@ import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
+import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
 import { useModalStore } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
-import { BlockFlow, BlockProvider } from '@/shared/store/useBlockContext';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
@@ -68,12 +68,7 @@ const ArchivingPage = () => {
   const openModal = useModalStore((state) => state.openModal);
 
   const handleOpenBlockModal = () => {
-    openModal(
-      'block',
-      <BlockProvider>
-        <BlockFlow />
-      </BlockProvider>
-    );
+    openModal(<BlockFlow />);
   };
 
   return (

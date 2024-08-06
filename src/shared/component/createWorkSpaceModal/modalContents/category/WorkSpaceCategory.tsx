@@ -6,20 +6,23 @@ import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
+import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import {
   arrowStyle,
   selectButtonStyle,
   selectedTextStyle,
-} from '@/shared/component/createWorkSpace/category/WorkSpaceCategory.style';
-import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
-import { buttonStyle, sectionStyle } from '@/shared/component/createWorkSpace/name/WorkSpaceName.style';
+} from '@/shared/component/createWorkSpaceModal/modalContents/category/WorkSpaceCategory.style';
+import {
+  buttonStyle,
+  sectionStyle,
+} from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
-import { useWorkSpaceContext } from '@/shared/store/useWorkSpaceContext';
+import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
-  const { setCategory, nextStep } = useWorkSpaceContext();
+  const { setFormData, nextStep } = useWorkSpaceContext();
   const [selected, setSelected] = useState('');
 
   // 카테고리 데이터
@@ -47,15 +50,10 @@ const WorkSpaceCategory = () => {
     };
   }, [isOpen, close, ref]);
 
-  useEffect(() => {
-    if (selected) {
-      setCategory(selected);
-      close?.();
-    }
-  }, [selected, setCategory, close]);
-
   const handleSelect = (id: string) => {
     setSelected(id);
+    setFormData({ category: id });
+    close?.();
   };
 
   const handleNext = () => {

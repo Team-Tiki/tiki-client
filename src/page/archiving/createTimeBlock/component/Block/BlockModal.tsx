@@ -11,35 +11,36 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
-import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
-import { useBlockContext } from '@/shared/store/useBlockContext';
+import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
+import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
 const BlockModal = () => {
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
-  const { blockName, setBlockName, setBlockType, startDate, setStartDate, endDate, setEndDate, nextStep } =
-    useBlockContext();
+  const { formData, setFormData, nextStep } = useBlockContext();
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {
-      setBlockName(e.target.value);
+      setFormData({ blockName: e.target.value });
     }
   };
 
   const isButtonActive =
-    blockName.trim() !== '' &&
+    formData.blockName.trim() !== '' &&
     selectedIcon !== -1 &&
-    startDate.length === 10 &&
-    endDate.length === 10 &&
+    formData.startDate.length === 10 &&
+    formData.endDate.length === 10 &&
     isDateRangeValid;
 
   const handleNext = () => {
     if (isButtonActive) {
       const blockIconType = BLOCK_ICON[selectedIcon].name;
-      setBlockType(blockIconType);
-      setStartDate(startDate);
-      setEndDate(endDate);
+      setFormData({
+        blockType: blockIconType,
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+      });
       nextStep();
     }
   };
@@ -74,11 +75,11 @@ const BlockModal = () => {
               size="large"
               placeholder="활동,행사명 등"
               css={{ width: '100%' }}
-              value={blockName}
+              value={formData.blockName}
               onChange={handleBlockNameChange}
             />
             <Text tag="body7" css={textStyle}>
-              {blockName.length} / 25
+              {formData.blockName.length} / 25
             </Text>
           </Flex>
         </BlockBox>
@@ -86,10 +87,10 @@ const BlockModal = () => {
         <BlockBox title="기간">
           <Flex styles={{ align: 'flex-start', direction: 'column', padding: '0', width: '100%' }}>
             <BlockDate
-              startDate={startDate}
-              endDate={endDate}
-              onSetStartDate={setStartDate}
-              onSetEndDate={setEndDate}
+              startDate={formData.startDate}
+              endDate={formData.endDate}
+              onSetStartDate={(date) => setFormData({ startDate: date })}
+              onSetEndDate={(date) => setFormData({ endDate: date })}
               onSetIsDateRangeValid={setIsDateRangeValid}
             />
           </Flex>

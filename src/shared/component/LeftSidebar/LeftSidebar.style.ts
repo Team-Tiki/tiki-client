@@ -42,6 +42,8 @@ export const leftSidebarListStyle = css({
   flexDirection: 'column',
 
   gap: '2.4rem',
+  overflowY: 'scroll',
+  height: '100rem',
 });
 
 export const arrowStyle = css({
