@@ -14,7 +14,7 @@ import Flex from '@/common/component/Flex/Flex';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 interface UploadModalProps {
   onClose: () => void;
@@ -31,7 +31,7 @@ const UploadModal = ({ onClose, teamId, type, blockData }: UploadModalProps) => 
 
   const { mutate: timeBlockMutate } = usePostTimeBlockMutation(teamId, type);
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   useEffect(() => {
     const allUploaded =

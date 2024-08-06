@@ -12,6 +12,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -20,12 +21,19 @@ import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useTeamStore } from '@/shared/store/team';
-
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
+  const [selectedBlock, setSelectedBlock] = useState<Block>();
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const teamId = new URLSearchParams(location.search).get('teamId');
+
+  if (!teamId) throw new Error('has no error');
+
+  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
+    useDate();
+  // 블록 생성 모달 관련 코드
+  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
@@ -50,19 +58,12 @@ const ArchivingPage = () => {
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
 
-  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate();
-
   const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
 
-  const [selectedBlock, setSelectedBlock] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
-
-  // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const handleNext = (blockData: {
     blockName: string;
