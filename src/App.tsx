@@ -3,6 +3,8 @@ import * as Sentry from '@sentry/react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
+
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import { theme } from '@/common/style/theme/theme';
 
@@ -15,6 +17,8 @@ import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const App = () => {
   const navigate = useNavigate();
+
+  const { reset } = useQueryErrorResetBoundary();
 
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -36,6 +40,7 @@ const App = () => {
       } else {
         navigate(PATH.ROOT);
       }
+      reset();
     }
   };
 
