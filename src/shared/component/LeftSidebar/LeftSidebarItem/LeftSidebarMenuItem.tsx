@@ -20,9 +20,14 @@ interface LeftSidebarMenuItemProps {
 }
 
 const LeftSidebarMenuItem = ({ isClicked, isExpanded, children = '', logoUrl, onClick }: LeftSidebarMenuItemProps) => {
+  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Enter') {
+      onClick();
+    }
+  };
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <li css={leftSidebarMenuItemStyle} onClick={onClick}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+    <li role="button" tabIndex={0} css={leftSidebarMenuItemStyle} onClick={onClick} onKeyDown={handleEnterKeyDown}>
       <PageIndicatorStick isClicked={isClicked} />
       <Flex css={clubInfoStyle(isClicked, isExpanded)}>
         <img src={logoUrl} alt={`${children?.toString()} icon`} css={clubLogoStyle} />
