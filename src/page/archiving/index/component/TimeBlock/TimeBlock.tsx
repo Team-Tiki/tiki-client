@@ -28,16 +28,19 @@ const TimeBlock = ({
   const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
   const startPosition = (new Date(startDate).getDate() - 1) * 6;
 
+  const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onBlockClick(e);
+    }
+  };
+
   return (
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     <div
       role="tab"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          onBlockClick(e);
-        }
+        handleEnterBlock(e);
       }}
       css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
       onClick={onBlockClick}

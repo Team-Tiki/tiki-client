@@ -17,13 +17,13 @@ export const useDate = (ref?: React.RefObject<HTMLDivElement>) => {
 
   const handlePrevYear = () => {
     setCurrentYear((prevYear) => prevYear - 1);
-    setSelectedMonth('1월');
+    setSelectedMonthString('1월');
     ref?.current?.scrollTo(0, 0);
   };
 
   const handleNextYear = () => {
     setCurrentYear((prevYear) => prevYear + 1);
-    setSelectedMonth('1월');
+    setSelectedMonthString('1월');
     ref?.current?.scrollTo(0, 0);
   };
 
