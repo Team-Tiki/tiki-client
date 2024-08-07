@@ -77,15 +77,6 @@ const LeftSidebar = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [isComplete]);
 
-  useEffect(() => {
-    const teamId = localStorage.getItem('teamId');
-    if (teamId) {
-      setTeamId(teamId);
-      setClicked(teamId);
-      navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
-    }
-  }, [setTeamId, navigate]);
-
   const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
   const handleNext2 = () =>
     setCurrentContent(
@@ -95,9 +86,10 @@ const LeftSidebar = () => {
 
   const handleShowcaseClick = () => {
     setClicked('showcase');
-    localStorage.removeItem('teamId');
+
     setIsWorkspaceClicked(false);
     navigate(PATH.SHOWCASE);
+
     close();
   };
 
@@ -106,9 +98,9 @@ const LeftSidebar = () => {
     setIsWorkspaceClicked(false); // 워크스페이스 클릭 상태 해제
 
     setTeamId(teamId);
-    localStorage.setItem('teamId', teamId);
 
     navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
+
     close();
   };
 
