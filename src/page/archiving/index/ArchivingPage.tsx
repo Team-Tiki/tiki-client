@@ -153,7 +153,7 @@ const ArchivingPage = () => {
         ref={sideBarRef}
         selectedTabId={selectedTabId}
         onSelectId={handleSelectedId}
-        onClickClose={handleClose}
+        onClose={handleClose}
       />
     </Flex>
   );

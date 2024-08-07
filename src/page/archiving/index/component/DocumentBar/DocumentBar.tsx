@@ -10,11 +10,11 @@ interface DocumentBarProps {
   selectedBlock?: Block;
   selectedTabId: string;
   onSelectId: (Id: string) => void;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
 const DocumentBar = (
-  { selectedBlock, selectedTabId, onSelectId, onClickClose }: DocumentBarProps,
+  { selectedBlock, selectedTabId, onSelectId, onClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
   const handleTabClick = (selectedTabId: string, tabId: string) => {
@@ -32,7 +32,7 @@ const DocumentBar = (
             selectedTabId={selectedTabId}
             blockName={selectedBlock.name}
             selectedBlock={selectedBlock}
-            onClickClose={onClickClose}
+            onClose={onClose}
           />
         )
       ) : (
