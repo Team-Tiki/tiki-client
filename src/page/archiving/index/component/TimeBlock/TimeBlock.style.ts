@@ -31,8 +31,6 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
 export const blockNameStyle = {
   margin: 'auto 0.7rem',
 
-  lineHeight: '120%',
-
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
