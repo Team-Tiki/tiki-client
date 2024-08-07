@@ -6,8 +6,8 @@ export class HTTPError extends Error {
 
   code?: number;
 
-  constructor(statusCode: number, mesaage?: string, code?: number) {
-    super(mesaage);
+  constructor(statusCode: number, message?: string, code?: number) {
+    super(message);
 
     let name = 'HTTPError';
 
