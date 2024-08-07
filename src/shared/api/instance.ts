@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { handleCheckAndSetToken, handleTokenError } from '@/shared/api/interceptor';
+import { handleAPIError, handleCheckAndSetToken, handleTokenError } from '@/shared/api/interceptor';
 
 export const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`,
@@ -23,3 +23,5 @@ export const axiosPublicInstance = axios.create({
 axiosInstance.interceptors.request.use(handleCheckAndSetToken);
 
 axiosInstance.interceptors.response.use((res) => res, handleTokenError);
+
+axiosInstance.interceptors.response.use((res) => res, handleAPIError);
