@@ -29,7 +29,7 @@ import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 const ArchivingPage = () => {
-  const [selectedId, setSelectedId] = useState('total');
+  const [selectedTabId, setSelectedTabId] = useState('total');
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const daySectionRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ const ArchivingPage = () => {
     endDay,
   } = useDate(daySectionRef);
   const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
-
+  
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,6 +65,7 @@ const ArchivingPage = () => {
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
+  
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
 
   useEffect(() => {
@@ -73,7 +74,7 @@ const ArchivingPage = () => {
   }, [teamId]);
 
   const handleSelectedId = (id: string) => {
-    setSelectedId(id);
+    setSelectedTabId(id);
   };
 
   const handleNext = (blockData: {
@@ -104,7 +105,7 @@ const ArchivingPage = () => {
     });
 
     setSelectedBlock(block);
-    setSelectedId('selected');
+    setSelectedTabId('selected');
   };
 
   return (
@@ -161,9 +162,9 @@ const ArchivingPage = () => {
       <DocumentBar
         selectedBlock={selectedBlock}
         ref={sideBarRef}
-        selectedId={selectedId}
+        selectedTabId={selectedTabId}
         onSelectId={handleSelectedId}
-        onClickClose={handleClose}
+        onClose={handleClose}
       />
     </Flex>
   );

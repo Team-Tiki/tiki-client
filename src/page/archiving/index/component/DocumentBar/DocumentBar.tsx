@@ -8,35 +8,35 @@ import { ForwardedRef, forwardRef } from 'react';
 
 interface DocumentBarProps {
   selectedBlock?: Block;
-  selectedId: string;
+  selectedTabId: string;
   onSelectId: (Id: string) => void;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
 const DocumentBar = (
-  { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,
+  { selectedBlock, selectedTabId, onSelectId, onClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const handleTabClick = (selectedId: string, tabId: string) => {
-    if (tabId !== selectedId) {
+  const handleTabClick = (selectedTabId: string, tabId: string) => {
+    if (tabId !== selectedTabId) {
       onSelectId(tabId);
     }
   };
 
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
-      <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      {selectedId === 'selected' ? (
+      <DocumentBarTab selectedTabId={selectedTabId} onTabClick={handleTabClick} />
+      {selectedTabId === 'selected' ? (
         selectedBlock && (
           <SelectedBlock
-            selectedId={selectedId}
+            selectedTabId={selectedTabId}
             blockName={selectedBlock.name}
             selectedBlock={selectedBlock}
-            onClickClose={onClickClose}
+            onClose={onClose}
           />
         )
       ) : (
-        <TotalDocument selectedId={selectedId} />
+        <TotalDocument selectedTabId={selectedTabId} />
       )}
     </aside>
   );
