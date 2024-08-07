@@ -18,6 +18,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Add from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -26,21 +27,42 @@ import Modal from '@/common/component/Modal/Modal';
 import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useTeamStore } from '@/shared/store/team';
-
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
+  const [selectedBlock, setSelectedBlock] = useState<Block>();
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const teamId = new URLSearchParams(location.search).get('teamId');
+  
+  if (!teamId) throw new Error('has no error');
+
+  // 블록 생성 모달 관련 코드
+  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  
+  const { currentYear, selectedMonthString, setSelectedMonthString, handlePrevYear, handleNextYear, endDay } =
+    useDate();
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
 
+  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+  
+  const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
+
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const timeBlocks: Block[] = data?.timeBlocks || [];
+  const blockFloors = useMemo(
+    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
+    [currentYear, endDay, selectedMonthString, timeBlocks]
+  );
+  
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
   };
-
+  
   const handleBlockClick = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
     block: Block
@@ -56,26 +78,6 @@ const ArchivingPage = () => {
     setSelectedBlock(block);
     setSelectedId('selected');
   };
-
-  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
-
-  const { currentYear, selectedMonthString, setSelectedMonthString, handlePrevYear, handleNextYear, endDay } =
-    useDate();
-
-  const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
-
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
-
-  const [selectedBlock, setSelectedBlock] = useState<Block>();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = useMemo(
-    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
-    [currentYear, endDay, selectedMonthString, timeBlocks]
-  );
-
-  // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const handleNext = (blockData: {
     blockName: string;

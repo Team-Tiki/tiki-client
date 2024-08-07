@@ -5,7 +5,7 @@ import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -14,7 +14,6 @@ import Text from '@/common/component/Text/Text';
 import { scrollStyle } from '@/common/style/theme/scroll';
 
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
 
 import { PERSONAL, TERM } from '@/mock/data/term';
 
@@ -39,9 +38,6 @@ const TermPage = () => {
       setTotalAgreeClicked(false);
     }
   }, [optionalTermsStatus, requiredTermsStatus, totalAgreeClicked]);
-
-  const { isLoggedIn } = useStore();
-  if (isLoggedIn) return <Navigate to={PATH.SHOWCASE} />;
 
   const 약관전체동의클릭 = () => {
     setTotalAgreeClicked((prev) => !prev);

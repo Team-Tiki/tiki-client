@@ -1,26 +1,27 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
+import { useQueryClient } from '@tanstack/react-query';
+
 import { PATH } from '@/shared/constant/path';
-import useStore from '@/shared/store/auth';
+import { useAuth } from '@/shared/store/auth';
 
 export const useLogout = () => {
-  const { logout: onLogout } = useStore();
+  const { logout: onLogout } = useAuth();
 
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const logout = useCallback(() => {
     onLogout();
 
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-    const refreshToken = localStorage.getItem('refresh');
+    localStorage.clear();
 
-    if (accessToken) localStorage.removeItem(ACCESS_TOKEN_KEY);
-    if (refreshToken) localStorage.removeItem('refresh');
+    queryClient.clear();
 
     navigate(PATH.LOGIN);
-  }, [navigate, onLogout]);
+  }, [navigate, onLogout, queryClient]);
 
   return { logout };
 };

@@ -30,7 +30,7 @@ const PasswordAuthPage = () => {
   } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
 
   const navigate = useNavigate();
-  const { resendMailMutation } = useResendMailMutation(email);
+  const { mutate: resendMailMutation } = useResendMailMutation(email);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
 
   const handleMailSend = useCallback(() => {
