@@ -33,6 +33,7 @@ const ArchivingPage = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const daySectionRef = useRef<HTMLDivElement>(null);
+
   const location = useLocation();
 
   const teamId = new URLSearchParams(location.search).get('teamId');
@@ -52,6 +53,15 @@ const ArchivingPage = () => {
   } = useDate(daySectionRef);
   const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
 
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const timeBlocks: Block[] = data?.timeBlocks || [];
+  const blockFloors = useMemo(
+    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
+    [currentYear, endDay, selectedMonthString, timeBlocks]
+  );
+
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
@@ -61,15 +71,6 @@ const ArchivingPage = () => {
     setSelectedMonthString(`${currentDate.getMonth() + 1}월` as MonthType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamId]);
-
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = useMemo(
-    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
-    [currentYear, endDay, selectedMonthString, timeBlocks]
-  );
 
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
