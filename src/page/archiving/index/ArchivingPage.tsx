@@ -1,6 +1,12 @@
 import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
 import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
-import { buttonStyle, contentStyle, daySectionStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
+import {
+  buttonStyle,
+  contentStyle,
+  daySectionStyle,
+  pageStyle,
+  timelineStyle,
+} from '@/page/archiving/index/ArchivingPage.style';
 import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
@@ -11,10 +17,10 @@ import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import AddIc from '@/common/asset/svg/add_btn.svg?react';
+import Add from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
@@ -27,23 +33,40 @@ const ArchivingPage = () => {
 
   const location = useLocation();
   const teamId = new URLSearchParams(location.search).get('teamId');
-
+  
   if (!teamId) throw new Error('has no error');
 
-  const { currentDate, currentYear, selectedMonth, setSelectedMonth, handlePrevYear, handleNextYear, endDay } =
-    useDate();
   // 블록 생성 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
+  
+  const { currentYear, selectedMonthString, setSelectedMonthString, handlePrevYear, handleNextYear, endDay } =
+    useDate();
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
 
+  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+  
+  const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
+
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const timeBlocks: Block[] = data?.timeBlocks || [];
+  const blockFloors = useMemo(
+    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
+    [currentYear, endDay, selectedMonthString, timeBlocks]
+  );
+  
   const handleSelectedId = (id: string) => {
     setSelectedId(id);
   };
-
-  const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
+  
+  const handleBlockClick = (
+    e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
+    block: Block
+  ) => {
     e.stopPropagation();
 
     e.currentTarget.scrollIntoView({
@@ -56,15 +79,6 @@ const ArchivingPage = () => {
     setSelectedId('selected');
   };
 
-  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
-
-  const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
-
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
-
-  const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
-
   const handleNext = (blockData: {
     blockName: string;
     blockType: string;
@@ -75,41 +89,17 @@ const ArchivingPage = () => {
   };
 
   return (
-    <Flex
-      styles={{
-        justify: 'center',
-        align: 'center',
-        width: '100%',
-        height: '100%',
-        paddingLeft: '6rem',
-      }}
-      css={{ overflowY: 'hidden', overflowX: 'hidden' }}>
+    <Flex css={pageStyle}>
       <section css={timelineStyle}>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
           <MonthHeader
-            currentMonth={selectedMonth}
-            onMonthClick={(month) => setSelectedMonth(month)}
+            currentMonth={selectedMonthString}
+            onMonthClick={setSelectedMonthString}
             selectedBlock={selectedBlock}
           />
           <div id="block_area" css={daySectionStyle}>
-            {Array.from({ length: endDay.getDate() }, (_, index) => {
-              const day = index + 1;
-              const isEven = day % 2 === 0;
-
-              return (
-                <DaySection
-                  key={day}
-                  day={day}
-                  isEven={isEven}
-                  isToday={
-                    day === currentDate.getDate() &&
-                    currentYear === currentDate.getFullYear() &&
-                    selectedMonth === `${currentDate.getMonth() + 1}월`
-                  }
-                />
-              );
-            })}
+            <DaySection endDay={endDay} />
 
             {timeBlocks.map((block: Block) => {
               const { startDate, endDate } = block;
@@ -117,7 +107,7 @@ const ArchivingPage = () => {
                 startDate: new Date(startDate),
                 endDate: new Date(endDate),
                 currentYear,
-                selectedMonth: selectedMonthNumber,
+                selectedMonth: selectedMonth,
               });
 
               return (
@@ -142,7 +132,7 @@ const ArchivingPage = () => {
             variant="action"
             css={buttonStyle(selectedBlock)}
             onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
-            <AddIc width={24} height={24} />
+            <Add width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
