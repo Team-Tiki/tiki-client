@@ -1,10 +1,10 @@
 import { ReactNode, useEffect } from 'react';
 
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
-import useStore from '@/shared/store/auth';
+import { useAuth } from '@/shared/store/auth';
 
 const Login = ({ children }: { children: ReactNode }) => {
-  const { login } = useStore();
+  const { login } = useAuth();
 
   useEffect(() => {
     if (localStorage.getItem(ACCESS_TOKEN_KEY)) {

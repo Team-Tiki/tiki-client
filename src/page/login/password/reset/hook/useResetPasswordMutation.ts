@@ -4,10 +4,11 @@ import { isAxiosError } from 'axios';
 
 import { resetPassword } from '@/shared/api/members/password';
 import { PasswordReset } from '@/shared/api/members/password/type';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 export const useResetPasswordMutation = () => {
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
+
   const resetPasswordMutation = useMutation({
     mutationFn: (data: PasswordReset) => resetPassword(data),
     onSuccess: () => {
