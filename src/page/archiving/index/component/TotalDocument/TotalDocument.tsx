@@ -11,11 +11,11 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import useDebounce from '@/common/hook/useDebounce';
 
-interface DocumentBarToolProps {
-  selectedId: string;
+interface TotalDocumentProps {
+  selectedTabId: string;
 }
 
-const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
+const TotalDocument = ({ selectedTabId }: TotalDocumentProps) => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
   const location = useLocation();
@@ -63,10 +63,10 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
             <DocumentItem
               key={data.documentId}
               documentId={data.documentId}
-              selectedId={selectedId}
+              selectedTabId={selectedTabId}
               blockName={data.blockName}
-              fileUrl={data.fileUrl}
-              color={data.color}>
+              documentUrl={data.fileUrl}
+              blockColor={data.color}>
               {data.fileName}
             </DocumentItem>
           )

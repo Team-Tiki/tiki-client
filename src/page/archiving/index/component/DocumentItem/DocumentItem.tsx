@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
-  blockNameTextStyle,
+  blockNameStyle,
   containerStyle,
-  fileNameStyle,
+  documentNameStyle,
 } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
-import { handleDownload } from '@/page/archiving/index/util/document';
+import { downloadDocument } from '@/page/archiving/index/util/document';
 
 import { ReactNode } from 'react';
 
@@ -21,51 +20,68 @@ import { useTeamId } from '@/shared/store/team';
 interface DocumentItemProps {
   documentId: number;
   children: ReactNode;
-  selectedId: string;
+  selectedTabId: string;
   blockName?: string;
-  fileUrl: string;
-  color?: string;
+  documentUrl: string;
+  blockColor?: string;
 }
 
-const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, color }: DocumentItemProps) => {
+const DocumentItem = ({
+  documentId,
+  children,
+  selectedTabId,
+  blockName,
+  documentUrl,
+  blockColor,
+}: DocumentItemProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
-  const fileName = children?.toString();
+  const documentName = children?.toString();
 
   const teamId = useTeamId();
 
-  //문서 클릭시 띄워주는 함수
-  const onClickDocumentItem = () => {
-    window.open(fileUrl);
+  const handleDocumentItemClick = () => {
+    window.open(documentUrl);
+  };
+
+  const handleDocumentItemKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Enter') {
+      window.open(documentUrl);
+    }
   };
 
   const handleDownloadClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    handleDownload(fileUrl, fileName);
+    downloadDocument(documentUrl, documentName);
     e.stopPropagation();
   };
 
-  const handleTrashClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const handleTrashBoxClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
     openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={+teamId} id={documentId} />);
   };
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
-      <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
-        {color && (
+      <li
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+        role="button"
+        tabIndex={0}
+        css={containerStyle(selectedTabId)}
+        onClick={handleDocumentItemClick}
+        onKeyDown={handleDocumentItemKeyDown}>
+        {blockColor && (
           <div>
-            <Text tag="body8" css={blockNameTextStyle(color)}>
+            <Text tag="body8" css={blockNameStyle(blockColor)}>
               {blockName}
             </Text>
           </div>
         )}
         <Flex>
-          <Text tag="body6" css={fileNameStyle}>
-            {fileName}
+          <Text tag="body6" css={documentNameStyle}>
+            {documentName}
           </Text>
           <Download width={20} height={20} css={{ cursor: 'pointer' }} onClick={handleDownloadClick} />
-          <TrashBox width={20} height={20} onClick={(e) => handleTrashClick(e)} css={{ cursor: 'pointer' }} />
+          <TrashBox width={20} height={20} onClick={(e) => handleTrashBoxClick(e)} css={{ cursor: 'pointer' }} />
         </Flex>
       </li>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />

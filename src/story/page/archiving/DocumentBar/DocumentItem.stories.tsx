@@ -1,5 +1,5 @@
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Page/Archiving/DocumentBar/DocumentItem',
@@ -9,9 +9,9 @@ const meta = {
   },
   args: {
     children: '6월 회의록(1).word',
-    selectedId: 'total',
+    selectedTabId: 'total',
     documentId: 1,
-    fileUrl: '',
+    documentUrl: '',
   },
   argTypes: {
     children: {

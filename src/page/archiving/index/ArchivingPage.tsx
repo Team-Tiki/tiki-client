@@ -28,17 +28,17 @@ import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 const ArchivingPage = () => {
-  const [selectedId, setSelectedId] = useState('total');
+  const [selectedTabId, setSelectedTabId] = useState('total');
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const location = useLocation();
   const teamId = new URLSearchParams(location.search).get('teamId');
-  
+
   if (!teamId) throw new Error('has no error');
 
   // 블록 생성 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
-  
+
   const { currentYear, selectedMonthString, setSelectedMonthString, handlePrevYear, handleNextYear, endDay } =
     useDate();
 
@@ -47,7 +47,7 @@ const ArchivingPage = () => {
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
-  
+
   const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
@@ -58,11 +58,11 @@ const ArchivingPage = () => {
     () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
     [currentYear, endDay, selectedMonthString, timeBlocks]
   );
-  
+
   const handleSelectedId = (id: string) => {
-    setSelectedId(id);
+    setSelectedTabId(id);
   };
-  
+
   const handleBlockClick = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
     block: Block
@@ -76,7 +76,7 @@ const ArchivingPage = () => {
     });
 
     setSelectedBlock(block);
-    setSelectedId('selected');
+    setSelectedTabId('selected');
   };
 
   const handleNext = (blockData: {
@@ -142,9 +142,9 @@ const ArchivingPage = () => {
       <DocumentBar
         selectedBlock={selectedBlock}
         ref={sideBarRef}
-        selectedId={selectedId}
+        selectedTabId={selectedTabId}
         onSelectId={handleSelectedId}
-        onClickClose={handleClose}
+        onClose={handleClose}
       />
     </Flex>
   );
