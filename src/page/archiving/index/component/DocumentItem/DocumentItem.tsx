@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   blockNameStyle,
   containerStyle,
@@ -45,6 +44,12 @@ const DocumentItem = ({
     window.open(documentUrl);
   };
 
+  const handleDocumentItemKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Enter') {
+      window.open(documentUrl);
+    }
+  };
+
   const handleDownloadClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     downloadDocument(documentUrl, documentName);
     e.stopPropagation();
@@ -57,8 +62,13 @@ const DocumentItem = ({
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
-      <li css={containerStyle(selectedTabId)} onClick={handleDocumentItemClick}>
+      <li
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+        role="button"
+        tabIndex={0}
+        css={containerStyle(selectedTabId)}
+        onClick={handleDocumentItemClick}
+        onKeyDown={handleDocumentItemKeyDown}>
         {blockColor && (
           <div>
             <Text tag="body8" css={blockNameStyle(blockColor)}>
