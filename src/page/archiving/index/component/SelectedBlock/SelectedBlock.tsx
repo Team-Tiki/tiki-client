@@ -18,14 +18,14 @@ import { useTeamId } from '@/shared/store/team';
 
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
-interface DocumentBarInfoProps {
+interface SelectedBlockProps {
   selectedTabId: string;
   blockName: string;
   selectedBlock: Block;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
-const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClose }: SelectedBlockProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   const teamId = useTeamId();
@@ -36,7 +36,7 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClickClose }
   const endDate = formattingDate(selectedBlock.endDate);
 
   const handleModalClose = () => {
-    onClickClose();
+    onClose();
     closeModal;
   };
 
