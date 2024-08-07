@@ -15,9 +15,10 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
+import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Add from '@/common/asset/svg/add_btn.svg?react';
@@ -31,25 +32,27 @@ const ArchivingPage = () => {
   const [selectedTabId, setSelectedTabId] = useState('total');
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
-  const location = useLocation();
-  const teamId = new URLSearchParams(location.search).get('teamId');
+  const daySectionRef = useRef<HTMLDivElement>(null);
 
+  const location = useLocation();
+
+  const teamId = new URLSearchParams(location.search).get('teamId');
   if (!teamId) throw new Error('has no error');
 
   // 블록 생성 모달 관련 코드
   const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
-  const { currentYear, selectedMonthString, setSelectedMonthString, handlePrevYear, handleNextYear, endDay } =
-    useDate();
-
-  const handleClose = () => {
-    selectedBlock && setSelectedBlock(undefined);
-  };
-
-  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
-
+  const {
+    currentDate,
+    currentYear,
+    selectedMonthString,
+    setSelectedMonthString,
+    handlePrevYear,
+    handleNextYear,
+    endDay,
+  } = useDate(daySectionRef);
   const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
-
+  
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,8 +62,34 @@ const ArchivingPage = () => {
     [currentYear, endDay, selectedMonthString, timeBlocks]
   );
 
+  const handleClose = () => {
+    selectedBlock && setSelectedBlock(undefined);
+  };
+  
+  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+
+  useEffect(() => {
+    setSelectedMonthString(`${currentDate.getMonth() + 1}월` as MonthType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [teamId]);
+
   const handleSelectedId = (id: string) => {
     setSelectedTabId(id);
+  };
+
+  const handleNext = (blockData: {
+    blockName: string;
+    blockType: string;
+    dates: { startDate: string; endDate: string };
+  }) => {
+    const type = 'executive';
+    setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
+  };
+
+  const handleMonthClick = (month: MonthType) => {
+    console.log('click');
+    daySectionRef.current?.scrollTo(0, 0);
+    setSelectedMonthString(month);
   };
 
   const handleBlockClick = (
@@ -79,15 +108,6 @@ const ArchivingPage = () => {
     setSelectedTabId('selected');
   };
 
-  const handleNext = (blockData: {
-    blockName: string;
-    blockType: string;
-    dates: { startDate: string; endDate: string };
-  }) => {
-    const type = 'executive';
-    setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
-  };
-
   return (
     <Flex css={pageStyle}>
       <section css={timelineStyle}>
@@ -95,10 +115,10 @@ const ArchivingPage = () => {
         <Flex css={contentStyle}>
           <MonthHeader
             currentMonth={selectedMonthString}
-            onMonthClick={setSelectedMonthString}
+            onMonthClick={handleMonthClick}
             selectedBlock={selectedBlock}
           />
-          <div id="block_area" css={daySectionStyle}>
+          <div id="block_area" css={daySectionStyle} ref={daySectionRef}>
             <DaySection endDay={endDay} />
 
             {timeBlocks.map((block: Block) => {

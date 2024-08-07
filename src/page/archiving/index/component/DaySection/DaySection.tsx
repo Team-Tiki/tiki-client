@@ -1,5 +1,4 @@
 import {
-  bodyStyle,
   dayHeaderStyle,
   dayStyle,
   selectedDayStyle,
@@ -51,7 +50,6 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
         return (
           <Flex css={dayStyle(isEven, isToday)}>
             <Flex css={dayHeaderStyle(isToday)}>{day + 1}</Flex>
-            <Flex css={bodyStyle} />
             {isToday && (
               <>
                 <Circle width={8} height={8} css={selectedDayStyle} />
