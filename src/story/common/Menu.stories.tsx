@@ -31,8 +31,18 @@ export const Primary: Story = {
     isOpen: true,
     children: (
       <>
-        <MenuItem LeftIcon={<Logo />}>1st primary item</MenuItem>
-        <MenuItem>2nd primary item</MenuItem>
+        <MenuItem
+          variant="primary"
+          LeftIcon={<Logo width={16} height={16} />}
+          onSelect={() => console.log('This is 1st')}>
+          1st primary item
+        </MenuItem>
+        <MenuItem
+          variant="primary"
+          LeftIcon={<Logo width={16} height={16} />}
+          onSelect={() => console.log('This is 2nd')}>
+          2nd primary item
+        </MenuItem>
       </>
     ),
   },
