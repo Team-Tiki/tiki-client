@@ -1,17 +1,18 @@
+import { css } from '@emotion/react';
+
 import { MenuProps } from '@/common/component/Menu/Menu';
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (variant: Required<MenuProps>['variant'], isOpen: boolean) => {
+export const containerStyle = (isOpen: boolean) =>
+  css({
+    display: `${isOpen ? 'flex' : 'none'}`,
+    flexDirection: 'column',
+    gap: '0.4rem',
+  });
+
+export const contentStyle = (variant: Required<MenuProps>['variant']) => {
   const style = {
     primary: {
-      display: `${isOpen ? 'flex' : 'none'}`,
-      //flexDirection: 'column',
-      gap: '0.4rem',
-
-      //position: 'fixed',
-      bottom: '1rem',
-      left: '7rem',
-
       padding: '1rem 1.2rem',
 
       border: `1px solid ${theme.colors.gray_300}`,

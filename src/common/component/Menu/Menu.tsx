@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { containerStyle } from '@/common/component/Menu/Menu.style';
+import { containerStyle, contentStyle } from '@/common/component/Menu/Menu.style';
 
 export interface MenuProps {
   variant?: 'primary';
@@ -9,7 +9,7 @@ export interface MenuProps {
 }
 
 const Menu = ({ variant = 'primary', children, isOpen = false }: MenuProps) => {
-  return <div css={containerStyle(variant, isOpen)}>{children}</div>;
+  return <div css={[containerStyle(isOpen), contentStyle(variant)]}>{children}</div>;
 };
 
 export default Menu;
