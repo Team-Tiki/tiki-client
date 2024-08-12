@@ -1,9 +1,9 @@
-import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
-
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useError, useOverlay } from '@/common/hook';
+
+import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH, SUPPORTING_TEXT } from '@/shared/constant/form';
@@ -77,7 +77,7 @@ export const useInfoForm = () => {
       if (value.length === DATE_MAXLENGTH && info.birth.length === FORMATTED_DATE_MAXLENGTH) {
         value = info.birth.replace(/-/g, '');
       } else {
-        value = getFormatDateString(getFormatNumberString(value, 8));
+        value = getFormatDateString(getFormatNumberString(value, DATE_MAXLENGTH));
       }
 
       setInfo((prev) => ({

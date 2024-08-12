@@ -1,9 +1,9 @@
-import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
-import { InfoFormData } from '@/page/signUp/info/hook/common/useInfoForm';
-
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
 import { useError } from '@/common/hook';
+
+import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
+import { InfoFormData } from '@/page/signUp/info/hook/common/useInfoForm';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
 import { PASSWORD_VALID_FORMAT, SUPPORTING_TEXT } from '@/shared/constant/form';
