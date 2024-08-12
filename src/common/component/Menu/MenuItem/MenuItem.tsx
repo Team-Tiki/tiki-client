@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
-import { containerStyle, variantStyle } from '@/common/component/Menu/MenuItem/MenuItem.style';
+import { containerStyle } from '@/common/component/Menu/MenuItem/MenuItem.style';
 
-export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface MenuItemProps extends HTMLAttributes<HTMLLIElement> {
   variant?: 'primary';
   onSelect?: () => void;
   LeftIcon?: ReactNode;
@@ -10,17 +10,18 @@ export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const MenuItem = ({ variant = 'primary', LeftIcon, onSelect, children, ...props }: MenuItemProps) => {
   return (
-    <button
-      type="button"
-      css={[containerStyle, variantStyle(variant)]}
-      onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
+    <li
+      role="list"
+      tabIndex={0}
+      css={containerStyle}
+      onKeyDown={(e: React.KeyboardEvent<HTMLLIElement>) => {
         if (e.key === 'Enter') onSelect;
       }}
       onClick={onSelect}
       {...props}>
       {LeftIcon}
       <p>{children}</p>
-    </button>
+    </li>
   );
 };
 
