@@ -1,9 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import {
-  blockNameTextStyle,
-  containerStyle,
-  fileNameStyle,
-} from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
 import { handleDownload } from '@/page/archiving/index/util/document';
 
 import { ReactNode } from 'react';
@@ -20,17 +16,15 @@ import { useTeamId } from '@/shared/store/team';
 
 interface DocumentItemProps {
   documentId: number;
-  children: ReactNode;
-  selectedId: string;
+  children?: ReactNode;
   blockName?: string;
   fileUrl: string;
   color?: string;
+  fileName: string;
 }
 
-const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, color }: DocumentItemProps) => {
+const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
-
-  const fileName = children?.toString();
 
   const teamId = useTeamId();
 
@@ -52,14 +46,8 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
   return (
     <>
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions  */}
-      <li css={containerStyle(selectedId)} onClick={onClickDocumentItem}>
-        {color && (
-          <div>
-            <Text tag="body8" css={blockNameTextStyle(color)}>
-              {blockName}
-            </Text>
-          </div>
-        )}
+      <li css={containerStyle} onClick={onClickDocumentItem}>
+        {children}
         <Flex>
           <Text tag="body6" css={fileNameStyle}>
             {fileName}

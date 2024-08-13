@@ -20,13 +20,12 @@ import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
-  selectedId: string;
   blockName: string;
   selectedBlock: Block;
   onClickClose: () => void;
 }
 
-const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
+const SelectedBlock = ({ blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   const location = useLocation();
@@ -78,11 +77,10 @@ const SelectedBlock = ({ selectedId, blockName, selectedBlock, onClickClose }: D
           <DocumentItem
             key={data.documentId}
             documentId={data.documentId}
-            selectedId={selectedId}
             blockName={data.blockName}
-            fileUrl={data.fileUrl}>
-            {data.fileName}
-          </DocumentItem>
+            fileUrl={data.fileUrl}
+            fileName={data.fileName}
+          />
         ))}
       </Flex>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />

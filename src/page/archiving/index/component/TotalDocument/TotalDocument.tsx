@@ -1,3 +1,4 @@
+import BlockName from '@/page/archiving/index/component/DocumentItem/BlockName';
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
@@ -11,11 +12,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import useDebounce from '@/common/hook/useDebounce';
 
-interface DocumentBarToolProps {
-  selectedId: string;
-}
-
-const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
+const TotalDocument = () => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
   const location = useLocation();
@@ -63,11 +60,9 @@ const TotalDocument = ({ selectedId }: DocumentBarToolProps) => {
             <DocumentItem
               key={data.documentId}
               documentId={data.documentId}
-              selectedId={selectedId}
-              blockName={data.blockName}
               fileUrl={data.fileUrl}
-              color={data.color}>
-              {data.fileName}
+              fileName={data.fileName}>
+              <BlockName blockName={data.blockName} color={data.color} />
             </DocumentItem>
           )
         )}

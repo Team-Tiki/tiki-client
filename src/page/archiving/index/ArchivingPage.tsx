@@ -22,7 +22,6 @@ import { useModal, useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 const ArchivingPage = () => {
-  const [selectedId, setSelectedId] = useState('total');
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const location = useLocation();
@@ -39,10 +38,6 @@ const ArchivingPage = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
 
-  const handleSelectedId = (id: string) => {
-    setSelectedId(id);
-  };
-
   const handleBlockClick = (e: React.MouseEvent<HTMLDivElement>, block: Block) => {
     e.stopPropagation();
 
@@ -53,7 +48,6 @@ const ArchivingPage = () => {
     });
 
     setSelectedBlock(block);
-    setSelectedId('selected');
   };
 
   const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
@@ -149,13 +143,7 @@ const ArchivingPage = () => {
       </section>
 
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      <DocumentBar
-        selectedBlock={selectedBlock}
-        ref={sideBarRef}
-        selectedId={selectedId}
-        onSelectId={handleSelectedId}
-        onClickClose={handleClose}
-      />
+      <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClickClose={handleClose} />
     </Flex>
   );
 };
