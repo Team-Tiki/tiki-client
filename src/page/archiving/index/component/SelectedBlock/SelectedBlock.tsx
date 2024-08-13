@@ -26,7 +26,6 @@ interface DocumentBarInfoProps {
 }
 
 const SelectedBlock = ({ blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
-  console.log('리랜더링');
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   const location = useLocation();
