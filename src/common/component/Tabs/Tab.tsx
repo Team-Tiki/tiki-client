@@ -3,14 +3,14 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { tabActiveStyle, tabDefaultStyle, tabVariantStyle } from '@/common/component/Tabs/style';
 
 export interface TabProps extends ComponentPropsWithoutRef<'li'> {
-  tabId: number;
+  tabId?: number;
   children: ReactNode;
   selectedTab: number;
   onTabClick: (tabId: number) => void;
   variant?: 'round';
 }
 
-const Tab = ({ tabId, children, selectedTab, onTabClick, variant = 'round', ...props }: TabProps) => {
+const Tab = ({ tabId = 0, children, selectedTab, onTabClick, variant = 'round', ...props }: TabProps) => {
   const handleTabClick = () => {
     onTabClick(tabId);
   };

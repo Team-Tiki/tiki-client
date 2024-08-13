@@ -20,12 +20,11 @@ import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
-  blockName: string;
   selectedBlock: Block;
   onClickClose: () => void;
 }
 
-const SelectedBlock = ({ blockName, selectedBlock, onClickClose }: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedBlock, onClickClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   const location = useLocation();
@@ -48,7 +47,7 @@ const SelectedBlock = ({ blockName, selectedBlock, onClickClose }: DocumentBarIn
       {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
-          {blockName}
+          {selectedBlock.name}
         </Heading>
         <Button
           variant="text"

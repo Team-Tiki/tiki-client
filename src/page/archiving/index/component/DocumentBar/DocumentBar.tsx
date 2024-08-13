@@ -21,17 +21,15 @@ const DocumentBar = ({ selectedBlock, onClickClose }: DocumentBarProps, ref: For
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
       <Tabs>
         <TabList>
-          <Tab tabId={0} selectedTab={selectedTab} onTabClick={setSelectedTab}>
+          <Tab selectedTab={selectedTab} onTabClick={setSelectedTab}>
             선택된 블록
           </Tab>
-          <Tab tabId={1} selectedTab={selectedTab} onTabClick={setSelectedTab}>
+          <Tab selectedTab={selectedTab} onTabClick={setSelectedTab}>
             전체 문서
           </Tab>
         </TabList>
         <TabPanel selectedTab={selectedTab}>
-          {selectedBlock && (
-            <SelectedBlock blockName={selectedBlock.name} selectedBlock={selectedBlock} onClickClose={onClickClose} />
-          )}
+          {selectedBlock && <SelectedBlock selectedBlock={selectedBlock} onClickClose={onClickClose} />}
           <TotalDocument />
         </TabPanel>
       </Tabs>
