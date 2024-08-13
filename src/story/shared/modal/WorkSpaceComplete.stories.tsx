@@ -21,4 +21,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Complete: Story = {};
+export const Complete: Story = {
+  args: {
+    step: 4,
+  },
+};
