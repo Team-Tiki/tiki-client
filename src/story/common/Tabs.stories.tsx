@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Tab from '@/common/component/TabComponent/Tab';
-import TabList from '@/common/component/TabComponent/TabList';
-import TabPanel from '@/common/component/TabComponent/TabPanel';
-import Tabs from '@/common/component/TabComponent/Tabs';
+import RoundTab from '@/common/component/Tabs/Tab/RoundTab';
+import TabList from '@/common/component/Tabs/TabList';
+import TabPanel from '@/common/component/Tabs/TabPanel';
+import Tabs from '@/common/component/Tabs/Tabs';
 
 const meta = {
   title: 'Common/Tabs',
@@ -29,12 +29,12 @@ export const TabsTest: Story = {
     return (
       <Tabs>
         <TabList>
-          <Tab tabId={0} selectedTab={selectedTab} onTabClick={handleTabClick}>
+          <RoundTab tabId={0} selectedTab={selectedTab} onTabClick={handleTabClick}>
             선택된 블록
-          </Tab>
-          <Tab tabId={1} selectedTab={selectedTab} onTabClick={handleTabClick}>
+          </RoundTab>
+          <RoundTab tabId={1} selectedTab={selectedTab} onTabClick={handleTabClick}>
             전체 문서
-          </Tab>
+          </RoundTab>
         </TabList>
         <TabPanel selectedTab={selectedTab}>
           <div>1번 탭</div>

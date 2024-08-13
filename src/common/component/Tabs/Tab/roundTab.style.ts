@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const defaultStyle = () =>
+export const roundTabDefaultStyle = () =>
   css({
     display: 'flex',
     justifyContent: 'center',
@@ -29,7 +29,7 @@ export const defaultStyle = () =>
     },
   });
 
-export const activeStyle = (isSelected: boolean) => {
+export const roundTabActiveStyle = (isSelected: boolean) => {
   return isSelected
     ? css({
         backgroundColor: theme.colors.white,
@@ -46,8 +46,3 @@ export const activeStyle = (isSelected: boolean) => {
         fontWeight: '500',
       });
 };
-
-// export const panelStyle = (isSelected: boolean) =>
-//   css({
-//     display: isSelected ? 'block' : 'hidden',
-//   });
