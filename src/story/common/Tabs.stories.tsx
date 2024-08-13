@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
-import RoundTab from '@/common/component/Tabs/Tab/RoundTab';
+import Tab from '@/common/component/Tabs/Tab';
 import TabList from '@/common/component/Tabs/TabList';
 import TabPanel from '@/common/component/Tabs/TabPanel';
 import Tabs from '@/common/component/Tabs/Tabs';
@@ -30,12 +30,12 @@ export const TabsTest: Story = {
     return (
       <Tabs>
         <TabList>
-          <RoundTab tabId={0} selectedTab={selectedTab} onTabClick={handleTabClick}>
+          <Tab tabId={0} selectedTab={selectedTab} onTabClick={handleTabClick} variant="round">
             선택된 블록
-          </RoundTab>
-          <RoundTab tabId={1} selectedTab={selectedTab} onTabClick={handleTabClick}>
+          </Tab>
+          <Tab tabId={1} selectedTab={selectedTab} onTabClick={handleTabClick} variant="round">
             전체 문서
-          </RoundTab>
+          </Tab>
         </TabList>
         <TabPanel selectedTab={selectedTab}>
           <div>1번 탭</div>

@@ -5,7 +5,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 
 import { ForwardedRef, forwardRef, useState } from 'react';
 
-import RoundTab from '@/common/component/Tabs/Tab/RoundTab';
+import Tab from '@/common/component/Tabs/Tab';
 import TabList from '@/common/component/Tabs/TabList';
 import TabPanel from '@/common/component/Tabs/TabPanel';
 import Tabs from '@/common/component/Tabs/Tabs';
@@ -21,12 +21,12 @@ const DocumentBar = ({ selectedBlock, onClickClose }: DocumentBarProps, ref: For
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
       <Tabs>
         <TabList>
-          <RoundTab tabId={0} selectedTab={selectedTab} onTabClick={setSelectedTab}>
+          <Tab tabId={0} selectedTab={selectedTab} onTabClick={setSelectedTab}>
             선택된 블록
-          </RoundTab>
-          <RoundTab tabId={1} selectedTab={selectedTab} onTabClick={setSelectedTab}>
+          </Tab>
+          <Tab tabId={1} selectedTab={selectedTab} onTabClick={setSelectedTab}>
             전체 문서
-          </RoundTab>
+          </Tab>
         </TabList>
         <TabPanel selectedTab={selectedTab}>
           {selectedBlock && (

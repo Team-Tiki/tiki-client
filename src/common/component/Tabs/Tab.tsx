@@ -1,16 +1,16 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { roundTabActiveStyle, roundTabDefaultStyle } from '@/common/component/Tabs/Tab/RoundTab.style';
+import { tabActiveStyle, tabDefaultStyle, tabVariantStyle } from '@/common/component/Tabs/style';
 
-interface RoundTabProps extends ComponentPropsWithoutRef<'li'> {
+export interface TabProps extends ComponentPropsWithoutRef<'li'> {
   tabId: number;
   children: ReactNode;
-  onClick?: () => void;
   selectedTab: number;
   onTabClick: (tabId: number) => void;
+  variant?: 'round';
 }
 
-const RoundTab = ({ tabId, children, selectedTab, onTabClick, ...props }: RoundTabProps) => {
+const Tab = ({ tabId, children, selectedTab, onTabClick, variant = 'round', ...props }: TabProps) => {
   const handleTabClick = () => {
     onTabClick(tabId);
   };
@@ -26,11 +26,11 @@ const RoundTab = ({ tabId, children, selectedTab, onTabClick, ...props }: RoundT
       tabIndex={0}
       onClick={handleTabClick}
       onKeyDown={handleTabKeyDown}
-      css={[roundTabDefaultStyle, roundTabActiveStyle(selectedTab === tabId)]}
+      css={[tabDefaultStyle, tabVariantStyle(variant), tabActiveStyle(selectedTab === tabId, variant)]}
       {...props}>
       {children}
     </li>
   );
 };
 
-export default RoundTab;
+export default Tab;
