@@ -4,40 +4,47 @@ import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/Select
 import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
 import { Block } from '@/page/archiving/index/type/blockType';
 
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, useState } from 'react';
+
+import Tab from '@/common/component/TabComponent/Tab';
+import TabList from '@/common/component/TabComponent/TabList';
+import TabPanel from '@/common/component/TabComponent/TabPanel';
+import Tabs from '@/common/component/TabComponent/Tabs';
 
 interface DocumentBarProps {
   selectedBlock?: Block;
   selectedId: string;
-  onSelectId: (Id: string) => void;
   onClickClose: () => void;
 }
 
 const DocumentBar = (
-  { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,
+  { selectedBlock, selectedId, onClickClose }: DocumentBarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const handleTabClick = (selectedId: string, tabId: string) => {
-    if (tabId !== selectedId) {
-      onSelectId(tabId);
-    }
-  };
-
+  const [selectedTab, setSelectedTab] = useState(0);
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
-      <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      {selectedId === 'selected' ? (
-        selectedBlock && (
-          <SelectedBlock
-            selectedId={selectedId}
-            blockName={selectedBlock.name}
-            selectedBlock={selectedBlock}
-            onClickClose={onClickClose}
-          />
-        )
-      ) : (
-        <TotalDocument selectedId={selectedId} />
-      )}
+      <Tabs>
+        <TabList>
+          <Tab tabId={0} selectedTab={selectedTab} onTabClick={setSelectedTab}>
+            선택된 블록
+          </Tab>
+          <Tab tabId={1} selectedTab={selectedTab} onTabClick={setSelectedTab}>
+            전체 문서
+          </Tab>
+        </TabList>
+        <TabPanel selectedTab={selectedTab}>
+          {selectedBlock && (
+            <SelectedBlock
+              selectedId={selectedId}
+              blockName={selectedBlock.name}
+              selectedBlock={selectedBlock}
+              onClickClose={onClickClose}
+            />
+          )}
+          <TotalDocument selectedId={selectedId} />
+        </TabPanel>
+      </Tabs>
     </aside>
   );
 };
