@@ -35,7 +35,7 @@ export const blockNameStyle = (color: string) =>
     textOverflow: 'ellipsis',
   });
 
-export const documentNameStyle = css({
+export const fileNameStyle = css({
   width: '18rem',
   maxHeight: '2.8rem',
 

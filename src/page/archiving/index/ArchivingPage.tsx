@@ -18,7 +18,7 @@ import {
   timelineStyle,
 } from '@/page/archiving/index/ArchivingPage.style';
 import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
-import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
+import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
@@ -153,7 +153,7 @@ const ArchivingPage = () => {
       </section>
 
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      <DocumentBarTab selectedBlock={selectedBlock} ref={sideBarRef} onClickClose={handleClose} />
+      <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={handleClose} />
     </Flex>
   );
 };

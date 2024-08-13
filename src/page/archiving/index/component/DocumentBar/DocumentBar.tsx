@@ -1,8 +1,3 @@
-import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
-import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
-import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
-import { Block } from '@/page/archiving/index/type/blockType';
-
 import { ForwardedRef, forwardRef, useState } from 'react';
 
 import Tab from '@/common/component/Tabs/Tab';
@@ -10,12 +5,17 @@ import TabList from '@/common/component/Tabs/TabList';
 import TabPanel from '@/common/component/Tabs/TabPanel';
 import Tabs from '@/common/component/Tabs/Tabs';
 
+import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
+import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
+import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
+import { Block } from '@/page/archiving/index/type/blockType';
+
 interface DocumentBarProps {
   selectedBlock?: Block;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
-const DocumentBar = ({ selectedBlock, onClickClose }: DocumentBarProps, ref: ForwardedRef<HTMLDivElement>) => {
+const DocumentBar = ({ selectedBlock, onClose }: DocumentBarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const [selectedTab, setSelectedTab] = useState(0);
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
@@ -29,7 +29,7 @@ const DocumentBar = ({ selectedBlock, onClickClose }: DocumentBarProps, ref: For
           </Tab>
         </TabList>
         <TabPanel selectedTab={selectedTab}>
-          {selectedBlock && <SelectedBlock selectedBlock={selectedBlock} onClickClose={onClickClose} />}
+          {selectedBlock && <SelectedBlock selectedBlock={selectedBlock} onClose={onClose} />}
           <TotalDocument />
         </TabPanel>
       </Tabs>

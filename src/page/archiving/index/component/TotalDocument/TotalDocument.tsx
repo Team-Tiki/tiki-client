@@ -5,10 +5,10 @@ import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
-import useDebounce from '@/common/hook/useDebounce';
+import { useDebounce } from '@/common/hook';
 
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { blockNameTextStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import { blockNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
 import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
@@ -64,7 +64,7 @@ const TotalDocument = () => {
               fileUrl={data.fileUrl}
               fileName={data.fileName}>
               <div>
-                <Text tag="body8" css={blockNameTextStyle(data.color)}>
+                <Text tag="body8" css={blockNameStyle(data.color)}>
                   {data.blockName}
                 </Text>
               </div>
