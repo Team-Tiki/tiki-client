@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useCallback, useContext, useState } from 'react';
 
 interface BlockFormData {
   blockName: string;
@@ -34,9 +34,9 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
     endDate: '',
   });
 
-  const nextStep = () => setStep((prev) => prev + 1);
+  const nextStep = useCallback(() => setStep((prev) => prev + 1), []);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setStep(1);
     setFormDataState({
       blockName: '',
@@ -44,11 +44,11 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
       startDate: '',
       endDate: '',
     });
-  };
+  }, []);
 
-  const setFormData = (data: Partial<BlockFormData>) => {
+  const setFormData = useCallback((data: Partial<BlockFormData>) => {
     setFormDataState((prev) => ({ ...prev, ...data }));
-  };
+  }, []);
 
   return (
     <BlockContext.Provider value={{ step, formData, setFormData, nextStep, reset }}>{children}</BlockContext.Provider>

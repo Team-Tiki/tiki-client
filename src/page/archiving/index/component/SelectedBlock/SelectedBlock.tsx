@@ -16,7 +16,7 @@ import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useModalStore } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentBarInfoProps {
@@ -38,11 +38,12 @@ const SelectedBlock = ({
   selectedBlock,
 }: DocumentBarInfoProps) => {
   const { teamId } = useTeamStore();
+  const openModal = useOpenModal();
 
   const handleDeleteClick = () => {
     //모달 띄우기
     const modalContent = <DeleteModal title="block" detail="block" teamId={+teamId} id={selectedBlock.timeBlockId} />;
-    useModalStore.getState().openModal(modalContent);
+    openModal(modalContent);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useCallback, useContext, useState } from 'react';
 
 interface WorkSpaceFormData {
   name: string;
@@ -32,20 +32,20 @@ export const WorkSpaceProvider = ({ children }: { children: ReactNode }) => {
     fileUrlData: '',
   });
 
-  const nextStep = () => setStep((prev) => prev + 1);
+  const nextStep = useCallback(() => setStep((prev) => prev + 1), []);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setStep(1);
     setFormDataState({
       name: '',
       category: '',
       fileUrlData: '',
     });
-  };
+  }, []);
 
-  const setFormData = (data: Partial<WorkSpaceFormData>) => {
+  const setFormData = useCallback((data: Partial<WorkSpaceFormData>) => {
     setFormDataState((prev) => ({ ...prev, ...data }));
-  };
+  }, []);
 
   return (
     <WorkSpaceContext.Provider value={{ step, formData, setFormData, nextStep, reset }}>

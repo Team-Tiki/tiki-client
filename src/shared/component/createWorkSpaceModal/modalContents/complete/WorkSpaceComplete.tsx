@@ -4,7 +4,13 @@ import Flex from '@/common/component/Flex/Flex';
 import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
 
-const WorkSpaceComplete = () => {
+interface WorkSpaceCompleteProps {
+  step: number;
+}
+
+const WorkSpaceComplete = ({ step }: WorkSpaceCompleteProps) => {
+  if (step !== 4) return null;
+
   return (
     <Flex
       tag={'section'}

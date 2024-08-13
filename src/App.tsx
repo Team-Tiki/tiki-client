@@ -44,8 +44,8 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
-        <ModalContainer />
         <div css={containerStyle}>
+          <ModalContainer />
           <LeftSidebar />
           <main css={layoutStyle}>
             <Outlet />

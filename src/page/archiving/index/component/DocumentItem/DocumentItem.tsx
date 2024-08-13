@@ -14,7 +14,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useModalStore } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentItemProps {
@@ -31,6 +31,8 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
 
   const { teamId } = useTeamStore();
 
+  const openModal = useOpenModal();
+
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {
     window.open(fileUrl);
@@ -45,7 +47,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
     e.stopPropagation();
     // 모달 띄우기
     const modalContent = <DeleteModal title="docs" detail="docs" teamId={+teamId} id={documentId} />;
-    useModalStore.getState().openModal(modalContent);
+    openModal(modalContent);
   };
 
   return (

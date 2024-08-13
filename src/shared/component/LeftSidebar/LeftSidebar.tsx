@@ -23,12 +23,12 @@ import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingM
 import { WorkSpaceFlow } from '@/shared/component/ModalFlow/WorkSpaceFlow';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useModalStore } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
-  const openModal = useModalStore((state) => state.openModal);
+  const openModal = useOpenModal();
   const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);

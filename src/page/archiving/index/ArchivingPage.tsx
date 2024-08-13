@@ -18,7 +18,7 @@ import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
-import { useModalStore } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
@@ -65,7 +65,7 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   // 블록 생성 모달 관련 코드
-  const openModal = useModalStore((state) => state.openModal);
+  const openModal = useOpenModal();
 
   const handleOpenBlockModal = () => {
     openModal(<BlockFlow />);

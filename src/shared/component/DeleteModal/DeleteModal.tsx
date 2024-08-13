@@ -8,7 +8,7 @@ import Text from '@/common/component/Text/Text';
 
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
-import { useModalStore } from '@/shared/store/modal';
+import { useCloseModal } from '@/shared/store/modal';
 
 interface DeleteModalProps {
   title: 'block' | 'docs';
@@ -21,7 +21,7 @@ const DeleteModal = ({ title, detail, teamId, id }: DeleteModalProps) => {
   const { mutate: blockMutate } = useDeleteBlockMutation();
   const { mutate: documentMutate } = useDeleteDocumentMutation();
 
-  const { closeModal } = useModalStore();
+  const closeModal = useCloseModal();
 
   const handleDeleteBlock = (teamId: number, id: number) => {
     blockMutate(

@@ -19,15 +19,18 @@ import {
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-const WorkSpaceCategory = () => {
+interface WorkSpaceCategoryProps {
+  step: number;
+}
+
+const WorkSpaceCategory = ({ step }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
   const { setFormData, nextStep } = useWorkSpaceContext();
   const [selected, setSelected] = useState('');
 
   // 카테고리 데이터
-  const { data } = useCategoryListQuery();
-  const categoryList = data?.data?.categories?.filter((category) => category !== '전체') || [];
+  const { data: categoryList } = useCategoryListQuery(false);
 
   useEffect(() => {
     const handleMouseDown = (event: MouseEvent) => {
@@ -49,6 +52,8 @@ const WorkSpaceCategory = () => {
       window.removeEventListener('mousedown', handleMouseDown);
     };
   }, [isOpen, close, ref]);
+
+  if (step !== 2) return null;
 
   const handleSelect = (id: string) => {
     setSelected(id);

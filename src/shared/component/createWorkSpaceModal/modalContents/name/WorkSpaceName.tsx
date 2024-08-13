@@ -12,7 +12,13 @@ import {
 } from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-const WorkSpaceName = () => {
+interface WorkSpaceNameProps {
+  step: number;
+}
+
+const WorkSpaceName = ({ step }: WorkSpaceNameProps) => {
+  if (step !== 1) return null;
+
   const [inputValue, setInputValue] = useState('');
   const { setFormData, nextStep } = useWorkSpaceContext();
 

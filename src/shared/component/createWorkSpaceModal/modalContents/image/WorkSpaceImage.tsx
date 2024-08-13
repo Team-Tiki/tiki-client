@@ -1,12 +1,13 @@
 import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
 import { usePutUploadMutation } from '@/page/archiving/createTimeBlock/hook/api/usePutUploadMutation';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import Label from '@/common/component/Label/Label';
 
 import useGetFileQuery from '@/shared/component/createWorkSpaceModal/hook/api/useGetFileQuery';
 import { usePostTeamMutation } from '@/shared/component/createWorkSpaceModal/hook/api/usePostTeamMutation';
@@ -20,64 +21,66 @@ import {
 import { sectionStyle } from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-const WorkSpaceImage = () => {
+interface WorkSpaceImageProps {
+  step: number;
+}
+
+const WorkSpaceImage = ({ step }: WorkSpaceImageProps) => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [, setPresignedUrl] = useState<string | null>(null);
 
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
   const { mutate: deleteFileMutate } = useDeleteFileMutation();
+  const { data: fileData, refetch: refetchFileData } = useGetFileQuery(file as File);
 
-  const { data: fileData } = useGetFileQuery(file as File);
-
-  // 모달
   const { setFormData, nextStep, formData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
-  useEffect(() => {
-    if (file && fileData) {
-      const newFileURL = URL.createObjectURL(file);
-      setFileURL(newFileURL);
-      const url = fileData?.url;
-      if (url) {
-        setPresignedUrl(url);
-        uploadToS3Mutate(
-          { presignedUrl: url, file },
-          {
-            onSuccess: (uploadedFileUrl) => {
-              if (uploadedFileUrl) {
-                URL.revokeObjectURL(newFileURL);
-                setFileURL(uploadedFileUrl);
-                setFormData({ fileUrlData: uploadedFileUrl });
-              }
-            },
-          }
-        );
-      }
-    }
-  }, [file, fileData, uploadToS3Mutate, setFormData]);
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
+  const handleFileUpload = useCallback(
+    (selectedFile: File, presignedUrl: string) => {
       const newFileURL = URL.createObjectURL(selectedFile);
       setFileURL(newFileURL);
+      uploadToS3Mutate(
+        { presignedUrl, file: selectedFile },
+        {
+          onSuccess: (uploadedFileUrl) => {
+            URL.revokeObjectURL(newFileURL);
+            if (uploadedFileUrl) {
+              setFileURL(uploadedFileUrl);
+              setFormData({ fileUrlData: uploadedFileUrl });
+            }
+          },
+        }
+      );
+    },
+    [uploadToS3Mutate, setFormData]
+  );
+
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setFileURL(URL.createObjectURL(selectedFile));
       setFile(selectedFile);
       setFormData({ fileUrlData: '' });
+
+      // 파일을 선택한 후에 fileData를 refetch하여 handleFileUpload 호출
+      const { data } = await refetchFileData();
+      if (data?.url) {
+        handleFileUpload(selectedFile, data.url);
+      }
     }
   };
 
   const handleImageRemove = () => {
     if (fileData?.fileName) {
       deleteFileMutate(
-        { fileName: fileData?.fileName },
+        { fileName: fileData.fileName },
         {
           onSuccess: () => {
             URL.revokeObjectURL(fileURL);
             setFileURL('');
             setFile(null);
-            setPresignedUrl(null);
             setFormData({ fileUrlData: '' });
             if (imgUploadInput.current) {
               imgUploadInput.current.value = '';
@@ -103,6 +106,8 @@ const WorkSpaceImage = () => {
     );
   };
 
+  if (step !== 3) return null;
+
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo
@@ -114,9 +119,9 @@ const WorkSpaceImage = () => {
         {fileURL ? (
           <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
         ) : (
-          <label htmlFor="imgUploadInput" css={imageAddStyle}>
-            <TeamProfileAdd css={{ width: '20rem', height: '20rem' }} />
-          </label>
+          <Label id="imgUploadInput" css={imageAddStyle}>
+            <TeamProfileAdd width={200} height={200} />
+          </Label>
         )}
         {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
       </div>
