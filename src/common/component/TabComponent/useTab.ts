@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
 export const useTab = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
-  return { state: selectedTab, setState: setSelectedTab };
+  //   const handleTab = (tabId: number) => {
+  //     setSelectedTab(tabId)
+  //   };
+  return { selectedTab, setSelectedTab };
+  //   return { state: selectedTab, setState: setSelectedTab };
 };

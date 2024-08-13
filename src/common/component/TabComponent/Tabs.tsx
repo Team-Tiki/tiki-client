@@ -5,7 +5,7 @@ interface TabsProps {
 }
 
 const Tabs = ({ children }: TabsProps) => {
-  return <aside>{children}</aside>;
+  return <nav>{children}</nav>;
 };
 
 export default Tabs;
