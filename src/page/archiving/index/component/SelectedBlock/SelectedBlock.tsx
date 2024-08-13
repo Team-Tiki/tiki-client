@@ -1,10 +1,3 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
-import { useBlockQuery } from '@/page/archiving/index/hook/api/useBlockQuery';
-import { Block } from '@/page/archiving/index/type/blockType';
-import { DocumentType } from '@/page/archiving/index/type/documentType';
-import { formattingDate } from '@/page/archiving/index/util/date';
-
 import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -15,16 +8,23 @@ import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
+import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
+import { Block } from '@/page/archiving/index/type/blockType';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
+import { formattingDate } from '@/page/archiving/index/util/date';
+
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
 interface DocumentBarInfoProps {
   selectedBlock: Block;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
-const SelectedBlock = ({ selectedBlock, onClickClose }: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedBlock, onClose }: DocumentBarInfoProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   const location = useLocation();
@@ -32,13 +32,13 @@ const SelectedBlock = ({ selectedBlock, onClickClose }: DocumentBarInfoProps) =>
 
   if (!teamId) throw new Error('has no teamId');
 
-  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
+  const { data: blockData } = useBlockInfoQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
 
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
 
-  const handleCloseClick = () => {
-    onClickClose();
+  const handleModalClose = () => {
+    onClose();
     closeModal;
   };
 
@@ -58,7 +58,7 @@ const SelectedBlock = ({ selectedBlock, onClickClose }: DocumentBarInfoProps) =>
               <DeleteModal
                 title="block"
                 detail="block"
-                onClose={handleCloseClick}
+                onClose={handleModalClose}
                 teamId={+teamId}
                 id={selectedBlock.timeBlockId}
               />

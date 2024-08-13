@@ -1,9 +1,3 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { blockNameTextStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
-import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
-import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
-import { DocumentType } from '@/page/archiving/index/type/documentType';
-
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -12,6 +6,12 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 import useDebounce from '@/common/hook/useDebounce';
+
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import { blockNameTextStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
+import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 const TotalDocument = () => {
   const [selected, setSelected] = useState('최근 업로드 순');

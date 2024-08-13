@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient, useQueryErrorResetBoundary } from '@tanstack/react-query';
 
 import { PATH } from '@/shared/constant/path';
 import { useAuth } from '@/shared/store/auth';
@@ -13,6 +13,8 @@ export const useTokenError = () => {
 
   const queryClient = useQueryClient();
 
+  const { reset } = useQueryErrorResetBoundary();
+
   const navigate = useNavigate();
 
   const handleTokenError = () => {
@@ -20,7 +22,11 @@ export const useTokenError = () => {
 
     localStorage.clear();
 
+    /** 캐시 초기화 */
     queryClient.clear();
+
+    /** 에러 초기화 */
+    reset();
 
     navigate(PATH.ROOT);
 

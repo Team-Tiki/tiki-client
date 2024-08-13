@@ -8,22 +8,12 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    day: 1,
+    endDay: new Date(),
   },
   argTypes: {
-    day: {
+    endDay: {
       control: {
-        type: 'number',
-      },
-    },
-    isEven: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    isToday: {
-      control: {
-        type: 'boolean',
+        type: 'date',
       },
     },
   },
@@ -34,8 +24,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    day: 1,
-    isEven: false,
-    isToday: false,
+    endDay: new Date(2024, 0, 2),
   },
 };

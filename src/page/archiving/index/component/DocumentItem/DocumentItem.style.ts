@@ -19,7 +19,7 @@ export const containerStyle = css({
   },
 });
 
-export const blockNameTextStyle = (color: string) =>
+export const blockNameStyle = (color: string) =>
   css({
     display: 'inline-block',
 
@@ -35,7 +35,7 @@ export const blockNameTextStyle = (color: string) =>
     textOverflow: 'ellipsis',
   });
 
-export const fileNameStyle = css({
+export const documentNameStyle = css({
   width: '18rem',
   maxHeight: '2.8rem',
 

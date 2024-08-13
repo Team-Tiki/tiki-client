@@ -1,4 +1,4 @@
-import { blockStyle, spanStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
+import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
 import { BLOCK_TYPE } from '@/page/archiving/index/constant/blockIcon';
 
 import React, { HTMLAttributes, ReactNode } from 'react';
@@ -11,7 +11,7 @@ interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   floor: number;
   blockType: string;
   isSelected?: boolean;
-  onBlockClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onBlockClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 const TimeBlock = ({
@@ -28,11 +28,25 @@ const TimeBlock = ({
   const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
   const startPosition = (new Date(startDate).getDate() - 1) * 6;
 
+  const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onBlockClick(e);
+    }
+  };
+
   return (
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-    <div css={blockStyle(blockWidth, startPosition, floor, color, isSelected)} onClick={onBlockClick} {...props}>
+    <div
+      role="tab"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        handleEnterBlock(e);
+      }}
+      css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
+      onClick={onBlockClick}
+      {...props}>
       {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
-      <p css={spanStyle}>{children}</p>
+      <span css={blockNameStyle}>{children}</span>
     </div>
   );
 };
