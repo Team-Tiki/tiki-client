@@ -1,7 +1,7 @@
 import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
 import { usePutUploadMutation } from '@/page/archiving/createTimeBlock/hook/api/usePutUploadMutation';
 
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
@@ -37,25 +37,22 @@ const WorkSpaceImage = ({ step }: WorkSpaceImageProps) => {
   const { setFormData, nextStep, formData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
-  const handleFileUpload = useCallback(
-    (selectedFile: File, presignedUrl: string) => {
-      const newFileURL = URL.createObjectURL(selectedFile);
-      setFileURL(newFileURL);
-      uploadToS3Mutate(
-        { presignedUrl, file: selectedFile },
-        {
-          onSuccess: (uploadedFileUrl) => {
-            URL.revokeObjectURL(newFileURL);
-            if (uploadedFileUrl) {
-              setFileURL(uploadedFileUrl);
-              setFormData({ fileUrlData: uploadedFileUrl });
-            }
-          },
-        }
-      );
-    },
-    [uploadToS3Mutate, setFormData]
-  );
+  const handleFileUpload = (selectedFile: File, presignedUrl: string) => {
+    const newFileURL = URL.createObjectURL(selectedFile);
+    setFileURL(newFileURL);
+    uploadToS3Mutate(
+      { presignedUrl, file: selectedFile },
+      {
+        onSuccess: (uploadedFileUrl) => {
+          URL.revokeObjectURL(newFileURL);
+          if (uploadedFileUrl) {
+            setFileURL(uploadedFileUrl);
+            setFormData({ fileUrlData: uploadedFileUrl });
+          }
+        },
+      }
+    );
+  };
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
