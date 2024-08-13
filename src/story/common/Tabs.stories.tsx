@@ -14,6 +14,7 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: { children: <></> },
 } satisfies Meta<typeof Tabs>;
 type Story = StoryObj<typeof meta>;
 
