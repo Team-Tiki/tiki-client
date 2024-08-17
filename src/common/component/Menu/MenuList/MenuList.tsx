@@ -1,18 +1,19 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { Children, HTMLAttributes, ReactElement, ReactNode, cloneElement } from 'react';
 
-import { containerStyle, contentStyle } from '@/common/component/Menu/MenuList/MenuList.style';
+import { containerStyle, variantStyle } from '@/common/component/Menu/MenuList/MenuList.style';
+import { MenuVariant } from '@/common/component/Menu/constant/menuVariant';
 
 export interface MenuListProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
-  variant?: 'primary';
+  variant?: MenuVariant;
   isOpen?: boolean;
 }
 
 const MenuList = ({ children, variant = 'primary', isOpen = false, ...props }: MenuListProps) => {
   return (
     isOpen && (
-      <ul css={[containerStyle, contentStyle(variant)]} {...props}>
-        {children}
+      <ul css={[containerStyle, variantStyle(variant)]} {...props}>
+        {Children.toArray(children).map((child) => cloneElement(child as ReactElement, { variant: variant }))}
       </ul>
     )
   );

@@ -1,9 +1,10 @@
 import { HTMLAttributes, ReactNode } from 'react';
 
-import { containerStyle } from '@/common/component/Menu/MenuItem/MenuItem.style';
+import { containerStyle, variantStyle } from '@/common/component/Menu/MenuItem/MenuItem.style';
+import { MenuVariant } from '@/common/component/Menu/constant/menuVariant';
 
 export interface MenuItemProps extends HTMLAttributes<HTMLLIElement> {
-  variant?: 'primary';
+  variant?: MenuVariant;
   onSelect?: () => void;
   LeftIcon?: ReactNode;
 }
@@ -11,9 +12,9 @@ export interface MenuItemProps extends HTMLAttributes<HTMLLIElement> {
 const MenuItem = ({ variant = 'primary', LeftIcon, onSelect, children, ...props }: MenuItemProps) => {
   return (
     <li
-      role="list"
+      role="button"
       tabIndex={0}
-      css={containerStyle}
+      css={[containerStyle, variantStyle(variant)]}
       onKeyDown={(e: React.KeyboardEvent<HTMLLIElement>) => {
         if (e.key === 'Enter') onSelect;
       }}
