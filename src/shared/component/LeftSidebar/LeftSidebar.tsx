@@ -6,8 +6,14 @@ import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import earthUrl from '@/common/asset/svg/global_2.svg';
 import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
-import settingUrl from '@/common/asset/svg/setting.svg';
+import Logout from '@/common/asset/svg/logout.svg?react';
+import PWResetting from '@/common/asset/svg/password.svg?react';
+import Setting from '@/common/asset/svg/setting.svg?react';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
+import Menu from '@/common/component/Menu/Menu';
+import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
+import MenuList from '@/common/component/Menu/MenuList/MenuList';
+import MenuTrigger from '@/common/component/Menu/MenuTrigger/MenuTrigger';
 import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
@@ -156,17 +162,35 @@ const LeftSidebar = () => {
       </nav>
 
       <div ref={settingRef}>
-        <LeftSidebarMenuItem
-          isClicked={false}
-          isExpanded={isNavOpen}
-          logoUrl={settingUrl}
-          onClick={() => {
-            toggle();
-            close();
-          }}>
-          환경설정
-        </LeftSidebarMenuItem>
         <SettingMenu isModalOpen={isSettingOpen} />
+        <Menu css={{ display: 'flex' }}>
+          <MenuTrigger
+            Icon={
+              <Setting
+                css={{
+                  width: '4rem',
+                  height: '4rem',
+                }}
+              />
+            }
+          />
+          <MenuList
+            variant="primary"
+            isOpen={true}
+            css={{
+              bottom: '1rem',
+              left: '7rem',
+            }}>
+            <MenuItem>
+              <Logout width={16} height={16} />
+              로그아웃
+            </MenuItem>
+            <MenuItem>
+              <PWResetting width={16} height={16} />
+              비밀번호 재설정
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </div>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>

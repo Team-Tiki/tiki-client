@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
-export interface MenuProps {
+export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const Menu = ({ children }: MenuProps) => {
-  return <div> {children}</div>;
+const Menu = ({ children, ...props }: MenuProps) => {
+  return <div {...props}>{children}</div>;
 };
 
 export default Menu;
