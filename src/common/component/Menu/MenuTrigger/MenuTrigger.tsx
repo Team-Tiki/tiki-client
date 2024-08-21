@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
+import { buttonStyle } from '@/common/component/Menu/MenuTrigger/MenuTrigger.style';
+
 interface MenuTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   Icon: ReactNode;
   variant?: 'primary';
@@ -7,7 +9,7 @@ interface MenuTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const MenuTrigger = ({ Icon, variant, ...props }: MenuTriggerProps) => {
   return (
-    <button css={{ outline: 0, backgroundColor: 'transparent' }} {...props}>
+    <button css={buttonStyle} {...props}>
       {Icon}
     </button>
   );

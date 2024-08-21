@@ -5,7 +5,7 @@ export interface MenuProps {
 }
 
 const Menu = ({ children }: MenuProps) => {
-  return <div>{children}</div>;
+  return <div> {children}</div>;
 };
 
 export default Menu;

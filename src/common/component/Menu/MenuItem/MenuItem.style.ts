@@ -5,8 +5,6 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
   gap: '0.8rem',
 
   cursor: 'pointer',
