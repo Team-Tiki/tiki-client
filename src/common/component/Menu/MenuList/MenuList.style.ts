@@ -20,6 +20,7 @@ export const variantStyle = (variant: Required<MenuListProps>['variant']) => {
 
       backgroundColor: theme.colors.gray_100,
     },
+    ddd: {},
   };
 
   return style[variant];
