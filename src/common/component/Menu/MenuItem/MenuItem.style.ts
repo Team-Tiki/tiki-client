@@ -28,7 +28,6 @@ export const variantStyle = (variant: Required<MenuItemProps>['variant']) => {
         backgroundColor: theme.colors.blue_100,
       },
     },
-    ddd: {},
   };
 
   return style[variant];

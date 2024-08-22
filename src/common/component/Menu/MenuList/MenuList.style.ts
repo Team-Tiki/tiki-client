@@ -21,8 +21,7 @@ export const variantStyle = (variant: Required<MenuListProps>['variant']) => {
       boxShadow: '0 0.4rem 0.6rem 0 rgba(53, 63, 155, 0.15)',
 
       backgroundColor: theme.colors.gray_100,
-    },
-    ddd: {},
+    }
   };
 
   return style[variant];

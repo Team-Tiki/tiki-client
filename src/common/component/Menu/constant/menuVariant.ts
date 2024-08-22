@@ -1,1 +1,1 @@
-export type MenuVariant = 'primary' | 'ddd';
+export type MenuVariant = 'primary';
