@@ -8,7 +8,7 @@ import earthUrl from '@/common/asset/svg/global_2.svg';
 import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
 import Logout from '@/common/asset/svg/logout.svg?react';
 import PWResetting from '@/common/asset/svg/password.svg?react';
-import Setting from '@/common/asset/svg/setting.svg?react';
+import settingUrl from '@/common/asset/svg/setting.svg';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
@@ -33,6 +33,7 @@ import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceIm
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
+import { useLogout } from '@/shared/hook/common/useLogout';
 import { useTeamIdAction } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
@@ -64,6 +65,8 @@ const LeftSidebar = () => {
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
   const { setTeamId } = useTeamIdAction();
+
+  const { logout } = useLogout();
 
   useEffect(() => {
     const postData = {
@@ -161,18 +164,17 @@ const LeftSidebar = () => {
         </ul>
       </nav>
 
-      <Menu ref={settingRef} css={{ display: 'flex', justifyContent: 'center' }}>
-        <MenuTrigger
-          onClick={toggle}
-          Icon={
-            <Setting
-              css={{
-                width: '4rem',
-                height: '4rem',
-              }}
-            />
-          }
-        />
+      <Menu ref={settingRef} css={{ display: 'flex' }}>
+        <LeftSidebarMenuItem
+          isClicked={false}
+          isExpanded={isNavOpen}
+          logoUrl={settingUrl}
+          onClick={() => {
+            toggle();
+            close();
+          }}>
+          환경설정
+        </LeftSidebarMenuItem>
         <MenuList
           variant="primary"
           isOpen={isSettingOpen}
@@ -183,6 +185,7 @@ const LeftSidebar = () => {
           <MenuItem
             onSelect={() => {
               toggle();
+              logout();
             }}>
             <Logout width={16} height={16} />
             로그아웃
