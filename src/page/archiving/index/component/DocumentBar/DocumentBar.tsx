@@ -1,9 +1,6 @@
 import { ForwardedRef, forwardRef, useState } from 'react';
 
-import Tab from '@/common/component/Tabs/Tab';
-import TabList from '@/common/component/Tabs/TabList';
-import TabPanel from '@/common/component/Tabs/TabPanel';
-import Tabs from '@/common/component/Tabs/Tabs';
+import { Tab } from '@/common/component/Tab';
 
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
@@ -19,20 +16,20 @@ const DocumentBar = ({ selectedBlock, onClose }: DocumentBarProps, ref: Forwarde
   const [selectedTab, setSelectedTab] = useState(0);
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
-      <Tabs>
-        <TabList>
-          <Tab selectedTab={selectedTab} onTabClick={setSelectedTab}>
+      <Tab>
+        <Tab.List>
+          <Tab.Button selectedTab={selectedTab} onTabClick={setSelectedTab}>
             선택된 블록
-          </Tab>
-          <Tab selectedTab={selectedTab} onTabClick={setSelectedTab}>
+          </Tab.Button>
+          <Tab.Button selectedTab={selectedTab} onTabClick={setSelectedTab}>
             전체 문서
-          </Tab>
-        </TabList>
-        <TabPanel selectedTab={selectedTab}>
+          </Tab.Button>
+        </Tab.List>
+        <Tab.Panel selectedTab={selectedTab}>
           {selectedBlock && <SelectedBlock selectedBlock={selectedBlock} onClose={onClose} />}
           <TotalDocument />
-        </TabPanel>
-      </Tabs>
+        </Tab.Panel>
+      </Tab>
     </aside>
   );
 };

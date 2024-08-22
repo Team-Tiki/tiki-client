@@ -5,7 +5,7 @@ interface TabsProps extends ComponentPropsWithoutRef<'nav'> {
 }
 
 const Tabs = ({ children, ...props }: TabsProps) => {
-  return <nav {...props}>{children}</nav>;
+  return <section {...props}>{children}</section>;
 };
 
 export default Tabs;
