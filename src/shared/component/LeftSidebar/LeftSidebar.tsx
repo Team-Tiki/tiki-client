@@ -13,7 +13,6 @@ import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
-import MenuTrigger from '@/common/component/Menu/MenuTrigger/MenuTrigger';
 import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
@@ -26,7 +25,6 @@ import {
   tikiLogoStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
-import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
