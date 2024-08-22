@@ -161,37 +161,42 @@ const LeftSidebar = () => {
         </ul>
       </nav>
 
-      <div ref={settingRef}>
-        <SettingMenu isModalOpen={isSettingOpen} />
-        <Menu css={{ display: 'flex' }}>
-          <MenuTrigger
-            Icon={
-              <Setting
-                css={{
-                  width: '4rem',
-                  height: '4rem',
-                }}
-              />
-            }
-          />
-          <MenuList
-            variant="primary"
-            isOpen={true}
-            css={{
-              bottom: '1rem',
-              left: '7rem',
+      <Menu ref={settingRef} css={{ display: 'flex', justifyContent: 'center' }}>
+        <MenuTrigger
+          onClick={toggle}
+          Icon={
+            <Setting
+              css={{
+                width: '4rem',
+                height: '4rem',
+              }}
+            />
+          }
+        />
+        <MenuList
+          variant="primary"
+          isOpen={isSettingOpen}
+          css={{
+            bottom: '1rem',
+            left: '7rem',
+          }}>
+          <MenuItem
+            onSelect={() => {
+              toggle();
             }}>
-            <MenuItem>
-              <Logout width={16} height={16} />
-              로그아웃
-            </MenuItem>
-            <MenuItem>
-              <PWResetting width={16} height={16} />
-              비밀번호 재설정
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </div>
+            <Logout width={16} height={16} />
+            로그아웃
+          </MenuItem>
+          <MenuItem
+            onSelect={() => {
+              toggle();
+              navigate(PATH.PASSWORD_RESET);
+            }}>
+            <PWResetting width={16} height={16} />
+            비밀번호 재설정
+          </MenuItem>
+        </MenuList>
+      </Menu>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
   );
