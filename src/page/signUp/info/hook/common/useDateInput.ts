@@ -1,6 +1,6 @@
-import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
-
 import { ChangeEvent, useCallback, useState } from 'react';
+
+import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
 
 import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH } from '@/shared/constant/form';
 
