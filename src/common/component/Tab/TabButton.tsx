@@ -19,6 +19,8 @@ const TabButton = ({ tabId = 0, children, selectedTab, onTabClick, variant = 'ro
       key={tabId}
       role="tab"
       tabIndex={0}
+      aria-selected={selectedTab === tabId}
+      aria-controls={`panel${tabId}`}
       onClick={handleTabInteraction}
       onKeyDown={handleTabInteraction}
       css={[tabDefaultStyle, tabVariantStyle(variant), tabActiveStyle(selectedTab === tabId, variant)]}
