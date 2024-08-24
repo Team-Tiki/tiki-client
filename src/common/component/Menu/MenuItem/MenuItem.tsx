@@ -21,7 +21,7 @@ const MenuItem = ({ variant = 'primary', LeftIcon, onSelect, children, ...props 
       onClick={onSelect}
       {...props}>
       {LeftIcon}
-      {children}
+      <p>{children}</p>
     </li>
   );
 };

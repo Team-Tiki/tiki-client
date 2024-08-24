@@ -184,16 +184,16 @@ const LeftSidebar = () => {
             onSelect={() => {
               toggle();
               logout();
-            }}>
-            <Logout width={16} height={16} />
+            }}
+            LeftIcon={<Logout width={16} height={16} />}>
             로그아웃
           </MenuItem>
           <MenuItem
             onSelect={() => {
               toggle();
               navigate(PATH.PASSWORD_RESET);
-            }}>
-            <PWResetting width={16} height={16} />
+            }}
+            LeftIcon={<PWResetting width={16} height={16} />}>
             비밀번호 재설정
           </MenuItem>
         </MenuList>

@@ -10,7 +10,7 @@ export const containerStyle = css({
 
   position: 'absolute',
 
-  transform: '',
+  whiteSpace: 'nowrap',
   zIndex: theme.zIndex.overlayTop,
 });
 
