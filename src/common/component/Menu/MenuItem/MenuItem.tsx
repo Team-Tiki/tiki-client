@@ -5,7 +5,7 @@ import { MenuVariant } from '@/common/component/Menu/constant/menuVariant';
 
 export interface MenuItemProps extends HTMLAttributes<HTMLLIElement> {
   variant?: MenuVariant;
-  onSelect?: () => void;
+  onSelect: () => void;
   LeftIcon?: ReactNode;
 }
 

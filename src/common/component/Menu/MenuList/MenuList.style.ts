@@ -4,11 +4,14 @@ import { MenuListProps } from '@/common/component/Menu/MenuList/MenuList';
 import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
-  position: 'fixed',
-
   display: 'flex',
   flexDirection: 'column',
   gap: '0.2rem',
+
+  position: 'absolute',
+
+  transform: '',
+  zIndex: theme.zIndex.overlayTop,
 });
 
 export const variantStyle = (variant: Required<MenuListProps>['variant']) => {
@@ -21,7 +24,7 @@ export const variantStyle = (variant: Required<MenuListProps>['variant']) => {
       boxShadow: '0 0.4rem 0.6rem 0 rgba(53, 63, 155, 0.15)',
 
       backgroundColor: theme.colors.gray_100,
-    }
+    },
   };
 
   return style[variant];

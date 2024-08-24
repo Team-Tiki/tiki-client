@@ -6,7 +6,7 @@ import { MenuVariant } from '@/common/component/Menu/constant/menuVariant';
 export interface MenuListProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
   variant?: MenuVariant;
-  isOpen?: boolean;
+  isOpen: boolean;
 }
 
 const MenuList = ({ children, variant = 'primary', isOpen = false, ...props }: MenuListProps) => {
