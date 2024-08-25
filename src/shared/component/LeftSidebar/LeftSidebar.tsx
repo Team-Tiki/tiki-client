@@ -53,7 +53,6 @@ const LeftSidebar = () => {
   const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
 
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
-  const settingRef = useOutsideClick(onSettingClose);
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -162,7 +161,7 @@ const LeftSidebar = () => {
         </ul>
       </nav>
 
-      <Menu ref={settingRef} css={{ display: 'flex' }}>
+      <Menu onClose={onSettingClose}>
         <LeftSidebarMenuItem
           isClicked={false}
           isExpanded={isNavOpen}
@@ -173,13 +172,7 @@ const LeftSidebar = () => {
           }}>
           환경설정
         </LeftSidebarMenuItem>
-        <MenuList
-          variant="primary"
-          isOpen={isSettingOpen}
-          css={{
-            bottom: '1rem',
-            left: '7rem',
-          }}>
+        <MenuList variant="primary" isOpen={isSettingOpen}>
           <MenuItem
             onSelect={() => {
               toggle();
