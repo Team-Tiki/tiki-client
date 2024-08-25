@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
+import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
+import { useOverlay } from '@/common/hook';
 
 const meta = {
-  title: 'Common/MenuList',
-  component: MenuList,
+  title: 'Common/Menu',
+  component: Menu,
   parameters: {
     layout: 'centered',
   },
@@ -14,41 +16,51 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'radio' },
-      options: ['primary'],
-    },
-    isOpen: {
-      control: { type: 'boolean' },
+      options: ['right'],
     },
     children: {
       control: false,
     },
   },
   args: {
-    variant: 'primary',
-    isOpen: true,
+    variant: 'right',
+    onClose: () => {},
     children: (
       <>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
+        <button>trigger button</button>
+        <ul>
+          <li>item 1</li>
+          <li>item 2</li>
+        </ul>
       </>
     ),
   },
-} satisfies Meta<typeof MenuList>;
+} satisfies Meta<typeof Menu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: ({ variant, isOpen }) => (
-    <MenuList variant={variant} isOpen={isOpen}>
-      <MenuItem LeftIcon={<Logo width={16} height={16} />}>first item</MenuItem>
-      <MenuItem LeftIcon={<Logo width={16} height={16} />}>second item</MenuItem>
-    </MenuList>
-  ),
+  render: ({ variant }) => {
+    const { isOpen, close, toggle } = useOverlay();
+
+    return (
+      <Menu variant={variant} onClose={close}>
+        <button onClick={toggle}>Trigger</button>
+        <MenuList variant={'primary'} isOpen={isOpen}>
+          <MenuItem LeftIcon={<Logo width={16} height={16} />} onSelect={toggle}>
+            first item
+          </MenuItem>
+          <MenuItem LeftIcon={<Logo width={16} height={16} />} onSelect={toggle}>
+            second item
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    );
+  },
   args: {
-    variant: 'primary',
-    isOpen: true,
+    variant: 'right',
+    onClose: () => {},
   },
   argTypes: {
     variant: {
