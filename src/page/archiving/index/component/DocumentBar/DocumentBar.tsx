@@ -17,13 +17,9 @@ const DocumentBar = ({ selectedBlock, onClose }: DocumentBarProps, ref: Forwarde
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
       <Tab>
-        <Tab.List>
-          <Tab.Button selectedTab={selectedTab} onTabClick={setSelectedTab}>
-            선택된 블록
-          </Tab.Button>
-          <Tab.Button selectedTab={selectedTab} onTabClick={setSelectedTab}>
-            전체 문서
-          </Tab.Button>
+        <Tab.List selectedTab={selectedTab} onTabClick={setSelectedTab}>
+          <Tab.Button>선택된 블록</Tab.Button>
+          <Tab.Button>전체 문서</Tab.Button>
         </Tab.List>
         <Tab.Panel selectedTab={selectedTab}>
           {selectedBlock && <SelectedBlock selectedBlock={selectedBlock} onClose={onClose} />}

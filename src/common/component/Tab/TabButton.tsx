@@ -4,12 +4,19 @@ import { tabActiveStyle, tabDefaultStyle, tabVariantStyle } from '@/common/compo
 
 export interface TabProps extends ComponentPropsWithoutRef<'li'> {
   tabId?: number;
-  selectedTab: number;
-  onTabClick: (tabId: number) => void;
+  isSelected?: boolean;
+  onTabClick?: (tabId: number) => void;
   variant?: 'round';
 }
 
-const TabButton = ({ tabId = 0, children, selectedTab, onTabClick, variant = 'round', ...props }: TabProps) => {
+const TabButton = ({
+  tabId = 0,
+  children,
+  isSelected = false,
+  onTabClick = () => {},
+  variant = 'round',
+  ...props
+}: TabProps) => {
   const handleTabInteraction = () => {
     onTabClick(tabId);
   };
@@ -19,11 +26,11 @@ const TabButton = ({ tabId = 0, children, selectedTab, onTabClick, variant = 'ro
       key={tabId}
       role="tab"
       tabIndex={0}
-      aria-selected={selectedTab === tabId}
+      aria-selected={isSelected}
       aria-controls={`panel${tabId}`}
       onClick={handleTabInteraction}
       onKeyDown={handleTabInteraction}
-      css={[tabDefaultStyle, tabVariantStyle(variant), tabActiveStyle(selectedTab === tabId, variant)]}
+      css={[tabDefaultStyle, tabVariantStyle(variant), tabActiveStyle(isSelected, variant)]}
       {...props}>
       {children}
     </li>

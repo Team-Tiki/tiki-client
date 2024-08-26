@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-import { TabProps } from '@/common/component/Tabs/Tab';
 import { theme } from '@/common/style/theme/theme';
+import { TabProps } from '@/common/component/Tab/TabButton';
 
 export const tabListStyle = css({
   display: 'flex',
