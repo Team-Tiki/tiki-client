@@ -1,40 +1,44 @@
-import { Component, ComponentType, ErrorInfo, PropsWithChildren } from 'react';
+import * as Sentry from '@sentry/react';
 
-import { AxiosError } from 'axios';
+import { Component, ComponentType, PropsWithChildren } from 'react';
 
+import { HTTPError } from '@/shared/api/HTTPError';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 
-type ErrorProps = {
+type FallbackProps = {
   statusCode?: number;
   resetError?: () => void;
 };
 
 type ErrorBoundaryProps = {
-  fallback: ComponentType<ErrorProps>;
+  fallback: ComponentType<FallbackProps>;
   onReset?: (error: Error) => void;
 };
 
-type State = {
+type ErrorState = {
   isError: boolean;
   error: Error | null;
 };
 
-const initialState: State = {
+const initialState: ErrorState = {
   isError: false,
   error: null,
 };
 
-class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>, State> {
-  state: State = initialState;
+class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>, ErrorState> {
+  state: ErrorState = initialState;
 
   /** Prop으로 인한 Error 발생 시 State Update */
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error | HTTPError): ErrorState {
     return { isError: true, error };
   }
 
   /** 컴포넌트 생명주기 시 발생하는 에러에 대한 처리 */
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.warn(errorInfo);
+  componentDidCatch(error: Error | HTTPError): void {
+    Sentry.withScope((scope) => {
+      scope.setLevel('error');
+      Sentry.captureMessage(`[${error.name}] ${window.location.href}`);
+    });
 
     this.setState({
       isError: true,
@@ -60,7 +64,7 @@ class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>, Sta
     if (error) {
       return (
         <FallbackComponent
-          statusCode={error instanceof AxiosError ? error.response?.status : HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR}
+          statusCode={error instanceof HTTPError ? error.statusCode : HTTP_STATUS_CODE.NOT_FOUND}
           resetError={this.resetErrorBoundary}
         />
       );
