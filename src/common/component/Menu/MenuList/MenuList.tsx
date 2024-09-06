@@ -1,7 +1,8 @@
 import { Children, HTMLAttributes, ReactElement, ReactNode, cloneElement } from 'react';
 
 import { containerStyle, variantStyle } from '@/common/component/Menu/MenuList/MenuList.style';
-import { MenuVariant } from '@/common/component/Menu/constant/menuVariant';
+
+export type MenuVariant = 'primary';
 
 export interface MenuListProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;

@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from 'react';
 
 import { containerStyle, variantStyle } from '@/common/component/Menu/MenuItem/MenuItem.style';
-import { MenuVariant } from '@/common/component/Menu/constant/menuVariant';
+import { MenuVariant } from '@/common/component/Menu/MenuList/MenuList';
 
 export interface MenuItemProps extends HTMLAttributes<HTMLLIElement> {
   variant?: MenuVariant;
