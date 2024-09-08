@@ -172,7 +172,7 @@ const LeftSidebar = () => {
           }}>
           환경설정
         </LeftSidebarMenuItem>
-        <MenuList variant="primary" isOpen={isSettingOpen} style={{ top: '-20px' }}>
+        <MenuList variant="primary" isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
           <MenuItem
             onSelect={() => {
               toggle();
