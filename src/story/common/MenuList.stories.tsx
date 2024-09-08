@@ -14,16 +14,11 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['right'],
-    },
     children: {
       control: false,
     },
   },
   args: {
-    variant: 'right',
     onClose: () => {},
     children: (
       <>
@@ -41,13 +36,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: ({ variant }) => {
+  render: ({}) => {
     const { isOpen, close, toggle } = useOverlay();
 
     return (
-      <Menu variant={variant} onClose={close}>
+      <Menu onClose={close}>
         <button onClick={toggle}>Trigger</button>
-        <MenuList variant={'primary'} isOpen={isOpen}>
+        <MenuList variant={'primary'} isOpen={isOpen} css={{ left: '100%', top: 0 }}>
           <MenuItem LeftIcon={<Logo width={16} height={16} />} onSelect={toggle}>
             first item
           </MenuItem>
@@ -59,12 +54,7 @@ export const Default: Story = {
     );
   },
   args: {
-    variant: 'right',
     onClose: () => {},
   },
-  argTypes: {
-    variant: {
-      control: false,
-    },
-  },
+  argTypes: {},
 };
