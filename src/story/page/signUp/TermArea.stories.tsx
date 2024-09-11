@@ -1,7 +1,8 @@
-import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
+
+import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
 
 const meta = {
   title: 'page/signUp/TermArea',

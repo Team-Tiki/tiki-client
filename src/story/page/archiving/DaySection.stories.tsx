@@ -1,5 +1,6 @@
-import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
 
 const meta = {
   title: 'Page/Archiving/DaySection',

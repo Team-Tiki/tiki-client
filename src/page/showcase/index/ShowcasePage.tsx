@@ -1,14 +1,14 @@
-import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/index/ShowcasePage.style';
-import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
-import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
-import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
-import { useClubListQuery } from '@/page/showcase/index/hook/api/useClubListQuery';
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+
+import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/index/ShowcasePage.style';
+import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
+import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
+import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
+import { useClubListQuery } from '@/page/showcase/index/hook/api/useClubListQuery';
 
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 

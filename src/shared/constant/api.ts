@@ -1,5 +1,7 @@
 export const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN' as const;
 
+export const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN' as const;
+
 export const HTTP_STATUS_CODE = {
   SUCCESS: 200,
   CREATED: 201,
@@ -11,6 +13,11 @@ export const HTTP_STATUS_CODE = {
   CONTENT_TOO_LARGE: 413,
   INTERNAL_SERVER_ERROR: 500,
 } as const;
+
+export const NETWORK = {
+  RETRY: 2,
+  TIMEOUT: 10000,
+};
 
 export const HTTP_ERROR_MESSAGE = {
   [HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR]: {

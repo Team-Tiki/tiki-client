@@ -1,11 +1,11 @@
-import { headerStyle } from '@/page/archiving/index/component/YearHeader/YearHeader.style';
-
 import PreviousYearArrow from '@/common/asset/svg/arrow_left.svg?react';
 import NextYearArrow from '@/common/asset/svg/arrow_right.svg?react';
 import Calendar from '@/common/asset/svg/calendar.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
+
+import { headerStyle } from '@/page/archiving/index/component/YearHeader/YearHeader.style';
 
 interface YearHeaderProps {
   handlePrevYear: (year: number) => void;

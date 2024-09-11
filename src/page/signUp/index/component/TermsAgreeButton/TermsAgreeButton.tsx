@@ -1,9 +1,9 @@
-import { buttonStyle } from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton.style';
-
 import { ComponentPropsWithoutRef } from 'react';
 
 import Check from '@/common/asset/svg/check.svg?react';
 import CheckActive from '@/common/asset/svg/check_active.svg?react';
+
+import { buttonStyle } from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton.style';
 
 interface TermsAgreeButtonProps extends ComponentPropsWithoutRef<'button'> {
   isClicked?: boolean;

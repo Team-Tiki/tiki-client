@@ -1,10 +1,3 @@
-import {
-  blockNameStyle,
-  containerStyle,
-  documentNameStyle,
-} from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
-import { downloadDocument } from '@/page/archiving/index/util/document';
-
 import { ReactNode } from 'react';
 
 import Download from '@/common/asset/svg/download.svg?react';
@@ -13,6 +6,13 @@ import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
+
+import {
+  blockNameStyle,
+  containerStyle,
+  documentNameStyle,
+} from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import { downloadDocument } from '@/page/archiving/index/util/document';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import { useTeamId } from '@/shared/store/team';

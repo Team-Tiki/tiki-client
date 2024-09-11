@@ -1,7 +1,7 @@
-import { selectedStyle, tabStyle } from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab.style';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+
+import { selectedStyle, tabStyle } from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab.style';
 
 interface DocumentBarTabProps {
   selectedTabId: string;

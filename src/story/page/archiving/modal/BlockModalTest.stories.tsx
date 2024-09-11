@@ -1,9 +1,10 @@
-import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
-import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import { Meta, StoryObj } from '@storybook/react';
 
 import Modal from '@/common/component/Modal/Modal';
 import { useModal } from '@/common/hook/useModal';
+
+import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
+import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 
 const meta: Meta<typeof Modal> = {
   title: 'page/Modal/Block',

@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 import { handleAPIError, handleCheckAndSetToken, handleTokenError } from '@/shared/api/interceptor';
+import { NETWORK } from '@/shared/constant/api';
 
 export const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`,
   withCredentials: true,
+  timeout: NETWORK.TIMEOUT,
 
   headers: {
     'Content-Type': 'application/json',

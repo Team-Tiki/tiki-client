@@ -1,3 +1,8 @@
+import { useEffect, useState } from 'react';
+
+import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
+
 import BlockAdd from '@/page/archiving/createTimeBlock/component/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem';
 import { flexStyle, scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
@@ -6,11 +11,6 @@ import { usePostTimeBlockMutation } from '@/page/archiving/createTimeBlock/hook/
 import { BlockData } from '@/page/archiving/createTimeBlock/type/blockType';
 import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
-
-import { useEffect, useState } from 'react';
-
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';

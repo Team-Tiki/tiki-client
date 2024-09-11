@@ -1,9 +1,9 @@
-import { filterItemStyle } from '@/page/archiving/index/component/DocumentFilter/DocumentFilter.style';
-
 import { ComponentPropsWithRef, ForwardedRef, ReactElement, forwardRef } from 'react';
 
 import { Dropdown } from '@/common/component/Dropdown';
 import { itemStyle, overlayStyle } from '@/common/component/Select/Select.style';
+
+import { filterItemStyle } from '@/page/archiving/index/component/DocumentFilter/DocumentFilter.style';
 
 interface FilterProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
   isOpen?: boolean;
