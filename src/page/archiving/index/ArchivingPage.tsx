@@ -1,3 +1,13 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import Add from '@/common/asset/svg/add_btn.svg?react';
+import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
+import Modal from '@/common/component/Modal/Modal';
+import { useModal, useOutsideClick } from '@/common/hook';
+import { theme } from '@/common/style/theme/theme';
+
 import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
 import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import {
@@ -17,16 +27,6 @@ import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
-
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
-import Add from '@/common/asset/svg/add_btn.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
-import { useModal, useOutsideClick } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
 
 const ArchivingPage = () => {
   const [selectedTabId, setSelectedTabId] = useState('total');
@@ -52,7 +52,7 @@ const ArchivingPage = () => {
     endDay,
   } = useDate(daySectionRef);
   const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
-  
+
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,8 +65,8 @@ const ArchivingPage = () => {
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
-  
-  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+
+  const sideBarRef = useOutsideClick(handleClose);
 
   useEffect(() => {
     setSelectedMonthString(`${currentDate.getMonth() + 1}월` as MonthType);
