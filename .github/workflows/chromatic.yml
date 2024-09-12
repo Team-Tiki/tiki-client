@@ -22,6 +22,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Run Chromatic
+        id: chromatic
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -31,7 +32,6 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
           message: |
              🚀 Storybook 확인하기 🚀
              - [Build](${{steps.chromatic.outputs.buildUrl}})
