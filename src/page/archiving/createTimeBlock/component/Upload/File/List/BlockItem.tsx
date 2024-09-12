@@ -1,9 +1,9 @@
-import { borderStyle, textStyle } from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem.style';
-
 import Delete from '@/common/asset/svg/file-delete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Spinner from '@/common/component/Spinner/Spinner';
 import Text from '@/common/component/Text/Text';
+
+import { borderStyle, textStyle } from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem.style';
 
 interface BlockItemProps {
   title: string;

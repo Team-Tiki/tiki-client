@@ -1,7 +1,3 @@
-import { formStyle, pageStyle, timestyle } from '@/page/login/password/auth/PasswordAuthPage.style';
-import { useResendMailMutation } from '@/page/login/password/auth/hook/useResendMailMutation';
-import { formatTime } from '@/page/signUp/info/util/formatTime';
-
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +8,10 @@ import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { useInput } from '@/common/hook/useInput';
 import { useTimer } from '@/common/hook/useTimer';
+
+import { formStyle, pageStyle, timestyle } from '@/page/login/password/auth/PasswordAuthPage.style';
+import { useResendMailMutation } from '@/page/login/password/auth/hook/useResendMailMutation';
+import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import { EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';

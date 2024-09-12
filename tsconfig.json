@@ -23,12 +23,12 @@
       "@/page/*": ["src/page/*"],
       "@/shared/*": ["src/shared/*"],
       "@/story/*": ["src/story/*"],
-      "@/mocks/*": ["src/mock/*"]
+      "@/mock/*": ["src/mock/*"]
     },
     "jsxImportSource": "@emotion/react"
   },
   /*svg*/
   "exclude": ["node_modules", "dist"],
-  "include": ["src", "./svg.d.ts", "./src/shared/api/index.d.ts"],
+  "include": ["src", "./svg.d.ts", "./src/shared/api/index.d.ts", "./src/electron.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

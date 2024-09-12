@@ -1,6 +1,3 @@
-import AdvBanner from '@/page/showcase/index/component/AdvBanner/AdvBanner';
-import { arrowStyle, dotsContaierStyle } from '@/page/showcase/index/component/BannerSlider/BannerSlider.style';
-import { ADVBANNER } from '@/page/showcase/index/constant/banner';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
@@ -9,6 +6,10 @@ import Slider from 'react-slick';
 
 import LeftArrow from '@/common/asset/svg/arrow-left-white.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right-white.svg?react';
+
+import AdvBanner from '@/page/showcase/index/component/AdvBanner/AdvBanner';
+import { arrowStyle, dotsContaierStyle } from '@/page/showcase/index/component/BannerSlider/BannerSlider.style';
+import { ADVBANNER } from '@/page/showcase/index/constant/banner';
 
 interface ArrowProps {
   onClick?: () => void;

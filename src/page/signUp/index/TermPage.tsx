@@ -1,9 +1,3 @@
-import { detailStyle } from '@/page/signUp/index/TermPage.style';
-import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
-import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
-import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
-import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +6,12 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { scrollStyle } from '@/common/style/theme/scroll';
+
+import { detailStyle } from '@/page/signUp/index/TermPage.style';
+import TermArea from '@/page/signUp/index/component/TermArea/TermArea';
+import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
+import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
 import { PATH } from '@/shared/constant/path';
 

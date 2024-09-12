@@ -1,8 +1,3 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
-import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
-import { DocumentType } from '@/page/archiving/index/type/documentType';
-
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -10,6 +5,11 @@ import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import { useDebounce } from '@/common/hook';
+
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
+import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
 
 interface TotalDocumentProps {
   selectedTabId: string;

@@ -1,10 +1,3 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
-import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
-import { Block } from '@/page/archiving/index/type/blockType';
-import { DocumentType } from '@/page/archiving/index/type/documentType';
-import { formattingDate } from '@/page/archiving/index/util/date';
-
 import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -14,6 +7,13 @@ import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
+
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
+import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
+import { Block } from '@/page/archiving/index/type/blockType';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
+import { formattingDate } from '@/page/archiving/index/util/date';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 

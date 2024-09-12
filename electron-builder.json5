@@ -1,0 +1,55 @@
+/**
+ * @see https://www.electron.build/configuration/configuration
+ */
+{
+  appId: 'com.tiki.app',
+  productName: 'TIKI',
+  copyright: 'Copyright © 2024 ${author}',
+  asar: true,
+  directories: {
+    output: 'release/${version}',
+    buildResources: 'electron/resources',
+  },
+  files: ['dist'],
+  win: {
+    target: [
+      {
+        target: 'nsis',
+        arch: ['x64'],
+      },
+      {
+        target: 'portable',
+        arch: ['x64'],
+      },
+    ],
+    artifactName: '${productName}-${version}-Windows-${arch}-Installer.${ext}',
+  },
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: false,
+  },
+  portable: {
+    artifactName: '${productName}-${version}-Windows-${arch}-Portable.${ext}',
+  },
+  mac: {
+    target: [
+      {
+        target: 'dmg',
+        arch: ['x64', 'arm64'],
+      },
+    ],
+    artifactName: '${productName}-${version}-OSX-${arch}.${ext}',
+  },
+  linux: {
+    target: [
+      {
+        target: 'AppImage',
+        arch: ['x64'],
+      },
+    ],
+    artifactName: '${productName}-${version}-Linux-${arch}.${ext}',
+  },
+  publish: ['github'],
+}

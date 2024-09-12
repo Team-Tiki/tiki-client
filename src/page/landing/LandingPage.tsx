@@ -1,3 +1,11 @@
+import firstView from '@/common/asset/img/landing01.png';
+import secondCharacter from '@/common/asset/img/landing02.png';
+import secondView from '@/common/asset/img/service02.png';
+import Button from '@/common/component/Button/Button';
+import Heading from '@/common/component/Heading/Heading';
+import Text from '@/common/component/Text/Text';
+import { useIntersectionObserver } from '@/common/hook/useObserver';
+
 import {
   featureSectionStyle,
   firstImgWrapperStyle,
@@ -12,14 +20,6 @@ import {
 import Indicator from '@/page/landing/component/Indicator/Indicator';
 import LandingOverview from '@/page/landing/component/Overview/Overview';
 import { TEXT } from '@/page/landing/constant';
-
-import firstView from '@/common/asset/img/landing01.png';
-import secondCharacter from '@/common/asset/img/landing02.png';
-import secondView from '@/common/asset/img/service02.png';
-import Button from '@/common/component/Button/Button';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
-import { useIntersectionObserver } from '@/common/hook/useObserver';
 
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';

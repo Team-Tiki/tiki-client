@@ -1,13 +1,13 @@
+import defaultImage from '@/common/asset/svg/default_profile.svg';
+import Heading from '@/common/component/Heading/Heading';
+import Text from '@/common/component/Text/Text';
+
 import {
   containerStyle,
   descriptionStyle,
   detailStyle,
   imageStyle,
 } from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard.style';
-
-import defaultImage from '@/common/asset/svg/default_profile.svg';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
 
 interface ClubProfileCardProps {
   title: string;

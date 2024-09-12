@@ -1,6 +1,3 @@
-import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
-import { useResetPasswordMutation } from '@/page/login/password/reset/hook/useResetPasswordMutation';
-
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,6 +5,9 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
+
+import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
+import { useResetPasswordMutation } from '@/page/login/password/reset/hook/useResetPasswordMutation';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';

@@ -1,10 +1,3 @@
-import { formStyle, identifyStyle, timeStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-import UnivSelectTriggerButton from '@/page/signUp/info/component/UnivSelectTriggerButton/Button';
-import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
-import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
-import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
-import { formatTime } from '@/page/signUp/info/util/formatTime';
-
 import ArrowDown from '@/common/asset/svg/arrow-down.svg?react';
 import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -12,6 +5,13 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick } from '@/common/hook';
+
+import { formStyle, identifyStyle, timeStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
+import UnivSelectTriggerButton from '@/page/signUp/info/component/UnivSelectTriggerButton/Button';
+import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
+import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
+import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
+import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import {
   AUTHCODE_MAXLENGTH,

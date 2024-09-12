@@ -1,10 +1,10 @@
+import { ForwardedRef, forwardRef } from 'react';
+
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
 import { Block } from '@/page/archiving/index/type/blockType';
-
-import { ForwardedRef, forwardRef } from 'react';
 
 interface DocumentBarProps {
   selectedBlock?: Block;

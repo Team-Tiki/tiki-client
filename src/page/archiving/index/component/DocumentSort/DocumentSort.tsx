@@ -1,6 +1,3 @@
-import Filter from '@/page/archiving/index/component/DocumentFilter/DocumentFilter';
-import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentSort/DocumentSort.style';
-
 import { useEffect } from 'react';
 
 import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
@@ -8,6 +5,9 @@ import ArrowUpThin from '@/common/asset/svg/arrow-up-thin.svg?react';
 import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import ArrowDown from '@/common/asset/svg/arrow.svg?react';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+
+import Filter from '@/page/archiving/index/component/DocumentFilter/DocumentFilter';
+import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentSort/DocumentSort.style';
 
 interface DocumentSortProps {
   selected: string;

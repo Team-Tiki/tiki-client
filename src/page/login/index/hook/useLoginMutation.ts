@@ -1,14 +1,14 @@
-import { ERROR_MESSAGE } from '@/page/login/index/constant';
-
 import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 
+import { ERROR_MESSAGE } from '@/page/login/index/constant';
+
 import { postSignIn } from '@/shared/api/auth/signin';
 import { axiosInstance } from '@/shared/api/instance';
-import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE, REFRESH_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useToastAction } from '@/shared/store/toast';
 
@@ -20,8 +20,9 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: postSignIn,
 
-    onSuccess: ({ data: { accessToken } }) => {
+    onSuccess: ({ data: { accessToken, refreshToken } }) => {
       localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+      localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
 
       axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 

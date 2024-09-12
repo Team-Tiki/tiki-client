@@ -1,5 +1,6 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import { Meta, StoryObj } from '@storybook/react';
+
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 
 const meta = {
   title: 'Page/Archiving/DocumentBar/DocumentItem',
