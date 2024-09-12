@@ -26,3 +26,12 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+             🚀 Storybook 확인하기 🚀
+             - [Build](${{steps.chromatic.outputs.buildUrl}})
+             - [Preview](${{steps.chromatic.outputs.storybookUrl}})
+             
