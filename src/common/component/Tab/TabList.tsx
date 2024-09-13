@@ -6,7 +6,7 @@ import { tabListStyle } from '@/common/component/Tab/style';
 interface TabListProps extends ComponentPropsWithoutRef<'ul'> {
   children: ReactNode;
   selectedTab: number;
-  onTabClick: React.Dispatch<React.SetStateAction<number>>;
+  onTabClick: (tabId: number) => void;
 }
 
 const TabList = ({ children, selectedTab, onTabClick, ...props }: TabListProps) => {

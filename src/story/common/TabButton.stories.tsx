@@ -15,7 +15,7 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 export default meta;
 
-export const Default: Story = {
+export const RoundTabButton: Story = {
   args: { variant: 'round' },
   argTypes: { variant: { control: 'radio', options: ['round'] } },
 };

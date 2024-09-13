@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Tab } from '@/common/component/Tab';
 
 const meta = {
-  title: 'Common/Tabs',
+  title: 'Common/Tab',
   component: Tab,
   parameters: {
     layout: 'centered',
@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export default meta;
 
-export const TabsTest: Story = {
+export const Tabtest: Story = {
   render: () => {
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -26,13 +26,9 @@ export const TabsTest: Story = {
     };
     return (
       <Tab>
-        <Tab.List>
-          <Tab.Button selectedTab={selectedTab} onTabClick={handleTabClick} variant="round">
-            선택된 블록
-          </Tab.Button>
-          <Tab.Button selectedTab={selectedTab} onTabClick={handleTabClick} variant="round">
-            전체 문서
-          </Tab.Button>
+        <Tab.List selectedTab={selectedTab} onTabClick={handleTabClick}>
+          <Tab.Button variant="round">선택된 블록</Tab.Button>
+          <Tab.Button variant="round">전체 문서</Tab.Button>
         </Tab.List>
         <Tab.Panel selectedTab={selectedTab}>
           <div>1번 탭</div>
@@ -42,5 +38,3 @@ export const TabsTest: Story = {
     );
   },
 };
-
-
