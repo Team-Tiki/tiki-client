@@ -65,7 +65,7 @@ const ArchivingPage = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
 
-  const sideBarRef = useOutsideClick(handleClose, 'TimeBlock');
+  const sideBarRef = useOutsideClick(handleClose);
 
   useEffect(() => {
     setSelectedMonthString(`${currentDate.getMonth() + 1}월` as MonthType);
