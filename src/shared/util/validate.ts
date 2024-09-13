@@ -1,7 +1,7 @@
-export const validateEmail = (email: string) => {
-  const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+import { UNIV_EMAIL_FORMAT } from '../constant/form';
 
-  return email.trim().length > 0 && emailPattern.test(email.trim());
+export const validateEmail = (email: string) => {
+  return email.trim().length > 0 && UNIV_EMAIL_FORMAT.test(email.trim());
 };
 
 export const validateCode = (authCode: string) => {
