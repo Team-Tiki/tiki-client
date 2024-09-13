@@ -17,8 +17,7 @@ import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
-import { useOpenModal } from '@/shared/store/modal';
+import { useModalActions } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 const ArchivingPage = () => {
@@ -65,10 +64,10 @@ const ArchivingPage = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   // 블록 생성 모달 관련 코드
-  const openModal = useOpenModal();
+  const { openModal } = useModalActions();
 
   const handleOpenBlockModal = () => {
-    openModal(<BlockFlow />);
+    openModal('create-block');
   };
 
   return (

@@ -14,15 +14,19 @@ import Flex from '@/common/component/Flex/Flex';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
-import { useModalStore } from '@/shared/store/modal';
+import { useModalActions } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { useToastStore } from '@/shared/store/toast';
 
-const UploadModal = () => {
+interface UploadModalProps {
+  isVisible: boolean;
+}
+
+const UploadModal = ({ isVisible }: UploadModalProps) => {
   const { teamId } = useTeamStore();
 
   const { formData, reset } = useBlockContext();
-  const { closeModal } = useModalStore();
+  const { closeModal } = useModalActions();
 
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
@@ -75,6 +79,8 @@ const UploadModal = () => {
       );
     }
   };
+
+  if (!isVisible) return null;
 
   const data = {
     name: formData.blockName,

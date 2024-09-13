@@ -20,10 +20,10 @@ import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceCategoryProps {
-  step: number;
+  isVisible: boolean;
 }
 
-const WorkSpaceCategory = ({ step }: WorkSpaceCategoryProps) => {
+const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
   const { setFormData, nextStep } = useWorkSpaceContext();
@@ -53,7 +53,7 @@ const WorkSpaceCategory = ({ step }: WorkSpaceCategoryProps) => {
     };
   }, [isOpen, close, ref]);
 
-  if (step !== 2) return null;
+  if (!isVisible) return null;
 
   const handleSelect = (id: string) => {
     setSelected(id);

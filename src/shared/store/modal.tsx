@@ -1,22 +1,32 @@
-import { ReactNode } from 'react';
-
 import { create } from 'zustand';
+
+interface DeleteModalData {
+  teamId: number;
+  itemId: number;
+  itemType: 'block' | 'docs';
+}
 
 interface ModalState {
   isOpen: boolean;
-  content: ReactNode;
-  openModal: (content: ReactNode) => void;
-  closeModal: () => void;
+  contentType: string | null;
+  modalData: DeleteModalData | null;
+  actions: {
+    openModal: (contentType: string, data?: DeleteModalData | null) => void;
+    closeModal: () => void;
+  };
 }
 
-export const useModalStore = create<ModalState>((set) => ({
+const useModalStore = create<ModalState>((set) => ({
   isOpen: false,
-  content: null,
-  openModal: (content) => set({ content, isOpen: true }),
-  closeModal: () => set({ content: null, isOpen: false }),
+  contentType: null,
+  modalData: null,
+  actions: {
+    openModal: (contentType, data = null) => set({ isOpen: true, contentType, modalData: data }),
+    closeModal: () => set({ isOpen: false, contentType: null, modalData: null }),
+  },
 }));
 
 export const useModalIsOpen = () => useModalStore((state) => state.isOpen);
-export const useModalContent = () => useModalStore((state) => state.content);
-export const useOpenModal = () => useModalStore((state) => state.openModal);
-export const useCloseModal = () => useModalStore((state) => state.closeModal);
+export const useModalContentType = () => useModalStore((state) => state.contentType);
+export const useModalData = () => useModalStore((state) => state.modalData);
+export const useModalActions = () => useModalStore((state) => state.actions);

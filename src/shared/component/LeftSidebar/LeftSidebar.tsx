@@ -20,15 +20,14 @@ import {
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
-import { WorkSpaceFlow } from '@/shared/component/ModalFlow/WorkSpaceFlow';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useOpenModal } from '@/shared/store/modal';
+import { useModalActions } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
-  const openModal = useOpenModal();
+  const { openModal } = useModalActions();
   const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
@@ -68,7 +67,7 @@ const LeftSidebar = () => {
   };
 
   const handleWorkspaceClick = () => {
-    openModal(<WorkSpaceFlow />);
+    openModal('create-workspace');
   };
 
   return (

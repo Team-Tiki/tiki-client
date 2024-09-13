@@ -13,8 +13,7 @@ import TrashBox from '@/common/asset/svg/trash_box.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useOpenModal } from '@/shared/store/modal';
+import { useModalActions } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentItemProps {
@@ -30,8 +29,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
   const fileName = children?.toString();
 
   const { teamId } = useTeamStore();
-
-  const openModal = useOpenModal();
+  const { openModal } = useModalActions();
 
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {
@@ -46,8 +44,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
   const handleTrashClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
     // 모달 띄우기
-    const modalContent = <DeleteModal title="docs" detail="docs" teamId={+teamId} id={documentId} />;
-    openModal(modalContent);
+    openModal('delete', { teamId: +teamId, itemId: documentId, itemType: 'docs' });
   };
 
   return (

@@ -5,11 +5,11 @@ import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpac
 import { sectionStyle } from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
 
 interface WorkSpaceCompleteProps {
-  step: number;
+  isVisible: boolean;
 }
 
-const WorkSpaceComplete = ({ step }: WorkSpaceCompleteProps) => {
-  if (step !== 4) return null;
+const WorkSpaceComplete = ({ isVisible }: WorkSpaceCompleteProps) => {
+  if (!isVisible) return null;
 
   return (
     <Flex

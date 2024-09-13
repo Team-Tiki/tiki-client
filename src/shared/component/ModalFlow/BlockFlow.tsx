@@ -7,9 +7,9 @@ export const BlockFlow = () => {
   const { step } = useBlockContext();
 
   return (
-    <div>
-      {step === 1 && <BlockModal />}
-      {step === 2 && <UploadModal />}
-    </div>
+    <>
+      <BlockModal isVisible={step === 1} />
+      <UploadModal isVisible={step === 2} />
+    </>
   );
 };

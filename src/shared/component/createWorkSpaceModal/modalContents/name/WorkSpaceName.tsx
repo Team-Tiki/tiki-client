@@ -13,11 +13,11 @@ import {
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceNameProps {
-  step: number;
+  isVisible: boolean;
 }
 
-const WorkSpaceName = ({ step }: WorkSpaceNameProps) => {
-  if (step !== 1) return null;
+const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
+  if (!isVisible) return null;
 
   const [inputValue, setInputValue] = useState('');
   const { setFormData, nextStep } = useWorkSpaceContext();

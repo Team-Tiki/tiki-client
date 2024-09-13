@@ -22,10 +22,10 @@ import { sectionStyle } from '@/shared/component/createWorkSpaceModal/modalConte
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceImageProps {
-  step: number;
+  isVisible: boolean;
 }
 
-const WorkSpaceImage = ({ step }: WorkSpaceImageProps) => {
+const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -103,7 +103,7 @@ const WorkSpaceImage = ({ step }: WorkSpaceImageProps) => {
     );
   };
 
-  if (step !== 3) return null;
+  if (!isVisible) return null;
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>

@@ -9,10 +9,10 @@ export const WorkSpaceFlow = () => {
 
   return (
     <>
-      <WorkSpaceName step={step} />
-      <WorkSpaceCategory step={step} />
-      <WorkSpaceImage step={step} />
-      <WorkSpaceComplete step={step} />
+      <WorkSpaceName isVisible={step == 1} />
+      <WorkSpaceCategory isVisible={step == 2} />
+      <WorkSpaceImage isVisible={step == 3} />
+      <WorkSpaceComplete isVisible={step == 4} />
     </>
   );
 };

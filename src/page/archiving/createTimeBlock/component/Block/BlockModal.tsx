@@ -14,7 +14,11 @@ import Text from '@/common/component/Text/Text';
 import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
-const BlockModal = () => {
+interface BlockModalProps {
+  isVisible: boolean;
+}
+
+const BlockModal = ({ isVisible }: BlockModalProps) => {
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 
@@ -44,6 +48,8 @@ const BlockModal = () => {
       nextStep();
     }
   };
+
+  if (!isVisible) return null;
 
   return (
     <Flex
