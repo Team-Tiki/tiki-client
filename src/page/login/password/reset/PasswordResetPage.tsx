@@ -55,7 +55,7 @@ const PasswordResetPage = () => {
               type="password"
               placeholder={PLACEHOLDER.PASSWORD}
               value={form.updatedPassword}
-              isError={form.focused.updatedPassword && !handlePasswordValidate()}
+              isError={form.isFocused.updatedPassword && !handlePasswordValidate()}
               supportingText={handlePasswordMessage(form.updatedPassword)}
               onChange={handlePasswordChange}
             />
@@ -64,7 +64,7 @@ const PasswordResetPage = () => {
               type="password"
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
               value={form.updatedPasswordChecker}
-              isError={form.focused.updatedPasswordChecker && !handlePasswordValidate()}
+              isError={form.isFocused.updatedPasswordChecker && !handlePasswordValidate()}
               supportingText={handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker)}
               onChange={handlePasswordConfirmChange}
             />

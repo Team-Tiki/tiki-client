@@ -6,7 +6,7 @@ export const usePasswordForm = () => {
   const [form, setForm] = useState({
     updatedPassword: '',
     updatedPasswordChecker: '',
-    focused: {
+    isFocused: {
       updatedPassword: false,
       updatedPasswordChecker: false,
     },
@@ -16,8 +16,8 @@ export const usePasswordForm = () => {
     setForm((prev) => ({
       ...prev,
       updatedPassword: e.target.value,
-      focused: {
-        ...prev.focused,
+      isFocused: {
+        ...prev.isFocused,
         updatedPassword: true,
       },
     }));
@@ -27,8 +27,8 @@ export const usePasswordForm = () => {
     setForm((prev) => ({
       ...prev,
       updatedPasswordChecker: e.target.value,
-      focused: {
-        ...prev.focused,
+      isFocused: {
+        ...prev.isFocused,
         updatedPasswordChecker: true,
       },
     }));
@@ -45,7 +45,7 @@ export const usePasswordForm = () => {
   // 에러에 맞는 supporting text 반환
   const handlePasswordMessage = useCallback(
     (password: string) => {
-      if (!form.focused.updatedPassword) return '';
+      if (!form.isFocused.updatedPassword) return '';
 
       if (password === '') {
         return SUPPORTING_TEXT.PASSWORD;
@@ -57,12 +57,12 @@ export const usePasswordForm = () => {
 
       return '';
     },
-    [form.focused.updatedPassword]
+    [form.isFocused.updatedPassword]
   );
 
   const handlePasswordCheckerMessage = useCallback(
     (password: string, passwordChecker: string) => {
-      if (!form.focused.updatedPasswordChecker) return '';
+      if (!form.isFocused.updatedPasswordChecker) return '';
 
       if (passwordChecker === '') {
         return SUPPORTING_TEXT.PASSWORD;
@@ -74,7 +74,7 @@ export const usePasswordForm = () => {
 
       return '';
     },
-    [form.focused.updatedPasswordChecker]
+    [form.isFocused.updatedPasswordChecker]
   );
 
   return {
