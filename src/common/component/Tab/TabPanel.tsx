@@ -1,8 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
-import React, { ComponentPropsWithoutRef, ReactElement, ReactNode, cloneElement } from 'react';
+import React, { ComponentPropsWithoutRef, ReactElement, cloneElement } from 'react';
 
 interface TabPanelProps extends ComponentPropsWithoutRef<'div'> {
-  children: ReactNode;
   selectedTab: number;
 }
 
@@ -10,7 +9,9 @@ const TabPanel = ({ children, selectedTab, ...props }: TabPanelProps) => {
   return (
     <div {...props}>
       {React.Children.toArray(children)
-        .map((child, index) => cloneElement(child as ReactElement, { role: 'tabpanel', id: `panel${index}`, ariaLabelledby: index }))
+        .map((child, index) =>
+          cloneElement(child as ReactElement, { role: 'tabpanel', id: `panel${index}`, ariaLabelledby: index })
+        )
         .filter((_, index) => index === selectedTab)}
     </div>
   );

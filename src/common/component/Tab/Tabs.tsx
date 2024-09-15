@@ -1,8 +1,6 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
-interface TabsProps extends ComponentPropsWithoutRef<'nav'> {
-  children: ReactNode;
-}
+type TabsProps = ComponentPropsWithoutRef<'nav'>;
 
 const Tabs = ({ children, ...props }: TabsProps) => {
   return <section {...props}>{children}</section>;

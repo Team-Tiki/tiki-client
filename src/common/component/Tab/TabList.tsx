@@ -1,10 +1,9 @@
 /* eslint-disable import/no-named-as-default-member */
-import React, { ComponentPropsWithoutRef, ReactElement, ReactNode, cloneElement } from 'react';
+import React, { ComponentPropsWithoutRef, ReactElement, cloneElement } from 'react';
 
 import { tabListStyle } from '@/common/component/Tab/style';
 
 interface TabListProps extends ComponentPropsWithoutRef<'ul'> {
-  children: ReactNode;
   selectedTab: number;
   onTabClick: (tabId: number) => void;
 }
