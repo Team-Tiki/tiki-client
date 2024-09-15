@@ -29,7 +29,6 @@ import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 const ArchivingPage = () => {
-  const [selectedTabId, setSelectedTabId] = useState('total');
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const daySectionRef = useRef<HTMLDivElement>(null);
@@ -73,10 +72,6 @@ const ArchivingPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamId]);
 
-  const handleSelectedId = (id: string) => {
-    setSelectedTabId(id);
-  };
-
   const handleNext = (blockData: {
     blockName: string;
     blockType: string;
@@ -105,7 +100,6 @@ const ArchivingPage = () => {
     });
 
     setSelectedBlock(block);
-    setSelectedTabId('selected');
   };
 
   return (
@@ -159,13 +153,7 @@ const ArchivingPage = () => {
       </section>
 
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      <DocumentBar
-        selectedBlock={selectedBlock}
-        ref={sideBarRef}
-        selectedTabId={selectedTabId}
-        onSelectId={handleSelectedId}
-        onClose={handleClose}
-      />
+      <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={handleClose} />
     </Flex>
   );
 };

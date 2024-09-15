@@ -3,5 +3,5 @@ export interface DocumentType {
   fileName: string;
   fileUrl: string;
   blockName: string;
-  color?: string;
+  color: string;
 }
