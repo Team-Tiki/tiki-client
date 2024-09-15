@@ -19,15 +19,12 @@ const PasswordResetPage = () => {
   const { mutate } = useResetPasswordMutation();
 
   const {
-    updatedPassword,
-    updatedConfirmPassword,
-    isPasswordFocus,
-    isPasswordConfirmFocus,
+    form,
     handlePasswordChange,
     handlePasswordConfirmChange,
     handlePasswordValidate,
     handlePasswordMessage,
-    handleConfirmPasswordMessage,
+    handlePasswordCheckerMessage,
   } = usePasswordForm();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,8 +33,8 @@ const PasswordResetPage = () => {
     mutate(
       {
         email: state,
-        password: updatedPassword,
-        passwordChecker: updatedConfirmPassword,
+        password: form.updatedPassword,
+        passwordChecker: form.updatedPasswordChecker,
       },
       {
         onSuccess: () => {
@@ -57,18 +54,18 @@ const PasswordResetPage = () => {
               variant="underline"
               type="password"
               placeholder={PLACEHOLDER.PASSWORD}
-              value={updatedPassword}
-              isError={isPasswordFocus && !handlePasswordValidate()}
-              supportingText={handlePasswordMessage(updatedPassword)}
+              value={form.updatedPassword}
+              isError={form.focused.updatedPassword && !handlePasswordValidate()}
+              supportingText={handlePasswordMessage(form.updatedPassword)}
               onChange={handlePasswordChange}
             />
             <Input
               variant="underline"
               type="password"
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
-              value={updatedConfirmPassword}
-              isError={isPasswordConfirmFocus && !handlePasswordValidate()}
-              supportingText={handleConfirmPasswordMessage(updatedPassword, updatedConfirmPassword)}
+              value={form.updatedPasswordChecker}
+              isError={form.focused.updatedPasswordChecker && !handlePasswordValidate()}
+              supportingText={handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker)}
               onChange={handlePasswordConfirmChange}
             />
           </Flex>

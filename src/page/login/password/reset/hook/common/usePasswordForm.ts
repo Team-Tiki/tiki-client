@@ -3,33 +3,49 @@ import { useCallback, useState } from 'react';
 import { PASSWORD_VALID_FORMAT, SUPPORTING_TEXT } from '@/shared/constant/form';
 
 export const usePasswordForm = () => {
-  const [updatedPassword, setUpdatedPassword] = useState('');
-  const [updatedConfirmPassword, setUpdatedConfirmPassword] = useState('');
-
-  const [isPasswordFocus, setIsPasswordFocused] = useState(false);
-  const [isPasswordConfirmFocus, setIsPasswordConfirmFocused] = useState(false);
+  const [form, setForm] = useState({
+    updatedPassword: '',
+    updatedPasswordChecker: '',
+    focused: {
+      updatedPassword: false,
+      updatedPasswordChecker: false,
+    },
+  });
 
   const handlePasswordChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedPassword(e.target.value);
-    setIsPasswordFocused(true);
+    setForm((prev) => ({
+      ...prev,
+      updatedPassword: e.target.value,
+      focused: {
+        ...prev.focused,
+        updatedPassword: true,
+      },
+    }));
   }, []);
 
   const handlePasswordConfirmChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedConfirmPassword(e.target.value);
-    setIsPasswordConfirmFocused(true);
+    setForm((prev) => ({
+      ...prev,
+      updatedPasswordChecker: e.target.value,
+      focused: {
+        ...prev.focused,
+        updatedPasswordChecker: true,
+      },
+    }));
   }, []);
 
   const handlePasswordValidate = useCallback(() => {
-    const isPasswordValid = PASSWORD_VALID_FORMAT.test(updatedPassword);
+    const isPasswordValid = PASSWORD_VALID_FORMAT.test(form.updatedPassword);
 
-    const isConfirmPasswordValid = updatedPassword === updatedConfirmPassword;
+    const isConfirmPasswordValid = form.updatedPassword === form.updatedPasswordChecker;
 
-    return updatedPassword && updatedConfirmPassword && isPasswordValid && isConfirmPasswordValid;
-  }, [updatedPassword, updatedConfirmPassword]);
+    return form.updatedPassword && form.updatedPasswordChecker && isPasswordValid && isConfirmPasswordValid;
+  }, [form.updatedPassword, form.updatedPasswordChecker]);
 
+  // 에러에 맞는 supporting text 반환
   const handlePasswordMessage = useCallback(
     (password: string) => {
-      if (!isPasswordFocus) return '';
+      if (!form.focused.updatedPassword) return '';
 
       if (password === '') {
         return SUPPORTING_TEXT.PASSWORD;
@@ -41,12 +57,12 @@ export const usePasswordForm = () => {
 
       return '';
     },
-    [isPasswordFocus]
+    [form.focused.updatedPassword]
   );
 
-  const handleConfirmPasswordMessage = useCallback(
+  const handlePasswordCheckerMessage = useCallback(
     (password: string, passwordChecker: string) => {
-      if (!isPasswordConfirmFocus) return '';
+      if (!form.focused.updatedPasswordChecker) return '';
 
       if (passwordChecker === '') {
         return SUPPORTING_TEXT.PASSWORD;
@@ -58,18 +74,15 @@ export const usePasswordForm = () => {
 
       return '';
     },
-    [isPasswordConfirmFocus]
+    [form.focused.updatedPasswordChecker]
   );
 
   return {
-    updatedPassword,
-    updatedConfirmPassword,
-    isPasswordFocus,
-    isPasswordConfirmFocus,
+    form,
     handlePasswordChange,
     handlePasswordConfirmChange,
     handlePasswordValidate,
     handlePasswordMessage,
-    handleConfirmPasswordMessage,
+    handlePasswordCheckerMessage,
   };
 };
