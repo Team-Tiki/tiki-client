@@ -139,7 +139,7 @@ const InfoForm = () => {
             <Button
               css={{ padding: '1rem 1.6rem', width: '13rem' }}
               size="large"
-              onClick={verityCodeMutate}
+              onClick={() => verityCodeMutate}
               disabled={!validateCode(info.authCode)}>
               인증하기
             </Button>
