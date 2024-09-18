@@ -6,20 +6,12 @@ export const usePasswordForm = () => {
   const [form, setForm] = useState({
     updatedPassword: '',
     updatedPasswordChecker: '',
-    isFocused: {
-      updatedPassword: false,
-      updatedPasswordChecker: false,
-    },
   });
 
   const handlePasswordChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({
       ...prev,
       updatedPassword: e.target.value,
-      isFocused: {
-        ...prev.isFocused,
-        updatedPassword: true,
-      },
     }));
   }, []);
 
@@ -27,10 +19,6 @@ export const usePasswordForm = () => {
     setForm((prev) => ({
       ...prev,
       updatedPasswordChecker: e.target.value,
-      isFocused: {
-        ...prev.isFocused,
-        updatedPasswordChecker: true,
-      },
     }));
   }, []);
 
@@ -43,39 +31,29 @@ export const usePasswordForm = () => {
   }, [form.updatedPassword, form.updatedPasswordChecker]);
 
   // 에러에 맞는 supporting text 반환
-  const handlePasswordMessage = useCallback(
-    (password: string) => {
-      if (!form.isFocused.updatedPassword) return '';
+  const handlePasswordMessage = useCallback((password: string) => {
+    if (password === '') {
+      return SUPPORTING_TEXT.PASSWORD;
+    }
 
-      if (password === '') {
-        return SUPPORTING_TEXT.PASSWORD;
-      }
+    if (!PASSWORD_VALID_FORMAT.test(password)) {
+      return SUPPORTING_TEXT.PASSWORD_INVALID;
+    }
 
-      if (!PASSWORD_VALID_FORMAT.test(password)) {
-        return SUPPORTING_TEXT.PASSWORD_INVALID;
-      }
+    return '';
+  }, []);
 
-      return '';
-    },
-    [form.isFocused.updatedPassword]
-  );
+  const handlePasswordCheckerMessage = useCallback((password: string, passwordChecker: string) => {
+    if (passwordChecker === '') {
+      return SUPPORTING_TEXT.PASSWORD;
+    }
 
-  const handlePasswordCheckerMessage = useCallback(
-    (password: string, passwordChecker: string) => {
-      if (!form.isFocused.updatedPasswordChecker) return '';
+    if (password !== passwordChecker) {
+      return SUPPORTING_TEXT.PASSWORD_NO_EQUAL;
+    }
 
-      if (passwordChecker === '') {
-        return SUPPORTING_TEXT.PASSWORD;
-      }
-
-      if (password !== passwordChecker) {
-        return SUPPORTING_TEXT.PASSWORD_NO_EQUAL;
-      }
-
-      return '';
-    },
-    [form.isFocused.updatedPasswordChecker]
-  );
+    return '';
+  }, []);
 
   return {
     form,

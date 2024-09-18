@@ -55,8 +55,8 @@ const PasswordResetPage = () => {
               type="password"
               placeholder={PLACEHOLDER.PASSWORD}
               value={form.updatedPassword}
-              isError={form.isFocused.updatedPassword && !handlePasswordValidate()}
-              supportingText={handlePasswordMessage(form.updatedPassword)}
+              isError={!!form.updatedPassword && !handlePasswordValidate()}
+              supportingText={form.updatedPassword && handlePasswordMessage(form.updatedPassword)}
               onChange={handlePasswordChange}
             />
             <Input
@@ -64,8 +64,11 @@ const PasswordResetPage = () => {
               type="password"
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
               value={form.updatedPasswordChecker}
-              isError={form.isFocused.updatedPasswordChecker && !handlePasswordValidate()}
-              supportingText={handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker)}
+              isError={!!form.updatedPasswordChecker && !handlePasswordValidate()}
+              supportingText={
+                form.updatedPasswordChecker &&
+                handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker)
+              }
               onChange={handlePasswordConfirmChange}
             />
           </Flex>
