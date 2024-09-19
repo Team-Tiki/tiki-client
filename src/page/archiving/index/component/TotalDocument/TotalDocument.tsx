@@ -1,21 +1,19 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
-import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
-import { DocumentType } from '@/page/archiving/index/type/documentType';
-
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Search from '@/common/asset/svg/search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
+import Text from '@/common/component/Text/Text';
 import { useDebounce } from '@/common/hook';
 
-interface TotalDocumentProps {
-  selectedTabId: string;
-}
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import { blockNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
+import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-const TotalDocument = ({ selectedTabId }: TotalDocumentProps) => {
+const TotalDocument = () => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
   const location = useLocation();
@@ -63,11 +61,13 @@ const TotalDocument = ({ selectedTabId }: TotalDocumentProps) => {
             <DocumentItem
               key={data.documentId}
               documentId={data.documentId}
-              selectedTabId={selectedTabId}
-              blockName={data.blockName}
-              documentUrl={data.fileUrl}
-              blockColor={data.color}>
-              {data.fileName}
+              fileUrl={data.fileUrl}
+              fileName={data.fileName}>
+              <div>
+                <Text tag="body8" css={blockNameStyle(data.color)}>
+                  {data.blockName}
+                </Text>
+              </div>
             </DocumentItem>
           )
         )}
