@@ -64,7 +64,6 @@ const ArchivingPage = () => {
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
   };
-
   const sideBarRef = useOutsideClick(handleClose);
 
   useEffect(() => {
