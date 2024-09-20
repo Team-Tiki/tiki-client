@@ -15,7 +15,7 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-import { useModalActions } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentBarInfoProps {
@@ -37,7 +37,7 @@ const SelectedBlock = ({
   selectedBlock,
 }: DocumentBarInfoProps) => {
   const { teamId } = useTeamStore();
-  const { openModal } = useModalActions();
+  const openModal = useOpenModal();
 
   const handleDeleteClick = () => {
     openModal('delete', { teamId: +teamId, itemId: selectedBlock.timeBlockId, itemType: 'block' }); // 데이터 전달

@@ -1,8 +1,8 @@
-import { buttonStyle, textStyle } from '@/page/archiving/createTimeBlock/component/Block/BlockModal.style';
-import BlockDate from '@/page/archiving/createTimeBlock/component/Block/Date/BlockDate';
-import BlockIcon from '@/page/archiving/createTimeBlock/component/Block/Icon/BlockIcon';
-import BlockBox from '@/page/archiving/createTimeBlock/component/Box/BlockBox';
-import { BLOCK_ICON } from '@/page/archiving/createTimeBlock/constant/iconBlock';
+import { buttonStyle, textStyle } from '@/page/archiving/timeBlockModal/component/Block/BlockModal.style';
+import BlockDate from '@/page/archiving/timeBlockModal/component/Block/Date/BlockDate';
+import BlockIcon from '@/page/archiving/timeBlockModal/component/Block/Icon/BlockIcon';
+import BlockBox from '@/page/archiving/timeBlockModal/component/Box/BlockBox';
+import { BLOCK_ICON } from '@/page/archiving/timeBlockModal/constant/iconBlock';
 
 import { useState } from 'react';
 
@@ -11,7 +11,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
-import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
+import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
 interface BlockModalProps {

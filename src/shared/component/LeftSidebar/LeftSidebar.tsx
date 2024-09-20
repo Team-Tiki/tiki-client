@@ -22,12 +22,12 @@ import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/Left
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useModalActions } from '@/shared/store/modal';
-import { useTeamStore } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/store/modal';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {
-  const { openModal } = useModalActions();
+  const openModal = useOpenModal();
+
   const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
@@ -41,28 +41,34 @@ const LeftSidebar = () => {
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
   const settingRef = useOutsideClick(onSettingClose);
 
-  const { setTeamId } = useTeamStore();
-
   useEffect(() => {
-    const teamId = localStorage.getItem('teamId');
+    const searchParams = new URLSearchParams(window.location.search);
+    const teamId = searchParams.get('teamId');
     if (teamId) {
-      setTeamId(teamId);
       setSelectedId(teamId);
+
       navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
     } else {
       setSelectedId('showcase');
+      navigate(PATH.SHOWCASE);
     }
-  }, [setTeamId, navigate]);
+  }, [navigate]);
 
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
-    if (id !== 'showcase') {
-      setTeamId(id);
-      localStorage.setItem('teamId', id);
+
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('teamId', id);
+
+    const hasTeamIdInPath = path.includes('teamId');
+
+    if (!hasTeamIdInPath && id !== 'showcase') {
+      navigate(`${path}?${searchParams.toString()}`);
+    } else if (id === 'showcase') {
+      navigate(PATH.SHOWCASE);
     } else {
-      localStorage.removeItem('teamId');
+      navigate(path);
     }
-    navigate(path);
     close();
   };
 

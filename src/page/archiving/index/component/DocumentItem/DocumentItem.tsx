@@ -13,7 +13,7 @@ import TrashBox from '@/common/asset/svg/trash_box.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import { useModalActions } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 
 interface DocumentItemProps {
@@ -29,7 +29,7 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
   const fileName = children?.toString();
 
   const { teamId } = useTeamStore();
-  const { openModal } = useModalActions();
+  const openModal = useOpenModal();
 
   //문서 클릭시 띄워주는 함수
   const onClickDocumentItem = () => {

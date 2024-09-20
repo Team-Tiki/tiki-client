@@ -1,10 +1,10 @@
-import BlockAdd from '@/page/archiving/createTimeBlock/component/Upload/File/Add/BlockAdd';
-import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem';
-import { flexStyle, scrollStyle } from '@/page/archiving/createTimeBlock/component/Upload/UploadModal.style';
-import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
-import { usePostTimeBlockMutation } from '@/page/archiving/createTimeBlock/hook/api/usePostTimeBlockMutation';
-import { formatDatePost } from '@/page/archiving/createTimeBlock/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
+import BlockAdd from '@/page/archiving/timeBlockModal/component/Upload/File/Add/BlockAdd';
+import BlockItem from '@/page/archiving/timeBlockModal/component/Upload/File/List/BlockItem';
+import { flexStyle, scrollStyle } from '@/page/archiving/timeBlockModal/component/Upload/UploadModal.style';
+import { useDeleteFileMutation } from '@/page/archiving/timeBlockModal/hook/api/useDeleteFileMutation';
+import { usePostTimeBlockMutation } from '@/page/archiving/timeBlockModal/hook/api/usePostTimeBlockMutation';
+import { formatDatePost } from '@/page/archiving/timeBlockModal/util/date';
 
 import { useEffect, useState } from 'react';
 
@@ -12,9 +12,9 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
-import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
+import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
-import { useModalActions } from '@/shared/store/modal';
+import { useCloseModal } from '@/shared/store/modal';
 import { useTeamStore } from '@/shared/store/team';
 import { useToastStore } from '@/shared/store/toast';
 
@@ -26,7 +26,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
   const { teamId } = useTeamStore();
 
   const { formData, reset } = useBlockContext();
-  const { closeModal } = useModalActions();
+  const closeModal = useCloseModal();
 
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});

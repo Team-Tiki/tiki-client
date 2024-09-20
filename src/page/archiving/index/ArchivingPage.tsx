@@ -10,6 +10,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, getLastDayOfMonth } from '@/page/archiving/index/util/block';
 
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import AddIc from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -17,13 +18,14 @@ import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useModalActions } from '@/shared/store/modal';
-import { useTeamStore } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
 
   const handleClose = () => {
     selectedBlock && setSelectedBlock(undefined);
@@ -57,14 +59,14 @@ const ArchivingPage = () => {
 
   const selectedMonthNumber = parseInt(selectedMonth.split('월')[0]);
 
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonthNumber);
+  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, selectedMonthNumber);
 
   const [selectedBlock, setSelectedBlock] = useState<Block>();
   const timeBlocks: Block[] = data?.timeBlocks || [];
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
 
   // 블록 생성 모달 관련 코드
-  const { openModal } = useModalActions();
+  const openModal = useOpenModal();
 
   const handleOpenBlockModal = () => {
     openModal('create-block');

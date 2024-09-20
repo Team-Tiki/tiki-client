@@ -1,5 +1,5 @@
-import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
-import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
+import BlockModal from '@/page/archiving/timeBlockModal/component/Block/BlockModal';
+import UploadModal from '@/page/archiving/timeBlockModal/component/Upload/UploadModal';
 
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 

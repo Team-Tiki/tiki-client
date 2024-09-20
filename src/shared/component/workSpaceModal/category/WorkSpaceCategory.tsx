@@ -6,16 +6,13 @@ import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import {
   arrowStyle,
   selectButtonStyle,
   selectedTextStyle,
-} from '@/shared/component/createWorkSpaceModal/modalContents/category/WorkSpaceCategory.style';
-import {
-  buttonStyle,
-  sectionStyle,
-} from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
+} from '@/shared/component/workSpaceModal/category/WorkSpaceCategory.style';
+import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
+import { buttonStyle, sectionStyle } from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 

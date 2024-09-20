@@ -1,5 +1,5 @@
-import { useDeleteFileMutation } from '@/page/archiving/createTimeBlock/hook/api/useDeleteFileMutation';
-import { usePutUploadMutation } from '@/page/archiving/createTimeBlock/hook/api/usePutUploadMutation';
+import { useDeleteFileMutation } from '@/page/archiving/timeBlockModal/hook/api/useDeleteFileMutation';
+import { usePutUploadMutation } from '@/page/archiving/timeBlockModal/hook/api/usePutUploadMutation';
 
 import { useRef, useState } from 'react';
 
@@ -9,16 +9,16 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Label from '@/common/component/Label/Label';
 
-import useGetFileQuery from '@/shared/component/createWorkSpaceModal/hook/api/useGetFileQuery';
-import { usePostTeamMutation } from '@/shared/component/createWorkSpaceModal/hook/api/usePostTeamMutation';
-import WorkSapceInfo from '@/shared/component/createWorkSpaceModal/info/WorkSpaceInfo';
 import {
   buttonCompleteStyle,
   imageAddStyle,
   imageBoxStyle,
   imageDeleteStyle,
-} from '@/shared/component/createWorkSpaceModal/modalContents/image/WorkSpaceImage.style';
-import { sectionStyle } from '@/shared/component/createWorkSpaceModal/modalContents/name/WorkSpaceName.style';
+} from '@/shared/component/workSpaceModal/image/WorkSpaceImage.style';
+import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
+import { sectionStyle } from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
+import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
+import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceImageProps {

@@ -1,4 +1,4 @@
-import { borderStyle, textStyle } from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem.style';
+import { borderStyle, textStyle } from '@/page/archiving/timeBlockModal/component/Upload/File/List/BlockItem.style';
 
 import Delete from '@/common/asset/svg/file-delete.svg?react';
 import Flex from '@/common/component/Flex/Flex';

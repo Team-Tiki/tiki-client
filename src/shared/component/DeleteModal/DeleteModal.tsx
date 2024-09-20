@@ -8,11 +8,11 @@ import Text from '@/common/component/Text/Text';
 
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
-import { useModalActions, useModalData } from '@/shared/store/modal';
+import { useCloseModal, useModalData } from '@/shared/store/modal';
 
 const DeleteModal = () => {
   const modalData = useModalData();
-  const { closeModal } = useModalActions();
+  const closeModal = useCloseModal();
 
   if (!modalData) {
     return null;

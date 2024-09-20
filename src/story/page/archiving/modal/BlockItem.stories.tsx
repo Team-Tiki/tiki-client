@@ -1,4 +1,4 @@
-import BlockItem from '@/page/archiving/createTimeBlock/component/Upload/File/List/BlockItem';
+import BlockItem from '@/page/archiving/timeBlockModal/component/Upload/File/List/BlockItem';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

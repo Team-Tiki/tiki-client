@@ -1,5 +1,5 @@
-import { supportStyle, textStyle } from '@/page/archiving/createTimeBlock/component/Block/Date/BlockDate.style';
-import useDateRange from '@/page/archiving/createTimeBlock/hook/common/useDateRange';
+import { supportStyle, textStyle } from '@/page/archiving/timeBlockModal/component/Block/Date/BlockDate.style';
+import useDateRange from '@/page/archiving/timeBlockModal/hook/common/useDateRange';
 import { css } from '@emotion/react';
 
 import Flex from '@/common/component/Flex/Flex';

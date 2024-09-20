@@ -29,4 +29,13 @@ const useModalStore = create<ModalState>((set) => ({
 export const useModalIsOpen = () => useModalStore((state) => state.isOpen);
 export const useModalContentType = () => useModalStore((state) => state.contentType);
 export const useModalData = () => useModalStore((state) => state.modalData);
-export const useModalActions = () => useModalStore((state) => state.actions);
+
+export const useOpenModal = () => {
+  const openModal = useModalStore((state) => state.actions.openModal);
+  return openModal;
+};
+
+export const useCloseModal = () => {
+  const closeModal = useModalStore((state) => state.actions.closeModal);
+  return closeModal;
+};

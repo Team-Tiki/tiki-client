@@ -5,12 +5,12 @@ import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
 import { WorkSpaceFlow } from '@/shared/component/ModalFlow/WorkSpaceFlow';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
-import { useModalActions, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
+import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
 
 const ModalContainer = () => {
   const isOpen = useModalIsOpen();
   const contentType = useModalContentType();
-  const { closeModal } = useModalActions();
+  const closeModal = useCloseModal();
 
   const renderContent = () => {
     switch (contentType) {
@@ -26,7 +26,7 @@ const ModalContainer = () => {
             <BlockFlow />
           </BlockProvider>
         );
-      case 'delete': // delete 모달 케이스 추가
+      case 'delete':
         return <DeleteModal />;
       default:
         return null;

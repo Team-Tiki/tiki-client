@@ -1,5 +1,5 @@
-import { boxStyle, buttonStyle } from '@/page/archiving/createTimeBlock/component/Upload/File/Add/BlockAdd.style';
-import useFile from '@/page/archiving/createTimeBlock/hook/common/useFile';
+import { boxStyle, buttonStyle } from '@/page/archiving/timeBlockModal/component/Upload/File/Add/BlockAdd.style';
+import useFile from '@/page/archiving/timeBlockModal/hook/common/useFile';
 
 import { Dispatch, SetStateAction } from 'react';
 
