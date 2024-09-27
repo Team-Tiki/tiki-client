@@ -52,11 +52,21 @@ export const usePasswordForm = () => {
     return '';
   }, []);
 
+  const isPasswordError = !!form.updatedPassword && !handlePasswordValidate();
+  const isPasswordCheckerError = !!form.updatedPasswordChecker && !handlePasswordValidate();
+  const passwordSupportingTxt = form.updatedPassword && handlePasswordMessage(form.updatedPassword);
+  const passwordCheckerSupportingTxt =
+    form.updatedPasswordChecker && handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker);
+
   return {
     form,
     handlePasswordChange,
     handlePasswordValidate,
     handlePasswordMessage,
     handlePasswordCheckerMessage,
+    isPasswordError,
+    isPasswordCheckerError,
+    passwordSupportingTxt,
+    passwordCheckerSupportingTxt,
   };
 };
