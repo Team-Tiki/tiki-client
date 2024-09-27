@@ -9,8 +9,8 @@ export const tabStyle = (tabId: string) =>
     font: `${theme.text.body04}`,
   });
 
-export const selectedStyle = (selected: string, tabId: string) =>
-  selected === tabId
+export const selectedStyle = (selectedTabId: string, tabId: string) =>
+  selectedTabId === tabId
     ? css({
         backgroundColor: theme.colors.white,
 

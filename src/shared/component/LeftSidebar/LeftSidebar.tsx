@@ -5,28 +5,33 @@ import addUrl from '@/common/asset/svg/add_2.svg';
 import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
 import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
 import earthUrl from '@/common/asset/svg/global_2.svg';
-import LogoSymbol from '@/common/asset/svg/logo_symbol.svg?react';
+import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
+import Logout from '@/common/asset/svg/logout.svg?react';
+import PWResetting from '@/common/asset/svg/password.svg?react';
 import settingUrl from '@/common/asset/svg/setting.svg';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
+import Menu from '@/common/component/Menu/Menu';
+import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
+import MenuList from '@/common/component/Menu/MenuList/MenuList';
 import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
 import { useModal } from '@/common/hook/useModal';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
 import {
-  LogoSymbolStyle,
-  arrowStyle,
+  arrowBtnStyle,
   containerStyle,
-  leftSidebarListStyle,
+  leftSidebarMenuStyle,
+  tikiLogoStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
-import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
-import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
+import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
 import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
+import { useLogout } from '@/shared/hook/common/useLogout';
 import { useTeamIdAction } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
@@ -48,7 +53,6 @@ const LeftSidebar = () => {
   const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
 
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
-  const settingRef = useOutsideClick(onSettingClose);
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -58,6 +62,8 @@ const LeftSidebar = () => {
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
   const { setTeamId } = useTeamIdAction();
+
+  const { logout } = useLogout();
 
   useEffect(() => {
     const postData = {
@@ -117,53 +123,74 @@ const LeftSidebar = () => {
   return (
     <aside css={containerStyle} ref={sidebarRef}>
       <nav>
-        {isNavOpen ? <LeftArrow css={arrowStyle} onClick={close} /> : <RightArrow css={arrowStyle} onClick={open} />}
-        <LogoSymbol css={LogoSymbolStyle} />
-        <ul css={leftSidebarListStyle}>
-          <LeftSidebarItem
+        {isNavOpen ? (
+          <LeftArrow css={arrowBtnStyle} onClick={close} />
+        ) : (
+          <RightArrow css={arrowBtnStyle} onClick={open} />
+        )}
+        <TikiLogo css={tikiLogoStyle} />
+        <ul css={leftSidebarMenuStyle}>
+          <LeftSidebarMenuItem
             isClicked={clicked === 'showcase'}
-            isExpansion={isNavOpen}
-            url={earthUrl}
+            isExpanded={isNavOpen}
+            logoUrl={earthUrl}
             onClick={handleShowcaseClick}>
             Showcase
-          </LeftSidebarItem>
+          </LeftSidebarMenuItem>
           {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
-              <LeftSidebarItem
+              <LeftSidebarMenuItem
                 key={data.id}
                 isClicked={clicked === String(data.id)}
-                isExpansion={isNavOpen}
-                url={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
+                isExpanded={isNavOpen}
+                logoUrl={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
                 onClick={() => {
                   handleTeamClick(String(data.id));
                 }}>
                 {data.name}
-              </LeftSidebarItem>
+              </LeftSidebarMenuItem>
             );
           })}
-          <LeftSidebarItem
+          <LeftSidebarMenuItem
             isClicked={isWorkspaceClicked}
-            isExpansion={isNavOpen}
-            url={addUrl}
+            isExpanded={isNavOpen}
+            logoUrl={addUrl}
             onClick={handleWorkspaceClick}>
             워크스페이스 생성
-          </LeftSidebarItem>
+          </LeftSidebarMenuItem>
         </ul>
       </nav>
 
-      <div ref={settingRef}>
-        <LeftSidebarItem
+      <Menu onClose={onSettingClose}>
+        <LeftSidebarMenuItem
           isClicked={false}
-          isExpansion={isNavOpen}
-          url={settingUrl}
+          isExpanded={isNavOpen}
+          logoUrl={settingUrl}
           onClick={() => {
             toggle();
             close();
           }}>
           환경설정
-        </LeftSidebarItem>
-        <SettingMenu isModalOpen={isSettingOpen} />
-      </div>
+        </LeftSidebarMenuItem>
+        <MenuList variant="primary" isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
+          <MenuItem
+            onSelect={() => {
+              toggle();
+              logout();
+            }}
+            LeftIcon={<Logout width={16} height={16} />}>
+            로그아웃
+          </MenuItem>
+          <MenuItem
+            onSelect={() => {
+              toggle();
+              navigate(PATH.PASSWORD_RESET);
+            }}
+            LeftIcon={<PWResetting width={16} height={16} />}>
+            비밀번호 재설정
+          </MenuItem>
+        </MenuList>
+      </Menu>
       <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
   );

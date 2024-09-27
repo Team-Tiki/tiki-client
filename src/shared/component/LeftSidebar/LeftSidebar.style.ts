@@ -26,7 +26,7 @@ export const containerStyle = () =>
     transitionDuration: '0.5s',
   });
 
-export const LogoSymbolStyle = css({
+export const tikiLogoStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -42,14 +42,14 @@ export const LogoSymbolStyle = css({
   cursor: 'pointer',
 });
 
-export const leftSidebarListStyle = css({
+export const leftSidebarMenuStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
   gap: '2.4rem',
 });
 
-export const arrowStyle = css({
+export const arrowBtnStyle = css({
   position: 'absolute',
 
   top: '3.8rem',
@@ -66,4 +66,3 @@ export const settingStyle = css({
 
   bottom: '2.4rem',
 });
-

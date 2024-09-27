@@ -1,43 +1,36 @@
+import { ForwardedRef, forwardRef, useState } from 'react';
+
+import { Tab } from '@/common/component/Tab';
+
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
-import DocumentBarTab from '@/page/archiving/index/component/DocumentBarTab/DocumentBarTab';
 import SelectedBlock from '@/page/archiving/index/component/SelectedBlock/SelectedBlock';
 import TotalDocument from '@/page/archiving/index/component/TotalDocument/TotalDocument';
 import { Block } from '@/page/archiving/index/type/blockType';
 
-import { ForwardedRef, forwardRef } from 'react';
-
 interface DocumentBarProps {
   selectedBlock?: Block;
-  selectedId: string;
-  onSelectId: (Id: string) => void;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
-const DocumentBar = (
-  { selectedBlock, selectedId, onSelectId, onClickClose }: DocumentBarProps,
-  ref: ForwardedRef<HTMLDivElement>
-) => {
-  const handleTabClick = (selectedId: string, tabId: string) => {
-    if (tabId !== selectedId) {
-      onSelectId(tabId);
-    }
+const DocumentBar = ({ selectedBlock, onClose }: DocumentBarProps, ref: ForwardedRef<HTMLDivElement>) => {
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const handleTabClick = (tabId: number) => {
+    setSelectedTab(tabId);
   };
 
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>
-      <DocumentBarTab selectedId={selectedId} onTabClick={handleTabClick} />
-      {selectedId === 'selected' ? (
-        selectedBlock && (
-          <SelectedBlock
-            selectedId={selectedId}
-            blockName={selectedBlock.name}
-            selectedBlock={selectedBlock}
-            onClickClose={onClickClose}
-          />
-        )
-      ) : (
-        <TotalDocument selectedId={selectedId} />
-      )}
+      <Tab>
+        <Tab.List selectedTab={selectedTab} onTabClick={handleTabClick}>
+          <Tab.Button>선택된 블록</Tab.Button>
+          <Tab.Button>전체 문서</Tab.Button>
+        </Tab.List>
+        <Tab.Panel selectedTab={selectedTab}>
+          {selectedBlock && <SelectedBlock selectedBlock={selectedBlock} onClose={onClose} />}
+          <TotalDocument />
+        </Tab.Panel>
+      </Tab>
     </aside>
   );
 };

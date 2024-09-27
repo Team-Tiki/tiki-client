@@ -1,12 +1,14 @@
 import { css } from '@emotion/react';
+import * as Sentry from '@sentry/react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { AxiosError } from 'axios';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import { theme } from '@/common/style/theme/theme';
 
+import { HTTPError } from '@/shared/api/HTTPError';
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 import Login from '@/shared/component/Login/Login';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
@@ -16,18 +18,29 @@ import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 const App = () => {
   const navigate = useNavigate();
 
-  const handleResetError = (error: Error | AxiosError) => {
-    if (error instanceof Error && !(error instanceof AxiosError)) {
+  const { reset } = useQueryErrorResetBoundary();
+
+  Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    integrations: [Sentry.browserTracingIntegration()],
+
+    tracePropagationTargets: ['localhost', /^https:\/\/ti-kii\.com/],
+    tracesSampleRate: 1.0,
+  });
+
+  const handleResetError = (error: Error | HTTPError) => {
+    if (error instanceof Error && !(error instanceof HTTPError)) {
       navigate(PATH.ROOT);
       return;
     }
 
-    if (error instanceof AxiosError) {
-      if (error.response?.status === HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR) {
+    if (error instanceof HTTPError) {
+      if (error.statusCode >= HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR) {
         navigate(0);
       } else {
         navigate(PATH.ROOT);
       }
+      reset();
     }
   };
 

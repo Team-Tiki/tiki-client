@@ -27,7 +27,7 @@ const YearHeader = ({ handlePrevYear, handleNextYear, currentYear }: YearHeaderP
           onClick={() => handlePrevYear(currentYear)}
           css={{ cursor: 'pointer' }}
         />
-        <Text tag="body1" css={{ marginTop: '0.4rem', lineHeight: '' }}>
+        <Text tag="body1" css={{ marginTop: '0.4rem' }}>
           {currentYear}
         </Text>
         <NextYearArrow width={16} height={16} onClick={() => handleNextYear(currentYear)} css={{ cursor: 'pointer' }} />
