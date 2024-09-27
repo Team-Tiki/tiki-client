@@ -27,8 +27,8 @@ const PasswordAuthPage = () => {
   const {
     remainTime,
     isTriggered: isMailSent,
-    handleTrigger: handleSend,
-    handleReset: handleResetTimer,
+    trigger: handleSend,
+    reset: handleResetTimer,
   } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
 
   const navigate = useNavigate();
