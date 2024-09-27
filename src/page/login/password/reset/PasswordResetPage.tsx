@@ -6,16 +6,17 @@ import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 
 import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
+import { useResetPasswordMutation } from '@/page/login/password/reset/hook/api/useResetPasswordMutation';
+import { usePasswordForm } from '@/page/login/password/reset/hook/common/usePasswordForm';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 
-import { useResetPasswordMutation } from './hook/api/useResetPasswordMutation';
-import { usePasswordForm } from './hook/common/usePasswordForm';
-
 const PasswordResetPage = () => {
   const navigate = useNavigate();
+
   const { state } = useLocation();
+
   const { mutate } = useResetPasswordMutation();
 
   const {
