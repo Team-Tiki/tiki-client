@@ -2,23 +2,20 @@ import { useCallback, useState } from 'react';
 
 import { PASSWORD_VALID_FORMAT, SUPPORTING_TEXT } from '@/shared/constant/form';
 
+type Password = 'updatedPassword' | 'updatedPasswordChecker';
+
 export const usePasswordForm = () => {
   const [form, setForm] = useState({
     updatedPassword: '',
     updatedPasswordChecker: '',
   });
 
-  const handlePasswordChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      updatedPassword: e.target.value,
-    }));
-  }, []);
+  const handlePasswordChange = useCallback((key: Password, e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
-  const handlePasswordConfirmChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({
       ...prev,
-      updatedPasswordChecker: e.target.value,
+      [key]: value,
     }));
   }, []);
 
@@ -58,7 +55,6 @@ export const usePasswordForm = () => {
   return {
     form,
     handlePasswordChange,
-    handlePasswordConfirmChange,
     handlePasswordValidate,
     handlePasswordMessage,
     handlePasswordCheckerMessage,

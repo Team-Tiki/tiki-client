@@ -19,14 +19,8 @@ const PasswordResetPage = () => {
 
   const { mutate } = useResetPasswordMutation();
 
-  const {
-    form,
-    handlePasswordChange,
-    handlePasswordConfirmChange,
-    handlePasswordValidate,
-    handlePasswordMessage,
-    handlePasswordCheckerMessage,
-  } = usePasswordForm();
+  const { form, handlePasswordChange, handlePasswordValidate, handlePasswordMessage, handlePasswordCheckerMessage } =
+    usePasswordForm();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +52,7 @@ const PasswordResetPage = () => {
               value={form.updatedPassword}
               isError={!!form.updatedPassword && !handlePasswordValidate()}
               supportingText={form.updatedPassword && handlePasswordMessage(form.updatedPassword)}
-              onChange={handlePasswordChange}
+              onChange={(e) => handlePasswordChange('updatedPassword', e)}
             />
             <Input
               variant="underline"
@@ -70,7 +64,7 @@ const PasswordResetPage = () => {
                 form.updatedPasswordChecker &&
                 handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker)
               }
-              onChange={handlePasswordConfirmChange}
+              onChange={(e) => handlePasswordChange('updatedPasswordChecker', e)}
             />
           </Flex>
           <Button type="submit" variant="primary" size="large" disabled={!handlePasswordValidate()}>
