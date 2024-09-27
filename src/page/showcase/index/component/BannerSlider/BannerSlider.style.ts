@@ -27,9 +27,13 @@ export const arrowStyle = css({
   border: 'none',
   borderRadius: '16px',
 
-  background: 'rgb(0,0,0,0.3)',
+  background: 'rgb(255,255,255,0.3)',
 
   cursor: 'pointer',
+
+  ':hover': {
+    background: 'rgb(255,255,255,0.1)',
+  },
 });
 
 export const dotsContaierStyle = css({
