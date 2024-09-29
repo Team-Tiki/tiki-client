@@ -6,15 +6,15 @@ import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
+import { useWorkSpaceContext } from '@/shared/component/Modal/hook/useWorkSpaceContext';
 import {
   arrowStyle,
   selectButtonStyle,
   selectedTextStyle,
-} from '@/shared/component/workSpaceModal/category/WorkSpaceCategory.style';
-import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
-import { buttonStyle, sectionStyle } from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
+} from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory.style';
+import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
+import { buttonStyle, sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
-import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceCategoryProps {
   isVisible: boolean;

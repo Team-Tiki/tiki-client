@@ -4,13 +4,13 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 
-import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
+import { useWorkSpaceContext } from '@/shared/component/Modal/hook/useWorkSpaceContext';
+import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import {
   buttonStyle,
   inputWrapperStyle,
   sectionStyle,
-} from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
-import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
+} from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 
 interface WorkSpaceNameProps {
   isVisible: boolean;
@@ -18,6 +18,7 @@ interface WorkSpaceNameProps {
 
 const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
   if (!isVisible) return null;
+  console.log(isVisible);
 
   const [inputValue, setInputValue] = useState('');
   const { setFormData, nextStep } = useWorkSpaceContext();

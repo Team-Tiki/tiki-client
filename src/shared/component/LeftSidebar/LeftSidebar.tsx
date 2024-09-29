@@ -20,9 +20,9 @@ import {
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarItem';
 import SettingMenu from '@/shared/component/LeftSidebar/LeftSidebarItem/SettingMenu/SettingMenu';
+import { useOpenModal } from '@/shared/component/Modal/store/modal';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
-import { useOpenModal } from '@/shared/store/modal';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {

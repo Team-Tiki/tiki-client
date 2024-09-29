@@ -1,4 +1,4 @@
-import { usePutUploadMutation } from '@/page/archiving/timeBlockModal/hook/api/usePutUploadMutation';
+import { usePutUploadMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePutUploadMutation';
 
 import { useCallback, useRef } from 'react';
 

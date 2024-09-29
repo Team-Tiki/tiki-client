@@ -5,8 +5,8 @@ import {
   boxStyle,
   iconStyle,
   selectedIconStyle,
-} from '@/page/archiving/timeBlockModal/component/Block/Icon/BlockIcon.style';
-import { BLOCK_ICON } from '@/page/archiving/timeBlockModal/constant/iconBlock';
+} from '@/page/archiving/index/component/TimeBlockModal/component/Block/Icon/BlockIcon.style';
+import { BLOCK_ICON } from '@/page/archiving/index/component/TimeBlockModal/constant/iconBlock';
 
 interface BlockIconProps {
   selectedBlockIcon: number;

@@ -9,14 +9,15 @@ import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
+import { useLocation } from 'react-router-dom';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-import { useOpenModal } from '@/shared/store/modal';
-import { useTeamStore } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/component/Modal/store/modal';
 
 interface DocumentBarInfoProps {
   selectedId: string;
@@ -36,11 +37,13 @@ const SelectedBlock = ({
   documentList,
   selectedBlock,
 }: DocumentBarInfoProps) => {
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
   const openModal = useOpenModal();
 
   const handleDeleteClick = () => {
-    openModal('delete', { teamId: +teamId, itemId: selectedBlock.timeBlockId, itemType: 'block' }); // 데이터 전달
+    openModal('delete', { teamId: +teamId!, itemId: selectedBlock.timeBlockId, itemType: 'block' }); // 데이터 전달
   };
 
   return (

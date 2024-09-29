@@ -1,5 +1,5 @@
-import { ERROR } from '@/page/archiving/timeBlockModal/constant/error';
-import { formatDateString, isValidDate, parseDate } from '@/page/archiving/timeBlockModal/util/date';
+import { ERROR } from '@/page/archiving/index/component/TimeBlockModal/constant/error';
+import { formatDateString, isValidDate, parseDate } from '@/page/archiving/index/component/TimeBlockModal/util/date';
 
 import { useState } from 'react';
 

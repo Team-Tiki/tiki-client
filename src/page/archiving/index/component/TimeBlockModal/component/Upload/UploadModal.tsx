@@ -1,21 +1,24 @@
+import BlockAdd from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd';
+import BlockItem from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/List/BlockItem';
+import {
+  flexStyle,
+  scrollStyle,
+} from '@/page/archiving/index/component/TimeBlockModal/component/Upload/UploadModal.style';
+import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
+import { usePostTimeBlockMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePostTimeBlockMutation';
+import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
-import BlockAdd from '@/page/archiving/timeBlockModal/component/Upload/File/Add/BlockAdd';
-import BlockItem from '@/page/archiving/timeBlockModal/component/Upload/File/List/BlockItem';
-import { flexStyle, scrollStyle } from '@/page/archiving/timeBlockModal/component/Upload/UploadModal.style';
-import { useDeleteFileMutation } from '@/page/archiving/timeBlockModal/hook/api/useDeleteFileMutation';
-import { usePostTimeBlockMutation } from '@/page/archiving/timeBlockModal/hook/api/usePostTimeBlockMutation';
-import { formatDatePost } from '@/page/archiving/timeBlockModal/util/date';
 
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
-import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
-import { useBlockContext } from '@/shared/hook/common/useBlockContext';
-import { useCloseModal } from '@/shared/store/modal';
-import { useTeamStore } from '@/shared/store/team';
+import { useBlockContext } from '@/shared/component/Modal/hook/useBlockContext';
+import { useCloseModal } from '@/shared/component/Modal/store/modal';
+import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { useToastStore } from '@/shared/store/toast';
 
 interface UploadModalProps {
@@ -23,8 +26,10 @@ interface UploadModalProps {
 }
 
 const UploadModal = ({ isVisible }: UploadModalProps) => {
-  const { teamId } = useTeamStore();
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
+  console.log('teamId', teamId);
   const { formData, reset } = useBlockContext();
   const closeModal = useCloseModal();
 
@@ -33,7 +38,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
   const [isAllUploaded, setIsAllUploaded] = useState(true);
 
-  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(+teamId, 'executive');
+  const { mutate: timeBlockMutate } = usePostTimeBlockMutation(+teamId!, 'executive');
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
   const { createToast } = useToastStore();
 

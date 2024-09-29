@@ -7,14 +7,14 @@ import {
 import { handleDownload } from '@/page/archiving/index/util/document';
 
 import { ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Download from '@/common/asset/svg/download.svg?react';
 import TrashBox from '@/common/asset/svg/trash_box.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import { useOpenModal } from '@/shared/store/modal';
-import { useTeamStore } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/component/Modal/store/modal';
 
 interface DocumentItemProps {
   documentId: number;
@@ -28,7 +28,10 @@ interface DocumentItemProps {
 const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, color }: DocumentItemProps) => {
   const fileName = children?.toString();
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
+
   const openModal = useOpenModal();
 
   //문서 클릭시 띄워주는 함수
@@ -43,8 +46,8 @@ const DocumentItem = ({ documentId, children, selectedId, blockName, fileUrl, co
 
   const handleTrashClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-    // 모달 띄우기
-    openModal('delete', { teamId: +teamId, itemId: documentId, itemType: 'docs' });
+
+    openModal('delete', { teamId: +teamId!, itemId: documentId, itemType: 'docs' });
   };
 
   return (

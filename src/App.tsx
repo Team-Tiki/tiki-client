@@ -6,11 +6,11 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
-import ModalContainer from '@/common/component/Modal/ModalContainer';
 import { theme } from '@/common/style/theme/theme';
 
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 import Login from '@/shared/component/Login/Login';
+import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';

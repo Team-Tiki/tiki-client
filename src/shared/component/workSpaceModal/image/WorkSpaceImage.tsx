@@ -1,92 +1,29 @@
-import { useDeleteFileMutation } from '@/page/archiving/timeBlockModal/hook/api/useDeleteFileMutation';
-import { usePutUploadMutation } from '@/page/archiving/timeBlockModal/hook/api/usePutUploadMutation';
-
-import { useRef, useState } from 'react';
-
 import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
 import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Label from '@/common/component/Label/Label';
 
+import { useWorkSpaceContext } from '@/shared/component/Modal/hook/useWorkSpaceContext';
 import {
   buttonCompleteStyle,
   imageAddStyle,
   imageBoxStyle,
   imageDeleteStyle,
-} from '@/shared/component/workSpaceModal/image/WorkSpaceImage.style';
-import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
-import { sectionStyle } from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
-import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
+} from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
+import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImageUpload';
+import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
+import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
-import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceImageProps {
   isVisible: boolean;
 }
 
 const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
-  const [fileURL, setFileURL] = useState<string>('');
-  const imgUploadInput = useRef<HTMLInputElement | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-
-  const { mutate: uploadToS3Mutate } = usePutUploadMutation();
-  const { mutate: deleteFileMutate } = useDeleteFileMutation();
-  const { data: fileData, refetch: refetchFileData } = useGetFileQuery(file as File);
-
-  const { setFormData, nextStep, formData } = useWorkSpaceContext();
+  const { fileURL, imgUploadInput, handleImageChange, handleImageRemove } = useImageUpload();
+  const { nextStep, formData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
-
-  const handleFileUpload = (selectedFile: File, presignedUrl: string) => {
-    const newFileURL = URL.createObjectURL(selectedFile);
-    setFileURL(newFileURL);
-    uploadToS3Mutate(
-      { presignedUrl, file: selectedFile },
-      {
-        onSuccess: (uploadedFileUrl) => {
-          URL.revokeObjectURL(newFileURL);
-          if (uploadedFileUrl) {
-            setFileURL(uploadedFileUrl);
-            setFormData({ fileUrlData: uploadedFileUrl });
-          }
-        },
-      }
-    );
-  };
-
-  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setFileURL(URL.createObjectURL(selectedFile));
-      setFile(selectedFile);
-      setFormData({ fileUrlData: '' });
-
-      // 파일을 선택한 후에 fileData를 refetch하여 handleFileUpload 호출
-      const { data } = await refetchFileData();
-      if (data?.url) {
-        handleFileUpload(selectedFile, data.url);
-      }
-    }
-  };
-
-  const handleImageRemove = () => {
-    if (fileData?.fileName) {
-      deleteFileMutate(
-        { fileName: fileData.fileName },
-        {
-          onSuccess: () => {
-            URL.revokeObjectURL(fileURL);
-            setFileURL('');
-            setFile(null);
-            setFormData({ fileUrlData: '' });
-            if (imgUploadInput.current) {
-              imgUploadInput.current.value = '';
-            }
-          },
-        }
-      );
-    }
-  };
 
   const handleSave = () => {
     postTeamMutate(

@@ -7,8 +7,8 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
+import { useCloseModal, useModalData } from '@/shared/component/Modal/store/modal';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
-import { useCloseModal, useModalData } from '@/shared/store/modal';
 
 const DeleteModal = () => {
   const modalData = useModalData();

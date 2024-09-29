@@ -18,7 +18,7 @@ import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { useOpenModal } from '@/shared/store/modal';
+import { useOpenModal } from '@/shared/component/Modal/store/modal';
 
 const ArchivingPage = () => {
   const [selectedId, setSelectedId] = useState('total');

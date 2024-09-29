@@ -1,8 +1,11 @@
-import { buttonStyle, textStyle } from '@/page/archiving/timeBlockModal/component/Block/BlockModal.style';
-import BlockDate from '@/page/archiving/timeBlockModal/component/Block/Date/BlockDate';
-import BlockIcon from '@/page/archiving/timeBlockModal/component/Block/Icon/BlockIcon';
-import BlockBox from '@/page/archiving/timeBlockModal/component/Box/BlockBox';
-import { BLOCK_ICON } from '@/page/archiving/timeBlockModal/constant/iconBlock';
+import {
+  buttonStyle,
+  textStyle,
+} from '@/page/archiving/index/component/TimeBlockModal/component/Block/BlockModal.style';
+import BlockDate from '@/page/archiving/index/component/TimeBlockModal/component/Block/Date/BlockDate';
+import BlockIcon from '@/page/archiving/index/component/TimeBlockModal/component/Block/Icon/BlockIcon';
+import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
+import { BLOCK_ICON } from '@/page/archiving/index/component/TimeBlockModal/constant/iconBlock';
 
 import { useState } from 'react';
 
@@ -11,14 +14,15 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
-import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
-import { useBlockContext } from '@/shared/hook/common/useBlockContext';
+import { useBlockContext } from '@/shared/component/Modal/hook/useBlockContext';
+import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 
 interface BlockModalProps {
   isVisible: boolean;
 }
 
 const BlockModal = ({ isVisible }: BlockModalProps) => {
+  console.log(isVisible);
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 

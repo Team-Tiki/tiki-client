@@ -11,8 +11,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from 'react';
-
-import { useTeamStore } from '@/shared/store/team';
+import { useLocation } from 'react-router-dom';
 
 type DocumentBarProps = {
   selectedBlock?: Block;
@@ -27,7 +26,9 @@ const DocumentBar = (
 ) => {
   const [searchWord, setSearchWord] = useState('');
 
-  const { teamId } = useTeamStore();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
 
   const handleTabClick = (selectedId: string, tabId: string) => {
     if (tabId !== selectedId) {
@@ -39,8 +40,8 @@ const DocumentBar = (
     setSearchWord(e.target.value);
   };
 
-  const { data: blockData } = useBlockQuery(+teamId, selectedBlock?.timeBlockId ?? 69, selectedId);
-  const { data: documentData } = useTotalDocumentQuery(+teamId, 'executive', selectedId);
+  const { data: blockData } = useBlockQuery(+teamId!, selectedBlock?.timeBlockId ?? 69, selectedId);
+  const { data: documentData } = useTotalDocumentQuery(+teamId!, 'executive', selectedId);
 
   return (
     <aside css={containerStyle(selectedBlock ? selectedBlock.name : '')} ref={ref}>

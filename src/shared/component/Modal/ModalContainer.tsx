@@ -1,11 +1,12 @@
+import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
+
 import Modal from '@/common/component/Modal/Modal';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
-import { WorkSpaceFlow } from '@/shared/component/ModalFlow/WorkSpaceFlow';
-import { BlockProvider } from '@/shared/hook/common/useBlockContext';
-import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
-import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
+import { BlockProvider } from '@/shared/component/Modal/hook/useBlockContext';
+import { WorkSpaceProvider } from '@/shared/component/Modal/hook/useWorkSpaceContext';
+import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/component/Modal/store/modal';
+import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal';
 
 const ModalContainer = () => {
   const isOpen = useModalIsOpen();
@@ -32,6 +33,8 @@ const ModalContainer = () => {
         return null;
     }
   };
+  console.log('Modal isOpen:', isOpen);
+  console.log('Modal contentType:', contentType);
 
   if (!isOpen || !contentType) return null;
 

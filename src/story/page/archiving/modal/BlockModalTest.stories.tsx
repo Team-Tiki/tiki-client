@@ -1,10 +1,9 @@
+import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 import { Meta, StoryObj } from '@storybook/react';
 
-import ModalContainer from '@/common/component/Modal/ModalContainer';
-
-import { BlockFlow } from '@/shared/component/ModalFlow/BlockFlow';
-import { BlockProvider } from '@/shared/hook/common/useBlockContext';
-import { useModalStore } from '@/shared/store/modal';
+import ModalContainer from '@/shared/component/Modal/ModalContainer';
+import { BlockProvider } from '@/shared/component/Modal/hook/useBlockContext';
+import { useModalStore } from '@/shared/component/Modal/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
   title: 'page/Modal/Block',
