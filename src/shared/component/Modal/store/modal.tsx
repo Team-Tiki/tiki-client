@@ -22,7 +22,6 @@ const useModalStore = create<ModalState>((set) => ({
   modalData: null,
   actions: {
     openModal: (contentType, data = null) => {
-      console.log('Opening modal with content type:', contentType, 'and data:', data);
       set({ isOpen: true, contentType, modalData: data });
     },
 

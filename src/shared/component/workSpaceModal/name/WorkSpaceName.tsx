@@ -18,7 +18,6 @@ interface WorkSpaceNameProps {
 
 const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
   if (!isVisible) return null;
-  console.log(isVisible);
 
   const [inputValue, setInputValue] = useState('');
   const { setFormData, nextStep } = useWorkSpaceContext();

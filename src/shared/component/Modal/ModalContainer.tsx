@@ -33,8 +33,6 @@ const ModalContainer = () => {
         return null;
     }
   };
-  console.log('Modal isOpen:', isOpen);
-  console.log('Modal contentType:', contentType);
 
   if (!isOpen || !contentType) return null;
 

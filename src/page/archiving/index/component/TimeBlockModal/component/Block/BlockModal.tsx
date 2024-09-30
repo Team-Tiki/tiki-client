@@ -22,7 +22,6 @@ interface BlockModalProps {
 }
 
 const BlockModal = ({ isVisible }: BlockModalProps) => {
-  console.log(isVisible);
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
   const [isDateRangeValid, setIsDateRangeValid] = useState(false);
 

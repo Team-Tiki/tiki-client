@@ -29,7 +29,6 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const teamId = searchParams.get('teamId');
-  console.log('teamId', teamId);
   const { formData, reset } = useBlockContext();
   const closeModal = useCloseModal();
 
