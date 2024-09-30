@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactNode, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { backgroundStyle, dialogStyle } from '@/common/component/Modal/Modal.style';
 
 interface ModalProps {
   isOpen: boolean;
-  children?: ReactElement;
+  children: ReactNode;
   onClose?: () => void;
 }
 

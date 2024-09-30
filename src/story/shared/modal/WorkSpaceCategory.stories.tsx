@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';
+import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 
 const meta = {
-  title: 'page/Modal/WorkSpaceComplete',
-  component: WorkSpaceComplete,
+  title: 'page/Modal/WorkSpaceCategory',
+  component: WorkSpaceCategory,
   parameters: {
     layout: 'centered',
   },
@@ -16,12 +16,12 @@ const meta = {
       </WorkSpaceProvider>
     ),
   ],
-} satisfies Meta<typeof WorkSpaceComplete>;
+} satisfies Meta<typeof WorkSpaceCategory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Complete: Story = {
+export const Category: Story = {
   args: {
     isVisible: true,
   },

@@ -1,18 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Download from '@/common/asset/svg/download.svg?react';
 import TrashBox from '@/common/asset/svg/trash_box.svg?react';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
-import { useModal } from '@/common/hook';
 
 import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
-import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useTeamId } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface DocumentItemProps {
   documentId: number;
@@ -24,9 +22,11 @@ interface DocumentItemProps {
 }
 
 const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) => {
-  const { isOpen, openModal, closeModal, currentContent } = useModal();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
 
-  const teamId = useTeamId();
+  const openModal = useOpenModal();
 
   const onClickDocumentItem = () => {
     window.open(fileUrl);
@@ -39,7 +39,8 @@ const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemP
 
   const handleTrashBoxClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-    openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={+teamId} id={documentId} />);
+
+    openModal('delete', { teamId: +teamId!, itemId: documentId, itemType: 'docs' });
   };
 
   return (
@@ -55,7 +56,6 @@ const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemP
           <TrashBox width={20} height={20} onClick={(e) => handleTrashBoxClick(e)} css={{ cursor: 'pointer' }} />
         </Flex>
       </li>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </>
   );
 };

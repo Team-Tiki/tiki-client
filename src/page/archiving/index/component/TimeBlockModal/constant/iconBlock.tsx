@@ -7,19 +7,15 @@ import Notice from '@/common/asset/svg/ic_notice.svg?react';
 import Study from '@/common/asset/svg/ic_study.svg?react';
 import Task from '@/common/asset/svg/ic_task.svg?react';
 
-type BlockIcon = {
+type BlockIconType = {
   name: string;
   icon: ReactNode;
 };
 
-export const ICON_TYPE: BlockIcon[] = [
+export const BLOCK_ICON: BlockIconType[] = [
   {
     name: 'MEETING',
     icon: <Meeting width={24} height={24} css={{ flexShrink: 0 }} />,
-  },
-  {
-    name: 'NOTICE',
-    icon: <Notice width={24} height={24} css={{ flexShrink: 0 }} />,
   },
   {
     name: 'ACCOUNTING',
@@ -28,6 +24,10 @@ export const ICON_TYPE: BlockIcon[] = [
   {
     name: 'TASK',
     icon: <Task width={24} height={24} css={{ flexShrink: 0 }} />,
+  },
+  {
+    name: 'NOTICE',
+    icon: <Notice width={24} height={24} css={{ flexShrink: 0 }} />,
   },
   {
     name: 'STUDY',
