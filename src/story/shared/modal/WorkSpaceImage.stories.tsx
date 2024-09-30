@@ -23,6 +23,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Image: Story = {
   args: {
-    step: 3,
+    isVisible: true,
   },
 };

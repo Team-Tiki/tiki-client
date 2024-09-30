@@ -1,8 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
-import { useModalStore } from '@/shared/component/Modal/store/modal';
+import { useOpenModal } from '@/shared/component/Modal/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
   title: 'Shared/Modal/Delete',
@@ -25,12 +24,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Delete: Story = {
   render: () => {
-    const { openModal } = useModalStore();
+    const openModal = useOpenModal();
 
     return (
       <>
-        <button onClick={() => openModal(<DeleteModal teamId={1} id={1} title="block" detail="block" />)}>
-          Open Modal
+        <button onClick={() => openModal('delete', { teamId: 1, itemId: 1, itemType: 'block' })}>
+          Open Delete Modal
         </button>
         <ModalContainer />
       </>

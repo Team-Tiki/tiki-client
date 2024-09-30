@@ -1,9 +1,8 @@
-import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 import { Meta, StoryObj } from '@storybook/react';
 
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import { BlockProvider } from '@/shared/component/Modal/hook/useBlockContext';
-import { useModalStore } from '@/shared/component/Modal/store/modal';
+import { useOpenModal } from '@/shared/component/Modal/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
   title: 'page/Modal/Block',
@@ -26,11 +25,11 @@ type Story = StoryObj<typeof meta>;
 
 export const BlockModalTest: Story = {
   render: () => {
-    const { openModal } = useModalStore();
+    const openModal = useOpenModal();
 
     return (
       <BlockProvider>
-        <button onClick={() => openModal(<BlockFlow />)}>Open Block Modal</button>
+        <button onClick={() => openModal('create-block')}>Open Block Modal</button>
         <ModalContainer />
       </BlockProvider>
     );
