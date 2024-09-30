@@ -2,13 +2,11 @@ import { ForwardedRef, forwardRef, useState } from 'react';
 
 import { Tab } from '@/common/component/Tab';
 
-import { containerStyle } from '@/page/archiving/index/component/DocumentBar/index.style';
-import DocumentTotal from '@/page/archiving/index/component/DocumentBar/DocumentTotal';
+import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
+import DocumentTotal from '@/page/archiving/index/component/DocumentBar/DocumentTotal/DocumentTotal';
 
 import { Block } from '@/page/archiving/index/type/blockType';
 import DocumentSelected from '@/page/archiving/index/component/DocumentBar/DocumentSelected/DocumentSelected';
-
-
 
 interface DocumentBarProps {
   selectedBlock?: Block;

@@ -27,7 +27,7 @@ import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
-import DocumentBar from '@/page/archiving/index/component/DocumentBar';
+import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 
 const ArchivingPage = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
