@@ -1,4 +1,4 @@
-import WorkSpaceCompleteImg from '@/common/asset/svg/workspace-complete.svg?react';
+import WorkSpaceCompleteImg from '@/common/asset/svg/ic_complete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';

@@ -3,7 +3,7 @@ import {
   textStyle,
 } from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/List/BlockItem.style';
 
-import Delete from '@/common/asset/svg/file-delete.svg?react';
+import Delete from '@/common/asset/svg/ic_file_delete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Spinner from '@/common/component/Spinner/Spinner';
 import Text from '@/common/component/Text/Text';

@@ -1,5 +1,5 @@
-import TeamProfileAdd from '@/common/asset/svg/team-profile-add.svg?react';
-import TeamProfileDelete from '@/common/asset/svg/team-profile-delete.svg?react';
+import TeamProfileAdd from '@/common/asset/svg/ic_team_profile_add.svg?react';
+import TeamProfileDelete from '@/common/asset/svg/ic_team_profile_delete.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Label from '@/common/component/Label/Label';
