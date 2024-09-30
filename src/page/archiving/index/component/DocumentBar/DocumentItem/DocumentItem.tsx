@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ReactNode } from 'react';
 
-import Download from '@/common/asset/svg/download.svg?react';
-import TrashBox from '@/common/asset/svg/trash_box.svg?react';
+import Download from '@/common/asset/svg/ic_download.svg?react';
+import TrashBox from '@/common/asset/svg/ic_delete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';

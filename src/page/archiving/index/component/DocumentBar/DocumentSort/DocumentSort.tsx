@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
-import ArrowUpThin from '@/common/asset/svg/arrow-up-thin.svg?react';
-import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
-import ArrowDown from '@/common/asset/svg/arrow.svg?react';
+import ArrowDown from '@/common/asset/svg/ic_arrow_down.svg?react';
+import ArrowUp from '@/common/asset/svg/ic_arrow_up.svg?react';
+import Up from '@/common/asset/svg/ic_up.svg?react';
+import Down from '@/common/asset/svg/ic_down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
@@ -28,8 +28,8 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
   };
 
   const options = [
-    { id: 1, text: '최근 업로드 순', logo: <ArrowUpThin /> },
-    { id: 2, text: '과거 업로드 순', logo: <ArrowDownThin /> },
+    { id: 1, text: '최근 업로드 순', logo: <ArrowUp /> },
+    { id: 2, text: '과거 업로드 순', logo: <ArrowDown /> },
   ];
 
   return (
@@ -41,7 +41,7 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
       trigger={
         <Button css={buttonStyle} onClick={toggle}>
           {selected || '최근 업로드 순'}
-          {isOpen ? <ArrowUp width={12} height={12} /> : <ArrowDown width={12} height={12} />}
+          {isOpen ? <Up width={12} height={12} /> : <Down width={12} height={12} />}
         </Button>
       }
       css={fontStyle}
