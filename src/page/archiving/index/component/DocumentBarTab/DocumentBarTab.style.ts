@@ -2,24 +2,26 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const tabDefaultStyle = (selected: string, tabId: string) => {
-  const style =
-    selected === tabId
-      ? css({
-          font: `${theme.text.body04}`,
-          fontWeight: '600',
+export const tabStyle = (tabId: string) =>
+  css({
+    borderRadius: tabId === 'selected' ? '16px 0px 0px 0px' : '0px 16px 0px 0px',
 
-          color: theme.colors.blue_900,
-          backgroundColor: theme.colors.white,
+    font: `${theme.text.body04}`,
+  });
 
-          pointerEvents: 'none',
-        })
-      : css({
-          font: `${theme.text.body04}`,
-          fontWeight: '500',
+export const selectedStyle = (selectedTabId: string, tabId: string) =>
+  selectedTabId === tabId
+    ? css({
+        backgroundColor: theme.colors.white,
 
-          color: theme.colors.gray_800,
-          backgroundColor: theme.colors.blue_100,
-        });
-  return style;
-};
+        color: theme.colors.blue_900,
+        fontWeight: '600',
+
+        pointerEvents: 'none',
+      })
+    : css({
+        backgroundColor: theme.colors.blue_100,
+
+        color: theme.colors.gray_800,
+        fontWeight: '500',
+      });

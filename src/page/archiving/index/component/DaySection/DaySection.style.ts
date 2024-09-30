@@ -18,7 +18,7 @@ export const dayStyle = (isEven: boolean, isToday: boolean) =>
             : theme.colors.white,
   });
 
-export const dayHeaderStyle = () =>
+export const dayHeaderStyle = (isToday: boolean) =>
   css({
     width: '6rem',
     padding: '1.2rem 2.6rem',
@@ -27,6 +27,7 @@ export const dayHeaderStyle = () =>
     border: 'none',
 
     color: theme.colors.black,
+    backgroundColor: isToday ? theme.colors.blue_100 : theme.colors.gray_100,
     ...theme.text.body04,
   });
 

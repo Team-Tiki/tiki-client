@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -26,8 +24,10 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
 
   useEffect(() => {
     if (isOpen) {
+      const widthWithoutScrollbar = document.body.clientWidth;
+
       document.body.style.overflow = 'hidden';
-      document.body.style.maxWidth = `${document.body.clientWidth}px`;
+      document.body.style.maxWidth = `${widthWithoutScrollbar}px`;
       window.addEventListener('keydown', handleKeyDown);
     }
 
@@ -42,7 +42,7 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
     isOpen &&
     createPortal(
       <>
-        <div onClick={() => onClose?.()} css={backgroundStyle} />
+        <div aria-hidden={true} onClick={() => onClose?.()} css={backgroundStyle} />
         <dialog onClick={(e) => e.stopPropagation()} css={dialogStyle}>
           {children}
         </dialog>

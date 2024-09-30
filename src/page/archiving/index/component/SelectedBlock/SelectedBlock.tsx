@@ -1,14 +1,3 @@
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import {
-  blockNameStyle,
-  containerStyle,
-  deleteBtnStyle,
-} from '@/page/archiving/index/component/SelectedBlock/SelectedBlock.style';
-import { documentListStyle } from '@/page/archiving/index/component/TotalDocument/TotalDocument.style';
-import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
-import { Block } from '@/page/archiving/index/type/blockType';
-import { DocumentType } from '@/page/archiving/index/type/documentType';
-
 import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -17,41 +6,45 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
+import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
+import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
+import { Block } from '@/page/archiving/index/type/blockType';
+import { DocumentType } from '@/page/archiving/index/type/documentType';
+import { formattingDate } from '@/page/archiving/index/util/date';
+
 import { useOpenModal } from '@/shared/component/Modal/store/modal';
 
+import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
+
 interface DocumentBarInfoProps {
-  selectedId: string;
-  blockName: string;
-  startDate: string;
-  endDate: string;
-  documentList?: DocumentType[];
   selectedBlock: Block;
-  onClickClose: () => void;
+  onClose: () => void;
 }
 
-const SelectedBlock = ({
-  selectedId,
-  blockName,
-  startDate,
-  endDate,
-  documentList,
-  selectedBlock,
-}: DocumentBarInfoProps) => {
+const SelectedBlock = ({ selectedBlock }: DocumentBarInfoProps) => {
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const teamId = searchParams.get('teamId');
+  const teamId = new URLSearchParams(location.search).get('teamId');
+
+  if (!teamId) throw new Error('has no teamId');
+
+  const { data: blockData } = useBlockInfoQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
+
+  const startDate = formattingDate(selectedBlock.startDate);
+  const endDate = formattingDate(selectedBlock.endDate);
+
   const openModal = useOpenModal();
 
   const handleDeleteClick = () => {
-    openModal('delete', { teamId: +teamId!, itemId: selectedBlock.timeBlockId, itemType: 'block' }); // 데이터 전달
+    openModal('delete', { teamId: +teamId!, itemId: selectedBlock.timeBlockId, itemType: 'block' });
   };
 
   return (
-    <Flex tag="section" css={containerStyle}>
+    <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>
       {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
-          {blockName}
+          {selectedBlock.name}
         </Heading>
         <Button variant="text" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
           블록삭제
@@ -61,16 +54,15 @@ const SelectedBlock = ({
         {startDate} ~ {endDate}
       </Text>
 
-      <Flex tag="ul" css={documentListStyle}>
-        {documentList?.map((data: DocumentType) => (
+      <Flex tag="ul" styles={{ direction: 'column', marginTop: '1.6rem', gap: '0.8rem' }}>
+        {blockData?.data.documents?.map((data: DocumentType) => (
           <DocumentItem
             key={data.documentId}
-            documentId={data.documentId || 1}
-            selectedId={selectedId}
+            documentId={data.documentId}
             blockName={data.blockName}
-            fileUrl={data.fileUrl}>
-            {data.fileName}
-          </DocumentItem>
+            fileUrl={data.fileUrl}
+            fileName={data.fileName}
+          />
         ))}
       </Flex>
     </Flex>

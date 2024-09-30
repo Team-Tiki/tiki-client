@@ -22,8 +22,11 @@ interface WorkSpaceCategoryProps {
 
 const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
   const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close, 'select-container');
+
   const { setFormData, nextStep } = useWorkSpaceContext();
+
+  const ref = useOutsideClick<HTMLDivElement>(close);
+
   const [selected, setSelected] = useState('');
 
   // 카테고리 데이터

@@ -1,3 +1,9 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
+
 import BlockAdd from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/List/BlockItem';
 import {
@@ -9,17 +15,11 @@ import { usePostTimeBlockMutation } from '@/page/archiving/index/component/TimeB
 import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/util/date';
 import { getRandomColor } from '@/page/archiving/index/util/color';
 
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { useBlockContext } from '@/shared/component/Modal/hook/useBlockContext';
 import { useCloseModal } from '@/shared/component/Modal/store/modal';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
-import { useToastStore } from '@/shared/store/toast';
+import { useToastAction } from '@/shared/store/toast';
 
 interface UploadModalProps {
   isVisible: boolean;
@@ -39,7 +39,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
 
   const { mutate: timeBlockMutate } = usePostTimeBlockMutation(+teamId!, 'executive');
   const { mutate: fileDeleteMutate } = useDeleteFileMutation();
-  const { createToast } = useToastStore();
+  const { createToast } = useToastAction();
 
   useEffect(() => {
     const allUploaded =

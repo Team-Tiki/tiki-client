@@ -31,7 +31,12 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 0,
     'global-require': 0,
-    'import/no-extraneous-dependencies': 1, // package.json의 의존성에 있지 않는 외부 모듈 import 시 에러
+    'import/no-extraneous-dependencies': [
+      1,
+      {
+        dependencies: ['**/*.ts', '**/*.tsx'],
+      },
+    ], // package.json의 의존성에 있지 않는 외부 모듈 import 시 에러
     'import/newline-after-import': [2, { count: 1 }], // import 구문들 뒤에 한 칸 띄우고 코드 작성
 
     // 'react-hooks/rules-of-hooks': 2, // 리액트 훅의 순서를 지키게끔 한다. (React는 Hook이 호출되는 순서에 의존하기 때문에)
