@@ -1,13 +1,14 @@
-import Filter from '@/page/archiving/index/component/DocumentFilter/DocumentFilter';
-import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentSort/DocumentSort.style';
-
 import { useEffect } from 'react';
 
 import ArrowDownThin from '@/common/asset/svg/arrow-down-thin.svg?react';
 import ArrowUpThin from '@/common/asset/svg/arrow-up-thin.svg?react';
 import ArrowUp from '@/common/asset/svg/arrow-up.svg?react';
 import ArrowDown from '@/common/asset/svg/arrow.svg?react';
+import Button from '@/common/component/Button/Button';
+import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+
+import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentBar/DocumentSort/DocumentSort.style';
 
 interface DocumentSortProps {
   selected: string;
@@ -32,16 +33,16 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
   ];
 
   return (
-    <Filter
+    <Select
       options={options}
       ref={ref}
       isOpen={isOpen}
       onSelect={handleSelect}
       trigger={
-        <button type="button" css={buttonStyle} onClick={toggle}>
+        <Button css={buttonStyle} onClick={toggle}>
           {selected || '최근 업로드 순'}
           {isOpen ? <ArrowUp width={12} height={12} /> : <ArrowDown width={12} height={12} />}
-        </button>
+        </Button>
       }
       css={fontStyle}
     />

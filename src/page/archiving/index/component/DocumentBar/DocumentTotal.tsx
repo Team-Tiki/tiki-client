@@ -7,13 +7,13 @@ import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 import { useDebounce } from '@/common/hook';
 
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
-import { blockNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
-import DocumentSort from '@/page/archiving/index/component/DocumentSort/DocumentSort';
+import DocumentItem from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem';
+import { blockNameStyle } from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem.style';
+import DocumentSort from '@/page/archiving/index/component/DocumentBar/DocumentSort/DocumentSort';
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
-const TotalDocument = () => {
+const DocumentTotal = () => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
   const location = useLocation();
@@ -76,4 +76,4 @@ const TotalDocument = () => {
   );
 };
 
-export default TotalDocument;
+export default DocumentTotal;

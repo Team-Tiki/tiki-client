@@ -8,7 +8,10 @@ import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
 
-import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import {
+  containerStyle,
+  fileNameStyle,
+} from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
