@@ -1,14 +1,14 @@
-import { useDeleteBlockMutation } from '@/page/archiving/index/hook/api/useDeleteBlockMutaion';
-import { useDeleteDocumentMutation } from '@/page/archiving/index/hook/api/useDeleteDocumentMutation';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 
+import { useDeleteBlockMutation } from '@/page/archiving/index/hook/api/useDeleteBlockMutaion';
+import { useDeleteDocumentMutation } from '@/page/archiving/index/hook/api/useDeleteDocumentMutation';
+
 import { cancelStyle, deleteStyle } from '@/shared/component/DeleteModal/DeleteModal.style';
-import { useCloseModal, useModalData } from '@/shared/component/Modal/store/modal';
 import { DELETE_DETAIL, DELETE_TITLE } from '@/shared/constant';
+import { useCloseModal, useModalData } from '@/shared/store/modal';
 
 const DeleteModal = () => {
   const modalData = useModalData();

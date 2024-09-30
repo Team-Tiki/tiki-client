@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
-import { useOpenModal } from '@/shared/component/Modal/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
   title: 'Shared/Modal/Delete',

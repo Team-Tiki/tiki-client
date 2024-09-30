@@ -13,7 +13,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
-import { useOpenModal } from '@/shared/component/Modal/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 

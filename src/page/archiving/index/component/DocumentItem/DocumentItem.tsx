@@ -10,7 +10,7 @@ import Text from '@/common/component/Text/Text';
 import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
-import { useOpenModal } from '@/shared/component/Modal/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface DocumentItemProps {
   documentId: number;

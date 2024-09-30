@@ -25,7 +25,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
-import { useOpenModal } from '@/shared/component/Modal/store/modal';
+import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();

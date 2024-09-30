@@ -23,10 +23,10 @@ import {
   tikiLogoStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
-import { useOpenModal } from '@/shared/component/Modal/store/modal';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useLogout } from '@/shared/hook/common/useLogout';
+import { useOpenModal } from '@/shared/store/modal';
 import { Team } from '@/shared/type/team';
 
 const LeftSidebar = () => {

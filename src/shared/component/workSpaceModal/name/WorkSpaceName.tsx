@@ -4,13 +4,13 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 
-import { useWorkSpaceContext } from '@/shared/component/Modal/hook/useWorkSpaceContext';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import {
   buttonStyle,
   inputWrapperStyle,
   sectionStyle,
 } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
+import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 interface WorkSpaceNameProps {
   isVisible: boolean;

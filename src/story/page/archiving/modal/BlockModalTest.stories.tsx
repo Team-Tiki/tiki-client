@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
-import { BlockProvider } from '@/shared/component/Modal/hook/useBlockContext';
-import { useOpenModal } from '@/shared/component/Modal/store/modal';
+import { BlockProvider } from '@/shared/hook/common/useBlockContext';
+import { useOpenModal } from '@/shared/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
   title: 'page/Modal/Block',

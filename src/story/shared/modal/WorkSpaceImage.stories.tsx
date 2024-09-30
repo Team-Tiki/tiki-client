@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { WorkSpaceProvider } from '@/shared/component/Modal/hook/useWorkSpaceContext';
 import WorkSpaceImage from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage';
+import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 
 const meta = {
   title: 'page/Modal/WorkSpaceImage',

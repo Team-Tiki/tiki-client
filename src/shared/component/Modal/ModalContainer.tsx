@@ -1,12 +1,12 @@
-import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
-
 import Modal from '@/common/component/Modal/Modal';
 
+import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
+
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { BlockProvider } from '@/shared/component/Modal/hook/useBlockContext';
-import { WorkSpaceProvider } from '@/shared/component/Modal/hook/useWorkSpaceContext';
-import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/component/Modal/store/modal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal';
+import { BlockProvider } from '@/shared/hook/common/useBlockContext';
+import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
+import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
 
 const ModalContainer = () => {
   const isOpen = useModalIsOpen();

@@ -1,10 +1,10 @@
+import { useRef, useState } from 'react';
+
 import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
 import { usePutUploadMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePutUploadMutation';
 
-import { useRef, useState } from 'react';
-
-import { useWorkSpaceContext } from '@/shared/component/Modal/hook/useWorkSpaceContext';
 import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
+import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 const useImageUpload = () => {
   const [fileURL, setFileURL] = useState<string>('');

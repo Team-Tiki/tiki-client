@@ -16,9 +16,9 @@ import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/
 import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
-import { useBlockContext } from '@/shared/component/Modal/hook/useBlockContext';
-import { useCloseModal } from '@/shared/component/Modal/store/modal';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
+import { useBlockContext } from '@/shared/hook/common/useBlockContext';
+import { useCloseModal } from '@/shared/store/modal';
 import { useToastAction } from '@/shared/store/toast';
 
 interface UploadModalProps {
