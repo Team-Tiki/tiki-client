@@ -17,7 +17,7 @@ const ShowcasePage = () => {
   const [selectedChip, setSelectedChip] = useState<string>('전체');
 
   const { data: clubs } = useClubListQuery(selectedChip);
-  const { data: categoryList } = useCategoryListQuery();
+  const { data: categoryList } = useCategoryListQuery(true);
 
   return (
     <div css={containerStyle}>
@@ -31,7 +31,7 @@ const ShowcasePage = () => {
       </Flex>
 
       <section css={chipStyle}>
-        {categoryList.data.categories.map((category) => (
+        {categoryList.map((category) => (
           <CategoryChip
             key={category}
             onClick={() => {

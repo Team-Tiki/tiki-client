@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import Modal from '@/common/component/Modal/Modal';
-import { useModal } from '@/common/hook/useModal';
+import ModalContainer from '@/shared/component/Modal/ModalContainer';
+import { useOpenModal } from '@/shared/store/modal';
 
-import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-
-const meta: Meta<typeof Modal> = {
+const meta: Meta<typeof ModalContainer> = {
   title: 'Shared/Modal/Delete',
-  component: Modal,
+  component: ModalContainer,
   parameters: {
     layout: 'centered',
   },
@@ -26,17 +24,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Delete: Story = {
   render: () => {
-    const { isOpen, openModal, closeModal, currentContent } = useModal();
+    const openModal = useOpenModal();
 
     return (
       <>
-        <button
-          onClick={() =>
-            openModal(<DeleteModal teamId={1} id={1} title="block" detail="block" onClose={closeModal} />)
-          }>
-          Open Modal
+        <button onClick={() => openModal('delete', { teamId: 1, itemId: 1, itemType: 'block' })}>
+          Open Delete Modal
         </button>
-        <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
+        <ModalContainer />
       </>
     );
   },

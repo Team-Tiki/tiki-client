@@ -1,3 +1,11 @@
+import { useLocation } from 'react-router-dom';
+
+import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
+import Heading from '@/common/component/Heading/Heading';
+import Text from '@/common/component/Text/Text';
+import { theme } from '@/common/style/theme/theme';
+
 import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
@@ -5,30 +13,16 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
-import { useLocation } from 'react-router-dom';
-
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Modal from '@/common/component/Modal/Modal';
-import Text from '@/common/component/Text/Text';
-import { useModal } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
-
-import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
+import { useOpenModal } from '@/shared/store/modal';
 
 import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
 
-interface SelectedBlockProps {
-  selectedTabId: string;
-  blockName: string;
+interface DocumentBarInfoProps {
   selectedBlock: Block;
   onClose: () => void;
 }
 
-const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClose }: SelectedBlockProps) => {
-  const { isOpen, openModal, closeModal, currentContent } = useModal();
-
+const SelectedBlock = ({ selectedBlock }: DocumentBarInfoProps) => {
   const location = useLocation();
   const teamId = new URLSearchParams(location.search).get('teamId');
 
@@ -39,9 +33,10 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClose }: Sel
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
 
-  const handleModalClose = () => {
-    onClose();
-    closeModal;
+  const openModal = useOpenModal();
+
+  const handleDeleteClick = () => {
+    openModal('delete', { teamId: +teamId!, itemId: selectedBlock.timeBlockId, itemType: 'block' });
   };
 
   return (
@@ -49,23 +44,9 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClose }: Sel
       {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
-          {blockName}
+          {selectedBlock.name}
         </Heading>
-        <Button
-          variant="text"
-          size="small"
-          css={deleteBtnStyle}
-          onClick={() =>
-            openModal(
-              <DeleteModal
-                title="block"
-                detail="block"
-                onClose={handleModalClose}
-                teamId={+teamId}
-                id={selectedBlock.timeBlockId}
-              />
-            )
-          }>
+        <Button variant="text" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
           블록삭제
         </Button>
       </Flex>
@@ -78,14 +59,12 @@ const SelectedBlock = ({ selectedTabId, blockName, selectedBlock, onClose }: Sel
           <DocumentItem
             key={data.documentId}
             documentId={data.documentId}
-            selectedTabId={selectedTabId}
             blockName={data.blockName}
-            documentUrl={data.fileUrl}>
-            {data.fileName}
-          </DocumentItem>
+            fileUrl={data.fileUrl}
+            fileName={data.fileName}
+          />
         ))}
       </Flex>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </Flex>
   );
 };

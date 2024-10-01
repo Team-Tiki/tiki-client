@@ -2,23 +2,22 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (selectedTabId: string) =>
-  css({
-    display: 'flex',
-    flexDirection: 'column',
+export const containerStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
 
-    gap: '0.4rem',
-    padding: selectedTabId === 'total' ? '1rem 1.2rem' : '1.2rem',
+  gap: '0.4rem',
+  padding: '1.2rem',
 
-    border: `1px solid ${theme.colors.gray_300}`,
-    borderRadius: '8px',
+  border: `1px solid ${theme.colors.gray_300}`,
+  borderRadius: '8px',
 
-    cursor: 'pointer',
+  cursor: 'pointer',
 
-    '&: hover': {
-      backgroundColor: theme.colors.blue_100,
-    },
-  });
+  '&: hover': {
+    backgroundColor: theme.colors.blue_100,
+  },
+});
 
 export const blockNameStyle = (color: string) =>
   css({
@@ -36,7 +35,7 @@ export const blockNameStyle = (color: string) =>
     textOverflow: 'ellipsis',
   });
 
-export const documentNameStyle = css({
+export const fileNameStyle = css({
   width: '18rem',
   maxHeight: '2.8rem',
 

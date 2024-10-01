@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import WorkSpaceInfo from '@/shared/component/createWorkSpace/info/WorkSpaceInfo';
+import WorkSpaceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 
 const meta = {
   title: 'page/Modal/WorkSpaceInfo',
   component: WorkSpaceInfo,
-
+  parameters: {
+    layout: 'centered',
+  },
   args: {
     step: 'name',
     title: '새로운 워크 스페이스 생성하기',

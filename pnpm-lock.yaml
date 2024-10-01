@@ -14,9 +14,6 @@ importers:
       '@sentry/react':
         specifier: ^8.22.0
         version: 8.22.0(react@18.3.1)
-      '@sentry/vite-plugin':
-        specifier: ^2.21.1
-        version: 2.21.1
       '@tanstack/react-query':
         specifier: ^5.49.2
         version: 5.49.2(react@18.3.1)
@@ -48,6 +45,9 @@ importers:
       '@eslint/js':
         specifier: ^9.6.0
         version: 9.6.0
+      '@sentry/vite-plugin':
+        specifier: ^2.21.1
+        version: 2.21.1
       '@storybook/addon-a11y':
         specifier: ^8.2.6
         version: 8.2.6(storybook@8.2.6(@babel/preset-env@7.24.7(@babel/core@7.24.7)))
