@@ -48,7 +48,7 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
           selectedMonthString === `${currentDate.getMonth() + 1}월`;
 
         return (
-          <Flex css={dayStyle(isEven, isToday)}>
+          <Flex css={dayStyle(isEven, isToday)} key={day}>
             <Flex css={dayHeaderStyle(isToday)}>{day + 1}</Flex>
             {isToday && (
               <>
