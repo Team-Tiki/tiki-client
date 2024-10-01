@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Add from '@/common/asset/svg/add_btn.svg?react';
+import Add from '@/common/asset/svg/ic_add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
