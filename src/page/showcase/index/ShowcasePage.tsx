@@ -1,14 +1,14 @@
-import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/index/ShowcasePage.style';
-import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
-import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
-import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
-import { useClubListQuery } from '@/page/showcase/index/hook/api/useClubListQuery';
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+
+import { chipStyle, clubProfileStyle, containerStyle } from '@/page/showcase/index/ShowcasePage.style';
+import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
+import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
+import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
+import { useClubListQuery } from '@/page/showcase/index/hook/api/useClubListQuery';
 
 import { PATH } from '@/shared/constant/path';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
@@ -17,7 +17,7 @@ const ShowcasePage = () => {
   const navigate = useNavigate();
   const [selectedChip, setSelectedChip] = useState('전체');
 
-  const { data: categoryList } = useCategoryListQuery();
+  const { data: categoryList } = useCategoryListQuery(true);
   const { data: clubs } = useClubListQuery(selectedChip);
 
   return (
@@ -30,7 +30,7 @@ const ShowcasePage = () => {
       </Flex>
 
       <div css={chipStyle}>
-        {categoryList.data.categories.map((category) => (
+        {categoryList.map((category) => (
           <CategoryChip
             key={category}
             onClick={() => {

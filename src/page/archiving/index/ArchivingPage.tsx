@@ -4,12 +4,9 @@ import { useLocation } from 'react-router-dom';
 import Add from '@/common/asset/svg/add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
-import { useModal, useOutsideClick } from '@/common/hook';
+import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
-import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import {
   buttonStyle,
   contentStyle,
@@ -28,6 +25,8 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
+import { useOpenModal } from '@/shared/store/modal';
+
 const ArchivingPage = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
@@ -37,9 +36,6 @@ const ArchivingPage = () => {
 
   const teamId = new URLSearchParams(location.search).get('teamId');
   if (!teamId) throw new Error('has no error');
-
-  // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
 
   const {
     currentDate,
@@ -66,22 +62,18 @@ const ArchivingPage = () => {
   };
   const sideBarRef = useOutsideClick(handleClose);
 
+  const openModal = useOpenModal();
+
   useEffect(() => {
     setSelectedMonthString(`${currentDate.getMonth() + 1}월` as MonthType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamId]);
 
-  const handleNext = (blockData: {
-    blockName: string;
-    blockType: string;
-    dates: { startDate: string; endDate: string };
-  }) => {
-    const type = 'executive';
-    setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
+  const handleOpenBlockModal = () => {
+    openModal('create-block');
   };
 
   const handleMonthClick = (month: MonthType) => {
-    console.log('click');
     daySectionRef.current?.scrollTo(0, 0);
     setSelectedMonthString(month);
   };
@@ -141,17 +133,12 @@ const ArchivingPage = () => {
         </Flex>
 
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
-          <Button
-            variant="action"
-            css={buttonStyle(selectedBlock)}
-            onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
+          <Button variant="action" css={buttonStyle(selectedBlock)} onClick={handleOpenBlockModal}>
             <Add width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
-
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
       <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={handleClose} />
     </Flex>
   );
