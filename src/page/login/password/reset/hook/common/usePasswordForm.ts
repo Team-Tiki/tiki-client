@@ -36,8 +36,6 @@ export const usePasswordForm = () => {
     if (!PASSWORD_VALID_FORMAT.test(password)) {
       return SUPPORTING_TEXT.PASSWORD_INVALID;
     }
-
-    return '';
   }, []);
 
   const handlePasswordCheckerMessage = useCallback((password: string, passwordChecker: string) => {
@@ -48,8 +46,6 @@ export const usePasswordForm = () => {
     if (password !== passwordChecker) {
       return SUPPORTING_TEXT.PASSWORD_NO_EQUAL;
     }
-
-    return '';
   }, []);
 
   const isPasswordError = !!form.updatedPassword && !handlePasswordValidate();
