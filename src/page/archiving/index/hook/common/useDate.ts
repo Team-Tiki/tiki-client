@@ -1,8 +1,9 @@
-import { MonthType } from '@/page/archiving/index/type/monthType';
-import { getMonthDate } from '@/page/archiving/index/util/date';
 import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
+
+import { MonthType } from '@/page/archiving/index/type/monthType';
+import { getMonthDate } from '@/page/archiving/index/util/date';
 
 export const useDate = (ref?: React.RefObject<HTMLDivElement>) => {
   const currentDate = new Date();
@@ -27,6 +28,11 @@ export const useDate = (ref?: React.RefObject<HTMLDivElement>) => {
     ref?.current?.scrollTo(0, 0);
   };
 
+  const handleMonthClick = (month: MonthType) => {
+    setSelectedMonthString(month);
+    ref?.current?.scrollTo(0, 0);
+  };
+
   return {
     currentDate,
     currentYear,
@@ -36,5 +42,6 @@ export const useDate = (ref?: React.RefObject<HTMLDivElement>) => {
     handleNextYear,
     dateOfMonth,
     endDay,
+    handleMonthClick,
   };
 };
