@@ -3,7 +3,7 @@ import Modal from '@/common/component/Modal/Modal';
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal';
+import { WorkSpaceFlow } from '@/shared/component/workSpaceModal';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';

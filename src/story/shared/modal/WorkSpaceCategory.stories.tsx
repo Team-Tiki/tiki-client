@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
+import WorkSpaceCategory from '@/shared/component/workSpaceModal/category/WorkSpaceCategory';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 
 const meta = {

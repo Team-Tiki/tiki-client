@@ -14,7 +14,7 @@ import BlockIcon from '@/page/archiving/index/component/TimeBlockModal/component
 import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
 import { BLOCK_ICON } from '@/page/archiving/index/component/TimeBlockModal/constant/iconBlock';
 
-import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
+import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
 interface BlockModalProps {
