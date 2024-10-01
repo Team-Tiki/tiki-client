@@ -29,12 +29,12 @@ import { createTimeBlock } from '@/page/archiving/index/util/block';
 const ArchivingPage = () => {
   const location = useLocation();
 
-  const daySectionRef = useRef<HTMLDivElement>(null);
+  const teamId = new URLSearchParams(location.search).get('teamId');
+  if (!teamId) throw new Error('has no teamId');
 
   const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
 
-  const teamId = new URLSearchParams(location.search).get('teamId');
-  if (!teamId) throw new Error('has no teamId');
+  const daySectionRef = useRef<HTMLDivElement>(null);
 
   const {
     currentYear,
