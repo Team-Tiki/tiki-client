@@ -4,8 +4,8 @@ import { Block } from '@/page/archiving/index/type/blockType';
 
 import { useOpenModal } from '@/shared/store/modal';
 
-/* 블록 선택시 동작하는 함수들 */
-export const useSelectBlock = () => {
+/* 블록 선택시 & 타임라인 내 버튼 클릭시 동작 */
+export const useInteractTimeline = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const openModal = useOpenModal();

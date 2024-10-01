@@ -21,7 +21,7 @@ import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useFetchBlock } from '@/page/archiving/index/hook/common/useFetchBlock';
-import { useSelectBlock } from '@/page/archiving/index/hook/common/useSelectBlock';
+import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 import { createTimeBlock } from '@/page/archiving/index/util/block';
@@ -46,7 +46,7 @@ const ArchivingPage = () => {
     handleMonthClick,
   } = useDate(daySectionRef);
 
-  const { selectedBlock, setSelectedBlock, handleOpenBlockModal, handleBlockClick } = useSelectBlock();
+  const { selectedBlock, setSelectedBlock, handleOpenBlockModal, handleBlockClick } = useInteractTimeline();
 
   const { timeBlocks, blockFloors } = useFetchBlock({
     teamId: +teamId,
