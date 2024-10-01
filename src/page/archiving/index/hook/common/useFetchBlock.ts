@@ -13,6 +13,7 @@ interface BlockProps {
   selectedMonthString: MonthType;
 }
 
+/* 블록 데이터 가져오고 정렬 */
 export const useFetchBlock = ({ teamId, currentYear, selectedMonth, endDay, selectedMonthString }: BlockProps) => {
   const { data } = useGetTimeBlockQuery(teamId, 'executive', currentYear, selectedMonth);
 

@@ -4,6 +4,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 
 import { useOpenModal } from '@/shared/store/modal';
 
+/* 블록 선택시 동작하는 함수들 */
 export const useSelectBlock = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
