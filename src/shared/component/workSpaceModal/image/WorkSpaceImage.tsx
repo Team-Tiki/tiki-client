@@ -9,10 +9,10 @@ import {
   imageAddStyle,
   imageBoxStyle,
   imageDeleteStyle,
-} from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
-import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImageUpload';
-import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
-import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
+} from '@/shared/component/workSpaceModal/image/WorkSpaceImage.style';
+import useImageUpload from '@/shared/component/workSpaceModal/image/hook/useImageUpload';
+import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
+import { sectionStyle } from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
 import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
