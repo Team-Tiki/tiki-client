@@ -1,8 +1,7 @@
 import { css } from '@emotion/react';
 
+import { fadeIn, fadeOut } from '@/common/style/animation';
 import { theme } from '@/common/style/theme/theme';
-
-import { fadeIn, fadeOut } from '@/shared/style/animation';
 
 export const leftSidebarMenuItemStyle = css({
   display: 'flex',
