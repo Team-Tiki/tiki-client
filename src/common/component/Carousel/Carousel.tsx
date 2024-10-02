@@ -1,4 +1,4 @@
-import { Children, MutableRefObject, PropsWithChildren, createContext, useRef, useState } from 'react';
+import React, { Children, MutableRefObject, PropsWithChildren, createContext, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import Arrow from '@/common/component/Carousel/Arrow';
@@ -23,7 +23,7 @@ type CarouselContextType = {
 
 export const CarouselContext = createContext<CarouselContextType>({} as CarouselContextType);
 
-const Carousel = ({ width = '100vw', height = '300px', children, hasArrows = true, hasDots = true }: CarouselProps) => {
+const Carousel = ({ width = '100%', height = '400px', children, hasArrows = true, hasDots = true }: CarouselProps) => {
   const itemRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(1);
 
@@ -31,6 +31,7 @@ const Carousel = ({ width = '100vw', height = '300px', children, hasArrows = tru
 
   const handleLeft = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+
     if (itemRef.current) {
       flushSync(() => {
         setCurrentIndex((prev) => (prev > 1 ? prev - 1 : 1));
@@ -42,9 +43,20 @@ const Carousel = ({ width = '100vw', height = '300px', children, hasArrows = tru
 
   const handleRight = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+
     if (itemRef.current) {
       flushSync(() => {
         setCurrentIndex((prev) => (prev < length ? prev + 1 : length));
+      });
+
+      itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  };
+
+  const handleMoveTo = (index: number) => {
+    if (itemRef.current) {
+      flushSync(() => {
+        setCurrentIndex(index);
       });
 
       itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -63,7 +75,7 @@ const Carousel = ({ width = '100vw', height = '300px', children, hasArrows = tru
 
         <div css={sliderStyle(height)}>{children}</div>
 
-        {hasDots && <Dots currentIdx={currentIndex} length={length} />}
+        {hasDots && <Dots moveToIndex={handleMoveTo} currentIdx={currentIndex} length={length} />}
       </div>
     </CarouselContext.Provider>
   );

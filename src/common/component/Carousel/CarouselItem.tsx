@@ -14,9 +14,6 @@ const CarouselItem = ({ index, children }: CarouselItemProps) => {
         if (currentIndex === index + 1) {
           itemRef.current = node as HTMLDivElement;
         }
-        return () => {
-          itemRef.current = null;
-        };
       }}
       css={itemStyle}>
       {children}

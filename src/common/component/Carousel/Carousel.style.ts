@@ -6,14 +6,9 @@ import { theme } from '@/common/style/theme/theme';
 export const itemStyle = css({
   width: '100%',
 
-  fontSize: '32px',
-  color: 'white',
-
   flexShrink: 0,
 
-  backgroundColor: 'red',
-
-  '& > img': {
+  '& > *': {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
@@ -45,6 +40,11 @@ export const containerStyle = ({ width, height }: Pick<CarouselProps, 'width' | 
     borderRadius: '16px',
 
     overflow: 'hidden',
+
+    '& *': {
+      userSelect: 'none',
+      touchAction: 'none',
+    },
   });
 
 export const arrowStyle = (position: 'left' | 'right') =>
