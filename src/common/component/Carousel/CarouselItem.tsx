@@ -19,7 +19,6 @@ const CarouselItem = ({ index, children, ...props }: CarouselItemProps) => {
       }}
       css={itemStyle(height)}
       {...props}>
-      <p css={{ position: 'absolute', top: '1.6rem', left: '1.6rem' }}>{index}</p>
       {children}
     </div>
   );
