@@ -1,11 +1,13 @@
-import { PropsWithChildren, useContext } from 'react';
+import { ComponentPropsWithoutRef, useContext } from 'react';
 
 import { CarouselContext } from '@/common/component/Carousel/Carousel';
 import { itemStyle } from '@/common/component/Carousel/Carousel.style';
 
-type CarouselItemProps = PropsWithChildren<{ index: number }>;
+interface CarouselItemProps extends ComponentPropsWithoutRef<'div'> {
+  index: number;
+}
 
-const CarouselItem = ({ index, children }: CarouselItemProps) => {
+const CarouselItem = ({ index, children, ...props }: CarouselItemProps) => {
   const { currentIndex, itemRef } = useContext(CarouselContext);
 
   return (
@@ -15,7 +17,9 @@ const CarouselItem = ({ index, children }: CarouselItemProps) => {
           itemRef.current = node as HTMLDivElement;
         }
       }}
-      css={itemStyle}>
+      css={itemStyle}
+      {...props}>
+      <p css={{ position: 'absolute', top: '1.6rem', left: '1.6rem' }}>{index}</p>
       {children}
     </div>
   );

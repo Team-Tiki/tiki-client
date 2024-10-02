@@ -8,6 +8,8 @@ export const itemStyle = css({
 
   flexShrink: 0,
 
+  position: 'relative',
+
   '& > *': {
     width: '100%',
     height: '100%',
@@ -69,7 +71,7 @@ export const arrowStyle = (position: 'left' | 'right') =>
     border: 'none',
     borderRadius: '16px',
 
-    background: 'rgb(0,0,0,0.3)',
+    background: 'rgb(255,255,255,0.3)',
 
     cursor: 'pointer',
   });
