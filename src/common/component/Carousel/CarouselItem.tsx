@@ -8,7 +8,7 @@ interface CarouselItemProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 const CarouselItem = ({ index, children, ...props }: CarouselItemProps) => {
-  const { currentIndex, itemRef } = useContext(CarouselContext);
+  const { height, currentIndex, itemRef } = useContext(CarouselContext);
 
   return (
     <div
@@ -17,7 +17,7 @@ const CarouselItem = ({ index, children, ...props }: CarouselItemProps) => {
           itemRef.current = node as HTMLDivElement;
         }
       }}
-      css={itemStyle}
+      css={itemStyle(height)}
       {...props}>
       <p css={{ position: 'absolute', top: '1.6rem', left: '1.6rem' }}>{index}</p>
       {children}

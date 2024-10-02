@@ -3,19 +3,21 @@ import { css } from '@emotion/react';
 import { CarouselProps } from '@/common/component/Carousel/Carousel';
 import { theme } from '@/common/style/theme/theme';
 
-export const itemStyle = css({
-  width: '100%',
-
-  flexShrink: 0,
-
-  position: 'relative',
-
-  '& > *': {
+export const itemStyle = (height: string) =>
+  css({
     width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-  },
-});
+    height,
+
+    flexShrink: 0,
+
+    position: 'relative',
+
+    '& > *': {
+      width: '100%',
+      height,
+      objectFit: 'cover',
+    },
+  });
 
 export const sliderStyle = (height: string) =>
   css({

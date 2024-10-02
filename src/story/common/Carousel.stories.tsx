@@ -16,12 +16,15 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    children: [],
+  },
 } satisfies Meta<typeof Carousel>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const shadowStyle = css({
+const shadowStyle = css({
   '::before': {
     content: '""',
 
@@ -37,54 +40,27 @@ export const shadowStyle = css({
 });
 
 export const Default: Story = {
-  args: {
-    children: [
-      <Carousel.Item css={shadowStyle} key={0} index={0}>
-        <div style={{ position: 'absolute', top: '1.6rem', left: '1.6rem' }}>
-          <Heading css={{ color: 'white' }}>SOPT</Heading>
-          <Button css={{ width: '200px' }} variant="primary">
-            이동하기
-          </Button>
-        </div>
-        <img src={img1} alt="img1" />
-      </Carousel.Item>,
-      <Carousel.Item css={shadowStyle} key={1} index={1}>
-        <img src={img2} alt="img2" />
-      </Carousel.Item>,
-      <Carousel.Item key={2} index={2}>
-        <img src={img3} alt="img3" />
-      </Carousel.Item>,
-      <Carousel.Item key={3} index={3}>
-        <img src={img1} alt="img1" />
-      </Carousel.Item>,
-      <Carousel.Item key={4} index={4}>
-        <img src={img2} alt="img2" />
-      </Carousel.Item>,
-      <Carousel.Item key={5} index={5}>
-        <img src={img3} alt="img3" />
-      </Carousel.Item>,
-      <Carousel.Item key={6} index={6}>
-        <img src={img1} alt="img1" />
-      </Carousel.Item>,
-      <Carousel.Item key={7} index={7}>
-        <img src={img2} alt="img2" />
-      </Carousel.Item>,
-      <Carousel.Item key={8} index={8}>
-        <img src={img3} alt="img3" />
-      </Carousel.Item>,
-      <Carousel.Item key={9} index={9}>
-        <img src={img1} alt="img1" />
-      </Carousel.Item>,
-      <Carousel.Item key={10} index={10}>
-        <img src={img2} alt="img2" />
-      </Carousel.Item>,
-      <Carousel.Item key={11} index={11}>
-        <img src={img3} alt="img3" />
-      </Carousel.Item>,
-    ],
-  },
+  render: () => {
+    const arr = Array.from({ length: 10 }).map((_, i) => i + 1);
 
-  render: (args) => {
-    return <Carousel autoLoop={true} {...args} />;
+    return (
+      <Carousel autoLoop={true}>
+        {arr.map((num, idx) => (
+          <Carousel.Item css={shadowStyle} key={num} index={idx}>
+            <div css={{ position: 'absolute', padding: '3.2rem' }}>
+              <Heading css={{ color: 'white' }}>{num}번째 슬라이드</Heading>
+              <Button css={{ width: '200px' }} variant="primary">
+                이동하기
+              </Button>
+            </div>
+            <img
+              css={{ objectFit: 'cover' }}
+              src={idx % 3 === 0 ? img1 : idx % 3 === 1 ? img2 : img3}
+              alt={`img${num}`}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    );
   },
 };

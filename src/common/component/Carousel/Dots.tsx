@@ -1,16 +1,21 @@
 import { css } from '@emotion/react';
 
+import { useContext } from 'react';
+
+import { CarouselContext } from '@/common/component/Carousel/Carousel';
+
 interface DotsProps {
-  currentIdx: number;
   length: number;
   moveToIndex?: (index: number) => void;
 }
 
-const Dots = ({ currentIdx, length, moveToIndex }: DotsProps) => {
+const Dots = ({ length, moveToIndex }: DotsProps) => {
+  const { currentIndex } = useContext(CarouselContext);
+
   return (
     <div css={dotContainerStyle}>
       {Array.from({ length }).map((_, index) => (
-        <Dot onClick={() => moveToIndex?.(index + 1)} key={index} isCurrent={index + 1 === currentIdx} />
+        <Dot isCurrent={currentIndex === index + 1} onClick={() => moveToIndex?.(index + 1)} key={index} />
       ))}
     </div>
   );
@@ -40,8 +45,8 @@ const dotContainerStyle = css`
 
 const dotStyle = (isCurrent: boolean) =>
   css({
-    width: '0.6rem',
-    height: '0.6rem',
+    width: '0.8rem',
+    height: '0.8rem',
 
     opacity: isCurrent ? 1 : 0.3,
 
