@@ -1,7 +1,3 @@
-import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
-import { useResetPasswordMutation } from '@/page/login/password/reset/hook/useResetPasswordMutation';
-
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
@@ -9,23 +5,29 @@ import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
 
+import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
+import { useResetPasswordMutation } from '@/page/login/password/reset/hook/api/useResetPasswordMutation';
+import { usePasswordForm } from '@/page/login/password/reset/hook/common/usePasswordForm';
+
 import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 
 const PasswordResetPage = () => {
-  const [updatePassword, setUpdatePassword] = useState('');
-  const [updatePasswordConfirm, setUpdatePasswordConfirm] = useState('');
   const navigate = useNavigate();
+
   const { state } = useLocation();
+
   const { mutate } = useResetPasswordMutation();
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatePassword(e.target.value);
-  };
-
-  const handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatePasswordConfirm(e.target.value);
-  };
+  const {
+    form,
+    handlePasswordChange,
+    handlePasswordValidate,
+    isPasswordCheckerError,
+    isPasswordError,
+    passwordCheckerSupportingTxt,
+    passwordSupportingTxt,
+  } = usePasswordForm();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,8 +35,8 @@ const PasswordResetPage = () => {
     mutate(
       {
         email: state,
-        password: updatePassword,
-        passwordChecker: updatePasswordConfirm,
+        password: form.updatedPassword,
+        passwordChecker: form.updatedPasswordChecker,
       },
       {
         onSuccess: () => {
@@ -52,22 +54,24 @@ const PasswordResetPage = () => {
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
             <Input
               variant="underline"
+              type="password"
               placeholder={PLACEHOLDER.PASSWORD}
-              value={updatePassword}
-              onChange={handlePasswordChange}
+              value={form.updatedPassword}
+              isError={isPasswordError}
+              supportingText={passwordSupportingTxt}
+              onChange={(e) => handlePasswordChange('updatedPassword', e)}
             />
             <Input
               variant="underline"
+              type="password"
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
-              value={updatePasswordConfirm}
-              onChange={handlePasswordConfirmChange}
+              value={form.updatedPasswordChecker}
+              isError={isPasswordCheckerError}
+              supportingText={passwordCheckerSupportingTxt}
+              onChange={(e) => handlePasswordChange('updatedPasswordChecker', e)}
             />
           </Flex>
-          <Button
-            type="submit"
-            variant="primary"
-            size="large"
-            disabled={updatePassword.length === 0 || updatePassword !== updatePasswordConfirm}>
+          <Button type="submit" variant="primary" size="large" disabled={!handlePasswordValidate()}>
             완료
           </Button>
         </form>
