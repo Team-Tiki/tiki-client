@@ -1,9 +1,7 @@
-import { SerializedStyles } from '@emotion/react';
-
 import { Children, MouseEvent, MutableRefObject, PropsWithChildren, createContext } from 'react';
 
 import Arrow from '@/common/component/Carousel/Arrow';
-import { arrowStyle, containerStyle, sliderStyle } from '@/common/component/Carousel/Carousel.style';
+import { containerStyle, sliderStyle } from '@/common/component/Carousel/Carousel.style';
 import CarouselItem from '@/common/component/Carousel/CarouselItem';
 import Dots from '@/common/component/Carousel/Dots';
 import { useCarousel } from '@/common/hook/useCarousel';
@@ -15,8 +13,8 @@ export interface CarouselProps extends PropsWithChildren {
   hasArrows?: boolean;
   hasDots?: boolean;
 
-  renderedLeftArrow?: (onClick: (e: MouseEvent<HTMLButtonElement>) => void, css: SerializedStyles) => JSX.Element;
-  renderedRightArrow?: (onClick: (e: MouseEvent<HTMLButtonElement>) => void, css: SerializedStyles) => JSX.Element;
+  renderedLeftArrow?: (onClick: (e: MouseEvent<HTMLButtonElement>) => void) => JSX.Element;
+  renderedRightArrow?: (onClick: (e: MouseEvent<HTMLButtonElement>) => void) => JSX.Element;
 
   autoLoop?: boolean;
   autoLoopDelay?: number;
@@ -60,8 +58,8 @@ const Carousel = ({
         {hasArrows ? (
           renderedLeftArrow && renderedRightArrow ? (
             <>
-              {renderedLeftArrow?.(handleLeft, arrowStyle('left'))}
-              {renderedRightArrow?.(handleRight, arrowStyle('right'))}
+              {renderedLeftArrow?.(handleLeft)}
+              {renderedRightArrow?.(handleRight)}
             </>
           ) : (
             <>
