@@ -1,9 +1,13 @@
-import { css } from '@emotion/react';
+import { SerializedStyles, css } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { MouseEvent } from 'react';
 
 import img1 from '@/common/asset/img/advBannerClub1.png';
 import img2 from '@/common/asset/img/advBannerClub2.png';
 import img3 from '@/common/asset/img/advBannerClub3.png';
+import ArrowLeft from '@/common/asset/svg/arrow-left.svg?react';
+import ArrowRight from '@/common/asset/svg/arrow-right.svg?react';
 import Button from '@/common/component/Button/Button';
 import Carousel from '@/common/component/Carousel/Carousel';
 import Heading from '@/common/component/Heading/Heading';
@@ -44,7 +48,18 @@ export const Default: Story = {
     const arr = Array.from({ length: 10 }).map((_, i) => i + 1);
 
     return (
-      <Carousel autoLoop={true}>
+      <Carousel
+        autoLoop={true}
+        renderedLeftArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void, css: SerializedStyles) => (
+          <button onClick={onClick} css={css}>
+            <ArrowLeft width="1.6rem" height="1.6rem" />
+          </button>
+        )}
+        renderedRightArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void, css: SerializedStyles) => (
+          <button onClick={onClick} css={css}>
+            <ArrowRight width="1.6rem" height="1.6rem" />
+          </button>
+        )}>
         {arr.map((num, idx) => (
           <Carousel.Item css={shadowStyle} key={num} index={idx}>
             <div css={{ position: 'absolute', padding: '3.2rem' }}>
