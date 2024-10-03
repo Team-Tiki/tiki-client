@@ -77,3 +77,27 @@ export const arrowStyle = (position: 'left' | 'right') =>
 
     cursor: 'pointer',
   });
+
+export const dotContainerStyle = css`
+  display: flex;
+  gap: 0.8rem;
+
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+
+  transform: translateX(-50%);
+`;
+
+export const dotStyle = (isCurrent: boolean) =>
+  css({
+    width: '0.8rem',
+    height: '0.8rem',
+
+    opacity: isCurrent ? 1 : 0.3,
+
+    borderRadius: '50%',
+    backgroundColor: 'white',
+
+    cursor: 'pointer',
+  });
