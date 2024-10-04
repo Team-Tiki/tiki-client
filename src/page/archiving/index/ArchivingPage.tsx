@@ -25,14 +25,17 @@ import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInter
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
+import { useOpenModal } from '@/shared/store/modal';
+
 const ArchivingPage = () => {
   const location = useLocation();
 
   const daySectionRef = useRef<HTMLDivElement>(null);
-
   const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
 
-  const { selectedBlock, setSelectedBlock, handleOpenBlockModal, handleBlockClick } = useInteractTimeline();
+  const { selectedBlock, setSelectedBlock, handleBlockClick } = useInteractTimeline();
+
+  const openModal = useOpenModal();
 
   const teamId = new URLSearchParams(location.search).get('teamId');
   if (!teamId) throw new Error('has no teamId');
@@ -51,6 +54,10 @@ const ArchivingPage = () => {
 
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear);
+
+  const handleOpenBlockModal = () => {
+    openModal('create-block');
+  };
 
   return (
     <Flex css={pageStyle}>
