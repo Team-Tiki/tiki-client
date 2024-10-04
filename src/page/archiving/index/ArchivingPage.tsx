@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Add from '@/common/asset/svg/ic_add_btn.svg?react';
@@ -23,30 +23,24 @@ import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTime
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 const ArchivingPage = () => {
   const location = useLocation();
 
-  const teamId = new URLSearchParams(location.search).get('teamId');
-  if (!teamId) throw new Error('has no teamId');
+  const daySectionRef = useRef<HTMLDivElement>(null);
 
   const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
 
-  const daySectionRef = useRef<HTMLDivElement>(null);
-
-  const {
-    currentYear,
-    selectedMonthString,
-    setSelectedMonthString,
-    handlePrevYear,
-    handleNextYear,
-    endDay,
-    handleMonthClick,
-  } = useDate(daySectionRef);
-
   const { selectedBlock, setSelectedBlock, handleOpenBlockModal, handleBlockClick } = useInteractTimeline();
+
+  const teamId = new URLSearchParams(location.search).get('teamId');
+  if (!teamId) throw new Error('has no teamId');
+
+  const { currentYear, selectedMonthString, handlePrevYear, handleNextYear, endDay, handleMonthClick } = useDate(
+    daySectionRef,
+    teamId
+  );
 
   const { data } = useGetTimeBlockQuery(
     +teamId,
@@ -56,14 +50,7 @@ const ArchivingPage = () => {
   );
 
   const timeBlocks: Block[] = data.timeBlocks;
-  const blockFloors = useMemo(
-    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
-    [timeBlocks, endDay, selectedMonthString, currentYear]
-  );
-
-  useEffect(() => {
-    setSelectedMonthString(`${new Date().getMonth() + 1}월` as MonthType);
-  }, [teamId]);
+  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear);
 
   return (
     <Flex css={pageStyle}>
