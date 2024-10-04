@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Add from '@/common/asset/svg/ic_add_btn.svg?react';
@@ -19,12 +19,12 @@ import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBa
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
+import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
-import { useFetchBlock } from '@/page/archiving/index/hook/common/useFetchBlock';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
-import { createTimeBlock } from '@/page/archiving/index/util/block';
+import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 const ArchivingPage = () => {
   const location = useLocation();
@@ -48,13 +48,18 @@ const ArchivingPage = () => {
 
   const { selectedBlock, setSelectedBlock, handleOpenBlockModal, handleBlockClick } = useInteractTimeline();
 
-  const { timeBlocks, blockFloors } = useFetchBlock({
-    teamId: +teamId,
+  const { data } = useGetTimeBlockQuery(
+    +teamId,
+    'executive',
     currentYear,
-    selectedMonth: +selectedMonthString.split('월')[0],
-    endDay,
-    selectedMonthString,
-  });
+    parseInt(selectedMonthString.split('월')[0])
+  );
+
+  const timeBlocks: Block[] = data.timeBlocks;
+  const blockFloors = useMemo(
+    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
+    [timeBlocks, endDay, selectedMonthString, currentYear]
+  );
 
   useEffect(() => {
     setSelectedMonthString(`${new Date().getMonth() + 1}월` as MonthType);
