@@ -8,7 +8,7 @@ export interface DividerProps extends HTMLAttributes<HTMLHRElement> {
 }
 
 const Divider = ({ type = 'horizontal', size = 50 }: DividerProps) => {
-  return <hr css={[commonStyle, dividerStyle(type, size)]} />;
+  return <hr role="separator" css={[commonStyle, dividerStyle(type, size)]} />;
 };
 
 export default Divider;
