@@ -27,7 +27,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
         });
 
         itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }, 1000);
+      }, 800);
     }
   };
 
@@ -42,7 +42,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
         });
 
         itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }, 1000);
+      }, 800);
     }
   };
 
