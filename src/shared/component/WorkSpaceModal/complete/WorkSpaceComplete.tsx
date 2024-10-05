@@ -1,8 +1,8 @@
 import WorkSpaceCompleteImg from '@/common/asset/svg/ic_complete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 
-import WorkSapceInfo from '@/shared/component/workSpaceModal/info/WorkSpaceInfo';
-import { sectionStyle } from '@/shared/component/workSpaceModal/name/WorkSpaceName.style';
+import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
+import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 
 interface WorkSpaceCompleteProps {
   isVisible: boolean;
