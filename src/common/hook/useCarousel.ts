@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
+import { useThrottle } from '@/common/hook/useThrottle';
+
 export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: number) => {
   /**
    * container hover 상태
@@ -12,16 +14,20 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
   const itemRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(1);
 
+  const throttledCallback = useThrottle();
+
   /** 왼쪽 슬라이드로 */
   const handleLeft = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     if (itemRef.current) {
-      flushSync(() => {
-        setCurrentIndex((prev) => (prev > 1 ? prev - 1 : 1));
-      });
+      throttledCallback(() => {
+        flushSync(() => {
+          setCurrentIndex((prev) => (prev > 1 ? prev - 1 : length));
+        });
 
-      itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }, 1000);
     }
   };
 
@@ -30,11 +36,13 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
     e.stopPropagation();
 
     if (itemRef.current) {
-      flushSync(() => {
-        setCurrentIndex((prev) => (prev < length ? prev + 1 : length));
-      });
+      throttledCallback(() => {
+        flushSync(() => {
+          setCurrentIndex((prev) => (prev < length ? prev + 1 : 1));
+        });
 
-      itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }, 1000);
     }
   };
 

@@ -23,6 +23,13 @@ const meta = {
   args: {
     children: [],
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '100vw' }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Carousel>;
 
 export default meta;
