@@ -1,13 +1,17 @@
+import { css } from '@emotion/react';
+
+import { useState } from 'react';
+
+import DatePicker from '@/common/component/DatePicker/DatePicker';
+import Flex from '@/common/component/Flex/Flex';
+import Input from '@/common/component/Input/Input';
+import SupportingText from '@/common/component/SupportingText/SupportingText';
+
 import {
   supportStyle,
   textStyle,
 } from '@/page/archiving/index/component/TimeBlockModal/component/Block/Date/BlockDate.style';
 import useDateRange from '@/page/archiving/index/component/TimeBlockModal/hook/common/useDateRange';
-import { css } from '@emotion/react';
-
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
-import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 interface BlockDateProps {
   startDate: string;
@@ -26,6 +30,8 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
     onSetIsDateRangeValid
   );
 
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
   const inputStyle = (value: string) => css`
     text-align: ${value.length === 10 ? 'center' : 'left'};
   `;
@@ -33,16 +39,7 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
   return (
     <>
       <Flex styles={{ direction: 'row', align: 'center', gap: '1.2rem' }}>
-        <Input
-          variant="default"
-          size="large"
-          placeholder="YYYY-MM-DD"
-          css={[{ width: '10.3rem' }, inputStyle(dates.startDate)]}
-          value={dates.startDate}
-          onChange={(e) => handleChange('startDate', e.target.value, validation.isEndDateValid, true)}
-          maxLength={10}
-          isError={validation.isStartDateError}
-        />
+        <DatePicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
         <p css={textStyle}>~</p>
         <Input
           variant="default"
