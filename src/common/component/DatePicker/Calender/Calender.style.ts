@@ -6,13 +6,10 @@ export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
-});
-
-export const headerStyle = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '8px 16px',
-  alignItems: 'center',
+  border: `2px solid ${theme.colors.blue_200}`,
+  padding: '2rem',
+  borderRadius: '10px',
+  backgroundColor: theme.colors.white,
 });
 
 export const monthDisplayStyle = css({

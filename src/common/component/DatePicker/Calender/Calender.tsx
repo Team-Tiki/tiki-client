@@ -1,5 +1,7 @@
 import { format, isSameDay, isSameMonth } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
+// 한국어 로케일을 import
 import CaretLeftIcon from '@/common/asset/svg/arrow-left.svg?react';
 import CaretRightIcon from '@/common/asset/svg/arrow-right.svg?react';
 import {
@@ -9,7 +11,6 @@ import {
   datesContainerStyle,
   dayStyle,
   daysContainerStyle,
-  headerStyle,
   hoverDateStyle,
   iconStyle,
   monthDisplayStyle,
@@ -17,6 +18,8 @@ import {
   selectedDateStyle,
 } from '@/common/component/DatePicker/Calender/Calender.style';
 import useCalender from '@/common/hook/useCalender';
+
+import Flex from '../../Flex/Flex';
 
 interface CalenderProps {
   selectedDate: Date;
@@ -28,9 +31,9 @@ export default function Calender({ selectedDate, setSelectedDate }: CalenderProp
 
   return (
     <div css={containerStyle}>
-      <div css={headerStyle}>
+      <Flex styles={{ justify: 'space-between', align: 'center' }}>
         <div css={monthDisplayStyle}>
-          <span>{format(currentMonth, 'MMM yyyy')}</span>
+          <span>{format(currentMonth, 'yyyy년 MM월', { locale: ko })}</span>
         </div>
         <div css={arrowContainerStyle}>
           <button type="button" onClick={prevMonth} aria-label="Previous Month">
@@ -40,7 +43,7 @@ export default function Calender({ selectedDate, setSelectedDate }: CalenderProp
             <CaretRightIcon css={iconStyle} />
           </button>
         </div>
-      </div>
+      </Flex>
       <div css={daysContainerStyle}>
         {weekDays.map((day, index) => (
           <div key={index} css={dayStyle}>
