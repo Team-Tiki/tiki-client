@@ -6,49 +6,36 @@ export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
-  border: `2px solid ${theme.colors.blue_200}`,
+
   padding: '2rem',
+
+  border: `2px solid ${theme.colors.blue_200}`,
   borderRadius: '10px',
+
   backgroundColor: theme.colors.white,
 });
 
-export const monthDisplayStyle = css({
-  display: 'flex',
-  gap: '4px',
-  alignItems: 'center',
-  fontSize: theme.text.body02.fontSize,
-});
-
-export const arrowContainerStyle = css({
-  display: 'flex',
-  gap: '8px',
-});
-
-export const iconStyle = css({
-  width: '16px',
-  height: '16px',
-});
-
-export const daysContainerStyle = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(7, 1fr)',
-  textAlign: 'center',
-});
-
 export const dayStyle = css({
-  padding: '8px 0',
-  fontWeight: 'bold',
+  padding: '0.8rem 0',
+
+  color: theme.colors.blue_900,
+
+  fontWeight: 700,
 });
 
 export const datesContainerStyle = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(7, 1fr)',
+
   textAlign: 'center',
 });
 
 export const dateStyle = css({
-  padding: '8px',
+  padding: '0.8rem',
+
   borderRadius: '50%',
+  border: 'none',
+
   cursor: 'pointer',
 });
 
@@ -57,13 +44,13 @@ export const outOfMonthStyle = css({
 });
 
 export const selectedDateStyle = css({
-  //backgroundColor: theme.colors.primary_200,
-  color: '#FFFFFF',
+  backgroundColor: theme.colors.blue_300,
+  color: theme.colors.white,
 });
 
 export const hoverDateStyle = css({
   '&:hover': {
-    backgroundColor: theme.colors.blue,
-    color: theme.colors.blue,
+    backgroundColor: theme.colors.blue_200,
+    color: theme.colors.white,
   },
 });

@@ -11,13 +11,12 @@ const DatePickerTrigger = ({ selectedDate, onClick }: DatePickerTriggerProps) =>
   return (
     <Input
       variant="default"
-      size="medium"
+      size="large"
       value={selectedDate ? format(selectedDate, 'yyyy.MM.dd') : ''}
       placeholder="YYYY.MM.DD"
       readOnly
       onClick={onClick}
-      aria-label="Date Picker"
-      css={{ cursor: 'pointer' }}
+      css={{ cursor: 'pointer', width: '10.3rem' }}
     />
   );
 };

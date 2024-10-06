@@ -5,21 +5,19 @@ import { ko } from 'date-fns/locale';
 import CaretLeftIcon from '@/common/asset/svg/arrow-left.svg?react';
 import CaretRightIcon from '@/common/asset/svg/arrow-right.svg?react';
 import {
-  arrowContainerStyle,
   containerStyle,
   dateStyle,
   datesContainerStyle,
   dayStyle,
-  daysContainerStyle,
   hoverDateStyle,
-  iconStyle,
-  monthDisplayStyle,
   outOfMonthStyle,
   selectedDateStyle,
 } from '@/common/component/DatePicker/Calender/Calender.style';
 import useCalender from '@/common/hook/useCalender';
 
 import Flex from '../../Flex/Flex';
+import Heading from '../../Heading/Heading';
+import Text from '../../Text/Text';
 
 interface CalenderProps {
   selectedDate: Date;
@@ -31,39 +29,32 @@ export default function Calender({ selectedDate, setSelectedDate }: CalenderProp
 
   return (
     <div css={containerStyle}>
-      <Flex styles={{ justify: 'space-between', align: 'center' }}>
-        <div css={monthDisplayStyle}>
-          <span>{format(currentMonth, 'yyyy년 MM월', { locale: ko })}</span>
-        </div>
-        <div css={arrowContainerStyle}>
-          <button type="button" onClick={prevMonth} aria-label="Previous Month">
-            <CaretLeftIcon css={iconStyle} />
-          </button>
-          <button type="button" onClick={nextMonth} aria-label="Next Month">
-            <CaretRightIcon css={iconStyle} />
-          </button>
-        </div>
+      <Flex styles={{ justify: 'center', align: 'center', gap: '1rem' }}>
+        <CaretLeftIcon onClick={prevMonth} width={10} height={10} />
+        <Heading tag="H6" css={{ width: '10rem', textAlign: 'center' }}>
+          {format(currentMonth, 'yyyy년 MM월', { locale: ko })}
+        </Heading>
+        <CaretRightIcon onClick={nextMonth} width={10} height={10} />
       </Flex>
-      <div css={daysContainerStyle}>
+      <div css={datesContainerStyle}>
         {weekDays.map((day, index) => (
-          <div key={index} css={dayStyle}>
+          <Text tag="body8" key={index} css={dayStyle}>
             {day}
-          </div>
+          </Text>
         ))}
       </div>
       <div css={datesContainerStyle}>
         {currentMonthAllDates.map((date, index) => (
-          <button
+          <div
             key={index}
             css={[
               dateStyle,
               isSameMonth(currentMonth, date) ? '' : outOfMonthStyle,
               isSameDay(selectedDate, date) ? selectedDateStyle : hoverDateStyle,
             ]}
-            onClick={() => setSelectedDate(date)}
-            type="button">
+            onClick={() => setSelectedDate(date)}>
             {date.getDate()}
-          </button>
+          </div>
         ))}
       </div>
     </div>
