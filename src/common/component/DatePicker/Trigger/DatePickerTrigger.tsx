@@ -5,9 +5,10 @@ import Input from '@/common/component/Input/Input';
 interface DatePickerTriggerProps {
   selectedDate: Date | null;
   onClick: () => void;
+  width?: string;
 }
 
-const DatePickerTrigger = ({ selectedDate, onClick }: DatePickerTriggerProps) => {
+const DatePickerTrigger = ({ selectedDate, onClick, width = '10.3rem' }: DatePickerTriggerProps) => {
   return (
     <Input
       variant="default"
@@ -16,7 +17,7 @@ const DatePickerTrigger = ({ selectedDate, onClick }: DatePickerTriggerProps) =>
       placeholder="YYYY.MM.DD"
       readOnly
       onClick={onClick}
-      css={{ cursor: 'pointer', width: '10.3rem' }}
+      css={{ cursor: 'pointer', width }}
     />
   );
 };

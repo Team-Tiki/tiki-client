@@ -5,7 +5,7 @@ import { theme } from '@/common/style/theme/theme';
 export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: '0.8rem',
 
   padding: '2rem',
 
