@@ -14,11 +14,11 @@ interface CalendarHeaderProps {
 
 const CalendarHeader = ({ currentMonth, prevMonth, nextMonth }: CalendarHeaderProps) => (
   <Flex styles={{ justify: 'center', align: 'center', gap: '1rem' }}>
-    <CaretLeftIcon onClick={prevMonth} width={10} height={10} />
+    <CaretLeftIcon onClick={prevMonth} width={10} height={10} css={{ cursor: 'pointer' }} />
     <Heading tag="H6" css={{ width: '10rem', textAlign: 'center' }}>
       {format(currentMonth, 'yyyy년 MM월', { locale: ko })}
     </Heading>
-    <CaretRightIcon onClick={nextMonth} width={10} height={10} />
+    <CaretRightIcon onClick={nextMonth} width={10} height={10} css={{ cursor: 'pointer' }} />
   </Flex>
 );
 
