@@ -4,7 +4,7 @@ import DatePickerTrigger from '@/common/component/DatePicker/Trigger/DatePickerT
 
 export const DatePicker = Object.assign(DatePickerContainer, {
   Trigger: DatePickerTrigger,
-  Calender: DatePickerCalendar,
+  Calendar: DatePickerCalendar,
 });
 
 export default DatePicker;

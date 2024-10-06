@@ -6,7 +6,7 @@ import {
   hoverDateStyle,
   outOfMonthStyle,
   selectedDateStyle,
-} from '@/common/component/DatePicker/Calender/index/Calender.style';
+} from '@/common/component/DatePicker/Calender/index/Calendar.style';
 
 interface CalendarDatesProps {
   currentMonth: Date;

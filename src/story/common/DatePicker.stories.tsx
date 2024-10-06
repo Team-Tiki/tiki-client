@@ -28,7 +28,7 @@ export const PrimaryDatePicker: Story = {
       <div>
         <DatePicker ref={ref}>
           <DatePicker.Trigger selectedDate={selectedDate} onClick={toggle} width="10.3rem" />
-          <DatePicker.Calender selectedDate={selectedDate} setSelectedDate={setSelectedDate} isOpen={isOpen} />
+          <DatePicker.Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} isOpen={isOpen} />
         </DatePicker>
       </div>
     );

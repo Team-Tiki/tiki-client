@@ -1,4 +1,4 @@
-import { datesContainerStyle, dayStyle } from '@/common/component/DatePicker/Calender/index/Calender.style';
+import { datesContainerStyle, dayStyle } from '@/common/component/DatePicker/Calender/index/Calendar.style';
 import Text from '@/common/component/Text/Text';
 
 interface CalendarDaysProps {

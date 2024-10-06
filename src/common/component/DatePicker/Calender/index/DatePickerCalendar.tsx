@@ -1,4 +1,4 @@
-import Calender from './Calender';
+import Calender from './Calendar';
 
 interface DatePickerCalendarProps {
   selectedDate: Date | null;

@@ -11,7 +11,6 @@ import {
 } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
-// 한국어 locale 추가
 import { useState } from 'react';
 
 const useCalender = (initialDate: Date) => {
@@ -21,7 +20,6 @@ const useCalender = (initialDate: Date) => {
   const weekStartDate = startOfWeek(new Date());
 
   for (let day = 0; day < 7; day += 1) {
-    // locale: ko를 추가하여 한글로 요일 표시
     weekDays.push(format(addDays(weekStartDate, day), 'EEEEE', { locale: ko }));
   }
 
