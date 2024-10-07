@@ -8,8 +8,12 @@ export const useTimer = (initialTime: number, message: string) => {
   const [remainTime, setRemainTime] = useState(initialTime);
   const ref = useRef<Timeout>();
 
-  const handleTrigger = useCallback(() => {
+  const trigger = useCallback(() => {
     setIsTriggered(true);
+  }, []);
+
+  const reset = useCallback(() => {
+    setRemainTime(initialTime);
   }, []);
 
   useEffect(() => {
@@ -29,5 +33,5 @@ export const useTimer = (initialTime: number, message: string) => {
     return () => clearInterval(ref.current);
   }, [remainTime]);
 
-  return { remainTime, isTriggered, handleTrigger };
+  return { remainTime, isTriggered, trigger, reset };
 };
