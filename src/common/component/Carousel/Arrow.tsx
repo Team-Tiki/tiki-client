@@ -1,5 +1,5 @@
-import LeftArrow from '@/common/asset/svg/arrow-left-white.svg?react';
-import RightArrow from '@/common/asset/svg/arrow-right-white.svg?react';
+import LeftArrow from '@/common/asset/svg/ic_arrow_left_white.svg?react';
+import RightArrow from '@/common/asset/svg/ic_arrow_right_white.svg?react';
 import { arrowStyle } from '@/common/component/Carousel/Carousel.style';
 
 type ArrowProps = {

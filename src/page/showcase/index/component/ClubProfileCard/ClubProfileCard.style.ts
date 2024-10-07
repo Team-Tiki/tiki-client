@@ -5,6 +5,11 @@ export const containerStyle = css({
   minWidth: '21.15rem',
 
   cursor: 'pointer',
+
+  transition: 'all 0.2s 0s ease-in',
+  ':hover': {
+    transform: 'scale(1.03, 1.03)',
+  },
 });
 
 export const imageStyle = css({
