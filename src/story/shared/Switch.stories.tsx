@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ArrowLeft from '@/common/asset/svg/ic_arrow_left_white.svg?react';
-import ArrowRight from '@/common/asset/svg/ic_arrow_right_white.svg?react';
+import Grid from '@/common/asset/svg/ic_grid.svg?react';
+import CheckedGrid from '@/common/asset/svg/ic_grid_checked.svg?react';
+import List from '@/common/asset/svg/ic_list.svg?react';
+import CheckedList from '@/common/asset/svg/ic_list_checked.svg?react';
 
 import Switch from '@/shared/component/Switch/Switch';
 
@@ -13,31 +15,16 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['default'],
-    },
-    LeftIcon: {
-      control: { type: 'radio' },
-      options: [<ArrowLeft />, <ArrowRight />],
-    },
-    ClickedLeftIcon: {
-      control: { type: 'radio' },
-      options: [<ArrowLeft />, <ArrowRight />],
-    },
-    RightIcon: {
-      control: { type: 'radio' },
-      options: [<ArrowLeft />, <ArrowRight />],
-    },
-    ClickedRightIcon: {
-      control: { type: 'radio' },
-      options: [<ArrowLeft />, <ArrowRight />],
+    isChecked: {
+      control: { type: 'boolean' },
     },
   },
   args: {
-    variant: 'default',
-    LeftIcon: <ArrowLeft />,
-    RightIcon: <ArrowRight />,
+    isChecked: true,
+    LeftIcon: <List width={16} height={16} />,
+    ClickedLeftIcon: <CheckedList width={16} height={16} />,
+    RightIcon: <Grid width={16} height={16} />,
+    ClickedRightIcon: <CheckedGrid width={16} height={16} />,
   },
 } satisfies Meta<typeof Switch>;
 
@@ -46,18 +33,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: 'default',
-    LeftIcon: <ArrowLeft />,
-    RightIcon: <ArrowRight />,
-    onClick: () => {},
-  },
-};
-
-export const Checked: Story = {
-  args: {
-    variant: 'checked',
-    LeftIcon: <ArrowLeft />,
-    RightIcon: <ArrowRight />,
+    isChecked: true,
+    LeftIcon: <List width={16} height={16} />,
+    RightIcon: <Grid width={16} height={16} />,
     onClick: () => {},
   },
 };
