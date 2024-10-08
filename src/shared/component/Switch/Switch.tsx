@@ -3,7 +3,7 @@ import { ComponentPropsWithRef, ReactNode, useState } from 'react';
 import { containerStyle, leftContentStyle, rightContentStyle } from '@/shared/component/Switch/Switch.style';
 
 export interface SwitchProps extends Omit<ComponentPropsWithRef<'div'>, 'onClick'> {
-  variant?: 'default';
+  variant?: 'default'|'checked';
   LeftIcon: ReactNode;
   ClickedLeftIcon?: ReactNode;
   RightIcon: ReactNode;
@@ -12,7 +12,7 @@ export interface SwitchProps extends Omit<ComponentPropsWithRef<'div'>, 'onClick
 }
 
 const Switch = ({
-  variant = 'default',
+  variant = 'checked',
   LeftIcon,
   ClickedLeftIcon = LeftIcon,
   RightIcon,
