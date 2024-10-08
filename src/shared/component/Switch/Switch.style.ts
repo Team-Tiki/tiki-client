@@ -22,12 +22,16 @@ export const contentStyle = (side: 'left' | 'right', isClicked: boolean) => {
       padding: ` 0.8rem ${sidePadding}rem`,
 
       backgroundColor: bgColor,
+
+      border: 'none',
       borderRight: `1px solid ${theme.colors.gray_200}`,
     },
     right: {
       padding: `0.8rem ${sidePadding}rem `,
 
       backgroundColor: bgColor,
+
+      border: 'none',
     },
   };
   return style[side];
