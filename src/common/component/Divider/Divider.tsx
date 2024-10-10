@@ -5,10 +5,11 @@ import { commonStyle, dividerStyle } from '@/common/component/Divider/Divider.st
 export interface DividerProps extends HTMLAttributes<HTMLHRElement> {
   type?: 'horizontal' | 'vertical';
   size?: number;
+  color?: string;
 }
 
-const Divider = ({ type = 'horizontal', size = 50 }: DividerProps) => {
-  return <hr role="separator" css={[commonStyle, dividerStyle(type, size)]} />;
+const Divider = ({ type = 'horizontal', size = 50, color }: DividerProps) => {
+  return <hr css={[commonStyle(color), dividerStyle(type, size)]} />;
 };
 
 export default Divider;
