@@ -17,6 +17,9 @@ const meta = {
     size: {
       control: { type: 'number' },
     },
+    color: {
+      control: { type: 'color' },
+    },
   },
   args: {
     type: 'horizontal',
