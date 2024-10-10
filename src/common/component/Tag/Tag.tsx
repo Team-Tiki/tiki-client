@@ -1,14 +1,16 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithRef, ReactNode } from 'react';
 
-import { tagStyle } from '@/common/component/Tag/Tag.style';
+import { commonStyle, tagStyle } from '@/common/component/Tag/Tag.style';
 
-interface TagProps extends ComponentPropsWithRef<'div'> {
+export interface TagProps extends ComponentPropsWithRef<'div'> {
   variant: 'round' | 'square';
+  color: string;
+  children: ReactNode;
 }
 
-const Tag = ({ children, variant, ...props }: TagProps) => {
+const Tag = ({ children, variant, color, ...props }: TagProps) => {
   return (
-    <div css={tagStyle({ variant })} {...props}>
+    <div css={[commonStyle, tagStyle({ variant, color })]} {...props}>
       {children}
     </div>
   );
