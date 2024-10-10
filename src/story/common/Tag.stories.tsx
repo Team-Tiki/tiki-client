@@ -17,6 +17,12 @@ const meta = {
     children: {
       control: { type: 'text' },
     },
+    color: {
+      control: { type: 'color' },
+    },
+    bgColor: {
+      control: { type: 'color' },
+    },
   },
 } satisfies Meta<typeof Tag>;
 
