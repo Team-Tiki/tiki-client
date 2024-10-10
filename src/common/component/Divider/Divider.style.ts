@@ -13,13 +13,13 @@ export const commonStyle = (color?: string) =>
 export const dividerStyle = (type: Required<DividerProps>['type'], size: number) => {
   const style = {
     horizontal: css({
-      width: `${size}rem`,
+      width: `${size}%`,
       height: '0.1rem',
     }),
 
     vertical: css({
       width: '0.1rem',
-      height: `${size}rem`,
+      height: `${size}%`,
     }),
   };
 

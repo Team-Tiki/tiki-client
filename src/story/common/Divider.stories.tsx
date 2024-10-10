@@ -25,6 +25,13 @@ const meta = {
     type: 'horizontal',
     size: 50,
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '70rem', height: '5rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Divider>;
 
 export default meta;
@@ -33,13 +40,13 @@ type Story = StoryObj<typeof meta>;
 export const Horizontal: Story = {
   args: {
     type: 'horizontal',
-    size: 50,
+    size: 100,
   },
 };
 
 export const Vertical: Story = {
   args: {
     type: 'vertical',
-    size: 3,
+    size: 100,
   },
 };
