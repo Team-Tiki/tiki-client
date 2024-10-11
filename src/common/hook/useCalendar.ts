@@ -16,12 +16,8 @@ import { useState } from 'react';
 const useCalender = (initialDate: Date) => {
   const [currentMonth, setCurrentMonth] = useState(initialDate);
 
-  const weekDays = [];
   const weekStartDate = startOfWeek(new Date());
-
-  for (let day = 0; day < 7; day += 1) {
-    weekDays.push(format(addDays(weekStartDate, day), 'EEEEE', { locale: ko }));
-  }
+  const weekDays = Array.from({ length: 7 }, (_, i) => format(addDays(weekStartDate, i), 'EEEEE', { locale: ko }));
 
   const currentMonthStart = startOfMonth(currentMonth);
   const currentMonthEnd = endOfMonth(currentMonth);
@@ -32,11 +28,11 @@ const useCalender = (initialDate: Date) => {
     end: lastWeekEnd,
   });
 
-  const nextMonth = () => {
+  const toNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
-  const prevMonth = () => {
+  const toPrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
 
@@ -44,8 +40,8 @@ const useCalender = (initialDate: Date) => {
     weekDays,
     currentMonthAllDates,
     currentMonth,
-    nextMonth,
-    prevMonth,
+    toNextMonth,
+    toPrevMonth,
   };
 };
 

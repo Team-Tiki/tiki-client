@@ -6,7 +6,7 @@ import {
   hoverDateStyle,
   outOfMonthStyle,
   selectedDateStyle,
-} from '@/common/component/DatePicker/Calender/index/Calendar.style';
+} from '@/common/component/DatePicker/Calendar/Calendar.style';
 
 interface CalendarDatesProps {
   currentMonth: Date;
@@ -19,6 +19,7 @@ const CalendarDates = ({ currentMonth, currentMonthAllDates, selectedDate, setSe
   <div css={datesContainerStyle}>
     {currentMonthAllDates.map((date, index) => (
       <div
+        role="button"
         key={index}
         css={[
           dateStyle,
