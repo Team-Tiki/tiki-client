@@ -1,17 +1,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ReactNode } from 'react';
 
-import Download from '@/common/asset/svg/ic_download.svg?react';
 import TrashBox from '@/common/asset/svg/ic_delete.svg?react';
+import Download from '@/common/asset/svg/ic_download.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
 
-import {
-  containerStyle,
-  fileNameStyle,
-} from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem.style';
+import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
 import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
@@ -26,7 +23,7 @@ interface DocumentItemProps {
   fileName: string;
 }
 
-const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) => {
+const Item = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) => {
   const { isOpen, openModal, closeModal, currentContent } = useModal();
 
   const teamId = useTeamId();
@@ -62,4 +59,4 @@ const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemP
     </>
   );
 };
-export default DocumentItem;
+export default Item;

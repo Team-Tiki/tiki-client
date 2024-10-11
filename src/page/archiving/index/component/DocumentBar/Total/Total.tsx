@@ -7,11 +7,12 @@ import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 import { useDebounce } from '@/common/hook';
 
-import DocumentItem from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem';
-import { blockNameStyle } from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem.style';
-import DocumentSort from '@/page/archiving/index/component/DocumentBar/DocumentSort/DocumentSort';
+import Sort from '@/page/archiving/index/component/DocumentBar/Sort/Sort';
+
+import { blockNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
+import Item from '@/page/archiving/index/component/DocumentBar/Item/Item';
 
 const DocumentTotal = () => {
   const [selected, setSelected] = useState('최근 업로드 순');
@@ -52,13 +53,13 @@ const DocumentTotal = () => {
           }}
           style={{ boxShadow: 'none' }}
         />
-        <DocumentSort selected={selected} onSelected={handleSelected} />
+        <Sort selected={selected} onSelected={handleSelected} />
       </Flex>
 
       <Flex tag="ul" styles={{ direction: 'column', marginTop: '1.6rem', gap: '0.8rem' }}>
         {(selected === '최근 업로드 순' ? filteredDocuments : filteredDocuments && filteredDocuments.reverse())?.map(
           (data: DocumentType) => (
-            <DocumentItem
+            <Item
               key={data.documentId}
               documentId={data.documentId}
               fileUrl={data.fileUrl}
@@ -68,7 +69,7 @@ const DocumentTotal = () => {
                   {data.blockName}
                 </Text>
               </div>
-            </DocumentItem>
+            </Item>
           )
         )}
       </Flex>

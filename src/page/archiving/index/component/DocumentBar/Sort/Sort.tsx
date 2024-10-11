@@ -8,7 +8,7 @@ import Button from '@/common/component/Button/Button';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentBar/DocumentSort/DocumentSort.style';
+import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentBar/Sort/Sort.style';
 
 interface DocumentSortProps {
   selected: string;

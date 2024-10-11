@@ -8,11 +8,11 @@ import Text from '@/common/component/Text/Text';
 import { useModal } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import DocumentItem from '@/page/archiving/index/component/DocumentBar/DocumentItem/DocumentItem';
 import {
   blockNameStyle,
   deleteBtnStyle,
-} from '@/page/archiving/index/component/DocumentBar/DocumentSelected/DocumentSelected.style';
+} from '@/page/archiving/index/component/DocumentBar/Selected/Selected.style';
+import DocumentItem from '@/page/archiving/index/component/DocumentBar/Item/Item';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
 import { Block } from '@/page/archiving/index/type/blockType';

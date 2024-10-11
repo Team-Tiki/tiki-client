@@ -3,10 +3,9 @@ import { ForwardedRef, forwardRef, useState } from 'react';
 import { Tab } from '@/common/component/Tab';
 
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
-import DocumentTotal from '@/page/archiving/index/component/DocumentBar/DocumentTotal/DocumentTotal';
-
+import Selected from '@/page/archiving/index/component/DocumentBar/Selected/Selected';
+import Total from '@/page/archiving/index/component/DocumentBar/Total/Total';
 import { Block } from '@/page/archiving/index/type/blockType';
-import DocumentSelected from '@/page/archiving/index/component/DocumentBar/DocumentSelected/DocumentSelected';
 
 interface DocumentBarProps {
   selectedBlock?: Block;
@@ -28,8 +27,8 @@ const DocumentBar = ({ selectedBlock, onClose }: DocumentBarProps, ref: Forwarde
           <Tab.Button>전체 문서</Tab.Button>
         </Tab.List>
         <Tab.Panel selectedTab={selectedTab}>
-          {selectedBlock && <DocumentSelected selectedBlock={selectedBlock} onClose={onClose} />}
-          <DocumentTotal />
+          {selectedBlock && <Selected selectedBlock={selectedBlock} onClose={onClose} />}
+          <Total />
         </Tab.Panel>
       </Tab>
     </aside>
