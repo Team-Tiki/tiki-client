@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 
-import ArrowDown from '@/common/asset/svg/ic_arrow_down.svg?react';
-import ArrowUp from '@/common/asset/svg/ic_arrow_up.svg?react';
-import Up from '@/common/asset/svg/ic_up.svg?react';
 import Down from '@/common/asset/svg/ic_down.svg?react';
+import Up from '@/common/asset/svg/ic_up.svg?react';
 import Button from '@/common/component/Button/Button';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import { buttonStyle, fontStyle } from '@/page/archiving/index/component/DocumentBar/Sort/Sort.style';
+import { OPTIONS } from '@/page/archiving/index/constant/sortOption';
 
 interface DocumentSortProps {
   selected: string;
@@ -27,14 +26,9 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
     onSelected(id);
   };
 
-  const options = [
-    { id: 1, text: '최근 업로드 순', logo: <ArrowUp /> },
-    { id: 2, text: '과거 업로드 순', logo: <ArrowDown /> },
-  ];
-
   return (
     <Select
-      options={options}
+      options={OPTIONS}
       ref={ref}
       isOpen={isOpen}
       onSelect={handleSelect}
