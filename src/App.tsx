@@ -11,6 +11,7 @@ import { theme } from '@/common/style/theme/theme';
 import { HTTPError } from '@/shared/api/HTTPError';
 import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 import Login from '@/shared/component/Login/Login';
+import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -48,6 +49,7 @@ const App = () => {
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
         <div css={containerStyle}>
+          <ModalContainer />
           <LeftSidebar />
           <main css={layoutStyle}>
             <Outlet />

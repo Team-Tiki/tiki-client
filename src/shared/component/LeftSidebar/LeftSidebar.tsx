@@ -6,16 +6,14 @@ import LeftArrow from '@/common/asset/svg/ic_left_sm.svg?react';
 import RightArrow from '@/common/asset/svg/ic_right_sm.svg?react';
 import earthUrl from '@/common/asset/svg/ic_global.svg';
 import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
-import Logout from '@/common/asset/svg/logout.svg?react';
-import PWResetting from '@/common/asset/svg/password.svg?react';
-import settingUrl from '@/common/asset/svg/setting.svg';
+import Logout from '@/common/asset/svg/ic_logout.svg?react';
+import PWResetting from '@/common/asset/svg/ic_password_reset.svg?react';
+import settingUrl from '@/common/asset/svg/ic_setting.svg';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
-import Modal from '@/common/component/Modal/Modal';
 import { useOverlay } from '@/common/hook';
-import { useModal } from '@/common/hook/useModal';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
 import {
@@ -25,99 +23,62 @@ import {
   tikiLogoStyle,
 } from '@/shared/component/LeftSidebar/LeftSidebar.style';
 import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
-import WorkSpaceCategory from '@/shared/component/createWorkSpace/category/WorkSpaceCategory';
-import WorkSpaceComplete from '@/shared/component/createWorkSpace/complete/WorkSpaceComplete';
-import WorkSpaceImage from '@/shared/component/createWorkSpace/image/WorkSpaceImage';
-import WorkSpaceName from '@/shared/component/createWorkSpace/name/WorkSpaceName';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useLogout } from '@/shared/hook/common/useLogout';
-import { useTeamIdAction } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/store/modal';
 import { Team } from '@/shared/type/team';
 
-import { usePostTeamMutation } from '../createWorkSpace/hook/api/usePostTeamMutation';
-
 const LeftSidebar = () => {
+  const { logout } = useLogout();
+
+  const openModal = useOpenModal();
+
   const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
 
-  const { data, refetch } = useClubInfoQuery();
+  const { data } = useClubInfoQuery();
 
   const navigate = useNavigate();
 
-  const [clicked, setClicked] = useState('showcase');
-  const [isWorkspaceClicked, setIsWorkspaceClicked] = useState(false);
-
-  // 모달 관련 코드
-  const { isOpen, openModal, closeModal: closeModalBase, setCurrentContent, currentContent } = useModal();
+  const [selectedId, setSelectedId] = useState<string>('showcase');
 
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
 
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [fileUrlData, setFileUrlData] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
-
-  const { mutate: postTeamMutate } = usePostTeamMutation();
-
-  const { setTeamId } = useTeamIdAction();
-
-  const { logout } = useLogout();
-
   useEffect(() => {
-    const postData = {
-      name: name,
-      category: category,
-      iconImageUrl: fileUrlData,
-    };
+    const searchParams = new URLSearchParams(window.location.search);
+    const teamId = searchParams.get('teamId');
+    if (teamId) {
+      setSelectedId(teamId);
 
-    if (isComplete) {
-      postTeamMutate(postData, {
-        onSuccess: async () => {
-          refetch();
-          setIsComplete(false);
-        },
-      });
+      navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
+    } else {
+      setSelectedId('showcase');
+      navigate(PATH.SHOWCASE);
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, [isComplete]);
+  }, [navigate]);
 
-  const handleNext1 = () => setCurrentContent(<WorkSpaceCategory onNext={handleNext2} onCategory={setCategory} />);
-  const handleNext2 = () =>
-    setCurrentContent(
-      <WorkSpaceImage onNext={handleNext3} onFileUrlData={setFileUrlData} isComplete={setIsComplete} />
-    );
-  const handleNext3 = () => setCurrentContent(<WorkSpaceComplete />);
+  const handleItemClick = (id: string, path: string) => {
+    setSelectedId(id);
 
-  const handleShowcaseClick = () => {
-    setClicked('showcase');
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('teamId', id);
 
-    setIsWorkspaceClicked(false);
-    navigate(PATH.SHOWCASE);
+    const hasTeamIdInPath = path.includes('teamId');
 
-    close();
-  };
-
-  const handleTeamClick = (teamId: string) => {
-    setClicked(teamId);
-    setIsWorkspaceClicked(false); // 워크스페이스 클릭 상태 해제
-
-    setTeamId(teamId);
-
-    navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
-
+    if (!hasTeamIdInPath && id !== 'showcase') {
+      navigate(`${path}?${searchParams.toString()}`);
+    } else if (id === 'showcase') {
+      navigate(PATH.SHOWCASE);
+    } else {
+      navigate(path);
+    }
     close();
   };
 
   const handleWorkspaceClick = () => {
-    setIsWorkspaceClicked(true);
-    openModal(<WorkSpaceName onNext={handleNext1} setName={setName} />);
-  };
-
-  const closeModal = () => {
-    closeModalBase();
-    setIsWorkspaceClicked(false); // 모달 닫을 때 워크스페이스 클릭 상태 해제
+    openModal('create-workspace');
   };
 
   return (
@@ -131,31 +92,25 @@ const LeftSidebar = () => {
         <TikiLogo css={tikiLogoStyle} />
         <ul css={leftSidebarMenuStyle}>
           <LeftSidebarMenuItem
-            isClicked={clicked === 'showcase'}
+            isClicked={selectedId === 'showcase'}
             isExpanded={isNavOpen}
             logoUrl={earthUrl}
-            onClick={handleShowcaseClick}>
+            onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
             Showcase
           </LeftSidebarMenuItem>
           {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
               <LeftSidebarMenuItem
                 key={data.id}
-                isClicked={clicked === String(data.id)}
+                isClicked={selectedId === String(data.id)}
                 isExpanded={isNavOpen}
                 logoUrl={data.iconImageUrl ? data.iconImageUrl : DEFAULT_LOGO}
-                onClick={() => {
-                  handleTeamClick(String(data.id));
-                }}>
+                onClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}>
                 {data.name}
               </LeftSidebarMenuItem>
             );
           })}
-          <LeftSidebarMenuItem
-            isClicked={isWorkspaceClicked}
-            isExpanded={isNavOpen}
-            logoUrl={addUrl}
-            onClick={handleWorkspaceClick}>
+          <LeftSidebarMenuItem isClicked={false} isExpanded={isNavOpen} logoUrl={addUrl} onClick={handleWorkspaceClick}>
             워크스페이스 생성
           </LeftSidebarMenuItem>
         </ul>
@@ -191,7 +146,6 @@ const LeftSidebar = () => {
           </MenuItem>
         </MenuList>
       </Menu>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </aside>
   );
 };

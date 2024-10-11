@@ -1,15 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Add from '@/common/asset/svg/add_btn.svg?react';
+import Add from '@/common/asset/svg/ic_add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
-import { useModal, useOutsideClick } from '@/common/hook';
+import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import BlockModal from '@/page/archiving/createTimeBlock/component/Block/BlockModal';
-import UploadModal from '@/page/archiving/createTimeBlock/component/Upload/UploadModal';
 import {
   buttonStyle,
   contentStyle,
@@ -24,82 +21,43 @@ import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
+import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 
+import { useOpenModal } from '@/shared/store/modal';
+
 const ArchivingPage = () => {
-  const [selectedBlock, setSelectedBlock] = useState<Block>();
-
-  const daySectionRef = useRef<HTMLDivElement>(null);
-
   const location = useLocation();
 
+  const daySectionRef = useRef<HTMLDivElement>(null);
+  const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
+
+  const { selectedBlock, setSelectedBlock, handleBlockClick } = useInteractTimeline();
+
+  const openModal = useOpenModal();
+
   const teamId = new URLSearchParams(location.search).get('teamId');
-  if (!teamId) throw new Error('has no error');
+  if (!teamId) throw new Error('has no teamId');
 
-  // 블록 생성 모달 관련 코드
-  const { isOpen, openModal, closeModal, setCurrentContent, currentContent } = useModal();
-
-  const {
-    currentDate,
-    currentYear,
-    selectedMonthString,
-    setSelectedMonthString,
-    handlePrevYear,
-    handleNextYear,
-    endDay,
-  } = useDate(daySectionRef);
-  const selectedMonth = parseInt(selectedMonthString.split('월')[0]);
-
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, selectedMonth);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const timeBlocks: Block[] = data?.timeBlocks || [];
-  const blockFloors = useMemo(
-    () => alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear),
-    [currentYear, endDay, selectedMonthString, timeBlocks]
+  const { currentYear, selectedMonthString, handlePrevYear, handleNextYear, endDay, handleMonthClick } = useDate(
+    daySectionRef,
+    teamId
   );
 
-  const handleClose = () => {
-    selectedBlock && setSelectedBlock(undefined);
-  };
-  const sideBarRef = useOutsideClick(handleClose);
+  const { data } = useGetTimeBlockQuery(
+    +teamId,
+    'executive',
+    currentYear,
+    parseInt(selectedMonthString.split('월')[0])
+  );
 
-  useEffect(() => {
-    setSelectedMonthString(`${currentDate.getMonth() + 1}월` as MonthType);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [teamId]);
+  const timeBlocks: Block[] = data.timeBlocks;
+  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonthString, currentYear);
 
-  const handleNext = (blockData: {
-    blockName: string;
-    blockType: string;
-    dates: { startDate: string; endDate: string };
-  }) => {
-    const type = 'executive';
-    setCurrentContent(<UploadModal onClose={closeModal} teamId={+teamId} type={type} blockData={blockData} />);
-  };
-
-  const handleMonthClick = (month: MonthType) => {
-    console.log('click');
-    daySectionRef.current?.scrollTo(0, 0);
-    setSelectedMonthString(month);
-  };
-
-  const handleBlockClick = (
-    e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
-    block: Block
-  ) => {
-    e.stopPropagation();
-
-    e.currentTarget.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center',
-      block: 'center',
-    });
-
-    setSelectedBlock(block);
+  const handleOpenBlockModal = () => {
+    openModal('create-block');
   };
 
   return (
@@ -121,7 +79,7 @@ const ArchivingPage = () => {
                 startDate: new Date(startDate),
                 endDate: new Date(endDate),
                 currentYear,
-                selectedMonth: selectedMonth,
+                selectedMonth: +selectedMonthString.split('월')[0],
               });
 
               return (
@@ -142,18 +100,13 @@ const ArchivingPage = () => {
         </Flex>
 
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
-          <Button
-            variant="action"
-            css={buttonStyle(selectedBlock)}
-            onClick={() => openModal(<BlockModal onNext={handleNext} />)}>
+          <Button variant="action" css={buttonStyle(selectedBlock)} onClick={handleOpenBlockModal}>
             <Add width={24} height={24} />
             블록 생성
           </Button>
         </Flex>
       </section>
-
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
-      <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={handleClose} />
+      <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={() => setSelectedBlock(undefined)} />
     </Flex>
   );
 };

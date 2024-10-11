@@ -7,6 +7,7 @@ import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import ArrowDown from '@/common/asset/svg/ic_down.svg?react';
 import ArrowUp from '@/common/asset/svg/ic_up.svg?react';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
@@ -139,7 +140,7 @@ const InfoForm = () => {
             <Button
               css={{ padding: '1rem 1.6rem', width: '13rem' }}
               size="large"
-              onClick={verityCodeMutate}
+              onClick={() => verityCodeMutate()}
               disabled={!validateCode(info.authCode)}>
               인증하기
             </Button>

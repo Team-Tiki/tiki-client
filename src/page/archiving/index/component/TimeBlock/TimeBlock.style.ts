@@ -34,4 +34,6 @@ export const blockNameStyle = {
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
+
+  lineHeight: '1.8rem',
 };

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
 
 const meta = {
-  title: 'shared/component/LeftSidebarItem',
+  title: 'Shared/LeftSidebarItem',
   component: LeftSidebarMenuItem,
   parameters: {
     layout: 'centered',

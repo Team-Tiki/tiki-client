@@ -1,20 +1,18 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import TrashBox from '@/common/asset/svg/ic_delete.svg?react';
 import Download from '@/common/asset/svg/ic_download.svg?react';
 import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
 import Text from '@/common/component/Text/Text';
-import { useModal } from '@/common/hook';
 
 import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
-import DeleteModal from '@/shared/component/DeleteModal/DeleteModal';
-import { useTeamId } from '@/shared/store/team';
+import { useOpenModal } from '@/shared/store/modal';
 
-interface DocumentItemProps {
+interface ItemProps {
   documentId: number;
   children?: ReactNode;
   blockName?: string;
@@ -23,10 +21,13 @@ interface DocumentItemProps {
   fileName: string;
 }
 
-const Item = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) => {
-  const { isOpen, openModal, closeModal, currentContent } = useModal();
 
-  const teamId = useTeamId();
+const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const teamId = searchParams.get('teamId');
+
+  const openModal = useOpenModal();
 
   const onClickDocumentItem = () => {
     window.open(fileUrl);
@@ -39,7 +40,8 @@ const Item = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) =>
 
   const handleTrashBoxClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-    openModal(<DeleteModal title="docs" detail="docs" onClose={closeModal} teamId={+teamId} id={documentId} />);
+
+    openModal('delete', { teamId: +teamId!, itemId: documentId, itemType: 'docs' });
   };
 
   return (
@@ -55,7 +57,6 @@ const Item = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) =>
           <TrashBox width={20} height={20} onClick={(e) => handleTrashBoxClick(e)} css={{ cursor: 'pointer' }} />
         </Flex>
       </li>
-      <Modal isOpen={isOpen} children={currentContent} onClose={closeModal} />
     </>
   );
 };
