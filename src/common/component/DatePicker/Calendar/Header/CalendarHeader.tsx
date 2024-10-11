@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
-import ArrowLeft from '@/common/asset/svg/arrow-left.svg?react';
-import ArrowRight from '@/common/asset/svg/arrow-right.svg?react';
+import ArrowLeft from '@/common/asset/svg/ic_arrow_left.svg?react';
+import ArrowRight from '@/common/asset/svg/ic_arrow_right.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 
