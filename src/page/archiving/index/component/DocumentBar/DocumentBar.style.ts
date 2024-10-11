@@ -21,3 +21,4 @@ export const containerStyle = (blockSelected: string) =>
     transform: blockSelected ? 'translateX(0)' : 'translateX(28rem)',
     transition: '0.4s ease-in-out',
   });
+

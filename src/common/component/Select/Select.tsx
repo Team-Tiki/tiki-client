@@ -9,8 +9,13 @@ interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
   trigger: JSX.Element;
   label?: string;
   onSelect?: (id: string) => void;
-  options: string[];
+  options: SVGOption[] | string[];
 }
+
+type SVGOption = {
+  text: string;
+  logo: JSX.Element;
+};
 
 const Select = (
   { isOpen, trigger, label, onSelect, options, ...props }: SelectProps,
@@ -20,11 +25,18 @@ const Select = (
     <Dropdown ref={ref} role="listbox" label={label} {...props}>
       <Dropdown.Trigger as={trigger} />
       <Dropdown.List css={[overlayStyle, scrollStyle]} isOpen={isOpen}>
-        {options.map((item) => (
-          <Dropdown.Item key={item} css={itemStyle} onSelect={() => onSelect?.(item)}>
-            {item}
-          </Dropdown.Item>
-        ))}
+        {options.map((item) =>
+          typeof item == 'string' ? (
+            <Dropdown.Item key={item} css={itemStyle} onSelect={() => onSelect?.(item)}>
+              {item}
+            </Dropdown.Item>
+          ) : (
+            <Dropdown.Item key={item.text} css={itemStyle} onSelect={() => onSelect?.(item.text)}>
+              {item.text}
+              {item.logo}
+            </Dropdown.Item>
+          )
+        )}
       </Dropdown.List>
     </Dropdown>
   );

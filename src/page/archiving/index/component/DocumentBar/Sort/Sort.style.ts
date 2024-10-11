@@ -18,6 +18,9 @@ export const buttonStyle = css({
   ...theme.text.body08,
   whiteSpace: 'nowrap',
 
+  '&:hover': {
+    backgroundColor: theme.colors.white,
+  },
   cursor: 'pointer',
 });
 
