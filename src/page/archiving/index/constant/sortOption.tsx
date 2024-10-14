@@ -8,6 +8,6 @@ interface options {
 }
 
 export const OPTIONS: options[] = [
-  { id: 1, text: '최근 업로드 순', logo: <ArrowUp/> },
-  { id: 2, text: '과거 업로드 순', logo: <ArrowDown/> },
+  { id: 1, text: '최근 업로드 순', logo: <ArrowUp /> },
+  { id: 2, text: '과거 업로드 순', logo: <ArrowDown /> },
 ];

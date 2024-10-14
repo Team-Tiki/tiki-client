@@ -88,6 +88,10 @@ const text = {
     fontSize: '1.2rem',
     lineHeight: '1.2rem',
   },
+  body09: {
+    fontSize: '1rem',
+    lineHeight: '1rem',
+  },
 } as const;
 
 const zIndex = {

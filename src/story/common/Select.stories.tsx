@@ -1,65 +1,85 @@
-import { css } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import ArrowDown from '@/common/asset/svg/ic_arrow_down.svg?react';
-import Button from '@/common/component/Button/Button';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
+
+import { OPTIONS } from '@/page/archiving/index/constant/sortOption';
 
 const meta = {
   title: 'Common/Select',
   component: Select,
+  parameters: {
+    layout: 'centered',
+  },
   decorators: [
     (Story) => (
-      <div css={{ width: '240px' }}>
+      <div css={{ width: '200px' }}>
         <Story />
       </div>
     ),
   ],
   args: {
-    label: 'Select',
     options: ['option 1', 'option 2', 'option 3'],
-    trigger: <></>,
-  },
-  argTypes: {
-    trigger: {
-      control: false,
-    },
   },
 } satisfies Meta<typeof Select>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Primary: Story = {
   render: (args) => {
     const { isOpen, close, toggle } = useOverlay();
     const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
-    useEffect(() => {
-      close?.();
-    }, [selected, close]);
-
     const handleSelect = (id: string) => {
       setSelected(id);
+
+      close();
     };
+
+    console.log(`Selected Item is ${selected}`);
 
     return (
       <Select
+        variant="primary"
         {...args}
         ref={ref}
         isOpen={isOpen}
+        placeholder="Primary Select"
+        onTrigger={toggle}
         onSelect={handleSelect}
-        trigger={
-          <Button css={buttonStyle} onClick={toggle}>
-            {selected || 'Select'}
-            <ArrowDown />
-          </Button>
-        }
+      />
+    );
+  },
+};
+
+export const Outline: Story = {
+  render: (args) => {
+    const { isOpen, close, toggle } = useOverlay();
+    const ref = useOutsideClick<HTMLDivElement>(close);
+    const [selected, setSelected] = useState('');
+
+    const handleSelect = (id: string) => {
+      setSelected(id);
+
+      close();
+    };
+
+    console.log(`Selected Item is ${selected}`);
+
+    return (
+      <Select
+        label="아웃라인 셀렉트"
+        variant="outline"
+        {...args}
+        ref={ref}
+        isOpen={isOpen}
+        placeholder="Outline Select"
+        onTrigger={toggle}
+        onSelect={handleSelect}
       />
     );
   },
@@ -71,12 +91,87 @@ export const Scroll: Story = {
     const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
+    console.log(`Selected Item is ${selected}`);
+
+    const handleSelect = (id: string) => {
+      setSelected(id);
+
+      close();
+    };
+
+    return (
+      <Select
+        variant="outline"
+        {...args}
+        ref={ref}
+        isOpen={isOpen}
+        placeholder="Scroll Select"
+        onTrigger={toggle}
+        onSelect={handleSelect}
+        options={[
+          'Option 1',
+          'Option 2',
+          'Option 3',
+          'Option 4',
+          'Option 5',
+          'Option 6',
+          'Option 7',
+          'Option 8',
+          'Option 9',
+          'Option 10',
+          'Option 11',
+          'Option 12',
+        ]}
+      />
+    );
+  },
+};
+
+export const SVGSelect = {
+  render: () => {
+    const { isOpen, close, toggle } = useOverlay();
+    const [selected, setSelected] = useState('');
+    const ref = useOutsideClick<HTMLDivElement>(close);
+
+    const handleSelect = (id: string) => {
+      setSelected(id);
+
+      close();
+    };
+
+    console.log(`Selected Item is ${selected}`);
+
+    return (
+      <div css={{ width: '120px' }}>
+        <Select
+          variant="secondary"
+          options={OPTIONS}
+          ref={ref}
+          placeholder="최근 업로드 순"
+          isOpen={isOpen}
+          onTrigger={() => toggle()}
+          onSelect={handleSelect}
+        />
+      </div>
+    );
+  },
+};
+
+/**
+ * export const Scroll: Story = {
+  render: (args) => {
+    const { isOpen, close, toggle } = useOverlay();
+    const ref = useOutsideClick<HTMLDivElement>(close);
+    const [selected, setSelected] = useState('');
+
     useEffect(() => {
       close?.();
     }, [selected, close]);
 
     const handleSelect = (id: string) => {
       setSelected(id);
+
+      close();
     };
 
     return (
@@ -99,25 +194,37 @@ export const Scroll: Story = {
           'Option 11',
           'Option 12',
         ]}
-        trigger={
-          <Button css={buttonStyle} onClick={toggle}>
-            {selected || 'Select'}
-            <ArrowDown />
-          </Button>
-        }
       />
     );
   },
 };
 
-const buttonStyle = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+export const SVGSelect = {
+  render: () => {
+    const { isOpen, close, toggle } = useOverlay();
+    const [selected, setSelected] = useState('');
+    const ref = useOutsideClick<HTMLDivElement>(close);
 
-  padding: '10px 12px',
-  color: theme.colors.gray_500,
-  border: `1px solid ${theme.colors.gray_400}`,
-  backgroundColor: 'white',
-  borderRadius: '8px',
-});
+    useEffect(() => {
+      close?.();
+    }, [selected, close]);
+
+    const handleSelect = (id: string) => {
+      setSelected(id);
+    };
+
+    return (
+      <Select
+        options={OPTIONS}
+        ref={ref}
+        placeholder="Select"
+        isOpen={isOpen}
+        onTrigger={() => toggle()}
+        onSelect={handleSelect}
+        css={fontStyle}
+      />
+    );
+  },
+};
+
+ */

@@ -1,13 +1,16 @@
-import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
+import { ComponentPropsWithRef, ForwardedRef, forwardRef, useState } from 'react';
 
+import IcArrowPrimary from '@/common/asset/svg/ic_arrow_down_gray.svg?react';
+import IcArrowSecondary from '@/common/asset/svg/ic_down.svg?react';
 import { Dropdown } from '@/common/component/Dropdown';
-import { itemStyle, overlayStyle } from '@/common/component/Select/Select.style';
-import { scrollStyle } from '@/common/style/theme/scroll';
+import { iconStyle, itemStyle, overlayStyle, scrollStyle, triggerStyle } from '@/common/component/Select/Select.style';
 
-interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
+export interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
+  variant?: 'primary' | 'secondary' | 'outline';
   isOpen?: boolean;
-  trigger: JSX.Element;
   label?: string;
+  placeholder?: string;
+  onTrigger?: () => void;
   onSelect?: (id: string) => void;
   options: SVGOption[] | string[];
 }
@@ -17,21 +20,46 @@ type SVGOption = {
   logo: JSX.Element;
 };
 
+const ICON_BY_VARIANT = (isOpen: boolean) => ({
+  primary: <IcArrowPrimary css={iconStyle(isOpen)} width={20} height={20} />,
+  secondary: <IcArrowSecondary css={iconStyle(isOpen)} width={12} height={12} />,
+  outline: <IcArrowPrimary css={iconStyle(isOpen)} width={20} height={20} />,
+});
+
 const Select = (
-  { isOpen, trigger, label, onSelect, options, ...props }: SelectProps,
+  { variant = 'primary', isOpen = false, placeholder, label, onTrigger, onSelect, options, ...props }: SelectProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
+  const [selectedText, setSelectedText] = useState(placeholder);
+
+  const isSelected = selectedText !== placeholder;
+
   return (
     <Dropdown ref={ref} role="listbox" label={label} {...props}>
-      <Dropdown.Trigger as={trigger} />
-      <Dropdown.List css={[overlayStyle, scrollStyle]} isOpen={isOpen}>
+      <button onClick={onTrigger} css={triggerStyle(variant, isSelected)}>
+        {selectedText || placeholder}
+        {ICON_BY_VARIANT(isOpen)[variant]}
+      </button>
+      <Dropdown.List css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
         {options.map((item) =>
           typeof item == 'string' ? (
-            <Dropdown.Item key={item} css={itemStyle} onSelect={() => onSelect?.(item)}>
+            <Dropdown.Item
+              key={item}
+              css={itemStyle(variant)}
+              onSelect={() => {
+                onSelect?.(item);
+                setSelectedText(item);
+              }}>
               {item}
             </Dropdown.Item>
           ) : (
-            <Dropdown.Item key={item.text} css={itemStyle} onSelect={() => onSelect?.(item.text)}>
+            <Dropdown.Item
+              key={item.text}
+              css={itemStyle(variant)}
+              onSelect={() => {
+                onSelect?.(item.text);
+                setSelectedText(item.text);
+              }}>
               {item.text}
               {item.logo}
             </Dropdown.Item>
