@@ -11,7 +11,7 @@ export interface TagProps extends ComponentPropsWithRef<'div'> {
 const Tag = ({ variant = 'round', color = '#FFFFFF', bgColor = '#909090', children, ...props }: TagProps) => {
   return (
     <div css={[commonStyle, tagStyle({ variant, color, bgColor })]} {...props}>
-      {children}
+      <span>{children}</span>
     </div>
   );
 };
