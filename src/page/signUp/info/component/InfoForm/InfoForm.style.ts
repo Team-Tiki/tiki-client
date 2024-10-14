@@ -27,7 +27,7 @@ export const selectTriggerStyle = (isError: boolean) =>
     padding: '1.2rem',
 
     border: 'none',
-    borderBottom: `1px solid ${isError ? theme.colors.red : theme.colors.gray_400}`,
+    borderBottom: `1px solid ${isError ? theme.colors.error : theme.colors.gray_400}`,
     backgroundColor: 'transparent',
     color: theme.colors.gray_500,
 
