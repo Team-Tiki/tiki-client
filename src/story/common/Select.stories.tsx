@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
+import IcArrowDown from '@/common/asset/svg/ic_arrow_down.svg?react';
+import IcArrowUp from '@/common/asset/svg/ic_arrow_up.svg?react';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
-
-import { OPTIONS } from '@/page/archiving/index/constant/sortOption';
 
 const meta = {
   title: 'Common/Select',
@@ -15,20 +15,20 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div css={{ width: '200px' }}>
+      <div css={{ width: '160px' }}>
         <Story />
       </div>
     ),
   ],
   args: {
-    options: ['option 1', 'option 2', 'option 3'],
+    options: [{ value: 'option 1' }, { value: 'option 2' }, { value: 'option 3' }],
   },
 } satisfies Meta<typeof Select>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   render: (args) => {
     const { isOpen, close, toggle } = useOverlay();
     const ref = useOutsideClick<HTMLDivElement>(close);
@@ -44,7 +44,7 @@ export const Primary: Story = {
 
     return (
       <Select
-        variant="primary"
+        variant="default"
         {...args}
         ref={ref}
         isOpen={isOpen}
@@ -56,7 +56,7 @@ export const Primary: Story = {
   },
 };
 
-export const Outline: Story = {
+export const UserList: Story = {
   render: (args) => {
     const { isOpen, close, toggle } = useOverlay();
     const ref = useOutsideClick<HTMLDivElement>(close);
@@ -68,18 +68,34 @@ export const Outline: Story = {
       close();
     };
 
+    const options = [
+      {
+        value: 'Option 1',
+        description: 'WEB',
+        profileUrl:
+          'https://images.unsplash.com/photo-1728585255223-c158ab095e1f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8',
+      },
+      {
+        value: 'Option 2',
+        description: 'SERVER',
+        profileUrl:
+          'https://images.unsplash.com/photo-1728585255223-c158ab095e1f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8',
+      },
+    ];
+
     console.log(`Selected Item is ${selected}`);
 
     return (
       <Select
         label="아웃라인 셀렉트"
-        variant="outline"
+        variant="user"
         {...args}
         ref={ref}
         isOpen={isOpen}
         placeholder="Outline Select"
         onTrigger={toggle}
         onSelect={handleSelect}
+        options={options}
       />
     );
   },
@@ -108,26 +124,12 @@ export const Scroll: Story = {
         placeholder="Scroll Select"
         onTrigger={toggle}
         onSelect={handleSelect}
-        options={[
-          'Option 1',
-          'Option 2',
-          'Option 3',
-          'Option 4',
-          'Option 5',
-          'Option 6',
-          'Option 7',
-          'Option 8',
-          'Option 9',
-          'Option 10',
-          'Option 11',
-          'Option 12',
-        ]}
       />
     );
   },
 };
 
-export const SVGSelect = {
+export const OptionList = {
   render: () => {
     const { isOpen, close, toggle } = useOverlay();
     const [selected, setSelected] = useState('');
@@ -139,13 +141,18 @@ export const SVGSelect = {
       close();
     };
 
+    const options = [
+      { value: '최근 정렬 순', svg: <IcArrowUp /> },
+      { value: '과거 정렬 순', svg: <IcArrowDown /> },
+    ];
+
     console.log(`Selected Item is ${selected}`);
 
     return (
       <div css={{ width: '120px' }}>
         <Select
-          variant="secondary"
-          options={OPTIONS}
+          variant="option"
+          options={options}
           ref={ref}
           placeholder="최근 업로드 순"
           isOpen={isOpen}

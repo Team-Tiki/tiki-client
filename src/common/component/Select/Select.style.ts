@@ -22,6 +22,7 @@ export const itemStyle = (variant: Required<SelectProps['variant']>) =>
     {
       display: 'flex',
       alignItems: 'center',
+      gap: variant === 'option' ? '0.4rem' : '1.6rem',
 
       padding: '1rem 1.2rem',
       margin: '0.8rem',
@@ -32,12 +33,42 @@ export const itemStyle = (variant: Required<SelectProps['variant']>) =>
         backgroundColor: theme.colors.blue_100,
       },
     },
-    variant === 'secondary'
+
+    variant === 'option' || variant === 'user'
       ? {
-          ...theme.text.body08,
+          '& > *': {
+            ...theme.text.body08,
+          },
         }
-      : { ...theme.text.body05 }
+      : {
+          '& > *': {
+            ...theme.text.body05,
+          },
+        }
   );
+
+export const profileStyle = css({
+  width: '3.2rem',
+  height: '3.2rem',
+
+  borderRadius: '50%',
+
+  objectFit: 'cover',
+});
+
+export const textFieldStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  gap: '0.6rem',
+
+  fontWeight: 500,
+
+  '& > span': {
+    fontWeight: 400,
+    color: theme.colors.gray_800,
+  },
+});
 
 export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelected: boolean) =>
   css(
@@ -57,7 +88,7 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
       backgroundColor: theme.colors.white,
       borderRadius: '8px',
     },
-    variant === 'secondary'
+    variant === 'option'
       ? {
           fontWeight: 400,
           color: theme.colors.gray_800,
