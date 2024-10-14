@@ -104,13 +104,3 @@ export const iconStyle = (isOpen: boolean) =>
     transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
     transition: 'all 0.2s ease-in',
   });
-
-export const scrollStyle = css`
-  ::-webkit-scrollbar {
-    width: 0.8rem;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${theme.colors.gray_300};
-    border-radius: 10rem;
-  }
-`;

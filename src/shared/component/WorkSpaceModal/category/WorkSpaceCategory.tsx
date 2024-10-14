@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import ArrowDown from '@/common/asset/svg/ic_arrow_drop_down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import {
-  arrowStyle,
-  selectButtonStyle,
-  selectedTextStyle,
-} from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory.style';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
@@ -77,16 +71,13 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
               maxHeight: '25rem',
             },
           }}
+          placeholder="선택"
+          variant="outline"
           isOpen={isOpen}
+          onTrigger={toggle}
           onSelect={handleSelect}
-          options={categoryList}
+          options={categoryList.map((str) => ({ value: str }))}
           className="select-container"
-          trigger={
-            <Button css={selectButtonStyle(isOpen)} onClick={toggle}>
-              <span css={selected ? selectedTextStyle : null}>{selected || '선택'}</span>
-              <ArrowDown css={arrowStyle(isOpen)} />
-            </Button>
-          }
         />
       </div>
       <Button

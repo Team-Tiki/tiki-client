@@ -8,10 +8,10 @@ import {
   itemStyle,
   overlayStyle,
   profileStyle,
-  scrollStyle,
   textFieldStyle,
   triggerStyle,
 } from '@/common/component/Select/Select.style';
+import { scrollStyle } from '@/common/style/scroll';
 
 import { hasKeyInObject } from '@/shared/util/typeGuard';
 

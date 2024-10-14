@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
+import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';
-import WorkSpaceImage from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage';
 import WorkSpaceName from '@/shared/component/WorkSpaceModal/name/WorkSpaceName';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 
@@ -14,6 +14,7 @@ const meta: Meta<typeof WorkSpaceProvider> = {
   decorators: [
     (Story) => (
       <WorkSpaceProvider>
+        <WorkSpaceCategory isVisible={true} />
         <Story />
       </WorkSpaceProvider>
     ),
@@ -32,11 +33,5 @@ export const Name: Story = {
 export const Complete: Story = {
   render: () => {
     return <WorkSpaceComplete isVisible={true} />;
-  },
-};
-
-export const Image: Story = {
-  render: () => {
-    return <WorkSpaceImage isVisible={true} />;
   },
 };
