@@ -2,17 +2,17 @@
 import { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Download from '@/common/asset/svg/download.svg?react';
-import TrashBox from '@/common/asset/svg/trash_box.svg?react';
+import TrashBox from '@/common/asset/svg/ic_delete.svg?react';
+import Download from '@/common/asset/svg/ic_download.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentItem/DocumentItem.style';
+import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
 import { useOpenModal } from '@/shared/store/modal';
 
-interface DocumentItemProps {
+interface ItemProps {
   documentId: number;
   children?: ReactNode;
   blockName?: string;
@@ -21,7 +21,8 @@ interface DocumentItemProps {
   fileName: string;
 }
 
-const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemProps) => {
+
+const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const teamId = searchParams.get('teamId');
@@ -59,4 +60,4 @@ const DocumentItem = ({ documentId, children, fileUrl, fileName }: DocumentItemP
     </>
   );
 };
-export default DocumentItem;
+export default Item;
