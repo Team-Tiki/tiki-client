@@ -9,6 +9,9 @@ export const overlayStyle = css({
 
   maxHeight: '48rem',
 
+  border: `1px solid ${theme.colors.gray_200}`,
+  boxShadow: theme.shadow.shadow01,
+
   overflowY: 'auto',
   overscrollBehavior: 'contain',
 });
