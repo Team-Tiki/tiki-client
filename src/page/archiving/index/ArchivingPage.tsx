@@ -43,6 +43,7 @@ const ArchivingPage = () => {
         <Flex css={contentStyle}>
           <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} selectedBlock={selectedBlock} />
           <Suspense>
+            {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
             <TimeLine
               ref={ref}
               selectedBlock={selectedBlock}
