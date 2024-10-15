@@ -20,21 +20,24 @@ const Switch = ({
 }: SwitchProps) => {
   const [isLeft, setIsLeft] = useState(true);
 
+  const handleClick = (direction: 'left' | 'right') => {
+    setIsLeft(direction === 'left');
+    onClick(direction);
+  };
+
   return (
-    <div css={containerStyle}>
+    <div role="switch" aria-checked={isLeft} css={containerStyle}>
       <button
         css={contentStyle('left', isLeft)}
         onClick={() => {
-          setIsLeft(true);
-          onClick('left');
+          handleClick('left');
         }}>
         {isLeft ? <CheckedLeftIcon css={[clickedIconStyle, iconStyle]} /> : <LeftIcon css={iconStyle} />}
       </button>
       <button
         css={contentStyle('right', !isLeft)}
         onClick={() => {
-          setIsLeft(false);
-          onClick('right');
+          handleClick('right');
         }}>
         {!isLeft ? <CheckedRightIcon css={[clickedIconStyle, iconStyle]} /> : <RightIcon css={iconStyle} />}
       </button>

@@ -18,45 +18,41 @@ export const contentStyle = (side: 'left' | 'right', isClicked: boolean) => {
   const bgColor = isClicked ? theme.colors.gray_100 : theme.colors.white;
 
   const style = {
-    left: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: `0.8rem ${sidePadding}rem`,
+    display: 'flex',
+    alignItems: 'center',
+    padding: `0.8rem ${sidePadding}rem`,
 
-      backgroundColor: bgColor,
+    backgroundColor: bgColor,
 
-      border: 'none',
-      borderRight: `1px solid ${theme.colors.gray_200}`,
-
-      ...(isClicked && {
-        '::before': {
-          content: '""',
-          width: '1.6rem',
-          height: '1.6rem',
-          backgroundImage: `url(src/common/asset/svg/ic_check.svg)`,
-        },
-      }),
-    },
-    right: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: `0.8rem ${sidePadding}rem `,
-
-      backgroundColor: bgColor,
-
-      border: 'none',
-
-      ...(isClicked && {
-        '::after': {
-          content: '""',
-          width: '1.6rem',
-          height: '1.6rem',
-          backgroundImage: `url(src/common/asset/svg/ic_check.svg)`,
-        },
-      }),
-    },
+    border: 'none',
+    borderRight: side === 'left' ? `1px solid ${theme.colors.gray_200}` : 'none',
   };
-  return style[side];
+
+  const beforeStyle =
+    isClicked && side === 'left'
+      ? {
+          content: '""',
+          width: '1.6rem',
+          height: '1.6rem',
+          backgroundImage: `url(src/common/asset/svg/ic_check.svg)`,
+        }
+      : {};
+
+  const afterStyle =
+    isClicked && side === 'right'
+      ? {
+          content: '""',
+          width: '1.6rem',
+          height: '1.6rem',
+          backgroundImage: `url(src/common/asset/svg/ic_check.svg)`,
+        }
+      : {};
+
+  return {
+    ...style,
+    ...(beforeStyle && { '::before': beforeStyle }),
+    ...(afterStyle && { '::after': afterStyle }),
+  };
 };
 
 export const iconStyle = css({ width: '1.6rem', height: '1.6rem' });
