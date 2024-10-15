@@ -37,6 +37,7 @@ const TimeBlock = ({
 
   return (
     <div
+      role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         handleEnterBlock(e);
