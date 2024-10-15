@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';
 import WorkSpaceName from '@/shared/component/WorkSpaceModal/name/WorkSpaceName';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
@@ -14,7 +13,6 @@ const meta: Meta<typeof WorkSpaceProvider> = {
   decorators: [
     (Story) => (
       <WorkSpaceProvider>
-        <WorkSpaceCategory isVisible={true} />
         <Story />
       </WorkSpaceProvider>
     ),
