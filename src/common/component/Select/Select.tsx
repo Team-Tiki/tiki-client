@@ -43,7 +43,7 @@ const Select = (
   return (
     <Dropdown css={{ width: '100%' }} ref={ref} role="listbox" label={label} {...props}>
       <button onClick={onTrigger} css={triggerStyle(variant, isSelected)}>
-        {selectedText || placeholder}
+        <span>{selectedText || placeholder}</span>
         {variant === 'option' ? (
           <IcArrowOption css={iconStyle(isOpen)} width={12} height={12} />
         ) : (

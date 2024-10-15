@@ -8,6 +8,7 @@ export const overlayStyle = (isOpen: boolean) =>
     maxHeight: '30rem',
 
     top: 'calc(100% + 0.2rem)',
+    right: 0,
 
     borderRadius: '8px',
     border: `1px solid ${theme.colors.gray_200}`,
@@ -80,12 +81,19 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
       height: '4.8rem',
       padding: '1.2rem 1rem',
 
-      ...theme.text.body06,
-
       border: 'none',
       backgroundColor: theme.colors.white,
 
       whiteSpace: 'nowrap',
+
+      '& > span': {
+        ...theme.text.body06,
+
+        width: '80%',
+        textAlign: 'start',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+      },
     },
     /** underline 있는 select trigger 버튼 */
     variant === 'underline'
