@@ -49,7 +49,7 @@ export const selectedDateStyle = css({
 });
 
 export const hoverDateStyle = css({
-  '&:hover': {
+  '&:hover, &:focus': {
     backgroundColor: theme.colors.blue_200,
     color: theme.colors.white,
   },
