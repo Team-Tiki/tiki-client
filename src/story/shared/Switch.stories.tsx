@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
-import CheckedGrid from '@/common/asset/svg/ic_grid_checked.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
-import CheckedList from '@/common/asset/svg/ic_list_checked.svg?react';
+import ListChecked from '@/common/asset/svg/ic_list_checked.svg?react';
 
 import Switch from '@/shared/component/Switch/Switch';
 
@@ -21,10 +20,8 @@ const meta = {
   },
   args: {
     isChecked: true,
-    LeftIcon: <List width={16} height={16} />,
-    ClickedLeftIcon: <CheckedList width={16} height={16} />,
-    RightIcon: <Grid width={16} height={16} />,
-    ClickedRightIcon: <CheckedGrid width={16} height={16} />,
+    LeftIcon: List,
+    RightIcon: Grid,
   },
 } satisfies Meta<typeof Switch>;
 
@@ -34,8 +31,18 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     isChecked: true,
-    LeftIcon: <List width={16} height={16} />,
-    RightIcon: <Grid width={16} height={16} />,
+    LeftIcon: List,
+    RightIcon: Grid,
+    onClick: () => {},
+  },
+};
+
+export const StrokeIcon: Story = {
+  args: {
+    isChecked: true,
+    LeftIcon: List,
+    CheckedLeftIcon: ListChecked,
+    RightIcon: Grid,
     onClick: () => {},
   },
 };
