@@ -1,7 +1,8 @@
-import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
+
+import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
 
 const meta = {
   title: 'page/signUp/TermsAgreeButton',

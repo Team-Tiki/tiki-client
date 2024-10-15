@@ -1,5 +1,6 @@
-import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import BannerSlider from '@/page/showcase/index/component/BannerSlider/BannerSlider';
 
 const meta = {
   title: 'page/showcase/BannerSlider',

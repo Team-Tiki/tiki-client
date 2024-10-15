@@ -1,7 +1,8 @@
-import { Block } from '@/page/archiving/index/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
+
+import { Block } from '@/page/archiving/index/type/blockType';
 
 export const headerStyle = (blockSelected?: Block) =>
   css({

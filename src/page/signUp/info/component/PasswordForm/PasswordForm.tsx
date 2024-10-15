@@ -1,11 +1,11 @@
-import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-import { usePasswordForm } from '@/page/signUp/info/hook/common/usePasswordForm';
-
 import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
+
+import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
+import { usePasswordForm } from '@/page/signUp/info/hook/common/usePasswordForm';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 
