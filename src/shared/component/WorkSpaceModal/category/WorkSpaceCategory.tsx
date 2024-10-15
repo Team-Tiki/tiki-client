@@ -64,7 +64,7 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem', height: '7.6rem' }} ref={ref}>
+      <div css={{ width: '32rem', marginTop: '2.4rem' }} ref={ref}>
         <Select
           css={{
             '& ul': {

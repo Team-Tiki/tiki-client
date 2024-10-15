@@ -23,7 +23,7 @@ interface OptionType {
 }
 
 export interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
-  variant?: 'default' | 'user' | 'option' | 'outline';
+  variant?: 'default' | 'user' | 'option' | 'outline' | 'underline';
   isOpen?: boolean;
   label?: string;
   placeholder?: string;
@@ -60,7 +60,9 @@ const Select = (
               onSelect?.(item.value);
               setSelectedText(item.value);
             }}>
-            {hasKeyInObject(item, 'profileUrl') && <img src={item.profileUrl} css={profileStyle} />}
+            {hasKeyInObject(item, 'profileUrl') && (
+              <img src={item.profileUrl} css={profileStyle} alt={`${item.value} profile`} />
+            )}
 
             <p css={textFieldStyle}>
               {item.value}

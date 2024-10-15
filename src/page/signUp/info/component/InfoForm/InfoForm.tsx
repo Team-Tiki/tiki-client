@@ -37,6 +37,8 @@ const InfoForm = () => {
 
   const ref = useOutsideClick(onSelectClose);
 
+  console.log(info);
+
   const {
     remainTime,
     isTriggered: isMailSent,
@@ -100,7 +102,8 @@ const InfoForm = () => {
           css={{ width: '100%' }}
           ref={ref}
           label="학교"
-          variant="outline"
+          placeholder="소속 학교 선택"
+          variant="underline"
           onTrigger={onSelectToggle}
           onSelect={handleUnivSelect}
           isOpen={isSelectOpen}

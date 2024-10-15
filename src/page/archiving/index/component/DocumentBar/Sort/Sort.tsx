@@ -25,6 +25,7 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
 
   return (
     <Select
+      css={[{ width: '12rem' }, fontStyle]}
       variant="option"
       placeholder={selected}
       options={OPTIONS}
@@ -32,7 +33,6 @@ const DocumentSort = ({ selected, onSelected }: DocumentSortProps) => {
       isOpen={isOpen}
       onTrigger={toggle}
       onSelect={handleSelect}
-      css={fontStyle}
     />
   );
 };

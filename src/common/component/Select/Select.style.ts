@@ -25,7 +25,7 @@ export const itemStyle = (variant: Required<SelectProps['variant']>) =>
       gap: variant === 'option' ? '0.4rem' : '1.6rem',
 
       padding: '1rem 1.2rem',
-      margin: '0.8rem',
+      margin: variant === 'option' ? '0.4rem' : '0.8rem',
       borderRadius: '8px',
 
       '&:hover, &:focus': {
@@ -34,6 +34,7 @@ export const itemStyle = (variant: Required<SelectProps['variant']>) =>
       },
     },
 
+    /** user list 혹은 option select 일 때의 font 차이 */
     variant === 'option' || variant === 'user'
       ? {
           '& > *': {
@@ -74,28 +75,41 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
   css(
     {
       display: 'flex',
-      justifyContent: 'space-between',
       alignItems: 'center',
-      gap: '0.8rem',
 
+      height: '4.8rem',
       padding: '1.2rem 1rem',
-
-      border: 'none',
-      boxShadow: variant === 'outline' ? theme.shadow.inset : 'none',
 
       ...theme.text.body06,
 
+      border: 'none',
       backgroundColor: theme.colors.white,
-      borderRadius: '8px',
+
+      whiteSpace: 'nowrap',
     },
+    /** underline 있는 select trigger 버튼 */
+    variant === 'underline'
+      ? {
+          borderBottom: `1px solid ${isSelected ? theme.colors.blue_900 : theme.colors.gray_400}`,
+        }
+      : {
+          borderRadius: '8px',
+          boxShadow: variant === 'outline' ? (!isSelected ? theme.shadow.inset : theme.shadow.inset_focus) : 'none',
+        },
+    /** "최근 업로드 순"과 같은 option select */
     variant === 'option'
       ? {
+          justifyContent: 'center',
+
           fontWeight: 400,
           color: theme.colors.gray_800,
         }
       : {
-          fontWeight: 600,
-          color: isSelected ? theme.colors.black : theme.colors.gray_400,
+          justifyContent: 'space-between',
+          gap: '0.8rem',
+
+          fontWeight: 500,
+          color: isSelected ? theme.colors.black : theme.colors.gray_500,
         }
   );
 

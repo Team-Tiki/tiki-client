@@ -1,11 +1,11 @@
-import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
-import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
-import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
-
 import { useMatch } from 'react-router-dom';
 
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+
+import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
+import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
 
 import { PATH } from '@/shared/constant/path';
 

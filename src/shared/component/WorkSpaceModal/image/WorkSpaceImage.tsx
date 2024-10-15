@@ -49,7 +49,7 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
         title="동아리 프로필 이미지 등록"
         info="우리 동아리의 프로필에 표시할 이미지를 등록해주세요"
       />
-      <div css={imageBoxStyle}>
+      <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
         {fileURL ? (
           <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
         ) : (

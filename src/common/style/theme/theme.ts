@@ -90,7 +90,7 @@ const text = {
   },
   body09: {
     fontSize: '1rem',
-    lineHeight: '1rem',
+    lineHeight: 'rem',
   },
 } as const;
 
@@ -103,6 +103,7 @@ const zIndex = {
 
 const shadow = {
   inset: `inset 0 0 0 1px ${colors.gray_200}`,
+  inset_focus: `inset 0 0 0 1px ${colors.blue_900}`,
   shadow01: '0px 2px 8px 0px rgba(99, 99, 99, 0.2)', // 6
   shadow02: '0px 4px 10px rgba(0, 0, 0, 0.1)',
   shadow03: '0px 3px 8px rgba(0, 0, 0, 0.24)', // 5
