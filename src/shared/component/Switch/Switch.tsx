@@ -1,24 +1,21 @@
-import { ComponentPropsWithRef, ReactNode, useState } from 'react';
+import { ComponentPropsWithRef, FunctionComponent, SVGProps, useState } from 'react';
 
-import Check from '@/common/asset/svg/ic_check.svg?react';
-
-import { containerStyle, contentStyle } from '@/shared/component/Switch/Switch.style';
+import { clickedIconStyle, containerStyle, contentStyle, iconStyle } from '@/shared/component/Switch/Switch.style';
 
 export interface SwitchProps extends Omit<ComponentPropsWithRef<'div'>, 'onClick'> {
   isChecked?: boolean;
-  LeftIcon: ReactNode;
-  ClickedLeftIcon?: ReactNode;
-  RightIcon: ReactNode;
-  ClickedRightIcon?: ReactNode;
+  LeftIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  CheckedLeftIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
+  RightIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  CheckedRightIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
   onClick: (clickedSide: 'left' | 'right') => void;
 }
 
 const Switch = ({
-  isChecked = true,
   LeftIcon,
-  ClickedLeftIcon = LeftIcon,
+  CheckedLeftIcon = LeftIcon,
   RightIcon,
-  ClickedRightIcon = RightIcon,
+  CheckedRightIcon = RightIcon,
   onClick,
 }: SwitchProps) => {
   const [isLeft, setIsLeft] = useState(true);
@@ -31,8 +28,7 @@ const Switch = ({
           setIsLeft(true);
           onClick('left');
         }}>
-        {isChecked && isLeft && <Check width={16} height={16} />}
-        {isLeft ? ClickedLeftIcon : LeftIcon}
+        {isLeft ? <CheckedLeftIcon css={[clickedIconStyle, iconStyle]} /> : <LeftIcon css={iconStyle} />}
       </button>
       <button
         css={contentStyle('right', !isLeft)}
@@ -40,8 +36,7 @@ const Switch = ({
           setIsLeft(false);
           onClick('right');
         }}>
-        {!isLeft ? ClickedRightIcon : RightIcon}
-        {isChecked && !isLeft && <Check width={16} height={16} />}
+        {!isLeft ? <CheckedRightIcon css={[clickedIconStyle, iconStyle]} /> : <RightIcon css={iconStyle} />}
       </button>
     </div>
   );
