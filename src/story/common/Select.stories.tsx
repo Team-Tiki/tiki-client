@@ -15,7 +15,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div css={{ width: '160px' }}>
+      <div css={{ width: '16rem' }}>
         <Story />
       </div>
     ),
@@ -101,7 +101,7 @@ export const UserList: Story = {
   },
 };
 
-export const Scroll: Story = {
+export const Outline: Story = {
   render: (args) => {
     const { isOpen, close, toggle } = useOverlay();
     const ref = useOutsideClick<HTMLDivElement>(close);
@@ -129,6 +129,48 @@ export const Scroll: Story = {
   },
 };
 
+export const ScrollOption = {
+  render: () => {
+    const { isOpen, close, toggle } = useOverlay();
+    const [selected, setSelected] = useState('');
+    const ref = useOutsideClick<HTMLDivElement>(close);
+
+    const handleSelect = (id: string) => {
+      setSelected(id);
+
+      close();
+    };
+
+    const options = [
+      { value: 'Option 1' },
+      { value: 'Option 2' },
+      { value: 'Option 3' },
+      { value: 'Option 4' },
+      { value: 'Option 5' },
+      { value: 'Option 6' },
+      { value: 'Option 7' },
+      { value: 'Option 8' },
+      { value: 'Option 9' },
+    ];
+
+    console.log(`Selected Item is ${selected}`);
+
+    return (
+      <div css={{ width: '16rem' }}>
+        <Select
+          variant="outline"
+          options={options}
+          ref={ref}
+          placeholder="최근 업로드 순"
+          isOpen={isOpen}
+          onTrigger={() => toggle()}
+          onSelect={handleSelect}
+        />
+      </div>
+    );
+  },
+};
+
 export const OptionList = {
   render: () => {
     const { isOpen, close, toggle } = useOverlay();
@@ -149,7 +191,7 @@ export const OptionList = {
     console.log(`Selected Item is ${selected}`);
 
     return (
-      <div css={{ width: '120px' }}>
+      <div css={{ width: '12rem' }}>
         <Select
           variant="option"
           options={options}

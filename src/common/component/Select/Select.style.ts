@@ -99,7 +99,8 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
     /** "최근 업로드 순"과 같은 option select */
     variant === 'option'
       ? {
-          justifyContent: 'center',
+          justifyContent: 'flex-end',
+          gap: '0.2rem',
 
           fontWeight: 400,
           color: theme.colors.gray_800,
@@ -115,6 +116,8 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
 
 export const iconStyle = (isOpen: boolean) =>
   css({
+    flexShrink: 0,
+
     transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
     transition: 'all 0.2s ease-in',
   });
