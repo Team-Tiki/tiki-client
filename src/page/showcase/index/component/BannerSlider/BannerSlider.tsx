@@ -1,6 +1,4 @@
 import { css } from '@emotion/react';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
 
 import { MouseEvent } from 'react';
 
@@ -15,7 +13,7 @@ import { ADVBANNER } from '@/page/showcase/index/constant/banner';
 const BannerSlider = () => {
   return (
     <Carousel
-      height="224px"
+      height="22.4rem"
       autoLoop={true}
       renderedLeftArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void) => (
         <button onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
