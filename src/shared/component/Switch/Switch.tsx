@@ -1,45 +1,41 @@
-import { ComponentPropsWithRef, FunctionComponent, SVGProps, useState } from 'react';
+import { ComponentPropsWithRef, FunctionComponent, SVGProps } from 'react';
 
 import { clickedIconStyle, containerStyle, contentStyle, iconStyle } from '@/shared/component/Switch/Switch.style';
 
 export interface SwitchProps extends Omit<ComponentPropsWithRef<'div'>, 'onClick'> {
+  status: 'left' | 'right';
   isChecked?: boolean;
   LeftIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  CheckedLeftIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
+  ClickedLeftIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
   RightIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  CheckedRightIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
-  onClick: (clickedSide: 'left' | 'right') => void;
+  ClickedRightIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
+  onSwitchChange: (status: 'left' | 'right') => void;
 }
 
 const Switch = ({
+  status = 'left',
+  isChecked = true,
   LeftIcon,
-  CheckedLeftIcon = LeftIcon,
+  ClickedLeftIcon = LeftIcon,
   RightIcon,
-  CheckedRightIcon = RightIcon,
-  onClick,
+  ClickedRightIcon = RightIcon,
+  onSwitchChange,
 }: SwitchProps) => {
-  const [isLeft, setIsLeft] = useState(true);
-
-  const handleClick = (direction: 'left' | 'right') => {
-    setIsLeft(direction === 'left');
-    onClick(direction);
-  };
-
   return (
-    <div role="switch" aria-checked={isLeft} css={containerStyle}>
+    <div role="switch" aria-checked={status === 'left'} css={containerStyle}>
       <button
-        css={contentStyle('left', isLeft)}
+        css={contentStyle(isChecked, 'left', status === 'left')}
         onClick={() => {
-          handleClick('left');
+          onSwitchChange('left');
         }}>
-        {isLeft ? <CheckedLeftIcon css={[clickedIconStyle, iconStyle]} /> : <LeftIcon css={iconStyle} />}
+        {status === 'left' ? <ClickedLeftIcon css={[clickedIconStyle, iconStyle]} /> : <LeftIcon css={iconStyle} />}
       </button>
       <button
-        css={contentStyle('right', !isLeft)}
+        css={contentStyle(isChecked, 'right', status === 'right')}
         onClick={() => {
-          handleClick('right');
+          onSwitchChange('right');
         }}>
-        {!isLeft ? <CheckedRightIcon css={[clickedIconStyle, iconStyle]} /> : <RightIcon css={iconStyle} />}
+        {status === 'right' ? <ClickedRightIcon css={[clickedIconStyle, iconStyle]} /> : <RightIcon css={iconStyle} />}
       </button>
     </div>
   );

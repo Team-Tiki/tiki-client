@@ -13,7 +13,7 @@ export const containerStyle = css({
   overflow: 'hidden',
 });
 
-export const contentStyle = (side: 'left' | 'right', isClicked: boolean) => {
+export const contentStyle = (isChecked: boolean, side: 'left' | 'right', isClicked: boolean) => {
   const sidePadding = isClicked ? 1 : 1.6;
   const bgColor = isClicked ? theme.colors.gray_100 : theme.colors.white;
 
@@ -29,7 +29,7 @@ export const contentStyle = (side: 'left' | 'right', isClicked: boolean) => {
   };
 
   const beforeStyle =
-    isClicked && side === 'left'
+    isClicked && isChecked && side === 'left'
       ? {
           content: '""',
           width: '1.6rem',
@@ -39,7 +39,7 @@ export const contentStyle = (side: 'left' | 'right', isClicked: boolean) => {
       : {};
 
   const afterStyle =
-    isClicked && side === 'right'
+    isClicked && isChecked && side === 'right'
       ? {
           content: '""',
           width: '1.6rem',
