@@ -1,9 +1,10 @@
-import { Children, MouseEvent, MutableRefObject, PropsWithChildren, createContext } from 'react';
+import { Children, MouseEvent, MutableRefObject, PropsWithChildren, createContext, useState } from 'react';
 
 import Arrow from '@/common/component/Carousel/Arrow';
 import { containerStyle, sliderStyle } from '@/common/component/Carousel/Carousel.style';
 import CarouselItem from '@/common/component/Carousel/CarouselItem';
 import Dots from '@/common/component/Carousel/Dots';
+import { useIntersectionObserver } from '@/common/hook';
 import { useCarousel } from '@/common/hook/useCarousel';
 
 export interface CarouselProps extends PropsWithChildren {
@@ -46,15 +47,38 @@ const Carousel = ({
 
   children,
 }: CarouselProps) => {
+  const [isInView, setIsInView] = useState(true);
+
   const { currentIndex, itemRef, handleLeft, handleRight, handleMoveTo, handleHover, handleLeave } = useCarousel(
     Children.count(children),
     autoLoop,
-    autoLoopDelay
+    isInView ? autoLoopDelay : Infinity
   );
+
+  const handleObserve = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        setIsInView(false);
+      } else {
+        setIsInView(true);
+      }
+    });
+  };
+  const option = {
+    root: null,
+    threshold: 1,
+  };
+
+  const { targetRef } = useIntersectionObserver<HTMLDivElement>(handleObserve, option);
 
   return (
     <CarouselContext.Provider value={{ width, height, currentIndex, itemRef }}>
-      <div onMouseOver={handleHover} onMouseLeave={handleLeave} css={containerStyle({ width, height })}>
+      <div
+        ref={targetRef}
+        id="carousel"
+        onMouseOver={handleHover}
+        onMouseLeave={handleLeave}
+        css={containerStyle({ width, height })}>
         {hasArrows ? (
           renderedLeftArrow && renderedRightArrow ? (
             <>
