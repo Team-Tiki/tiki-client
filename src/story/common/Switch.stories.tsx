@@ -5,8 +5,7 @@ import { useState } from 'react';
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
 import ListChecked from '@/common/asset/svg/ic_list_checked.svg?react';
-
-import Switch from '@/shared/component/Switch/Switch';
+import Switch from '@/common/component/Switch/Switch';
 
 const meta = {
   title: 'Shared/Switch',

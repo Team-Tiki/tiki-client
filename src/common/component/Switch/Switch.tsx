@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef, FunctionComponent, SVGProps } from 'react';
 
-import { clickedIconStyle, containerStyle, contentStyle, iconStyle } from '@/shared/component/Switch/Switch.style';
+import { clickedIconStyle, containerStyle, contentStyle, iconStyle } from '@/common/component/Switch/Switch.style';
 
 export interface SwitchProps extends Omit<ComponentPropsWithRef<'div'>, 'onClick'> {
   status: 'left' | 'right';
