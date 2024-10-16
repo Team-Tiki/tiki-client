@@ -20,13 +20,16 @@ const CalendarDates = ({ currentMonth, currentMonthAllDates, selectedDate, setSe
     {currentMonthAllDates.map((date, index) => (
       <div
         role="button"
+        tabIndex={0}
+        aria-label={`${date.getMonth() + 1}월 ${date.getDate()}일`}
         key={index}
         css={[
           dateStyle,
           isSameMonth(currentMonth, date) ? '' : outOfMonthStyle,
           isSameDay(selectedDate, date) ? selectedDateStyle : hoverDateStyle,
         ]}
-        onClick={() => setSelectedDate(date)}>
+        onClick={() => setSelectedDate(date)}
+        onKeyDown={(e) => (e.key === 'Enter' ? setSelectedDate(date) : null)}>
         {date.getDate()}
       </div>
     ))}

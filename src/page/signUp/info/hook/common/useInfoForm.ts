@@ -88,12 +88,17 @@ export const useInfoForm = () => {
     [info.birth, clearFieldError]
   );
 
-  const handleUnivSelect = useCallback((item: string) => {
-    setInfo((prev) => ({
-      ...prev,
-      univ: item,
-    }));
-  }, []);
+  const handleUnivSelect = useCallback(
+    (item: string) => {
+      setInfo((prev) => ({
+        ...prev,
+        univ: item,
+      }));
+
+      onSelectClose();
+    },
+    [onSelectClose]
+  );
 
   const validateDate = useCallback(() => {
     if (info.birth === '' || !isValidDate(info.birth)) {

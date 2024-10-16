@@ -1,6 +1,5 @@
 import App from '@/App';
 
-import { Suspense } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
@@ -71,11 +70,7 @@ const router = createBrowserRouter([
       { path: PATH.SHOWCASE, element: <ShowcasePage /> },
       {
         path: PATH.ARCHIVING,
-        element: (
-          <Suspense>
-            <ArchivingPage />
-          </Suspense>
-        ),
+        element: <ArchivingPage />,
       },
       {
         path: PATH.COMING_SOON,

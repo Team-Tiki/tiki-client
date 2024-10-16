@@ -11,7 +11,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
-    "typeCheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check": "concurrently \"pnpm lint\" \"pnpm typecheck\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -76,3 +77,5 @@
     "zustand": "^4.5.4"
   }
 }
+
+

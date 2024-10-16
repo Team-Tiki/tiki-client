@@ -1,6 +1,6 @@
-import { selectTriggerStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-
 import { PropsWithChildren } from 'react';
+
+import { selectTriggerStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
 
 interface UnivSelectTriggerButtonProps extends PropsWithChildren {
   isError?: boolean;
