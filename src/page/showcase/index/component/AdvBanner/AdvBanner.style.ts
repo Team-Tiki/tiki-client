@@ -2,42 +2,38 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (imageUrl: string) =>
-  css({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+export const containerStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 
-    position: 'relative',
+  position: 'relative',
 
-    width: '100%',
+  width: '100%',
 
-    padding: '5rem 0 5.8rem 6.4rem',
+  padding: '5rem 0 5.8rem 6.4rem',
 
-    borderRadius: '16px',
-    backgroundImage: `url(${imageUrl})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  borderRadius: '16px',
 
-    overflow: 'hidden',
+  overflow: 'hidden',
 
-    '& > *': {
-      zIndex: theme.zIndex.overlayBottom,
-    },
+  '& > *': {
+    zIndex: theme.zIndex.overlayBottom,
+  },
 
-    '::before': {
-      content: '""',
+  '::before': {
+    content: '""',
 
-      position: 'absolute',
-      top: 0,
-      left: 0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
 
-      width: '16rem',
-      height: '100%',
+    width: '16rem',
+    height: '100%',
 
-      background: theme.colors.black_shade,
-    },
-  });
+    background: theme.colors.black_shade,
+  },
+});
 
 export const titleStyle = css({
   color: theme.colors.white,
@@ -61,4 +57,16 @@ export const buttonStyle = css({
   ':hover': {
     backgroundColor: theme.colors.blue_300,
   },
+});
+
+export const imgStyle = css({
+  position: 'absolute',
+
+  left: 0,
+  top: 0,
+
+  width: '100%',
+  height: '100%',
+
+  objectFit: 'cover',
 });
