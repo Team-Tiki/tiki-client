@@ -40,10 +40,9 @@ export const Default: Story = {
       close();
     };
 
-    console.log(`Selected Item is ${selected}`);
-
     return (
       <Select
+        aria-label={`선택된 아이템: ${selected}`}
         variant="default"
         {...args}
         ref={ref}
@@ -90,10 +89,9 @@ export const UserList: Story = {
       },
     ];
 
-    console.log(`Selected Item is ${selected}`);
-
     return (
       <Select
+        aria-label={`선택된 아이템: ${selected}`}
         label="아웃라인 셀렉트"
         variant="user"
         {...args}
@@ -114,8 +112,6 @@ export const Outline: Story = {
     const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
-    console.log(`Selected Item is ${selected}`);
-
     const handleSelect = (id: string) => {
       setSelected(id);
 
@@ -124,6 +120,7 @@ export const Outline: Story = {
 
     return (
       <Select
+        aria-label={`선택된 아이템: ${selected}`}
         variant="outline"
         {...args}
         ref={ref}
@@ -167,10 +164,9 @@ export const ScrollOption: Story = {
       { value: 'Option 9' },
     ];
 
-    console.log(`Selected Item is ${selected}`);
-
     return (
       <Select
+        aria-label={`선택된 아이템: ${selected}`}
         variant="outline"
         options={options}
         ref={ref}
@@ -207,10 +203,9 @@ export const OptionList: Story = {
       { value: '과거 정렬 순대를 먹을래 말래', svg: <IcArrowDown /> },
     ];
 
-    console.log(`Selected Item is ${selected}`);
-
     return (
       <Select
+        aria-label={`선택된 아이템: ${selected}`}
         variant="option"
         options={options}
         ref={ref}

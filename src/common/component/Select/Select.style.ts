@@ -36,17 +36,11 @@ export const itemStyle = (variant: Required<SelectProps['variant']>) =>
     },
 
     /** user list 혹은 option select 일 때의 font 차이 */
-    variant === 'option' || variant === 'user'
-      ? {
-          '& > *': {
-            ...theme.text.body08,
-          },
-        }
-      : {
-          '& > *': {
-            ...theme.text.body05,
-          },
-        }
+    {
+      '& > *': {
+        ...(variant === 'option' || variant === 'user' ? theme.text.body08 : theme.text.body05),
+      },
+    }
   );
 
 export const profileStyle = css({
