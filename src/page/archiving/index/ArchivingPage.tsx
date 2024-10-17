@@ -9,9 +9,8 @@ import { theme } from '@/common/style/theme/theme';
 
 import { buttonStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
-import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
-import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
+import TimeLineHeader from '@/page/archiving/index/component/TimeLineHeader/TimeLineHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 
@@ -30,7 +29,7 @@ const ArchivingPage = () => {
 
   if (!teamId) throw new Error('has no teamId');
 
-  const { ref, currentYear, selectedMonth, handlePrevYear, handleNextYear, endDay, handleMonthClick } = useDate(teamId);
+  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, endDay } = useDate(teamId);
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -39,9 +38,14 @@ const ArchivingPage = () => {
   return (
     <Flex css={pageStyle}>
       <section css={timelineStyle}>
-        <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
+        <TimeLineHeader
+          onPrevMonth={handlePrevMonth}
+          onNextMonth={handleNextMonth}
+          currentYear={currentYear}
+          currentMonth={currentMonth}
+        />
         <Flex css={contentStyle}>
-          <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} selectedBlock={selectedBlock} />
+          {/* <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} selectedBlock={selectedBlock} /> */}
           <Suspense>
             {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
             <TimeLine
@@ -49,7 +53,7 @@ const ArchivingPage = () => {
               selectedBlock={selectedBlock}
               onBlockClick={handleBlockClick}
               currentYear={currentYear}
-              selectedMonth={selectedMonth}
+              currentMonth={currentMonth}
               endDay={endDay}
             />
           </Suspense>

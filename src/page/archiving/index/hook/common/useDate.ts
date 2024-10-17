@@ -2,7 +2,6 @@ import { endOfMonth } from 'date-fns';
 
 import { useRef, useState } from 'react';
 
-import { MonthType } from '@/page/archiving/index/type/monthType';
 import { getMonthDate } from '@/page/archiving/index/util/date';
 
 export const useDate = (teamId?: string) => {
@@ -10,46 +9,47 @@ export const useDate = (teamId?: string) => {
 
   const currentDate = new Date();
 
+  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth() + 1);
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [updatedTeamId, setUpdatedTeamId] = useState(teamId);
-  const [selectedMonth, setSelectedMonth] = useState<MonthType>(`${currentDate.getMonth() + 1}월` as MonthType);
 
-  const dateOfMonth = getMonthDate(selectedMonth, currentYear);
+  const dateOfMonth = getMonthDate(currentMonth, currentYear);
   const endDay = endOfMonth(dateOfMonth);
 
   /** teamId가 변경될 때마다 selectedMonth 초기화 */
   if (teamId !== updatedTeamId) {
     setUpdatedTeamId(teamId);
-    setSelectedMonth(`${currentDate.getMonth() + 1}월` as MonthType);
+    setCurrentMonth(1);
   }
 
-  const handlePrevYear = () => {
-    setCurrentYear((prevYear) => prevYear - 1);
-    setSelectedMonth('1월');
+  const handlePrevMonth = () => {
+    setCurrentMonth((prevMonth) => prevMonth - 1);
     ref?.current?.scrollTo(0, 0);
+
+    if (currentMonth <= 1) {
+      setCurrentMonth(12);
+      setCurrentYear((prevYear) => prevYear - 1);
+    }
   };
 
-  const handleNextYear = () => {
-    setCurrentYear((prevYear) => prevYear + 1);
-    setSelectedMonth('1월');
+  const handleNextMonth = () => {
+    setCurrentMonth((prevMonth) => prevMonth + 1);
     ref?.current?.scrollTo(0, 0);
-  };
 
-  const handleMonthClick = (month: MonthType) => {
-    setSelectedMonth(month);
-    ref?.current?.scrollTo(0, 0);
+    if (currentMonth >= 12) {
+      setCurrentMonth(1);
+      setCurrentYear((prevYear) => prevYear + 1);
+    }
   };
 
   return {
     ref,
     currentDate,
     currentYear,
-    selectedMonth,
-    setSelectedMonth,
-    handlePrevYear,
-    handleNextYear,
+    handlePrevMonth,
+    handleNextMonth,
+    currentMonth,
     dateOfMonth,
     endDay,
-    handleMonthClick,
   };
 };
