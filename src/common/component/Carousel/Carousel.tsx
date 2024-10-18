@@ -52,6 +52,7 @@ const Carousel = ({
   const { currentIndex, itemRef, handleLeft, handleRight, handleMoveTo, handleHover, handleLeave } = useCarousel(
     Children.count(children),
     autoLoop,
+    /** 만약 현재 view에 보이지 않는다면, autoLoopDelay를 Infinity로 설정하여 scrollIntoView로 인해 스크롤이 끌어올려지는 것 방지*/
     isInView ? autoLoopDelay : Infinity
   );
 
@@ -73,12 +74,7 @@ const Carousel = ({
 
   return (
     <CarouselContext.Provider value={{ width, height, currentIndex, itemRef }}>
-      <div
-        ref={targetRef}
-        id="carousel"
-        onMouseOver={handleHover}
-        onMouseLeave={handleLeave}
-        css={containerStyle({ width, height })}>
+      <div ref={targetRef} onMouseOver={handleHover} onMouseLeave={handleLeave} css={containerStyle({ width, height })}>
         {hasArrows ? (
           renderedLeftArrow && renderedRightArrow ? (
             <>
