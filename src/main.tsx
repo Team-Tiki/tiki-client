@@ -32,7 +32,19 @@ const main = async () => {
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <Global styles={GlobalStyle} />
+          <Global
+            styles={[
+              GlobalStyle,
+              {
+                '@font-face': {
+                  fontFamily: 'Pretendard Variable',
+                  src: "url('/font/subset-PretendardVariable.woff2') format('woff2') url('/font/subset-PretendardVariable.woff') format('woff')",
+                  fontStyle: 'normal',
+                  fontDisplay: 'swap',
+                },
+              },
+            ]}
+          />
           <AppRouter />
           <ToastContainer />
           <ToastProvider />
