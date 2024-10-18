@@ -1,13 +1,13 @@
+import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
+import Heading from '@/common/component/Heading/Heading';
+
 import {
   buttonStyle,
   containerStyle,
   contentStyle,
   titleStyle,
 } from '@/page/showcase/index/component/AdvBanner/AdvBanner.style';
-
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
 
 interface AdvBannerProps {
   title: string;

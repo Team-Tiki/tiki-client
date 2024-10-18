@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext } from 'react';
 
 import { CarouselContext } from '@/common/component/Carousel/Carousel';
@@ -28,5 +29,5 @@ type DotProps = {
 };
 
 const Dot = ({ onClick, isCurrent }: DotProps) => {
-  return <div onClick={onClick} css={dotStyle(isCurrent)} />;
+  return <div role="button" tabIndex={-1} onClick={onClick} css={dotStyle(isCurrent)} />;
 };

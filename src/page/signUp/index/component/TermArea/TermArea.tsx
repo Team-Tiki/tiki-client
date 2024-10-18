@@ -1,11 +1,11 @@
-import { termStyle, wrapperStyle } from '@/page/signUp/index/component/TermArea/TermArea.style';
-
 import { HTMLAttributes } from 'react';
 
 import Check from '@/common/asset/svg/check.svg?react';
 import CheckActive from '@/common/asset/svg/check_active.svg?react';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
+
+import { termStyle, wrapperStyle } from '@/page/signUp/index/component/TermArea/TermArea.style';
 
 interface TermAreaProps extends HTMLAttributes<HTMLDivElement> {
   term: string;
