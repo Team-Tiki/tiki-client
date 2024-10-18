@@ -23,6 +23,8 @@ export const arrowStyle = css({
 
 export const dateStyle = css({
   ...theme.text.body04,
+
+  whiteSpace: 'nowrap',
 });
 
 export const buttonStyle = css({

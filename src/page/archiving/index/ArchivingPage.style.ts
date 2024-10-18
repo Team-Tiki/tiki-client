@@ -19,12 +19,15 @@ export const pageStyle = () =>
 
 export const timelineStyle = () =>
   css({
+    display: 'flex',
     flexDirection: 'column',
 
     width: '100%',
 
     borderRadius: '16px',
     padding: '2.6rem 2.4rem',
+
+    gap: '1.6rem',
 
     overflow: 'hidden',
   });
@@ -49,7 +52,6 @@ export const daySectionStyle = () =>
 
     whiteSpace: 'nowrap',
 
-    overflowX: 'scroll',
     overscrollBehavior: 'contain',
 
     scrollBehavior: 'smooth',
