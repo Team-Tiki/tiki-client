@@ -17,9 +17,9 @@ export const clubInfoStyle = (isClicked: boolean, isExpanded: boolean) =>
     marginLeft: '1.6rem',
 
     borderRadius: '10px',
-    backgroundColor: `${isClicked && theme.colors.blue_300}`,
+    backgroundColor: `${isClicked && theme.colors.key_100}`,
 
-    '&: hover': { backgroundColor: theme.colors.blue_700 },
+    '&: hover': { backgroundColor: theme.colors.key_200 },
   });
 
 export const clubNameStyle = (isExpanded: boolean) =>

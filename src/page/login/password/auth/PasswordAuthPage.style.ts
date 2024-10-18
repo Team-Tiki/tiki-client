@@ -32,6 +32,6 @@ export const timestyle = css({
   top: '20rem',
   right: '13rem',
 
-  color: theme.colors.blue_900,
+  color: theme.colors.key_500,
   ...theme.text.body04,
 });
