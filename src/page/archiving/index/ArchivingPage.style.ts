@@ -1,7 +1,8 @@
-import { Block } from '@/page/archiving/index/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
+
+import { Block } from '@/page/archiving/index/type/blockType';
 
 export const pageStyle = () =>
   css({
@@ -78,6 +79,6 @@ export const buttonStyle = (blockSelected?: Block) =>
     transition: 'right 0.3s ease-in-out',
 
     '&:hover': {
-      backgroundColor: theme.colors.blue_300,
+      backgroundColor: theme.colors.key_200,
     },
   });

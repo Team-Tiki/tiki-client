@@ -11,7 +11,7 @@ const Spinner = ({ size = 20 }: SpinnerProps) => {
     <SpinnerIcon
       width={size}
       height={size}
-      css={{ animation: `${rotate} 1s linear infinite`, fill: `${theme.colors.blue_900}` }}
+      css={{ animation: `${rotate} 1s linear infinite`, fill: `${theme.colors.key_500}` }}
     />
   );
 };

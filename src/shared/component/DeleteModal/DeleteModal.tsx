@@ -14,14 +14,14 @@ const DeleteModal = () => {
   const modalData = useModalData();
   const closeModal = useCloseModal();
 
+  const { mutate: blockMutate } = useDeleteBlockMutation();
+  const { mutate: documentMutate } = useDeleteDocumentMutation();
+
   if (!modalData) {
     return null;
   }
 
   const { teamId, itemId, itemType } = modalData;
-
-  const { mutate: blockMutate } = useDeleteBlockMutation();
-  const { mutate: documentMutate } = useDeleteDocumentMutation();
 
   const handleDeleteBlock = () => {
     if (teamId && itemId) {

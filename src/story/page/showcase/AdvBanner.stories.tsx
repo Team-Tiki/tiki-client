@@ -1,7 +1,8 @@
-import AdvBanner from '@/page/showcase/index/component/AdvBanner/AdvBanner';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Logo from '@/common/asset/svg/logo_tiki_md.svg';
+
+import AdvBanner from '@/page/showcase/index/component/AdvBanner/AdvBanner';
 
 const meta = {
   title: 'page/showcase/AdvBanner',

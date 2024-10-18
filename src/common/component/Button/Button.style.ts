@@ -35,10 +35,10 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
     primary: css({
       color: theme.colors.white,
-      backgroundColor: theme.colors.blue_900,
+      backgroundColor: theme.colors.key_500,
 
       '&:hover': {
-        backgroundColor: theme.colors.blue_700,
+        backgroundColor: theme.colors.key_600,
       },
     }),
     secondary: css({
@@ -55,7 +55,7 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
     }),
     action: css({
       color: theme.colors.white,
-      backgroundColor: theme.colors.blue_900,
+      // backgroundColor: theme.colors.blue_900,
     }),
   };
   return style[variant];

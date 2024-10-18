@@ -18,13 +18,14 @@ export const buttonStyle = css({
   ...theme.text.body08,
   whiteSpace: 'nowrap',
 
+  '&:hover': {
+    backgroundColor: theme.colors.white,
+  },
   cursor: 'pointer',
 });
 
 export const fontStyle = css({
-  marginBottom: '1.2rem',
-
-  '& ul': {
+  '& > ul': {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -35,7 +36,7 @@ export const fontStyle = css({
     overflowX: 'hidden',
   },
 
-  '& li': {
+  '& > li': {
     ...theme.text.body08,
     whiteSpace: 'nowrap',
   },

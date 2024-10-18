@@ -1,28 +1,75 @@
-import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
+import { ComponentPropsWithRef, ForwardedRef, ReactNode, forwardRef, useState } from 'react';
 
+import IcArrowDefault from '@/common/asset/svg/ic_arrow_down_gray.svg?react';
+import IcArrowOption from '@/common/asset/svg/ic_down.svg?react';
 import { Dropdown } from '@/common/component/Dropdown';
-import { itemStyle, overlayStyle } from '@/common/component/Select/Select.style';
-import { scrollStyle } from '@/common/style/theme/scroll';
+import {
+  iconStyle,
+  itemStyle,
+  overlayStyle,
+  profileStyle,
+  textFieldStyle,
+  triggerStyle,
+} from '@/common/component/Select/Select.style';
+import { scrollStyle } from '@/common/style/scroll';
 
-interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
+import { hasKeyInObject } from '@/shared/util/typeGuard';
+
+interface OptionType {
+  value: string;
+  svg?: ReactNode;
+  profileUrl?: string;
+  description?: string;
+}
+
+export interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
+  variant?: 'default' | 'user' | 'option' | 'outline' | 'underline';
   isOpen?: boolean;
-  trigger: JSX.Element;
   label?: string;
-  onSelect?: (id: string) => void;
-  options: string[];
+  placeholder?: string;
+  onTrigger?: () => void;
+  onSelect?: (value: string) => void;
+  options: OptionType[];
 }
 
 const Select = (
-  { isOpen, trigger, label, onSelect, options, ...props }: SelectProps,
+  { variant = 'default', isOpen = false, placeholder, label, onTrigger, onSelect, options, ...props }: SelectProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
+  const [selectedText, setSelectedText] = useState(placeholder);
+
+  const isSelected = selectedText !== placeholder;
+
   return (
-    <Dropdown ref={ref} role="listbox" label={label} {...props}>
-      <Dropdown.Trigger as={trigger} />
-      <Dropdown.List css={[overlayStyle, scrollStyle]} isOpen={isOpen}>
+    <Dropdown css={{ width: '100%' }} ref={ref} role="listbox" label={label} {...props}>
+      <button onClick={onTrigger} css={triggerStyle(variant, isSelected)}>
+        <span>{selectedText || placeholder}</span>
+        {variant === 'option' ? (
+          <IcArrowOption css={iconStyle(isOpen)} width={12} height={12} />
+        ) : (
+          <IcArrowDefault css={iconStyle(isOpen)} width={20} height={20} />
+        )}
+      </button>
+
+      <Dropdown.List css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
         {options.map((item) => (
-          <Dropdown.Item key={item} css={itemStyle} onSelect={() => onSelect?.(item)}>
-            {item}
+          <Dropdown.Item
+            key={item.value}
+            css={itemStyle(variant)}
+            onSelect={() => {
+              onSelect?.(item.value);
+              setSelectedText(item.value);
+            }}>
+            {hasKeyInObject(item, 'profileUrl') && (
+              <img src={item.profileUrl} css={profileStyle} alt={`${item.value} profile`} />
+            )}
+
+            <p css={textFieldStyle}>
+              {item.value}
+              {hasKeyInObject(item, 'description') && <span>{item.description}</span>}
+            </p>
+
+            {hasKeyInObject(item, 'svg') && item.svg}
           </Dropdown.Item>
         ))}
       </Dropdown.List>

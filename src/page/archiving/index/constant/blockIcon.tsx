@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-import Accounting from '@/common/asset/svg/accounting.svg?react';
-import Event from '@/common/asset/svg/event.svg?react';
-import Meeting from '@/common/asset/svg/meeting.svg?react';
-import Notice from '@/common/asset/svg/notice.svg?react';
-import Study from '@/common/asset/svg/study.svg?react';
-import Task from '@/common/asset/svg/task.svg?react';
+import Accounting from '@/common/asset/svg/ic_accounting_circle.svg?react';
+import Event from '@/common/asset/svg/ic_event_circle.svg?react';
+import Meeting from '@/common/asset/svg/ic_meeting_circle.svg?react';
+import Notice from '@/common/asset/svg/ic_notice_circle.svg?react';
+import Study from '@/common/asset/svg/ic_study_circle.svg?react';
+import Task from '@/common/asset/svg/ic_task_circle.svg?react';
 
 type BlockIcon = {
   name: string;

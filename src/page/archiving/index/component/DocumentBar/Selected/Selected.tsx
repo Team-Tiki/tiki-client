@@ -6,7 +6,8 @@ import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-import DocumentItem from '@/page/archiving/index/component/DocumentItem/DocumentItem';
+import DocumentItem from '@/page/archiving/index/component/DocumentBar/Item/Item';
+import { blockNameStyle, deleteBtnStyle } from '@/page/archiving/index/component/DocumentBar/Selected/Selected.style';
 import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
 import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
@@ -15,14 +16,12 @@ import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { useOpenModal } from '@/shared/store/modal';
 
-import { blockNameStyle, deleteBtnStyle } from './SelectedBlock.style';
-
-interface DocumentBarInfoProps {
+interface SelectedProps {
   selectedBlock: Block;
   onClose: () => void;
 }
 
-const SelectedBlock = ({ selectedBlock }: DocumentBarInfoProps) => {
+const Selected = ({ selectedBlock }: SelectedProps) => {
   const location = useLocation();
   const teamId = new URLSearchParams(location.search).get('teamId');
 
@@ -69,4 +68,4 @@ const SelectedBlock = ({ selectedBlock }: DocumentBarInfoProps) => {
   );
 };
 
-export default SelectedBlock;
+export default Selected;

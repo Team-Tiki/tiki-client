@@ -1,4 +1,9 @@
 import App from '@/App';
+
+import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
+
+import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
+
 import ArchivingPage from '@/page/archiving/index/ArchivingPage';
 import LandingPage from '@/page/landing/LandingPage';
 import LoginPage from '@/page/login/index/LoginPage';
@@ -7,10 +12,6 @@ import PasswordResetPage from '@/page/login/password/reset/PasswordResetPage';
 import ShowcasePage from '@/page/showcase/index/ShowcasePage';
 import TermPage from '@/page/signUp/index/TermPage';
 import InfoFormPage from '@/page/signUp/info/InfoFormPage';
-
-import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
-
-import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
 import { PATH } from '@/shared/constant/path';
 import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
@@ -67,7 +68,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: PATH.SHOWCASE, element: <ShowcasePage /> },
-      { path: PATH.ARCHIVING, element: <ArchivingPage /> },
+      {
+        path: PATH.ARCHIVING,
+        element: <ArchivingPage />,
+      },
       {
         path: PATH.COMING_SOON,
         element: <ComingsoonPage />,

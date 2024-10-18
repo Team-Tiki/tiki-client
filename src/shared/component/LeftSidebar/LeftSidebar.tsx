@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import addUrl from '@/common/asset/svg/add_2.svg';
-import LeftArrow from '@/common/asset/svg/arrow-left.svg?react';
-import RightArrow from '@/common/asset/svg/arrow-right.svg?react';
-import earthUrl from '@/common/asset/svg/global_2.svg';
-import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
+import addUrl from '@/common/asset/svg/ic_add.svg';
+import earthUrl from '@/common/asset/svg/ic_global.svg';
+import LeftArrow from '@/common/asset/svg/ic_left_sm.svg?react';
 import Logout from '@/common/asset/svg/ic_logout.svg?react';
 import PWResetting from '@/common/asset/svg/ic_password_reset.svg?react';
+import RightArrow from '@/common/asset/svg/ic_right_sm.svg?react';
 import settingUrl from '@/common/asset/svg/ic_setting.svg';
+import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
 import DEFAULT_LOGO from '@/common/asset/svg/teamprofile_2.svg';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';

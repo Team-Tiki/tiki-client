@@ -1,14 +1,14 @@
-import {
-  boxStyle,
-  buttonStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd.style';
-import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
-
 import { Dispatch, SetStateAction } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
+
+import {
+  boxStyle,
+  buttonStyle,
+} from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd.style';
+import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 

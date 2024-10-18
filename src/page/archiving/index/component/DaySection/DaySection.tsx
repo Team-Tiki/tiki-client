@@ -1,15 +1,15 @@
+import { memo } from 'react';
+
+import Circle from '@/common/asset/svg/ic_circle.svg?react';
+import Flex from '@/common/component/Flex/Flex';
+import { theme } from '@/common/style/theme/theme';
+
 import {
   dayHeaderStyle,
   dayStyle,
   selectedDayStyle,
 } from '@/page/archiving/index/component/DaySection/DaySection.style';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
-
-import { memo } from 'react';
-
-import Circle from '@/common/asset/svg/circle.svg?react';
-import Flex from '@/common/component/Flex/Flex';
-import { theme } from '@/common/style/theme/theme';
 
 interface DaySectionProps {
   endDay: Date;
@@ -27,7 +27,7 @@ const DottedDayLine = () => {
 
         zIndex: theme.zIndex.overlayMiddle,
 
-        borderLeft: `1px dashed ${theme.colors.blue_900}`,
+        borderLeft: `1px dashed ${theme.colors.key_500}`,
 
         pointerEvents: 'none',
       }}
@@ -36,7 +36,7 @@ const DottedDayLine = () => {
 };
 
 const DaySection = memo(({ endDay }: DaySectionProps) => {
-  const { currentDate, currentYear, selectedMonthString } = useDate();
+  const { currentDate, currentYear, selectedMonth } = useDate();
 
   return (
     <>
@@ -45,10 +45,10 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
         const isToday =
           day + 1 === currentDate.getDate() &&
           currentYear === currentDate.getFullYear() &&
-          selectedMonthString === `${currentDate.getMonth() + 1}월`;
+          selectedMonth === `${currentDate.getMonth() + 1}월`;
 
         return (
-          <Flex css={dayStyle(isEven, isToday)}>
+          <Flex css={dayStyle(isEven, isToday)} key={day}>
             <Flex css={dayHeaderStyle(isToday)}>{day + 1}</Flex>
             {isToday && (
               <>

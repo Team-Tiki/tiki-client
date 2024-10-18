@@ -1,5 +1,6 @@
-import TermPage from '@/page/signUp/index/TermPage';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import TermPage from '@/page/signUp/index/TermPage';
 
 const meta = {
   title: 'page/signUp/TermPage',

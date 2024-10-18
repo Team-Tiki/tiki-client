@@ -1,5 +1,6 @@
-import Overview from '@/page/landing/component/Overview/Overview';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import Overview from '@/page/landing/component/Overview/Overview';
 
 const meta = {
   title: 'page/Landing/Overview',

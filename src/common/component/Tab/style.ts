@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-import { theme } from '@/common/style/theme/theme';
 import { TabProps } from '@/common/component/Tab/TabButton';
+import { theme } from '@/common/style/theme/theme';
 
 export const tabListStyle = css({
   display: 'flex',
@@ -27,7 +27,7 @@ export const tabVariantStyle = (variant: Required<TabProps>['variant']) => {
 
       padding: '1.6rem 2rem',
 
-      font: `${theme.text.body04}`,
+      ...theme.text.body04,
       fontWeight: 500,
 
       border: 'none',
@@ -43,7 +43,7 @@ export const tabActiveStyle = (isSelected: boolean, variant: Required<TabProps>[
       ? css({
           backgroundColor: theme.colors.white,
 
-          color: theme.colors.blue_900,
+          color: theme.colors.key_500,
           fontWeight: '600',
 
           pointerEvents: 'none',

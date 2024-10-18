@@ -1,5 +1,6 @@
-import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 
 const meta = {
   title: 'Page/Archiving/MonthHeader',

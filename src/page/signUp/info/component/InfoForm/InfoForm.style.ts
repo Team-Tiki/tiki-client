@@ -27,7 +27,7 @@ export const selectTriggerStyle = (isError: boolean) =>
     padding: '1.2rem',
 
     border: 'none',
-    borderBottom: `1px solid ${isError ? theme.colors.red : theme.colors.gray_400}`,
+    borderBottom: `1px solid ${isError ? theme.colors.sementic_red : theme.colors.gray_400}`,
     backgroundColor: 'transparent',
     color: theme.colors.gray_500,
 
@@ -42,7 +42,7 @@ export const selectTriggerStyle = (isError: boolean) =>
     '&:focus': {
       outline: 'none',
 
-      borderColor: theme.colors.blue_900,
+      borderColor: theme.colors.key_600,
     },
   });
 
@@ -57,6 +57,6 @@ export const timeStyle = css({
   bottom: '1rem',
   right: '12.5rem',
 
-  color: theme.colors.blue_900,
+  color: theme.colors.key_600,
   ...theme.text.body04,
 });

@@ -13,7 +13,7 @@ export const containerStyle = css({
 
   padding: '14rem 0',
 
-  backgroundColor: theme.colors.blue_900,
+  backgroundColor: theme.colors.key_500,
 
   textAlign: 'center',
 
