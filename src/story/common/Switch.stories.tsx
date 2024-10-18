@@ -30,6 +30,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  render: () => {
+    const [status, setStatus] = useState<'left' | 'right'>('left');
+    return <Switch status={status} LeftIcon={List} RightIcon={Grid} onSwitchChange={setStatus} />;
+  },
   args: {
     status: 'left',
     isChecked: true,
