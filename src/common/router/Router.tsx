@@ -1,21 +1,13 @@
 import App from '@/App';
 
+import { lazy } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
-import ArchivingPage from '@/page/archiving/index/ArchivingPage';
-import LandingPage from '@/page/landing/LandingPage';
-import LoginPage from '@/page/login/index/LoginPage';
-import PasswordAuthPage from '@/page/login/password/auth/PasswordAuthPage';
-import PasswordResetPage from '@/page/login/password/reset/PasswordResetPage';
-import ShowcasePage from '@/page/showcase/index/ShowcasePage';
-import TermPage from '@/page/signUp/index/TermPage';
 import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
 import { PATH } from '@/shared/constant/path';
-import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
-import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const Public = () => {
   const navigate = useNavigate();
@@ -28,6 +20,16 @@ const Public = () => {
     </ErrorBoundary>
   );
 };
+
+const LandingPage = lazy(() => import('@/page/landing/LandingPage'));
+const LoginPage = lazy(() => import('@/page/login/index/LoginPage'));
+const TermPage = lazy(() => import('@/page/signUp/index/TermPage'));
+const PasswordAuthPage = lazy(() => import('@/page/login/password/auth/PasswordAuthPage'));
+const PasswordResetPage = lazy(() => import('@/page/login/password/reset/PasswordResetPage'));
+const ShowcasePage = lazy(() => import('@/page/showcase/index/ShowcasePage'));
+const ArchivingPage = lazy(() => import('@/page/archiving/index/ArchivingPage'));
+const ErrorPage = lazy(() => import('@/shared/page/errorPage/ErrorPage'));
+const ComingsoonPage = lazy(() => import('@/shared/page/comingsoonPage/ComingsoonPage'));
 
 const router = createBrowserRouter([
   {
