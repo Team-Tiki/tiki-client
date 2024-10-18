@@ -90,7 +90,7 @@ const LandingPage = () => {
         </div>
         <div css={firstImgWrapperStyle}>
           <picture>
-            <source srcSet={firstView} css={viewImgStyle} />
+            <source srcSet={firstView} type="image/webp" css={viewImgStyle} />
             <img css={viewImgStyle} src={firstViewPng} alt="서비스 뷰 1" />
           </picture>
         </div>
@@ -116,7 +116,7 @@ const LandingPage = () => {
 
         <div css={secondImgWrapperStyle}>
           <picture>
-            <source srcSet={secondView} />
+            <source type="image/webp" srcSet={secondView} />
             <img css={[viewImgStyle, { marginLeft: 'calc(100vw - 100%)' }]} src={secondViewPng} alt="서비스 뷰 2" />
           </picture>
         </div>
