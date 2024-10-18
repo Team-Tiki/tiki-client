@@ -6,7 +6,7 @@ import SupportingText from '@/common/component/SupportingText/SupportingText';
 
 type InputVariant = 'default' | 'search' | 'date';
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: InputVariant;
   label?: string;
   filled?: boolean;

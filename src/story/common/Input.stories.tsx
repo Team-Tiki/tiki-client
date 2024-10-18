@@ -75,13 +75,16 @@ export const Filled: Story = {
   },
 };
 
-export const Error: Story = {
+export const SupportingText: Story = {
   args: {
-    isError: true,
+    supportingText: 'ddd',
   },
   argTypes: {
+    isSuccess: {
+      control: { type: 'boolean' },
+    },
     isError: {
-      control: false,
+      control: { type: 'boolean' },
     },
   },
 };
