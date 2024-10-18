@@ -4,7 +4,7 @@ import { theme } from '@/common/style/theme/theme';
 
 export const deleteStyle = css({
   '&:hover': {
-    backgroundColor: theme.colors.blue_300,
+    backgroundColor: theme.colors.key_200,
   },
 
   width: '15.8rem',

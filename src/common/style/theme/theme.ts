@@ -1,29 +1,36 @@
 const colors = {
-  black: '#2C3030',
+  black: '#0E121B',
   black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%)',
   dimmed: 'rgba(0, 0, 0, 0.40)',
+  gray_900: '#323A4C',
   gray_800: '#525866',
   gray_700: '#6B6B6B',
-  gray_600: '#909090',
   gray_500: '#99A1B2',
-  gray_400: '#CDCDCD',
-  gray_300: '#D6D5D5',
-  gray_200: '#DFE1E8',
-  gray_100: '#F5F5F8',
+  gray_400: '#CCD1DD',
+  gray_300: '#DFE1E8',
+  gray_200: '#ECECF1',
+  gray_100: '#F8F8FB',
   white: '#FFFFFF',
-  blue_900: '#353F9B',
-  blue_700: '#4952A5',
-  blue_300: '#7279B9',
-  blue_200: '#D7D9EB',
-  blue_100: '#EDF0FD',
-  error: '#FE4F60',
-  success: '#1FC16B',
-  purple: '#D39EF7',
-  green: '#80E2A7',
-  yellow: '#FFBC5B',
-  orange: '#FD9C7E',
-  pink: '#FC9CD6',
-  blue: '#A1AFF6',
+  key_600: '#444EE4',
+  key_500: '#6D77FF',
+  key_200: '#E3E8FF',
+  key_100: '#F3F5FF',
+  sementic_red: '#FE4F60',
+  sementic_success: '#1FC16B',
+  red_200: '#EB736D',
+  red_100: '#FFE6E8',
+  yellow_200: '#F19234',
+  yellow_100: '#F8E2CB',
+  green_200: '#49B078',
+  green_100: '#C4F2E5',
+  purple_200: '#856ECF',
+  purple_100: '#DCD8FA',
+  blue_200: '#607AD4',
+  blue_100: '#E2E8F8',
+  pink_200: '#F175C0',
+  pink_100: '#F8E1F5',
+  sky_200: '#48ABD2',
+  sky_100: '#D3EFFA',
 };
 
 export type ColorsTypes = typeof colors;
@@ -89,8 +96,12 @@ const text = {
     lineHeight: '1.2rem',
   },
   body09: {
+    fontSize: '1.2rem',
+    lineHeight: '1.68rem',
+  },
+  body10: {
     fontSize: '1rem',
-    lineHeight: 'rem',
+    lineHeight: '1rem',
   },
 } as const;
 
@@ -103,7 +114,7 @@ const zIndex = {
 
 const shadow = {
   inset: `inset 0 0 0 1px ${colors.gray_200}`,
-  inset_focus: `inset 0 0 0 1px ${colors.blue_900}`,
+  inset_focus: `inset 0 0 0 1px ${colors.key_500}`,
   shadow01: '0px 2px 8px 0px rgba(99, 99, 99, 0.2)', // 6
   shadow02: '0px 4px 10px rgba(0, 0, 0, 0.1)',
   shadow03: '0px 3px 8px rgba(0, 0, 0, 0.24)', // 5
