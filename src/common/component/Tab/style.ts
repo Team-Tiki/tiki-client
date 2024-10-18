@@ -43,7 +43,7 @@ export const tabActiveStyle = (isSelected: boolean, variant: Required<TabProps>[
       ? css({
           backgroundColor: theme.colors.white,
 
-          color: theme.colors.blue_900,
+          color: theme.colors.key_500,
           fontWeight: '600',
 
           pointerEvents: 'none',

@@ -12,7 +12,7 @@ export const selectButtonStyle = (isOpen: boolean) =>
     padding: '1.2rem',
     marginTop: '2.4rem',
 
-    border: `1px solid ${isOpen ? theme.colors.blue_900 : theme.colors.gray_400}`,
+    border: `1px solid ${isOpen ? theme.colors.key_500 : theme.colors.gray_400}`,
     borderRadius: '8px',
 
     backgroundColor: 'white',

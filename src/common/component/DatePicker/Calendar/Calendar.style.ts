@@ -18,7 +18,7 @@ export const containerStyle = css({
 export const dayStyle = css({
   padding: '0.8rem 0',
 
-  color: theme.colors.blue_900,
+  color: theme.colors.key_500,
 
   fontWeight: 700,
 });
@@ -44,7 +44,7 @@ export const outOfMonthStyle = css({
 });
 
 export const selectedDateStyle = css({
-  backgroundColor: theme.colors.blue_300,
+  backgroundColor: theme.colors.key_200,
   color: theme.colors.white,
 });
 

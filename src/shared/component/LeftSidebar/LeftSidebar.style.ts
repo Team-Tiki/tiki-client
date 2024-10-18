@@ -18,7 +18,7 @@ export const containerStyle = () =>
     padding: '2.4rem 2rem 2rem 0',
 
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
-    backgroundColor: theme.colors.blue_900,
+    backgroundColor: theme.colors.key_500,
 
     color: theme.colors.white,
 
@@ -37,7 +37,7 @@ export const tikiLogoStyle = css({
   margin: '0 0 2.4rem 2rem',
 
   borderRadius: '10px',
-  color: theme.colors.blue_900,
+  color: theme.colors.key_500,
 
   cursor: 'pointer',
 });

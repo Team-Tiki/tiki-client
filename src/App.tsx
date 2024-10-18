@@ -70,7 +70,7 @@ const layoutStyle = css({
 const containerStyle = css({
   padding: '0.4rem 0.4rem 0.4rem 8.9rem ',
 
-  backgroundColor: theme.colors.blue_900,
+  backgroundColor: theme.colors.white,
 });
 
 export default App;
