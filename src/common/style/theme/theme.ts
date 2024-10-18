@@ -26,6 +26,7 @@ const colors = {
   purple_200: '#856ECF',
   purple_100: '#DCD8FA',
   blue_200: '#607AD4',
+  blue_100: '#E2E8F8',
   pink_200: '#F175C0',
   pink_100: '#F8E1F5',
   sky_200: '#48ABD2',
