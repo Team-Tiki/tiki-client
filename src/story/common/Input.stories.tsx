@@ -14,10 +14,6 @@ const meta = {
       control: { type: 'radio' },
       options: ['default', 'text'],
     },
-    size: {
-      control: { type: 'radio' },
-      options: ['large', 'medium', 'small'],
-    },
     label: {
       control: { type: 'text' },
     },
@@ -27,7 +23,6 @@ const meta = {
   },
   args: {
     variant: 'default',
-    size: 'medium',
     label: '라벨입니다.',
     placeholder: '입력해주세요.',
   },
@@ -35,31 +30,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-export const Sizes: Story = {
-  render: ({ variant, isError, placeholder }) => (
-    <ul>
-      <li>
-        <h6>Large</h6>
-        <Input size="large" variant={variant} isError={isError} placeholder={placeholder} />
-      </li>
-      <li>
-        <h6>Medium</h6>
-        <Input size="medium" variant={variant} isError={isError} placeholder={placeholder} />
-      </li>
-      <li>
-        <h6>Small</h6>
-        <Input size="small" variant={variant} isError={isError} placeholder={placeholder} />
-      </li>
-    </ul>
-  ),
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
-
 export const Default: Story = {
   args: {
     variant: 'default',
@@ -71,9 +41,9 @@ export const Default: Story = {
   },
 };
 
-export const Underline: Story = {
+export const Search: Story = {
   args: {
-    variant: 'underline',
+    variant: 'search',
   },
   argTypes: {
     variant: {
@@ -82,12 +52,24 @@ export const Underline: Story = {
   },
 };
 
-export const Colored: Story = {
+export const Date: Story = {
   args: {
-    variant: 'colored',
+    variant: 'date',
   },
   argTypes: {
     variant: {
+      control: false,
+    },
+  },
+};
+
+export const Filled: Story = {
+  args: {
+    variant: 'search',
+    filled: true,
+  },
+  argTypes: {
+    filled: {
       control: false,
     },
   },
