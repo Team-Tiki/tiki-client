@@ -10,13 +10,10 @@ export const containerStyle = css({
   gap: '0.2rem',
 
   width: '100%',
-});
 
-export const inputSupportStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-
-  gap: '0.8rem',
+  '&>label': {
+    margin: '0 0 1rem',
+  },
 });
 
 export const inputStyle = css({
@@ -63,7 +60,6 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isFilled:
         backgroundImage: `url(src/common/asset/svg/ic_search.svg)`,
       },
     },
-    date: {},
   };
 
   return { ...defaultStyle, ...style[variant] };

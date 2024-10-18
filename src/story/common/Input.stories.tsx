@@ -52,32 +52,9 @@ export const Search: Story = {
   },
 };
 
-export const Date: Story = {
-  args: {
-    variant: 'date',
-  },
-  argTypes: {
-    variant: {
-      control: false,
-    },
-  },
-};
-
-export const Filled: Story = {
-  args: {
-    variant: 'search',
-    filled: true,
-  },
-  argTypes: {
-    filled: {
-      control: false,
-    },
-  },
-};
-
 export const SupportingText: Story = {
   args: {
-    supportingText: 'ddd',
+    supportingText: 'this is supporingText',
   },
   argTypes: {
     isSuccess: {

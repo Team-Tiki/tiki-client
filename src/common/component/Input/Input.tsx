@@ -4,7 +4,7 @@ import { containerStyle, inputStyle, variantStyle } from '@/common/component/Inp
 import Label from '@/common/component/Label/Label';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
-type InputVariant = 'default' | 'search' | 'date';
+type InputVariant = 'default' | 'search';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: InputVariant;
