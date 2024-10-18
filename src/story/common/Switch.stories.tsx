@@ -8,7 +8,7 @@ import ListChecked from '@/common/asset/svg/ic_list_checked.svg?react';
 import Switch from '@/common/component/Switch/Switch';
 
 const meta = {
-  title: 'Shared/Switch',
+  title: 'Common/Switch',
   component: Switch,
   parameters: {
     layout: 'centered',

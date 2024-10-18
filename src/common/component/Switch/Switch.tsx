@@ -6,20 +6,22 @@ export interface SwitchProps extends Omit<ComponentPropsWithRef<'div'>, 'onClick
   status: 'left' | 'right';
   isChecked?: boolean;
   LeftIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  ClickedLeftIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
   RightIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  ClickedRightIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
   onSwitchChange: (status: 'left' | 'right') => void;
+
+  ///SVG의 stroke 색상 변경 시 사용하는 클릭된 상태의 아이콘
+  ClickedLeftIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
+  ClickedRightIcon?: FunctionComponent<SVGProps<SVGSVGElement>>;
 }
 
 const Switch = ({
   status = 'left',
   isChecked = true,
   LeftIcon,
-  ClickedLeftIcon = LeftIcon,
-  RightIcon,
-  ClickedRightIcon = RightIcon,
   onSwitchChange,
+  RightIcon,
+  ClickedLeftIcon = LeftIcon,
+  ClickedRightIcon = RightIcon,
 }: SwitchProps) => {
   return (
     <div role="switch" aria-checked={status === 'left'} css={containerStyle}>
