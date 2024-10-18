@@ -1,7 +1,8 @@
-import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { theme } from '@/common/style/theme/theme';
+
+import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
 
 const meta = {
   title: 'Page/Archiving/TimeBlock',

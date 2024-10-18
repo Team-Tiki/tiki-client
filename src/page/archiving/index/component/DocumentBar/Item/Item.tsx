@@ -21,7 +21,6 @@ interface ItemProps {
   fileName: string;
 }
 
-
 const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

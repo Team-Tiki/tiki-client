@@ -1,6 +1,6 @@
-import { buttonStyle } from '@/page/showcase/index/component/CategoryChip/CategoryChip.style';
-
 import { ButtonHTMLAttributes } from 'react';
+
+import { buttonStyle } from '@/page/showcase/index/component/CategoryChip/CategoryChip.style';
 
 interface CategoryChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;

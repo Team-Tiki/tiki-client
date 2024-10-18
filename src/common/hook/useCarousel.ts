@@ -83,7 +83,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
 
       return () => clearInterval(interval);
     }
-  }, [autoLoop, length, isContainerHover]);
+  }, [autoLoop, autoLoopDelay, length, isContainerHover]);
 
   return {
     currentIndex,
