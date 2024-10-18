@@ -32,6 +32,17 @@ export default defineConfig(({ mode }) => {
 
     build: {
       sourcemap: true,
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.indexOf('node_modules') !== -1) {
+              const module = id.split('node_modules/').pop()?.split('/')[0];
+
+              if (module) return `vendor/${module}`;
+            }
+          },
+        },
+      },
     },
   };
 });
