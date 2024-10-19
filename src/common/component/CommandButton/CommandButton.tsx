@@ -10,8 +10,8 @@ import {
   keyStyle,
 } from '@/common/component/CommandButton/CommandButton.style';
 
-interface CommandButtonProps extends Omit<ButtonProps, 'variant'> {
-  variant?: 'primary' | 'tertiary' | 'outline';
+interface CommandButtonProps extends ButtonProps {
+  variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'outline'>;
   keyboard: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;
