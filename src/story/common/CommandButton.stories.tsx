@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Icon from '@/common/asset/svg/ic_check.svg?react';
-import Button, { ButtonProps } from '@/common/component/Button/Button';
+import CommandButton from '@/common/component/CommandButton/CommandButton';
 
 const meta = {
-  title: 'Common/Button',
-  component: Button,
+  title: 'Common/CommandButton',
+  component: CommandButton,
   parameters: {
     layout: 'centered',
   },
@@ -13,11 +13,21 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'radio' },
-      options: ['primary', 'secondary', 'tertiary', 'outline', 'underline'],
+      options: ['primary', 'tertiary', 'outline'],
     },
     size: {
       control: { type: 'radio' },
       options: ['large', 'medium', 'small'],
+    },
+    commandKey: {
+      control: {
+        type: 'text',
+      },
+    },
+    isCommand: {
+      control: {
+        type: 'boolean',
+      },
     },
     children: {
       control: { type: 'text' },
@@ -32,31 +42,28 @@ const meta = {
     children: 'Button',
     disabled: false,
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof CommandButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const createButtonStory = (variant: ButtonProps['variant']) => ({
+const createCommandButtonStory = (commandKey: string, variant: 'primary' | 'tertiary' | 'outline'): Story => ({
   args: {
     variant,
+    commandKey,
   },
-  argsType: {
+  argTypes: {
     variant: {
-      control: false,
+      control: 'radio',
     },
   },
 });
 
-export const Primary: Story = createButtonStory('primary');
+export const Primary: Story = createCommandButtonStory('T', 'primary');
 
-export const Secondary: Story = createButtonStory('secondary');
+export const Tertiary: Story = createCommandButtonStory('T', 'tertiary');
 
-export const Tertiary: Story = createButtonStory('tertiary');
-
-export const Outline: Story = createButtonStory('outline');
-
-export const Underline: Story = createButtonStory('underline');
+export const Outline: Story = createCommandButtonStory('T', 'outline');
 
 export const WithIcon: Story = {
   args: {
@@ -67,5 +74,6 @@ export const WithIcon: Story = {
         Icon
       </>
     ),
+    commandKey: 'T',
   },
 };
