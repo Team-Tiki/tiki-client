@@ -27,7 +27,7 @@ const DottedDayLine = () => {
 
         zIndex: theme.zIndex.overlayMiddle,
 
-        borderLeft: `1px dashed ${theme.colors.blue_900}`,
+        borderLeft: `1px dashed ${theme.colors.key_500}`,
 
         pointerEvents: 'none',
       }}
@@ -36,7 +36,7 @@ const DottedDayLine = () => {
 };
 
 const DaySection = memo(({ endDay }: DaySectionProps) => {
-  const { currentDate, currentYear, selectedMonthString } = useDate();
+  const { currentDate, currentYear, selectedMonth } = useDate();
 
   return (
     <>
@@ -45,7 +45,7 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
         const isToday =
           day + 1 === currentDate.getDate() &&
           currentYear === currentDate.getFullYear() &&
-          selectedMonthString === `${currentDate.getMonth() + 1}월`;
+          selectedMonth === `${currentDate.getMonth() + 1}월`;
 
         return (
           <Flex css={dayStyle(isEven, isToday)} key={day}>

@@ -1,18 +1,14 @@
-import { formStyle, identifyStyle, timeStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
-import UnivSelectTriggerButton from '@/page/signUp/info/component/UnivSelectTriggerButton/Button';
-import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
-import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
-import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
-import { formatTime } from '@/page/signUp/info/util/formatTime';
-
-import ArrowDown from '@/common/asset/svg/ic_down.svg?react';
-import ArrowUp from '@/common/asset/svg/ic_up.svg?react';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick } from '@/common/hook';
+
+import { formStyle, identifyStyle, timeStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
+import { useSendMailMutation } from '@/page/signUp/info/hook/api/useSendMailMutation';
+import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
+import { useTimer } from '@/page/signUp/info/hook/common/useTimer';
+import { formatTime } from '@/page/signUp/info/util/formatTime';
 
 import {
   AUTHCODE_MAXLENGTH,
@@ -34,13 +30,14 @@ const InfoForm = () => {
     verityCodeMutate,
     isVerified,
     isSelectOpen,
-    onSelectOpen,
     onSelectClose,
     onSelectToggle,
     error,
   } = useInfoForm();
 
   const ref = useOutsideClick(onSelectClose);
+
+  console.log(info);
 
   const {
     remainTime,
@@ -72,6 +69,14 @@ const InfoForm = () => {
     sendMailMutate();
   };
 
+  const univOptions = [
+    { value: '인하대학교' },
+    { value: '건국대학교' },
+    { value: '숙명여자대학교' },
+    { value: '시립대학교' },
+    { value: '중앙대학교' },
+  ];
+
   return (
     <form css={formStyle} onSubmit={handleSubmit}>
       <Flex styles={{ direction: 'column', gap: '3.2rem' }}>
@@ -97,15 +102,12 @@ const InfoForm = () => {
           css={{ width: '100%' }}
           ref={ref}
           label="학교"
+          placeholder="소속 학교 선택"
+          variant="underline"
+          onTrigger={onSelectToggle}
           onSelect={handleUnivSelect}
           isOpen={isSelectOpen}
-          trigger={
-            <UnivSelectTriggerButton onOpen={onSelectOpen} isError={Boolean(error.univ)} onSelectClick={onSelectToggle}>
-              {info.univ || PLACEHOLDER.SCHOOL}
-              {isSelectOpen ? <ArrowUp /> : <ArrowDown />}
-            </UnivSelectTriggerButton>
-          }
-          options={['인하대학교', '건국대학교', '숙명여자대학교', '시립대학교', '중앙대학교']}
+          options={univOptions}
         />
 
         <Flex styles={{ align: 'end', justify: 'space-between', width: '100%', gap: '0.8rem' }}>

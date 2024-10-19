@@ -14,7 +14,8 @@ export const listStyle = css({
   position: 'absolute',
   top: '100%',
 
-  width: '100%',
+  minWidth: '100%',
+  width: 'max-content',
 
   zIndex: theme.zIndex.overlayHigh,
 
@@ -22,7 +23,5 @@ export const listStyle = css({
 });
 
 export const itemStyle = css({
-  textAlign: 'center',
-
   cursor: 'pointer',
 });

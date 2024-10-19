@@ -1,5 +1,6 @@
-import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import ClubProfileCard from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard';
 
 const meta = {
   title: 'page/showcase/ClubProfileCard',
