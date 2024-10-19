@@ -10,7 +10,6 @@ interface DatePickerCalendarProps {
   endDate: Date | null;
   setSelectedDate: (date: Date) => void;
   variant: 'single' | 'range';
-  isOpen: boolean;
 }
 
 const DatePickerCalendar = ({ selectedDate, endDate, setSelectedDate, variant }: DatePickerCalendarProps) => {

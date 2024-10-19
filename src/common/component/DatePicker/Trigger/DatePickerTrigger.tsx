@@ -16,7 +16,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width = '10.3rem', 
       <Input
         variant="default"
         size="large"
-        value={selectedDate ? format(selectedDate, 'yyyy.MM.dd') : ''}
+        value={selectedDate ? format(selectedDate, 'yyyy. MM. dd') : ''}
         placeholder="YYYY.MM.DD"
         readOnly
         onClick={onClick}
@@ -26,7 +26,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width = '10.3rem', 
         <Input
           variant="default"
           size="large"
-          value={endDate ? format(endDate, 'yyyy.MM.dd') : ''}
+          value={endDate ? format(endDate, 'yyyy. MM. dd') : ''}
           placeholder="YYYY.MM.DD"
           readOnly
           onClick={onClick}
