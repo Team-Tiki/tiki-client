@@ -6,8 +6,7 @@ interface CachedImageProps extends HTMLAttributes<HTMLImageElement> {
   imageUrl: string;
   width: number;
   height?: number;
-
-  alt?: string;
+  alt: string;
 }
 
 const CachedImage = ({ imageUrl, width, height, alt, ...props }: CachedImageProps) => {

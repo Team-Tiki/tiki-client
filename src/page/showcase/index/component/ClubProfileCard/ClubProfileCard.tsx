@@ -31,7 +31,7 @@ const ClubProfileCard = ({ title, detail, imageUrl, onClick }: ClubProfileCardPr
         }
       }}>
       {imageUrl ? (
-        <CachedImage css={imageStyle} imageUrl={imageUrl} width={300} />
+        <CachedImage css={imageStyle} alt={`${title} 프로필 이미지`} imageUrl={imageUrl} width={300} />
       ) : (
         <img css={imageStyle} src={IcDefault} alt={`${title} 프로필 이미지`} />
       )}
