@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  lottie-react@2.4.0:
+    hash: hj4cfbfhjnk7bdx57qimpkiigm
+    path: patches/lottie-react@2.4.0.patch
+
 importers:
 
   .:
@@ -108,6 +113,9 @@ importers:
       chromatic:
         specifier: ^11.5.4
         version: 11.5.4
+      concurrently:
+        specifier: ^9.0.1
+        version: 9.0.1
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -146,7 +154,7 @@ importers:
         version: 15.7.0
       lottie-react:
         specifier: ^2.4.0
-        version: 2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.4.0(patch_hash=hj4cfbfhjnk7bdx57qimpkiigm)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       msw:
         specifier: ^2.3.1
         version: 2.3.1(typescript@5.5.2)
@@ -2304,6 +2312,11 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
+  concurrently@9.0.1:
+    resolution: {integrity: sha512-wYKvCd/f54sTXJMSfV6Ln/B8UrfLBKOYa+lzc6CHay3Qek+LorVSBdMVfyewFhRbH0Rbabsk4D+3PL/VjQ5gzg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   confbox@0.1.7:
     resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
 
@@ -4034,6 +4047,9 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
+  rxjs@7.8.1:
+    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
+
   safe-array-concat@1.1.2:
     resolution: {integrity: sha512-vj6RsCsWBCf19jIeHEfkRMw8DPiBb+DMXklQ/1SGDHOMlHdPUkZXFQ2YdplS23zESTijAcurb1aSgJA3AgMu1Q==}
     engines: {node: '>=0.4'}
@@ -4094,6 +4110,9 @@ packages:
   shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+
+  shell-quote@1.8.1:
+    resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
 
   side-channel@1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}
@@ -4233,6 +4252,10 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
+  supports-color@8.1.1:
+    resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
+    engines: {node: '>=10'}
+
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
@@ -4291,6 +4314,10 @@ packages:
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+
+  tree-kill@1.2.2:
+    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
+    hasBin: true
 
   ts-api-utils@1.3.0:
     resolution: {integrity: sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==}
@@ -7163,6 +7190,16 @@ snapshots:
 
   concat-map@0.0.1: {}
 
+  concurrently@9.0.1:
+    dependencies:
+      chalk: 4.1.2
+      lodash: 4.17.21
+      rxjs: 7.8.1
+      shell-quote: 1.8.1
+      supports-color: 8.1.1
+      tree-kill: 1.2.2
+      yargs: 17.7.2
+
   confbox@0.1.7: {}
 
   consola@3.2.3: {}
@@ -8394,7 +8431,7 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lottie-react@2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  lottie-react@2.4.0(patch_hash=hj4cfbfhjnk7bdx57qimpkiigm)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       lottie-web: 5.12.2
       react: 18.3.1
@@ -9085,6 +9122,10 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
+  rxjs@7.8.1:
+    dependencies:
+      tslib: 2.6.3
+
   safe-array-concat@1.1.2:
     dependencies:
       call-bind: 1.0.7
@@ -9166,6 +9207,8 @@ snapshots:
       shebang-regex: 3.0.0
 
   shebang-regex@3.0.0: {}
+
+  shell-quote@1.8.1: {}
 
   side-channel@1.0.6:
     dependencies:
@@ -9337,6 +9380,10 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
+  supports-color@8.1.1:
+    dependencies:
+      has-flag: 4.0.0
+
   supports-preserve-symlinks-flag@1.0.0: {}
 
   svg-parser@2.0.4: {}
@@ -9389,6 +9436,8 @@ snapshots:
   toidentifier@1.0.1: {}
 
   tr46@0.0.3: {}
+
+  tree-kill@1.2.2: {}
 
   ts-api-utils@1.3.0(typescript@5.5.2):
     dependencies:

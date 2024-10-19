@@ -30,7 +30,7 @@ export const itemStyle = (variant: Required<SelectProps['variant']>) =>
       borderRadius: '8px',
 
       '&:hover, &:focus': {
-        color: theme.colors.blue_900,
+        color: theme.colors.key_500,
         backgroundColor: theme.colors.blue_100,
       },
     },
@@ -92,7 +92,7 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
     /** underline 있는 select trigger 버튼 */
     variant === 'underline'
       ? {
-          borderBottom: `1px solid ${isSelected ? theme.colors.blue_900 : theme.colors.gray_400}`,
+          borderBottom: `1px solid ${isSelected ? theme.colors.key_500 : theme.colors.gray_400}`,
         }
       : {
           borderRadius: '8px',

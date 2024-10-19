@@ -59,6 +59,6 @@ export const buttonStyle = css({
   borderRadius: '1.4rem',
 
   ':hover': {
-    backgroundColor: theme.colors.blue_300,
+    backgroundColor: theme.colors.key_200,
   },
 });

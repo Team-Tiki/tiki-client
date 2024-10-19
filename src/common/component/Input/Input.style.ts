@@ -43,8 +43,8 @@ export const inputStyle = css({
 });
 
 export const variantStyle = (variant: Required<InputProps>['variant'], isError: boolean) => {
-  const borderColor = isError ? `${theme.colors.error}` : `${theme.colors.gray_400}`;
-  const focusBorderColor = isError ? `${theme.colors.error}` : `${theme.colors.blue_900}`;
+  const borderColor = isError ? `${theme.colors.sementic_red}` : `${theme.colors.gray_400}`;
+  const focusBorderColor = isError ? `${theme.colors.sementic_red}` : `${theme.colors.key_500}`;
 
   const style = {
     default: {
