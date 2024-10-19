@@ -1,27 +1,35 @@
+import DatePickerCalendar from '@/common/component/DatePicker/Calendar/DatePickerCalendar';
+import DatePickerTrigger from '@/common/component/DatePicker/Trigger/DatePickerTrigger';
 import { useDatePicker } from '@/common/hook/useDatePicker';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 import { useOverlay } from '@/common/hook/useOverlay';
 
-import DatePickerCalendar from './Calendar/DatePickerCalendar';
-import DatePickerTrigger from './Trigger/DatePickerTrigger';
-
 interface DatePickerProps {
   variant: 'single' | 'range';
+  triggerWidth?: string;
 }
 
-const DatePicker = ({ variant }: DatePickerProps) => {
+const DatePicker = ({ variant, triggerWidth = '10.3rem' }: DatePickerProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const { selectedDate, endDate, handleSelectDate } = useDatePicker(variant);
+  const { selectedDate, endDate, handleSelectDate, clearDates } = useDatePicker(variant);
+
+  const handleInputClick = () => {
+    // 캘린더가 닫혀 있고, 시작날짜와 종료날짜가 모두 선택된 경우에만 날짜 초기화
+    if (!isOpen && selectedDate && endDate) {
+      clearDates();
+    }
+    toggle();
+  };
 
   return (
     <div ref={ref} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
       <DatePickerTrigger
         selectedDate={selectedDate}
         endDate={endDate}
-        onClick={toggle}
+        onClick={handleInputClick}
         variant={variant}
-        width="10.3rem"
+        width={triggerWidth}
       />
       {isOpen && (
         <DatePickerCalendar

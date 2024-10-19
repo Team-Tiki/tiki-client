@@ -24,9 +24,15 @@ export const useDatePicker = (variant: 'single' | 'range') => {
     }
   };
 
+  const clearDates = () => {
+    setSelectedDate(null);
+    setEndDate(null);
+  };
+
   return {
     selectedDate,
     endDate,
     handleSelectDate,
+    clearDates,
   };
 };

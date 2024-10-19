@@ -1,9 +1,8 @@
 import { containerStyle } from '@/common/component/DatePicker/Calendar/Calendar.style';
+import CalendarDates from '@/common/component/DatePicker/Calendar/Dates/CalendarDates';
+import CalendarDays from '@/common/component/DatePicker/Calendar/Days/CalendarDays';
+import CalendarHeader from '@/common/component/DatePicker/Calendar/Header/CalendarHeader';
 import useCalendar from '@/common/hook/useCalendar';
-
-import CalendarDates from './Dates/CalendarDates';
-import CalendarDays from './Days/CalendarDays';
-import CalendarHeader from './Header/CalendarHeader';
 
 interface DatePickerCalendarProps {
   selectedDate: Date;
