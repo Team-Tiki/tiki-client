@@ -71,10 +71,15 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       color: theme.colors.gray_800,
       backgroundColor: 'transparent',
 
-      textDecoration: 'underline',
-
       '&:hover': {
-        backgroundColor: theme.colors.key_100,
+        textDecoration: 'underline',
+      },
+
+      '&:disabled:not(:focus)': {
+        color: theme.colors.gray_500,
+        backgroundColor: 'transparent',
+
+        textDecoration: 'underline',
       },
     }),
   };
