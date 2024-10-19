@@ -12,7 +12,7 @@ const meta = {
     children: 'Team 1',
     isExpanded: true,
     isClicked: true,
-    logoUrl: 'src/common/asset/svg/add.svg',
+    logoUrl: 'src/common/asset/svg/ic_add_white.svg',
     onClick: () => {},
   },
   argTypes: {
