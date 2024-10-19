@@ -13,7 +13,7 @@
     "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
     "typeCheck": "tsc --noEmit",
     "bundler": "npx vite-bundle-visualizer",
-    "check": "concurrently \"pnpm lint\" \"pnpm typecheck\""
+    "check": "concurrently \"pnpm lint\" \"pnpm typeCheck\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
