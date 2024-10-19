@@ -25,7 +25,11 @@ const CommandButton = ({
   ...props
 }: CommandButtonProps) => {
   return (
-    <button type="button" css={[buttonStyle(isFrontIcon), variantStyle(variant), sizeStyle(size)]} {...props}>
+    <button
+      type="button"
+      css={[buttonStyle(isFrontIcon), variantStyle(variant), sizeStyle(size)]}
+      tabIndex={0}
+      {...props}>
       <span css={childrenStyle}>{children}</span>
       <div css={[commonStyle, keyStyle(variant)]}>
         {isCommand && <CommandKey />}
