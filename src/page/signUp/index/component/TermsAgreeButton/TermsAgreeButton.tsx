@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import Check from '@/common/asset/svg/check.svg?react';
-import CheckActive from '@/common/asset/svg/check_active.svg?react';
+import Check from '@/common/asset/svg/ic_gray_check.svg?react';
+import CheckActive from '@/common/asset/svg/ic_key_check.svg?react';
 
 import { buttonStyle } from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton.style';
 

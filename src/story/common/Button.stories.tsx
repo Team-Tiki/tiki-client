@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Icon from '@/common/asset/svg/check_active.svg?react';
+import Icon from '@/common/asset/svg/ic_key_check.svg?react';
 import Button, { ButtonProps } from '@/common/component/Button/Button';
 
 const meta = {
