@@ -1,9 +1,21 @@
 import App from '@/App';
 
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
+import {
+  ArchivingPage,
+  ComingsoonPage,
+  ErrorPage,
+  InfoFormPage,
+  LandingPage,
+  LoginPage,
+  PasswordAuthPage,
+  PasswordResetPage,
+  ShowcasePage,
+  TermPage,
+} from '@/common/router/lazy';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -18,17 +30,6 @@ const Public = () => {
     </ErrorBoundary>
   );
 };
-
-const LandingPage = lazy(() => import('@/page/landing/LandingPage'));
-const LoginPage = lazy(() => import('@/page/login/index/LoginPage'));
-const TermPage = lazy(() => import('@/page/signUp/index/TermPage'));
-const InfoFormPage = lazy(() => import('@/page/signUp/info/InfoFormPage'));
-const PasswordAuthPage = lazy(() => import('@/page/login/password/auth/PasswordAuthPage'));
-const PasswordResetPage = lazy(() => import('@/page/login/password/reset/PasswordResetPage'));
-const ShowcasePage = lazy(() => import('@/page/showcase/index/ShowcasePage'));
-const ArchivingPage = lazy(() => import('@/page/archiving/index/ArchivingPage'));
-const ErrorPage = lazy(() => import('@/shared/page/errorPage/ErrorPage'));
-const ComingsoonPage = lazy(() => import('@/shared/page/comingsoonPage/ComingsoonPage'));
 
 const router = createBrowserRouter([
   {
