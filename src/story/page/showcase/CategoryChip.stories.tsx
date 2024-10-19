@@ -1,5 +1,6 @@
-import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import CategoryChip from '@/page/showcase/index/component/CategoryChip/CategoryChip';
 
 const meta = {
   title: 'page/showcase/CategoryChip',

@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import ArrowDown from '@/common/asset/svg/ic_arrow_drop_down.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import {
-  arrowStyle,
-  selectButtonStyle,
-  selectedTextStyle,
-} from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory.style';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
@@ -70,23 +64,20 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
       <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem', height: '7.6rem' }} ref={ref}>
+      <div css={{ width: '32rem', marginTop: '2.4rem' }} ref={ref}>
         <Select
           css={{
             '& ul': {
               maxHeight: '25rem',
             },
           }}
+          placeholder="선택"
+          variant="outline"
           isOpen={isOpen}
+          onTrigger={toggle}
           onSelect={handleSelect}
-          options={categoryList}
+          options={categoryList.map((str) => ({ value: str }))}
           className="select-container"
-          trigger={
-            <Button css={selectButtonStyle(isOpen)} onClick={toggle}>
-              <span css={selected ? selectedTextStyle : null}>{selected || '선택'}</span>
-              <ArrowDown css={arrowStyle(isOpen)} />
-            </Button>
-          }
         />
       </div>
       <Button

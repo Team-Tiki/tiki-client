@@ -17,8 +17,6 @@ interface WorkSpaceNameProps {
 }
 
 const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
-  if (!isVisible) return null;
-
   const [inputValue, setInputValue] = useState('');
   const { setFormData, nextStep } = useWorkSpaceContext();
 
@@ -32,6 +30,8 @@ const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
+
+  if (!isVisible) return null;
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>

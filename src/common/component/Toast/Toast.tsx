@@ -2,8 +2,8 @@
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import Caution from '@/common/asset/svg/caution.svg?react';
-import Success from '@/common/asset/svg/success.svg?react';
+import IcCaution from '@/common/asset/svg/ic_caution.svg?react';
+import IcSuccess from '@/common/asset/svg/ic_success.svg?react';
 import { containerStyle } from '@/common/component/Toast/Toast.style';
 
 import { Timeout } from '@/shared/type/time';
@@ -22,8 +22,8 @@ const Toast = ({ variant, children, showDuration = 3000, onClose, ...props }: To
   const hideRef = useRef<Timeout>();
 
   const Icon = () => {
-    if (variant === 'error') return <Caution />;
-    if (variant === 'success') return <Success />;
+    if (variant === 'error') return <IcCaution />;
+    if (variant === 'success') return <IcSuccess />;
     return null;
   };
 

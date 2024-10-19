@@ -14,16 +14,13 @@ export const containerStyle = () =>
     left: '0',
     zIndex: theme.zIndex.overlayHigh,
 
+    width: '7.6rem',
     height: '100vh',
-    padding: '2.4rem 2rem 2rem 0',
+    padding: '2.4rem 2rem',
 
-    boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
-    backgroundColor: theme.colors.blue_900,
+    backgroundColor: theme.colors.key_500,
 
     color: theme.colors.white,
-
-    transformOrigin: 'left',
-    transitionDuration: '0.5s',
   });
 
 export const tikiLogoStyle = css({
@@ -34,10 +31,10 @@ export const tikiLogoStyle = css({
   width: '4rem',
   height: '4rem',
 
-  margin: '0 0 2.4rem 2rem',
+  marginBottom: '2.4rem',
 
   borderRadius: '10px',
-  color: theme.colors.blue_900,
+  color: theme.colors.key_500,
 
   cursor: 'pointer',
 });
@@ -45,20 +42,9 @@ export const tikiLogoStyle = css({
 export const leftSidebarMenuStyle = css({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
 
   gap: '2.4rem',
-});
-
-export const arrowBtnStyle = css({
-  position: 'absolute',
-
-  top: '3.8rem',
-  right: '0.4rem',
-
-  height: '1.2rem',
-  width: '1.2rem',
-
-  cursor: 'pointer',
 });
 
 export const settingStyle = css({

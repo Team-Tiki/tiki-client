@@ -51,6 +51,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "chromatic": "^11.5.4",
+    "concurrently": "^9.0.1",
     "date-fns": "^3.6.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -74,5 +75,10 @@
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
     "zustand": "^4.5.4"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "lottie-react@2.4.0": "patches/lottie-react@2.4.0.patch"
+    }
   }
 }
