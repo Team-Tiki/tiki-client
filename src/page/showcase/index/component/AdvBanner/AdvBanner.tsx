@@ -40,7 +40,7 @@ const AdvBanner = ({ title, detail, imageUrl, externUrl }: AdvBannerProps) => {
           </Heading>
         </Flex>
 
-        <Button tabIndex={-1} variant="action" onClick={handleLinkMove} css={buttonStyle}>
+        <Button tabIndex={-1} variant="primary" onClick={handleLinkMove} css={buttonStyle}>
           링크 바로가기
         </Button>
       </Flex>

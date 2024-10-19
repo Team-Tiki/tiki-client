@@ -1,10 +1,9 @@
-import { Children, MouseEvent, MutableRefObject, PropsWithChildren, createContext, useState } from 'react';
+import { Children, MouseEvent, MutableRefObject, PropsWithChildren, createContext } from 'react';
 
 import Arrow from '@/common/component/Carousel/Arrow';
 import { containerStyle, sliderStyle } from '@/common/component/Carousel/Carousel.style';
 import CarouselItem from '@/common/component/Carousel/CarouselItem';
 import Dots from '@/common/component/Carousel/Dots';
-import { useIntersectionObserver } from '@/common/hook';
 import { useCarousel } from '@/common/hook/useCarousel';
 
 export interface CarouselProps extends PropsWithChildren {
@@ -47,35 +46,17 @@ const Carousel = ({
 
   children,
 }: CarouselProps) => {
-  const [isInView, setIsInView] = useState(true);
-
-  const { currentIndex, itemRef, handleLeft, handleRight, handleMoveTo, handleHover, handleLeave } = useCarousel(
-    Children.count(children),
-    autoLoop,
-    /** 만약 현재 view에 보이지 않는다면, autoLoopDelay를 Infinity로 설정하여 scrollIntoView로 인해 스크롤이 끌어올려지는 것 방지*/
-    isInView ? autoLoopDelay : Infinity
-  );
-
-  const handleObserve = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        setIsInView(false);
-      } else {
-        setIsInView(true);
-      }
-    });
-  };
-  const option = {
-    root: null,
-    threshold: 1,
-  };
-
-  const { targetRef } = useIntersectionObserver<HTMLDivElement>(handleObserve, option);
+  const { containerRef, currentIndex, itemRef, handleLeft, handleRight, handleMoveTo, handleHover, handleLeave } =
+    useCarousel(Children.count(children), autoLoop, autoLoopDelay);
 
   return (
     <CarouselContext.Provider value={{ width, height, currentIndex, itemRef }}>
-      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-      <div ref={targetRef} onMouseOver={handleHover} onMouseLeave={handleLeave} css={containerStyle({ width, height })}>
+      <div
+        ref={containerRef}
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+        onMouseOver={handleHover}
+        onMouseLeave={handleLeave}
+        css={containerStyle({ width, height })}>
         {hasArrows ? (
           renderedLeftArrow && renderedRightArrow ? (
             <>
