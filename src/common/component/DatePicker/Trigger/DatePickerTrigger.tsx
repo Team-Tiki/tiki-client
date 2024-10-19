@@ -1,10 +1,9 @@
 import { format } from 'date-fns';
 
+import { textStyle } from '@/common/component/DatePicker/Trigger/DatePickerTrigger.style';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
-
-import { textStyle } from './DatePickerTrigger.style';
 
 interface DatePickerTriggerProps {
   selectedDate: Date | null;
@@ -19,7 +18,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
     <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem' }}>
       <Input
         variant="default"
-        size="large"
+        size="medium"
         value={selectedDate ? format(selectedDate, 'yyyy.MM.dd') : ''}
         placeholder="YYYY.MM.DD"
         readOnly
@@ -33,7 +32,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
           </Text>
           <Input
             variant="default"
-            size="large"
+            size="medium"
             value={endDate ? format(endDate, 'yyyy.MM.dd') : ''}
             placeholder="YYYY.MM.DD"
             readOnly

@@ -1,4 +1,4 @@
-import { isSameDay, isSameMonth, isWithinInterval } from 'date-fns';
+import { getDay, isSameDay, isSameMonth, isWithinInterval } from 'date-fns';
 
 import {
   dateStyle,
@@ -33,6 +33,10 @@ const CalendarDates = ({
       const isSameStartEndDate = isSelected && isEndDate;
       const isInRange = selectedDate && endDate && isWithinInterval(date, { start: selectedDate, end: endDate });
 
+      const isStartOfWeek = getDay(date) === 0 && isInRange;
+
+      const isEndOfWeek = getDay(date) === 6 && isInRange;
+
       return (
         <div
           role="button"
@@ -45,9 +49,9 @@ const CalendarDates = ({
               ? endDate && selectedDate
                 ? isSameStartEndDate // 시작 날짜와 종료 날짜가 같은 경우
                   ? selectedDateStyle // 중복 선택 시 selectedDateStyle 유지
-                  : isSelected
+                  : isSelected || isStartOfWeek // 선택된 날짜이거나 범위 내의 일요일이면
                     ? selectedStartDateStyle
-                    : isEndDate
+                    : isEndDate || isEndOfWeek // 종료 날짜이거나 범위 내의 토요일이면
                       ? selectedEndDateStyle
                       : isInRange
                         ? rangeDateStyle

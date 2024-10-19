@@ -2,25 +2,17 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-const baseRangeDateStyle = css({
-  margin: '0.3rem 0',
-
-  border: `1px solid ${theme.colors.key_500}`,
+const baseDateStyle = {
   borderTop: `1px solid ${theme.colors.key_500}`,
   borderBottom: `1px solid ${theme.colors.key_500}`,
 
   backgroundColor: theme.colors.key_100,
-});
+};
 
-const baseSelectedDateStyle = css({
+const selectedDateMargins = {
   marginBottom: '0.3rem',
   marginTop: '0.3rem',
-
-  borderTop: `1px solid ${theme.colors.key_500}`,
-  borderBottom: `1px solid ${theme.colors.key_500}`,
-
-  backgroundColor: theme.colors.key_100,
-});
+};
 
 export const containerStyle = css({
   display: 'flex',
@@ -41,13 +33,6 @@ export const containerStyle = css({
   backgroundColor: theme.colors.white,
 });
 
-export const dayStyle = css({
-  padding: '0.8rem 0',
-
-  color: theme.colors.key_600,
-  fontWeight: 700,
-});
-
 export const datesContainerStyle = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(7, 1fr)',
@@ -55,49 +40,53 @@ export const datesContainerStyle = css({
   textAlign: 'center',
 });
 
-export const rangeDateStyle = css([
-  baseRangeDateStyle,
-  {
-    borderLeft: 'none',
-    borderRight: 'none',
-    borderRadius: '0',
-  },
-]);
+// rangeDateStyle에서 직접 정의
+export const rangeDateStyle = css({
+  ...baseDateStyle,
 
-export const selectedStartDateStyle = css([
-  baseSelectedDateStyle,
-  {
-    marginLeft: '0.3rem',
-    marginRight: '0',
+  margin: '0.3rem 0',
+  padding: '0.3rem 0',
 
-    borderLeft: `1px solid ${theme.colors.key_500}`,
-    borderRight: 'none',
+  borderLeft: 'none',
+  borderRight: 'none',
+  borderRadius: '0',
+});
 
-    borderTopLeftRadius: '50%',
-    borderBottomLeftRadius: '50%',
-    borderTopRightRadius: '0',
-    borderBottomRightRadius: '0',
-  },
-]);
+export const selectedStartDateStyle = css({
+  ...selectedDateMargins,
+  ...baseDateStyle,
 
-export const selectedEndDateStyle = css([
-  baseSelectedDateStyle,
-  {
-    marginLeft: '0',
-    marginRight: '0.3rem',
+  marginLeft: '0.3rem',
+  marginRight: '0',
 
-    borderRight: `1px solid ${theme.colors.key_500}`,
-    borderLeft: 'none',
+  paddingRight: '0.3rem',
 
-    borderTopRightRadius: '50%',
-    borderBottomRightRadius: '50%',
-    borderTopLeftRadius: '0',
-    borderBottomLeftRadius: '0',
-  },
-]);
+  borderLeft: `1px solid ${theme.colors.key_500}`,
+  borderRight: 'none',
+  borderTopLeftRadius: '50%',
+  borderBottomLeftRadius: '50%',
+  borderTopRightRadius: '0',
+  borderBottomRightRadius: '0',
+});
+
+export const selectedEndDateStyle = css({
+  ...selectedDateMargins,
+  ...baseDateStyle,
+
+  marginLeft: '0',
+  marginRight: '0.3rem',
+
+  paddingLeft: '0.3rem',
+
+  borderRight: `1px solid ${theme.colors.key_500}`,
+  borderLeft: 'none',
+  borderTopRightRadius: '50%',
+  borderBottomRightRadius: '50%',
+  borderTopLeftRadius: '0',
+  borderBottomLeftRadius: '0',
+});
 
 export const dateStyle = css({
-  justifyContent: 'center',
   alignContent: 'center',
 
   height: '2.6rem',
@@ -107,8 +96,10 @@ export const dateStyle = css({
   borderRadius: '50%',
   border: 'none',
 
-  color: theme.colors.gray_500,
+  color: theme.colors.gray_600,
   cursor: 'pointer',
+  ...theme.text.body08,
+  fontWeight: 500,
 });
 
 export const selectedDateStyle = css({
