@@ -8,11 +8,11 @@ export const buttonStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '0.8rem',
+  gap: '0.4rem',
 
   width: '100%',
 
-  padding: '1.6rem 2rem',
+  padding: '1.6rem 1.4rem',
 
   border: 'none',
   borderRadius: '8px',
@@ -24,8 +24,8 @@ export const buttonStyle = css({
   cursor: 'pointer',
 
   '&:disabled:not(:focus)': {
-    backgroundColor: theme.colors.gray_400,
-    color: theme.colors.white,
+    backgroundColor: theme.colors.gray_100,
+    color: theme.colors.gray_500,
   },
 
   transition: 'all .2s ease-in',
@@ -42,20 +42,40 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       },
     }),
     secondary: css({
-      color: theme.colors.black,
+      color: theme.colors.key_500,
+      backgroundColor: theme.colors.key_100,
+
+      '&:hover': {
+        backgroundColor: theme.colors.key_200,
+      },
+    }),
+    tertiary: css({
+      color: theme.colors.gray_800,
       backgroundColor: theme.colors.gray_100,
 
       '&:hover': {
-        backgroundColor: theme.colors.blue_100,
+        backgroundColor: theme.colors.gray_200,
       },
     }),
-    text: css({
-      backgroundColor: 'transparent',
-      ...theme.text.body04,
+    outline: css({
+      border: `1px solid ${theme.colors.gray_300}`,
+
+      color: theme.colors.gray_800,
+      backgroundColor: theme.colors.white,
+
+      '&:hover': {
+        backgroundColor: theme.colors.gray_100,
+      },
     }),
-    action: css({
-      color: theme.colors.white,
-      // backgroundColor: theme.colors.blue_900,
+    underline: css({
+      color: theme.colors.gray_800,
+      backgroundColor: 'transparent',
+
+      textDecoration: 'underline',
+
+      '&:hover': {
+        backgroundColor: theme.colors.key_100,
+      },
     }),
   };
   return style[variant];
@@ -67,10 +87,10 @@ export const sizeStyle = (size: Required<ButtonProps>['size']) => {
       ...theme.text.body04,
     }),
     medium: css({
-      ...theme.text.body05,
+      ...theme.text.body06,
     }),
     small: css({
-      ...theme.text.body06,
+      ...theme.text.body08,
     }),
   };
   return style[size];
