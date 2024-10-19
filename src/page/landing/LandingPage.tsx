@@ -1,6 +1,7 @@
 import firstViewPng from '@/common/asset/img/landing01.png';
 import firstView from '@/common/asset/img/landing01.webp';
-import { default as secondView, default as secondViewPng } from '@/common/asset/img/service02.webp';
+import secondViewPng from '@/common/asset/img/service02.png';
+import secondView from '@/common/asset/img/service02.webp';
 import Button from '@/common/component/Button/Button';
 import Heading from '@/common/component/Heading/Heading';
 import Text from '@/common/component/Text/Text';
