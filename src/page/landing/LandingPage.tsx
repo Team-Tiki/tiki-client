@@ -65,7 +65,7 @@ const LandingPage = () => {
         <Heading tag="H2" css={{ fontWeight: 500 }}>
           {TEXT.LANDING_SUBTITLE}
         </Heading>
-        <Button onClick={다음페이지로} css={startedButtonStyle} variant="action">
+        <Button onClick={다음페이지로} css={startedButtonStyle}>
           시작하기
         </Button>
         <Indicator
