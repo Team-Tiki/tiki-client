@@ -29,9 +29,9 @@ const CommandButton = ({
   ...props
 }: CommandButtonProps) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
     if (isCommand && e.key === commandKey) {
+      e.preventDefault();
+
       onClick?.(e);
     }
   };
