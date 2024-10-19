@@ -1,17 +1,35 @@
-import Calender from './Calendar';
+import { containerStyle } from '@/common/component/DatePicker/Calendar/Calendar.style';
+import useCalendar from '@/common/hook/useCalendar';
+
+import CalendarDates from './Dates/CalendarDates';
+import CalendarDays from './Days/CalendarDays';
+import CalendarHeader from './Header/CalendarHeader';
 
 interface DatePickerCalendarProps {
-  selectedDate: Date | null;
+  selectedDate: Date;
+  endDate: Date | null;
   setSelectedDate: (date: Date) => void;
+  variant: 'single' | 'range';
   isOpen: boolean;
 }
 
-const DatePickerCalendar = ({ selectedDate, setSelectedDate, isOpen }: DatePickerCalendarProps) => {
-  return isOpen ? (
-    <div style={{ position: 'absolute', top: 'calc(100% + 0.8rem)', left: 0 }}>
-      <Calender selectedDate={selectedDate || new Date()} setSelectedDate={setSelectedDate} />
+const DatePickerCalendar = ({ selectedDate, endDate, setSelectedDate, variant }: DatePickerCalendarProps) => {
+  const { currentMonth, currentMonthAllDates, weekDays, toNextMonth, toPrevMonth } = useCalendar(selectedDate);
+
+  return (
+    <div css={containerStyle}>
+      <CalendarHeader currentMonth={currentMonth} onClickPrev={toPrevMonth} onClickNext={toNextMonth} />
+      <CalendarDays weekDays={weekDays} />
+      <CalendarDates
+        currentMonth={currentMonth}
+        currentMonthAllDates={currentMonthAllDates}
+        selectedDate={selectedDate}
+        endDate={endDate}
+        setSelectedDate={setSelectedDate}
+        variant={variant}
+      />
     </div>
-  ) : null;
+  );
 };
 
 export default DatePickerCalendar;
