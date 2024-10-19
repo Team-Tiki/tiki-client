@@ -34,10 +34,10 @@ export const dateStyle = css({
   justifyContent: 'center',
   alignContent: 'center',
 
-  width: '3.2rem',
-  height: '3.2rem',
+  width: '2.6rem',
+  height: '2.6rem',
 
-  padding: '0.3rem',
+  margin: '0.3rem',
 
   borderRadius: '50%',
   border: 'none',
@@ -47,18 +47,13 @@ export const dateStyle = css({
   cursor: 'pointer',
 });
 
-export const outOfMonthStyle = css({
-  color: theme.colors.gray_300,
-});
-
 export const selectedDateStyle = css({
-  backgroundColor: theme.colors.key_500,
-  color: theme.colors.white,
+  backgroundColor: theme.colors.key_100,
+  border: `1px solid ${theme.colors.key_500}`,
 });
 
 export const hoverDateStyle = css({
   '&:hover, &:focus': {
-    backgroundColor: theme.colors.blue_200,
-    color: theme.colors.white,
+    backgroundColor: theme.colors.gray_100,
   },
 });

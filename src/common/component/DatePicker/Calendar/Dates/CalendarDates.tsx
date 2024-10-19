@@ -4,7 +4,6 @@ import {
   dateStyle,
   datesContainerStyle,
   hoverDateStyle,
-  outOfMonthStyle,
   selectedDateStyle,
 } from '@/common/component/DatePicker/Calendar/Calendar.style';
 
@@ -21,16 +20,15 @@ const CalendarDates = ({ currentMonth, currentMonthAllDates, selectedDate, setSe
       <div
         role="button"
         tabIndex={0}
-        aria-label={`${date.getMonth() + 1}월 ${date.getDate()}일`}
+        aria-label={isSameMonth(currentMonth, date) ? `${date.getMonth() + 1}월 ${date.getDate()}일` : ''}
         key={index}
         css={[
           dateStyle,
-          isSameMonth(currentMonth, date) ? '' : outOfMonthStyle,
-          isSameDay(selectedDate, date) ? selectedDateStyle : hoverDateStyle,
+          isSameMonth(currentMonth, date) ? (isSameDay(selectedDate, date) ? selectedDateStyle : hoverDateStyle) : '', // 해당 달이 아닌 날짜는 스타일을 제거
         ]}
-        onClick={() => setSelectedDate(date)}
-        onKeyDown={(e) => (e.key === 'Enter' ? setSelectedDate(date) : null)}>
-        {date.getDate()}
+        onClick={() => isSameMonth(currentMonth, date) && setSelectedDate(date)}
+        onKeyDown={(e) => (e.key === 'Enter' && isSameMonth(currentMonth, date) ? setSelectedDate(date) : null)}>
+        {isSameMonth(currentMonth, date) ? date.getDate() : ''} {/* 해당 달이 아닌 날짜는 빈 문자열로 처리 */}
       </div>
     ))}
   </div>
