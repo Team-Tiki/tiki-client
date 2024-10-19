@@ -12,7 +12,7 @@ import {
 
 interface CommandButtonProps extends ButtonProps {
   variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'outline'>;
-  keyboard: string;
+  commandKey: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;
   onClick?: (event: SyntheticEvent) => void;
@@ -21,7 +21,7 @@ interface CommandButtonProps extends ButtonProps {
 const CommandButton = ({
   variant = 'primary',
   size = 'small',
-  keyboard,
+  commandKey,
   isCommand = true,
   isFrontIcon = false,
   children,
@@ -31,7 +31,7 @@ const CommandButton = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (isCommand && e.key === keyboard) {
+    if (isCommand && e.key === commandKey) {
       onClick?.(e);
     }
   };
@@ -47,7 +47,7 @@ const CommandButton = ({
       <span css={childrenStyle}>{children}</span>
       <div css={[commonStyle, keyStyle(variant)]}>
         {isCommand && <CommandKey />}
-        {keyboard}
+        {commandKey}
       </div>
     </button>
   );

@@ -19,7 +19,7 @@ const meta = {
       control: { type: 'radio' },
       options: ['large', 'medium', 'small'],
     },
-    keyboard: {
+    commandKey: {
       control: {
         type: 'text',
       },
@@ -47,10 +47,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const createCommandButtonStory = (keyboard: string, variant: 'primary' | 'tertiary' | 'outline'): Story => ({
+const createCommandButtonStory = (commandKey: string, variant: 'primary' | 'tertiary' | 'outline'): Story => ({
   args: {
     variant,
-    keyboard,
+    commandKey,
   },
   argTypes: {
     variant: {
@@ -74,6 +74,6 @@ export const WithIcon: Story = {
         Icon
       </>
     ),
-    keyboard: 'T',
+    commandKey: 'T',
   },
 };
