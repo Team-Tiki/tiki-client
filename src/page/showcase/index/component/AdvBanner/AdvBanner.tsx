@@ -28,7 +28,7 @@ const AdvBanner = ({ title, detail, imageUrl, externUrl }: AdvBannerProps) => {
     <article css={containerStyle}>
       <picture>
         <source css={imgStyle} srcSet={imageUrl} type="image/webp" />
-        <img src={`${pngBasename}.png`} css={imgStyle} />
+        <img src={`${pngBasename}.png`} alt={`${title} 이미지`} css={imgStyle} />
       </picture>
       <Flex styles={{ direction: 'column', width: '24rem', gap: '2.4rem' }}>
         <Flex styles={{ direction: 'column', gap: '0.8rem' }}>

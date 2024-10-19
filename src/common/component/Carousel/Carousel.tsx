@@ -74,6 +74,7 @@ const Carousel = ({
 
   return (
     <CarouselContext.Provider value={{ width, height, currentIndex, itemRef }}>
+      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
       <div ref={targetRef} onMouseOver={handleHover} onMouseLeave={handleLeave} css={containerStyle({ width, height })}>
         {hasArrows ? (
           renderedLeftArrow && renderedRightArrow ? (
