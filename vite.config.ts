@@ -1,6 +1,7 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import { defineConfig, loadEnv } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { PluginOption, defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -10,6 +11,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
+      visualizer({
+        filename: './dist/bundle.html',
+        open: true,
+      }) as PluginOption,
       react({
         jsxImportSource: '@emotion/react',
       }),
@@ -35,11 +40,9 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            if (id.indexOf('node_modules')) {
-              const module = id.split('node_modules/').pop()?.split('/')[0];
-
-              if (module) return `vendor/${module}`;
-            }
+            if (id.includes('date-fns')) return 'date-fns';
+            if (id.includes('axios')) return 'axios';
+            if (id.includes('lodash')) return 'lodash';
           },
         },
       },
