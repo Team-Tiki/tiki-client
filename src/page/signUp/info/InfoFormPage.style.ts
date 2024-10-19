@@ -33,7 +33,7 @@ export const selectTriggerStyle = css({
   },
 
   '&:focus': {
-    borderColor: theme.colors.blue_900,
+    borderColor: theme.colors.key_500,
   },
 });
 
@@ -52,6 +52,6 @@ export const timeStyle = css({
   bottom: '1.5rem',
   right: '20rem',
 
-  color: theme.colors.blue_900,
+  color: theme.colors.key_500,
   ...theme.text.body04,
 });

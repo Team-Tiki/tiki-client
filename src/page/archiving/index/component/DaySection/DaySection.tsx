@@ -27,7 +27,7 @@ const DottedDayLine = () => {
 
         zIndex: theme.zIndex.overlayMiddle,
 
-        borderLeft: `1px dashed ${theme.colors.blue_900}`,
+        borderLeft: `1px dashed ${theme.colors.key_500}`,
 
         pointerEvents: 'none',
       }}

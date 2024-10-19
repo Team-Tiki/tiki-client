@@ -15,6 +15,14 @@ export const containerStyle = css({
   backgroundColor: theme.colors.white,
 });
 
+export const dayStyle = css({
+  padding: '0.8rem 0',
+
+  color: theme.colors.key_600,
+
+  fontWeight: 700,
+});
+
 export const datesContainerStyle = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(7, 1fr)',
@@ -34,7 +42,7 @@ export const dateStyle = css({
   borderRadius: '50%',
   border: 'none',
 
-  color: theme.colors.gray_600,
+  color: theme.colors.gray_500,
 
   cursor: 'pointer',
 });
@@ -44,8 +52,8 @@ export const outOfMonthStyle = css({
 });
 
 export const selectedDateStyle = css({
-  backgroundColor: theme.colors.blue_100,
-  border: `1px solid ${theme.colors.blue_900}`,
+  backgroundColor: theme.colors.key_500,
+  color: theme.colors.white,
 });
 
 export const hoverDateStyle = css({

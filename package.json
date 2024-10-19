@@ -11,8 +11,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
-    "typecheck": "tsc --noEmit",
-    "check": "concurrently \"pnpm lint\" \"pnpm typecheck\""
+    "typeCheck": "tsc --noEmit",
+    "bundler": "npx vite-bundle-visualizer",
+    "check": "concurrently \"pnpm lint\" \"pnpm typeCheck\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -50,6 +51,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "chromatic": "^11.5.4",
+    "concurrently": "^9.0.1",
     "date-fns": "^3.6.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -75,7 +77,10 @@
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
     "zustand": "^4.5.4"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "lottie-react@2.4.0": "patches/lottie-react@2.4.0.patch"
+    }
   }
 }
-
-
