@@ -4,10 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import addUrl from '@/common/asset/svg/ic_add.svg';
 import defaultLogo from '@/common/asset/svg/ic_folder.svg';
 import earthUrl from '@/common/asset/svg/ic_global.svg';
-import LeftArrow from '@/common/asset/svg/ic_left_sm.svg?react';
 import Logout from '@/common/asset/svg/ic_logout.svg?react';
 import PWResetting from '@/common/asset/svg/ic_password_reset.svg?react';
-import RightArrow from '@/common/asset/svg/ic_right_sm.svg?react';
 import settingUrl from '@/common/asset/svg/ic_setting.svg';
 import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
 import Menu from '@/common/component/Menu/Menu';
@@ -16,13 +14,8 @@ import MenuList from '@/common/component/Menu/MenuList/MenuList';
 import { useOverlay } from '@/common/hook';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
-import {
-  arrowBtnStyle,
-  containerStyle,
-  leftSidebarMenuStyle,
-  tikiLogoStyle,
-} from '@/shared/component/LeftSidebar/LeftSidebar.style';
-import LeftSidebarMenuItem from '@/shared/component/LeftSidebar/LeftSidebarItem/LeftSidebarMenuItem';
+import { containerStyle, leftSidebarMenuStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/LeftSidebar.style';
+import LeftSidebarMenuItem from '@/shared/component/SideNavBar/LeftSidebarItem/LeftSidebarMenuItem';
 import { PATH } from '@/shared/constant/path';
 import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useLogout } from '@/shared/hook/common/useLogout';
@@ -33,8 +26,6 @@ const LeftSidebar = () => {
   const { logout } = useLogout();
 
   const openModal = useOpenModal();
-
-  const { isOpen: isNavOpen, close, open } = useOverlay();
 
   const sidebarRef = useOutsideClick(close);
 
@@ -84,16 +75,10 @@ const LeftSidebar = () => {
   return (
     <aside css={containerStyle} ref={sidebarRef}>
       <nav>
-        {isNavOpen ? (
-          <LeftArrow css={arrowBtnStyle} onClick={close} />
-        ) : (
-          <RightArrow css={arrowBtnStyle} onClick={open} />
-        )}
         <TikiLogo css={tikiLogoStyle} />
         <ul css={leftSidebarMenuStyle}>
           <LeftSidebarMenuItem
             isClicked={selectedId === 'showcase'}
-            isExpanded={isNavOpen}
             logoUrl={earthUrl}
             onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
             Showcase
@@ -103,30 +88,20 @@ const LeftSidebar = () => {
               <LeftSidebarMenuItem
                 key={data.id}
                 isClicked={selectedId === String(data.id)}
-                isExpanded={isNavOpen}
                 logoUrl={data.iconImageUrl ? data.iconImageUrl : defaultLogo}
                 onClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}>
                 {data.name}
               </LeftSidebarMenuItem>
             );
           })}
-          <LeftSidebarMenuItem isClicked={false} isExpanded={isNavOpen} logoUrl={addUrl} onClick={handleWorkspaceClick}>
-            워크스페이스 생성
-          </LeftSidebarMenuItem>
+          <LeftSidebarMenuItem isClicked={false} logoUrl={addUrl} onClick={handleWorkspaceClick} />
         </ul>
       </nav>
 
       <Menu onClose={onSettingClose}>
-        <LeftSidebarMenuItem
-          isClicked={false}
-          isExpanded={isNavOpen}
-          logoUrl={settingUrl}
-          onClick={() => {
-            toggle();
-            close();
-          }}>
-          환경설정
-        </LeftSidebarMenuItem>
+        <button onClick={toggle} css={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+          <img src={settingUrl} alt="환경 설정" />
+        </button>
         <MenuList variant="primary" isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
           <MenuItem
             onSelect={() => {
