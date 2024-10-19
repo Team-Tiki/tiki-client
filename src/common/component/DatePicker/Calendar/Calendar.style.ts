@@ -5,22 +5,14 @@ import { theme } from '@/common/style/theme/theme';
 export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.8rem',
+  gap: '1.6rem',
 
-  padding: '2rem',
+  padding: '1.6rem',
 
-  border: `2px solid ${theme.colors.blue_200}`,
-  borderRadius: '10px',
+  border: `1px solid ${theme.colors.gray_300}`,
+  borderRadius: '8px',
 
   backgroundColor: theme.colors.white,
-});
-
-export const dayStyle = css({
-  padding: '0.8rem 0',
-
-  color: theme.colors.blue_900,
-
-  fontWeight: 700,
 });
 
 export const datesContainerStyle = css({
@@ -31,10 +23,18 @@ export const datesContainerStyle = css({
 });
 
 export const dateStyle = css({
-  padding: '0.8rem',
+  justifyContent: 'center',
+  alignContent: 'center',
+
+  width: '3.2rem',
+  height: '3.2rem',
+
+  padding: '0.3rem',
 
   borderRadius: '50%',
   border: 'none',
+
+  color: theme.colors.gray_600,
 
   cursor: 'pointer',
 });
@@ -44,8 +44,8 @@ export const outOfMonthStyle = css({
 });
 
 export const selectedDateStyle = css({
-  backgroundColor: theme.colors.blue_300,
-  color: theme.colors.white,
+  backgroundColor: theme.colors.blue_100,
+  border: `1px solid ${theme.colors.blue_900}`,
 });
 
 export const hoverDateStyle = css({
