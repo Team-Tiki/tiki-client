@@ -5,8 +5,6 @@ import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
-import InfoFormPage from '@/page/signUp/info/InfoFormPage';
-
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -24,6 +22,7 @@ const Public = () => {
 const LandingPage = lazy(() => import('@/page/landing/LandingPage'));
 const LoginPage = lazy(() => import('@/page/login/index/LoginPage'));
 const TermPage = lazy(() => import('@/page/signUp/index/TermPage'));
+const InfoFormPage = lazy(() => import('@/page/signUp/info/InfoFormPage'));
 const PasswordAuthPage = lazy(() => import('@/page/login/password/auth/PasswordAuthPage'));
 const PasswordResetPage = lazy(() => import('@/page/login/password/reset/PasswordResetPage'));
 const ShowcasePage = lazy(() => import('@/page/showcase/index/ShowcasePage'));
