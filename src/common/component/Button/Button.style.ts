@@ -12,8 +12,6 @@ export const buttonStyle = css({
 
   width: '100%',
 
-  padding: '1.6rem 1.4rem',
-
   border: 'none',
   borderRadius: '8px',
 
@@ -58,7 +56,7 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       },
     }),
     outline: css({
-      border: `1px solid ${theme.colors.gray_300}`,
+      boxShadow: theme.shadow.inset,
 
       color: theme.colors.gray_800,
       backgroundColor: theme.colors.white,
@@ -88,13 +86,24 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
 export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   const style = {
+    xxLarge: css({
+      ...theme.text.body04,
+    }),
+    xLarge: css({
+      ...theme.text.body04,
+    }),
     large: css({
       ...theme.text.body04,
     }),
     medium: css({
-      ...theme.text.body06,
+      padding: '1.2rem 1.4rem',
+
+      ...theme.text.body08,
     }),
     small: css({
+      ...theme.text.body04,
+    }),
+    xSmall: css({
       ...theme.text.body08,
     }),
   };
