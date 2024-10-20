@@ -11,10 +11,6 @@ export const pageStyle = () =>
 
     width: '100%',
     height: '100%',
-
-    paddingLeft: '6rem',
-
-    overflow: 'hidden',
   });
 
 export const timelineStyle = () =>
@@ -30,8 +26,6 @@ export const timelineStyle = () =>
   });
 
 export const contentStyle = css({
-  maxHeight: '60rem',
-
   flexDirection: 'column',
   gap: '2rem',
 });

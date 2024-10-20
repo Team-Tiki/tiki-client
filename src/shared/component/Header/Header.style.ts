@@ -7,15 +7,17 @@ export const headerStyle = css({
   alignItems: 'center',
   justifyContent: 'space-between',
 
-  float: 'right',
-
-  width: 'calc(100% - 7.6rem)',
-
   padding: '2rem 3rem',
 
   '& > h1': {
     ...theme.heading.heading05,
     fontWeight: 600,
+  },
+});
+
+export const settingIconStyle = css({
+  '& > path': {
+    fill: theme.colors.gray_800,
   },
 });
 

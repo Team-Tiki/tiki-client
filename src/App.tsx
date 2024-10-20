@@ -50,9 +50,9 @@ const App = () => {
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
         <ModalContainer />
-        <Header />
         <SNB />
         <main css={layoutStyle}>
+          <Header />
           <Outlet />
         </main>
       </Login>
@@ -61,10 +61,14 @@ const App = () => {
 };
 
 const layoutStyle = css({
-  float: 'right',
+  display: 'flex',
+  flexDirection: 'column',
+
+  height: '100%',
   width: 'calc(100% - 7.6rem)',
 
-  padding: '0 3rem 4.8rem 3rem',
+  padding: '0 3.4rem 4.8rem 3.2rem',
+  marginLeft: '7.6rem',
 
   borderRadius: '16px',
   backgroundColor: theme.colors.white,

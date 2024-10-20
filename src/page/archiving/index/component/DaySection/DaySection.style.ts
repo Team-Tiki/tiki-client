@@ -6,7 +6,7 @@ export const dayStyle = (isEven: boolean, isToday: boolean) =>
   css({
     position: 'relative',
     width: '6rem',
-    height: 'calc(100vh + 4rem)',
+    height: 'calc(100vh - 8rem - 21.4rem - 4.8rem)',
 
     backgroundColor:
       isToday && isEven
