@@ -51,7 +51,20 @@ export const Search: Story = {
     },
   },
 };
-
+export const Filled: Story = {
+  args: {
+    variant: 'search',
+    filled: true,
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'text' },
+    },
+    filled: {
+      control: false,
+    },
+  },
+};
 export const SupportingText: Story = {
   args: {
     supportingText: 'this is supporingText',
