@@ -9,9 +9,9 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import { theme } from '@/common/style/theme/theme';
 
 import { HTTPError } from '@/shared/api/HTTPError';
-import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
 import Login from '@/shared/component/Login/Login';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
+import SNB from '@/shared/component/SideNavBar/LeftSidebar';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -48,13 +48,11 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
-        <div css={containerStyle}>
-          <ModalContainer />
-          <LeftSidebar />
-          <main css={layoutStyle}>
-            <Outlet />
-          </main>
-        </div>
+        <ModalContainer />
+        <SNB />
+        <main css={layoutStyle}>
+          <Outlet />
+        </main>
       </Login>
     </ErrorBoundary>
   );
@@ -65,12 +63,6 @@ const layoutStyle = css({
 
   borderRadius: '16px',
   backgroundColor: theme.colors.white,
-});
-
-const containerStyle = css({
-  padding: '0.4rem 0.4rem 0.4rem 8.9rem ',
-
-  backgroundColor: theme.colors.blue_900,
 });
 
 export default App;

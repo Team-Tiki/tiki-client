@@ -81,6 +81,6 @@ export const buttonStyle = (blockSelected?: Block) =>
     transition: 'right 0.3s ease-in-out',
 
     '&:hover': {
-      backgroundColor: theme.colors.blue_300,
+      backgroundColor: theme.colors.key_200,
     },
   });

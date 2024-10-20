@@ -59,7 +59,7 @@ const ArchivingPage = () => {
         </Flex>
 
         <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
-          <Button variant="action" css={buttonStyle(selectedBlock)} onClick={handleOpenBlockModal}>
+          <Button css={buttonStyle(selectedBlock)} onClick={handleOpenBlockModal}>
             <Add width={24} height={24} />
             블록 생성
           </Button>
