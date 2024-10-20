@@ -10,10 +10,6 @@ export const buttonStyle = css({
   alignItems: 'center',
   gap: '0.4rem',
 
-  width: '100%',
-
-  padding: '1.6rem 1.4rem',
-
   border: 'none',
   borderRadius: '8px',
 
@@ -58,10 +54,10 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       },
     }),
     outline: css({
-      border: `1px solid ${theme.colors.gray_300}`,
-
       color: theme.colors.gray_800,
       backgroundColor: theme.colors.white,
+
+      boxShadow: theme.shadow.inset,
 
       '&:hover': {
         backgroundColor: theme.colors.gray_100,
@@ -88,13 +84,36 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
 export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   const style = {
-    large: css({
-      ...theme.text.body04,
-    }),
-    medium: css({
+    /** Button_46 */
+    xLarge: css({
+      padding: '1.6rem 1.4rem',
+
       ...theme.text.body06,
     }),
+    /** Button_40 */
+    large: css({
+      padding: '1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_36 */
+    medium: css({
+      padding: '1.2rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_32 */
     small: css({
+      padding: '1rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_24 */
+    xSmall: css({
+      padding: '0.6rem 1rem',
+
+      borderRadius: '1.2rem',
+
       ...theme.text.body08,
     }),
   };
