@@ -9,7 +9,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: Extract<Size, 'xLarge' | 'large' | 'medium' | 'small' | 'xSmall'>;
 }
 
-const Button = ({ variant = 'primary', children, size = 'small', ...props }: ButtonProps) => {
+const Button = ({ variant = 'primary', children, size = 'medium', ...props }: ButtonProps) => {
   return (
     <button type="button" css={[buttonStyle, variantStyle(variant), sizeStyle(size)]} {...props}>
       {children}
