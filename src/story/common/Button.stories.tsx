@@ -17,7 +17,7 @@ const meta = {
     },
     size: {
       control: { type: 'radio' },
-      options: ['xlarge', 'large', 'medium', 'small', 'xSmall'],
+      options: ['xLarge', 'large', 'medium', 'small', 'xSmall'],
     },
     children: {
       control: { type: 'text' },
