@@ -2,8 +2,6 @@ import { endOfMonth } from 'date-fns';
 
 import { useRef, useState } from 'react';
 
-import { getMonthDate } from '@/page/archiving/index/util/date';
-
 export const useDate = (teamId?: string) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -13,8 +11,8 @@ export const useDate = (teamId?: string) => {
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [updatedTeamId, setUpdatedTeamId] = useState(teamId);
 
-  const dateOfMonth = getMonthDate(currentMonth, currentYear);
-  const endDay = endOfMonth(dateOfMonth);
+  const date = new Date(currentYear, currentMonth - 1);
+  const endDay = endOfMonth(date);
 
   /** teamId가 변경될 때마다 selectedMonth 초기화 */
   if (teamId !== updatedTeamId) {
@@ -49,7 +47,7 @@ export const useDate = (teamId?: string) => {
     handlePrevMonth,
     handleNextMonth,
     currentMonth,
-    dateOfMonth,
+    date,
     endDay,
   };
 };
