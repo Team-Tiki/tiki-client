@@ -25,7 +25,6 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
             currentYear === currentDate.getFullYear() &&
             currentMonth === currentDate.getMonth() + 1;
 
-          // 날짜 헤더는 개별적으로 처리
           return (
             <header css={dayHeaderStyle(isToday)} key={day}>
               {day + 1}
@@ -33,7 +32,7 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
           );
         })}
       </div>
-      <div css={dayBodyStyle}></div> {/* 모든 날짜 body는 여기서 렌더링 */}
+      <div css={dayBodyStyle}></div>
     </div>
   );
 });
