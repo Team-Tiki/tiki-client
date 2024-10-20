@@ -46,16 +46,17 @@ const Carousel = ({
 
   children,
 }: CarouselProps) => {
-  const { currentIndex, itemRef, handleLeft, handleRight, handleMoveTo, handleHover, handleLeave } = useCarousel(
-    Children.count(children),
-    autoLoop,
-    autoLoopDelay
-  );
+  const { containerRef, currentIndex, itemRef, handleLeft, handleRight, handleMoveTo, handleHover, handleLeave } =
+    useCarousel(Children.count(children), autoLoop, autoLoopDelay);
 
   return (
     <CarouselContext.Provider value={{ width, height, currentIndex, itemRef }}>
-      {/* eslint-disable-next-line */}
-      <div onMouseOver={handleHover} onMouseLeave={handleLeave} css={containerStyle({ width, height })}>
+      <div
+        ref={containerRef}
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+        onMouseOver={handleHover}
+        onMouseLeave={handleLeave}
+        css={containerStyle({ width, height })}>
         {hasArrows ? (
           renderedLeftArrow && renderedRightArrow ? (
             <>

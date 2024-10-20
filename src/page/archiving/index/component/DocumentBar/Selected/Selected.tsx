@@ -45,7 +45,7 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
         <Heading tag="H6" css={blockNameStyle}>
           {selectedBlock.name}
         </Heading>
-        <Button variant="text" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
+        <Button variant="underline" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
           블록삭제
         </Button>
       </Flex>

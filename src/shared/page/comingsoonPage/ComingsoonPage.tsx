@@ -24,9 +24,7 @@ const ComingsoonPage = () => {
             더 좋은 서비스를 위해 조금만 기다려주세요!
           </Text>
         </Flex>
-        <Button variant="action" onClick={() => navigate(-1)}>
-          쇼케이스 페이지로 돌아가기
-        </Button>
+        <Button onClick={() => navigate(-1)}>쇼케이스 페이지로 돌아가기</Button>
       </div>
     </section>
   );

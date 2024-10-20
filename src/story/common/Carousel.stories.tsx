@@ -3,15 +3,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { MouseEvent } from 'react';
 
-import img1 from '@/common/asset/img/advBannerClub1.png';
-import img2 from '@/common/asset/img/advBannerClub2.png';
-import img3 from '@/common/asset/img/advBannerClub3.png';
 import ArrowLeft from '@/common/asset/svg/ic_arrow_left_white.svg?react';
 import ArrowRight from '@/common/asset/svg/ic_arrow_right_white.svg?react';
 import Button from '@/common/component/Button/Button';
 import Carousel from '@/common/component/Carousel/Carousel';
 import Heading from '@/common/component/Heading/Heading';
 import { theme } from '@/common/style/theme/theme';
+
+import img1 from '/img/advBannerClub1.png';
+import img2 from '/img/advBannerClub2.png';
+import img3 from '/img/advBannerClub3.png';
 
 const meta = {
   title: 'Common/Carousel',

@@ -2,14 +2,14 @@ import { css } from '@emotion/react';
 
 import { ComponentPropsWithoutRef } from 'react';
 
-import ArrowDown from '@/common/asset/svg/arrow_fill.svg?react';
+import IcArrowDown from '@/common/asset/svg/ic_key_arrow.svg?react';
 
 interface IndicatorProps extends ComponentPropsWithoutRef<'svg'> {
   onNext?: () => void;
 }
 
 const Indicator = ({ onNext, ...props }: IndicatorProps) => {
-  return <ArrowDown css={indicatorStyle} width={36} height={36} onClick={onNext} {...props} />;
+  return <IcArrowDown css={indicatorStyle} width={36} height={36} onClick={onNext} {...props} />;
 };
 
 export default Indicator;
