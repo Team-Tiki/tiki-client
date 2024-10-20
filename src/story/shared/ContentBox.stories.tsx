@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { ReactNode } from 'react';
+
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
@@ -32,6 +34,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const SampleButton = ({ children }: { children: ReactNode }) => {
+  return (
+    <Button variant="primary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
+      {children}
+    </Button>
+  );
+};
+
 export const File: Story = {
   render: () => (
     <ContentBox
@@ -40,19 +50,13 @@ export const File: Story = {
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input size="small" placeholder="파일 및 폴더명을 검색해보세요" />
-          <Button variant="primary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            파일 업로드
-          </Button>
+          <SampleButton>파일 업로드</SampleButton>
         </Flex>
       }
       contentOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Button variant="secondary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            삭제
-          </Button>
-          <Button variant="secondary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            선택
-          </Button>
+          <SampleButton>삭제</SampleButton>
+          <SampleButton>선택</SampleButton>
         </Flex>
       }>
       <Flex styles={{ width: '100%', height: '50rem', justify: 'center', align: 'center' }}>
@@ -70,19 +74,13 @@ export const TimeLine: Story = {
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input size="small" placeholder="파일 및 폴더명을 검색해보세요" />
-          <Button variant="primary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            파일 업로드
-          </Button>
+          <SampleButton>파일 업로드</SampleButton>
         </Flex>
       }
       contentOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Button variant="secondary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            삭제
-          </Button>
-          <Button variant="secondary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            선택
-          </Button>
+          <SampleButton>삭제</SampleButton>
+          <SampleButton>선택</SampleButton>
         </Flex>
       }>
       <Flex styles={{ width: '100%', height: '50rem', justify: 'center', align: 'center' }}>
@@ -100,19 +98,13 @@ export const Deleted: Story = {
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input size="small" placeholder="파일 및 폴더명을 검색해보세요" />
-          <Button variant="primary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            파일 업로드
-          </Button>
+          <SampleButton>파일 업로드</SampleButton>
         </Flex>
       }
       contentOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Button variant="secondary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            삭제
-          </Button>
-          <Button variant="secondary" css={{ padding: '1.4rem 1.2rem', width: 'max-content', ...theme.text.body08 }}>
-            선택
-          </Button>
+          <SampleButton>삭제</SampleButton>
+          <SampleButton>선택</SampleButton>
         </Flex>
       }>
       <Flex styles={{ width: '100%', height: '50rem', justify: 'center', align: 'center' }}>
