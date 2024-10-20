@@ -1,8 +1,8 @@
 import { ForwardedRef, forwardRef } from 'react';
 
 import { daySectionStyle } from '@/page/archiving/index/ArchivingPage.style';
-import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
-import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
+import DaySection from '@/page/archiving/index/component/TimeLine/DaySection/DaySection';
+import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';

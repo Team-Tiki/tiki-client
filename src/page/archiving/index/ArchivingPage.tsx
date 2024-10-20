@@ -9,7 +9,7 @@ import { theme } from '@/common/style/theme/theme';
 import { contentBoxStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
-import TimeLineHeader from '@/page/archiving/index/component/TimeLineHeader/TimeLineHeader';
+import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 
