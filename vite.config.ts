@@ -40,7 +40,6 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            console.log(id);
             if (id.includes('date-fns')) return 'date-fns';
             if (id.includes('lodash')) return 'lodash';
             if (id.includes('sentry')) return 'sentry';
