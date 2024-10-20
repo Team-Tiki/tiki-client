@@ -42,7 +42,7 @@ const ArchivingPage = () => {
         title="타임라인"
         headerOption={
           <Button variant="secondary" size="small" onClick={handleOpenBlockModal}>
-            블록 생성
+            타임블록 추가
           </Button>
         }
         css={contentBoxStyle}>

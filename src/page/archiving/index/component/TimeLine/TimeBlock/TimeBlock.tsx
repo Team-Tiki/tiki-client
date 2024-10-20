@@ -1,7 +1,7 @@
-import React, { HTMLAttributes, ReactNode } from 'react';
+import React, { HTMLAttributes, ReactNode, useEffect } from 'react';
 
-import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock.style';
-import { BLOCK_TYPE } from '@/page/archiving/index/constant/blockIcon';
+import { BLOCK_TYPE } from '../../../constant/blockIcon';
+import { blockNameStyle, blockStyle } from './TimeBlock.style';
 
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -12,6 +12,7 @@ interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   blockType: string;
   isSelected?: boolean;
   onBlockClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+  gap: number; // gap 값을 숫자로 받음
 }
 
 const TimeBlock = ({
@@ -23,10 +24,15 @@ const TimeBlock = ({
   onBlockClick,
   isSelected = false,
   blockType,
+  gap,
   ...props
 }: TimeBlockProps) => {
-  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 6;
-  const startPosition = (new Date(startDate).getDate() - 1) * 6;
+  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * (2 * gap);
+  const startPosition = (new Date(startDate).getDate() - 1) * (2 * gap);
+  console.log(`Gap: ${gap}`);
+  console.log(`Start position: ${startPosition}`);
+
+  useEffect(() => {}, [gap]);
 
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {

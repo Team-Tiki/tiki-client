@@ -7,19 +7,23 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     position: 'absolute',
     display: 'flex',
 
+    alignItems: 'center',
+
     zIndex: theme.zIndex.overlayBottom,
 
-    top: `${floor * 6 - 1.6}rem`,
+    top: `${floor * 4.5 - 1}rem`,
     left: `${startPosition + 0.2}rem`,
 
-    width: `${width - 0.4}rem`,
-    height: '5.6rem',
-    padding: '0.5rem',
+    width: `${width - 0.4}%`,
+    height: '3.6rem',
+    padding: '0.6rem',
 
-    borderRadius: '100px',
+    gap: '0.6rem',
+
+    borderRadius: '0.8rem',
     backgroundColor: `${color}`,
 
-    ...theme.text.body04,
+    ...theme.text.body08,
 
     transform: `scale(${isSelected && 1.05})`,
     transition: 'all .1s ease-in',
@@ -29,8 +33,6 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
   });
 
 export const blockNameStyle = {
-  margin: 'auto 0.7rem',
-
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
