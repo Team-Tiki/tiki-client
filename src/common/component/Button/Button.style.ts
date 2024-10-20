@@ -58,10 +58,10 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       },
     }),
     outline: css({
-      border: `1px solid ${theme.colors.gray_300}`,
-
       color: theme.colors.gray_800,
       backgroundColor: theme.colors.white,
+
+      boxShadow: theme.shadow.inset,
 
       '&:hover': {
         backgroundColor: theme.colors.gray_100,
