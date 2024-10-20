@@ -1,5 +1,6 @@
 import DatePickerCalendar from '@/common/component/DatePicker/Calendar/DatePickerCalendar';
 import DatePickerTrigger from '@/common/component/DatePicker/Trigger/DatePickerTrigger';
+import { containerStyle } from '@/common/component/DatePicker/index.style';
 import { useDatePicker } from '@/common/hook/useDatePicker';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 import { useOverlay } from '@/common/hook/useOverlay';
@@ -23,7 +24,7 @@ const DatePicker = ({ variant, triggerWidth = '10.3rem' }: DatePickerProps) => {
   };
 
   return (
-    <div ref={ref} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+    <div ref={ref} css={containerStyle}>
       <DatePickerTrigger
         selectedDate={selectedDate}
         endDate={endDate}
