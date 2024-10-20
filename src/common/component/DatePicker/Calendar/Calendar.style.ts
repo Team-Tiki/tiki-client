@@ -40,7 +40,6 @@ export const datesContainerStyle = css({
   textAlign: 'center',
 });
 
-// rangeDateStyle에서 직접 정의
 export const rangeDateStyle = css({
   ...baseDateStyle,
 
