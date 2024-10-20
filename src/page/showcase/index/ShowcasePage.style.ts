@@ -6,7 +6,7 @@ export const containerStyle = css({
   alignItems: 'center',
   gap: '3.6rem',
 
-  minHeight: '100vh',
+  width: '100%',
 
   borderRadius: '16px',
 });

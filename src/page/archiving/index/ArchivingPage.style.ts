@@ -6,9 +6,6 @@ import { Block } from '@/page/archiving/index/type/blockType';
 
 export const pageStyle = () =>
   css({
-    justifyContent: 'center',
-    alignItems: 'center',
-
     width: '100%',
     height: '100%',
   });
@@ -26,6 +23,8 @@ export const timelineStyle = () =>
   });
 
 export const contentStyle = css({
+  width: '100%',
+
   flexDirection: 'column',
   gap: '2rem',
 });
