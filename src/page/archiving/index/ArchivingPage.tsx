@@ -1,19 +1,19 @@
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Add from '@/common/asset/svg/ic_add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
-import { buttonStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
+import { contentBoxStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLineHeader/TimeLineHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 
+import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
@@ -37,34 +37,39 @@ const ArchivingPage = () => {
 
   return (
     <Flex css={pageStyle}>
-      <section css={timelineStyle}>
-        <TimeLineHeader
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-          currentYear={currentYear}
-          currentMonth={currentMonth}
-        />
-        <Flex css={contentStyle}>
-          <Suspense>
-            {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
-            <TimeLine
-              ref={ref}
-              selectedBlock={selectedBlock}
-              onBlockClick={handleBlockClick}
-              currentYear={currentYear}
-              currentMonth={currentMonth}
-              endDay={endDay}
-            />
-          </Suspense>
-        </Flex>
-
-        <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}>
-          <Button css={buttonStyle(selectedBlock)} onClick={handleOpenBlockModal}>
-            <Add width={24} height={24} />
+      <ContentBox
+        variant="timeline"
+        title="타임라인"
+        headerOption={
+          <Button variant="secondary" size="small" onClick={handleOpenBlockModal}>
             블록 생성
           </Button>
-        </Flex>
-      </section>
+        }
+        css={contentBoxStyle}>
+        <section css={timelineStyle}>
+          <TimeLineHeader
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+            currentYear={currentYear}
+            currentMonth={currentMonth}
+          />
+          <Flex css={contentStyle}>
+            <Suspense>
+              {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
+              <TimeLine
+                ref={ref}
+                selectedBlock={selectedBlock}
+                onBlockClick={handleBlockClick}
+                currentYear={currentYear}
+                currentMonth={currentMonth}
+                endDay={endDay}
+              />
+            </Suspense>
+          </Flex>
+
+          <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}></Flex>
+        </section>
+      </ContentBox>
       <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={() => setSelectedBlock(undefined)} />
     </Flex>
   );

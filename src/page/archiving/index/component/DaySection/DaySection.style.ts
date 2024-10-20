@@ -3,40 +3,45 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const entireDayStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+
   width: '100%',
+  height: '100%',
 });
 
 export const dayStyle = css({
-  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
 
-  height: 'calc(100vh + 4rem)',
-
-  backgroundColor: theme.colors.gray_100,
+  justifyContent: 'space-between',
 });
 
 export const dayHeaderStyle = (isToday: boolean) =>
   css({
-    width: '6rem',
-    padding: '1.2rem 2.6rem',
-    justifyContent: 'center',
+    display: 'flex',
 
-    border: 'none',
+    width: '2rem',
+    height: '2rem',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    marginBottom: '0.6rem',
+
+    borderRadius: '0.4rem',
 
     color: theme.colors.gray_800,
     backgroundColor: isToday ? theme.colors.gray_200 : theme.colors.white,
+
     ...theme.text.body08,
   });
 
-export const bodyStyle = () =>
-  css({
-    height: '100dvh',
-  });
+export const dayBodyStyle = css({
+  width: '100%',
+  height: 'calc(100vh - 2rem)',
 
-export const selectedDayStyle = css({
-  position: 'absolute',
+  backgroundColor: theme.colors.gray_100,
 
-  left: '2.6rem',
-  top: '2.8rem',
-
-  zIndex: theme.zIndex.overlayTop,
+  borderRadius: '1.6rem',
 });
