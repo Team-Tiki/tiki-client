@@ -7,7 +7,14 @@ export const headerStyle = css({
   alignItems: 'center',
   justifyContent: 'space-between',
 
+  position: 'sticky',
+  top: 0,
+
+  zIndex: theme.zIndex.overlayHigh,
+
   padding: '2rem 3rem',
+
+  backgroundColor: theme.colors.white,
 
   '& > h1': {
     ...theme.heading.heading05,
