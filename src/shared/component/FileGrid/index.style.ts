@@ -28,3 +28,10 @@ export const textStyle = css({
 
   color: theme.colors.gray_500,
 });
+
+export const optionTextStyle = css({
+  ...theme.text.body08,
+  backgroundColor: theme.colors.white,
+
+  fontWeight: 400,
+});
