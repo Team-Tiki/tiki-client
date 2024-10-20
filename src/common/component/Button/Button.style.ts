@@ -10,8 +10,6 @@ export const buttonStyle = css({
   alignItems: 'center',
   gap: '0.4rem',
 
-  width: '100%',
-
   padding: '1.6rem 1.4rem',
 
   border: 'none',
