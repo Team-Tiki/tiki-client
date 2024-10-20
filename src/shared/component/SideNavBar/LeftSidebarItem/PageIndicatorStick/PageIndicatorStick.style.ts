@@ -4,11 +4,9 @@ import { theme } from '@/common/style/theme/theme';
 
 export const PageIndicatorStickStyle = (isClicked: boolean) =>
   css({
-    flexShrink: '0',
-
     width: '0.4rem',
-    height: '4rem',
+    height: '2rem',
 
-    borderRadius: '100px',
-    backgroundColor: isClicked ? theme.colors.white : theme.colors.key_500,
+    borderRadius: '0 100px 100px 0',
+    backgroundColor: isClicked ? theme.colors.key_500 : theme.colors.white,
   });

@@ -5,7 +5,7 @@ interface PageIndicatorStickProps {
 }
 
 const PageIndicatorStick = ({ isClicked }: PageIndicatorStickProps) => {
-  return <span css={PageIndicatorStickStyle(isClicked)} />;
+  return <div css={PageIndicatorStickStyle(isClicked)} />;
 };
 
 export default PageIndicatorStick;
