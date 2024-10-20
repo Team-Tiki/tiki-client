@@ -7,7 +7,7 @@ import {
   commonStyle,
   dateStyle,
   headerStyle,
-} from '@/page/archiving/index/component/TimeLineHeader/TimeLineHeader.style';
+} from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader.style';
 
 interface TimeLineHeaderProps {
   currentYear: number;
