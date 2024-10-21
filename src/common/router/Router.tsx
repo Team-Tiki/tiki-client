@@ -7,6 +7,7 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
+  DrivePage,
   ErrorPage,
   InfoFormPage,
   LandingPage,
@@ -129,6 +130,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <ComingsoonPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.DRIVE,
+        element: (
+          <Suspense>
+            <DrivePage />
           </Suspense>
         ),
       },

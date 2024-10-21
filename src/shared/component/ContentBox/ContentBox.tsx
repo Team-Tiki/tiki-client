@@ -3,11 +3,12 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import IcFile from '@/common/asset/svg/ic_file.svg?react';
 import IcTimeLine from '@/common/asset/svg/ic_timeline.svg?react';
 import IcDeleted from '@/common/asset/svg/ic_trash.svg?react';
-import Divider from '@/common/component/Divider/Divider';
 import Heading from '@/common/component/Heading/Heading';
+import { scrollStyle } from '@/common/style/scroll';
 
 import {
   contentOptionStyle,
+  contentStyle,
   headerStyle,
   sectionStyle,
   titleStyle,
@@ -41,9 +42,10 @@ const ContentBox = ({ variant, title, headerOption, contentOption, children }: C
         </Heading>
         {headerOption}
       </header>
-      <Divider size={100} />
+
       <div css={contentOptionStyle}>{contentOption}</div>
-      {children}
+
+      <div css={[contentStyle, scrollStyle]}>{children}</div>
     </section>
   );
 };
