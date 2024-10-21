@@ -17,6 +17,8 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
+import DrivePage from '@/page/drive';
+
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -129,6 +131,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <ComingsoonPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.DRIVE,
+        element: (
+          <Suspense>
+            <DrivePage />
           </Suspense>
         ),
       },
