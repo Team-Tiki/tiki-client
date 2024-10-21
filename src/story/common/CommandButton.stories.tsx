@@ -17,7 +17,7 @@ const meta = {
     },
     size: {
       control: { type: 'radio' },
-      options: ['large', 'medium', 'small'],
+      options: ['large', 'small'],
     },
     commandKey: {
       control: {
@@ -38,7 +38,7 @@ const meta = {
   },
   args: {
     variant: 'primary',
-    size: 'small',
+    size: 'large',
     children: 'Button',
     disabled: false,
   },
