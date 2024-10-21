@@ -22,7 +22,7 @@ const FileListItem = ({
 }: FileListItemProps) => {
   return (
     <div css={containerStyle}>
-      <Flex styles={{ grow: '1', align: 'center', gap: '1.6rem' }}>
+      <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         <CheckBox isChecked={isSelected} onChange={onFileSelect} />
         <p>{title}</p>
       </Flex>

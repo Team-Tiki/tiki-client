@@ -10,7 +10,7 @@ interface FileListHeaderProps {
 const FileListHeader = ({ onSelectAll }: FileListHeaderProps) => {
   return (
     <header css={headerStyle}>
-      <Flex styles={{ grow: '1', align: 'center', gap: '1.6rem' }}>
+      <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         <CheckBox isChecked={false} onChange={onSelectAll} />
         <p>이름</p>
       </Flex>

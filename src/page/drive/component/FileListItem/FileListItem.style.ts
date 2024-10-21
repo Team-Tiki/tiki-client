@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
 
+import { ellipsisStyle } from '@/common/style/ellipsis';
 import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: '0.55fr 0.45fr',
   alignItems: 'center',
 
   width: '100%',
@@ -11,15 +13,17 @@ export const containerStyle = css({
 
   padding: '1.4rem 0',
 
-  '&  p, &  time': {
+  '& p, & time': {
     ...theme.text.body06,
     fontWeight: 400,
+
+    ...ellipsisStyle,
   },
 });
 
 export const rightSideRowStyle = css({
-  flex: 1,
   display: 'grid',
   gridTemplateColumns: '3fr 2fr 3.6fr 0.4fr',
   alignItems: 'center',
+  gap: '0.2rem',
 });
