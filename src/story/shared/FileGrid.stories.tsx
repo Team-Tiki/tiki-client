@@ -8,6 +8,7 @@ const meta: Meta<typeof FileGrid> = {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
       <div css={{ width: '20rem' }}>

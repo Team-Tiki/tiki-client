@@ -24,8 +24,6 @@ export const nameStyle = css({
 });
 
 export const textStyle = css({
-  ...theme.text.body08,
-
   color: theme.colors.gray_500,
 });
 
