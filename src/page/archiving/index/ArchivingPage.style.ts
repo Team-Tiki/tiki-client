@@ -6,15 +6,8 @@ import { Block } from '@/page/archiving/index/type/blockType';
 
 export const pageStyle = () =>
   css({
-    justifyContent: 'center',
-    alignItems: 'center',
-
     width: '100%',
     height: '100%',
-
-    paddingLeft: '6rem',
-
-    overflow: 'hidden',
   });
 
 export const timelineStyle = () =>
@@ -30,7 +23,7 @@ export const timelineStyle = () =>
   });
 
 export const contentStyle = css({
-  maxHeight: '60rem',
+  width: '100%',
 
   flexDirection: 'column',
   gap: '2rem',

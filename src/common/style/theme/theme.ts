@@ -6,6 +6,7 @@ const colors = {
   gray_900: '#323A4C',
   gray_800: '#525866',
   gray_700: '#6B6B6B',
+  gray_600: '#909090',
   gray_500: '#99A1B2',
   gray_400: '#CCD1DD',
   gray_300: '#DFE1E8',
@@ -124,7 +125,7 @@ const zIndex = {
 } as const;
 
 const shadow = {
-  inset: `inset 0 0 0 1px ${colors.gray_200}`,
+  inset: `inset 0 0 0 1px ${colors.gray_300}`,
   inset_focus: `inset 0 0 0 1px ${colors.key_500}`,
   shadow01: '0px 2px 8px 0px rgba(99, 99, 99, 0.2)', // 6
   shadow02: '0px 4px 10px rgba(0, 0, 0, 0.1)',

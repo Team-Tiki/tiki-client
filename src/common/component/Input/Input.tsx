@@ -25,7 +25,7 @@ const Input = (
       <div css={contentStyle(filled)}>
         {LeftIcon}
         <input ref={ref} css={inputStyle} {...props} />
-        <p css={{ ...theme.text.body06, color: theme.colors.gray_500 }}>{count}</p>
+        {count && <p css={{ ...theme.text.body06, color: theme.colors.gray_500 }}>{count}</p>}
       </div>
       {supportingText && (
         <SupportingText isError={isError} isNotice={isSuccess}>
