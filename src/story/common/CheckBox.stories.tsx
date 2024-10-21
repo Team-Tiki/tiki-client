@@ -10,14 +10,14 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    checked: {
+    isChecked: {
       control: {
         type: 'boolean',
       },
     },
   },
   args: {
-    checked: false,
+    isChecked: false,
     onChange: () => {},
   },
 } satisfies Meta<typeof CheckBox>;
