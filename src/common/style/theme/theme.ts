@@ -2,6 +2,7 @@ const colors = {
   black: '#0E121B',
   black_shade: 'linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%)',
   dimmed: 'rgba(0, 0, 0, 0.40)',
+
   gray_900: '#323A4C',
   gray_800: '#525866',
   gray_700: '#6B6B6B',
@@ -11,25 +12,35 @@ const colors = {
   gray_300: '#DFE1E8',
   gray_200: '#ECECF1',
   gray_100: '#F8F8FB',
+
   white: '#FFFFFF',
+
   key_600: '#444EE4',
   key_500: '#6D77FF',
   key_200: '#E3E8FF',
   key_100: '#F3F5FF',
+
   sementic_red: '#FE4F60',
   sementic_success: '#1FC16B',
+
   red_200: '#EB736D',
   red_100: '#FFE6E8',
+
   yellow_200: '#F19234',
   yellow_100: '#F8E2CB',
+
   green_200: '#49B078',
   green_100: '#C4F2E5',
+
   purple_200: '#856ECF',
   purple_100: '#DCD8FA',
+
   blue_200: '#607AD4',
   blue_100: '#E2E8F8',
+
   pink_200: '#F175C0',
   pink_100: '#F8E1F5',
+
   sky_200: '#48ABD2',
   sky_100: '#D3EFFA',
 };
@@ -114,7 +125,7 @@ const zIndex = {
 } as const;
 
 const shadow = {
-  inset: `inset 0 0 0 1px ${colors.gray_200}`,
+  inset: `inset 0 0 0 1px ${colors.gray_300}`,
   inset_focus: `inset 0 0 0 1px ${colors.key_500}`,
   shadow01: '0px 2px 8px 0px rgba(99, 99, 99, 0.2)', // 6
   shadow02: '0px 4px 10px rgba(0, 0, 0, 0.1)',
