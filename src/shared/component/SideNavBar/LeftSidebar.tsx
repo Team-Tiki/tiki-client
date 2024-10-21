@@ -75,7 +75,7 @@ const LeftSidebar = () => {
   return (
     <aside css={containerStyle} ref={sidebarRef}>
       <nav>
-        <TikiLogo css={tikiLogoStyle} />
+        <TikiLogo onClick={() => navigate('/drive')} css={tikiLogoStyle} />
         <ul css={leftSidebarMenuStyle}>
           <LeftSidebarMenuItem
             isClicked={selectedId === 'showcase'}
