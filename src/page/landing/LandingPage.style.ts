@@ -103,13 +103,9 @@ export const firstImgWrapperStyle = css({
 
 export const secondImgWrapperStyle = css({
   display: 'flex',
+  flexDirection: 'column',
 
-  position: 'absolute',
-  right: 0,
-
-  bottom: '10.4rem',
-
-  width: '70%',
+  width: '80%',
   aspectRatio: '3 / 2',
 
   /** observe 시 스타일 적용 전 */
@@ -128,4 +124,12 @@ export const arrowStyle = css({
   bottom: '4rem',
 
   cursor: 'pointer',
+});
+
+export const secondCharacterStyle = css({
+  width: '30%',
+  height: '30%',
+  placeSelf: 'end',
+
+  objectFit: 'cover',
 });
