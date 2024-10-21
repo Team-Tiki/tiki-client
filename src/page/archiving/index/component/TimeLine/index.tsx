@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useState } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 
 import { daySectionStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DaySection from '@/page/archiving/index/component/TimeLine/DaySection/DaySection';
@@ -19,8 +19,6 @@ const TimeLine = (
   { selectedBlock, onBlockClick, currentYear, currentMonth, endDay }: TimeLineProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const [gap, setGap] = useState(0);
-
   const teamId = new URLSearchParams(location.search).get('teamId');
   if (!teamId) throw new Error('has no teamId');
 
@@ -29,13 +27,9 @@ const TimeLine = (
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 
-  const handleGapChange = (newGap: number) => {
-    setGap(Math.round(newGap * 0.1 * 10) / 10);
-  };
-
   return (
     <div id="block_area" css={daySectionStyle} ref={ref}>
-      <DaySection endDay={endDay} onGapChange={handleGapChange} />
+      <DaySection endDay={endDay} />
 
       {timeBlocks.map((block: Block) => {
         const { startDate, endDate } = block;
@@ -55,8 +49,7 @@ const TimeLine = (
             floor={blockFloors[block.timeBlockId] || 1}
             blockType={block.blockType}
             isSelected={block.timeBlockId === selectedBlock?.timeBlockId}
-            onBlockClick={(e) => onBlockClick?.(e, block)}
-            gap={gap}>
+            onBlockClick={(e) => onBlockClick?.(e, block)}>
             {block.name}
           </TimeBlock>
         );
