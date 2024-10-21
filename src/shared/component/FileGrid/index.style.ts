@@ -10,6 +10,8 @@ export const cardStyle = css({
 
   border: `1px solid ${theme.colors.gray_300}`,
   borderRadius: '12px',
+
+  cursor: 'pointer',
 });
 
 export const iconWrapperStyle = css({
@@ -27,7 +29,28 @@ export const textStyle = css({
   color: theme.colors.gray_500,
 });
 
+export const optionListStyle = (canRenderBelow: boolean) =>
+  css(
+    {
+      backgroundColor: theme.colors.white,
+      '& svg': {
+        flexShrink: 0,
+      },
+    },
+    canRenderBelow
+      ? {
+          top: 'calc(100% + 1rem)',
+          right: 0,
+        }
+      : {
+          bottom: 'calc(100% + 1rem)',
+          right: 0,
+        }
+  );
+
 export const optionTextStyle = css({
+  whiteSpace: 'nowrap',
+
   ...theme.text.body08,
   backgroundColor: theme.colors.white,
 

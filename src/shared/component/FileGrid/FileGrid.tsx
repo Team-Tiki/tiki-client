@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -6,22 +8,23 @@ import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
 import Text from '@/common/component/Text/Text';
 import { useOverlay } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
 
 import { FILE_ICON, OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import {
   cardStyle,
   iconWrapperStyle,
   nameStyle,
+  optionListStyle,
   optionTextStyle,
   textStyle,
 } from '@/shared/component/FileGrid/index.style';
+import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
 type FileGridProps = {
   title: string;
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
-  type: 'pdf' | 'image' | 'word';
+  type: File['type'];
   volume: number;
 
   /**
@@ -32,12 +35,33 @@ type FileGridProps = {
    */
 };
 
+const getIconByType = (type: string) => {
+  if (type === 'pdf') {
+    return FILE_ICON['pdf'];
+  } else if (type === 'word') {
+    return FILE_ICON['word'];
+  } else {
+    return FILE_ICON['image'];
+  }
+};
+
 const FileGrid = ({ title, type, volume }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
+  const optionRef = useRef<HTMLDivElement | null>(null);
+
+  const checkDropdownPosition = () => {
+    if (!optionRef.current) return false;
+
+    const { y } = optionRef.current.getBoundingClientRect();
+
+    /** y 위치 + 드롭다운 높이 + 드롭다운 transformY > 뷰포트 높이 - 뷰포트 패딩바텀 */
+    return y + 118 + 20 < document.documentElement.clientHeight - 48;
+  };
+
   return (
     <article css={cardStyle}>
-      <div css={iconWrapperStyle}>{FILE_ICON[type]}</div>
+      <div css={iconWrapperStyle}>{getIconByType(type)}</div>
       <Flex
         styles={{
           direction: 'column',
@@ -48,10 +72,10 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
             {title}
           </Heading>
           <Menu onClose={close}>
-            <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
-            <MenuList
-              css={{ top: 'calc(100% + 0.4rem)', right: 0, backgroundColor: theme.colors.white }}
-              isOpen={isOpen}>
+            <div ref={optionRef}>
+              <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
+            </div>
+            <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
               <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => console.log('select')}>
                 파일 다운로드
               </MenuItem>
