@@ -25,7 +25,6 @@ const App = () => {
 
   /** 아카이빙 페이지 DocumentBar를 위한 라우트별 동적 패딩 */
   const isArchivingPage = pathname === '/archiving';
-  console.log(pathname);
 
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
