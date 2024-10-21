@@ -35,7 +35,6 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
     <>
       <Flex styles={{ direction: 'row', align: 'center', gap: '1.2rem' }}>
         <Input
-          variant="default"
           placeholder="YYYY-MM-DD"
           css={[{ width: '10.3rem' }, inputStyle(dates.startDate)]}
           value={dates.startDate}
@@ -45,7 +44,6 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
         />
         <p css={textStyle}>~</p>
         <Input
-          variant="default"
           placeholder="YYYY-MM-DD"
           css={[{ width: '10.3rem' }, inputStyle(dates.endDate)]}
           value={dates.endDate}

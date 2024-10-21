@@ -80,7 +80,6 @@ const BlockModal = ({ isVisible }: BlockModalProps) => {
         <BlockBox title="블록명">
           <Flex styles={{ align: 'flex-end', direction: 'column', gap: '0.8rem', width: '100%' }}>
             <Input
-              variant="default"
               placeholder="활동,행사명 등"
               css={{ width: '100%' }}
               value={formData.blockName}

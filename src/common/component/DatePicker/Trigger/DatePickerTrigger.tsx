@@ -11,7 +11,6 @@ interface DatePickerTriggerProps {
 const DatePickerTrigger = ({ selectedDate, onClick, width = '10.3rem' }: DatePickerTriggerProps) => {
   return (
     <Input
-      variant="default"
       value={selectedDate ? format(selectedDate, 'yyyy.MM.dd') : ''}
       placeholder="YYYY.MM.DD"
       readOnly

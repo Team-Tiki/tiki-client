@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import SearchIc from '@/common/asset/svg/ic_search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
@@ -42,8 +43,8 @@ const DocumentTotal = () => {
       <Flex styles={{ direction: 'column', align: 'flex-end', width: '24.8rem', gap: '1.6rem' }}>
         <Input
           placeholder={'문서를 검색해보세요'}
-          variant={'search'}
           value={searchWord}
+          LeftIcon={<SearchIc />}
           onChange={(e) => {
             setSearchWord(e.target.value);
           }}
