@@ -4,6 +4,7 @@ import Heading from '@/common/component/Heading/Heading';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
+import Text from '@/common/component/Text/Text';
 import { useOverlay } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
@@ -65,8 +66,12 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
         </Flex>
 
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
-          <p css={textStyle}>{type} 문서</p>
-          <p css={textStyle}>{getFileVolume(volume)}</p>
+          <Text tag="body8" css={textStyle}>
+            {type} 문서
+          </Text>
+          <Text tag="body8" css={textStyle}>
+            {getFileVolume(volume)}
+          </Text>
         </Flex>
       </Flex>
     </article>
