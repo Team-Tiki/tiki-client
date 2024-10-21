@@ -7,6 +7,7 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
+  DrivePage,
   ErrorPage,
   InfoFormPage,
   LandingPage,
@@ -16,8 +17,6 @@ import {
   ShowcasePage,
   TermPage,
 } from '@/common/router/lazy';
-
-import DrivePage from '@/page/drive';
 
 import { PATH } from '@/shared/constant/path';
 
