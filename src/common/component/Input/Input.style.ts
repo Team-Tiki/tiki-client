@@ -36,6 +36,7 @@ export const contentStyle = (isFilled: boolean) =>
   css({
     display: 'flex',
     alignItems: 'center',
+    gap: '1rem',
 
     padding: '1.3rem 1.2rem',
 

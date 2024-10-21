@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import SearchIc from '@/common/asset/svg/ic_search.svg?react';
 import Input from '@/common/component/Input/Input';
 
 const meta = {
@@ -10,10 +11,6 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['default', 'text'],
-    },
     label: {
       control: { type: 'text' },
     },
@@ -22,7 +19,6 @@ const meta = {
     },
   },
   args: {
-    variant: 'default',
     label: '라벨입니다.',
     placeholder: '입력해주세요.',
   },
@@ -30,36 +26,29 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {
-  args: {
-    variant: 'default',
-  },
-  argTypes: {
-    variant: {
-      control: false,
-    },
-  },
+  args: {},
+  argTypes: {},
 };
 
 export const Search: Story = {
   args: {
-    variant: 'search',
+    LeftIcon: <SearchIc width={16} height={16} />,
+    filled: false,
   },
   argTypes: {
-    variant: {
-      control: false,
+    filled: {
+      control: { type: 'boolean' },
     },
   },
 };
+
 export const Filled: Story = {
   args: {
-    variant: 'search',
     filled: true,
   },
   argTypes: {
-    variant: {
-      control: { type: 'text' },
-    },
     filled: {
       control: false,
     },
