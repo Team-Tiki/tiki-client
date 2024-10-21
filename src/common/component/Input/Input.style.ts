@@ -32,8 +32,8 @@ export const inputStyle = css({
   },
 });
 
-export const variantStyle = (variant: Required<InputProps>['variant'], isFilled: boolean) => {
-  const defaultStyle = {
+export const contentStyle = (isFilled: boolean) =>
+  css({
     display: 'flex',
     alignItems: 'center',
 
@@ -46,21 +46,4 @@ export const variantStyle = (variant: Required<InputProps>['variant'], isFilled:
     '&:focus-within': {
       boxShadow: `inset 0px 0px 0px 1px ${theme.colors.key_500}`,
     },
-  };
-
-  const style = {
-    default: {},
-    search: {
-      gap: '1rem',
-
-      '::before': {
-        content: '""',
-        width: '1.6rem',
-        height: '1.4rem',
-        backgroundImage: `url(src/common/asset/svg/ic_search.svg)`,
-      },
-    },
-  };
-
-  return { ...defaultStyle, ...style[variant] };
-};
+  });
