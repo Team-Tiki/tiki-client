@@ -38,6 +38,9 @@ export const Search: Story = {
     filled: false,
   },
   argTypes: {
+    LeftIcon: {
+      control: false,
+    },
     filled: {
       control: { type: 'boolean' },
     },
@@ -54,6 +57,23 @@ export const Filled: Story = {
     },
   },
 };
+
+export const Count: Story = {
+  args: {
+    count: '00:00',
+  },
+  argTypes: {
+    count: {
+      control: false,
+    },
+    filled: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
+};
+
 export const SupportingText: Story = {
   args: {
     supportingText: 'this is supporingText',

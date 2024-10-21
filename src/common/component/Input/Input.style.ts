@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 
-import { InputProps } from '@/common/component/Input/Input';
 import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
