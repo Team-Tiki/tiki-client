@@ -7,23 +7,13 @@ export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  gap: '0.8rem',
+  gap: '0.2rem',
 
   width: '100%',
-});
 
-export const inputSupportStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-
-  gap: '0.8rem',
-});
-
-export const warpperStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-
-  paddingLeft: '0.8rem',
+  '&>label': {
+    margin: '0 0 1rem',
+  },
 });
 
 export const inputStyle = css({
@@ -32,62 +22,45 @@ export const inputStyle = css({
   border: 'none',
   backgroundColor: 'transparent',
   fontWeight: 400,
-  ...theme.text.body04,
+  ...theme.text.body06,
 
   outline: 'none',
 
   '::placeholder': {
     color: theme.colors.gray_500,
-    ...theme.text.body04,
+    ...theme.text.body06,
   },
 });
 
-export const variantStyle = (variant: Required<InputProps>['variant'], isError: boolean) => {
-  const borderColor = isError ? `${theme.colors.sementic_red}` : `${theme.colors.gray_400}`;
-  const focusBorderColor = isError ? `${theme.colors.sementic_red}` : `${theme.colors.key_500}`;
+export const variantStyle = (variant: Required<InputProps>['variant'], isFilled: boolean) => {
+  const defaultStyle = {
+    display: 'flex',
+    alignItems: 'center',
+
+    padding: '1.3rem 1.2rem',
+
+    backgroundColor: isFilled ? theme.colors.gray_100 : 'none',
+    boxShadow: `inset 0px 0px 0px 1px ${theme.colors.gray_300}`,
+    borderRadius: '8px',
+
+    '&:focus-within': {
+      boxShadow: `inset 0px 0px 0px 1px ${theme.colors.key_500}`,
+    },
+  };
 
   const style = {
-    default: {
-      boxShadow: `inset 0px 0px 0px 1px ${borderColor}`,
-      borderRadius: '8px',
+    default: {},
+    search: {
+      gap: '1rem',
 
-      '&:focus-within': {
-        boxShadow: `inset 0px 0px 0px 1px ${focusBorderColor}`,
-      },
-    },
-    underline: {
-      boxShadow: `inset 0px -1px 0px ${borderColor}`,
-
-      '&:focus-within': {
-        boxShadow: `inset 0px -1px 0px ${focusBorderColor}`,
-      },
-    },
-    colored: {
-      borderRadius: '100px',
-      backgroundColor: theme.colors.gray_100,
-
-      '& > input': {
-        '::placeholder': {
-          color: theme.colors.gray_500,
-          ...theme.text.body06,
-        },
-
-        '&:focus-within': {
-          boxShadow: `inset 0px 0px 0px 1px ${focusBorderColor}`,
-        },
+      '::before': {
+        content: '""',
+        width: '1.6rem',
+        height: '1.4rem',
+        backgroundImage: `url(src/common/asset/svg/ic_search.svg)`,
       },
     },
   };
 
-  return style[variant];
-};
-
-export const sizeStyle = (size: Required<InputProps>['size']) => {
-  const style = {
-    small: { padding: '0.8rem 1.2rem' },
-    medium: { padding: '1.2rem 1.2rem' },
-    large: { padding: '1.6rem 1.2rem' },
-  };
-
-  return style[size];
+  return { ...defaultStyle, ...style[variant] };
 };

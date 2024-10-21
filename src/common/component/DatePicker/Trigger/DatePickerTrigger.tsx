@@ -12,7 +12,6 @@ const DatePickerTrigger = ({ selectedDate, onClick, width = '10.3rem' }: DatePic
   return (
     <Input
       variant="default"
-      size="large"
       value={selectedDate ? format(selectedDate, 'yyyy.MM.dd') : ''}
       placeholder="YYYY.MM.DD"
       readOnly

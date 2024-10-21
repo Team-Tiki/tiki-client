@@ -73,13 +73,7 @@ const PasswordAuthPage = () => {
         <form css={[formStyle, { width: '51.1rem', height: '78rem' }]} onSubmit={handleSubmit}>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
             <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
-              <Input
-                variant="underline"
-                label="회원 정보"
-                placeholder={PLACEHOLDER.SCHOOL_EMAIL}
-                value={email}
-                onChange={onEmailChange}
-              />
+              <Input label="회원 정보" placeholder={PLACEHOLDER.SCHOOL_EMAIL} value={email} onChange={onEmailChange} />
               <Button css={{ width: '11.1rem' }} size="large" onClick={handleMailSend} disabled={!validateEmail(email)}>
                 인증 메일 발송
               </Button>
@@ -96,7 +90,6 @@ const PasswordAuthPage = () => {
                     gap: '1.6rem',
                   }}>
                   <Input
-                    variant="underline"
                     label="인증 코드"
                     placeholder={PLACEHOLDER.AUTH_CODE}
                     value={authCode}

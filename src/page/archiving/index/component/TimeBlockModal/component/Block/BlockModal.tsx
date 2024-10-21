@@ -81,7 +81,6 @@ const BlockModal = ({ isVisible }: BlockModalProps) => {
           <Flex styles={{ align: 'flex-end', direction: 'column', gap: '0.8rem', width: '100%' }}>
             <Input
               variant="default"
-              size="large"
               placeholder="활동,행사명 등"
               css={{ width: '100%' }}
               value={formData.blockName}

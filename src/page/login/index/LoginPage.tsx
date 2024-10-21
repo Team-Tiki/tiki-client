@@ -38,12 +38,11 @@ const LoginPage = () => {
       <Logo width={108} height={40} />
       <form onSubmit={handleLogin} css={formStyle}>
         <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
-          <Input value={email} onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
+          <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="아이디" />
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            variant="underline"
             placeholder="비밀번호"
           />
         </Flex>

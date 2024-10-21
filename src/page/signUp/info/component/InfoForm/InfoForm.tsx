@@ -85,7 +85,6 @@ const InfoForm = () => {
           value={info.name}
           onChange={handleInfoChange}
           isError={Boolean(error.name)}
-          variant="underline"
           label="이름"
           placeholder={PLACEHOLDER.NAME}
         />
@@ -93,7 +92,6 @@ const InfoForm = () => {
           value={info.birth}
           onChange={handleBirthChange}
           isError={Boolean(error.birth)}
-          variant="underline"
           label="생년월일"
           placeholder={PLACEHOLDER.BIRTHDAY}
         />
@@ -116,7 +114,6 @@ const InfoForm = () => {
             value={info.email}
             onChange={handleInfoChange}
             isError={Boolean(error.email)}
-            variant="underline"
             label="학교 인증"
             placeholder={PLACEHOLDER.VERIFY}
           />
@@ -135,7 +132,6 @@ const InfoForm = () => {
               value={info.authCode}
               maxLength={AUTHCODE_MAXLENGTH}
               onChange={handleInfoChange}
-              variant="underline"
               placeholder={PLACEHOLDER.AUTH_CODE}
             />
             <span css={timeStyle}>{formatTime(remainTime)}</span>

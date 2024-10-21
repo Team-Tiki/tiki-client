@@ -39,7 +39,6 @@ const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
       <article css={{ marginTop: '2.4rem', width: '32rem' }}>
         <Input
           variant="default"
-          size="large"
           placeholder="팀,동아리,조직 이름 입력"
           value={inputValue}
           onChange={handleInputChange}

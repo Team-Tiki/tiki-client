@@ -53,7 +53,6 @@ const PasswordResetPage = () => {
         <form css={formStyle} onSubmit={handleSubmit}>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
             <Input
-              variant="underline"
               type="password"
               placeholder={PLACEHOLDER.PASSWORD}
               value={form.updatedPassword}
@@ -62,7 +61,6 @@ const PasswordResetPage = () => {
               onChange={(e) => handlePasswordChange('updatedPassword', e)}
             />
             <Input
-              variant="underline"
               type="password"
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
               value={form.updatedPasswordChecker}
