@@ -38,6 +38,14 @@ export const textStyle = (tag: Required<TextProps>['tag']) => {
       fontSize: theme.text.body08.fontSize,
       lineHeight: theme.text.body08.lineHeight,
     }),
+    body9: css({
+      fontSize: theme.text.body09.fontSize,
+      lineHeight: theme.text.body09.lineHeight,
+    }),
+    body10: css({
+      fontSize: theme.text.body10.fontSize,
+      lineHeight: theme.text.body10.lineHeight,
+    }),
   };
   return style[tag];
 };
