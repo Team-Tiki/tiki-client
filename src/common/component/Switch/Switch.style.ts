@@ -4,13 +4,6 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
   display: 'flex',
-
-  height: '100%',
-
-  border: `1px solid ${theme.colors.gray_200}`,
-  borderRadius: '100px',
-
-  overflow: 'hidden',
 });
 
 export const contentStyle = (isChecked: boolean, side: 'left' | 'right', isClicked: boolean) => {
@@ -19,32 +12,51 @@ export const contentStyle = (isChecked: boolean, side: 'left' | 'right', isClick
 
   const style = {
     display: 'flex',
-    alignItems: 'center',
+
     padding: `0.8rem ${sidePadding}rem`,
+
+    width: '100%',
 
     backgroundColor: bgColor,
 
-    border: 'none',
-    borderRight: side === 'left' ? `1px solid ${theme.colors.gray_200}` : 'none',
+    borderTopLeftRadius: side === 'left' ? '100px' : 'none',
+    borderBottomLeftRadius: side === 'left' ? '100px' : 'none',
+    borderTopRightRadius: side === 'right' ? '100px' : 'none',
+    borderBottomRightRadius: side === 'right' ? '100px' : 'none',
+
+    border: `1px solid ${theme.colors.gray_200}`,
+    borderRight: side === 'left' ? 'none' : `1px solid ${theme.colors.gray_200}`,
   };
 
   const beforeStyle =
     isClicked && isChecked && side === 'left'
       ? {
-          content: '""',
+          content: '"✓"',
+
+          display: 'flex',
+          justifyContent: 'center',
+
           width: '1.6rem',
           height: '1.6rem',
-          backgroundImage: `url(src/common/asset/svg/ic_check.svg)`,
+
+          fontSize: '18px',
+          color: theme.colors.gray_800,
         }
       : {};
 
   const afterStyle =
     isClicked && isChecked && side === 'right'
       ? {
-          content: '""',
+          content: '"✓"',
+
+          display: 'flex',
+          justifyContent: 'center',
+
           width: '1.6rem',
           height: '1.6rem',
-          backgroundImage: `url(src/common/asset/svg/ic_check.svg)`,
+
+          fontSize: '18px',
+          color: theme.colors.gray_800,
         }
       : {};
 
