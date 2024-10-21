@@ -12,6 +12,7 @@ import {
 
 interface CommandButtonProps extends ButtonProps {
   variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'outline'>;
+  size?: Extract<ButtonProps['size'], 'large' | 'small'>;
   commandKey: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;
@@ -20,7 +21,7 @@ interface CommandButtonProps extends ButtonProps {
 
 const CommandButton = ({
   variant = 'primary',
-  size = 'small',
+  size = 'large',
   commandKey,
   isCommand = true,
   isFrontIcon = false,
