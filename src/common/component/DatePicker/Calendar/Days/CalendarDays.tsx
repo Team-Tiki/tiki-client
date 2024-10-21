@@ -8,7 +8,7 @@ interface CalendarDaysProps {
 const CalendarDays = ({ weekDays }: CalendarDaysProps) => (
   <div css={datesContainerStyle}>
     {weekDays.map((day, index) => (
-      <Text tag="body8" key={index} css={{ fontWeight: 500 }} tabIndex={0}>
+      <Text tag="body8" role="button" key={index} css={{ fontWeight: 500 }} tabIndex={0}>
         {day}
       </Text>
     ))}

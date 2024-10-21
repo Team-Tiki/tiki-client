@@ -60,5 +60,5 @@ export const getDateStyle = (date: Date, selectedDate: Date | null, endDate: Dat
     }
   }
 
-  return '';
+  return null;
 };
