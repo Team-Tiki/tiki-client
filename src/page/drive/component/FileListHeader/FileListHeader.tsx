@@ -1,5 +1,6 @@
 import CheckBox from '@/common/component/CheckBox/CheckBox';
 import Flex from '@/common/component/Flex/Flex';
+import Text from '@/common/component/Text/Text';
 
 import { headerStyle, rightSideRowStyle } from '@/page/drive/component/FileListHeader/FileListHeader.style';
 
@@ -12,13 +13,13 @@ const FileListHeader = ({ onSelectAll }: FileListHeaderProps) => {
     <header css={headerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         <CheckBox isChecked={false} onChange={onSelectAll} />
-        <p>이름</p>
+        <Text tag="body6">이름</Text>
       </Flex>
 
       <div css={rightSideRowStyle}>
-        <p>크기</p>
-        <p>종류</p>
-        <p>추가된 날짜</p>
+        <Text tag="body6">크기</Text>
+        <Text tag="body6">종류</Text>
+        <Text tag="body6">추가된 날짜</Text>
       </div>
     </header>
   );

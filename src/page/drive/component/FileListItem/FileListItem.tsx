@@ -1,8 +1,9 @@
 import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
 import CheckBox from '@/common/component/CheckBox/CheckBox';
 import Flex from '@/common/component/Flex/Flex';
+import Text from '@/common/component/Text/Text';
 
-import { containerStyle, rightSideRowStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
+import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
 
 import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
@@ -24,13 +25,15 @@ const FileListItem = ({
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         <CheckBox isChecked={isSelected} onChange={onFileSelect} />
-        <p>{title}</p>
+        <Text tag="body6">{title}</Text>
       </Flex>
 
       <div css={rightSideRowStyle}>
-        <p>{getFileVolume(volume)}</p>
-        <p>{type}</p>
-        <time dateTime={createdAt}>{createdAt}</time>
+        <Text tag="body6">{getFileVolume(volume)}</Text>
+        <Text tag="body6">{type}</Text>
+        <time css={timeStyle} dateTime={createdAt}>
+          {createdAt}
+        </time>
         <IcOption width={20} height={20} />
       </div>
     </div>

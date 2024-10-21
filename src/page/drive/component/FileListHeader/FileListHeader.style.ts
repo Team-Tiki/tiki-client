@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
-import { theme } from '@/common/style/theme/theme';
 
 export const headerStyle = css({
   display: 'grid',
@@ -14,7 +13,6 @@ export const headerStyle = css({
   padding: '1.4rem 0',
 
   '& p': {
-    ...theme.text.body06,
     fontWeight: 400,
 
     ...ellipsisStyle,

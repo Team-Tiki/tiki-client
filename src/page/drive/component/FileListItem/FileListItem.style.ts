@@ -14,11 +14,14 @@ export const containerStyle = css({
   padding: '1.4rem 0',
 
   '& p, & time': {
-    ...theme.text.body06,
     fontWeight: 400,
 
     ...ellipsisStyle,
   },
+});
+
+export const timeStyle = css({
+  ...theme.text.body06,
 });
 
 export const rightSideRowStyle = css({
