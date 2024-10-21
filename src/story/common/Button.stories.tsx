@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Icon from '@/common/asset/svg/ic_key_check.svg?react';
+import Icon from '@/common/asset/svg/ic_check.svg?react';
 import Button, { ButtonProps } from '@/common/component/Button/Button';
 
 const meta = {
@@ -13,20 +13,24 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'radio' },
-      options: ['primary', 'secondary', 'default', 'outline'],
+      options: ['primary', 'secondary', 'tertiary', 'outline', 'underline'],
     },
     size: {
       control: { type: 'radio' },
-      options: ['xLarge', 'large', 'medium', 'small'],
+      options: ['xLarge', 'large', 'medium', 'small', 'xSmall'],
     },
     children: {
       control: { type: 'text' },
     },
+    disabled: {
+      control: { type: 'boolean' },
+    },
   },
   args: {
     variant: 'primary',
-    size: 'medium',
+    size: 'small',
     children: 'Button',
+    disabled: false,
   },
 } satisfies Meta<typeof Button>;
 
@@ -48,12 +52,15 @@ export const Primary: Story = createButtonStory('primary');
 
 export const Secondary: Story = createButtonStory('secondary');
 
-export const Text: Story = createButtonStory('text');
+export const Tertiary: Story = createButtonStory('tertiary');
 
-export const Action: Story = createButtonStory('action');
+export const Outline: Story = createButtonStory('outline');
+
+export const Underline: Story = createButtonStory('underline');
 
 export const WithIcon: Story = {
   args: {
+    variant: 'tertiary',
     children: (
       <>
         <Icon />
