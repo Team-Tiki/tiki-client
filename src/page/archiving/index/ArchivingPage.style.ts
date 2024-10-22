@@ -4,7 +4,14 @@ export const pageStyle = () =>
   css({
     width: '100%',
     height: '100%',
+    padding: '8rem 3.4rem 4.8rem 3.2rem',
+
+    overflow: 'hidden',
   });
+
+export const contentBoxStyle = css({
+  height: '64rem',
+});
 
 export const timelineStyle = () =>
   css({
@@ -14,11 +21,8 @@ export const timelineStyle = () =>
     width: '100%',
 
     borderRadius: '16px',
-    padding: '2.6rem 2.4rem',
 
     gap: '1.6rem',
-
-    overflow: 'hidden',
   });
 
 export const contentStyle = css({
@@ -43,12 +47,4 @@ export const daySectionStyle = () =>
     overscrollBehavior: 'contain',
 
     scrollBehavior: 'smooth',
-
-    '&::-webkit-scrollbar': {
-      display: 'none',
-    },
   });
-
-export const contentBoxStyle = css({
-  marginLeft: '7.6rem',
-});

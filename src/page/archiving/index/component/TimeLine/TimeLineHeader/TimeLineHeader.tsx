@@ -14,7 +14,7 @@ interface TimeLineHeaderProps {
 const TimeLineHeader = ({ currentYear, currentMonth, onPrevMonth, onNextMonth }: TimeLineHeaderProps) => {
   return (
     <header css={headerStyle}>
-      <Button variant="outline" css={{ padding: '0.6rem' }} onClick={onPrevMonth} tabIndex={0}>
+      <Button variant="outline" css={{ padding: '0.6rem', margin: '0' }} onClick={onPrevMonth} tabIndex={0}>
         <ArrowLeft width={20} height={20} />
       </Button>
       <span css={dateStyle}>

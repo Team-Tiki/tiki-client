@@ -26,8 +26,8 @@ const TimeBlock = ({
 
   ...props
 }: TimeBlockProps) => {
-  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 2;
-  const startPosition = (new Date(startDate).getDate() - 1) * 2;
+  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 3.3;
+  const startPosition = (new Date(startDate).getDate() - 1) * 4.3;
 
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {

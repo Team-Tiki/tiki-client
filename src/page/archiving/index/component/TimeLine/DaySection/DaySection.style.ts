@@ -39,7 +39,11 @@ export const dayHeaderStyle = (isToday: boolean) =>
 
 export const dayBodyStyle = css({
   width: '100%',
-  height: 'calc(100vh - 2rem)',
+  height: '46rem',
+
+  maxHeight: 'calc(100vh - 2rem)',
+
+  overflowY: 'auto',
 
   backgroundColor: theme.colors.gray_100,
 
