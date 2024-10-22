@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 
 import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock.style';
-import { BLOCK_TYPE } from '@/page/archiving/index/constant/icon';
+import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { BlockType } from '@/page/archiving/index/type/blockType';
 import { BlockColor } from '@/page/archiving/index/type/color';
 
@@ -47,7 +47,7 @@ const TimeBlock = ({
       css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
       onClick={onBlockClick}
       {...props}>
-      {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon(color)}
+      {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}
       <span css={blockNameStyle(color)}>{children}</span>
     </div>
   );

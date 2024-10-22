@@ -13,7 +13,7 @@ type BlockIcon = {
   icon: (color: string) => ReactNode;
 };
 
-export const BLOCK_TYPE: BlockIcon[] = [
+export const BLOCK_ICON: BlockIcon[] = [
   {
     name: 'MEETING',
     icon: (color: string) => <Meeting width={16} height={16} css={iconStyle(color)} />,
