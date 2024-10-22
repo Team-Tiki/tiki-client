@@ -33,6 +33,7 @@ export const inputStyle = css({
 
 export const contentStyle = (isFilled: boolean) =>
   css({
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
@@ -47,3 +48,11 @@ export const contentStyle = (isFilled: boolean) =>
       boxShadow: `inset 0px 0px 0px 1px ${theme.colors.key_500}`,
     },
   });
+
+export const countStyle = css({
+  position: 'absolute',
+  right: '1.2rem',
+
+  ...theme.text.body06,
+  color: theme.colors.gray_500,
+});

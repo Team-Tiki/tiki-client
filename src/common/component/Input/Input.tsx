@@ -1,6 +1,6 @@
 import { ChangeEvent, ForwardedRef, InputHTMLAttributes, ReactNode, forwardRef, useState } from 'react';
 
-import { containerStyle, contentStyle, inputStyle } from '@/common/component/Input/Input.style';
+import { containerStyle, contentStyle, countStyle, inputStyle } from '@/common/component/Input/Input.style';
 import Label from '@/common/component/Label/Label';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { theme } from '@/common/style/theme/theme';
@@ -43,7 +43,7 @@ const Input = (
         {LeftIcon}
         <input ref={ref} onChange={onChange} css={inputStyle} {...props} />
         {hasCount && (
-          <span css={{ ...theme.text.body06, color: theme.colors.gray_500 }}>
+          <span css={countStyle}>
             {count}/{props.maxLength}
           </span>
         )}
