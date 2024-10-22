@@ -29,7 +29,7 @@ const TimeLine = (
 
   return (
     <div id="block_area" css={daySectionStyle} ref={ref}>
-      <Day endDay={endDay} />
+      <Day currentYear={currentYear} currentMonth={currentMonth} endDay={endDay} />
 
       {timeBlocks.map((block: Block) => {
         const { startDate, endDate } = block;

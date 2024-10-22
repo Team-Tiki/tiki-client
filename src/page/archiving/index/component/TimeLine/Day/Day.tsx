@@ -6,15 +6,16 @@ import {
   dayStyle,
   entireDayStyle,
 } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
-import { useDate } from '@/page/archiving/index/hook/common/useDate';
 
 interface DaySectionProps {
+  currentYear: number;
+  currentMonth: number;
   endDay: Date;
 }
 
-const Day = memo(({ endDay }: DaySectionProps) => {
-  const { currentDate, currentYear, currentMonth } = useDate();
+const Day = memo(({ currentYear, currentMonth, endDay }: DaySectionProps) => {
   const dayCount = endDay.getDate();
+  const currentDate = new Date();
 
   return (
     <div css={entireDayStyle}>
@@ -24,7 +25,6 @@ const Day = memo(({ endDay }: DaySectionProps) => {
             day + 1 === currentDate.getDate() &&
             currentYear === currentDate.getFullYear() &&
             currentMonth === currentDate.getMonth() + 1;
-
           return (
             <header css={dayHeaderStyle(isToday)} key={day}>
               {day + 1}
