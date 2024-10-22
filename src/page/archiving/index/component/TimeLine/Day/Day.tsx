@@ -5,7 +5,7 @@ import {
   dayHeaderStyle,
   dayStyle,
   entireDayStyle,
-} from '@/page/archiving/index/component/TimeLine/DaySection/DaySection.style';
+} from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 
 interface DaySectionProps {
