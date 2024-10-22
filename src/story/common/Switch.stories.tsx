@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
-import ListChecked from '@/common/asset/svg/ic_list_checked.svg?react';
 import Switch from '@/common/component/Switch/Switch';
 
 const meta = {
@@ -15,14 +14,15 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    isChecked: {
-      control: { type: 'boolean' },
+    status: {
+      control: { type: 'radio', options: ['left', 'right'] },
     },
   },
   args: {
-    isChecked: true,
-    LeftIcon: List,
-    RightIcon: Grid,
+    status: 'left',
+    onSwitchChange: () => {},
+    LeftIcon: { Icon: List, mode: 'stroke' },
+    RightIcon: { Icon: Grid, mode: 'fill' },
   },
 } satisfies Meta<typeof Switch>;
 
@@ -30,30 +30,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => {
+  render: (args) => {
     const [status, setStatus] = useState<'left' | 'right'>('left');
-    return <Switch status={status} LeftIcon={List} RightIcon={Grid} onSwitchChange={setStatus} />;
-  },
-  args: {
-    status: 'left',
-    isChecked: true,
-    LeftIcon: List,
-    RightIcon: Grid,
-    onSwitchChange: () => {},
-  },
-};
 
-export const StrokeIcon: Story = {
-  render: () => {
-    const [status, setStatus] = useState<'left' | 'right'>('left');
-    return <Switch status={status} LeftIcon={List} RightIcon={Grid} onSwitchChange={setStatus} />;
-  },
-  args: {
-    status: 'left',
-    isChecked: true,
-    LeftIcon: List,
-    ClickedLeftIcon: ListChecked,
-    RightIcon: Grid,
-    onSwitchChange: () => {},
+    return (
+      <Switch
+        {...args}
+        status={status}
+        onSwitchChange={() => setStatus((prev) => (prev === 'left' ? 'right' : 'left'))}
+      />
+    );
   },
 };
