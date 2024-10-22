@@ -1,7 +1,9 @@
+import { BlockColor } from './color';
+
 export interface Block {
   timeBlockId: number;
   name: string;
-  color: string;
+  color: BlockColor;
   startDate: Date;
   endDate: Date;
   blockType: 'MEETING' | 'ACCOUNTING' | 'TASK' | 'NOTICE' | 'STUDY' | 'EVENT';

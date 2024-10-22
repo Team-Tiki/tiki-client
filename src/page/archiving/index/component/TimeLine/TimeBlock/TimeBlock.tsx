@@ -1,13 +1,14 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 
 import { BLOCK_TYPE } from '../../../constant/blockIcon';
+import { BlockColor } from '../../../type/color';
 import { blockNameStyle, blockStyle } from './TimeBlock.style';
 
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   startDate: Date;
   endDate: Date;
-  color: string;
+  color: BlockColor;
   floor: number;
   blockType: string;
   isSelected?: boolean;
@@ -26,8 +27,8 @@ const TimeBlock = ({
 
   ...props
 }: TimeBlockProps) => {
-  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 3.3;
-  const startPosition = (new Date(startDate).getDate() - 1) * 4.3;
+  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 3.25;
+  const startPosition = (new Date(startDate).getDate() - 1) * 3.85;
 
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -47,7 +48,7 @@ const TimeBlock = ({
       onClick={onBlockClick}
       {...props}>
       {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
-      <span css={blockNameStyle}>{children}</span>
+      <span css={blockNameStyle(color)}>{children}</span>
     </div>
   );
 };

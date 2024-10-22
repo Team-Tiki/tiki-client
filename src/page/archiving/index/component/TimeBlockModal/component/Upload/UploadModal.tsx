@@ -13,7 +13,6 @@ import {
 import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePostTimeBlockMutation';
 import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/util/date';
-import { getRandomColor } from '@/page/archiving/index/util/color';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
@@ -88,7 +87,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
 
   const data = {
     name: formData.blockName,
-    color: getRandomColor(),
+    color: formData.blockColor,
     startDate: formatDatePost(formData.startDate),
     endDate: formatDatePost(formData.endDate),
     blockType: formData.blockType,

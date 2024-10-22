@@ -3,6 +3,7 @@ import { ReactNode, createContext, useCallback, useContext, useState } from 'rea
 interface BlockFormData {
   blockName: string;
   blockType: string;
+  blockColor: string;
   startDate: string;
   endDate: string;
 }
@@ -30,6 +31,7 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormDataState] = useState<BlockFormData>({
     blockName: '',
     blockType: '',
+    blockColor: '',
     startDate: '',
     endDate: '',
   });
@@ -41,6 +43,7 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
     setFormDataState({
       blockName: '',
       blockType: '',
+      blockColor: '',
       startDate: '',
       endDate: '',
     });
