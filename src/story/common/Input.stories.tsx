@@ -60,10 +60,10 @@ export const Filled: Story = {
 
 export const Count: Story = {
   args: {
-    count: '00:00',
+    maxLength: 10,
   },
   argTypes: {
-    count: {
+    maxLength: {
       control: false,
     },
     filled: {
