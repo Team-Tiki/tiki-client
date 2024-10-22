@@ -8,17 +8,32 @@ export const containerStyle = css({
   alignItems: 'center',
   gap: '0.8rem',
 
+  borderRadius: '8px',
+
+  whiteSpace: 'nowrap',
   cursor: 'pointer',
 });
 
 export const variantStyle = (variant: Required<MenuItemProps>['variant']) => {
   const style = {
     primary: css({
+      padding: '0.8rem 0.4rem 0.8rem 0.8rem ',
+
+      backgroundColor: theme.colors.white,
+
+      ...theme.text.body08,
+      color: theme.colors.black,
+
+      ':hover, :focus': {
+        outline: theme.colors.gray_100,
+        backgroundColor: theme.colors.gray_100,
+      },
+    }),
+    colored: css({
       padding: '0.8rem',
 
-      backgroundColor: theme.colors.gray_100,
-      borderRadius: '8px',
       border: 0,
+      backgroundColor: theme.colors.gray_100,
 
       ...theme.text.body06,
       color: theme.colors.black,
