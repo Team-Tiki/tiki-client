@@ -14,13 +14,13 @@ interface TimeLineHeaderProps {
 const TimeLineHeader = ({ currentYear, currentMonth, onPrevMonth, onNextMonth }: TimeLineHeaderProps) => {
   return (
     <header css={headerStyle}>
-      <Button variant="outline" onClick={onPrevMonth} tabIndex={0}>
+      <Button variant="outline" css={{ padding: '0.6rem' }} onClick={onPrevMonth} tabIndex={0}>
         <ArrowLeft width={20} height={20} />
       </Button>
       <span css={dateStyle}>
         {currentYear}년 {currentMonth}월
       </span>
-      <Button variant="outline" onClick={onNextMonth} tabIndex={0}>
+      <Button variant="outline" css={{ padding: '0.6rem' }} onClick={onNextMonth} tabIndex={0}>
         <ArrowRight width={20} height={20} />
       </Button>
 
