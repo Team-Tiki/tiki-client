@@ -16,4 +16,10 @@ export const FileData: File[] = [
   { fileId: 13, title: '폴더 이름', volume: 3000, createdAt: '2024년 10월 14일 오전 10:43', type: 'jpg' },
   { fileId: 14, title: '폴더 이름이 뭔데', volume: 20000, createdAt: '2024년 10월 14일 오전 10:43', type: 'pdf' },
   { fileId: 15, title: '이채원', volume: 3000, createdAt: '2024년 10월 14일 오전 10:43', type: 'png' },
+  { fileId: 16, title: '폴더 이름', volume: 3000, createdAt: '2024년 10월 14일 오전 10:43', type: 'jpg' },
+  { fileId: 17, title: '폴더 이름이 뭔데', volume: 20000, createdAt: '2024년 10월 14일 오전 10:43', type: 'pdf' },
+  { fileId: 18, title: '이채원', volume: 3000, createdAt: '2024년 10월 14일 오전 10:43', type: 'png' },
+  { fileId: 19, title: '폴더 이름', volume: 3000, createdAt: '2024년 10월 14일 오전 10:43', type: 'jpg' },
+  { fileId: 20, title: '폴더 이름이 뭔데', volume: 20000, createdAt: '2024년 10월 14일 오전 10:43', type: 'pdf' },
+  { fileId: 21, title: '이채원', volume: 3000, createdAt: '2024년 10월 14일 오전 10:43', type: 'png' },
 ];

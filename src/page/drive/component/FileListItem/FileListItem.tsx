@@ -9,6 +9,7 @@ import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
 type FileListItemProps = File & {
+  alignType: 'list' | 'grid';
   isSelected?: boolean;
   onFileSelect?: () => void;
 };
@@ -34,7 +35,7 @@ const FileListItem = ({
         <time css={timeStyle} dateTime={createdAt}>
           {createdAt}
         </time>
-        <IcOption width={20} height={20} />
+        <IcOption role="button" width={20} height={20} />
       </div>
     </div>
   );

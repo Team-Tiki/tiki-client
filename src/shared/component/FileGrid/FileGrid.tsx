@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { MouseEvent, useRef } from 'react';
 
 import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -59,6 +59,14 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
     return y + 118 + 20 < document.documentElement.clientHeight - 48;
   };
 
+  const handleOptionClick = (e: MouseEvent) => {
+    toggle();
+
+    if (!optionRef.current?.contains(e.target as Node)) {
+      close();
+    }
+  };
+
   return (
     <article css={cardStyle}>
       <div css={iconWrapperStyle}>{getIconByType(type)}</div>
@@ -73,7 +81,7 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
           </Heading>
           <Menu onClose={close}>
             <div ref={optionRef}>
-              <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
+              <IcOption onClick={handleOptionClick} css={{ cursor: 'pointer' }} width={16} height={16} />
             </div>
             <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
               <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => console.log('select')}>

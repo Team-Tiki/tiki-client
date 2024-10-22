@@ -10,8 +10,10 @@ import Switch from '@/common/component/Switch/Switch';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
+import { contentStyle } from '@/page/drive/index.style';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import FileGrid from '@/shared/component/FileGrid/FileGrid';
 
 import { FileData } from '@/mock/data/drive';
 
@@ -42,20 +44,30 @@ const DrivePage = () => {
           <Flex styles={{ align: 'center' }}>
             <Switch
               status={filter === 'list' ? 'left' : 'right'}
-              LeftIcon={List}
-              RightIcon={Grid}
+              LeftIcon={{ Icon: List, mode: 'stroke' }}
+              RightIcon={{ Icon: Grid, mode: 'fill' }}
               onSwitchChange={() => setFilter((prev) => (prev === 'list' ? 'grid' : 'list'))}
             />
             <Select css={{ width: '13rem' }} placeholder="최근 업로드 순" variant="option" options={filterOption} />
           </Flex>
         </Flex>
       }>
-      <FileListHeader onSelectAll={() => {}} />
-      <ul>
-        {FileData.map((item) => (
-          <FileListItem key={item.fileId} {...item} />
-        ))}
-      </ul>
+      {filter === 'list' ? (
+        <>
+          <FileListHeader onSelectAll={() => {}} />
+          <ul>
+            {FileData.map((item) => (
+              <FileListItem alignType="list" key={item.fileId} {...item} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <ul css={contentStyle}>
+          {FileData.map((item) => (
+            <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
+          ))}
+        </ul>
+      )}
     </ContentBox>
   );
 };
