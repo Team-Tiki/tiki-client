@@ -1,54 +1,58 @@
-import { ForwardedRef, InputHTMLAttributes, ReactNode, forwardRef } from 'react';
+import { ChangeEvent, ForwardedRef, InputHTMLAttributes, ReactNode, forwardRef, useState } from 'react';
 
-import {
-  containerStyle,
-  inputStyle,
-  sizeStyle,
-  variantStyle,
-  warpperStyle,
-} from '@/common/component/Input/Input.style';
+import { containerStyle, contentStyle, countStyle, inputStyle } from '@/common/component/Input/Input.style';
 import Label from '@/common/component/Label/Label';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
 
-type InputSize = 'small' | 'medium' | 'large';
-type InputVariant = 'default' | 'underline' | 'colored';
-
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant?: InputVariant;
-  size?: InputSize; //default: medium(p: 1.2rem)
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  LeftIcon?: ReactNode; //svg 컴포넌트
+  filled?: boolean;
+  LeftIcon?: ReactNode;
+  hasCount?: boolean; //글자수 세기
   isError?: boolean;
-  isNotice?: boolean;
+  isSuccess?: boolean;
   supportingText?: string;
 }
 
 const Input = (
   {
-    variant = 'default',
-    size = 'medium',
     label,
+    filled = false,
     LeftIcon,
+    hasCount,
     isError = false,
-    isNotice = false,
+    isSuccess = false,
     supportingText,
     ...props
   }: InputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) => {
+  const [count, setCount] = useState(0);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (count === props.maxLength) {
+      e.target.value = e.target.value.substring(0, props.maxLength);
+    }
+    setCount(e.target.value.length);
+  };
   return (
-    <article css={containerStyle}>
+    <div css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
-      <div css={[warpperStyle, variantStyle(variant, isError), sizeStyle(size)]}>
+      <div css={contentStyle(filled)}>
         {LeftIcon}
-        <input ref={ref} css={inputStyle} {...props} />
+        <input ref={ref} onChange={onChange} css={inputStyle} {...props} />
+        {hasCount && (
+          <span css={countStyle}>
+            {count}/{props.maxLength}
+          </span>
+        )}
       </div>
       {supportingText && (
-        <SupportingText isError={isError} isNotice={isNotice}>
+        <SupportingText isError={isError} isNotice={isSuccess}>
           {supportingText}
         </SupportingText>
       )}
-    </article>
+    </div>
   );
 };
 
