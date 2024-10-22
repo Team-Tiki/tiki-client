@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
+import { BlockColor } from '../../../type/color';
+
 export const blockStyle = (width: number, startPosition: number, floor: number, color: string, isSelected: boolean) =>
   css({
     position: 'absolute',
@@ -12,9 +14,9 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     zIndex: theme.zIndex.overlayBottom,
 
     top: `${floor * 4.5 - 1}rem`,
-    left: `${startPosition + 0.2}rem`,
+    left: `${startPosition + 1.5}rem`,
 
-    width: `${width - 0.4}%`,
+    width: `calc(${width}%  - 1%)`,
     height: '3.6rem',
     padding: '0.6rem',
 
@@ -32,10 +34,32 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
     cursor: 'pointer',
   });
 
-export const blockNameStyle = {
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
+export const blockNameStyle = (background: BlockColor) =>
+  css({
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
 
-  lineHeight: '1.8rem',
-};
+    color: (() => {
+      switch (background) {
+        case '#FFE6E8':
+          return theme.colors.red_200;
+        case '#F8E2CB':
+          return theme.colors.yellow_200;
+        case '#C4F2E5':
+          return theme.colors.green_200;
+        case '#DCD8FA':
+          return theme.colors.purple_200;
+        case '#E2E8F8':
+          return theme.colors.blue_200;
+        case '#F8E1F5':
+          return theme.colors.pink_200;
+        case '#D3EFFA':
+          return theme.colors.sky_200;
+        default:
+          return theme.colors.white;
+      }
+    })(),
+
+    lineHeight: '1.8rem',
+  });

@@ -29,7 +29,7 @@ const ArchivingPage = () => {
 
   if (!teamId) throw new Error('has no teamId');
 
-  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, endDay } = useDate(teamId);
+  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId);
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -52,6 +52,7 @@ const ArchivingPage = () => {
             onNextMonth={handleNextMonth}
             currentYear={currentYear}
             currentMonth={currentMonth}
+            onToday={handleToday}
           />
           <Flex css={contentStyle}>
             <Suspense>

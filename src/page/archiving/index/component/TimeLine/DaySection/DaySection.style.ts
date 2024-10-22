@@ -35,11 +35,24 @@ export const dayHeaderStyle = (isToday: boolean) =>
     backgroundColor: isToday ? theme.colors.gray_200 : theme.colors.white,
 
     ...theme.text.body08,
+
+    ':first-of-type': {
+      marginLeft: '1.9rem',
+    },
+
+    ':last-of-type': {
+      marginRight: '1.9rem',
+    },
   });
 
 export const dayBodyStyle = css({
-  width: '100%',
+  position: 'relative',
+  display: 'flex',
+
   height: '46rem',
+
+  justifyContent: 'center',
+  alignItems: 'center',
 
   maxHeight: 'calc(100vh - 2rem)',
 

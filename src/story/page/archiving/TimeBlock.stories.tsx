@@ -1,7 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { theme } from '@/common/style/theme/theme';
-
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 
 const meta = {
@@ -30,7 +28,7 @@ export const Default: Story = {
     children: '타임 블록',
     startDate: new Date(2022, 0, 1),
     endDate: new Date(2022, 0, 2),
-    color: theme.colors.blue_100,
+    color: '#FFE6E8',
     floor: 0,
     blockType: 'MEETING',
     onBlockClick: () => {},
