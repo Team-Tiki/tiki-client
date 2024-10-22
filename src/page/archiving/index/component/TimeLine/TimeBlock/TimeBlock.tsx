@@ -1,8 +1,9 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 
-import { BLOCK_TYPE } from '../../../constant/blockIcon';
-import { BlockColor } from '../../../type/color';
-import { blockNameStyle, blockStyle } from './TimeBlock.style';
+import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock.style';
+import { BLOCK_TYPE } from '@/page/archiving/index/constant/icon';
+import { BlockType } from '@/page/archiving/index/type/blockType';
+import { BlockColor } from '@/page/archiving/index/type/color';
 
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -10,7 +11,7 @@ interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   endDate: Date;
   color: BlockColor;
   floor: number;
-  blockType: string;
+  blockType: BlockType;
   isSelected?: boolean;
   onBlockClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
 }
@@ -24,7 +25,6 @@ const TimeBlock = ({
   onBlockClick,
   isSelected = false,
   blockType,
-
   ...props
 }: TimeBlockProps) => {
   const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 3.25;
@@ -47,7 +47,7 @@ const TimeBlock = ({
       css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
       onClick={onBlockClick}
       {...props}>
-      {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon}
+      {BLOCK_TYPE.find((icon) => icon.name === blockType)?.icon(color)}
       <span css={blockNameStyle(color)}>{children}</span>
     </div>
   );

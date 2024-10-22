@@ -6,7 +6,7 @@ export interface Block {
   color: BlockColor;
   startDate: Date;
   endDate: Date;
-  blockType: 'MEETING' | 'ACCOUNTING' | 'TASK' | 'NOTICE' | 'STUDY' | 'EVENT';
+  blockType: BlockType;
 }
 
 export interface TimeBlockList {
@@ -16,3 +16,5 @@ export interface TimeBlockList {
     timeBlocks: Block[];
   };
 }
+
+export type BlockType = 'MEETING' | 'NOTICE' | 'ACCOUNTING' | 'TASK' | 'STUDY' | 'EVENT';
