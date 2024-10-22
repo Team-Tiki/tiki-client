@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import { useOutsideClick } from '@/common/hook';
-import { theme } from '@/common/style/theme/theme';
 
 import { contentBoxStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
@@ -67,8 +66,6 @@ const ArchivingPage = () => {
               />
             </Suspense>
           </Flex>
-
-          <Flex css={{ zIndex: theme.zIndex.overlayTop, marginLeft: 'auto' }}></Flex>
         </section>
       </ContentBox>
       <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={() => setSelectedBlock(undefined)} />

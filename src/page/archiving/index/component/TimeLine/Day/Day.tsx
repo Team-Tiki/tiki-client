@@ -32,7 +32,7 @@ const Day = memo(({ currentYear, currentMonth, endDay }: DaySectionProps) => {
           );
         })}
       </div>
-      <div css={dayBodyStyle}></div>
+      <div css={dayBodyStyle} />
     </div>
   );
 });
