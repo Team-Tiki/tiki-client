@@ -24,7 +24,6 @@ const PasswordForm = () => {
           isError={Boolean(error.password)}
           value={info.password}
           onChange={handleInfoChange('password')}
-          variant="underline"
           label="비밀번호 설정"
           placeholder={PLACEHOLDER.PASSWORD}
         />
@@ -34,7 +33,6 @@ const PasswordForm = () => {
           supportingText={error.passwordChecker || error.password}
           value={info.passwordChecker}
           onChange={handleInfoChange('passwordChecker')}
-          variant="underline"
           placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
         />
       </Flex>

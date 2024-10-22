@@ -49,7 +49,7 @@ export const File: Story = {
       title="파일"
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Input size="small" placeholder="파일 및 폴더명을 검색해보세요" />
+          <Input placeholder="파일 및 폴더명을 검색해보세요" />
           <SampleButton>파일 업로드</SampleButton>
         </Flex>
       }
@@ -73,7 +73,7 @@ export const TimeLine: Story = {
       title="타임라인"
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Input size="small" placeholder="파일 및 폴더명을 검색해보세요" />
+          <Input placeholder="파일 및 폴더명을 검색해보세요" />
           <SampleButton>파일 업로드</SampleButton>
         </Flex>
       }
@@ -97,7 +97,7 @@ export const Deleted: Story = {
       title="휴지통"
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Input size="small" placeholder="파일 및 폴더명을 검색해보세요" />
+          <Input placeholder="파일 및 폴더명을 검색해보세요" />
           <SampleButton>파일 업로드</SampleButton>
         </Flex>
       }

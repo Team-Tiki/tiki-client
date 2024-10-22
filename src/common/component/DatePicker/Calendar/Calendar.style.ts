@@ -2,25 +2,35 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
+const baseDateStyle = {
+  borderTop: `1px solid ${theme.colors.key_500}`,
+  borderBottom: `1px solid ${theme.colors.key_500}`,
+
+  backgroundColor: theme.colors.key_100,
+};
+
+const selectedDateMargins = {
+  marginBottom: '0.3rem',
+  marginTop: '0.3rem',
+};
+
 export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.8rem',
+  gap: '1.6rem',
 
-  padding: '2rem',
+  position: 'absolute',
+  top: 'calc(100% + 0.4rem)',
+  left: 0,
 
-  border: `2px solid ${theme.colors.blue_200}`,
-  borderRadius: '10px',
+  width: '25.6rem',
+
+  padding: '1.6rem',
+
+  border: `1px solid ${theme.colors.gray_300}`,
+  borderRadius: '8px',
 
   backgroundColor: theme.colors.white,
-});
-
-export const dayStyle = css({
-  padding: '0.8rem 0',
-
-  color: theme.colors.key_500,
-
-  fontWeight: 700,
 });
 
 export const datesContainerStyle = css({
@@ -30,27 +40,76 @@ export const datesContainerStyle = css({
   textAlign: 'center',
 });
 
+export const rangeDateStyle = css({
+  ...baseDateStyle,
+
+  margin: '0.3rem 0',
+  padding: '0.3rem 0',
+
+  borderLeft: 'none',
+  borderRight: 'none',
+  borderRadius: '0',
+});
+
+export const selectedStartDateStyle = css({
+  ...selectedDateMargins,
+  ...baseDateStyle,
+
+  marginLeft: '0.3rem',
+  marginRight: '0',
+
+  paddingRight: '0.3rem',
+
+  borderLeft: `1px solid ${theme.colors.key_500}`,
+  borderRight: 'none',
+  borderTopLeftRadius: '50%',
+  borderBottomLeftRadius: '50%',
+  borderTopRightRadius: '0',
+  borderBottomRightRadius: '0',
+});
+
+export const selectedEndDateStyle = css({
+  ...selectedDateMargins,
+  ...baseDateStyle,
+
+  marginLeft: '0',
+  marginRight: '0.3rem',
+
+  paddingLeft: '0.3rem',
+
+  borderRight: `1px solid ${theme.colors.key_500}`,
+  borderLeft: 'none',
+  borderTopRightRadius: '50%',
+  borderBottomRightRadius: '50%',
+  borderTopLeftRadius: '0',
+  borderBottomLeftRadius: '0',
+});
+
 export const dateStyle = css({
-  padding: '0.8rem',
+  alignContent: 'center',
+
+  height: '2.6rem',
+
+  margin: '0.3rem',
 
   borderRadius: '50%',
   border: 'none',
 
+  color: theme.colors.gray_600,
   cursor: 'pointer',
-});
-
-export const outOfMonthStyle = css({
-  color: theme.colors.gray_300,
+  ...theme.text.body08,
+  fontWeight: 500,
 });
 
 export const selectedDateStyle = css({
-  backgroundColor: theme.colors.key_200,
-  color: theme.colors.white,
+  borderRadius: '50%',
+  border: `1px solid ${theme.colors.key_500}`,
+
+  backgroundColor: theme.colors.key_100,
 });
 
 export const hoverDateStyle = css({
   '&:hover, &:focus': {
-    backgroundColor: theme.colors.blue_200,
-    color: theme.colors.white,
+    backgroundColor: theme.colors.gray_100,
   },
 });
