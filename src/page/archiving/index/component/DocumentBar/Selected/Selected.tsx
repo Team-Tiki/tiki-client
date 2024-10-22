@@ -8,7 +8,7 @@ import { theme } from '@/common/style/theme/theme';
 
 import DocumentItem from '@/page/archiving/index/component/DocumentBar/Item/Item';
 import { blockNameStyle, deleteBtnStyle } from '@/page/archiving/index/component/DocumentBar/Selected/Selected.style';
-import { ICON_TYPE } from '@/page/archiving/index/constant/icon';
+import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
@@ -40,7 +40,7 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
 
   return (
     <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>
-      {ICON_TYPE.find((icon) => icon.name === selectedBlock.blockType)?.icon}
+      {BLOCK_ICON.find((icon) => icon.name === selectedBlock.blockType)?.icon?.(selectedBlock.color)}
       <Flex styles={{ direction: 'row', justify: 'space-between', width: '24.8rem' }}>
         <Heading tag="H6" css={blockNameStyle}>
           {selectedBlock.name}

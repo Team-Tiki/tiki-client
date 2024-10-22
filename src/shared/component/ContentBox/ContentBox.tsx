@@ -31,9 +31,9 @@ const ICON_BY_VARIANT = {
   deleted: <IcDeleted width={16} height={16} />,
 };
 
-const ContentBox = ({ variant, title, headerOption, contentOption, children }: ContentBoxProps) => {
+const ContentBox = ({ variant, title, headerOption, contentOption, children, ...props }: ContentBoxProps) => {
   return (
-    <section css={sectionStyle}>
+    <section css={sectionStyle} {...props}>
       <header css={headerStyle}>
         <Heading css={titleStyle} tag="H2">
           {ICON_BY_VARIANT[variant]}
