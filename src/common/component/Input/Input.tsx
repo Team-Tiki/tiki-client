@@ -3,7 +3,6 @@ import { ChangeEvent, ForwardedRef, InputHTMLAttributes, ReactNode, forwardRef, 
 import { containerStyle, contentStyle, countStyle, inputStyle } from '@/common/component/Input/Input.style';
 import Label from '@/common/component/Label/Label';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
-import { theme } from '@/common/style/theme/theme';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
