@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import SearchIc from '@/common/asset/svg/ic_search.svg?react';
 import Input from '@/common/component/Input/Input';
 
 const meta = {
@@ -10,14 +11,6 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['default', 'text'],
-    },
-    size: {
-      control: { type: 'radio' },
-      options: ['large', 'medium', 'small'],
-    },
     label: {
       control: { type: 'text' },
     },
@@ -26,8 +19,6 @@ const meta = {
     },
   },
   args: {
-    variant: 'default',
-    size: 'medium',
     label: '라벨입니다.',
     placeholder: '입력해주세요.',
   },
@@ -36,70 +27,65 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Sizes: Story = {
-  render: ({ variant, isError, placeholder }) => (
-    <ul>
-      <li>
-        <h6>Large</h6>
-        <Input size="large" variant={variant} isError={isError} placeholder={placeholder} />
-      </li>
-      <li>
-        <h6>Medium</h6>
-        <Input size="medium" variant={variant} isError={isError} placeholder={placeholder} />
-      </li>
-      <li>
-        <h6>Small</h6>
-        <Input size="small" variant={variant} isError={isError} placeholder={placeholder} />
-      </li>
-    </ul>
-  ),
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
-
 export const Default: Story = {
+  args: {},
+  argTypes: {},
+};
+
+export const Search: Story = {
   args: {
-    variant: 'default',
+    LeftIcon: <SearchIc width={16} height={16} />,
+    filled: false,
   },
   argTypes: {
-    variant: {
+    LeftIcon: {
+      control: false,
+    },
+    filled: {
+      control: { type: 'boolean' },
+    },
+  },
+};
+
+export const Filled: Story = {
+  args: {
+    filled: true,
+  },
+  argTypes: {
+    filled: {
       control: false,
     },
   },
 };
 
-export const Underline: Story = {
+export const Count: Story = {
   args: {
-    variant: 'underline',
+    hasCount: true,
+    maxLength: 10,
   },
   argTypes: {
-    variant: {
-      control: false,
+    hasCount: { control: false },
+    maxLength: {
+      control: { type: 'number' },
+    },
+    filled: {
+      control: {
+        type: 'boolean',
+      },
     },
   },
 };
 
-export const Colored: Story = {
+export const SupportingText: Story = {
   args: {
-    variant: 'colored',
+    supportingText: 'this is supporingText',
   },
   argTypes: {
-    variant: {
-      control: false,
+    isSuccess: {
+      control: { type: 'boolean' },
     },
-  },
-};
-
-export const Error: Story = {
-  args: {
-    isError: true,
-  },
-  argTypes: {
     isError: {
-      control: false,
+      control: { type: 'boolean' },
     },
   },
 };

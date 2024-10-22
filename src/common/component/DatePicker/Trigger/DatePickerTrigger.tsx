@@ -17,8 +17,6 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
   return (
     <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem' }}>
       <Input
-        variant="default"
-        size="medium"
         value={selectedDate ? format(selectedDate, 'yyyy.MM.dd') : ''}
         placeholder="YYYY.MM.DD"
         readOnly
@@ -31,8 +29,6 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
             ~
           </Text>
           <Input
-            variant="default"
-            size="medium"
             value={endDate ? format(endDate, 'yyyy.MM.dd') : ''}
             placeholder="YYYY.MM.DD"
             readOnly
