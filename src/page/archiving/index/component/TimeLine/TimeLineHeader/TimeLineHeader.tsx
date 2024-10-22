@@ -7,11 +7,12 @@ import { dateStyle, headerStyle } from '@/page/archiving/index/component/TimeLin
 interface TimeLineHeaderProps {
   currentYear: number;
   currentMonth: number;
-  onPrevMonth?: () => void;
-  onNextMonth?: () => void;
+  onPrevMonth: () => void;
+  onNextMonth: () => void;
+  onToday: () => void;
 }
 
-const TimeLineHeader = ({ currentYear, currentMonth, onPrevMonth, onNextMonth }: TimeLineHeaderProps) => {
+const TimeLineHeader = ({ currentYear, currentMonth, onPrevMonth, onNextMonth, onToday }: TimeLineHeaderProps) => {
   return (
     <header css={headerStyle}>
       <Button variant="outline" css={{ padding: '0.6rem', margin: '0' }} onClick={onPrevMonth} tabIndex={0}>
@@ -24,7 +25,7 @@ const TimeLineHeader = ({ currentYear, currentMonth, onPrevMonth, onNextMonth }:
         <ArrowRight width={20} height={20} />
       </Button>
 
-      <Button variant="outline" size="small">
+      <Button variant="outline" size="small" onClick={onToday}>
         오늘
       </Button>
     </header>

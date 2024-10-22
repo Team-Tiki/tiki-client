@@ -40,6 +40,13 @@ export const useDate = (teamId?: string) => {
     }
   };
 
+  const handleToday = () => {
+    setCurrentYear(currentDate.getFullYear());
+    setCurrentMonth(currentDate.getMonth() + 1);
+
+    ref?.current?.scrollTo(0, 0);
+  };
+
   return {
     ref,
     currentDate,
@@ -47,6 +54,7 @@ export const useDate = (teamId?: string) => {
     handlePrevMonth,
     handleNextMonth,
     currentMonth,
+    handleToday,
     date,
     endDay,
   };
