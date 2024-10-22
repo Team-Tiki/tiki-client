@@ -9,7 +9,6 @@ import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
 type FileListItemProps = File & {
-  alignType: 'list' | 'grid';
   isSelected?: boolean;
   onFileSelect?: () => void;
 };

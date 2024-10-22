@@ -57,7 +57,7 @@ const DrivePage = () => {
           <FileListHeader onSelectAll={() => {}} />
           <ul>
             {FileData.map((item) => (
-              <FileListItem alignType="list" key={item.fileId} {...item} />
+              <FileListItem key={item.fileId} {...item} />
             ))}
           </ul>
         </>
