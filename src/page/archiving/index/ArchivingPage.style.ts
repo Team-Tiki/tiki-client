@@ -4,7 +4,6 @@ export const pageStyle = () =>
   css({
     width: '100%',
     height: '100%',
-    padding: '8rem 3.4rem 4.8rem 3.2rem',
 
     overflow: 'hidden',
   });
