@@ -1,7 +1,7 @@
 import { ForwardedRef, forwardRef } from 'react';
 
 import { daySectionStyle } from '@/page/archiving/index/ArchivingPage.style';
-import DaySection from '@/page/archiving/index/component/TimeLine/Day/Day';
+import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
@@ -29,7 +29,7 @@ const TimeLine = (
 
   return (
     <div id="block_area" css={daySectionStyle} ref={ref}>
-      <DaySection endDay={endDay} />
+      <Day endDay={endDay} />
 
       {timeBlocks.map((block: Block) => {
         const { startDate, endDate } = block;

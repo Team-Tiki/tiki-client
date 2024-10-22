@@ -12,7 +12,7 @@ interface DaySectionProps {
   endDay: Date;
 }
 
-const DaySection = memo(({ endDay }: DaySectionProps) => {
+const Day = memo(({ endDay }: DaySectionProps) => {
   const { currentDate, currentYear, currentMonth } = useDate();
   const dayCount = endDay.getDate();
 
@@ -37,4 +37,4 @@ const DaySection = memo(({ endDay }: DaySectionProps) => {
   );
 });
 
-export default DaySection;
+export default Day;
