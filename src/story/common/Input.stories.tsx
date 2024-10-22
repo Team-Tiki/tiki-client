@@ -60,11 +60,13 @@ export const Filled: Story = {
 
 export const Count: Story = {
   args: {
+    hasCount: true,
     maxLength: 10,
   },
   argTypes: {
+    hasCount: { control: false },
     maxLength: {
-      control: false,
+      control: { type: 'number' },
     },
     filled: {
       control: {

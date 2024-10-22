@@ -9,7 +9,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   filled?: boolean;
   LeftIcon?: ReactNode;
-  maxLength?: number;
+  hasCount?: boolean; //글자수 세기
   isError?: boolean;
   isSuccess?: boolean;
   supportingText?: string;
@@ -20,7 +20,7 @@ const Input = (
     label,
     filled = false,
     LeftIcon,
-    maxLength,
+    hasCount,
     isError = false,
     isSuccess = false,
     supportingText,
@@ -28,13 +28,11 @@ const Input = (
   }: InputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) => {
-  //변수 선언해서 count/maxLength 보여주자!
   const [count, setCount] = useState(0);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (count === maxLength) {
-      //글자수 제한
-      e.target.value = e.target.value.substring(0, maxLength);
+    if (count === props.maxLength) {
+      e.target.value = e.target.value.substring(0, props.maxLength);
     }
     setCount(e.target.value.length);
   };
@@ -44,9 +42,9 @@ const Input = (
       <div css={contentStyle(filled)}>
         {LeftIcon}
         <input ref={ref} onChange={onChange} css={inputStyle} {...props} />
-        {maxLength && (
+        {hasCount && (
           <span css={{ ...theme.text.body06, color: theme.colors.gray_500 }}>
-            {count}/{maxLength}
+            {count}/{props.maxLength}
           </span>
         )}
       </div>
