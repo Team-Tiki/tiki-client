@@ -35,13 +35,13 @@ export const Default: Story = {
 export const Search: Story = {
   args: {
     LeftIcon: <SearchIc width={16} height={16} />,
-    filled: false,
+    isFilled: false,
   },
   argTypes: {
     LeftIcon: {
       control: false,
     },
-    filled: {
+    isFilled: {
       control: { type: 'boolean' },
     },
   },
@@ -49,29 +49,11 @@ export const Search: Story = {
 
 export const Filled: Story = {
   args: {
-    filled: true,
+    isFilled: true,
   },
   argTypes: {
-    filled: {
+    isFilled: {
       control: false,
-    },
-  },
-};
-
-export const Count: Story = {
-  args: {
-    hasCount: true,
-    maxLength: 10,
-  },
-  argTypes: {
-    hasCount: { control: false },
-    maxLength: {
-      control: { type: 'number' },
-    },
-    filled: {
-      control: {
-        type: 'boolean',
-      },
     },
   },
 };
