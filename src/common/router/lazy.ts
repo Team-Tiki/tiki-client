@@ -10,3 +10,4 @@ export const ShowcasePage = lazy(() => import('@/page/showcase/index/ShowcasePag
 export const ArchivingPage = lazy(() => import('@/page/archiving/index/ArchivingPage'));
 export const ErrorPage = lazy(() => import('@/shared/page/errorPage/ErrorPage'));
 export const ComingsoonPage = lazy(() => import('@/shared/page/comingsoonPage/ComingsoonPage'));
+export const DrivePage = lazy(() => import('@/page/drive/index'));

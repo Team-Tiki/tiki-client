@@ -39,7 +39,7 @@ export interface FlexStyle {
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse' | 'inherit' | 'initial';
   basis?: 0 | 'auto' | '200px';
   grow?: string;
-  shrink?: string;
+  shrink?: number;
 
   position?: 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky' | 'inherit';
   top?: string;
@@ -75,7 +75,7 @@ export const getFlexStyle = ({
   wrap = 'nowrap',
   basis = 'auto',
   grow = '0',
-  shrink = '0',
+  shrink = 0,
   width = '',
   height = '',
   margin = '0',
