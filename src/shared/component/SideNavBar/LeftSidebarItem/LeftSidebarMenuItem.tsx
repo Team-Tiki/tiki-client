@@ -25,7 +25,7 @@ const LeftSidebarMenuItem = ({ isClicked, children = '', logoUrl, onClick }: Lef
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
     <li role="button" tabIndex={0} css={leftSidebarMenuItemStyle} onClick={onClick} onKeyDown={handleEnterKeyDown}>
-      <PageIndicatorStick isClicked={isClicked} />
+      {/* <PageIndicatorStick isClicked={isClicked} /> */}
       <Flex css={clubInfoStyle}>
         <img src={logoUrl} alt={`${children?.toString()} icon`} css={clubLogoStyle} />
       </Flex>

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import toolTipImg from '@/common/asset/img/tooltip.png';
 import { ToolTipProps } from '@/common/component/ToolTip/ToolTip';
 import { theme } from '@/common/style/theme/theme';
 
@@ -17,10 +18,15 @@ export const messageStyle = css({
   display: 'none',
   position: 'absolute',
 
+  backgroundImage: `url(${toolTipImg})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'left',
+  backgroundRepeat: 'no-repeat',
+  width: 'max-content',
   padding: '1rem',
   borderRadius: '8px',
 
-  backgroundColor: `${theme.colors.gray_900}`,
+  // backgroundColor: `${theme.colors.gray_900}`,
   font: `${theme.text.body08}`,
   color: `${theme.colors.white}`,
 });
@@ -60,23 +66,23 @@ export const arrowPositionStyle = (position: Required<ToolTipProps>['position'])
   const style = {
     top: css({
       left: '50%',
-      top: '99%',
-      transform: `translateX(-50%) rotate(270deg)`,
+      top: 'calc(100% - 1px)',
+      transform: `translateX(-50%) translateY(-1px) rotate(270deg)`,
     }),
     bottom: css({
       left: '50%',
-      bottom: '98%',
-      transform: `translateX(-50%) rotate(90deg)`,
+      bottom: 'calc(100% - 1px)',
+      transform: `translateX(-50%) translateY(1px) rotate(90deg)`,
     }),
     left: css({
       top: '50%',
-      left: '98%',
-      transform: `translateY(-50%) rotate(180deg)`,
+      left: 'calc(100% - 1px)',
+      transform: `translateY(-50%) translateX(-1px) rotate(180deg)`,
     }),
     right: css({
       top: '50%',
-      right: '98%',
-      transform: `translateY(-50%) `,
+      right: 'calc(100% - 1px)',
+      transform: `translateY(-50%) translateX(1px)`,
     }),
   };
 
