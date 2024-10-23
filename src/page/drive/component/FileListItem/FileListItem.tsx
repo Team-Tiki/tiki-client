@@ -34,7 +34,7 @@ const FileListItem = ({
         <time css={timeStyle} dateTime={createdAt}>
           {createdAt}
         </time>
-        <IcOption role="button" width={20} height={20} />
+        <IcOption onClick={() => {}} css={{ cursor: 'pointer' }} role="button" width={20} height={20} />
       </div>
     </div>
   );

@@ -76,13 +76,13 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
               <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
             </div>
             <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => console.log('select')}>
+              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
                 파일 다운로드
               </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => console.log('select')}>
+              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
                 휴지통으로 이동
               </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => console.log('select')}>
+              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
                 인수인계 노트 보기
               </MenuItem>
             </MenuList>
