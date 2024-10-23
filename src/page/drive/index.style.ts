@@ -5,6 +5,8 @@ export const contentStyle = css({
   gridTemplateColumns: 'repeat(6, 1fr)',
   gap: '2.3rem',
 
+  padding: '2.4rem 0 3.2rem 0',
+
   '@media (max-width: 1366px)': {
     gridTemplateColumns: 'repeat(5, 1fr)',
   },

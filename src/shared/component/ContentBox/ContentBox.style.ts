@@ -57,6 +57,8 @@ export const contentStyle = css({
   width: '100%',
   height: 'calc(100% - 12rem)',
 
+  marginTop: '0.8rem',
+
   overflowY: 'scroll',
   scrollBehavior: 'smooth',
 });

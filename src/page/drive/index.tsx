@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
+import IcSearch from '@/common/asset/svg/ic_search.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
@@ -28,7 +29,7 @@ const DrivePage = () => {
       title="파일"
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Input size="small" placeholder="파일 및 폴더 명을 검색하세요" />
+          <Input LeftIcon={<IcSearch width={16} height={16} />} placeholder="파일 및 폴더 명을 검색하세요" />
           <Button variant="secondary">삭제된 항목</Button>
           <Button>파일 업로드</Button>
         </Flex>
