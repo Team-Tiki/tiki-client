@@ -37,6 +37,8 @@ export const titleAlignStyle = css({
 export const descriptionStyle = css({
   ...theme.text.body08,
   color: theme.colors.gray_500,
+
+  whiteSpace: 'nowrap',
 });
 
 export const headerStyle = css({
