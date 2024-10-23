@@ -28,6 +28,17 @@ export const titleStyle = css({
   whiteSpace: 'nowrap',
 });
 
+export const titleAlignStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+});
+
+export const descriptionStyle = css({
+  ...theme.text.body08,
+  color: theme.colors.gray_500,
+});
+
 export const headerStyle = css({
   display: 'flex',
   justifyContent: 'space-between',

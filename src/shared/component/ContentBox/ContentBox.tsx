@@ -9,8 +9,10 @@ import { scrollStyle } from '@/common/style/scroll';
 import {
   contentOptionStyle,
   contentStyle,
+  descriptionStyle,
   headerStyle,
   sectionStyle,
+  titleAlignStyle,
   titleStyle,
 } from '@/shared/component/ContentBox/ContentBox.style';
 import { Content } from '@/shared/type/content';
@@ -20,6 +22,7 @@ interface ContentBoxProps extends ComponentPropsWithoutRef<'section'> {
   variant: Content;
 
   title: string;
+  description?: string;
   children: ReactNode;
 
   headerOption?: ReactNode;
@@ -32,14 +35,17 @@ const ICON_BY_VARIANT = {
   deleted: <IcDeleted width={16} height={16} />,
 };
 
-const ContentBox = ({ variant, title, headerOption, contentOption, children }: ContentBoxProps) => {
+const ContentBox = ({ variant, title, description, headerOption, contentOption, children }: ContentBoxProps) => {
   return (
     <section css={sectionStyle}>
       <header css={headerStyle}>
-        <Heading css={titleStyle} tag="H2">
-          {ICON_BY_VARIANT[variant]}
-          {title}
-        </Heading>
+        <div css={titleAlignStyle}>
+          <Heading css={titleStyle} tag="H2">
+            {ICON_BY_VARIANT[variant]}
+            {title}
+          </Heading>
+          <p css={descriptionStyle}>{description}</p>
+        </div>
         {headerOption}
       </header>
 

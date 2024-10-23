@@ -27,9 +27,14 @@ const DrivePage = () => {
     <ContentBox
       variant="file"
       title="파일"
+      description="5.16GB 사용가능(총 245.11GB)"
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
-          <Input LeftIcon={<IcSearch width={16} height={16} />} placeholder="파일 및 폴더 명을 검색하세요" />
+          <Input
+            css={{ width: '33.6rem' }}
+            LeftIcon={<IcSearch width={16} height={16} />}
+            placeholder="파일 및 폴더 명을 검색하세요"
+          />
           <Button variant="secondary">삭제된 항목</Button>
           <Button>파일 업로드</Button>
         </Flex>
