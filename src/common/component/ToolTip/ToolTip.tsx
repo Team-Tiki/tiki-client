@@ -1,6 +1,5 @@
 import { HTMLAttributes } from 'react';
 
-import Tooltip from '@/common/asset/svg/ic_tooltip.svg?react';
 import Arrow from '@/common/asset/svg/ic_tooltip_arrow.svg?react';
 import {
   arrowPositionStyle,
@@ -16,12 +15,12 @@ export interface ToolTipProps extends HTMLAttributes<HTMLSpanElement> {
   margin?: number;
 }
 
-const ToolTip = ({ position = 'right', message, margin = 0, children }: ToolTipProps) => {
+const ToolTip = ({ position = 'right', message, margin = 0, children, ...props }: ToolTipProps) => {
   return (
     <div css={containerStyle}>
       {children}
-      <span css={[messageStyle, positionStyle(position, margin)]}>
-        {/* <Arrow css={[arrowStyle, arrowPositionStyle(position)]} /> */}
+      <span css={[messageStyle, positionStyle(position, margin)]} {...props}>
+        <Arrow css={[arrowStyle, arrowPositionStyle(position)]} />
         {message}
       </span>
     </div>
