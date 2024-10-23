@@ -8,13 +8,14 @@ export const containerStyle = css({
   border: '1px solid',
   '&:hover': {
     '& > span': {
-      display: 'block',
+      visibility: 'visible',
+      transitionDelay: '0.2s',
     },
   },
 });
 
 export const messageStyle = css({
-  display: 'none',
+  visibility: 'hidden',
   position: 'absolute',
 
   width: 'max-content',
