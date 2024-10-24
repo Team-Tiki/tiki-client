@@ -42,7 +42,7 @@ export const Default: Story = {
     return (
       <Menu onClose={close}>
         <button onClick={toggle}>Trigger</button>
-        <MenuList variant={'primary'} isOpen={isOpen} css={{ left: '100%', top: 0 }}>
+        <MenuList isOpen={isOpen} css={{ left: '100%', top: 0 }}>
           <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
             이름 변경
           </MenuItem>
@@ -51,30 +51,6 @@ export const Default: Story = {
           </MenuItem>
           <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
             폴더 전체 다운로드
-          </MenuItem>
-        </MenuList>
-      </Menu>
-    );
-  },
-  args: {
-    onClose: () => {},
-  },
-  argTypes: {},
-};
-
-export const Colored: Story = {
-  render: ({}) => {
-    const { isOpen, close, toggle } = useOverlay();
-
-    return (
-      <Menu onClose={close}>
-        <button onClick={toggle}>Trigger</button>
-        <MenuList variant={'colored'} isOpen={isOpen} css={{ left: '100%', top: 0 }}>
-          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
-            first item
-          </MenuItem>
-          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
-            second item
           </MenuItem>
         </MenuList>
       </Menu>
