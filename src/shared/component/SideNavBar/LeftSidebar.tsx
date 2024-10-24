@@ -78,7 +78,7 @@ const LeftSidebar = () => {
       <nav>
         <TikiLogo css={tikiLogoStyle} />
         <ul css={leftSidebarMenuStyle}>
-          <ToolTip message="가나다라마바사아자차카파타파" position="right" margin={0.8}>
+          <ToolTip message="가나다라마바사아자차카파타파" position="right" gap={0.8}>
             <LeftSidebarMenuItem
               isClicked={selectedId === 'showcase'}
               logoUrl={earthUrl}

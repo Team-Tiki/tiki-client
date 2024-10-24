@@ -23,7 +23,7 @@ const meta = {
   args: {
     position: 'top',
     message: 'ToolTip',
-    margin: 0.8,
+    gap: 0.8,
   },
 } satisfies Meta<typeof ToolTip>;
 

@@ -6,7 +6,7 @@ import { theme } from '@/common/style/theme/theme';
 export const containerStyle = css({
   position: 'relative',
   border: '1px solid',
-  '&:hover': {
+  '&:hover, &:focus-visible': {
     '& > span': {
       visibility: 'visible',
       transitionDelay: '0.2s',
@@ -25,6 +25,8 @@ export const messageStyle = css({
   backgroundColor: `${theme.colors.gray_900}`,
   font: `${theme.text.body08}`,
   color: `${theme.colors.white}`,
+
+  pointerEvents: 'none',
 });
 
 export const positionStyle = (position: Required<ToolTipProps>['position'], margin: number) => {

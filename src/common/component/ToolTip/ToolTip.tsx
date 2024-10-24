@@ -12,14 +12,15 @@ import {
 export interface ToolTipProps extends HTMLAttributes<HTMLSpanElement> {
   position?: 'top' | 'right' | 'bottom' | 'left';
   message: string;
-  margin?: number;
+  gap?: number;
 }
 
-const ToolTip = ({ position = 'right', message, margin = 0, children, ...props }: ToolTipProps) => {
+const ToolTip = ({ position = 'right', message, gap = 0, children, ...props }: ToolTipProps) => {
   return (
-    <div css={containerStyle}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <div id={message} role="tooltip" css={containerStyle} tabIndex={0}>
       {children}
-      <span css={[messageStyle, positionStyle(position, margin)]} {...props}>
+      <span css={[messageStyle, positionStyle(position, gap)]} {...props}>
         <Arrow css={[arrowStyle, arrowPositionStyle(position)]} />
         {message}
       </span>
