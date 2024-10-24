@@ -10,6 +10,8 @@ export const headerStyle = css({
   backgroundColor: theme.colors.white,
 
   '& > h1': {
+    padding: '1rem',
+
     ...theme.heading.heading05,
     fontWeight: 600,
   },
