@@ -31,7 +31,7 @@ export const buttonStyle = (isActive: boolean) =>
 
     ...(isActive && {
       '&:hover': {
-        backgroundColor: theme.colors.blue_300,
+        backgroundColor: theme.colors.key_100,
       },
     }),
   });

@@ -1,6 +1,3 @@
-import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
-import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
-
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +5,9 @@ import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
+
+import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
+import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -38,12 +38,11 @@ const LoginPage = () => {
       <Logo width={108} height={40} />
       <form onSubmit={handleLogin} css={formStyle}>
         <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
-          <Input value={email} onChange={(e) => setEmail(e.target.value)} variant="underline" placeholder="아이디" />
+          <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="아이디" />
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            variant="underline"
             placeholder="비밀번호"
           />
         </Flex>
@@ -58,7 +57,7 @@ const LoginPage = () => {
         <Button
           type="button"
           size="small"
-          variant="text"
+          variant="underline"
           css={findPasswordButtonStyle}
           onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기

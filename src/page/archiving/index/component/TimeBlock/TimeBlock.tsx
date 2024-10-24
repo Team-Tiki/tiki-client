@@ -1,7 +1,7 @@
+import React, { HTMLAttributes, ReactNode } from 'react';
+
 import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeBlock/TimeBlock.style';
 import { BLOCK_TYPE } from '@/page/archiving/index/constant/blockIcon';
-
-import React, { HTMLAttributes, ReactNode } from 'react';
 
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -37,7 +37,7 @@ const TimeBlock = ({
 
   return (
     <div
-      role="tab"
+      role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         handleEnterBlock(e);

@@ -1,20 +1,24 @@
 import App from '@/App';
-import ArchivingPage from '@/page/archiving/index/ArchivingPage';
-import LandingPage from '@/page/landing/LandingPage';
-import LoginPage from '@/page/login/index/LoginPage';
-import PasswordAuthPage from '@/page/login/password/auth/PasswordAuthPage';
-import PasswordResetPage from '@/page/login/password/reset/PasswordResetPage';
-import ShowcasePage from '@/page/showcase/index/ShowcasePage';
-import TermPage from '@/page/signUp/index/TermPage';
-import InfoFormPage from '@/page/signUp/info/InfoFormPage';
 
+import { Suspense } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
+import {
+  ArchivingPage,
+  ComingsoonPage,
+  DrivePage,
+  ErrorPage,
+  InfoFormPage,
+  LandingPage,
+  LoginPage,
+  PasswordAuthPage,
+  PasswordResetPage,
+  ShowcasePage,
+  TermPage,
+} from '@/common/router/lazy';
 
 import { PATH } from '@/shared/constant/path';
-import ComingsoonPage from '@/shared/page/comingsoonPage/ComingsoonPage';
-import ErrorPage from '@/shared/page/errorPage/ErrorPage';
 
 const Public = () => {
   const navigate = useNavigate();
@@ -32,45 +36,110 @@ const router = createBrowserRouter([
   {
     path: PATH.ROOT,
     element: <Public />,
-    errorElement: <ErrorPage />,
+    errorElement: (
+      <Suspense>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
-      { path: PATH.LANDING, element: <LandingPage /> },
+      {
+        path: PATH.LANDING,
+        element: (
+          <Suspense>
+            <LandingPage />
+          </Suspense>
+        ),
+      },
       {
         path: PATH.LOGIN,
-        element: <LoginPage />,
+        element: (
+          <Suspense>
+            <LoginPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.SIGNUP,
-        element: <TermPage />,
+        element: (
+          <Suspense>
+            <TermPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.SIGNUP_INFO,
-        element: <InfoFormPage />,
+        element: (
+          <Suspense>
+            <InfoFormPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.SIGNUP_PASSWORD,
-        element: <InfoFormPage />,
+        element: (
+          <Suspense>
+            <InfoFormPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.PASSWORD_AUTH,
-        element: <PasswordAuthPage />,
+        element: (
+          <Suspense>
+            <PasswordAuthPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.PASSWORD_RESET,
-        element: <PasswordResetPage />,
+        element: (
+          <Suspense>
+            <PasswordResetPage />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: PATH.ROOT,
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: (
+      <Suspense>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
-      { path: PATH.SHOWCASE, element: <ShowcasePage /> },
-      { path: PATH.ARCHIVING, element: <ArchivingPage /> },
+      {
+        path: PATH.SHOWCASE,
+        element: (
+          <Suspense>
+            <ShowcasePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.ARCHIVING,
+        element: (
+          <Suspense>
+            <ArchivingPage />
+          </Suspense>
+        ),
+      },
       {
         path: PATH.COMING_SOON,
-        element: <ComingsoonPage />,
+        element: (
+          <Suspense>
+            <ComingsoonPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.DRIVE,
+        element: (
+          <Suspense>
+            <DrivePage />
+          </Suspense>
+        ),
       },
     ],
   },

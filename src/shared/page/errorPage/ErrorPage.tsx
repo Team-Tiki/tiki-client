@@ -44,7 +44,7 @@ const ErrorPage = ({ statusCode = HTTP_STATUS_CODE.NOT_FOUND, resetError }: Erro
             {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].TEXT}
           </Text>
         </Flex>
-        <Button variant="action" onClick={resetError ?? (() => navigate(-1))}>
+        <Button onClick={resetError ?? (() => navigate(-1))}>
           {HTTP_ERROR_MESSAGE[statusCode as keyof typeof HTTP_ERROR_MESSAGE].REDIRECT}
         </Button>
       </div>

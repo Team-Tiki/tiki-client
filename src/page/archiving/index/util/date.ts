@@ -1,6 +1,7 @@
+import { format } from 'date-fns';
+
 import { MONTHS } from '@/page/archiving/index/constant/month';
 import { MonthType } from '@/page/archiving/index/type/monthType';
-import { format } from 'date-fns';
 
 export const getMonthDate = (monthName: MonthType, currentYear: number) => {
   const monthIndex = MONTHS.indexOf(monthName);

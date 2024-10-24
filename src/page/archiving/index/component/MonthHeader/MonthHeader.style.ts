@@ -1,7 +1,8 @@
-import { Block } from '@/page/archiving/index/type/blockType';
 import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
+
+import { Block } from '@/page/archiving/index/type/blockType';
 
 export const headerStyle = (blockSelected?: Block) =>
   css({
@@ -29,12 +30,12 @@ export const monthBtnStyle = css({
   transition: 'all 0.4s ease-in-out',
 
   '&:hover': {
-    color: theme.colors.blue_900,
+    color: theme.colors.key_500,
     backgroundColor: theme.colors.blue_100,
   },
 
   '&:focus': {
-    color: theme.colors.blue_900,
+    color: theme.colors.key_500,
     backgroundColor: theme.colors.blue_100,
   },
 });
@@ -42,6 +43,6 @@ export const monthBtnStyle = css({
 export const currentMonthStyle = (isCurrent: boolean) =>
   isCurrent &&
   css({
-    color: theme.colors.blue_900,
+    color: theme.colors.key_500,
     backgroundColor: theme.colors.blue_100,
   });

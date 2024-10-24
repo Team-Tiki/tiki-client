@@ -1,17 +1,17 @@
 import { css } from '@emotion/react';
 import * as Sentry from '@sentry/react';
 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
-import { theme } from '@/common/style/theme/theme';
 
 import { HTTPError } from '@/shared/api/HTTPError';
-import LeftSidebar from '@/shared/component/LeftSidebar/LeftSidebar';
+import Header from '@/shared/component/Header/Header';
 import Login from '@/shared/component/Login/Login';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
+import SNB from '@/shared/component/SideNavBar/LeftSidebar';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -20,6 +20,11 @@ const App = () => {
   const navigate = useNavigate();
 
   const { reset } = useQueryErrorResetBoundary();
+
+  const { pathname } = useLocation();
+
+  /** 아카이빙 페이지 DocumentBar를 위한 라우트별 동적 패딩 */
+  const isArchivingPage = pathname === '/archiving';
 
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -48,29 +53,30 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
-        <div css={containerStyle}>
-          <ModalContainer />
-          <LeftSidebar />
-          <main css={layoutStyle}>
-            <Outlet />
-          </main>
-        </div>
+        <ModalContainer />
+        <SNB />
+        <main css={layoutStyle(isArchivingPage)}>
+          <Header />
+          <Outlet />
+        </main>
       </Login>
     </ErrorBoundary>
   );
 };
 
-const layoutStyle = css({
-  height: '100%',
+const layoutStyle = (flag: boolean) =>
+  css({
+    display: 'flex',
+    flexDirection: 'column',
 
-  borderRadius: '16px',
-  backgroundColor: theme.colors.white,
-});
+    height: '100%',
+    width: 'calc(100% - 7.6rem)',
 
-const containerStyle = css({
-  padding: '0.4rem 0.4rem 0.4rem 8.9rem ',
+    padding: flag ? '0' : '2rem 3.4rem 4.8rem 3.2rem',
 
-  backgroundColor: theme.colors.blue_900,
-});
+    marginLeft: '7.6rem',
+
+    overflow: 'hidden',
+  });
 
 export default App;

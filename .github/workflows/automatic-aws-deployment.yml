@@ -36,8 +36,8 @@ jobs:
         run: |
           echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
 
-      - name: Install dependencies and Build
-        run: pnpm install --frozen-lockfile && pnpm build
+      - name: Build
+        run: pnpm build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

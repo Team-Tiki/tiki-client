@@ -12,6 +12,7 @@ export interface MenuItemProps extends HTMLAttributes<HTMLLIElement> {
 const MenuItem = ({ variant = 'primary', LeftIcon, onSelect, children, ...props }: MenuItemProps) => {
   return (
     <li
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
       role="button"
       tabIndex={0}
       css={[containerStyle, variantStyle(variant)]}
@@ -21,7 +22,7 @@ const MenuItem = ({ variant = 'primary', LeftIcon, onSelect, children, ...props 
       onClick={onSelect}
       {...props}>
       {LeftIcon}
-      <p>{children}</p>
+      {children}
     </li>
   );
 };

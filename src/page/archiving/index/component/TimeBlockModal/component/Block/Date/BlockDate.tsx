@@ -1,13 +1,14 @@
-import {
-  supportStyle,
-  textStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/Block/Date/BlockDate.style';
-import useDateRange from '@/page/archiving/index/component/TimeBlockModal/hook/common/useDateRange';
 import { css } from '@emotion/react';
 
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import SupportingText from '@/common/component/SupportingText/SupportingText';
+
+import {
+  supportStyle,
+  textStyle,
+} from '@/page/archiving/index/component/TimeBlockModal/component/Block/Date/BlockDate.style';
+import useDateRange from '@/page/archiving/index/component/TimeBlockModal/hook/common/useDateRange';
 
 interface BlockDateProps {
   startDate: string;
@@ -34,8 +35,6 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
     <>
       <Flex styles={{ direction: 'row', align: 'center', gap: '1.2rem' }}>
         <Input
-          variant="default"
-          size="large"
           placeholder="YYYY-MM-DD"
           css={[{ width: '10.3rem' }, inputStyle(dates.startDate)]}
           value={dates.startDate}
@@ -45,8 +44,6 @@ const BlockDate = ({ startDate, endDate, onSetStartDate, onSetEndDate, onSetIsDa
         />
         <p css={textStyle}>~</p>
         <Input
-          variant="default"
-          size="large"
           placeholder="YYYY-MM-DD"
           css={[{ width: '10.3rem' }, inputStyle(dates.endDate)]}
           value={dates.endDate}

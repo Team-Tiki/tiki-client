@@ -1,3 +1,12 @@
+import firstViewPng from '@/common/asset/img/landing01.png';
+import firstView from '@/common/asset/img/landing01.webp';
+import secondViewPng from '@/common/asset/img/service02.png';
+import secondView from '@/common/asset/img/service02.webp';
+import Button from '@/common/component/Button/Button';
+import Heading from '@/common/component/Heading/Heading';
+import Text from '@/common/component/Text/Text';
+import { useIntersectionObserver } from '@/common/hook/useObserver';
+
 import {
   featureSectionStyle,
   firstImgWrapperStyle,
@@ -12,14 +21,6 @@ import {
 import Indicator from '@/page/landing/component/Indicator/Indicator';
 import LandingOverview from '@/page/landing/component/Overview/Overview';
 import { TEXT } from '@/page/landing/constant';
-
-import firstView from '@/common/asset/img/landing01.png';
-import secondCharacter from '@/common/asset/img/landing02.png';
-import secondView from '@/common/asset/img/service02.png';
-import Button from '@/common/component/Button/Button';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
-import { useIntersectionObserver } from '@/common/hook/useObserver';
 
 import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
@@ -65,7 +66,7 @@ const LandingPage = () => {
         <Heading tag="H2" css={{ fontWeight: 500 }}>
           {TEXT.LANDING_SUBTITLE}
         </Heading>
-        <Button onClick={다음페이지로} css={startedButtonStyle} variant="action">
+        <Button onClick={다음페이지로} css={startedButtonStyle}>
           시작하기
         </Button>
         <Indicator
@@ -89,7 +90,10 @@ const LandingPage = () => {
           </Text>
         </div>
         <div css={firstImgWrapperStyle}>
-          <img css={viewImgStyle} src={firstView} alt="서비스 뷰 1" />
+          <picture>
+            <source srcSet={firstView} type="image/webp" css={viewImgStyle} />
+            <img css={viewImgStyle} src={firstViewPng} alt="서비스 뷰 1" />
+          </picture>
         </div>
         <Indicator
           onNext={() => {
@@ -112,9 +116,12 @@ const LandingPage = () => {
         </div>
 
         <div css={secondImgWrapperStyle}>
-          <img css={{ width: '30%', height: '30%', placeSelf: 'end' }} src={secondCharacter} alt="티키 캐릭터 2" />
-          <img css={viewImgStyle} src={secondView} alt="서비스 뷰 2" />
+          <picture>
+            <source type="image/webp" srcSet={secondView} />
+            <img css={[viewImgStyle, { marginLeft: 'calc(100vw - 100%)' }]} src={secondViewPng} alt="서비스 뷰 2" />
+          </picture>
         </div>
+
         <Indicator
           css={{
             transform: 'rotateZ(180deg)',

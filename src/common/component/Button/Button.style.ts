@@ -8,11 +8,7 @@ export const buttonStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '0.8rem',
-
-  width: '100%',
-
-  padding: '1.6rem 2rem',
+  gap: '0.4rem',
 
   border: 'none',
   borderRadius: '8px',
@@ -24,8 +20,8 @@ export const buttonStyle = css({
   cursor: 'pointer',
 
   '&:disabled:not(:focus)': {
-    backgroundColor: theme.colors.gray_400,
-    color: theme.colors.white,
+    backgroundColor: theme.colors.gray_100,
+    color: theme.colors.gray_500,
   },
 
   transition: 'all .2s ease-in',
@@ -35,27 +31,52 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
   const style = {
     primary: css({
       color: theme.colors.white,
-      backgroundColor: theme.colors.blue_900,
+      backgroundColor: theme.colors.key_500,
 
       '&:hover': {
-        backgroundColor: theme.colors.blue_700,
+        backgroundColor: theme.colors.key_600,
       },
     }),
     secondary: css({
-      color: theme.colors.black,
+      color: theme.colors.key_500,
+      backgroundColor: theme.colors.key_100,
+
+      '&:hover': {
+        backgroundColor: theme.colors.key_200,
+      },
+    }),
+    tertiary: css({
+      color: theme.colors.gray_800,
       backgroundColor: theme.colors.gray_100,
 
       '&:hover': {
-        backgroundColor: theme.colors.blue_100,
+        backgroundColor: theme.colors.gray_200,
       },
     }),
-    text: css({
-      backgroundColor: 'transparent',
-      ...theme.text.body04,
+    outline: css({
+      color: theme.colors.gray_800,
+      backgroundColor: theme.colors.white,
+
+      boxShadow: theme.shadow.inset,
+
+      '&:hover': {
+        backgroundColor: theme.colors.gray_100,
+      },
     }),
-    action: css({
-      color: theme.colors.white,
-      backgroundColor: theme.colors.blue_900,
+    underline: css({
+      color: theme.colors.gray_800,
+      backgroundColor: 'transparent',
+
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+
+      '&:disabled:not(:focus)': {
+        color: theme.colors.gray_500,
+        backgroundColor: 'transparent',
+
+        textDecoration: 'underline',
+      },
     }),
   };
   return style[variant];
@@ -63,14 +84,37 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
 export const sizeStyle = (size: Required<ButtonProps>['size']) => {
   const style = {
-    large: css({
-      ...theme.text.body04,
-    }),
-    medium: css({
-      ...theme.text.body05,
-    }),
-    small: css({
+    /** Button_46 */
+    xLarge: css({
+      padding: '1.6rem 1.4rem',
+
       ...theme.text.body06,
+    }),
+    /** Button_40 */
+    large: css({
+      padding: '1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_36 */
+    medium: css({
+      padding: '1.2rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_32 */
+    small: css({
+      padding: '1rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_24 */
+    xSmall: css({
+      padding: '0.6rem 1rem',
+
+      borderRadius: '1.2rem',
+
+      ...theme.text.body08,
     }),
   };
   return style[size];
