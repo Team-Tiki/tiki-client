@@ -32,7 +32,7 @@ const ToolTip = ({ position = 'right', message, gap = 0, children, ...props }: T
 
   return (
     <div
-      id={message}
+      aria-describedby={message}
       role="button"
       css={containerStyle}
       tabIndex={0}
