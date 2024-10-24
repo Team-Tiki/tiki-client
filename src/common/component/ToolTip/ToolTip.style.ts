@@ -25,27 +25,27 @@ export const messageStyle = (isVisible: boolean) =>
     pointerEvents: 'none',
   });
 
-export const positionStyle = (position: Required<ToolTipProps>['position'], margin: number) => {
+export const positionStyle = (position: Required<ToolTipProps>['position'], gap: number) => {
   const style = {
     top: css({
       left: '50%',
       bottom: '100%',
-      transform: `translateX(-50%) translateY(calc(-${margin}rem - 8px) )`,
+      transform: `translateX(-50%) translateY(calc(-${gap}rem - 8px) )`,
     }),
     bottom: css({
       left: '50%',
       up: '100%',
-      transform: `translateX(-50%) translateY(calc(${margin}rem + 8px))`,
+      transform: `translateX(-50%) translateY(calc(${gap}rem + 8px))`,
     }),
     left: css({
       top: '50%',
       right: '100%',
-      transform: `translateY(-50%) translateX(calc(-${margin}rem - 8px))`,
+      transform: `translateY(-50%) translateX(calc(-${gap}rem - 8px))`,
     }),
     right: css({
       top: '50%',
       left: '100%',
-      transform: `translateY(-50%) translateX(calc(${margin}rem + 8px))`,
+      transform: `translateY(-50%) translateX(calc(${gap}rem + 8px))`,
     }),
   };
 
