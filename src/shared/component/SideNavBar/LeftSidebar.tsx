@@ -11,6 +11,7 @@ import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
+import ToolTip from '@/common/component/ToolTip/ToolTip';
 import { useOverlay } from '@/common/hook';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
@@ -77,12 +78,15 @@ const LeftSidebar = () => {
       <nav>
         <TikiLogo onClick={() => navigate(PATH.DRIVE)} css={tikiLogoStyle} />
         <ul css={leftSidebarMenuStyle}>
-          <LeftSidebarMenuItem
-            isClicked={selectedId === 'showcase'}
-            logoUrl={earthUrl}
-            onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
-            Showcase
-          </LeftSidebarMenuItem>
+          <ToolTip message="가나다라마바사아자차카파타파" position="right" gap={0.8}>
+            <LeftSidebarMenuItem
+              isClicked={selectedId === 'showcase'}
+              logoUrl={earthUrl}
+              onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
+              Showcase
+            </LeftSidebarMenuItem>
+          </ToolTip>
+
           {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
               <LeftSidebarMenuItem
