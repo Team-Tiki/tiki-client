@@ -5,6 +5,7 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
   display: 'flex',
+  alignItems: 'center',
   gap: '0.8rem',
 
   cursor: 'pointer',
@@ -12,7 +13,7 @@ export const containerStyle = css({
 
 export const variantStyle = (variant: Required<MenuItemProps>['variant']) => {
   const style = {
-    primary: {
+    primary: css({
       padding: '0.8rem',
 
       backgroundColor: theme.colors.gray_100,
@@ -27,7 +28,7 @@ export const variantStyle = (variant: Required<MenuItemProps>['variant']) => {
         outline: 0,
         backgroundColor: theme.colors.blue_100,
       },
-    },
+    }),
   };
 
   return style[variant];
