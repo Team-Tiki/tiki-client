@@ -54,14 +54,9 @@ const App = () => {
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
         <ModalContainer />
-<<<<<<< HEAD
         <SideNavBar />
-        <main css={layoutStyle}>
-=======
-        <SNB />
         <main css={layoutStyle(isArchivingPage)}>
           <Header />
->>>>>>> develop
           <Outlet />
         </main>
       </Login>
