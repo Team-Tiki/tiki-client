@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -16,19 +15,15 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
-  const location = useLocation();
-
   const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
 
   const { selectedBlock, setSelectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
 
-  const teamId = new URLSearchParams(location.search).get('teamId');
+  const teamId = localStorage.getItem('teamId');
 
-  if (!teamId) throw new Error('has no teamId');
-
-  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId);
+  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -40,7 +35,7 @@ const ArchivingPage = () => {
         variant="timeline"
         title="타임라인"
         headerOption={
-          <Button variant="secondary" size="small" onClick={handleOpenBlockModal}>
+          <Button variant="secondary" onClick={handleOpenBlockModal}>
             타임블록 추가
           </Button>
         }

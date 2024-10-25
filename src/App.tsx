@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import * as Sentry from '@sentry/react';
 
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 
@@ -20,11 +20,6 @@ const App = () => {
   const navigate = useNavigate();
 
   const { reset } = useQueryErrorResetBoundary();
-
-  const { pathname } = useLocation();
-
-  /** 아카이빙 페이지 DocumentBar를 위한 라우트별 동적 패딩 */
-  const isArchivingPage = pathname === '/archiving';
 
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -55,7 +50,7 @@ const App = () => {
       <Login>
         <ModalContainer />
         <SNB />
-        <main css={layoutStyle(isArchivingPage)}>
+        <main css={layoutStyle}>
           <Header />
           <Outlet />
         </main>
@@ -64,19 +59,18 @@ const App = () => {
   );
 };
 
-const layoutStyle = (flag: boolean) =>
-  css({
-    display: 'flex',
-    flexDirection: 'column',
+const layoutStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
 
-    height: '100%',
-    width: 'calc(100% - 7.6rem)',
+  height: '100%',
+  width: 'calc(100% - 7.6rem)',
 
-    padding: flag ? '0' : '2rem 3.4rem 4.8rem 3.2rem',
+  padding: '2rem 3.4rem 4.8rem 3.2rem',
 
-    marginLeft: '7.6rem',
+  marginLeft: '7.6rem',
 
-    overflow: 'hidden',
-  });
+  overflow: 'hidden',
+});
 
 export default App;

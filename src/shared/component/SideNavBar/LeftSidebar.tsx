@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import addUrl from '@/common/asset/svg/ic_add.svg';
@@ -38,34 +38,16 @@ const LeftSidebar = () => {
 
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const teamId = searchParams.get('teamId');
-    if (teamId) {
-      setSelectedId(teamId);
-
-      navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
-    } else {
-      setSelectedId('showcase');
-      navigate(PATH.SHOWCASE);
-    }
-  }, [navigate]);
-
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
 
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('teamId', id);
-
-    const hasTeamIdInPath = path.includes('teamId');
-
-    if (!hasTeamIdInPath && id !== 'showcase') {
-      navigate(`${path}?${searchParams.toString()}`);
-    } else if (id === 'showcase') {
-      navigate(PATH.SHOWCASE);
+    if (id === 'showcase') {
+      navigate(path);
     } else {
       navigate(path);
+      localStorage.setItem('teamId', id);
     }
+
     close();
   };
 
@@ -93,7 +75,7 @@ const LeftSidebar = () => {
                 key={data.id}
                 isClicked={selectedId === String(data.id)}
                 logoUrl={data.iconImageUrl ? data.iconImageUrl : defaultLogo}
-                onClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}>
+                onClick={() => handleItemClick(String(data.id), PATH.ARCHIVING)}>
                 {data.name}
               </LeftSidebarMenuItem>
             );
