@@ -11,6 +11,7 @@ import {
   navListStyle,
 } from '@/shared/component/RouteNav/RouteNav.style';
 import { PATH } from '@/shared/constant/path';
+import { useTeamId } from '@/shared/store/team';
 
 const RouteNav = () => {
   const { pathname } = useLocation();
@@ -18,6 +19,8 @@ const RouteNav = () => {
   const isDrivePage = pathname === PATH.DRIVE;
   const isArchivingPage = pathname === PATH.ARCHIVING;
   const isHandoverPage = pathname === PATH.HANDOVER;
+
+  const teamId = useTeamId();
 
   return (
     <nav>
@@ -29,7 +32,7 @@ const RouteNav = () => {
           </Link>
         </li>
         <li>
-          <Link css={itemStyle(isArchivingPage)} to={PATH.ARCHIVING}>
+          <Link css={itemStyle(isArchivingPage)} to={`${PATH.ARCHIVING}?teamId=${teamId}`}>
             <IcTimeLine css={iconStrokeActiveStyle(isArchivingPage)} width={16} height={16} />
             타임라인
           </Link>
