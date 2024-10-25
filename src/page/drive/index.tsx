@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
@@ -64,26 +64,24 @@ const DrivePage = () => {
           </Flex>
         </Flex>
       }>
-      <Suspense fallback={<p>Loading ...</p>}>
-        {alignOption === 'list' ? (
-          <>
-            <FileListHeader onSelectAll={() => {}} />
-            <ul>
-              {filteredData.map((item) => (
-                <div css={{ opacity: isStale ? 0.4 : 1 }}>
-                  <FileListItem key={item.fileId} {...item} />
-                </div>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <ul css={contentStyle}>
+      {alignOption === 'list' ? (
+        <>
+          <FileListHeader onSelectAll={() => {}} />
+          <ul>
             {filteredData.map((item) => (
-              <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
+              <div css={{ opacity: isStale ? 0.4 : 1 }}>
+                <FileListItem key={item.fileId} {...item} />
+              </div>
             ))}
           </ul>
-        )}
-      </Suspense>
+        </>
+      ) : (
+        <ul css={contentStyle}>
+          {filteredData.map((item) => (
+            <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
+          ))}
+        </ul>
+      )}
     </ContentBox>
   );
 };
