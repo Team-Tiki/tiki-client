@@ -1,6 +1,12 @@
 import { ChangeEvent } from 'react';
 
-import RadioButton, { RadioButtonProps, RadioProps } from './RadioButton';
+import RadioButton, { RadioButtonProps } from './RadioButton';
+
+export interface RadioProps {
+  label: string;
+  name: string;
+  value: string;
+}
 
 interface RadioButtonGroupProps {
   options: RadioProps[];
@@ -8,7 +14,7 @@ interface RadioButtonGroupProps {
   value: string;
 }
 
-export default function RadioButtonGroup({ options, onChange, value }: RadioButtonGroupProps) {
+const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedValue = e.target.value;
 
@@ -34,4 +40,6 @@ export default function RadioButtonGroup({ options, onChange, value }: RadioButt
   }
 
   return <div>{renderRadioButton()}</div>;
-}
+};
+
+export default RadioGroup;

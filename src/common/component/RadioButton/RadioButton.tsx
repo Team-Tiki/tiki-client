@@ -2,25 +2,32 @@ import { InputHTMLAttributes } from 'react';
 
 import { inputStyle, labelStyle, radioButtonLayoutStyle } from './RadioButton.style';
 
-export interface RadioProps {
-  label: string;
-  name: string;
-  value: string;
-}
-
 export interface RadioButtonProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   color?: string;
   bgColor?: string;
+  checkedColor?: string;
+  checkedBgColor?: string;
 }
 
-export default function RadioButton({ label, color, bgColor, value, id, ...props }: RadioButtonProps) {
+const RadioButton = ({
+  label,
+  color,
+  bgColor,
+  checkedColor,
+  checkedBgColor,
+  value,
+  id,
+  ...props
+}: RadioButtonProps) => {
   return (
     <div role="button" aria-label="radio-button" tabIndex={0} css={radioButtonLayoutStyle}>
-      <input id={id} type="radio" value={value} css={inputStyle} {...props} />
+      <input id={id} type="radio" value={value} css={inputStyle({ checkedColor, checkedBgColor })} {...props} />
       <label htmlFor={id} css={labelStyle({ color, bgColor })}>
         {label}
       </label>
     </div>
   );
-}
+};
+
+export default RadioButton;
