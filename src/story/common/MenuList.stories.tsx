@@ -41,7 +41,9 @@ export const Default: Story = {
 
     return (
       <Menu onClose={close}>
-        <button onClick={toggle}>Trigger</button>
+        <button type="button" onClick={toggle}>
+          Trigger
+        </button>
         <MenuList isOpen={isOpen} css={{ left: '100%', top: 0 }}>
           <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
             이름 변경
