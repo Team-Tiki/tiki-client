@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-import { PageIndicatorStickStyle } from '@/shared/component/SideNavBar/LeftSidebarItem/PageIndicatorStick/PageIndicatorStick.style';
+import { PageIndicatorStickStyle } from '@/shared/component/SideNavBar/PageIndicatorStick/PageIndicatorStick.style';
 
 interface PageIndicatorStickProps extends HTMLAttributes<HTMLDivElement> {
   isClicked: boolean;

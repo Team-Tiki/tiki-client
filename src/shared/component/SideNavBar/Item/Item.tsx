@@ -5,7 +5,7 @@ import Flex from '@/common/component/Flex/Flex';
 import ToolTip from '@/common/component/ToolTip/ToolTip';
 
 import { indicatorStyle, itemStyle } from '@/shared/component/SideNavBar/Item/Item.style';
-import PageIndicatorStick from '@/shared/component/SideNavBar/LeftSidebarItem/PageIndicatorStick/PageIndicatorStick';
+import PageIndicatorStick from '@/shared/component/SideNavBar/PageIndicatorStick/PageIndicatorStick';
 
 interface ItemProps extends HTMLAttributes<HTMLDivElement> {
   hoverMessage?: string;
