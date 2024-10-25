@@ -6,10 +6,11 @@ export const sectionStyle = css({
   position: 'relative',
 
   width: '100%',
-  height: 'calc(100vh - 4.8rem - 6rem)',
 
-  padding: '1.6rem',
-  paddingTop: '0',
+  minHeight: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
+  height: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
+
+  padding: '0 1.6rem',
 
   border: `1px solid ${theme.colors.gray_300}`,
   borderRadius: '16px',
@@ -70,7 +71,7 @@ export const contentOptionStyle = css({
 
 export const contentStyle = css({
   width: '100%',
-  height: 'calc(100% - 12rem)',
+  height: '100%',
 
   marginTop: '0.8rem',
 
