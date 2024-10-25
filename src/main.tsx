@@ -21,7 +21,7 @@ const main = async () => {
     await worker.start({
       onUnhandledRequest: 'bypass',
       serviceWorker: {
-        url: 'mockServiceWorker.js',
+        url: '/mockServiceWorker.js',
       },
     });
   }

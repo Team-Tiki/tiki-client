@@ -1,5 +1,5 @@
 const Template = () => {
-  return <div></div>;
+  return <div>템플릿</div>;
 };
 
 export default Template;
