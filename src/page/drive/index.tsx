@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
@@ -8,6 +8,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import Switch from '@/common/component/Switch/Switch';
+import useDeferedSearchFilter from '@/common/hook/useDeferedSearchFilter';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
@@ -21,7 +22,10 @@ import { FileData } from '@/mock/data/drive';
 const DrivePage = () => {
   const filterOption = [{ value: '최근 업로드 순' }, { value: '과거 업로드 순' }];
 
-  const [filter, setFilter] = useState<'list' | 'grid'>('list');
+  const [alignOption, setAlignOption] = useState<'list' | 'grid'>('list');
+  const [searchValue, setSearchValue] = useState('');
+
+  const { isStale, filteredData } = useDeferedSearchFilter(FileData, searchValue);
 
   return (
     <ContentBox
@@ -31,6 +35,8 @@ const DrivePage = () => {
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             css={{ width: '33.6rem' }}
             LeftIcon={<IcSearch width={16} height={16} />}
             placeholder="파일 및 폴더 명을 검색하세요"
@@ -49,31 +55,35 @@ const DrivePage = () => {
 
           <Flex styles={{ align: 'center' }}>
             <Switch
-              status={filter === 'list' ? 'left' : 'right'}
+              status={alignOption === 'list' ? 'left' : 'right'}
               LeftIcon={{ Icon: List, mode: 'stroke' }}
               RightIcon={{ Icon: Grid, mode: 'fill' }}
-              onSwitchChange={() => setFilter((prev) => (prev === 'list' ? 'grid' : 'list'))}
+              onSwitchChange={() => setAlignOption((prev) => (prev === 'list' ? 'grid' : 'list'))}
             />
             <Select css={{ width: '13rem' }} placeholder="최근 업로드 순" variant="option" options={filterOption} />
           </Flex>
         </Flex>
       }>
-      {filter === 'list' ? (
-        <>
-          <FileListHeader onSelectAll={() => {}} />
-          <ul>
-            {FileData.map((item) => (
-              <FileListItem key={item.fileId} {...item} />
+      <Suspense fallback={<p>Loading ...</p>}>
+        {alignOption === 'list' ? (
+          <>
+            <FileListHeader onSelectAll={() => {}} />
+            <ul>
+              {filteredData.map((item) => (
+                <div css={{ opacity: isStale ? 0.4 : 1 }}>
+                  <FileListItem key={item.fileId} {...item} />
+                </div>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <ul css={contentStyle}>
+            {filteredData.map((item) => (
+              <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
             ))}
           </ul>
-        </>
-      ) : (
-        <ul css={contentStyle}>
-          {FileData.map((item) => (
-            <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
-          ))}
-        </ul>
-      )}
+        )}
+      </Suspense>
     </ContentBox>
   );
 };
