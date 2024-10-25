@@ -31,8 +31,6 @@ const LeftSidebar = () => {
 
   const { data } = useClubInfoQuery();
 
-  console.log(data?.data);
-
   const navigate = useNavigate();
 
   const [selectedId, setSelectedId] = useState<string>('showcase');
@@ -42,9 +40,12 @@ const LeftSidebar = () => {
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
 
-    localStorage.setItem('teamId', id);
-
-    navigate(path);
+    if (id === 'showcase') {
+      navigate(path);
+    } else {
+      navigate(path);
+      localStorage.setItem('teamId', id);
+    }
 
     close();
   };
