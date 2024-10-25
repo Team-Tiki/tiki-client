@@ -4,11 +4,9 @@ import { useLocation } from 'react-router-dom';
 import Add from '@/common/asset/svg/ic_add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
 import { buttonStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
-import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import MonthHeader from '@/page/archiving/index/component/MonthHeader/MonthHeader';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
 import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
@@ -20,9 +18,7 @@ import { useOpenModal } from '@/shared/store/modal';
 const ArchivingPage = () => {
   const location = useLocation();
 
-  const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
-
-  const { selectedBlock, setSelectedBlock, handleBlockClick } = useInteractTimeline();
+  const { selectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
 
@@ -62,7 +58,6 @@ const ArchivingPage = () => {
           </Button>
         </Flex>
       </section>
-      <DocumentBar selectedBlock={selectedBlock} ref={sideBarRef} onClose={() => setSelectedBlock(undefined)} />
     </Flex>
   );
 };
