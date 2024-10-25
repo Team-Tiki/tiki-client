@@ -7,8 +7,13 @@ export const noteWrapperStyle = css({
 
   flexDirection: 'column',
 
+  gap: '4rem',
+
   width: '84rem',
-  maxHeight: '52.1rem',
+  maxHeight: '45rem',
+
+  paddingBottom: '1.7rem',
+
   overflowY: 'scroll',
 });
 
@@ -18,18 +23,12 @@ export const layoutStyle = css({
 
   width: '100%',
 
-  marginTop: '3rem',
-
   gap: '1.6rem',
-
-  ':last-of-type': {
-    marginTop: '4rem',
-  },
 });
 
 export const textareaStyle = css({
   width: '100%',
-  height: '45rem',
+  height: '40.2rem',
 
   padding: '2.1rem 2rem 2.1rem 2rem',
 

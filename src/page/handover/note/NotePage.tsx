@@ -83,7 +83,7 @@ const NotePage = () => {
             <Tab.Button css={tabButtonStyle}>템플릿 작성</Tab.Button>
             <Tab.Button css={tabButtonStyle}>자유 작성</Tab.Button>
           </Tab.List>
-          <Flex style={{ gap: '0.8rem', justifyContent: 'end' }}>
+          <Flex style={{ gap: '0.8rem', justifyContent: 'end', margin: '3rem 0 1.6rem 0' }}>
             <Button variant="tertiary" size="small">
               작성 취소
             </Button>

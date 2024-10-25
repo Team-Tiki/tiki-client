@@ -5,6 +5,8 @@ import { theme } from '@/common/style/theme/theme';
 export const noteSectionStyle = css({
   display: 'flex',
 
+  height: '59.2rem',
+
   padding: '1.6rem',
 
   justifyContent: 'space-evenly ',
@@ -12,8 +14,6 @@ export const noteSectionStyle = css({
 
   border: `1px solid ${theme.colors.gray_300}`,
   borderRadius: '1.6rem',
-
-  overflowY: 'scroll',
 });
 
 export const entireInfoStyle = css({
@@ -21,7 +21,7 @@ export const entireInfoStyle = css({
   flexDirection: 'column',
 
   width: '33.9rem',
-  height: '60.8rem',
+  height: '56rem',
   padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
   borderRadius: '1.6rem 0 0 1.6rem',
