@@ -88,7 +88,7 @@ const LeftSidebar = () => {
         <button onClick={toggle} css={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
           <img src={settingUrl} alt="환경 설정" />
         </button>
-        <MenuList variant="primary" isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
+        <MenuList isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
           <MenuItem
             onSelect={() => {
               toggle();
