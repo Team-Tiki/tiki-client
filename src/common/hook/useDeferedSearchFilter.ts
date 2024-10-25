@@ -11,6 +11,7 @@ type Data<T> = {
 const useDeferedSearchFilter = <T extends object>(list: Data<T>[], value: string) => {
   const deferredValue = useDeferredValue(value);
 
+  /** 상태 업데이트 시 이전 값과 지연된 값이 일치하지 않으면 isState(아직 렌더링 전임을 UI로 나타내기 위함) */
   const isStale = value !== deferredValue;
 
   const filteredData = list.filter((item) =>
