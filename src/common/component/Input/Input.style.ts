@@ -5,7 +5,6 @@ import { theme } from '@/common/style/theme/theme';
 export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-
   gap: '0.2rem',
 
   width: '100%',
@@ -33,26 +32,21 @@ export const inputStyle = css({
 
 export const contentStyle = (isFilled: boolean) =>
   css({
-    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
 
+    position: 'relative',
+
+    height: '4rem',
+
     padding: '1.3rem 1.2rem',
 
     backgroundColor: isFilled ? theme.colors.gray_100 : 'none',
-    boxShadow: `inset 0px 0px 0px 1px ${theme.colors.gray_300}`,
+    boxShadow: theme.shadow.inset,
     borderRadius: '8px',
 
     '&:focus-within': {
-      boxShadow: `inset 0px 0px 0px 1px ${theme.colors.key_500}`,
+      boxShadow: theme.shadow.inset_focus,
     },
   });
-
-export const countStyle = css({
-  position: 'absolute',
-  right: '1.2rem',
-
-  ...theme.text.body06,
-  color: theme.colors.gray_500,
-});

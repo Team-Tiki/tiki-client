@@ -42,6 +42,6 @@ export const Word: Story = {
 export const Image: Story = {
   args: {
     title: '이채원',
-    type: 'image',
+    type: 'pdf',
   },
 };

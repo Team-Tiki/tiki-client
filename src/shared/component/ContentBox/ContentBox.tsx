@@ -3,13 +3,16 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import IcFile from '@/common/asset/svg/ic_file.svg?react';
 import IcTimeLine from '@/common/asset/svg/ic_timeline.svg?react';
 import IcDeleted from '@/common/asset/svg/ic_trash.svg?react';
-import Divider from '@/common/component/Divider/Divider';
 import Heading from '@/common/component/Heading/Heading';
+import { scrollStyle } from '@/common/style/scroll';
 
 import {
   contentOptionStyle,
+  contentStyle,
+  descriptionStyle,
   headerStyle,
   sectionStyle,
+  titleAlignStyle,
   titleStyle,
 } from '@/shared/component/ContentBox/ContentBox.style';
 import { Content } from '@/shared/type/content';
@@ -19,6 +22,7 @@ interface ContentBoxProps extends ComponentPropsWithoutRef<'section'> {
   variant: Content;
 
   title: string;
+  description?: string;
   children: ReactNode;
 
   headerOption?: ReactNode;
@@ -35,15 +39,19 @@ const ContentBox = ({ variant, title, headerOption, contentOption, children, ...
   return (
     <section css={sectionStyle} {...props}>
       <header css={headerStyle}>
-        <Heading css={titleStyle} tag="H2">
-          {ICON_BY_VARIANT[variant]}
-          {title}
-        </Heading>
+        <div css={titleAlignStyle}>
+          <Heading css={titleStyle} tag="H2">
+            {ICON_BY_VARIANT[variant]}
+            {title}
+          </Heading>
+          <p css={descriptionStyle}>{description}</p>
+        </div>
         {headerOption}
       </header>
-      <Divider size={100} />
+
       <div css={contentOptionStyle}>{contentOption}</div>
-      {children}
+
+      <div css={[contentStyle, scrollStyle]}>{children}</div>
     </section>
   );
 };
