@@ -28,7 +28,7 @@ export const layoutStyle = css({
 });
 
 export const textareaStyle = css({
-  width: '82.3rem',
+  width: '100%',
   height: '45rem',
 
   padding: '2.1rem 2rem 2.1rem 2rem',

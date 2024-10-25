@@ -7,6 +7,7 @@ export const noteSectionStyle = css({
 
   padding: '1.6rem',
 
+  justifyContent: 'space-evenly ',
   gap: '2rem',
 
   border: `1px solid ${theme.colors.gray_300}`,
@@ -20,7 +21,7 @@ export const entireInfoStyle = css({
   flexDirection: 'column',
 
   width: '33.9rem',
-  height: '76.8rem',
+  height: '60.8rem',
   padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
   borderRadius: '1.6rem 0 0 1.6rem',
@@ -54,9 +55,20 @@ export const infoLayoutStyle = css({
 export const titleStyle = css({
   color: theme.colors.gray_800,
 
-  paddingBottom: '3.6rem',
+  outline: 'none',
+  border: 'none',
 
   whiteSpace: 'nowrap',
+
+  backgroundColor: theme.colors.gray_100,
+
+  marginBottom: '3.6rem',
+  ...theme.heading.heading03,
+
+  '::placeholder': {
+    color: theme.colors.gray_800,
+    ...theme.heading.heading03,
+  },
 });
 
 export const infoStyle = css({

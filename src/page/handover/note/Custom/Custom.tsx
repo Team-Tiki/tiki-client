@@ -25,10 +25,10 @@ const Custom = () => {
   return (
     <div css={noteWrapperStyle}>
       <div css={layoutStyle}>
-        <Text tag="body4" css={guideStyle}>
-          다음 운영진이 참고할 인수인계 노트를 자유롭게 작성해 보세요.
-        </Text>
-        <textarea css={textareaStyle} placeholder="동아리의 회칙 및 대관정보 등" />
+        <textarea
+          css={textareaStyle}
+          placeholder="다음 운영진이 참고할 인수인계 노트를 자유롭게 작성해 보세요 (ex. 동아리의 회칙 및 대관정보 등)"
+        />
       </div>
       <div css={layoutStyle}>
         <Text tag="body4" css={guideStyle}>
