@@ -6,11 +6,17 @@ export const noteWrapperStyle = css({
   display: 'flex',
 
   flexDirection: 'column',
+
+  width: '84rem',
+  maxHeight: '52.1rem',
+  overflowY: 'scroll',
 });
 
 export const layoutStyle = css({
   display: 'flex',
   flexDirection: 'column',
+
+  width: '100%',
 
   marginTop: '3rem',
 

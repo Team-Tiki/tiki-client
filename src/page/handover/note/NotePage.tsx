@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import DatePicker from '@/common/component/DatePicker';
 import Heading from '@/common/component/Heading/Heading';
+import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
 import { Tab } from '@/common/component/Tab';
-import Tag from '@/common/component/Tag/Tag';
 import Text from '@/common/component/Text/Text';
 
 import Custom from './Custom/Custom';
@@ -13,18 +13,24 @@ import {
   infoLayoutStyle,
   infoStyle,
   noteSectionStyle,
+  radioBoxStyle,
   tabButtonStyle,
-  tagBoxStyle,
   titleStyle,
 } from './NotePage.style';
 import Template from './Template/Template';
 
+type NoteComplete = '작성 완료' | '작성 미완료';
+
 const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-
+  const [status, setStatus] = useState<NoteComplete>('작성 미완료');
   const handleTabClick = (tabId: number) => {
     setSelectedTab(tabId);
   };
+
+  const handleChangeStatus = useCallback((value: NoteComplete) => {
+    setStatus(value);
+  }, []);
 
   return (
     <section css={noteSectionStyle}>
@@ -43,9 +49,23 @@ const NotePage = () => {
             <Text tag="body6" css={infoStyle}>
               작성 여부
             </Text>
-            <div css={tagBoxStyle}>
-              <Tag variant="square">작성 완료</Tag>
-              <Tag variant="square">작성 미완료</Tag>
+            <div css={radioBoxStyle}>
+              <RadioButtonGroup
+                options={[
+                  {
+                    label: '작성 완료',
+                    value: '작성 완료',
+                    name: 'note',
+                  },
+                  {
+                    label: '작성 미완료',
+                    value: '작성 미완료',
+                    name: 'note',
+                  },
+                ]}
+                onChange={(e) => handleChangeStatus(e.target.value as NoteComplete)}
+                value={status}
+              />
             </div>
           </li>
           <li css={infoLayoutStyle}>

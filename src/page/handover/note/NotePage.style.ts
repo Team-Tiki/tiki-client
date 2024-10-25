@@ -5,7 +5,7 @@ import { theme } from '@/common/style/theme/theme';
 export const noteSectionStyle = css({
   display: 'flex',
 
-  padding: '1.6rem 1.6rem 0 1.6rem',
+  padding: '1.6rem',
 
   gap: '2rem',
 
@@ -21,7 +21,7 @@ export const entireInfoStyle = css({
 
   width: '33.9rem',
   height: '76.8rem',
-  padding: '3.2rem 1.7rem 0 3.2rem',
+  padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
   borderRadius: '1.6rem 0 0 1.6rem',
 
@@ -66,8 +66,11 @@ export const infoStyle = css({
   whiteSpace: 'nowrap',
 });
 
-export const tagBoxStyle = css({
-  display: 'flex',
+export const radioBoxStyle = css({
+  '& > div': {
+    display: 'flex',
+    flexDirection: 'row',
 
-  gap: '0.4rem',
+    gap: '0.4rem',
+  },
 });
