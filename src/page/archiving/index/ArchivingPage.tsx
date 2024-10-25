@@ -35,7 +35,7 @@ const ArchivingPage = () => {
         variant="timeline"
         title="타임라인"
         headerOption={
-          <Button variant="secondary" size="small" onClick={handleOpenBlockModal}>
+          <Button variant="secondary" onClick={handleOpenBlockModal}>
             타임블록 추가
           </Button>
         }

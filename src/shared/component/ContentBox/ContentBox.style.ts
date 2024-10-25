@@ -50,6 +50,8 @@ export const headerStyle = css({
   position: 'sticky',
   top: 0,
 
+  height: '7.2rem',
+
   zIndex: theme.zIndex.overlayBottom,
 
   padding: '1.6rem 0rem',
