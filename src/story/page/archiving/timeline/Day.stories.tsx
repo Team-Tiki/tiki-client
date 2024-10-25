@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
+import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 
 const meta = {
   title: 'Page/Archiving/DaySection',
-  component: DaySection,
+  component: Day,
   parameters: {
     layout: 'centered',
   },
@@ -18,13 +18,15 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof DaySection>;
+} satisfies Meta<typeof Day>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    endDay: new Date(2024, 0, 2),
+    currentYear: new Date(2024, 0, 2).getFullYear(),
+    currentMonth: new Date(2024, 0, 2).getMonth() + 1,
+    endDay: new Date(2024, 0, 31),
   },
 };
