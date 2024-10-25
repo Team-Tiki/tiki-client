@@ -52,7 +52,7 @@ const App = () => {
         <ModalContainer />
         <SNB />
         <div css={layoutStyle}>
-          <main css={outletStyle(isArchivingPage)}>
+          <main css={outletStyle}>
             <Header />
             <Outlet />
           </main>
@@ -67,10 +67,9 @@ export const layoutStyle = css({
   display: 'flex',
 });
 
-const outletStyle = (flag: boolean) =>
-  css({
-    display: 'flex',
-    flexDirection: 'column',
+const outletStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
 
   height: '100%',
   width: 'calc(100% - 7.6rem)',

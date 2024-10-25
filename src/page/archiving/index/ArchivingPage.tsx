@@ -2,10 +2,8 @@ import { Suspense } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { useOutsideClick } from '@/common/hook';
 
 import { contentBoxStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
-import DocumentBar from '@/page/archiving/index/component/DocumentBar/DocumentBar';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
