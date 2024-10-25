@@ -8,6 +8,7 @@ import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
 import { HTTPError } from '@/shared/api/HTTPError';
+import GlobalDrawer from '@/shared/component/GlobalDrawer/GlobalDrawer';
 import Header from '@/shared/component/Header/Header';
 import Login from '@/shared/component/Login/Login';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
@@ -55,16 +56,23 @@ const App = () => {
       <Login>
         <ModalContainer />
         <SNB />
-        <main css={layoutStyle(isArchivingPage)}>
-          <Header />
-          <Outlet />
-        </main>
+        <div css={layoutStyle}>
+          <main css={outletStyle(isArchivingPage)}>
+            <Header />
+            <Outlet />
+          </main>
+          <GlobalDrawer />
+        </div>
       </Login>
     </ErrorBoundary>
   );
 };
 
-const layoutStyle = (flag: boolean) =>
+export const layoutStyle = css({
+  display: 'flex',
+});
+
+const outletStyle = (flag: boolean) =>
   css({
     display: 'flex',
     flexDirection: 'column',
