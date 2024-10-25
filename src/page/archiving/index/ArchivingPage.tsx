@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import Add from '@/common/asset/svg/ic_add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
@@ -15,8 +14,6 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 
-import { headerStyle } from '@/shared/component/Header/Header.style';
-import RouteNav from '@/shared/component/RouteNav/RouteNav';
 import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
@@ -39,10 +36,6 @@ const ArchivingPage = () => {
   return (
     <Flex css={pageStyle}>
       <section css={timelineStyle}>
-        <header css={headerStyle}>
-          <Heading tag="H1">TIKI 워크스페이스</Heading>
-          <RouteNav />
-        </header>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
           <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} />
