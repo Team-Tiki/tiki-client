@@ -46,3 +46,9 @@ export const guideStyle = css({
 
   ...theme.text.body04,
 });
+
+export const fileBoxStyle = css({
+  display: 'flex',
+
+  gap: '1.6rem',
+});
