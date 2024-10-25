@@ -12,7 +12,7 @@ export const itemStyle = (isClicked: boolean) =>
 
     width: '3.6rem',
     height: '3.6rem',
-    margin: '2rem 2rem 2rem 1.6rem',
+    padding: '0.1rem',
 
     borderRadius: '10px',
     border: isClicked ? `1px solid ${theme.colors.key_500}` : 0,
@@ -23,3 +23,8 @@ export const itemStyle = (isClicked: boolean) =>
 
     cursor: 'pointer',
   });
+
+export const indicatorStyle = css({
+  position: 'absolute',
+  left: 0,
+});
