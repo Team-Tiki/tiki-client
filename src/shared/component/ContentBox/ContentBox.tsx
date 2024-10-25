@@ -35,7 +35,15 @@ const ICON_BY_VARIANT = {
   deleted: <IcDeleted width={16} height={16} />,
 };
 
-const ContentBox = ({ variant, title, headerOption, contentOption, children, ...props }: ContentBoxProps) => {
+const ContentBox = ({
+  variant,
+  title,
+  headerOption,
+  contentOption,
+  description,
+  children,
+  ...props
+}: ContentBoxProps) => {
   return (
     <section css={sectionStyle} {...props}>
       <header css={headerStyle}>
