@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Add from '@/common/asset/svg/ic_add_btn.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import Heading from '@/common/component/Heading/Heading';
 import { useOutsideClick } from '@/common/hook';
 import { theme } from '@/common/style/theme/theme';
 
@@ -15,22 +15,22 @@ import YearHeader from '@/page/archiving/index/component/YearHeader/YearHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 
+import { headerStyle } from '@/shared/component/Header/Header.style';
+import RouteNav from '@/shared/component/RouteNav/RouteNav';
 import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
-  const location = useLocation();
-
   const sideBarRef = useOutsideClick(() => setSelectedBlock(undefined));
 
   const { selectedBlock, setSelectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
 
-  const teamId = new URLSearchParams(location.search).get('teamId');
+  const teamId = localStorage.getItem('teamId');
 
-  if (!teamId) throw new Error('has no teamId');
-
-  const { ref, currentYear, selectedMonth, handlePrevYear, handleNextYear, endDay, handleMonthClick } = useDate(teamId);
+  const { ref, currentYear, selectedMonth, handlePrevYear, handleNextYear, endDay, handleMonthClick } = useDate(
+    teamId!
+  );
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -39,9 +39,13 @@ const ArchivingPage = () => {
   return (
     <Flex css={pageStyle}>
       <section css={timelineStyle}>
+        <header css={headerStyle}>
+          <Heading tag="H1">TIKI 워크스페이스</Heading>
+          <RouteNav />
+        </header>
         <YearHeader handlePrevYear={handlePrevYear} handleNextYear={handleNextYear} currentYear={currentYear} />
         <Flex css={contentStyle}>
-          <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} selectedBlock={selectedBlock} />
+          <MonthHeader currentMonth={selectedMonth} onMonthClick={handleMonthClick} />
           <Suspense>
             {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
             <TimeLine

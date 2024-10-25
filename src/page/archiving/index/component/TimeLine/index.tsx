@@ -20,10 +20,9 @@ const TimeLine = (
   { selectedBlock, onBlockClick, currentYear, selectedMonth, endDay }: TimeLineProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const teamId = new URLSearchParams(location.search).get('teamId');
-  if (!teamId) throw new Error('has no teamId');
+  const teamId = localStorage.getItem('teamId');
 
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, parseInt(selectedMonth.split('월')[0]));
+  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, parseInt(selectedMonth.split('월')[0]));
 
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);

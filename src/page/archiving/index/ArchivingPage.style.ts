@@ -8,6 +8,8 @@ export const pageStyle = () =>
   css({
     width: '100%',
     height: '100%',
+
+    padding: '2rem 3.4rem 4.8rem 3.2rem',
   });
 
 export const timelineStyle = () =>
@@ -17,7 +19,6 @@ export const timelineStyle = () =>
     width: '100%',
 
     borderRadius: '16px',
-    padding: '2.6rem 2.4rem',
 
     overflow: 'hidden',
   });

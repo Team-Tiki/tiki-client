@@ -6,18 +6,16 @@ import {
   monthBtnStyle,
 } from '@/page/archiving/index/component/MonthHeader/MonthHeader.style';
 import { MONTHS } from '@/page/archiving/index/constant/month';
-import { Block } from '@/page/archiving/index/type/blockType';
 import { MonthType } from '@/page/archiving/index/type/monthType';
 
 interface MonthHeaderProps {
   currentMonth: MonthType;
   onMonthClick: (month: MonthType) => void;
-  selectedBlock?: Block;
 }
 
-const MonthHeader = ({ currentMonth, onMonthClick, selectedBlock }: MonthHeaderProps) => {
+const MonthHeader = ({ currentMonth, onMonthClick }: MonthHeaderProps) => {
   return (
-    <header css={headerStyle(selectedBlock)}>
+    <header css={headerStyle}>
       {MONTHS.map((month) => (
         <Button
           key={month}
