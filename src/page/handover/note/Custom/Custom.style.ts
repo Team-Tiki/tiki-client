@@ -9,7 +9,6 @@ export const noteWrapperStyle = css({
 
   gap: '4rem',
 
-  width: '84rem',
   maxHeight: '45rem',
 
   paddingBottom: '1.7rem',

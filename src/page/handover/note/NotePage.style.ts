@@ -9,8 +9,8 @@ export const noteSectionStyle = css({
 
   padding: '1.6rem',
 
-  justifyContent: 'space-evenly ',
-  gap: '2rem',
+  justifyContent: 'flex-start',
+  gap: '1.6rem',
 
   border: `1px solid ${theme.colors.gray_300}`,
   borderRadius: '1.6rem',
@@ -20,15 +20,13 @@ export const entireInfoStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  width: '33.9rem',
+  flexBasis: '34rem',
   height: '56rem',
   padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
   borderRadius: '1.6rem 0 0 1.6rem',
 
   backgroundColor: theme.colors.gray_100,
-
-  overflow: 'hidden',
 });
 
 export const tabButtonStyle = css({

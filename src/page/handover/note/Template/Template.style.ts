@@ -8,7 +8,6 @@ export const noteWrapperStyle = css({
   flexDirection: 'column',
   gap: '4rem',
 
-  width: '84rem',
   maxHeight: '45rem',
 
   paddingBottom: '1.7rem',
