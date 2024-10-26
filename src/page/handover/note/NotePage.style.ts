@@ -49,10 +49,6 @@ export const infoLayoutStyle = css({
   gap: '2rem',
 
   alignItems: 'center',
-
-  // ':nth-child(3)': {
-  //   alignItems: 'flex-start',
-  // },
 });
 
 export const titleStyle = css({
