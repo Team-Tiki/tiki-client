@@ -21,7 +21,7 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
     onChange({ target: { value: selectedValue } } as ChangeEvent<HTMLInputElement>);
   };
 
-  function renderRadioButton() {
+  const renderRadioButton = () => {
     return options.map(({ label, value: optionValue, name }: RadioButtonProps, index) => {
       const id = `${name}-${index}`;
 
@@ -37,7 +37,7 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
         />
       );
     });
-  }
+  };
 
   return <div>{renderRadioButton()}</div>;
 };
