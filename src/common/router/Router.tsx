@@ -9,10 +9,10 @@ import {
   ComingsoonPage,
   DrivePage,
   ErrorPage,
+  HandoverNotePage,
   InfoFormPage,
   LandingPage,
   LoginPage,
-  NotePage,
   PasswordAuthPage,
   PasswordResetPage,
   ShowcasePage,
@@ -154,7 +154,7 @@ const router = createBrowserRouter([
         path: PATH.HANDOVER_NOTE,
         element: (
           <Suspense>
-            <NotePage />
+            <HandoverNotePage />
           </Suspense>
         ),
       },

@@ -11,4 +11,4 @@ export const ArchivingPage = lazy(() => import('@/page/archiving/index/Archiving
 export const ErrorPage = lazy(() => import('@/shared/page/errorPage/ErrorPage'));
 export const ComingsoonPage = lazy(() => import('@/shared/page/comingsoonPage/ComingsoonPage'));
 export const DrivePage = lazy(() => import('@/page/drive/index'));
-export const NotePage = lazy(() => import('@/page/handover/note/NotePage'));
+export const HandoverNotePage = lazy(() => import('@/page/handover/note/NotePage'));
