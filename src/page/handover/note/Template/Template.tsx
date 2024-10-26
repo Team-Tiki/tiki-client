@@ -5,8 +5,8 @@ import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 import { scrollStyle } from '@/common/style/scroll';
 
-import File from '../component/file/File';
-import { fileBoxStyle, guideStyle, layoutStyle, noteWrapperStyle } from './Template.style';
+import { fileBoxStyle, guideStyle, layoutStyle, noteWrapperStyle } from '@/page/handover/note/Template/Template.style';
+import File from '@/page/handover/note/component/file/File';
 
 const Template = () => {
   const fileRef = useRef<HTMLInputElement>(null);

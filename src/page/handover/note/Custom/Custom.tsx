@@ -4,8 +4,14 @@ import Button from '@/common/component/Button/Button';
 import Text from '@/common/component/Text/Text';
 import { scrollStyle } from '@/common/style/scroll';
 
-import File from '../component/file/File';
-import { fileBoxStyle, guideStyle, layoutStyle, noteWrapperStyle, textareaStyle } from './Custom.style';
+import {
+  fileBoxStyle,
+  guideStyle,
+  layoutStyle,
+  noteWrapperStyle,
+  textareaStyle,
+} from '@/page/handover/note/Custom/Custom.style';
+import File from '@/page/handover/note/component/file/File';
 
 const Custom = () => {
   const fileRef = useRef<HTMLInputElement>(null);

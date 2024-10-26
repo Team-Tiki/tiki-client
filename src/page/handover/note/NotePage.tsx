@@ -8,7 +8,9 @@ import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
 import { Tab } from '@/common/component/Tab';
 import Text from '@/common/component/Text/Text';
 
-import Custom from './Custom/Custom';
+import Custom from '@/page/handover/note/Custom/Custom';
+import Template from '@/page/handover/note/Template/Template';
+
 import {
   entireInfoStyle,
   infoContainerStyle,
@@ -19,7 +21,6 @@ import {
   tabButtonStyle,
   titleStyle,
 } from './NotePage.style';
-import Template from './Template/Template';
 
 type NoteComplete = '작성 완료' | '작성 미완료';
 

@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
 
+import { RadioButtonProps } from '@/common/component/RadioButton/RadioButton';
+import { TagProps } from '@/common/component/Tag/Tag';
 import { theme } from '@/common/style/theme/theme';
-
-import { TagProps } from '../Tag/Tag';
-import { RadioButtonProps } from './RadioButton';
 
 export const radioButtonLayoutStyle = css({
   display: 'flex',

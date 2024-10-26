@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-import RadioButton, { RadioButtonProps } from './RadioButton';
+import RadioButton, { RadioButtonProps } from '@/common/component/RadioButton/RadioButton';
 
 export interface RadioProps {
   label: string;
