@@ -15,6 +15,7 @@ export const PATH = {
   SHOWCASE: '/showcase',
   DRIVE: '/drive',
   HANDOVER_NOTE: '/handover/note',
+  HANDOVER: '/handover',
 
   COMING_SOON: '/comingsoon',
 } as const;

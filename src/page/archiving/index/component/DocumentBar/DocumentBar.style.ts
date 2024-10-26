@@ -4,7 +4,8 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = (blockSelected: string) =>
   css({
-    position: 'relative',
+    position: 'absolute',
+    right: 0,
 
     zIndex: theme.zIndex.overlayMiddle,
 

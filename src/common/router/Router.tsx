@@ -143,6 +143,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: PATH.HANDOVER,
+        element: (
+          <Suspense>
+            <h1>HandOver</h1>
+          </Suspense>
+        ),
+      },
+      {
         path: PATH.HANDOVER_NOTE,
         element: (
           <Suspense>
