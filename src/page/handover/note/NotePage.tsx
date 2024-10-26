@@ -81,7 +81,7 @@ const NotePage = () => {
               여기를 눌러 활동 태그를 추가해보세요
             </Button>
             {/* ) : ( */}
-            <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}></Flex>
+            <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }} />
             {/* )} */}
           </li>
           <li css={infoLayoutStyle}>
