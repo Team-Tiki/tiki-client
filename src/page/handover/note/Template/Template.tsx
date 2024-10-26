@@ -3,6 +3,7 @@ import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import Button from '@/common/component/Button/Button';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
+import { scrollStyle } from '@/common/style/scroll';
 
 import File from '../component/file/File';
 import { fileBoxStyle, guideStyle, layoutStyle, noteWrapperStyle } from './Template.style';
@@ -24,7 +25,7 @@ const Template = () => {
   }, []);
 
   return (
-    <div css={noteWrapperStyle}>
+    <div css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
         <Text tag="body4" css={guideStyle}>
           무슨 활동인가요?

@@ -10,7 +10,7 @@ export const noteWrapperStyle = css({
 
   maxHeight: '45rem',
 
-  paddingBottom: '1.7rem',
+  paddingBottom: '5rem',
 
   overflowY: 'scroll',
 });

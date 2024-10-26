@@ -2,6 +2,7 @@ import { ChangeEvent, useCallback, useRef, useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Text from '@/common/component/Text/Text';
+import { scrollStyle } from '@/common/style/scroll';
 
 import File from '../component/file/File';
 import { fileBoxStyle, guideStyle, layoutStyle, noteWrapperStyle, textareaStyle } from './Custom.style';
@@ -23,7 +24,7 @@ const Custom = () => {
   }, []);
 
   return (
-    <div css={noteWrapperStyle}>
+    <div css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
         <textarea
           css={textareaStyle}
