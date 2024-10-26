@@ -6,9 +6,7 @@ import DatePicker from '@/common/component/DatePicker';
 import Flex from '@/common/component/Flex/Flex';
 import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
 import { Tab } from '@/common/component/Tab';
-import Tag from '@/common/component/Tag/Tag';
 import Text from '@/common/component/Text/Text';
-import { theme } from '@/common/style/theme/theme';
 
 import Custom from './Custom/Custom';
 import {
@@ -35,6 +33,10 @@ const NotePage = () => {
   const handleChangeStatus = useCallback((value: NoteComplete) => {
     setStatus(value);
   }, []);
+
+  const handleAppendTag = () => {
+    // 모달 호출
+  };
 
   return (
     <section css={noteSectionStyle}>
@@ -72,11 +74,15 @@ const NotePage = () => {
           </li>
           <li css={infoLayoutStyle}>
             <Text tag="body6" css={infoStyle}>
-              활동 기간
+              활동 태그
             </Text>
-            <Tag variant="round" color={theme.colors.red_200} bgColor={theme.colors.red_100}>
-              event
-            </Tag>
+            {/* {!tag ? (   활동 태그 데이터에 따라 다른 뷰 보여줌 */}
+            <Button variant="underline" size="xLarge" css={{ padding: 0, fontWeight: '400' }} onClick={handleAppendTag}>
+              여기를 눌러 활동 태그를 추가해보세요
+            </Button>
+            {/* ) : ( */}
+            <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}></Flex>
+            {/* )} */}
           </li>
           <li css={infoLayoutStyle}>
             <Text tag="body6" css={infoStyle}>

@@ -5,8 +5,8 @@ import { theme } from '@/common/style/theme/theme';
 export const noteSectionStyle = css({
   display: 'flex',
 
-  height: '59.2rem',
-
+  minHeight: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
+  height: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
   padding: '1.6rem',
 
   justifyContent: 'flex-start',
@@ -14,6 +14,8 @@ export const noteSectionStyle = css({
 
   border: `1px solid ${theme.colors.gray_300}`,
   borderRadius: '1.6rem',
+
+  overflow: 'hidden',
 });
 
 export const entireInfoStyle = css({
@@ -21,7 +23,6 @@ export const entireInfoStyle = css({
   flexDirection: 'column',
 
   flexBasis: '34rem',
-  height: '56rem',
   padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
   borderRadius: '1.6rem 0 0 1.6rem',
@@ -48,6 +49,10 @@ export const infoLayoutStyle = css({
   gap: '2rem',
 
   alignItems: 'center',
+
+  // ':nth-child(3)': {
+  //   alignItems: 'flex-start',
+  // },
 });
 
 export const titleStyle = css({
