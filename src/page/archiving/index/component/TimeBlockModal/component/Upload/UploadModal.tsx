@@ -19,6 +19,8 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useCloseModal } from '@/shared/store/modal';
 import { useToastAction } from '@/shared/store/toast';
 
+import { getRandomColor } from '../../util/color';
+
 interface UploadModalProps {
   isVisible: boolean;
 }
@@ -85,7 +87,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
 
   const data = {
     name: formData.blockName,
-    color: formData.blockColor,
+    color: getRandomColor(),
     startDate: formatDatePost(formData.startDate),
     endDate: formatDatePost(formData.endDate),
     blockType: formData.blockType,
