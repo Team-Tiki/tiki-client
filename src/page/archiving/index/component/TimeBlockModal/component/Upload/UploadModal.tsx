@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -25,9 +24,8 @@ interface UploadModalProps {
 }
 
 const UploadModal = ({ isVisible }: UploadModalProps) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const teamId = searchParams.get('teamId');
+  const teamId = localStorage.getItem('teamId');
+
   const { formData, reset } = useBlockContext();
   const closeModal = useCloseModal();
 
