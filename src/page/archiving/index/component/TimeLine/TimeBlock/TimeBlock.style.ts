@@ -25,7 +25,7 @@ export const blockStyle = (
     left: isOpen ? `${startPosition + 1}rem` : `${startPosition + 1.9}rem`,
 
     width: isOpen ? `${drawerBlockWidth}px` : `${width}px`,
-    minWidth: '2.8rem',
+    minWidth: '3.6rem',
     height: '3.6rem',
     padding: '0.6rem',
 

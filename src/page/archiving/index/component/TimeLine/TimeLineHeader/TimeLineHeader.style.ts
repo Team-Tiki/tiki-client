@@ -8,7 +8,7 @@ export const headerStyle = css({
 
   top: '0',
 
-  zIndex: theme.zIndex.overlayTop,
+  zIndex: theme.zIndex.overlayHigh,
 
   paddingBottom: '1rem',
 
