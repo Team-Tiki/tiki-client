@@ -4,7 +4,7 @@
 import { ReactNode, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import { backgroundStyle, dialogStyle } from '@/common/component/Modal/Modal.style';
+import { backgroundStyle, dialogStyle } from '@/common/component/Modal/Wrapper/ModalWrapper.style';
 
 interface ModalProps {
   isOpen: boolean;

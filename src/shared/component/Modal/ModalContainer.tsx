@@ -1,4 +1,4 @@
-import Modal from '@/common/component/Modal/Modal';
+import Modal from '@/common/component/Modal/Wrapper/ModalWrapper';
 
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
