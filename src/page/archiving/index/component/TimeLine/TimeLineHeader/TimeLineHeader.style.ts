@@ -8,9 +8,15 @@ export const headerStyle = css({
 
   top: '0',
 
+  zIndex: theme.zIndex.overlayTop,
+
+  paddingBottom: '1rem',
+
   alignItems: 'center',
 
   gap: '1.2rem',
+
+  backgroundColor: theme.colors.white,
 });
 
 export const commonStyle = css({
