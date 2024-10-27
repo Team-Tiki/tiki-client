@@ -32,10 +32,10 @@ const TimeBlock = ({
   const isOpen = useDrawerIsOpen();
 
   const daysLength = new Date(endDate).getDate() - new Date(startDate).getDate() + 1;
-  const singleDayLength = 3.75;
+  const singleDayLength = 4.2;
 
-  const blockWidth = daysLength * 20 + 18 * (daysLength - 1);
-  const drawerBlockWidth = daysLength * 20 + 10 * (daysLength - 1);
+  const blockWidth = daysLength * 20 + 23 * (daysLength - 1);
+  const drawerBlockWidth = daysLength * 20 + 13 * (daysLength - 1);
   const startPosition = (new Date(startDate).getDate() - 1) * singleDayLength;
 
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
