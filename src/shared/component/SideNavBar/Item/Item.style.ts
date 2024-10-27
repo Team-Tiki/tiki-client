@@ -2,8 +2,6 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = css({});
-
 export const itemStyle = (isClicked: boolean) =>
   css({
     display: 'flex',
@@ -14,12 +12,9 @@ export const itemStyle = (isClicked: boolean) =>
     height: '3.6rem',
     padding: '0.1rem',
 
+    backgroundColor: theme.colors.gray_100,
     borderRadius: '10px',
     border: isClicked ? `1px solid ${theme.colors.key_500}` : 0,
-
-    '&:hover': {
-      border: `1px solid ${theme.colors.key_500}`,
-    },
 
     cursor: 'pointer',
   });
@@ -27,4 +22,9 @@ export const itemStyle = (isClicked: boolean) =>
 export const indicatorStyle = css({
   position: 'absolute',
   left: 0,
+});
+
+export const firstSpellStyle = css({
+  font: `${theme.text.body06}`,
+  color: theme.colors.gray_500,
 });

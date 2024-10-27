@@ -19,5 +19,10 @@ export const tikiLogoStyle = css({
 
 export const settingStyle = css({
   position: 'fixed',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  padding: '2rem',
   bottom: 0,
 });

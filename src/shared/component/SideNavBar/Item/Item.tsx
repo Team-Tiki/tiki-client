@@ -1,31 +1,48 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useState } from 'react';
 
-import tikiLogo from '@/common/asset/svg/ic_tiki_logo.svg';
 import Flex from '@/common/component/Flex/Flex';
 import ToolTip from '@/common/component/ToolTip/ToolTip';
 
-import { indicatorStyle, itemStyle } from '@/shared/component/SideNavBar/Item/Item.style';
+import { firstSpellStyle, indicatorStyle, itemStyle } from '@/shared/component/SideNavBar/Item/Item.style';
 import PageIndicatorStick from '@/shared/component/SideNavBar/PageIndicatorStick/PageIndicatorStick';
 
 interface ItemProps extends HTMLAttributes<HTMLDivElement> {
-  hoverMessage?: string;
-  logoUrl?: string;
+  hoverMessage: string;
+  logoUrl: string | null;
   isClicked: boolean;
-  onClick: () => void;
+  onLogoClick: () => void;
 }
 
-const Item = ({ logoUrl = tikiLogo, isClicked, onClick, hoverMessage = '', ...props }: ItemProps) => {
+const Item = ({ logoUrl = '', isClicked, onLogoClick, hoverMessage, ...props }: ItemProps) => {
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
+
   const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
-      onClick();
+      onLogoClick();
     }
   };
+
   return (
     <Flex tag="li" styles={{ align: 'center', justify: 'center', padding: '2rem' }} {...props}>
-      <PageIndicatorStick isClicked={isClicked} css={indicatorStyle} />
+      <PageIndicatorStick isClicked={isClicked} isHover={isHover} css={indicatorStyle} />
       <ToolTip message={hoverMessage} position="right" gap={0.8}>
-        <div role="button" tabIndex={-1} css={itemStyle(isClicked)} onClick={onClick} onKeyDown={handleEnterKeyDown}>
-          <img src={logoUrl} alt="버튼 아이콘" />
+        <div
+          role="button"
+          tabIndex={0}
+          css={itemStyle(isClicked)}
+          onClick={onLogoClick}
+          onKeyDown={handleEnterKeyDown}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}>
+          {logoUrl ? <img src={logoUrl} alt="버튼 아이콘" /> : <span css={firstSpellStyle}>{hoverMessage[0]}</span>}
         </div>
       </ToolTip>
     </Flex>

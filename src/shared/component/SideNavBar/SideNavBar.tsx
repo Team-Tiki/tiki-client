@@ -8,6 +8,7 @@ import globalUrl from '@/common/asset/svg/ic_global.svg';
 import TikiLogo from '@/common/asset/svg/ic_tiki_logo.svg?react';
 import Divider from '@/common/component/Divider/Divider';
 import Flex from '@/common/component/Flex/Flex';
+import ToolTip from '@/common/component/ToolTip/ToolTip';
 import { theme } from '@/common/style/theme/theme';
 
 import Item from '@/shared/component/SideNavBar/Item/Item';
@@ -20,7 +21,7 @@ import { Team } from '@/shared/type/team';
 const SideNavBar = () => {
   const { data } = useClubInfoQuery();
 
-  const [selectedId, setSelectedId] = useState<string>('showcase');
+  const [selectedId, setSelectedId] = useState('showcase');
 
   const navigate = useNavigate();
 
@@ -29,17 +30,11 @@ const SideNavBar = () => {
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
 
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('teamId', id);
-
-    const hasTeamIdInPath = path.includes('teamId');
-
-    if (!hasTeamIdInPath && id !== 'showcase') {
-      navigate(`${path}?${searchParams.toString()}`);
-    } else if (id === 'showcase') {
-      navigate(PATH.SHOWCASE);
+    if (id === 'showcase') {
+      navigate(path);
     } else {
       navigate(path);
+      localStorage.setItem('teamId', id);
     }
     close();
   };
@@ -49,45 +44,50 @@ const SideNavBar = () => {
   };
 
   return (
-    <aside css={containerStyle}>
+    <nav css={containerStyle}>
       <TikiLogo css={tikiLogoStyle} />
-      <Flex tag="nav" styles={{ direction: 'column', align: 'center' }}>
+      <Flex tag="ul" styles={{ direction: 'column', align: 'center' }}>
         <Item
           logoUrl={globalUrl}
           isClicked={selectedId === 'showcase'}
-          onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}
+          onLogoClick={() => handleItemClick('showcase', PATH.SHOWCASE)}
           hoverMessage={'showcase'}
         />
-        <Divider type="horizontal" size={57.89} color={theme.colors.gray_300} />
-        <ul>
-          {data?.data.belongTeamGetResponses.map((data: Team) => {
-            return (
-              <Item
-                key={data.id}
-                isClicked={selectedId === String(data.id)}
-                logoUrl={data.iconImageUrl ? data.iconImageUrl : defaultLogo}
-                onClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}
-                hoverMessage={data.name}
-              />
-            );
-          })}
-          <Item
-            logoUrl={addUrl}
-            isClicked={false}
-            onClick={handleWorkspaceClick}
-            hoverMessage={'새로운 워크스페이스 생성'}
-          />
-        </ul>
-
+        <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
+        {data?.data.belongTeamGetResponses.map((data: Team) => {
+          return (
+            <Item
+              key={data.id}
+              isClicked={selectedId === String(data.id)}
+              logoUrl={data.iconImageUrl}
+              onLogoClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}
+              hoverMessage={data.name}
+            />
+          );
+        })}
         <Item
-          logoUrl={avatarUrl}
+          logoUrl={addUrl}
           isClicked={false}
-          onClick={() => {}}
-          hoverMessage={'내 정보 변경'}
-          css={settingStyle}
+          onLogoClick={handleWorkspaceClick}
+          hoverMessage={'새로운 워크스페이스 생성'}
         />
+        <Flex css={settingStyle}>
+          <ToolTip message={'내 정보 수정하기'} position="right" gap={0.8}>
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                alert('현재 준비중인 기능입니다.');
+              }}
+              onKeyDown={() => {
+                alert('현재 준비중인 기능입니다.');
+              }}>
+              <img src={avatarUrl} alt="버튼 아이콘" />
+            </div>
+          </ToolTip>
+        </Flex>
       </Flex>
-    </aside>
+    </nav>
   );
 };
 
