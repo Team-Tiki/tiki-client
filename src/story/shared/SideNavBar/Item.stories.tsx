@@ -16,12 +16,16 @@ const meta = {
     isClicked: {
       control: { type: 'boolean' },
     },
+    logoUrl: {
+      control: { type: 'text' },
+    },
   },
 
   args: {
     hoverMessage: 'Tiki 화이팅',
+    logoUrl: '',
     isClicked: false,
-    onClick: () => {},
+    onLogoClick: () => {},
   },
 } satisfies Meta<typeof Item>;
 

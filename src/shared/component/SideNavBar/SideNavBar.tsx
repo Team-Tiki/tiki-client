@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import addUrl from '@/common/asset/svg/ic_add.svg';
 import avatarUrl from '@/common/asset/svg/ic_avatar.svg';
-import defaultLogo from '@/common/asset/svg/ic_folder.svg';
 import globalUrl from '@/common/asset/svg/ic_global.svg';
 import TikiLogo from '@/common/asset/svg/ic_tiki_logo.svg?react';
 import Divider from '@/common/component/Divider/Divider';
