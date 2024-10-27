@@ -49,7 +49,7 @@ export const dayBodyStyle = css({
   position: 'relative',
   display: 'flex',
 
-  height: '41.2rem',
+  height: '44.2rem',
 
   justifyContent: 'center',
   alignItems: 'center',
