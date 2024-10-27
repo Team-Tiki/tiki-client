@@ -3,7 +3,10 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const headerStyle = css({
+  position: 'sticky',
   display: 'flex',
+
+  top: '0',
 
   alignItems: 'center',
 
