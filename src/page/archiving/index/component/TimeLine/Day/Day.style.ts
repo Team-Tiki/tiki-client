@@ -17,7 +17,7 @@ export const dayStyle = css({
   justifyContent: 'space-between',
 });
 
-export const dayHeaderStyle = (isToday: boolean) =>
+export const dayHeaderStyle = (isToday: boolean, isOpen: boolean) =>
   css({
     display: 'flex',
 
@@ -37,11 +37,11 @@ export const dayHeaderStyle = (isToday: boolean) =>
     ...theme.text.body08,
 
     ':first-of-type': {
-      marginLeft: '1.9rem',
+      marginLeft: isOpen ? '1.9rem' : '2.1rem',
     },
 
     ':last-of-type': {
-      marginRight: '1.9rem',
+      marginRight: isOpen ? '1.9rem' : '2.1rem',
     },
   });
 
@@ -49,7 +49,7 @@ export const dayBodyStyle = css({
   position: 'relative',
   display: 'flex',
 
-  height: '46rem',
+  height: '41.2rem',
 
   justifyContent: 'center',
   alignItems: 'center',

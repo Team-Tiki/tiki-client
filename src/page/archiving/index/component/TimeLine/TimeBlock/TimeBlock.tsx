@@ -5,6 +5,8 @@ import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { BlockType } from '@/page/archiving/index/type/blockType';
 import { BlockColor } from '@/page/archiving/index/type/color';
 
+import { useDrawerIsOpen } from '@/shared/store/drawer';
+
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   startDate: Date;
@@ -27,8 +29,14 @@ const TimeBlock = ({
   blockType,
   ...props
 }: TimeBlockProps) => {
-  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 3.25;
-  const startPosition = (new Date(startDate).getDate() - 1) * 3.85;
+  const isOpen = useDrawerIsOpen();
+
+  const daysLength = new Date(endDate).getDate() - new Date(startDate).getDate() + 1;
+  const singleDayLength = 3.75;
+
+  const blockWidth = daysLength * 20 + 18 * (daysLength - 1);
+  const drawerBlockWidth = daysLength * 20 + 10 * (daysLength - 1);
+  const startPosition = (new Date(startDate).getDate() - 1) * singleDayLength;
 
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -44,7 +52,7 @@ const TimeBlock = ({
       onKeyDown={(e) => {
         handleEnterBlock(e);
       }}
-      css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
+      css={blockStyle(blockWidth, startPosition, floor, color, isSelected, isOpen, drawerBlockWidth)}
       onClick={onBlockClick}
       {...props}>
       {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}

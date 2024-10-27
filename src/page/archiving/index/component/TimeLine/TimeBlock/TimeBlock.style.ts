@@ -4,7 +4,15 @@ import { theme } from '@/common/style/theme/theme';
 
 import { BlockColor } from '../../../type/color';
 
-export const blockStyle = (width: number, startPosition: number, floor: number, color: string, isSelected: boolean) =>
+export const blockStyle = (
+  width: number,
+  startPosition: number,
+  floor: number,
+  color: string,
+  isSelected: boolean,
+  isOpen: boolean,
+  drawerBlockWidth: number
+) =>
   css({
     position: 'absolute',
     display: 'flex',
@@ -13,10 +21,11 @@ export const blockStyle = (width: number, startPosition: number, floor: number, 
 
     zIndex: theme.zIndex.overlayBottom,
 
-    top: `${floor * 4.5 - 1}rem`,
-    left: `${startPosition + 1.5}rem`,
+    top: `${floor * 4.5 - 3.5}rem`,
+    left: isOpen ? `${startPosition + 1}rem` : `${startPosition + 1.9}rem`,
 
-    width: `calc(${width}%  - 1%)`,
+    width: isOpen ? `${drawerBlockWidth}px` : `${width}px`,
+    minWidth: '2.8rem',
     height: '3.6rem',
     padding: '0.6rem',
 
