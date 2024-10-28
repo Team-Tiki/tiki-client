@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import addUrl from '@/common/asset/svg/ic_add.svg';
@@ -11,6 +11,7 @@ import TikiLogo from '@/common/asset/svg/logo_symbol.svg?react';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
+import ToolTip from '@/common/component/ToolTip/ToolTip';
 import { useOverlay } from '@/common/hook';
 import { useOutsideClick } from '@/common/hook/useOutsideClick';
 
@@ -37,34 +38,16 @@ const LeftSidebar = () => {
 
   const { isOpen: isSettingOpen, close: onSettingClose, toggle } = useOverlay();
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const teamId = searchParams.get('teamId');
-    if (teamId) {
-      setSelectedId(teamId);
-
-      navigate(`${PATH.ARCHIVING}?teamId=${teamId}`);
-    } else {
-      setSelectedId('showcase');
-      navigate(PATH.SHOWCASE);
-    }
-  }, [navigate]);
-
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
 
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('teamId', id);
-
-    const hasTeamIdInPath = path.includes('teamId');
-
-    if (!hasTeamIdInPath && id !== 'showcase') {
-      navigate(`${path}?${searchParams.toString()}`);
-    } else if (id === 'showcase') {
-      navigate(PATH.SHOWCASE);
+    if (id === 'showcase') {
+      navigate(path);
     } else {
       navigate(path);
+      localStorage.setItem('teamId', id);
     }
+
     close();
   };
 
@@ -77,19 +60,22 @@ const LeftSidebar = () => {
       <nav>
         <TikiLogo onClick={() => navigate(PATH.DRIVE)} css={tikiLogoStyle} />
         <ul css={leftSidebarMenuStyle}>
-          <LeftSidebarMenuItem
-            isClicked={selectedId === 'showcase'}
-            logoUrl={earthUrl}
-            onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
-            Showcase
-          </LeftSidebarMenuItem>
+          <ToolTip message="가나다라마바사아자차카파타파" position="right" gap={0.8}>
+            <LeftSidebarMenuItem
+              isClicked={selectedId === 'showcase'}
+              logoUrl={earthUrl}
+              onClick={() => handleItemClick('showcase', PATH.SHOWCASE)}>
+              Showcase
+            </LeftSidebarMenuItem>
+          </ToolTip>
+
           {data?.data.belongTeamGetResponses.map((data: Team) => {
             return (
               <LeftSidebarMenuItem
                 key={data.id}
                 isClicked={selectedId === String(data.id)}
                 logoUrl={data.iconImageUrl ? data.iconImageUrl : defaultLogo}
-                onClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}>
+                onClick={() => handleItemClick(String(data.id), PATH.ARCHIVING)}>
                 {data.name}
               </LeftSidebarMenuItem>
             );
@@ -102,7 +88,7 @@ const LeftSidebar = () => {
         <button onClick={toggle} css={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
           <img src={settingUrl} alt="환경 설정" />
         </button>
-        <MenuList variant="primary" isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
+        <MenuList isOpen={isSettingOpen} css={{ left: '110%', top: '-20px' }}>
           <MenuItem
             onSelect={() => {
               toggle();

@@ -1,36 +1,34 @@
 import { ForwardedRef, forwardRef } from 'react';
 
 import { daySectionStyle } from '@/page/archiving/index/ArchivingPage.style';
-import DaySection from '@/page/archiving/index/component/DaySection/DaySection';
-import TimeBlock from '@/page/archiving/index/component/TimeBlock/TimeBlock';
+import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
+import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
-import { MonthType } from '@/page/archiving/index/type/monthType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 interface TimeLineProps {
   selectedBlock?: Block;
   onBlockClick?: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>, block: Block) => void;
   currentYear: number;
-  selectedMonth: MonthType;
+  currentMonth: number;
   endDay: Date;
 }
 
 const TimeLine = (
-  { selectedBlock, onBlockClick, currentYear, selectedMonth, endDay }: TimeLineProps,
+  { selectedBlock, onBlockClick, currentYear, currentMonth, endDay }: TimeLineProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const teamId = new URLSearchParams(location.search).get('teamId');
-  if (!teamId) throw new Error('has no teamId');
+  const teamId = localStorage.getItem('teamId');
 
-  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, parseInt(selectedMonth.split('월')[0]));
+  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
 
   const timeBlocks: Block[] = data.timeBlocks;
-  const blockFloors = alignBlocks(timeBlocks, endDay, selectedMonth, currentYear);
+  const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 
   return (
     <div id="block_area" css={daySectionStyle} ref={ref}>
-      <DaySection endDay={endDay} />
+      <Day currentYear={currentYear} currentMonth={currentMonth} endDay={endDay} />
 
       {timeBlocks.map((block: Block) => {
         const { startDate, endDate } = block;
@@ -38,7 +36,7 @@ const TimeLine = (
           startDate: new Date(startDate),
           endDate: new Date(endDate),
           currentYear,
-          selectedMonth: +selectedMonth.split('월')[0],
+          currentMonth,
         });
 
         return (

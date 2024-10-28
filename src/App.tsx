@@ -1,13 +1,14 @@
 import { css } from '@emotion/react';
 import * as Sentry from '@sentry/react';
 
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 
 import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
 import { HTTPError } from '@/shared/api/HTTPError';
+import GlobalDrawer from '@/shared/component/GlobalDrawer/GlobalDrawer';
 import Header from '@/shared/component/Header/Header';
 import Login from '@/shared/component/Login/Login';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
@@ -20,11 +21,6 @@ const App = () => {
   const navigate = useNavigate();
 
   const { reset } = useQueryErrorResetBoundary();
-
-  const { pathname } = useLocation();
-
-  /** 아카이빙 페이지 DocumentBar를 위한 라우트별 동적 패딩 */
-  const isArchivingPage = pathname === '/archiving';
 
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -55,28 +51,34 @@ const App = () => {
       <Login>
         <ModalContainer />
         <SNB />
-        <main css={layoutStyle(isArchivingPage)}>
-          <Header />
-          <Outlet />
-        </main>
+        <div css={layoutStyle}>
+          <main css={outletStyle}>
+            <Header />
+            <Outlet />
+          </main>
+          <GlobalDrawer />
+        </div>
       </Login>
     </ErrorBoundary>
   );
 };
 
-const layoutStyle = (flag: boolean) =>
-  css({
-    display: 'flex',
-    flexDirection: 'column',
+export const layoutStyle = css({
+  display: 'flex',
+});
 
-    height: '100%',
-    width: 'calc(100% - 7.6rem)',
+const outletStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
 
-    padding: flag ? '0' : '2rem 3.4rem 4.8rem 3.2rem',
+  height: '100%',
+  width: 'calc(100% - 7.6rem)',
 
-    marginLeft: '7.6rem',
+  padding: '2rem 3.4rem 4.8rem 3.2rem',
 
-    overflow: 'hidden',
-  });
+  marginLeft: '7.6rem',
+
+  overflow: 'hidden',
+});
 
 export default App;
