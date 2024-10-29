@@ -27,6 +27,14 @@ const meta = {
     title: '3차 정기 회의',
     content: '티키의 3번째 정기 회의록입니다. 티키의 3번째 정기 회의록입니다.',
     date: new Date(),
+  },
+} satisfies Meta<typeof ListItem>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
     tags: [
       { content: 'meeting', bgColor: '#FFE6E8' },
       { content: 'study', bgColor: '#F8E2CB' },
@@ -36,12 +44,17 @@ const meta = {
       { content: 'study', bgColor: '#F8E2CB' },
     ],
   },
-} satisfies Meta<typeof ListItem>;
+  argTypes: {},
+};
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
+export const ZeroFile: Story = {
   args: {},
+  argTypes: {},
+};
+
+export const SomeFile: Story = {
+  args: {
+    tags: [{ content: 'meeting', bgColor: '#FFE6E8' }],
+  },
   argTypes: {},
 };
