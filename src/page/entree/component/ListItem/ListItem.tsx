@@ -7,17 +7,13 @@ import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
 import { containerStyle, detailStyle } from '@/page/entree/component/ListItem/ListItem.style';
-
-interface Tag {
-  content: string;
-  bgColor: string;
-}
+import { ListTag } from '@/page/entree/type/listTag';
 
 interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   content: string;
-  date: string;
-  tags?: Tag[];
+  date: Date;
+  tags?: ListTag[];
 }
 
 const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) => {
@@ -107,7 +103,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
         <Flex css={detailStyle}>
           <Calender width={16} height={16} />
           <Text tag="body8" css={{ color: theme.colors.gray_800 }}>
-            {date}
+            {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
           </Text>
         </Flex>
       </Flex>

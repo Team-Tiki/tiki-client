@@ -17,7 +17,7 @@ const meta = {
       control: { type: 'text' },
     },
     date: {
-      control: { type: 'date' },
+      control: false,
     },
     tags: {
       control: false,
@@ -26,7 +26,7 @@ const meta = {
   args: {
     title: 'title',
     content: 'content',
-    date: '2222.22.22',
+    date: new Date(),
     tags: [
       { content: 'meeting', bgColor: '#FFE6E8' },
       { content: 'study', bgColor: '#F8E2CB' },
