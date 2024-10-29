@@ -19,26 +19,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 21
-      - name: Install dependencies
-        run: pnpm install
-      - name: Run Chromatic
-        id: chromatic
-        uses: chromaui/action@v1
+
+      - name: Build and Publish
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
+          install_command: pnpm install
           build_command: pnpm build-storybook
           path: storybook-static
           checkout: false
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          message: |
-             🚀 Storybook 확인하기 🚀
-             - [Build](${{steps.chromatic.outputs.buildUrl}})
-             - [Preview](${{steps.chromatic.outputs.storybookUrl}})
              
