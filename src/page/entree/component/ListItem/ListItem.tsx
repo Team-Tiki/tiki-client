@@ -6,7 +6,13 @@ import Tag from '@/common/component/Tag/Tag';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-import { containerStyle, detailStyle } from '@/page/entree/component/ListItem/ListItem.style';
+import {
+  containerStyle,
+  contentStyle,
+  detailContainerStyle,
+  detailStyle,
+  titleStyle,
+} from '@/page/entree/component/ListItem/ListItem.style';
 import { ListTag } from '@/page/entree/type/listTag';
 
 interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -56,10 +62,15 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
   }, [tags]);
 
   return (
-    <Flex css={[containerStyle, { width: '36rem', height: '10rem' }]} {...props}>
-      <Text tag="body6">{title}</Text>
-      <Text tag="body8">{content}</Text>
-      <Flex css={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+    <Flex css={containerStyle} {...props}>
+      <Text tag="body6" css={titleStyle}>
+        {title}
+      </Text>
+      <Text tag="body8" css={contentStyle}>
+        {content}
+      </Text>
+
+      <Flex css={detailContainerStyle}>
         <Flex css={detailStyle}>
           {tags.map((tag, index) => {
             if (index >= tagCount) {

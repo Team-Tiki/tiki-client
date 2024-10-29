@@ -24,8 +24,8 @@ const meta = {
     },
   },
   args: {
-    title: 'title',
-    content: 'content',
+    title: '3차 정기 회의',
+    content: '티키의 3번째 정기 회의록입니다. 티키의 3번째 정기 회의록입니다.',
     date: new Date(),
     tags: [
       { content: 'meeting', bgColor: '#FFE6E8' },
