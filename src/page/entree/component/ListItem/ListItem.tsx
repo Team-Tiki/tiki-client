@@ -1,29 +1,74 @@
+import { HTMLAttributes, useEffect, useState } from 'react';
+
+import Calender from '@/common/asset/svg/ic_calendar_ver2.svg?react';
+import Flex from '@/common/component/Flex/Flex';
 import Tag from '@/common/component/Tag/Tag';
 import Text from '@/common/component/Text/Text';
 import { theme } from '@/common/style/theme/theme';
 
-import { containerStyle, tagDateStyle } from '@/page/entree/component/ListItem/ListItem.style';
+import { containerStyle, detailStyle } from '@/page/entree/component/ListItem/ListItem.style';
 
-type Tag = {
+interface Tag {
   content: string;
   bgColor: string;
-};
+}
 
-type ListItemProps = {
+interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   content: string;
   date: string;
   tags?: Tag[];
-};
+}
 
-const ListItem = ({ title, content, date, tags = [] }: ListItemProps) => {
+const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) => {
+  const [tagCount, setTagCount] = useState(0);
+
+  useEffect(() => {
+    let length = 0;
+    let count = 0;
+    let flag = 0;
+    tags.forEach((tag) => {
+      if (length >= 204) {
+        //이미 200을 넘어서 이 tag를 넣으면 안되고 하나 빼야 함
+        flag = 1;
+      } else {
+        count++;
+        switch (tag.content) {
+          case 'meeting':
+            length += 64;
+            break;
+          case 'study':
+            length += 51;
+            break;
+          case 'recruiting':
+            length += 7;
+            3;
+            break;
+          case 'event':
+            length += 51;
+            break;
+          case 'notice':
+            length += 54;
+            break;
+          case 'task':
+            length += 44;
+            break;
+        }
+      }
+    });
+    setTagCount(count - flag);
+  }, [tags]);
+
   return (
-    <div css={containerStyle}>
+    <Flex css={[containerStyle, { width: '36rem', height: '10rem' }]} {...props}>
       <Text tag="body6">{title}</Text>
       <Text tag="body8">{content}</Text>
-      <div css={tagDateStyle}>
-        <div css={{ display: 'flex' }}>
-          {tags.map((tag) => {
+      <Flex css={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+        <Flex css={detailStyle}>
+          {tags.map((tag, index) => {
+            if (index >= tagCount) {
+              return;
+            }
             return (
               <Tag
                 css={{
@@ -53,13 +98,20 @@ const ListItem = ({ title, content, date, tags = [] }: ListItemProps) => {
               </Tag>
             );
           })}
-        </div>
-        <span>
-          ICON
-          <Text tag="body8">{date}</Text>
-        </span>
-      </div>
-    </div>
+          {tagCount < tags.length && (
+            <Text tag="body8" css={{ color: theme.colors.gray_500 }}>
+              +{tags.length - tagCount}
+            </Text>
+          )}
+        </Flex>
+        <Flex css={detailStyle}>
+          <Calender width={16} height={16} />
+          <Text tag="body8" css={{ color: theme.colors.gray_800 }}>
+            {date}
+          </Text>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };
 

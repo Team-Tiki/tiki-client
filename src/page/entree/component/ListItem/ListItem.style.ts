@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
-  display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -14,6 +13,4 @@ export const containerStyle = css({
   borderRadius: '8px',
 });
 
-export const tagDateStyle = css({
-  display: 'flex',
-});
+export const detailStyle = css({ alignItems: 'center', gap: '0.4rem' });

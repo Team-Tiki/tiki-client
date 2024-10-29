@@ -24,12 +24,16 @@ const meta = {
     },
   },
   args: {
-    title: 'title.',
+    title: 'title',
     content: 'content',
     date: '2222.22.22',
     tags: [
-      { content: 'first', bgColor: '#FFE6E8' },
-      { content: 'second', bgColor: '#F8E2CB' },
+      { content: 'meeting', bgColor: '#FFE6E8' },
+      { content: 'study', bgColor: '#F8E2CB' },
+      { content: 'meeting', bgColor: '#FFE6E8' },
+      { content: 'study', bgColor: '#F8E2CB' },
+      { content: 'meeting', bgColor: '#FFE6E8' },
+      { content: 'study', bgColor: '#F8E2CB' },
     ],
   },
 } satisfies Meta<typeof ListItem>;
