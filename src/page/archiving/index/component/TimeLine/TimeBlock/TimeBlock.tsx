@@ -5,8 +5,6 @@ import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { BlockType } from '@/page/archiving/index/type/blockType';
 import { BlockColor } from '@/page/archiving/index/type/color';
 
-import { useDrawerIsOpen } from '@/shared/store/drawer';
-
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   startDate: Date;
@@ -29,30 +27,23 @@ const TimeBlock = ({
   blockType,
   ...props
 }: TimeBlockProps) => {
-  const isOpen = useDrawerIsOpen();
-
   const daysLength = new Date(endDate).getDate() - new Date(startDate).getDate() + 1;
-  const singleDayLength = 4.25;
-
-  const blockWidth = daysLength * 20 + 22.4 * (daysLength - 1);
-  const drawerBlockWidth = daysLength * 20 + 15 * (daysLength - 1);
-  const startPosition = (new Date(startDate).getDate() - 1) * singleDayLength;
-
-  const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      onBlockClick(e);
-    }
-  };
 
   return (
     <div
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        handleEnterBlock(e);
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          onBlockClick(e);
+        }
       }}
-      css={blockStyle(blockWidth, startPosition, floor, color, isSelected, isOpen, drawerBlockWidth)}
+      css={blockStyle(color, isSelected)}
+      style={{
+        gridColumn: `${new Date(startDate).getDate()} / span ${daysLength}`,
+        gridRow: `${floor}`,
+      }}
       onClick={onBlockClick}
       {...props}>
       {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}
