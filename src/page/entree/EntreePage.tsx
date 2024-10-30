@@ -1,5 +1,5 @@
 const EntreePage = () => {
-  return <div />;
+  return <div>entreepage</div>;
 };
 
 export default EntreePage;

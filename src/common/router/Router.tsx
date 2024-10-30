@@ -18,6 +18,8 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
+import EntreePage from '@/page/entree/EntreePage';
+
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -146,6 +148,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <h1>HandOver</h1>
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.ENTREE,
+        element: (
+          <Suspense>
+            <EntreePage />
           </Suspense>
         ),
       },
