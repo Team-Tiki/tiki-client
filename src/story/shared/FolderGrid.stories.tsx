@@ -25,3 +25,17 @@ export const Default: Story = {
     title: '폴더 이름',
   },
 };
+
+export const Small: Story = {
+  decorators: [
+    (Story) => (
+      <div css={{ width: '16rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    title: '폴더 이름',
+    isSmall: true,
+  },
+};
