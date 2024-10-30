@@ -1,16 +1,25 @@
 name: 'Storybook Deployment'
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
 
       - name: Install Pnpm
         uses: pnpm/action-setup@v4
