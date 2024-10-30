@@ -7,7 +7,6 @@ export const sectionStyle = css({
 
   width: '100%',
 
-  minHeight: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
   height: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
 
   padding: '0 1.6rem',
