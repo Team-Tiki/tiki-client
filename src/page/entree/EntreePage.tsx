@@ -1,6 +1,8 @@
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
+import { scrollStyle } from '@/page/entree/EntreePage.style';
+
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 
@@ -17,7 +19,18 @@ const EntreePage = () => {
             '& > header': { height: '6.1rem' },
             '& > div': { marginTop: '0' },
           }}>
-          <FileGrid title={'파일 파일'} type={'pdf'} volume={20} isSmall={true} />
+          <Flex
+            css={[
+              {
+                gap: '1.4rem',
+                padding: '0 0 0.7rem',
+                overflowX: 'scroll',
+              },
+              scrollStyle,
+            ]}>
+            <FileGrid title={'뽀우니'} type={'pdf'} volume={20} isSmall={true} />
+            <FileGrid title={'Bonnie'} type={'word'} volume={20} isSmall={true} />
+          </Flex>
         </ContentBox>
         <ContentBox
           variant={'timeline'}
@@ -28,7 +41,7 @@ const EntreePage = () => {
         </ContentBox>
       </Flex>
       <ContentBox
-        variant={'timeline'}
+        variant={'handover'}
         title={'인수인계 노트'}
         headerOption={<Button variant="outline">전체보기</Button>}>
         <FileGrid title={'파일 파일'} type={'pdf'} volume={20} isSmall={true} />
