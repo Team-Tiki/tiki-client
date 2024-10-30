@@ -1,4 +1,4 @@
-import React, { RefObject, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 import {
   dayBodyStyle,
@@ -20,7 +20,6 @@ interface TimeLineProps {
   currentYear: number;
   currentMonth: number;
   endDay: Date;
-  ref: RefObject<HTMLDivElement>;
 }
 
 const TimeLine = ({ selectedBlock, onBlockClick, currentYear, currentMonth, endDay }: TimeLineProps) => {

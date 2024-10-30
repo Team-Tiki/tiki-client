@@ -1,10 +1,8 @@
 import { endOfMonth } from 'date-fns';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export const useDate = (teamId?: string) => {
-  const ref = useRef<HTMLDivElement>(null);
-
   const currentDate = new Date();
 
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth() + 1);
@@ -22,7 +20,6 @@ export const useDate = (teamId?: string) => {
 
   const handlePrevMonth = () => {
     setCurrentMonth((prevMonth) => prevMonth - 1);
-    ref?.current?.scrollTo(0, 0);
 
     if (currentMonth <= 1) {
       setCurrentMonth(12);
@@ -32,7 +29,6 @@ export const useDate = (teamId?: string) => {
 
   const handleNextMonth = () => {
     setCurrentMonth((prevMonth) => prevMonth + 1);
-    ref?.current?.scrollTo(0, 0);
 
     if (currentMonth >= 12) {
       setCurrentMonth(1);
@@ -43,12 +39,9 @@ export const useDate = (teamId?: string) => {
   const handleToday = () => {
     setCurrentYear(currentDate.getFullYear());
     setCurrentMonth(currentDate.getMonth() + 1);
-
-    ref?.current?.scrollTo(0, 0);
   };
 
   return {
-    ref,
     currentDate,
     currentYear,
     handlePrevMonth,

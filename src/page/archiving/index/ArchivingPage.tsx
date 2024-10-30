@@ -19,7 +19,7 @@ const ArchivingPage = () => {
 
   const teamId = localStorage.getItem('teamId');
 
-  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
+  const { currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -47,7 +47,6 @@ const ArchivingPage = () => {
             <Suspense>
               {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
               <TimeLine
-                ref={ref}
                 selectedBlock={selectedBlock}
                 onBlockClick={handleBlockClick}
                 currentYear={currentYear}
