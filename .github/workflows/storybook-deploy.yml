@@ -1,7 +1,7 @@
 name: 'Storybook Deployment'
 
 on:
-  pull_request:
+  push:
     branches:
       - develop
 
@@ -24,7 +24,7 @@ jobs:
         run: pnpm build-storybook
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3 
+        uses: peaceiris/actions-gh-pages@v4 
         with: 
           publish_dir: ./storybook-static
           github_token: ${{ secrets.GITHUB_TOKEN }}
