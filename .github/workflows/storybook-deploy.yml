@@ -9,21 +9,22 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Install pnpm
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install Pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 21
 
-      - name: Build and Publish
-        run: |
-          pnpm install
-          pnpm deploy-storybook -- --ci
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: pnpm build-storybook
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3 
+        with: 
+          publish_dir: ./storybook-static
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
           
              
