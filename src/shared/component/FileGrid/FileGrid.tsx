@@ -26,6 +26,7 @@ type FileGridProps = {
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
   type: File['type'];
   volume: number;
+  isSmall?: boolean;
 
   /**
    * [TODO]
@@ -45,7 +46,7 @@ const getIconByType = (type: string) => {
   }
 };
 
-const FileGrid = ({ title, type, volume }: FileGridProps) => {
+const FileGrid = ({ title, type, volume, isSmall = false }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   const optionRef = useRef<HTMLDivElement | null>(null);
@@ -60,33 +61,35 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
   };
 
   return (
-    <article css={cardStyle}>
-      <div css={iconWrapperStyle}>{getIconByType(type)}</div>
+    <article css={cardStyle(isSmall)}>
+      <div css={iconWrapperStyle(isSmall)}>{getIconByType(type)}</div>
       <Flex
         styles={{
           direction: 'column',
-          gap: '1.2rem',
+          gap: isSmall ? '0.8rem' : '1.2rem',
         }}>
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
           <Heading css={nameStyle} tag="H3">
             {title}
           </Heading>
-          <Menu onClose={close}>
-            <div ref={optionRef}>
-              <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
-            </div>
-            <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
-                파일 다운로드
-              </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
-                휴지통으로 이동
-              </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
-                인수인계 노트 보기
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          {!isSmall && (
+            <Menu onClose={close}>
+              <div ref={optionRef}>
+                <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
+              </div>
+              <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
+                  파일 다운로드
+                </MenuItem>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
+                  휴지통으로 이동
+                </MenuItem>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
+                  인수인계 노트 보기
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
 
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>

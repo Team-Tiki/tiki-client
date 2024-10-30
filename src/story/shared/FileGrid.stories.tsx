@@ -45,3 +45,18 @@ export const Image: Story = {
     type: 'pdf',
   },
 };
+
+export const Small: Story = {
+  decorators: [
+    (Story) => (
+      <div css={{ width: '16rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    title: '이채원',
+    type: 'pdf',
+    isSmall: true,
+  },
+};
