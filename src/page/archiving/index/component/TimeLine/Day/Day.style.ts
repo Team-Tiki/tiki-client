@@ -55,7 +55,7 @@ export const dayBodyStyle = (dayCount: number) =>
     rowGap: '2rem',
     gap: '1.5rem',
 
-    minHeight: '37rem',
+    minHeight: 'calc(100vh - 40rem)',
     maxHeight: 'calc(100vh - 2rem)',
 
     overflowY: 'auto',
