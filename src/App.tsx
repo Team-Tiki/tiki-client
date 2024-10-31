@@ -48,9 +48,7 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <ModalContainer />
-
       <SideNavBar />
-
       <div css={layoutStyle}>
         <main css={outletStyle}>
           <Header />
