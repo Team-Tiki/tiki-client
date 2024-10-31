@@ -29,16 +29,18 @@ const TimeBlock = ({
 }: TimeBlockProps) => {
   const daysLength = new Date(endDate).getDate() - new Date(startDate).getDate() + 1;
 
+  const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onBlockClick(e);
+    }
+  };
+
   return (
     <div
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          onBlockClick(e);
-        }
-      }}
+      onKeyDown={(e) => handleEnterBlock(e)}
       css={blockStyle(color, isSelected)}
       style={{
         gridColumn: `${new Date(startDate).getDate()} / span ${daysLength}`,
