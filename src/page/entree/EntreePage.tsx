@@ -2,9 +2,13 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 import { scrollStyle } from '@/page/entree/EntreePage.style';
+import ListItem from '@/page/entree/component/ListItem/ListItem';
+import { Notes } from '@/page/entree/constant/notes';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
+
+import { FileData } from '@/mock/data/drive';
 
 const EntreePage = () => {
   return (
@@ -28,8 +32,9 @@ const EntreePage = () => {
               },
               scrollStyle,
             ]}>
-            <FileGrid title={'뽀우니'} type={'pdf'} volume={20} isSmall={true} />
-            <FileGrid title={'Bonnie'} type={'word'} volume={20} isSmall={true} />
+            {FileData.map((file) => {
+              return <FileGrid title={file.title} type={file.type} volume={file.volume} isSmall={true} />;
+            })}
           </Flex>
         </ContentBox>
         <ContentBox
@@ -44,7 +49,18 @@ const EntreePage = () => {
         variant={'handover'}
         title={'인수인계 노트'}
         headerOption={<Button variant="outline">전체보기</Button>}>
-        <FileGrid title={'파일 파일'} type={'pdf'} volume={20} isSmall={true} />
+        <Flex
+          css={[
+            {
+              flexDirection: 'column',
+              gap: '0.8rem',
+            },
+            scrollStyle,
+          ]}>
+          {Notes.map((note) => {
+            return <ListItem title={note.title} content={note.content} date={note.date} tags={note.tags} />;
+          })}
+        </Flex>
       </ContentBox>
     </Flex>
   );
