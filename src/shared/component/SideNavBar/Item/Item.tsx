@@ -1,10 +1,16 @@
+import { motion } from 'framer-motion';
+
 import { HTMLAttributes, useState } from 'react';
 
 import Flex from '@/common/component/Flex/Flex';
 import ToolTip from '@/common/component/ToolTip/ToolTip';
 
-import { firstSpellStyle, indicatorStyle, itemStyle } from '@/shared/component/SideNavBar/Item/Item.style';
-import PageIndicatorStick from '@/shared/component/SideNavBar/PageIndicatorStick/PageIndicatorStick';
+import {
+  firstSpellStyle,
+  indicatorStyle,
+  itemStyle,
+  pageIndicatorStyle,
+} from '@/shared/component/SideNavBar/Item/Item.style';
 
 interface ItemProps extends HTMLAttributes<HTMLDivElement> {
   hoverMessage: string;
@@ -32,7 +38,9 @@ const Item = ({ logoUrl = '', isClicked, onLogoClick, hoverMessage, ...props }: 
 
   return (
     <Flex tag="li" styles={{ align: 'center', justify: 'center', padding: '2rem' }} {...props}>
-      <PageIndicatorStick isClicked={isClicked} isHover={isHover} css={indicatorStyle} />
+      {isClicked && (
+        <motion.div layoutId="snb_indicator" css={[pageIndicatorStyle(isClicked, isHover), indicatorStyle]} />
+      )}
       <ToolTip message={hoverMessage} position="right" gap={0.8}>
         <div
           role="button"
