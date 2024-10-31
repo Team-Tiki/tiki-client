@@ -12,18 +12,18 @@ import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block'
 
 import { useDrawerIsOpen } from '@/shared/store/drawer';
 
+import { useDateProvider } from '../../DateProvider';
 import Day from './Day/Day';
 
 interface TimeLineProps {
   selectedBlock?: Block;
   onBlockClick?: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>, block: Block) => void;
-  currentYear: number;
-  currentMonth: number;
-  endDay: Date;
 }
 
-const TimeLine = ({ selectedBlock, onBlockClick, currentYear, currentMonth, endDay }: TimeLineProps) => {
+const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
   const teamId = localStorage.getItem('teamId');
+
+  const { currentYear, currentMonth, endDay } = useDateProvider();
 
   const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
 
@@ -34,7 +34,7 @@ const TimeLine = ({ selectedBlock, onBlockClick, currentYear, currentMonth, endD
 
   return (
     <div css={entireDayStyle}>
-      <Day currentYear={currentYear} currentMonth={currentMonth} endDay={endDay} />
+      <Day />
       <div css={dayBodyWrapperStyle(isOpen)}>
         <div css={dayBodyStyle(endDay.getDate())}>
           {timeBlocks.map((block) => {

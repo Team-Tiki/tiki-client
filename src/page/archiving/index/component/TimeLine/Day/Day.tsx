@@ -4,13 +4,11 @@ import { dayHeaderStyle, dayStyle } from '@/page/archiving/index/component/TimeL
 
 import { useDrawerIsOpen } from '@/shared/store/drawer';
 
-interface DaySectionProps {
-  currentYear: number;
-  currentMonth: number;
-  endDay: Date;
-}
+import { useDateProvider } from '../../../DateProvider';
 
-const Day = memo(({ currentYear, currentMonth, endDay }: DaySectionProps) => {
+const Day = memo(() => {
+  const { currentYear, currentMonth, endDay } = useDateProvider();
+
   const dayCount = endDay.getDate();
   const currentDate = new Date();
 

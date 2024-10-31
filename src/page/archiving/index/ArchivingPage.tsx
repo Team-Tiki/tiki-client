@@ -11,14 +11,10 @@ import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInter
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { useOpenModal } from '@/shared/store/modal';
 
-import { useDateProvider } from './DateProvider';
-
 const ArchivingPage = () => {
   const { selectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
-
-  const { currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDateProvider();
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -35,23 +31,11 @@ const ArchivingPage = () => {
           </Button>
         }>
         <section css={timelineStyle}>
-          <TimeLineHeader
-            onPrevMonth={handlePrevMonth}
-            onNextMonth={handleNextMonth}
-            currentYear={currentYear}
-            currentMonth={currentMonth}
-            onToday={handleToday}
-          />
+          <TimeLineHeader />
           <Flex css={contentStyle}>
             <Suspense>
               {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
-              <TimeLine
-                selectedBlock={selectedBlock}
-                onBlockClick={handleBlockClick}
-                currentYear={currentYear}
-                currentMonth={currentMonth}
-                endDay={endDay}
-              />
+              <TimeLine selectedBlock={selectedBlock} onBlockClick={handleBlockClick} />
             </Suspense>
           </Flex>
         </section>
