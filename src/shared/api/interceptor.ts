@@ -45,8 +45,9 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
 
       return axiosInstance(originRequest);
     } catch (error) {
-      localStorage.clear();
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
       window.location.replace(PATH.LOGIN);
+
       throw new Error('토큰 갱신에 실패하였습니다.');
     }
   }
