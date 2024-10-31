@@ -2,9 +2,8 @@ import ArrowLeft from '@/common/asset/svg/ic_arrow_back.svg?react';
 import ArrowRight from '@/common/asset/svg/ic_arrow_forward.svg?react';
 import Button from '@/common/component/Button/Button';
 
+import { useDateProvider } from '@/page/archiving/index/DateProvider';
 import { dateStyle, headerStyle } from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader.style';
-
-import { useDateProvider } from '../../../DateProvider';
 
 const TimeLineHeader = () => {
   const { currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday } = useDateProvider();

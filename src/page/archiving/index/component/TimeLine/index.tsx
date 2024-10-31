@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useDateProvider } from '@/page/archiving/index/DateProvider';
+import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import {
   dayBodyStyle,
   dayBodyWrapperStyle,
@@ -11,9 +13,6 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { useDrawerIsOpen } from '@/shared/store/drawer';
-
-import { useDateProvider } from '../../DateProvider';
-import Day from './Day/Day';
 
 interface TimeLineProps {
   selectedBlock?: Block;
