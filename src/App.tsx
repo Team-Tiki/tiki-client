@@ -12,7 +12,7 @@ import GlobalDrawer from '@/shared/component/GlobalDrawer/GlobalDrawer';
 import Header from '@/shared/component/Header/Header';
 import Login from '@/shared/component/Login/Login';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
-import SNB from '@/shared/component/SideNavBar/LeftSidebar';
+import SideNavBar from '@/shared/component/SideNavBar/SideNavBar';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -50,7 +50,9 @@ const App = () => {
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
         <ModalContainer />
-        <SNB />
+
+        <SideNavBar />
+
         <div css={layoutStyle}>
           <main css={outletStyle}>
             <Header />

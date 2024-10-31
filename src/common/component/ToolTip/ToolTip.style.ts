@@ -4,8 +4,8 @@ import { ToolTipProps } from '@/common/component/ToolTip/ToolTip';
 import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
+  display: 'inline-block',
   position: 'relative',
-  border: '1px solid',
 });
 
 export const messageStyle = (isVisible: boolean) =>
@@ -16,12 +16,16 @@ export const messageStyle = (isVisible: boolean) =>
     padding: '1rem',
     borderRadius: '8px',
 
+    zIndex: theme.zIndex.overlayTop,
+
     backgroundColor: `${theme.colors.gray_900}`,
     font: `${theme.text.body08}`,
     color: `${theme.colors.white}`,
 
     visibility: isVisible ? 'visible' : 'hidden',
-    transitionDelay: '0.2s',
+
+    transitionDelay: isVisible ? '0.2s' : '0',
+
     pointerEvents: 'none',
   });
 
