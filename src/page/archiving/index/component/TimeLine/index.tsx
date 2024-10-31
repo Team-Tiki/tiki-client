@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import {
   dayBodyStyle,
@@ -66,4 +66,4 @@ const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
   );
 };
 
-export default forwardRef(TimeLine);
+export default TimeLine;
