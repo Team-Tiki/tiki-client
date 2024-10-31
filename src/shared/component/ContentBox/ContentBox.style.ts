@@ -71,7 +71,6 @@ export const contentOptionStyle = css({
 
 export const contentStyle = css({
   width: '100%',
-
   height: '100%',
 
   marginTop: '0.8rem',

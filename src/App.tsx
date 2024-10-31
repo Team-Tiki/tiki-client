@@ -50,7 +50,9 @@ const App = () => {
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
         <ModalContainer />
+
         <SideNavBar />
+
         <div css={layoutStyle}>
           <main css={outletStyle}>
             <Header />
