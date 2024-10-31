@@ -15,7 +15,7 @@ import {
 } from '@/page/entree/component/ListItem/ListItem.style';
 import { ListTag } from '@/page/entree/type/listTag';
 
-interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   content: string;
   date: Date;
@@ -26,12 +26,12 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
   const [tagCount, setTagCount] = useState(0);
 
   useEffect(() => {
-    let length = 0;
-    let count = 0;
-    let flag = 0;
+    let length = 0,
+      count = 0,
+      flag = 0;
+
     tags.forEach((tag) => {
       if (length >= 204) {
-        //이미 200을 넘어서 이 tag를 넣으면 안되고 하나 빼야 함
         flag = 1;
       } else {
         count++;
@@ -62,7 +62,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
   }, [tags]);
 
   return (
-    <Flex css={containerStyle} {...props}>
+    <Flex tag="li" css={containerStyle} {...props}>
       <Text tag="body6" css={titleStyle}>
         {title}
       </Text>
@@ -71,7 +71,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
       </Text>
 
       <Flex css={detailContainerStyle}>
-        <Flex css={detailStyle}>
+        <Flex css={[detailStyle, { minWidth: '20rem' }]}>
           {tags.map((tag, index) => {
             if (index >= tagCount) {
               return;

@@ -6,6 +6,7 @@ export const containerStyle = css({
   flexDirection: 'column',
   alignItems: 'center',
 
+  width: '100%',
   padding: '1.6rem',
 
   backgroundColor: theme.colors.gray_100,
@@ -13,6 +14,8 @@ export const containerStyle = css({
 
   ':hover': {
     backgroundColor: theme.colors.gray_200,
+
+    transition: 'all ease 0.5s',
   },
 });
 
