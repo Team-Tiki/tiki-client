@@ -21,6 +21,7 @@ const Day = memo(() => {
           day + 1 === currentDate.getDate() &&
           currentYear === currentDate.getFullYear() &&
           currentMonth === currentDate.getMonth() + 1;
+
         return (
           <header css={dayHeaderStyle(isToday, isOpen)} key={day}>
             {day + 1}

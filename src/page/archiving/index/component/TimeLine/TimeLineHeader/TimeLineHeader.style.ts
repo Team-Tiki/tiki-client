@@ -13,7 +13,6 @@ export const headerStyle = css({
   paddingBottom: '1rem',
 
   alignItems: 'center',
-
   gap: '1.2rem',
 
   backgroundColor: theme.colors.white,

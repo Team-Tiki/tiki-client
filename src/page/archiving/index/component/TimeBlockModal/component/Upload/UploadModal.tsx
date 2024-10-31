@@ -11,6 +11,7 @@ import {
 } from '@/page/archiving/index/component/TimeBlockModal/component/Upload/UploadModal.style';
 import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePostTimeBlockMutation';
+import { getRandomColor } from '@/page/archiving/index/component/TimeBlockModal/util/color';
 import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/util/date';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
@@ -18,8 +19,6 @@ import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo'
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useCloseModal } from '@/shared/store/modal';
 import { useToastAction } from '@/shared/store/toast';
-
-import { getRandomColor } from '../../util/color';
 
 interface UploadModalProps {
   isVisible: boolean;

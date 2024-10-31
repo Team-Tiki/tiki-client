@@ -24,6 +24,7 @@ export const useDateProvider = () => {
 
 const DateProvider = ({ children }: { children: ReactNode }) => {
   const teamId = localStorage.getItem('teamId');
+
   const date = useDate(teamId!);
 
   return <DateContext.Provider value={date}>{children}</DateContext.Provider>;
