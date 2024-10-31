@@ -11,7 +11,7 @@ import { HTTPError } from '@/shared/api/HTTPError';
 import GlobalDrawer from '@/shared/component/GlobalDrawer/GlobalDrawer';
 import Header from '@/shared/component/Header/Header';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
-import SNB from '@/shared/component/SideNavBar/LeftSidebar';
+import SideNavBar from '@/shared/component/SideNavBar/SideNavBar';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -48,7 +48,9 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <ModalContainer />
-      <SNB />
+
+      <SideNavBar />
+
       <div css={layoutStyle}>
         <main css={outletStyle}>
           <Header />

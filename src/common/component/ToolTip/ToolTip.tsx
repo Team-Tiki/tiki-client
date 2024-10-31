@@ -35,7 +35,7 @@ const ToolTip = ({ position = 'right', message, gap = 0, children, ...props }: T
       aria-describedby={message}
       role="button"
       css={containerStyle}
-      tabIndex={0}
+      tabIndex={-1}
       onMouseEnter={handleToolTipVisible}
       onMouseLeave={handleToolTipHidden}
       onKeyDown={handleKeyDown}
