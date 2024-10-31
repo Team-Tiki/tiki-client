@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
+import Pencil from '@/common/asset/svg/ic_pencil.svg?react';
 import Menu from '@/common/component/Menu/Menu';
 import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
 import MenuList from '@/common/component/Menu/MenuList/MenuList';
@@ -41,13 +41,18 @@ export const Default: Story = {
 
     return (
       <Menu onClose={close}>
-        <button onClick={toggle}>Trigger</button>
-        <MenuList variant={'primary'} isOpen={isOpen} css={{ left: '100%', top: 0 }}>
-          <MenuItem LeftIcon={<Logo width={16} height={16} />} onSelect={toggle}>
-            first item
+        <button type="button" onClick={toggle}>
+          Trigger
+        </button>
+        <MenuList isOpen={isOpen} css={{ left: '100%', top: 0 }}>
+          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
+            이름 변경
           </MenuItem>
-          <MenuItem LeftIcon={<Logo width={16} height={16} />} onSelect={toggle}>
-            second item
+          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
+            휴지통으로 이동
+          </MenuItem>
+          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
+            폴더 전체 다운로드
           </MenuItem>
         </MenuList>
       </Menu>

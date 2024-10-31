@@ -15,6 +15,7 @@ export const messageStyle = (isVisible: boolean) =>
     width: 'max-content',
     padding: '1rem',
     borderRadius: '8px',
+
     zIndex: theme.zIndex.overlayTop,
 
     backgroundColor: `${theme.colors.gray_900}`,
@@ -22,7 +23,9 @@ export const messageStyle = (isVisible: boolean) =>
     color: `${theme.colors.white}`,
 
     visibility: isVisible ? 'visible' : 'hidden',
+
     transitionDelay: isVisible ? '0.2s' : '0',
+
     pointerEvents: 'none',
   });
 

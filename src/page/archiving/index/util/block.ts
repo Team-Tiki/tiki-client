@@ -1,5 +1,4 @@
 import { Block } from '@/page/archiving/index/type/blockType';
-import { MonthType } from '@/page/archiving/index/type/monthType';
 
 interface Floors {
   [key: string]: number;
@@ -9,12 +8,11 @@ interface TimeBlockPeriod {
   startDate: Date;
   endDate: Date;
   currentYear: number;
-  selectedMonth: number;
+  currentMonth: number;
 }
 
 const parseLocalDate = (localDate: string): Date => {
   const [year, month, day] = localDate.split('-').map(Number);
-
   return new Date(year, month - 1, day);
 };
 
@@ -36,30 +34,30 @@ export const getLastDay = (date: Date): Date => {
 };
 
 // 입력된 기간에 따라 타임블록의 시작/끝 지정하는 함수
-export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth }: TimeBlockPeriod) => {
+export const createTimeBlock = ({ startDate, endDate, currentYear, currentMonth }: TimeBlockPeriod) => {
   let blockStartDate = new Date(startDate);
   let blockEndDate = new Date(endDate);
 
   const startMonth = blockStartDate.getMonth() + 1;
   const endMonth = blockEndDate.getMonth() + 1;
 
-  const firstDay = new Date(currentYear, selectedMonth - 1, 1);
+  const firstDay = new Date(currentYear, currentMonth - 1, 1);
   const lastDay = getLastDay(firstDay);
 
   if (blockStartDate.getFullYear() === currentYear && blockEndDate.getFullYear() === currentYear) {
-    if (startMonth < selectedMonth && selectedMonth < endMonth) {
+    if (startMonth < currentMonth && currentMonth < endMonth) {
       blockStartDate = firstDay;
       blockEndDate = lastDay;
-    } else if (startMonth !== selectedMonth && endMonth === selectedMonth) {
+    } else if (startMonth !== currentMonth && endMonth === currentMonth) {
       blockStartDate = firstDay;
-    } else if (startMonth === selectedMonth && endMonth !== selectedMonth) {
+    } else if (startMonth === currentMonth && endMonth !== currentMonth) {
       blockEndDate = lastDay;
     }
   } else {
-    if (startMonth <= selectedMonth || selectedMonth <= endMonth) {
+    if (startMonth <= currentMonth || currentMonth <= endMonth) {
       blockStartDate =
-        startMonth === selectedMonth && blockStartDate.getFullYear() === currentYear ? blockStartDate : firstDay;
-      blockEndDate = endMonth === selectedMonth && blockEndDate.getFullYear() === currentYear ? blockEndDate : lastDay;
+        startMonth === currentMonth && blockStartDate.getFullYear() === currentYear ? blockStartDate : firstDay;
+      blockEndDate = endMonth === currentMonth && blockEndDate.getFullYear() === currentYear ? blockEndDate : lastDay;
     }
   }
 
@@ -67,10 +65,9 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, selectedMonth
 };
 
 // 타임블록의 상하 배치 함수
-export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthType, currentYear: number): Floors => {
+export const alignBlocks = (data: Block[], endDay: Date, currentMonth: number, currentYear: number): Floors => {
   const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(data.length).fill(false));
   const floors: Floors = {};
-  const clickedMonth = parseInt(selectedMonth.split('월')[0]);
 
   data.forEach((block) => {
     const { startDate, endDate } = block;
@@ -79,7 +76,7 @@ export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthTyp
       startDate: parseLocalDate(startDate.toString()),
       endDate: parseLocalDate(endDate.toString()),
       currentYear,
-      selectedMonth: clickedMonth,
+      currentMonth,
     });
 
     const days = getDays(blockStartDate, blockEndDate);
@@ -88,14 +85,18 @@ export const alignBlocks = (data: Block[], endDay: Date, selectedMonth: MonthTyp
       let isAvailable = true;
 
       for (const day of days) {
-        if (timeTable[day][depth]) {
+        if (day < timeTable.length && timeTable[day][depth]) {
           isAvailable = false;
           break;
         }
       }
 
       if (isAvailable) {
-        days.forEach((day) => (timeTable[day][depth] = true));
+        days.forEach((day) => {
+          if (day < timeTable.length) {
+            timeTable[day][depth] = true;
+          }
+        });
         floors[block.timeBlockId] = depth;
         break;
       }

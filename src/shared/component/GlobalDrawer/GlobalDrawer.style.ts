@@ -2,14 +2,14 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = (blockSelected: string) =>
+export const containerStyle = (isOpen: boolean) =>
   css({
-    position: 'absolute',
+    position: 'sticky',
     right: 0,
 
     zIndex: theme.zIndex.overlayMiddle,
 
-    width: blockSelected ? '27rem' : 0,
+    width: isOpen ? '27rem' : 0,
     height: 'calc(100vh)',
 
     overflow: 'hidden',
