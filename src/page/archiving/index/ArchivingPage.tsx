@@ -6,20 +6,19 @@ import Flex from '@/common/component/Flex/Flex';
 import { contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
-import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { useOpenModal } from '@/shared/store/modal';
+
+import { useDateProvider } from './DateProvider';
 
 const ArchivingPage = () => {
   const { selectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
 
-  const teamId = localStorage.getItem('teamId');
-
-  const { currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
+  const { currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDateProvider();
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
