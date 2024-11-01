@@ -47,8 +47,6 @@ export const textareaStyle = css({
 
 export const guideStyle = css({
   color: theme.colors.gray_800,
-
-  ...theme.text.body04,
 });
 
 export const fileBoxStyle = css({

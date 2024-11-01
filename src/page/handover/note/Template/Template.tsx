@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef, useState } from 'react';
+import { useCallback } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Input from '@/common/component/Input/Input';
@@ -9,21 +9,14 @@ import { fileBoxStyle, guideStyle, layoutStyle, noteWrapperStyle } from '@/page/
 import File from '@/page/handover/note/component/file/File';
 
 import { TEMPLATE } from '../constants/template';
+import useFile from '../hooks/useFile';
 
 const Template = () => {
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [files, setFiles] = useState<File[]>([]);
+  const { files, handleFileChange } = useFile();
 
   const handleFileUpload = useCallback(() => {
-    fileRef.current?.click();
-  }, []);
-
-  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-
-    if (selectedFile) {
-      setFiles((prev) => [...prev, selectedFile]);
-    }
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    fileInput?.click();
   }, []);
 
   return (
@@ -38,10 +31,10 @@ const Template = () => {
       })}
 
       <div css={layoutStyle}>
-        <Label id="5" css={guideStyle}>
+        <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="5" type="file" style={{ display: 'none' }} onChange={handleFileChange} />
+        <input id="file" type="file" style={{ display: 'none' }} onChange={handleFileChange} />
         <div css={fileBoxStyle}>
           {files.map((file) => (
             <File key={file.name} file={file} />
