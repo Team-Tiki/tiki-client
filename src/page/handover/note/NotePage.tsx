@@ -26,6 +26,7 @@ type NoteComplete = '작성 완료' | '작성 미완료';
 const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [status, setStatus] = useState<NoteComplete>('작성 미완료');
+
   const handleTabClick = (tabId: number) => {
     setSelectedTab(tabId);
   };
@@ -75,13 +76,12 @@ const NotePage = () => {
             <Text tag="body6" css={infoStyle}>
               활동 태그
             </Text>
-            {/* {!tag ? (   활동 태그 데이터에 따라 다른 뷰 보여줌 */}
+            {/* 활동 태그 모달 여기서 추가 */}
             <Button variant="underline" size="xLarge" css={{ padding: 0, fontWeight: '400' }} onClick={handleAppendTag}>
               여기를 눌러 활동 태그를 추가해보세요
             </Button>
-            {/* ) : ( */}
+            {/* 태그 감싸는 Flex 컴포넌트 */}
             <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }} />
-            {/* )} */}
           </li>
           <li css={infoLayoutStyle}>
             <Text tag="body6" css={infoStyle}>
@@ -101,7 +101,7 @@ const NotePage = () => {
           <Button variant="tertiary" size="small">
             작성 취소
           </Button>
-          <CommandButton commandKey="S" isCommand={true} size="small">
+          <CommandButton commandKey="S" isCommand={true} size="small" type="submit">
             저장
           </CommandButton>
         </Flex>
