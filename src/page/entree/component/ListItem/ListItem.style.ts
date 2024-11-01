@@ -42,6 +42,8 @@ export const detailContainerStyle = css({
   alignItems: 'center',
 
   width: '100%',
+
+  overflow: 'hidden',
 });
 
 export const detailStyle = css({

@@ -1,7 +1,7 @@
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
-import { scrollStyle } from '@/page/entree/EntreePage.style';
+import { contentBoxStyle, listItemStyle, scrollStyle } from '@/page/entree/EntreePage.style';
 import ListItem from '@/page/entree/component/ListItem/ListItem';
 import { Notes } from '@/page/entree/constant/notes';
 
@@ -18,11 +18,7 @@ const EntreePage = () => {
           variant={'file'}
           title={'파일'}
           headerOption={<Button variant="outline">전체보기</Button>}
-          css={{
-            height: '21.6rem',
-            '& > header': { height: '6.1rem' },
-            '& > div': { marginTop: '0' },
-          }}>
+          css={[{ height: '21.6rem' }, contentBoxStyle]}>
           <Flex
             css={[
               {
@@ -41,22 +37,16 @@ const EntreePage = () => {
           variant={'timeline'}
           title={'타임라인'}
           headerOption={<Button variant="outline">전체보기</Button>}
-          css={{ height: '40rem', '& > header': { height: '6.4rem' } }}>
+          css={[{ height: '40rem' }, contentBoxStyle]}>
           <FileGrid title={'파일 파일'} type={'pdf'} volume={20} isSmall={true} />
         </ContentBox>
       </Flex>
       <ContentBox
         variant={'handover'}
         title={'인수인계 노트'}
-        headerOption={<Button variant="outline">전체보기</Button>}>
-        <Flex
-          css={[
-            {
-              flexDirection: 'column',
-              gap: '0.8rem',
-            },
-            scrollStyle,
-          ]}>
+        headerOption={<Button variant="outline">전체보기</Button>}
+        css={[{ paddingRight: '1rem' }, contentBoxStyle]}>
+        <Flex css={listItemStyle}>
           {Notes.map((note) => {
             return <ListItem title={note.title} content={note.content} date={note.date} tags={note.tags} />;
           })}
