@@ -12,7 +12,7 @@ interface ModalProps {
   onClose?: () => void;
 }
 
-const Modal = ({ isOpen, children, onClose }: ModalProps) => {
+const ModalWrapper = ({ isOpen, children, onClose }: ModalProps) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -52,4 +52,4 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default ModalWrapper;

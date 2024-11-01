@@ -3,9 +3,11 @@ import { css } from '@emotion/react';
 import completePng from '@/common/asset/img/workspace_complete.png';
 import complete from '@/common/asset/img/workspace_complete.webp';
 import Flex from '@/common/component/Flex/Flex';
+import { Modal } from '@/common/component/Modal';
 
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
+import { useCloseModal } from '@/shared/store/modal';
 
 interface WorkSpaceCompleteProps {
   isVisible: boolean;
@@ -14,20 +16,19 @@ interface WorkSpaceCompleteProps {
 const WorkSpaceComplete = ({ isVisible }: WorkSpaceCompleteProps) => {
   if (!isVisible) return null;
 
+  const closeModal = useCloseModal();
+
   return (
-    <Flex
-      tag={'section'}
-      styles={{ direction: 'column', justify: 'center', align: 'center', gap: '2rem' }}
-      css={sectionStyle}>
-      <WorkSapceInfo
-        title="워크 스페이스 생성 완료!"
-        info="이제 동아리 효율적인 문서와 일정관리를 이용하실 수 있습니다"
-      />
-      <picture>
-        <source srcSet={complete} />
-        <img css={imgStyle} src={completePng} alt="워크 스페이스 완료 이미지" />
-      </picture>
-    </Flex>
+    <>
+      <Modal.Header step={4} totalSteps={4} />
+      <Modal.Body>
+        <picture>
+          <source srcSet={complete} />
+          <img css={imgStyle} src={completePng} alt="워크 스페이스 완료 이미지" />
+        </picture>
+      </Modal.Body>
+      <Modal.Footer step={1} buttonClick={closeModal} />
+    </>
   );
 };
 

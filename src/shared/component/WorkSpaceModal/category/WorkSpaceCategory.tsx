@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import { Modal } from '@/common/component/Modal';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
@@ -62,33 +63,28 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
   const isButtonActive = selected.trim().length > 0;
 
   return (
-    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
-      <WorkSapceInfo step="category" title="새로운 워크 스페이스 생성하기" info="팀 카테고리를 선택해주세요." />
-      <div css={{ width: '32rem', marginTop: '2.4rem' }} ref={ref}>
-        <Select
-          css={{
-            '& ul': {
-              maxHeight: '25rem',
-            },
-          }}
-          placeholder="선택"
-          variant="outline"
-          isOpen={isOpen}
-          onTrigger={toggle}
-          onSelect={handleSelect}
-          options={categoryList.map((str) => ({ value: str }))}
-          className="select-container"
-        />
-      </div>
-      <Button
-        variant="primary"
-        size="medium"
-        css={buttonStyle(isButtonActive)}
-        disabled={!isButtonActive}
-        onClick={handleNext}>
-        다음
-      </Button>
-    </Flex>
+    <>
+      <Modal.Header step={2} totalSteps={4} />
+      <Modal.Body>
+        <div ref={ref}>
+          <Select
+            css={{
+              '& ul': {
+                maxHeight: '25rem',
+              },
+            }}
+            placeholder="선택"
+            variant="outline"
+            isOpen={isOpen}
+            onTrigger={toggle}
+            onSelect={handleSelect}
+            options={categoryList.map((str) => ({ value: str }))}
+            className="select-container"
+          />
+        </div>
+      </Modal.Body>
+      <Modal.Footer step={2} buttonClick={handleNext} isButtonActive={isButtonActive} />
+    </>
   );
 };
 

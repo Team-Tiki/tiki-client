@@ -3,6 +3,7 @@ import TeamProfileDelete from '@/common/asset/svg/ic_team_profile_delete.svg?rea
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Label from '@/common/component/Label/Label';
+import { Modal } from '@/common/component/Modal';
 
 import {
   buttonCompleteStyle,
@@ -43,34 +44,30 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
   if (!isVisible) return null;
 
   return (
-    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
-      <WorkSapceInfo
-        step="image"
-        title="동아리 프로필 이미지 등록"
-        info="우리 동아리의 프로필에 표시할 이미지를 등록해주세요"
-      />
-      <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
-        {fileURL ? (
-          <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
-        ) : (
-          <Label id="imgUploadInput" css={imageAddStyle}>
-            <TeamProfileAdd width={200} height={200} />
-          </Label>
-        )}
-        {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
-      </div>
-      <input
-        id="imgUploadInput"
-        css={{ display: 'none' }}
-        type="file"
-        accept="image/*"
-        ref={imgUploadInput}
-        onChange={handleImageChange}
-      />
-      <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={handleSave}>
-        완료
-      </Button>
-    </Flex>
+    <>
+      <Modal.Header step={3} totalSteps={4} />
+      <Modal.Body>
+        <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
+          {fileURL ? (
+            <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
+          ) : (
+            <Label id="imgUploadInput" css={imageAddStyle}>
+              <TeamProfileAdd width={200} height={200} />
+            </Label>
+          )}
+          {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
+        </div>
+        <input
+          id="imgUploadInput"
+          css={{ display: 'none' }}
+          type="file"
+          accept="image/*"
+          ref={imgUploadInput}
+          onChange={handleImageChange}
+        />
+      </Modal.Body>
+      <Modal.Footer step={3} buttonClick={handleSave} />
+    </>
   );
 };
 
