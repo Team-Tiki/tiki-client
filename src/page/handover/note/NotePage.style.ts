@@ -76,12 +76,3 @@ export const infoStyle = css({
   color: theme.colors.gray_800,
   whiteSpace: 'nowrap',
 });
-
-export const radioBoxStyle = css({
-  '& > div': {
-    display: 'flex',
-    flexDirection: 'row',
-
-    gap: '0.4rem',
-  },
-});

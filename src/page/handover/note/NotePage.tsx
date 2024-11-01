@@ -17,7 +17,6 @@ import {
   infoLayoutStyle,
   infoStyle,
   noteSectionStyle,
-  radioBoxStyle,
   tabButtonStyle,
   titleStyle,
 } from './NotePage.style';
@@ -54,24 +53,23 @@ const NotePage = () => {
             <Text tag="body6" css={infoStyle}>
               작성 여부
             </Text>
-            <div css={radioBoxStyle}>
-              <RadioButtonGroup
-                options={[
-                  {
-                    label: '작성 완료',
-                    value: '작성 완료',
-                    name: 'note',
-                  },
-                  {
-                    label: '작성 미완료',
-                    value: '작성 미완료',
-                    name: 'note',
-                  },
-                ]}
-                onChange={(e) => handleChangeStatus(e.target.value as NoteComplete)}
-                value={status}
-              />
-            </div>
+
+            <RadioButtonGroup
+              options={[
+                {
+                  label: '완료',
+                  value: '완료',
+                  name: 'note',
+                },
+                {
+                  label: '미완료',
+                  value: '미완료',
+                  name: 'note',
+                },
+              ]}
+              onChange={(e) => handleChangeStatus(e.target.value as NoteComplete)}
+              value={status}
+            />
           </li>
           <li css={infoLayoutStyle}>
             <Text tag="body6" css={infoStyle}>

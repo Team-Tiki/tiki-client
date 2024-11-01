@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 
 import RadioButton, { RadioButtonProps } from '@/common/component/RadioButton/RadioButton';
+import { radioGroupStyle } from '@/common/component/RadioButton/RadioButton.style';
 
 export interface RadioProps {
   label: string;
@@ -39,7 +40,7 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
     });
   };
 
-  return <div>{renderRadioButton()}</div>;
+  return <div css={radioGroupStyle}>{renderRadioButton()}</div>;
 };
 
 export default RadioGroup;
