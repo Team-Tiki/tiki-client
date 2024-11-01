@@ -56,7 +56,7 @@ export const Tertiary: Story = createButtonStory('tertiary');
 
 export const Outline: Story = createButtonStory('outline');
 
-export const Underline: Story = createButtonStory('underline');
+export const Underline: Story = createButtonStory('text');
 
 export const WithIcon: Story = {
   args: {

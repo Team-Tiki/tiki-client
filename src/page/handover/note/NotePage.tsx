@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import CommandButton from '@/common/component/CommandButton/CommandButton';
@@ -11,6 +12,8 @@ import Text from '@/common/component/Text/Text';
 import Custom from '@/page/handover/note/Custom/Custom';
 import Template from '@/page/handover/note/Template/Template';
 
+import { PATH } from '@/shared/constant/path';
+
 import {
   entireInfoStyle,
   infoContainerStyle,
@@ -21,11 +24,13 @@ import {
   titleStyle,
 } from './NotePage.style';
 
-type NoteComplete = '작성 완료' | '작성 미완료';
+type NoteComplete = '완료' | '미완료';
 
 const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [status, setStatus] = useState<NoteComplete>('작성 미완료');
+  const [status, setStatus] = useState<NoteComplete>('미완료');
+
+  const navigate = useNavigate();
 
   const handleTabClick = (tabId: number) => {
     setSelectedTab(tabId);
@@ -80,7 +85,7 @@ const NotePage = () => {
             <Text tag="body6" css={infoStyle}>
               활동 태그
             </Text>
-            <Button variant="underline" size="xLarge" css={{ padding: 0, fontWeight: '400' }} onClick={handleAppendTag}>
+            <Button variant="text" css={{ padding: 0 }} onClick={handleAppendTag}>
               여기를 눌러 활동 태그를 추가해보세요
             </Button>
             {/* 태그 감싸는 Flex 컴포넌트 */}
@@ -101,7 +106,7 @@ const NotePage = () => {
           <Tab.Button css={tabButtonStyle}>자유 작성</Tab.Button>
         </Tab.List>
         <Flex style={{ gap: '0.8rem', justifyContent: 'end', margin: '3rem 0 1.6rem 0' }}>
-          <Button variant="tertiary" size="small">
+          <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
           <CommandButton commandKey="S" isCommand={true} size="small" type="submit" onClick={handleSubmit}>
