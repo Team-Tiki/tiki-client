@@ -36,7 +36,11 @@ const NotePage = () => {
   }, []);
 
   const handleAppendTag = () => {
-    // 모달 호출
+    /** 모달 호출 */
+  };
+
+  const handleSubmit = () => {
+    /** 제출 로직 */
   };
 
   return (
@@ -76,7 +80,6 @@ const NotePage = () => {
             <Text tag="body6" css={infoStyle}>
               활동 태그
             </Text>
-            {/* 활동 태그 모달 여기서 추가 */}
             <Button variant="underline" size="xLarge" css={{ padding: 0, fontWeight: '400' }} onClick={handleAppendTag}>
               여기를 눌러 활동 태그를 추가해보세요
             </Button>
@@ -101,13 +104,13 @@ const NotePage = () => {
           <Button variant="tertiary" size="small">
             작성 취소
           </Button>
-          <CommandButton commandKey="S" isCommand={true} size="small" type="submit">
+          <CommandButton commandKey="S" isCommand={true} size="small" type="submit" onClick={handleSubmit}>
             저장
           </CommandButton>
         </Flex>
         <Tab.Panel selectedTab={selectedTab}>
-          <Template />
-          <Custom />
+          <Template onSubmit={handleSubmit} />
+          <Custom onSubmit={handleSubmit} />
         </Tab.Panel>
       </Tab>
     </section>

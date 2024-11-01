@@ -11,7 +11,11 @@ import File from '@/page/handover/note/component/file/File';
 import { TEMPLATE } from '../constants/template';
 import useFile from '../hooks/useFile';
 
-const Template = () => {
+interface TemplateProps {
+  onSubmit: () => void;
+}
+
+const Template = ({ onSubmit }: TemplateProps) => {
   const { files, handleFileChange } = useFile();
 
   const handleFileUpload = useCallback(() => {
@@ -20,10 +24,10 @@ const Template = () => {
   }, []);
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]}>
-      {TEMPLATE.map((question) => {
+    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
+      {TEMPLATE.map((question, index) => {
         return (
-          <div css={layoutStyle}>
+          <div css={layoutStyle} key={index}>
             <Label id={question.id}>{question.QUESTION}</Label>
             <Input id={question.id} placeholder={question.PLACEHOLDER} />
           </div>
