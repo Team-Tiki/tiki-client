@@ -33,5 +33,7 @@ export const guideStyle = css({
 export const fileBoxStyle = css({
   display: 'flex',
 
+  flexWrap: 'wrap',
+
   gap: '1.6rem',
 });
