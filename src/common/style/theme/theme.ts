@@ -17,6 +17,8 @@ const colors = {
 
   key_600: '#444EE4',
   key_500: '#6D77FF',
+  key_400: '#99ACFF',
+  key_300: '#B9C7FF',
   key_200: '#E3E8FF',
   key_100: '#F3F5FF',
 
