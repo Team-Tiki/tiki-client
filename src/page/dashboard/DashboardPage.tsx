@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
-import { theme } from '@/common/style/theme/theme';
 
 import ArchivingPage from '@/page/archiving/index/ArchivingPage';
 import {
