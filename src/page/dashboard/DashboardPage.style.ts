@@ -18,12 +18,20 @@ export const scrollStyle = css({
   },
 });
 
+export const fileListStyle = css({
+  gap: '1.4rem',
+
+  padding: '0 0 0.7rem',
+
+  overflowX: 'scroll',
+});
+
 export const listItemStyle = css(
   {
     flexDirection: 'column',
     gap: '0.8rem',
     padding: '0 0.4rem',
-    height: '95%',
+    height: '100%',
 
     overflowY: 'scroll',
   },
