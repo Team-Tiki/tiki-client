@@ -22,8 +22,8 @@ export const listItemStyle = css(
   {
     flexDirection: 'column',
     gap: '0.8rem',
-    height: 'inherit',
     padding: '0 0.4rem',
+    height: '95%',
 
     overflowY: 'scroll',
   },

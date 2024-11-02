@@ -45,7 +45,7 @@ const EntreePage = () => {
         variant={'handover'}
         title={'인수인계 노트'}
         headerOption={<Button variant="outline">전체보기</Button>}
-        css={[{ paddingRight: '1rem' }, contentBoxStyle]}>
+        css={[{ paddingRight: '1rem', height: '64rem' }, contentBoxStyle]}>
         <Flex css={listItemStyle}>
           {Notes.map((note) => {
             return <ListItem title={note.title} content={note.content} date={note.date} tags={note.tags} />;
