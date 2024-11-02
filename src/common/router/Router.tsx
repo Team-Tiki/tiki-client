@@ -18,7 +18,7 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
-import EntreePage from '@/page/entree/EntreePage';
+import DashboardPage from '@/page/dashboard/DashboardPage';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -152,10 +152,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.ENTREE,
+        path: PATH.DASHBOARD,
         element: (
           <Suspense>
-            <EntreePage />
+            <DashboardPage />
           </Suspense>
         ),
       },

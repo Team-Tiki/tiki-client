@@ -1,16 +1,16 @@
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
-import { contentBoxStyle, listItemStyle, scrollStyle } from '@/page/entree/EntreePage.style';
-import ListItem from '@/page/entree/component/ListItem/ListItem';
-import { Notes } from '@/page/entree/constant/notes';
+import { contentBoxStyle, listItemStyle, scrollStyle } from '@/page/dashboard/DashboardPage.style';
+import ListItem from '@/page/dashboard/component/ListItem/ListItem';
+import { Notes } from '@/page/dashboard/constant/notes';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 
 import { FileData } from '@/mock/data/drive';
 
-const EntreePage = () => {
+const DashboardPage = () => {
   return (
     <Flex styles={{ gap: '2.4rem' }}>
       <Flex styles={{ direction: 'column', gap: '2.4rem', width: '65%' }}>
@@ -56,4 +56,4 @@ const EntreePage = () => {
   );
 };
 
-export default EntreePage;
+export default DashboardPage;

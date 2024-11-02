@@ -12,8 +12,8 @@ import {
   detailContainerStyle,
   detailStyle,
   titleStyle,
-} from '@/page/entree/component/ListItem/ListItem.style';
-import { ListTag } from '@/page/entree/type/listTag';
+} from '@/page/dashboard/component/ListItem/ListItem.style';
+import { ListTag } from '@/page/dashboard/type/listTag';
 
 export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
   title: string;

@@ -1,4 +1,4 @@
-import { ListItemProps } from '@/page/entree/component/ListItem/ListItem';
+import { ListItemProps } from '@/page/dashboard/component/ListItem/ListItem';
 
 export const Notes: ListItemProps[] = [
   {
