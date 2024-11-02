@@ -26,6 +26,24 @@ export const fileListStyle = css({
   overflowX: 'scroll',
 });
 
+export const timelineDivStyle = css({
+  position: 'absolute',
+  top: '0.6rem',
+  right: '0.6rem',
+
+  width: '15rem',
+  height: '6rem',
+
+  backgroundColor: theme.colors.white,
+  zIndex: theme.zIndex.overlayMiddle,
+});
+
+export const timelineBtnStyle = css({
+  position: 'absolute',
+  top: '1rem',
+  right: '1rem',
+});
+
 export const listItemStyle = css(
   {
     flexDirection: 'column',

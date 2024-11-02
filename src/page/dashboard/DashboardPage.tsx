@@ -2,9 +2,17 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import { theme } from '@/common/style/theme/theme';
 
 import ArchivingPage from '@/page/archiving/index/ArchivingPage';
-import { contentBoxStyle, fileListStyle, listItemStyle, scrollStyle } from '@/page/dashboard/DashboardPage.style';
+import {
+  contentBoxStyle,
+  fileListStyle,
+  listItemStyle,
+  scrollStyle,
+  timelineBtnStyle,
+  timelineDivStyle,
+} from '@/page/dashboard/DashboardPage.style';
 import ListItem from '@/page/dashboard/component/ListItem/ListItem';
 import { Notes } from '@/page/dashboard/constant/notes';
 
@@ -40,8 +48,18 @@ const DashboardPage = () => {
           </Flex>
         </ContentBox>
 
-        <section css={{ width: '100%', '& section': { height: '40rem' } }}>
+        <section css={{ position: 'relative', width: '100%', '& section': { height: '40rem' } }}>
           <ArchivingPage />
+          <div css={timelineDivStyle}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                navigate(PATH.ARCHIVING);
+              }}
+              css={timelineBtnStyle}>
+              전체보기
+            </Button>
+          </div>
         </section>
       </Flex>
 
