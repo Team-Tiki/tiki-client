@@ -57,7 +57,7 @@ const DashboardPage = () => {
             전체보기
           </Button>
         }
-        css={[{ paddingRight: '1rem' }, contentBoxStyle]}>
+        css={[{ paddingRight: '1rem', '&>div:last-child': { height: '85%' } }, contentBoxStyle]}>
         <Flex css={listItemStyle}>
           {Notes.map((note) => {
             return <ListItem title={note.title} content={note.content} date={note.date} tags={note.tags} />;
