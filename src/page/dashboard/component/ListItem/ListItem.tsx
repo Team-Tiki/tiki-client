@@ -31,9 +31,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
       flag = 0;
 
     tags.forEach((tag) => {
-      if (length >= 204) {
-        flag = 1;
-      } else {
+      if (!flag) {
         count++;
         switch (tag.content) {
           case 'meeting':
@@ -43,8 +41,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
             length += 51;
             break;
           case 'recruiting':
-            length += 7;
-            3;
+            length += 100;
             break;
           case 'event':
             length += 51;
@@ -57,7 +54,11 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
             break;
         }
       }
+      if (length >= 204) {
+        flag = 1;
+      }
     });
+
     setTagCount(count - flag);
   }, [tags]);
 
