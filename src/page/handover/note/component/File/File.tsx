@@ -1,9 +1,9 @@
 import DeleteFileIc from '@/common/asset/svg/ic_delete_file.svg?react';
 import FileIc from '@/common/asset/svg/ic_file_round.svg?react';
 
-import { getFileVolume } from '@/shared/util/file';
+import { deleteIcStyle, fileInfoStyle, fileStyle } from '@/page/handover/note/component/File/File.style';
 
-import { deleteIcStyle, fileInfoStyle, fileStyle } from './File.style';
+import { getFileVolume } from '@/shared/util/file';
 
 interface FileProps {
   file: File;
