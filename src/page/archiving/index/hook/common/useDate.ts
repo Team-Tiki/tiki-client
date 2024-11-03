@@ -15,24 +15,24 @@ export const useDate = (teamId?: string) => {
   /** teamId가 변경될 때마다 selectedMonth 초기화 */
   if (teamId !== updatedTeamId) {
     setUpdatedTeamId(teamId);
-    setCurrentMonth(1);
+    setCurrentMonth(currentDate.getMonth() + 1);
   }
 
   const handlePrevMonth = () => {
-    setCurrentMonth((prevMonth) => prevMonth - 1);
-
     if (currentMonth <= 1) {
       setCurrentMonth(12);
       setCurrentYear((prevYear) => prevYear - 1);
+    } else {
+      setCurrentMonth((prevMonth) => prevMonth - 1);
     }
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth((prevMonth) => prevMonth + 1);
-
     if (currentMonth >= 12) {
       setCurrentMonth(1);
       setCurrentYear((prevYear) => prevYear + 1);
+    } else {
+      setCurrentMonth((prevMonth) => prevMonth + 1);
     }
   };
 
