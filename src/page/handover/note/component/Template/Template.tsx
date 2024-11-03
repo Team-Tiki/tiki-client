@@ -1,25 +1,25 @@
 import { useCallback } from 'react';
 
 import Button from '@/common/component/Button/Button';
+import Input from '@/common/component/Input/Input';
 import Label from '@/common/component/Label/Label';
 import { scrollStyle } from '@/common/style/scroll';
 
+import File from '@/page/handover/note/component/File/File';
 import {
   fileBoxStyle,
   guideStyle,
   layoutStyle,
   noteWrapperStyle,
-  textareaStyle,
-} from '@/page/handover/note/Custom/Custom.style';
-import File from '@/page/handover/note/component/file/File';
+} from '@/page/handover/note/component/Template/Template.style';
+import { TEMPLATE } from '@/page/handover/note/constants/template';
+import useFile from '@/page/handover/note/hooks/useFile';
 
-import useFile from '../hooks/useFile';
-
-interface CustomProps {
+interface TemplateProps {
   onSubmit: () => void;
 }
 
-const Custom = ({ onSubmit }: CustomProps) => {
+const Template = ({ onSubmit }: TemplateProps) => {
   const { files, handleFileChange } = useFile();
 
   const handleFileUpload = useCallback(() => {
@@ -29,12 +29,15 @@ const Custom = ({ onSubmit }: CustomProps) => {
 
   return (
     <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
-      <div css={layoutStyle}>
-        <textarea
-          css={textareaStyle}
-          placeholder="다음 운영진이 참고할 인수인계 노트를 자유롭게 작성해 보세요 (ex. 동아리의 회칙 및 대관정보 등)"
-        />
-      </div>
+      {TEMPLATE.map((question, index) => {
+        return (
+          <div css={layoutStyle} key={index}>
+            <Label id={question.id}>{question.QUESTION}</Label>
+            <Input id={question.id} placeholder={question.PLACEHOLDER} />
+          </div>
+        );
+      })}
+
       <div css={layoutStyle}>
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
@@ -53,4 +56,4 @@ const Custom = ({ onSubmit }: CustomProps) => {
   );
 };
 
-export default Custom;
+export default Template;

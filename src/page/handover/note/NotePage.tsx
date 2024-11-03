@@ -9,8 +9,8 @@ import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
 import { Tab } from '@/common/component/Tab';
 import Text from '@/common/component/Text/Text';
 
-import Custom from '@/page/handover/note/Custom/Custom';
-import Template from '@/page/handover/note/Template/Template';
+import Custom from '@/page/handover/note/component/Custom/Custom';
+import Template from '@/page/handover/note/component/Template/Template';
 
 import { PATH } from '@/shared/constant/path';
 
