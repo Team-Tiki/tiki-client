@@ -1,17 +1,25 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Bug report
+about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
+---
+name: Bug report
+about: Fix the bug in project
+title: ''
+labels: ''
+assignees: ''
+---
+
 ## Title
 
 이슈의 제목을 입력해주세요!
 
-## 🤷 구현할 기능
+## 🚀 해결할 버그
 
 ## 🔨 상세 작업 내용
 
