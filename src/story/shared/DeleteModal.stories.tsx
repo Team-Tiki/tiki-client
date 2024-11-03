@@ -4,7 +4,7 @@ import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import { useOpenModal } from '@/shared/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
-  title: 'Shared/Modal/Delete',
+  title: 'Shared/DeleteModal',
   component: ModalContainer,
   parameters: {
     layout: 'centered',
