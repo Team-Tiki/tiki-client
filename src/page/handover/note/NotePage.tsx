@@ -30,6 +30,7 @@ const NotePage = () => {
   return (
     <section css={noteSectionStyle}>
       <NoteDetail />
+
       <Tab css={{ flexGrow: '1' }}>
         <Tab.List selectedTab={selectedTab} onTabClick={handleTabClick}>
           <Tab.Button css={tabButtonStyle}>템플릿 작성</Tab.Button>
