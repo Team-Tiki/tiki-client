@@ -41,7 +41,15 @@ const DashboardPage = () => {
           css={[{ height: '21.6rem' }, contentBoxStyle]}>
           <Flex css={fileListStyle}>
             {FileData.map((file) => {
-              return <FileGrid variant="secondary" title={file.title} type={file.type} volume={file.volume} />;
+              return (
+                <FileGrid
+                  key={file.fileId}
+                  variant="secondary"
+                  title={file.title}
+                  type={file.type}
+                  volume={file.volume}
+                />
+              );
             })}
           </Flex>
         </ContentBox>
@@ -67,7 +75,9 @@ const DashboardPage = () => {
         css={[{ paddingRight: '1rem', '&>div:last-child': { height: '85%' } }, contentBoxStyle]}>
         <Flex css={listItemStyle}>
           {Notes.map((note) => {
-            return <ListItem title={note.title} content={note.content} date={note.date} tags={note.tags} />;
+            return (
+              <ListItem key={note.noteId} title={note.title} content={note.content} date={note.date} tags={note.tags} />
+            );
           })}
         </Flex>
       </ContentBox>

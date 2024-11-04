@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import { scrollStyle } from '@/common/style/scroll';
 import { theme } from '@/common/style/theme/theme';
 
 export const contentBoxStyle = css({
@@ -7,24 +8,24 @@ export const contentBoxStyle = css({
   '& > div': { marginTop: '0' },
 });
 
-export const scrollStyle = css({
+export const dashboradScrollStyle = css({
   '::-webkit-scrollbar': {
     width: '0.6rem',
     height: '0.6rem',
   },
-  '::-webkit-scrollbar-thumb ': {
-    background: theme.colors.gray_300,
-    borderRadius: '3px',
+});
+
+export const fileListStyle = css(
+  {
+    gap: '1.4rem',
+
+    padding: '0 0 0.7rem',
+
+    overflowX: 'scroll',
   },
-});
-
-export const fileListStyle = css({
-  gap: '1.4rem',
-
-  padding: '0 0 0.7rem',
-
-  overflowX: 'scroll',
-});
+  scrollStyle,
+  dashboradScrollStyle
+);
 
 export const timelineDivStyle = css({
   position: 'absolute',
@@ -53,5 +54,6 @@ export const listItemStyle = css(
 
     overflowY: 'scroll',
   },
-  scrollStyle
+  scrollStyle,
+  dashboradScrollStyle
 );
