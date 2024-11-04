@@ -27,10 +27,10 @@ export const getFooterContent = (
         { text: '저장', onClick: buttonClick, variant: 'primary' },
         { text: '취소', onClick: closeModal, variant: 'secondary' },
       ];
-    case 'delete':
+    case 'deleted':
       return [
+        { text: '취소', onClick: closeModal, variant: 'outline' },
         { text: '삭제', onClick: buttonClick, variant: 'primary' },
-        { text: '취소', onClick: closeModal, variant: 'secondary' },
       ];
     default:
       return [];

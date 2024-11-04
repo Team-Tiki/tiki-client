@@ -33,10 +33,10 @@ export const getHeaderContent = (contentType: string, step?: number, totalSteps?
         title: '타임블록 생성하기',
         infoText: step === 1 ? '블록명을 입력해주세요' : '블록에 필요한 문서를 업로드해주세요',
       };
-    case 'delete':
+    case 'deleted':
       return {
         icon: <WarningIcon width={40} height={40} />,
-        title: '삭제 확인',
+        title: '주의!',
         infoText: '삭제할 항목을 확인해주세요.',
       };
     default:

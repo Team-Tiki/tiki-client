@@ -4,7 +4,7 @@ import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import { useOpenModal } from '@/shared/store/modal';
 
 const meta: Meta<typeof ModalContainer> = {
-  title: 'Shared/Modal/Delete',
+  title: 'Shared/Modal/Deleted',
   component: ModalContainer,
   parameters: {
     layout: 'centered',
@@ -22,15 +22,14 @@ const meta: Meta<typeof ModalContainer> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Delete: Story = {
+export const Deleted: Story = {
   render: () => {
     const openModal = useOpenModal();
 
     return (
       <>
-        <button onClick={() => openModal('delete', { teamId: 1, itemId: 1, itemType: 'block' })}>
-          Open Delete Modal
-        </button>
+        <button onClick={() => openModal('deleted', { itemType: 'trash' })}>Open Trash Deleted Modal</button>
+        <button onClick={() => openModal('deleted', { itemType: 'permanent' })}>Open Permanent Deleted Modal</button>
         <ModalContainer />
       </>
     );
