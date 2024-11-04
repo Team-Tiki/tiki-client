@@ -6,27 +6,28 @@ import Input from '@/common/component/Input/Input';
 import { Modal } from '@/common/component/Modal';
 import Text from '@/common/component/Text/Text';
 
-import { MEMBER_DATA } from '@/shared/constant';
+import { ACITIVITY_TAG_DATA } from '@/shared/constant';
 import { useCloseModal } from '@/shared/store/modal';
 
 import { scrollStyle, textStyle } from '../InviteModal/InviteModal.style';
-import MemberTagItem from './MemberTagItem/MemberTagItem';
+import ActivityTagItem from './ActivityTagItem/ActivityTagItem';
 
-const MemberTagModal = () => {
+const ActivityTagModal = () => {
   const [inputValue, setInputValue] = useState('');
-  const [memberTagList, setMemberTagList] = useState(MEMBER_DATA.map((member) => ({ ...member })));
+
+  const [activityTags, setActivityTags] = useState(() => [...ACITIVITY_TAG_DATA]);
 
   const closeModal = useCloseModal();
 
-  /* 드롭다운 검색 기능 구현할때 버튼활성화 조건 변경하기 */
+  /* 드롭다운 검색 기능 추가할때 버튼활성화 조건 바꾸기! */
   const isButtonActive = inputValue.trim().length > 0;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleDeleteMemberTag = (email: string) => {
-    setMemberTagList(memberTagList.filter((item) => item.email !== email));
+  const handleDeleteActivityTag = (id: number) => {
+    setActivityTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
   };
 
   return (
@@ -41,19 +42,20 @@ const MemberTagModal = () => {
             onChange={handleInputChange}
           />
           <div css={scrollStyle}>
-            {memberTagList.length > 0 ? (
-              memberTagList.map((data) => (
-                <MemberTagItem
-                  key={data.email}
-                  name={data.name}
-                  email={data.email}
-                  profileImg={data.profileUrl}
-                  onDelete={() => handleDeleteMemberTag(data.email)}
+            {activityTags.length > 0 ? (
+              activityTags.map((data) => (
+                <ActivityTagItem
+                  key={data.id}
+                  title={data.title}
+                  date={data.date}
+                  tag={data.tag}
+                  color={data.color}
+                  onDelete={() => handleDeleteActivityTag(data.id)}
                 />
               ))
             ) : (
               <Text tag="body8" css={textStyle}>
-                태그된 팀원이 없습니다.
+                태그된 활동이 없습니다.
               </Text>
             )}
           </div>
@@ -64,4 +66,4 @@ const MemberTagModal = () => {
   );
 };
 
-export default MemberTagModal;
+export default ActivityTagModal;

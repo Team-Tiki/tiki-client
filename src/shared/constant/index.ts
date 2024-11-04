@@ -43,3 +43,27 @@ export const MEMBER_DATA = [
     profileUrl: 'https://github.com/user-attachments/assets/a9c876cd-9d07-49db-94f1-353e5c4a5ee3',
   },
 ] as const;
+
+export const ACITIVITY_TAG_DATA = [
+  {
+    id: 1,
+    tag: 'MEETING',
+    title: 'UX 스터디',
+    date: '2024.09.25',
+    color: '#D3EFFA',
+  },
+  {
+    id: 2,
+    tag: 'STUDY',
+    title: 'UX 스터디',
+    date: '2024.09.25',
+    color: '#F8E1F5',
+  },
+  {
+    id: 3,
+    tag: 'NOTICE',
+    title: 'UX 스터디',
+    date: '2024.09.25',
+    color: '#C4F2E5',
+  },
+] as const;

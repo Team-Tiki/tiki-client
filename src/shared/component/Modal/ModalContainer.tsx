@@ -7,6 +7,7 @@ import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
 
+import ActivityTagModal from '../ActivityTagModal/ActivityTagModal';
 import DeletedModal from '../DeleteModal/DeletedModal';
 import InviteModal from '../InviteModal/InviteModal';
 import MemberTagModal from '../MemberTagModal/MemberTagModal';
@@ -36,6 +37,8 @@ const ModalContainer = () => {
         return <InviteModal />;
       case 'member-tag':
         return <MemberTagModal />;
+      case 'activity-tag':
+        return <ActivityTagModal />;
       default:
         return null;
     }

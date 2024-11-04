@@ -1,3 +1,4 @@
+import ActivityTagIcon from '@/common/asset/svg/ic_activity_tag.svg?react';
 import BlockIcon from '@/common/asset/svg/ic_block_create.svg?react';
 import InviteIcon from '@/common/asset/svg/ic_invite.svg?react';
 import MemberTagIcon from '@/common/asset/svg/ic_member_tag.svg?react';
@@ -55,6 +56,12 @@ export const getHeaderContent = (contentType: string, step?: number, totalSteps?
         icon: <MemberTagIcon width={40} height={40} />,
         title: '팀원 태그',
         infoText: '관련된 팀원을 태그할 수 있습니다.',
+      };
+    case 'activity-tag':
+      return {
+        icon: <ActivityTagIcon width={40} height={40} />,
+        title: '활동 태그',
+        infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
       };
     default:
       return { icon: null, title: '', infoText: '' };

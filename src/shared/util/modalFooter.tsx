@@ -46,6 +46,11 @@ export const getFooterContent = (
         { text: '취소', onClick: closeModal, variant: 'outline' },
         { text: '완료', onClick: buttonClick, variant: 'primary' },
       ];
+    case 'activity-tag':
+      return [
+        { text: '취소', onClick: closeModal, variant: 'outline' },
+        { text: '완료', onClick: buttonClick, variant: 'primary' },
+      ];
     default:
       return [];
   }
