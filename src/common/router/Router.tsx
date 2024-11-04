@@ -18,8 +18,6 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
-import DateProvider from '@/page/archiving/index/DateProvider';
-
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -123,9 +121,7 @@ const router = createBrowserRouter([
         path: PATH.ARCHIVING,
         element: (
           <Suspense>
-            <DateProvider>
-              <ArchivingPage />
-            </DateProvider>
+            <ArchivingPage />
           </Suspense>
         ),
       },
