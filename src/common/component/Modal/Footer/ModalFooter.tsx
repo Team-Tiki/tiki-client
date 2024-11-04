@@ -1,8 +1,8 @@
+import Button from '@/common/component/Button/Button';
+import Flex from '@/common/component/Flex/Flex';
+
 import { useCloseModal, useModalContentType } from '@/shared/store/modal';
 import { getFooterContent } from '@/shared/util/modalFooter';
-
-import Button from '../../Button/Button';
-import Flex from '../../Flex/Flex';
 
 interface ModalFooterProps {
   step?: number;

@@ -3,7 +3,7 @@ import Profile from '@/common/asset/svg/ic_invite_profile.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import { emailStyle } from './MemberTagItem.style';
+import { textStyle } from '@/shared/component/InviteModal/InviteItem/MemberItem.style';
 
 interface MemberTagItemProps {
   name: string;
@@ -38,7 +38,7 @@ const MemberTagItem = ({ name, email, profileImg, onDelete }: MemberTagItemProps
         )}
         <Flex styles={{ direction: 'column', align: 'flex-start', gap: '0.6rem' }}>
           <Text tag="body8">{name}</Text>
-          <Text tag="body8" css={emailStyle}>
+          <Text tag="body8" css={textStyle}>
             {email}
           </Text>
         </Flex>

@@ -6,11 +6,10 @@ import Input from '@/common/component/Input/Input';
 import { Modal } from '@/common/component/Modal';
 import Text from '@/common/component/Text/Text';
 
+import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
+import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import { ACITIVITY_TAG_DATA } from '@/shared/constant';
 import { useCloseModal } from '@/shared/store/modal';
-
-import { scrollStyle, textStyle } from '../InviteModal/InviteModal.style';
-import ActivityTagItem from './ActivityTagItem/ActivityTagItem';
 
 const ActivityTagModal = () => {
   const [inputValue, setInputValue] = useState('');

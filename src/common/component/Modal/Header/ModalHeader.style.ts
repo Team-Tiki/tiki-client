@@ -11,10 +11,11 @@ export const iconTextStyle = css({
   alignItems: 'center',
   justifyContent: 'center',
 
-  color: theme.colors.gray_800,
-  fontWeight: 500,
   width: '4rem',
   height: '4rem',
+
+  fontWeight: 500,
+  color: theme.colors.gray_800,
 
   textAlign: 'center',
 });

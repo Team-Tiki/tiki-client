@@ -2,15 +2,14 @@ import { Modal } from '@/common/component/Modal';
 
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
+import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
+import DeletedModal from '@/shared/component/DeleteModal/DeletedModal';
+import InviteModal from '@/shared/component/InviteModal/InviteModal';
+import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
-
-import ActivityTagModal from '../ActivityTagModal/ActivityTagModal';
-import DeletedModal from '../DeleteModal/DeletedModal';
-import InviteModal from '../InviteModal/InviteModal';
-import MemberTagModal from '../MemberTagModal/MemberTagModal';
 
 const ModalContainer = () => {
   const isOpen = useModalIsOpen();

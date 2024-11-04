@@ -3,7 +3,7 @@ import InviteProfile from '@/common/asset/svg/ic_invite_profile.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import { textStyle } from './MemberItem.style';
+import { textStyle } from '@/shared/component/InviteModal/InviteItem/MemberItem.style';
 
 interface MemberItemProps {
   title: string;

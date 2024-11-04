@@ -1,21 +1,16 @@
 import { useState } from 'react';
 
-import Button from '@/common/component/Button/Button';
 import DatePicker from '@/common/component/DatePicker';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import { Modal } from '@/common/component/Modal';
 import Text from '@/common/component/Text/Text';
 
-import {
-  buttonStyle,
-  textStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/Block/BlockModal.style';
+import { textStyle } from '@/page/archiving/index/component/TimeBlockModal/component/Block/BlockModal.style';
 import BlockIcon from '@/page/archiving/index/component/TimeBlockModal/component/Block/Icon/BlockIcon';
 import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
 import { BLOCK_ICON } from '@/page/archiving/index/component/TimeBlockModal/constant/iconBlock';
 
-import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
 interface BlockModalProps {

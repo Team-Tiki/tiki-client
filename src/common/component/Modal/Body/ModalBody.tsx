@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import Flex from '../../Flex/Flex';
+import Flex from '@/common/component/Flex/Flex';
 
 interface ModalBodyProps {
   children: ReactNode;

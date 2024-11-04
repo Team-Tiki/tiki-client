@@ -6,11 +6,10 @@ import Input from '@/common/component/Input/Input';
 import { Modal } from '@/common/component/Modal';
 import Text from '@/common/component/Text/Text';
 
+import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import MemberTagItem from '@/shared/component/MemberTagModal/MemberTagItem/MemberTagItem';
 import { MEMBER_DATA } from '@/shared/constant';
 import { useCloseModal } from '@/shared/store/modal';
-
-import { scrollStyle, textStyle } from '../InviteModal/InviteModal.style';
-import MemberTagItem from './MemberTagItem/MemberTagItem';
 
 const MemberTagModal = () => {
   const [inputValue, setInputValue] = useState('');

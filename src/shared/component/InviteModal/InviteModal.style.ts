@@ -12,15 +12,17 @@ export const textStyle = css({
   alignItems: 'center',
   justifyContent: 'center',
 
-  color: theme.colors.gray_800,
   width: '100%',
   height: '100%',
+
+  color: theme.colors.gray_800,
   textAlign: 'center',
 });
 
 export const scrollStyle = css({
   display: 'flex',
   flexDirection: 'column',
+
   height: '30.4rem',
   width: '100%',
 

@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
 import { Modal } from '@/common/component/Modal';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
-import { buttonStyle, sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 

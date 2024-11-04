@@ -3,9 +3,12 @@ import Delete from '@/common/asset/svg/ic_invite_delete.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
+import {
+  iconBackStyle,
+  tagStyle,
+  textStyle,
+} from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem.style';
 import { TAG_ICON } from '@/shared/constant/icon';
-
-import { iconBackStyle, tagStyle, textStyle } from './ActivityTagItem.style';
 
 interface ActivityTagItemProps {
   title: string;
@@ -25,6 +28,7 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete }: ActivityTagItemP
         align: 'center',
         justify: 'space-between',
         width: '100%',
+        padding: '0.4rem 0rem',
       }}>
       <Flex
         styles={{

@@ -1,9 +1,9 @@
+import Flex from '@/common/component/Flex/Flex';
+import { iconTextStyle, infoTextStyle } from '@/common/component/Modal/Header/ModalHeader.style';
+import Text from '@/common/component/Text/Text';
+
 import { useModalContentType } from '@/shared/store/modal';
 import { getHeaderContent } from '@/shared/util/modalHeader';
-
-import Flex from '../../Flex/Flex';
-import Text from '../../Text/Text';
-import { iconTextStyle, infoTextStyle } from './ModalHeader.style';
 
 interface ModalHeaderProps {
   step?: number;

@@ -2,10 +2,9 @@ import Flex from '@/common/component/Flex/Flex';
 import { Modal } from '@/common/component/Modal';
 import Text from '@/common/component/Text/Text';
 
+import { detailStyle, titleStyle } from '@/shared/component/DeleteModal/DeletedModal.style';
 import { DELETED_DETAIL, DELETED_TITLE } from '@/shared/constant';
 import { useCloseModal, useModalData } from '@/shared/store/modal';
-
-import { detailStyle, titleStyle } from './DeletedModal.style';
 
 const DeletedModal = () => {
   const closeModal = useCloseModal();
