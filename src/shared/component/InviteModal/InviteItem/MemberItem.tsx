@@ -3,14 +3,14 @@ import InviteProfile from '@/common/asset/svg/ic_invite_profile.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
-import { textStyle } from './InviteItem.style';
+import { textStyle } from './MemberItem.style';
 
-interface InviteItemProps {
+interface MemberItemProps {
   title: string;
   onDelete: () => void;
 }
 
-const InviteItem = ({ title, onDelete }: InviteItemProps) => {
+const MemberItem = ({ title, onDelete }: MemberItemProps) => {
   return (
     <Flex
       styles={{
@@ -36,4 +36,4 @@ const InviteItem = ({ title, onDelete }: InviteItemProps) => {
   );
 };
 
-export default InviteItem;
+export default MemberItem;

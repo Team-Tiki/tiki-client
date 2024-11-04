@@ -39,7 +39,12 @@ export const getFooterContent = (
     case 'invite':
       return [
         { text: '취소', onClick: closeModal, variant: 'outline' },
-        { text: '초대', onClick: buttonClick, variant: 'primary' },
+        { text: '초대', onClick: buttonClick, variant: 'primary', disabled: !isButtonActive },
+      ];
+    case 'member-tag':
+      return [
+        { text: '취소', onClick: closeModal, variant: 'outline' },
+        { text: '완료', onClick: buttonClick, variant: 'primary' },
       ];
     default:
       return [];

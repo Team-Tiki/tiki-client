@@ -8,7 +8,7 @@ import Text from '@/common/component/Text/Text';
 
 import { useCloseModal } from '@/shared/store/modal';
 
-import InviteItem from './InviteItem/InviteItem';
+import MemberItem from './InviteItem/MemberItem';
 import { inputWrapperStyle, scrollStyle, textStyle } from './InviteModal.style';
 
 const InviteModal = () => {
@@ -27,12 +27,6 @@ const InviteModal = () => {
     if (inputValue.trim() && !inviteList.includes(inputValue)) {
       setInviteList([...inviteList, inputValue.trim()]);
       setInputValue('');
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && isButtonActive) {
-      handleAddInvite();
     }
   };
 
@@ -66,7 +60,7 @@ const InviteModal = () => {
           <div css={scrollStyle}>
             {inviteList.length > 0 ? (
               inviteList.map((email) => (
-                <InviteItem key={email} title={email} onDelete={() => handleDeleteInvite(email)} />
+                <MemberItem key={email} title={email} onDelete={() => handleDeleteInvite(email)} />
               ))
             ) : (
               <Text tag="body8" css={textStyle}>

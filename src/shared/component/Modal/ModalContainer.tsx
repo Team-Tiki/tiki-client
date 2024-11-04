@@ -9,6 +9,7 @@ import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/sto
 
 import DeletedModal from '../DeleteModal/DeletedModal';
 import InviteModal from '../InviteModal/InviteModal';
+import MemberTagModal from '../MemberTagModal/MemberTagModal';
 
 const ModalContainer = () => {
   const isOpen = useModalIsOpen();
@@ -33,6 +34,8 @@ const ModalContainer = () => {
         return <DeletedModal />;
       case 'invite':
         return <InviteModal />;
+      case 'member-tag':
+        return <MemberTagModal />;
       default:
         return null;
     }

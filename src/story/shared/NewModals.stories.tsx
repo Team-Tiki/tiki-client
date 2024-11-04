@@ -29,6 +29,7 @@ export const ModalsTest: Story = {
     return (
       <>
         <button onClick={() => openModal('invite')}>Open Invite Modal</button>
+        <button onClick={() => openModal('member-tag')}>Open MemberTag Modal</button>
         <ModalContainer />
       </>
     );

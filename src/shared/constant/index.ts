@@ -30,3 +30,16 @@ export const DELETED_TITLE = {
 } as const;
 
 export const DELETED_DETAIL = '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다' as const;
+
+export const MEMBER_DATA = [
+  {
+    name: '이채원',
+    email: 'cindy1769@daum.net',
+    profileUrl: 'https://github.com/user-attachments/assets/a9c876cd-9d07-49db-94f1-353e5c4a5ee3',
+  },
+  {
+    name: '이채원2',
+    email: 'cindy1769@naver.com',
+    profileUrl: 'https://github.com/user-attachments/assets/a9c876cd-9d07-49db-94f1-353e5c4a5ee3',
+  },
+] as const;
