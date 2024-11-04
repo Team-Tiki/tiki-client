@@ -18,7 +18,9 @@ export const backgroundStyle = css({
 });
 
 export const dialogStyle = css({
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   position: 'fixed',
   top: '50%',
   left: '50%',

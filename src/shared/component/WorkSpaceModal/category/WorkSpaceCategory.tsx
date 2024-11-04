@@ -66,7 +66,7 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
     <>
       <Modal.Header step={2} totalSteps={4} />
       <Modal.Body>
-        <div ref={ref}>
+        <div ref={ref} css={{ width: '100%' }}>
           <Select
             css={{
               '& ul': {

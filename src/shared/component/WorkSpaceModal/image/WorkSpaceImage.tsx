@@ -43,6 +43,8 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
 
   if (!isVisible) return null;
 
+  const isButtonActive = !!fileURL;
+
   return (
     <>
       <Modal.Header step={3} totalSteps={4} />
@@ -66,7 +68,7 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
           onChange={handleImageChange}
         />
       </Modal.Body>
-      <Modal.Footer step={3} buttonClick={handleSave} />
+      <Modal.Footer step={3} buttonClick={handleSave} isButtonActive={isButtonActive} />
     </>
   );
 };

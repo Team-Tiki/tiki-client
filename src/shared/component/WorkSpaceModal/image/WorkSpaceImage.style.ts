@@ -9,13 +9,15 @@ export const imageBoxStyle = css({
 });
 
 export const imageAddStyle = css({
-  width: '20rem',
-  height: '20rem',
+  width: '23.4rem',
+  height: '23.4rem',
 
-  borderRadius: '57.14px',
+  borderRadius: '40px',
   objectFit: 'cover',
 
   cursor: 'pointer',
+
+  padding: '1rem',
 });
 
 export const imageDeleteStyle = css({
@@ -23,8 +25,8 @@ export const imageDeleteStyle = css({
   top: '0',
   right: '0',
 
-  width: '3.3rem',
-  height: '3.2rem',
+  width: '4.2rem',
+  height: '4.2rem',
 
   cursor: 'pointer',
 });

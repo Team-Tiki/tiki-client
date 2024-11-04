@@ -4,7 +4,6 @@ export interface FooterButton {
   variant: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'underline';
   disabled?: boolean;
 }
-
 export const getFooterContent = (
   contentType: string,
   step: number,
@@ -15,10 +14,13 @@ export const getFooterContent = (
   switch (contentType) {
     case 'create-workspace':
       return [
-        { text: step === 4 ? '완료' : '다음으로', onClick: buttonClick, variant: 'primary', disabled: !isButtonActive },
-        step > 2
-          ? ({ text: '이전으로', onClick: buttonClick, variant: 'secondary', disabled: true } as FooterButton)
-          : false,
+        step >= 3 ? { text: '건너뛰기', onClick: buttonClick, variant: 'outline' } : false,
+        {
+          text: step === 4 ? '확인' : '다음으로',
+          onClick: buttonClick,
+          variant: 'primary',
+          disabled: !isButtonActive,
+        },
       ].filter(Boolean) as FooterButton[];
     case 'create-block':
       return [

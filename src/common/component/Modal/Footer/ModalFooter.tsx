@@ -18,7 +18,13 @@ const ModalFooter = ({ step, buttonClick, isButtonActive }: ModalFooterProps) =>
   return (
     <Flex styles={{ direction: 'row', justify: 'center', align: 'center', gap: '1.6rem' }}>
       {footerButtons.map((button, index) => (
-        <Button key={index} variant={button.variant} onClick={button.onClick} disabled={button.disabled}>
+        <Button
+          css={{ width: '100%' }}
+          key={index}
+          variant={button.variant}
+          size="xLarge"
+          onClick={button.onClick}
+          disabled={button.disabled}>
           {button.text}
         </Button>
       ))}
