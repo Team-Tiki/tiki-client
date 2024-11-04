@@ -5,14 +5,14 @@ import { theme } from '@/common/style/theme/theme';
 export const scrollStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  maxHeight: '18rem',
-  width: '38.5rem',
+  maxHeight: '12rem',
+  width: '100%',
 
-  gap: '0.8rem',
+  gap: '1.2rem',
   position: 'relative',
-  paddingRight: '1rem',
 
   overflowY: 'auto',
+  overflowX: 'hidden',
 
   boxSizing: 'content-box',
 
@@ -34,8 +34,6 @@ export const flexStyle = css({
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'center',
-  height: '55.11rem',
-  paddingLeft: '6.8rem',
-  paddingRight: '6.8rem',
-  gap: '2.4rem',
+  width: '100%',
+  gap: '2rem',
 });

@@ -7,14 +7,15 @@ export const iconStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
 
-  width: '5rem',
-  height: '5rem',
+  width: '4rem',
+  height: '4rem',
 
   borderRadius: '100%',
-  border: `1.2px solid ${theme.colors.gray_400}`,
 
   overflow: 'hidden',
   cursor: 'pointer',
+
+  backgroundColor: theme.colors.gray_100,
 
   '&:hover': {
     backgroundColor: theme.colors.blue_100,
@@ -31,6 +32,8 @@ export const boxStyle = css({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'row',
+
+  width: '100%',
 
   gap: '1.2rem',
 });

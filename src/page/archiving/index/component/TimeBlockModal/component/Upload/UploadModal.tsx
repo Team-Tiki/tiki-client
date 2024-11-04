@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
+import { Modal } from '@/common/component/Modal';
 
 import BlockAdd from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/List/BlockItem';
@@ -105,37 +106,42 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
   };
 
   return (
-    <Flex tag={'section'} css={flexStyle}>
-      <WorkSapceInfo step="upload" title="블록 생성하기" info="해당 블록에 업로드할 문서를 선택해주세요" />
-      <Flex
-        styles={{
-          direction: 'column',
-          align: 'flex-start',
-          grow: '1',
-          width: '100%',
-          gap: '2.4rem',
-        }}>
-        <BlockAdd
-          files={files}
-          onFilesChange={handleFilesChange}
-          setFileUrls={setFileUrls}
-          setUploadStatus={setUploadStatus}
-        />
-        <div className="scroll" css={scrollStyle}>
-          {files.map((file) => (
-            <BlockItem
-              key={file.name}
-              title={file.name}
-              onDelete={() => handleDelete(file.name)}
-              isUploading={!uploadStatus[file.name]}
+    <>
+      <Modal.Header step={2} />
+      <Modal.Body>
+        <Flex tag={'section'} css={flexStyle}>
+          <Flex
+            styles={{
+              direction: 'column',
+              align: 'flex-start',
+              grow: '1',
+              width: '100%',
+              gap: '2.4rem',
+            }}>
+            <BlockAdd
+              files={files}
+              onFilesChange={handleFilesChange}
+              setFileUrls={setFileUrls}
+              setUploadStatus={setUploadStatus}
             />
-          ))}
-        </div>
-      </Flex>
-      <Button variant="primary" size="medium" css={{ width: '32rem' }} onClick={handleSave} disabled={!isAllUploaded}>
-        저장
-      </Button>
-    </Flex>
+            <div className="scroll" css={scrollStyle}>
+              {files.map((file) => (
+                <BlockItem
+                  key={file.name}
+                  title={file.name}
+                  onDelete={() => handleDelete(file.name)}
+                  /* 임의의 값 넣었음! 추후 서버 로직 다시 짤때 바꿀것!!*/
+                  fileSize="2.4MB"
+                  uploadedSize="0.2MB"
+                  isUploading={!uploadStatus[file.name]}
+                />
+              ))}
+            </div>
+          </Flex>
+        </Flex>
+      </Modal.Body>
+      <Modal.Footer step={2} buttonClick={handleSave} />
+    </>
   );
 };
 

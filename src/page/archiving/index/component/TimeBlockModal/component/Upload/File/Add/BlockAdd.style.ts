@@ -9,17 +9,28 @@ export const boxStyle = css({
   color: theme.colors.gray_500,
 });
 
-export const textStyle = css({
-  color: theme.colors.gray_500,
+export const colorStyle = css({
+  color: theme.colors.gray_800,
 });
 
-export const buttonStyle = css({
-  padding: '0',
-  width: '6.4rem',
+export const text1Style = css([
+  colorStyle,
+  {
+    fontWeight: 500,
+    marginTop: '1.2rem',
+  },
+]);
 
-  textDecoration: 'underline',
-  ...theme.text.body06,
-  fontWeight: 600,
+export const text2Style = css([
+  colorStyle,
+  {
+    marginTop: '1.6rem',
+  },
+]);
 
-  color: theme.colors.gray_500,
-});
+export const text3Style = css([
+  colorStyle,
+  {
+    marginTop: '0.5rem',
+  },
+]);

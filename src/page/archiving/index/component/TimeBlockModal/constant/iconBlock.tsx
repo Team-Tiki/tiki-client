@@ -1,40 +1,35 @@
 import { ReactNode } from 'react';
 
-import Accounting from '@/common/asset/svg/ic_accounting.svg?react';
-import Event from '@/common/asset/svg/ic_event.svg?react';
-import Meeting from '@/common/asset/svg/ic_meeting.svg?react';
-import Notice from '@/common/asset/svg/ic_notice.svg?react';
-import Study from '@/common/asset/svg/ic_study.svg?react';
-import Task from '@/common/asset/svg/ic_task.svg?react';
+import Event from '@/common/asset/svg/ic_event_gray.svg?react';
+import Meeting from '@/common/asset/svg/ic_meeting_gray.svg?react';
+import Notice from '@/common/asset/svg/ic_notice_gray.svg?react';
+import Recruiting from '@/common/asset/svg/ic_recruiting_gray.svg?react';
+import Study from '@/common/asset/svg/ic_study_gray.svg?react';
 
-type BlockIconType = {
+type BlockIcon = {
   name: string;
   icon: ReactNode;
 };
 
-export const BLOCK_ICON: BlockIconType[] = [
+export const BLOCK_ICON: BlockIcon[] = [
   {
     name: 'MEETING',
-    icon: <Meeting width={24} height={24} css={{ flexShrink: 0 }} />,
-  },
-  {
-    name: 'ACCOUNTING',
-    icon: <Accounting width={24} height={24} css={{ flexShrink: 0 }} />,
-  },
-  {
-    name: 'TASK',
-    icon: <Task width={24} height={24} css={{ flexShrink: 0 }} />,
-  },
-  {
-    name: 'NOTICE',
-    icon: <Notice width={24} height={24} css={{ flexShrink: 0 }} />,
-  },
-  {
-    name: 'STUDY',
-    icon: <Study width={24} height={24} css={{ flexShrink: 0 }} />,
+    icon: <Meeting width={30} height={30} />,
   },
   {
     name: 'EVENT',
-    icon: <Event width={24} height={24} css={{ flexShrink: 0 }} />,
+    icon: <Event width={30} height={30} />,
+  },
+  {
+    name: 'STUDY',
+    icon: <Study width={30} height={30} />,
+  },
+  {
+    name: 'NOTICE',
+    icon: <Notice width={30} height={30} />,
+  },
+  {
+    name: 'RECRUITING',
+    icon: <Recruiting width={30} height={30} />,
   },
 ];

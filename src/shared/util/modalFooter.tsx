@@ -22,11 +22,14 @@ export const getFooterContent = (
           disabled: !isButtonActive,
         },
       ].filter(Boolean) as FooterButton[];
+
+    /* 디자인 확정시 추후 수정 필요 */
     case 'create-block':
       return [
-        { text: '저장', onClick: buttonClick, variant: 'primary' },
-        { text: '취소', onClick: closeModal, variant: 'secondary' },
+        { text: '취소', onClick: closeModal, variant: 'outline' },
+        { text: '다음으로', onClick: buttonClick, variant: 'primary' },
       ];
+
     case 'deleted':
       return [
         { text: '취소', onClick: closeModal, variant: 'outline' },

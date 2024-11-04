@@ -27,12 +27,15 @@ export const getHeaderContent = (contentType: string, step?: number, totalSteps?
                 ? '우리 동아리 프로필에 표시할 이미지를 등록해주세요'
                 : '이제 워크스페이스를 사용할 수 있습니다.',
       };
+
+    /* 디자인 확정시 추후 수정 필요 */
     case 'create-block':
       return {
         icon: <BlockIcon width={40} height={40} />,
-        title: '타임블록 생성하기',
-        infoText: step === 1 ? '블록명을 입력해주세요' : '블록에 필요한 문서를 업로드해주세요',
+        title: '타임블록 생성',
+        infoText: step === 1 ? '타임라인에 생성할 블록 정보를 입력해주세요' : '타임라인에 업로드할 파일을 선택하세요',
       };
+
     case 'deleted':
       return {
         icon: <WarningIcon width={40} height={40} />,

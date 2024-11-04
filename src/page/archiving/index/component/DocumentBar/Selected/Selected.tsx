@@ -14,8 +14,6 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
-import { useOpenModal } from '@/shared/store/modal';
-
 interface SelectedProps {
   selectedBlock: Block;
   onClose: () => void;
@@ -32,12 +30,6 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
 
-  const openModal = useOpenModal();
-
-  const handleDeleteClick = () => {
-    openModal('delete', { teamId: +teamId!, itemId: selectedBlock.timeBlockId, itemType: 'block' });
-  };
-
   return (
     <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>
       {BLOCK_ICON.find((icon) => icon.name === selectedBlock.blockType)?.icon?.(selectedBlock.color)}
@@ -45,7 +37,7 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
         <Heading tag="H6" css={blockNameStyle}>
           {selectedBlock.name}
         </Heading>
-        <Button variant="underline" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
+        <Button variant="underline" size="small" css={deleteBtnStyle}>
           블록삭제
         </Button>
       </Flex>

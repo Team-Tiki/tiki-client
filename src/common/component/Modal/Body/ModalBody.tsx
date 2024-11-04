@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import Flex from '../../Flex/Flex';
-import { containerStyle } from './ModalBody.style';
 
 interface ModalBodyProps {
   children: ReactNode;

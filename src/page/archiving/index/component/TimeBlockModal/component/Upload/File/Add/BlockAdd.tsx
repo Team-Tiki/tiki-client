@@ -1,12 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 
+import UploadIcon from '@/common/asset/svg/ic_upload_file.svg?react';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
 import {
   boxStyle,
-  buttonStyle,
+  text1Style,
+  text2Style,
+  text3Style,
 } from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd.style';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
@@ -33,27 +36,36 @@ const BlockAdd = ({ files, onFilesChange, setFileUrls, setUploadStatus }: BlockA
         direction: 'column',
         justify: 'center',
         align: 'center',
-        padding: '3.2rem 6.35rem',
+        padding: '3.2rem 0rem',
         width: '100%',
       }}
       css={boxStyle}
       onDragOver={handleDragOver}
       onDrop={(event) => handleDrop(event)}>
-      <Flex tag={'form'} styles={{ direction: 'column', align: 'center', justify: 'center' }}>
-        <input type="file" multiple style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
-        <Text tag="body6">업로드할 파일을 여기로 드래그 하세요</Text>
-        <Flex
-          styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.3rem' }}
-          css={{ marginTop: '1.6rem', whiteSpace: 'nowrap' }}>
-          <Text tag="body6">또는</Text>
-          <Button variant="underline" css={buttonStyle} onClick={() => fileInputRef.current?.click()}>
-            여기를 클릭
-          </Button>
-          <Text tag="body6">하여</Text>
-        </Flex>
-        <Text tag="body6" css={{ marginTop: '0.5rem' }}>
-          업로드할 파일을 선택하세요
+      <Flex tag={'form'} styles={{ direction: 'column', align: 'center', justify: 'center', width: '100%' }}>
+        <input
+          type="file"
+          multiple
+          style={{ display: 'none', width: '100%' }}
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
+        <UploadIcon width={32} height={32} />
+        <Text tag="body6" css={text1Style}>
+          업로드할 파일을 끌어다 놓으세요.
         </Text>
+        <Text tag="body8" css={text2Style}>
+          JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.
+        </Text>
+        <Text tag="body8" css={text3Style}>
+          최대 파일 크기는 50MB입니다.
+        </Text>
+        <Button
+          variant="outline"
+          css={{ marginTop: '2rem', cursor: 'pointer', width: '16rem' }}
+          onClick={() => fileInputRef.current?.click()}>
+          파일 브라우저
+        </Button>
       </Flex>
     </Flex>
   );
