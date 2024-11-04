@@ -8,6 +8,7 @@ import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
 
 import DeletedModal from '../DeleteModal/DeletedModal';
+import InviteModal from '../InviteModal/InviteModal';
 
 const ModalContainer = () => {
   const isOpen = useModalIsOpen();
@@ -30,6 +31,8 @@ const ModalContainer = () => {
         );
       case 'deleted':
         return <DeletedModal />;
+      case 'invite':
+        return <InviteModal />;
       default:
         return null;
     }

@@ -24,7 +24,7 @@ const DeletedModal = () => {
 
   return (
     <>
-      <Modal.Header step={1} totalSteps={1} />
+      <Modal.Header />
       <Modal.Body>
         <Flex styles={{ direction: 'column', gap: '1.6rem', align: 'center', height: '33.8rem', justify: 'center' }}>
           <Text tag="body4" css={titleStyle}>
@@ -35,7 +35,7 @@ const DeletedModal = () => {
           </Text>
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={1} buttonClick={handleDelete} />
+      <Modal.Footer buttonClick={handleDelete} />
     </>
   );
 };

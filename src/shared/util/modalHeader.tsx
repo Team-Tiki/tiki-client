@@ -1,4 +1,5 @@
 import BlockIcon from '@/common/asset/svg/ic_block_create.svg?react';
+import InviteIcon from '@/common/asset/svg/ic_invite.svg?react';
 import WarningIcon from '@/common/asset/svg/ic_warning.svg?react';
 import SuccessIcon from '@/common/asset/svg/ic_workspace_success.svg?react';
 
@@ -41,6 +42,12 @@ export const getHeaderContent = (contentType: string, step?: number, totalSteps?
         icon: <WarningIcon width={40} height={40} />,
         title: '주의!',
         infoText: '삭제할 항목을 확인해주세요.',
+      };
+    case 'invite':
+      return {
+        icon: <InviteIcon width={40} height={40} />,
+        title: '팀원 초대',
+        infoText: '워크스페이스에 팀원을 초대할 수 있습니다.',
       };
     default:
       return { icon: null, title: '', infoText: '' };

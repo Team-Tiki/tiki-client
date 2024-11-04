@@ -5,7 +5,7 @@ import Button from '../../Button/Button';
 import Flex from '../../Flex/Flex';
 
 interface ModalFooterProps {
-  step: number;
+  step?: number;
   buttonClick?: () => void;
   isButtonActive?: boolean;
 }
@@ -13,7 +13,7 @@ interface ModalFooterProps {
 const ModalFooter = ({ step, buttonClick, isButtonActive }: ModalFooterProps) => {
   const contentType = useModalContentType();
   const closeModal = useCloseModal();
-  const footerButtons = getFooterContent(contentType!, step, buttonClick, closeModal, isButtonActive);
+  const footerButtons = getFooterContent(contentType!, step!, buttonClick, closeModal, isButtonActive);
 
   return (
     <Flex styles={{ direction: 'row', justify: 'center', align: 'center', gap: '1.6rem' }}>

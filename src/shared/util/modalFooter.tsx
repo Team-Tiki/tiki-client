@@ -35,6 +35,12 @@ export const getFooterContent = (
         { text: '취소', onClick: closeModal, variant: 'outline' },
         { text: '삭제', onClick: buttonClick, variant: 'primary' },
       ];
+
+    case 'invite':
+      return [
+        { text: '취소', onClick: closeModal, variant: 'outline' },
+        { text: '초대', onClick: buttonClick, variant: 'primary' },
+      ];
     default:
       return [];
   }
