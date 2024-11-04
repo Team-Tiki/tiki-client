@@ -46,7 +46,7 @@ export const Image: Story = {
   },
 };
 
-export const Small: Story = {
+export const Secondary: Story = {
   decorators: [
     (Story) => (
       <div css={{ width: '16rem' }}>
@@ -55,8 +55,8 @@ export const Small: Story = {
     ),
   ],
   args: {
+    variant: 'secondary',
     title: '이채원',
     type: 'pdf',
-    isSmall: true,
   },
 };

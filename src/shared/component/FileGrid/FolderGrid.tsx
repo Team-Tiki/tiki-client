@@ -12,8 +12,8 @@ import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import { cardStyle, iconWrapperStyle, nameStyle, optionTextStyle } from '@/shared/component/FileGrid/index.style';
 
 type FolderGridProps = {
+  variant?: 'primary' | 'secondary';
   title: string;
-  isSmall?: boolean;
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
 
   /**
@@ -24,19 +24,19 @@ type FolderGridProps = {
    */
 };
 
-const FolderGrid = ({ title, isSmall = false }: FolderGridProps) => {
+const FolderGrid = ({ title, variant = 'primary' }: FolderGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   return (
-    <article css={cardStyle(isSmall)}>
-      <div css={iconWrapperStyle(isSmall)}>{<IcFolder width={40} height={40} />}</div>
+    <article css={cardStyle(variant !== 'primary')}>
+      <div css={iconWrapperStyle(variant !== 'primary')}>{<IcFolder width={40} height={40} />}</div>
 
       <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
         <Heading css={nameStyle} tag="H3">
           {title}
         </Heading>
 
-        {!isSmall && (
+        {variant === 'primary' && (
           <Menu onClose={close}>
             <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
             <MenuList

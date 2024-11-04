@@ -8,7 +8,6 @@ import {
   contentBoxStyle,
   fileListStyle,
   listItemStyle,
-  scrollStyle,
   timelineBtnStyle,
   timelineDivStyle,
 } from '@/page/dashboard/DashboardPage.style';
@@ -24,6 +23,10 @@ import { FileData } from '@/mock/data/drive';
 const DashboardPage = () => {
   const navigate = useNavigate();
 
+  const handleNav = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <Flex styles={{ gap: '2.4rem' }}>
       <Flex styles={{ direction: 'column', gap: '2.4rem', width: '65%' }}>
@@ -31,18 +34,14 @@ const DashboardPage = () => {
           variant={'file'}
           title={'파일'}
           headerOption={
-            <Button
-              variant="outline"
-              onClick={() => {
-                navigate(PATH.DRIVE);
-              }}>
+            <Button variant="outline" onClick={() => handleNav(PATH.DRIVE)}>
               전체보기
             </Button>
           }
           css={[{ height: '21.6rem' }, contentBoxStyle]}>
-          <Flex css={[fileListStyle, scrollStyle]}>
+          <Flex css={fileListStyle}>
             {FileData.map((file) => {
-              return <FileGrid title={file.title} type={file.type} volume={file.volume} isSmall={true} />;
+              return <FileGrid variant="secondary" title={file.title} type={file.type} volume={file.volume} />;
             })}
           </Flex>
         </ContentBox>
@@ -50,12 +49,7 @@ const DashboardPage = () => {
         <section css={{ position: 'relative', width: '100%', '& section': { height: '40rem' } }}>
           <ArchivingPage />
           <div css={timelineDivStyle}>
-            <Button
-              variant="outline"
-              onClick={() => {
-                navigate(PATH.ARCHIVING);
-              }}
-              css={timelineBtnStyle}>
+            <Button variant="outline" onClick={() => handleNav(PATH.ARCHIVING)} css={timelineBtnStyle}>
               전체보기
             </Button>
           </div>
@@ -66,11 +60,7 @@ const DashboardPage = () => {
         variant={'handover'}
         title={'인수인계 노트'}
         headerOption={
-          <Button
-            variant="outline"
-            onClick={() => {
-              navigate(PATH.HANDOVER);
-            }}>
+          <Button variant="outline" onClick={() => handleNav(PATH.HANDOVER)}>
             전체보기
           </Button>
         }

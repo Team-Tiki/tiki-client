@@ -26,7 +26,7 @@ export const Default: Story = {
   },
 };
 
-export const Small: Story = {
+export const Secondary: Story = {
   decorators: [
     (Story) => (
       <div css={{ width: '16rem' }}>
@@ -35,7 +35,7 @@ export const Small: Story = {
     ),
   ],
   args: {
+    variant: 'secondary',
     title: '폴더 이름',
-    isSmall: true,
   },
 };

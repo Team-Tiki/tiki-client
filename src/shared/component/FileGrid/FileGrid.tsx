@@ -21,12 +21,12 @@ import {
 import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
-type FileGridProps = {
+export type FileGridProps = {
+  variant?: 'primary' | 'secondary';
   title: string;
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
   type: File['type'];
   volume: number;
-  isSmall?: boolean;
 
   /**
    * [TODO]
@@ -46,7 +46,7 @@ const getIconByType = (type: string) => {
   }
 };
 
-const FileGrid = ({ title, type, volume, isSmall = false }: FileGridProps) => {
+const FileGrid = ({ title, type, volume, variant = 'primary' }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   const optionRef = useRef<HTMLDivElement | null>(null);
@@ -61,18 +61,18 @@ const FileGrid = ({ title, type, volume, isSmall = false }: FileGridProps) => {
   };
 
   return (
-    <article css={cardStyle(isSmall)}>
-      <div css={iconWrapperStyle(isSmall)}>{getIconByType(type)}</div>
+    <article css={cardStyle(variant !== 'primary')}>
+      <div css={iconWrapperStyle(variant !== 'primary')}>{getIconByType(type)}</div>
       <Flex
         styles={{
           direction: 'column',
-          gap: isSmall ? '0.8rem' : '1.2rem',
+          gap: variant === 'primary' ? '1.2rem' : '0.8rem',
         }}>
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
           <Heading css={nameStyle} tag="H3">
             {title}
           </Heading>
-          {!isSmall && (
+          {variant === 'primary' && (
             <Menu onClose={close}>
               <div ref={optionRef}>
                 <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
