@@ -4,9 +4,11 @@ import { File } from '@/shared/type/file';
 
 type DrawerContent = {
   title: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   files: File[];
+  blockType: string;
+  color: string;
 } | null;
 
 interface DrawerStore {

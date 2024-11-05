@@ -14,7 +14,7 @@ export const containerStyle = (isOpen: boolean) =>
 
     overflow: 'hidden',
 
-    borderRadius: '16px',
+    borderLeft: `1px solid ${theme.colors.gray_300}`,
     boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.10)',
     backgroundColor: theme.colors.white,
 
