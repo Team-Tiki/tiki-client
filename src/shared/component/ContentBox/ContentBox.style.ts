@@ -53,8 +53,6 @@ export const headerStyle = css({
 
   height: '7.2rem',
 
-  zIndex: theme.zIndex.overlayBottom,
-
   padding: '1.6rem 0rem',
 
   borderBottom: `1px solid ${theme.colors.gray_200}`,

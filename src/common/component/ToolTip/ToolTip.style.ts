@@ -16,8 +16,6 @@ export const messageStyle = (isVisible: boolean) =>
     padding: '1rem',
     borderRadius: '8px',
 
-    zIndex: theme.zIndex.overlayTop,
-
     backgroundColor: `${theme.colors.gray_900}`,
     font: `${theme.text.body08}`,
     color: `${theme.colors.white}`,
