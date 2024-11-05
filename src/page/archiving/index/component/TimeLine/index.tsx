@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDateProvider } from '@/page/archiving/index/DateProvider';
+import { useDateContext } from '@/page/archiving/index/DateProvider';
 import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import {
   dayBodyStyle,
@@ -22,7 +22,7 @@ interface TimeLineProps {
 const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
   const teamId = localStorage.getItem('teamId');
 
-  const { currentYear, currentMonth, endDay } = useDateProvider();
+  const { currentYear, currentMonth, endDay } = useDateContext();
 
   const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
 

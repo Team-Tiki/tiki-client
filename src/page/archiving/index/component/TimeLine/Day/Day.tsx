@@ -1,12 +1,12 @@
 import { memo } from 'react';
 
-import { useDateProvider } from '@/page/archiving/index/DateProvider';
+import { useDateContext } from '@/page/archiving/index/DateProvider';
 import { dayHeaderStyle, dayStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 
 import { useDrawerIsOpen } from '@/shared/store/drawer';
 
 const Day = memo(() => {
-  const { currentYear, currentMonth, endDay } = useDateProvider();
+  const { currentYear, currentMonth, endDay } = useDateContext();
 
   const dayCount = endDay.getDate();
   const currentDate = new Date();
