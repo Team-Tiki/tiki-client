@@ -1,0 +1,17 @@
+import{j as t,a as r}from"./emotion-react.browser.esm-CtHbM-p4.js";import{r as C}from"./index-CdyQAsoN.js";import{S as E}from"./ic_three_dots-BaKwh15s.js";import{F as c}from"./Flex-CyLm-mh9.js";import{H as P}from"./Heading-Dn7aMFx5.js";import{M as H,a as M,b as d}from"./MenuList-DQLYXsK6.js";import{T as f}from"./Text-D8IlJXdA.js";import"./iframe-Bt_ZtrLG.js";import{u as N}from"./useOverlay-BI03NV6u.js";import{c as k,i as q,n as G,o as R,a as l,O as p,t as g,F as m}from"./index.style-CfE6i2Y-.js";import{g as W}from"./file-BmtNgdnG.js";import"./extends-ClQVCWlZ.js";import"./_commonjsHelpers-7pXtpMwX.js";import"./theme-CIBGLKfg.js";import"./useOutsideClick-DouB926X.js";import"../sb-preview/runtime.js";import"./ic_trash-Dp6V-H_1.js";(function(){try{var e=typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{},s=new Error().stack;s&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[s]="1405f8a4-5776-4414-a07c-6edb025bc65d",e._sentryDebugIdIdentifier="sentry-dbid-1405f8a4-5776-4414-a07c-6edb025bc65d")}catch{}})();const B=e=>e==="pdf"?m.pdf:e==="word"?m.word:m.image,x=({title:e,type:s,volume:u})=>{const{isOpen:T,close:D,toggle:O}=N(),a=C.useRef(null),L=()=>{if(!a.current)return!1;const{y:j}=a.current.getBoundingClientRect();return j+118+20<document.documentElement.clientHeight-48};return t("article",{css:k,children:[r("div",{css:q,children:B(s)}),t(c,{styles:{direction:"column",gap:"1.2rem"},children:[t(c,{styles:{width:"100%",justify:"space-between",align:"center"},children:[r(P,{css:G,tag:"H3",children:e}),t(H,{onClose:D,children:[r("div",{ref:a,children:r(E,{onClick:O,css:{cursor:"pointer"},width:16,height:16})}),t(M,{css:R(L()),isOpen:T,children:[r(d,{css:l,LeftIcon:p.download,onSelect:()=>{},children:"파일 다운로드"}),r(d,{css:l,LeftIcon:p.deleted,onSelect:()=>{},children:"휴지통으로 이동"}),r(d,{css:l,LeftIcon:p.handover,onSelect:()=>{},children:"인수인계 노트 보기"})]})]})]}),t(c,{styles:{width:"100%",justify:"space-between",align:"center"},children:[t(f,{tag:"body8",css:g,children:[s," 문서"]}),r(f,{tag:"body8",css:g,children:W(u)})]})]})]})};x.__docgenInfo={description:"",methods:[],displayName:"FileGrid",props:{title:{required:!0,tsType:{name:"string"},description:""},type:{required:!0,tsType:{name:"union",raw:"File['type']"},description:"API 명세에 따라 달라질 수 있음 + 추후 삭제"},volume:{required:!0,tsType:{name:"number"},description:""}}};const ie={title:"Shared/FileGrid",component:x,parameters:{layout:"centered"},tags:["autodocs"],decorators:[e=>r("div",{css:{width:"20rem"},children:r(e,{})})],args:{volume:2e3}},o={args:{title:"최주용",type:"pdf"}},n={args:{title:"김규홍",type:"word",volume:3e4}},i={args:{title:"이채원",type:"pdf"}};var y,h,I;o.parameters={...o.parameters,docs:{...(y=o.parameters)==null?void 0:y.docs,source:{originalSource:`{
+  args: {
+    title: '최주용',
+    type: 'pdf'
+  }
+}`,...(I=(h=o.parameters)==null?void 0:h.docs)==null?void 0:I.source}}};var w,b,S;n.parameters={...n.parameters,docs:{...(w=n.parameters)==null?void 0:w.docs,source:{originalSource:`{
+  args: {
+    title: '김규홍',
+    type: 'word',
+    volume: 30000
+  }
+}`,...(S=(b=n.parameters)==null?void 0:b.docs)==null?void 0:S.source}}};var v,F,_;i.parameters={...i.parameters,docs:{...(v=i.parameters)==null?void 0:v.docs,source:{originalSource:`{
+  args: {
+    title: '이채원',
+    type: 'pdf'
+  }
+}`,...(_=(F=i.parameters)==null?void 0:F.docs)==null?void 0:_.source}}};const ae=["PDF","Word","Image"];export{i as Image,o as PDF,n as Word,ae as __namedExportsOrder,ie as default};
