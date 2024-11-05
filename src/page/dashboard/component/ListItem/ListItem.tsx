@@ -26,7 +26,7 @@ export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
 
 const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) => {
   const tagContanierRef = useRef<HTMLDivElement>(null);
-  const visibleTags = getVisibleTags(tags, 200, 4);
+  const visibleTags = getVisibleTags(tags, 210, 4);
 
   return (
     <Flex tag="li" css={containerStyle} {...props}>

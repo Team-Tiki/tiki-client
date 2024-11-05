@@ -18,9 +18,8 @@ export const getVisibleTags = (tags: ListTag[], maxWidth: number, tagGap: number
     document.body.removeChild(tempElement);
 
     //현재 태그까지 추가 후 너비 초과 검사
-    if (totalWidth + tagWidth + tagGap > maxWidth) break;
-
-    totalWidth += tagWidth + tagGap + 4;
+    if (totalWidth + tagWidth * 2 + tagGap > maxWidth) break;
+    totalWidth += tagWidth * 2 + tagGap;
     visibleTags.push(tag);
   }
 
