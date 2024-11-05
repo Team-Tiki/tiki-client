@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from 'react';
+import { HTMLAttributes, useRef } from 'react';
 
 import Calender from '@/common/asset/svg/ic_calendar_ver2.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -14,6 +14,7 @@ import {
   titleStyle,
 } from '@/page/dashboard/component/ListItem/ListItem.style';
 import { ListTag } from '@/page/dashboard/type/listTag';
+import { getVisibleTags } from '@/page/dashboard/util/alignTags';
 import { alignColor } from '@/page/dashboard/util/color';
 
 export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -24,44 +25,8 @@ export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) => {
-  const [tagCount, setTagCount] = useState(0);
-
-  useEffect(() => {
-    let length = 0,
-      count = 0,
-      flag = 0;
-
-    tags.forEach((tag) => {
-      if (!flag) {
-        count++;
-        switch (tag.content) {
-          case 'meeting':
-            length += 64;
-            break;
-          case 'study':
-            length += 51;
-            break;
-          case 'recruiting':
-            length += 100;
-            break;
-          case 'event':
-            length += 51;
-            break;
-          case 'notice':
-            length += 54;
-            break;
-          case 'task':
-            length += 44;
-            break;
-        }
-      }
-      if (length >= 204) {
-        flag = 1;
-      }
-    });
-
-    setTagCount(count - flag);
-  }, [tags]);
+  const tagContanierRef = useRef<HTMLDivElement>(null);
+  const visibleTags = getVisibleTags(tags, 200, 4);
 
   return (
     <Flex tag="li" css={containerStyle} {...props}>
@@ -73,28 +38,26 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
       </Text>
 
       <Flex css={detailContainerStyle}>
-        <Flex css={[detailStyle, { minWidth: '20rem' }]}>
-          {tags.map((tag, index) => {
-            if (index >= tagCount) {
-              return;
-            }
+        <div ref={tagContanierRef} css={[detailStyle, { display: 'flex', overflow: 'hidden' }]}>
+          {visibleTags.map((tag) => {
             return (
               <Tag
                 key={tag.tagId}
                 css={{
                   color: alignColor(tag.bgColor),
+                  whiteSpace: 'nowrap',
                 }}
                 bgColor={tag.bgColor}>
                 {tag.content}
               </Tag>
             );
           })}
-          {tagCount < tags.length && (
+          {visibleTags.length < tags.length && (
             <Text tag="body8" css={{ color: theme.colors.gray_500 }}>
-              +{tags.length - tagCount}
+              +{tags.length - visibleTags.length}
             </Text>
           )}
-        </Flex>
+        </div>
         <Flex css={detailStyle}>
           <Calender width={16} height={16} />
           <Text tag="body8" css={{ color: theme.colors.gray_800 }}>

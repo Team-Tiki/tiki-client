@@ -4,6 +4,9 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
 import ArchivingPage from '@/page/archiving/index/ArchivingPage';
+import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
+import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
+import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import {
   contentBoxStyle,
   fileListStyle,
@@ -22,6 +25,9 @@ import { FileData } from '@/mock/data/drive';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+
+  const teamId = localStorage.getItem('teamId');
+  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
 
   const handleNav = (path: string) => {
     navigate(path);
@@ -53,15 +59,23 @@ const DashboardPage = () => {
             })}
           </Flex>
         </ContentBox>
-
-        <section css={{ position: 'relative', width: '100%', '& section': { height: '40rem' } }}>
-          <ArchivingPage />
-          <div css={timelineDivStyle}>
+        <ContentBox
+          variant={'timeline'}
+          title={'타임라인'}
+          headerOption={
             <Button variant="outline" onClick={() => handleNav(PATH.ARCHIVING)} css={timelineBtnStyle}>
               전체보기
             </Button>
-          </div>
-        </section>
+          }
+          css={[{ height: '40rem' }, contentBoxStyle]}>
+          <TimeLineHeader
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+            currentYear={currentYear}
+            currentMonth={currentMonth}
+            onToday={handleToday}
+          />
+        </ContentBox>
       </Flex>
 
       <ContentBox
