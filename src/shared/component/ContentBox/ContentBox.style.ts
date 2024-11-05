@@ -13,8 +13,6 @@ export const sectionStyle = css({
 
   border: `1px solid ${theme.colors.gray_300}`,
   borderRadius: '16px',
-
-  overflow: 'hidden',
 });
 
 export const titleStyle = css({

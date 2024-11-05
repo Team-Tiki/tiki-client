@@ -112,6 +112,14 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: PATH.DASHBOARD,
+        element: (
+          <Suspense>
+            <h1>대쉬보드 페이지입니다.</h1>
+          </Suspense>
+        ),
+      },
+      {
         path: PATH.SHOWCASE,
         element: (
           <Suspense>

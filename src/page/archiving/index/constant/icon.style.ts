@@ -4,6 +4,7 @@ import { theme } from '@/common/style/theme/theme';
 
 export const iconStyle = (background: string) =>
   css({
+    margin: '0.4rem',
     flexShrink: '0',
 
     path: {
