@@ -7,13 +7,7 @@ import ArchivingPage from '@/page/archiving/index/ArchivingPage';
 import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
-import {
-  contentBoxStyle,
-  fileListStyle,
-  listItemStyle,
-  timelineBtnStyle,
-  timelineDivStyle,
-} from '@/page/dashboard/DashboardPage.style';
+import { contentBoxStyle, fileListStyle, listItemStyle, timelineBtnStyle } from '@/page/dashboard/DashboardPage.style';
 import ListItem from '@/page/dashboard/component/ListItem/ListItem';
 import { Notes } from '@/page/dashboard/constant/notes';
 
