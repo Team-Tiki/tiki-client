@@ -53,7 +53,7 @@ const SideNavBar = () => {
           hoverMessage={'showcase'}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
-        {data?.data.belongTeamGetResponses.map((data: Team) => {
+        {data?.belongTeamGetResponses.map((data: Team) => {
           return (
             <Item
               key={data.id}
