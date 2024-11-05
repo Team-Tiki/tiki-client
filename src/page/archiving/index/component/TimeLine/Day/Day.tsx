@@ -1,10 +1,9 @@
 import { memo } from 'react';
 
+import { useDateProvider } from '@/page/archiving/index/DateProvider';
 import { dayHeaderStyle, dayStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 
 import { useDrawerIsOpen } from '@/shared/store/drawer';
-
-import { useDateProvider } from '../../../DateProvider';
 
 const Day = memo(() => {
   const { currentYear, currentMonth, endDay } = useDateProvider();

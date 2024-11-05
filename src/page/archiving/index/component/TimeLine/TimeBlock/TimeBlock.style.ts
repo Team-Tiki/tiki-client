@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-import { BlockColor } from '../../../type/color';
+import { BlockColor } from '@/page/archiving/index/type/color';
 
 export const blockStyle = (color: string, isSelected: boolean) =>
   css({
