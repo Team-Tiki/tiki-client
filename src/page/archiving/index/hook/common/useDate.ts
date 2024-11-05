@@ -16,6 +16,7 @@ export const useDate = (teamId?: string) => {
   if (teamId !== updatedTeamId) {
     setUpdatedTeamId(teamId);
     setCurrentMonth(currentDate.getMonth() + 1);
+    setCurrentYear(currentDate.getFullYear());
   }
 
   const handlePrevMonth = () => {
