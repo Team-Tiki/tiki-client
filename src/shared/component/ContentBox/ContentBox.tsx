@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import IcFile from '@/common/asset/svg/ic_file.svg?react';
+import IcHandover from '@/common/asset/svg/ic_sticky_note_2.svg?react';
 import IcTimeLine from '@/common/asset/svg/ic_timeline.svg?react';
 import IcDeleted from '@/common/asset/svg/ic_trash.svg?react';
 import Heading from '@/common/component/Heading/Heading';
@@ -33,6 +34,7 @@ const ICON_BY_VARIANT = {
   timeline: <IcTimeLine width={16} height={16} />,
   file: <IcFile width={16} height={16} />,
   deleted: <IcDeleted width={16} height={16} />,
+  handover: <IcHandover width={16} height={16} />,
 };
 
 const ContentBox = ({

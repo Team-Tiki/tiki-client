@@ -13,6 +13,7 @@ import {
   noteTitleStyle,
   periodStyle,
   profileStyle,
+  writerStyle,
 } from '@/page/handover/NoteItem/NoteItem.style';
 
 interface NoteItemProps {
@@ -32,15 +33,16 @@ const NoteItem = ({ startDate, endDate, title, writer, isFinished, activeSelect 
   return (
     <Flex tag="li" styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
       {activeSelect && <CheckBox isChecked={isChecked} onChange={handleCheck} style={{ marginRight: '1.6rem' }} />}
-      <Text
-        tag="body6"
-        css={periodStyle(activeSelect)}>{`${formattingDate(startDate)} - ${formattingDate(endDate)}`}</Text>
+      <Text tag="body6" css={periodStyle(activeSelect)}>
+        {`${formattingDate(startDate)} - ${formattingDate(endDate)}`}
+      </Text>
+
       <Text tag="body6" css={noteTitleStyle}>
         {title}
       </Text>
 
       <img src={avartar} alt="작성자 프로필" css={profileStyle} />
-      <Text tag="body6" style={{ width: '13rem' }}>
+      <Text tag="body6" css={writerStyle}>
         {writer}
       </Text>
 

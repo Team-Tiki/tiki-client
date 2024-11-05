@@ -79,6 +79,7 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
       backgroundColor: theme.colors.white,
 
       whiteSpace: 'nowrap',
+      cursor: 'pointer',
 
       '& > span': {
         ...theme.text.body06,
@@ -100,7 +101,7 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
     variant === 'option'
       ? {
           height: '3.2rem',
-          padding: '1rem 0 1rem 1rem',
+          padding: '1rem 0.1rem 1rem 1rem',
 
           justifyContent: 'flex-end',
           gap: '0.4rem',

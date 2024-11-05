@@ -11,8 +11,7 @@ export const containerStyle = css({
 export const periodStyle = (activeSelect: boolean) =>
   css({
     width: '26rem',
-    marginRight: activeSelect ? '4.2rem' : 0,
-    // paddingRight: activeSelect ? '3.4rem' : 0,
+    marginRight: activeSelect ? '0.8rem' : '4.2rem',
   });
 
 export const noteTitleStyle = css({
@@ -27,8 +26,6 @@ export const profileStyle = css({
 
   borderRadius: '100%',
   backgroundColor: theme.colors.gray_300,
-
-  overflow: 'hidden',
 });
 
 export const writerStyle = css({
