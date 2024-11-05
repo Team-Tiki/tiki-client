@@ -10,20 +10,21 @@ export const buttonStyle = (isClicked: boolean) =>
 
     width: '100%',
 
-    padding: '1.2rem 1rem',
+    padding: '1.2rem',
 
     border: 'none',
     borderRadius: '8px',
     backgroundColor: isClicked ? theme.colors.blue_100 : theme.colors.gray_100,
     color: isClicked ? theme.colors.key_500 : theme.colors.black,
 
-    fontSize: theme.text.body04.fontSize,
-    lineHeight: theme.text.body04.lineHeight,
+    ...theme.text.body08,
+    fontWeight: 500,
 
     cursor: 'pointer',
 
     '& > svg': {
-      width: '2.4rem',
-      height: '2.4rem',
+      '& > path': {
+        fill: isClicked ? theme.colors.key_500 : theme.colors.gray_800,
+      },
     },
   });

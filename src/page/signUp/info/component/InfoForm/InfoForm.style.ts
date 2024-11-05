@@ -6,10 +6,11 @@ export const formStyle = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  gap: '3.2rem',
+  gap: '6rem',
 
-  width: '100%',
-  minHeight: '70dvh',
+  width: '60rem',
+
+  padding: '6rem 10.5rem',
 
   '& > div': {
     width: '100%',
