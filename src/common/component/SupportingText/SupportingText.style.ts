@@ -7,7 +7,7 @@ export const textStyle = (isError: boolean, isNotice: boolean) => {
     ? theme.colors.sementic_red
     : isNotice
       ? theme.colors.sementic_success
-      : theme.colors.gray_400;
+      : theme.colors.gray_500;
 
   return css({ color: textColor, paddingLeft: '0.8rem', wordBreak: 'break-word', ...theme.text.body09 });
 };

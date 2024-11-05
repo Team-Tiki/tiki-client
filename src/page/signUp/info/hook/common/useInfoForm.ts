@@ -153,7 +153,7 @@ export const useInfoForm = () => {
         email: info.email,
       };
 
-      navigate(PATH.SIGNUP_PASSWORD, {
+      navigate(PATH.SIGNUP_UNIV, {
         state: {
           formData,
         },

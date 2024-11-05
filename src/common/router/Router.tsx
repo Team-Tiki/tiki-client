@@ -75,7 +75,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_PASSWORD,
+        path: PATH.SIGNUP_UNIV,
         element: (
           <Suspense>
             <InfoFormPage />

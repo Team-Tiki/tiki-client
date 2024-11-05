@@ -50,7 +50,7 @@ const TermPage = () => {
   };
 
   const handleNextStep = () => {
-    navigate(PATH.SIGNUP_INFO);
+    navigate(PATH.SIGNUP_UNIV);
   };
 
   return (
