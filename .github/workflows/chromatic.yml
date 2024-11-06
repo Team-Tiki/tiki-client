@@ -1,0 +1,39 @@
+name: 'Chromatic Deployment'
+
+on:
+   pull_request:
+     branches:
+       - develop
+
+jobs:
+   test:
+     name: Storybook Chromatic Deployment
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v1
+       - name: Install pnpm
+         uses: pnpm/action-setup@v4
+         with:
+           version: 9
+       - name: Setup Node.js
+         uses: actions/setup-node@v4
+         with:
+           node-version: 21
+       - name: Install dependencies
+         run: pnpm install
+       - name: Run Chromatic
+         id: chromatic
+         uses: chromaui/action@v1
+         with:
+           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+           token: ${{ secrets.GITHUB_TOKEN }}
+
+       - name: Comment PR
+         uses: thollander/actions-comment-pull-request@v2
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+           message: |
+              🚀 Storybook 확인하기 🚀
+              - [Build](${{steps.chromatic.outputs.buildUrl}})
+              - [Preview](${{steps.chromatic.outputs.storybookUrl}})
