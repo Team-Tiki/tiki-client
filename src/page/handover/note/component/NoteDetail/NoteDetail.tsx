@@ -14,16 +14,16 @@ import {
   titleStyle,
 } from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
 
-type NoteComplete = '완료' | '미완료';
+type Status = '완료' | '미완료';
 
 const NoteDetail = () => {
-  const [status, setStatus] = useState<NoteComplete>('미완료');
+  const [status, setStatus] = useState<Status>('미완료');
 
   const handleAppendTag = () => {
     /** 모달 호출 */
   };
 
-  const handleChangeStatus = useCallback((value: NoteComplete) => {
+  const handleChangeStatus = useCallback((value: Status) => {
     setStatus(value);
   }, []);
 
@@ -54,7 +54,7 @@ const NoteDetail = () => {
                 name: 'note',
               },
             ]}
-            onChange={(e) => handleChangeStatus(e.target.value as NoteComplete)}
+            onChange={(e) => handleChangeStatus(e.target.value as Status)}
             value={status}
           />
         </li>
