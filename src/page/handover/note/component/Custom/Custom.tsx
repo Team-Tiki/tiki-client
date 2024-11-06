@@ -12,6 +12,8 @@ import {
 import File from '@/page/handover/note/component/File/File';
 import useFile from '@/page/handover/note/hooks/useFile';
 
+import { PLACEHOLDER } from '@/shared/constant/form';
+
 interface CustomProps {
   onSubmit: () => void;
 }
@@ -27,10 +29,7 @@ const Custom = ({ onSubmit }: CustomProps) => {
   return (
     <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
       <div css={layoutStyle}>
-        <textarea
-          css={textareaStyle}
-          placeholder="다음 운영진이 참고할 인수인계 노트를 자유롭게 작성해 보세요 (ex. 동아리의 회칙 및 대관정보 등)"
-        />
+        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} />
       </div>
       <div css={layoutStyle}>
         <Label id="file" css={guideStyle}>

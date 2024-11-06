@@ -29,11 +29,11 @@ const Template = ({ onSubmit }: TemplateProps) => {
 
   return (
     <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
-      {TEMPLATE.map((question, index) => {
+      {TEMPLATE.map((item, index) => {
         return (
           <div css={layoutStyle} key={index}>
-            <Label id={question.id}>{question.QUESTION}</Label>
-            <Input id={question.id} placeholder={question.PLACEHOLDER} />
+            <Label id={item.id}>{item.QUESTION}</Label>
+            <Input id={item.id} placeholder={item.PLACEHOLDER} />
           </div>
         );
       })}
