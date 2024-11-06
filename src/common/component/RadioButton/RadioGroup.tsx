@@ -29,6 +29,7 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
       return (
         <RadioButton
           key={id}
+          role="radiogroup"
           id={id}
           label={label}
           name={name}
