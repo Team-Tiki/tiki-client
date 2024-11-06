@@ -45,7 +45,7 @@ export const itemStyle = (isActive: boolean) =>
 
     whiteSpace: 'nowrap',
 
-    zIndex: 2,
+    zIndex: 1,
   });
 
 export const indicatorStyle = css({
@@ -58,6 +58,4 @@ export const indicatorStyle = css({
   backgroundColor: theme.colors.white,
 
   borderRadius: '4px',
-
-  zIndex: 1,
 });
