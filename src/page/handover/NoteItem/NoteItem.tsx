@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import avartar from '@/common/asset/svg/ic_avatar.svg';
 import MoreIcButton from '@/common/asset/svg/ic_more.svg?react';
@@ -23,13 +23,20 @@ interface NoteItemProps {
   writer: string;
   isFinished: boolean;
   activeSelect: boolean;
+  isTotalChecked: boolean;
 }
 
-const NoteItem = ({ startDate, endDate, title, writer, isFinished, activeSelect }: NoteItemProps) => {
+const NoteItem = ({ startDate, endDate, title, writer, isFinished, activeSelect, isTotalChecked }: NoteItemProps) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    setIsChecked(isTotalChecked);
+  }, [isTotalChecked]);
+
   const handleCheck = () => {
     setIsChecked((prevState) => !prevState);
   };
+
   return (
     <Flex tag="li" styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
       {activeSelect && <CheckBox isChecked={isChecked} onChange={handleCheck} style={{ marginRight: '1.6rem' }} />}

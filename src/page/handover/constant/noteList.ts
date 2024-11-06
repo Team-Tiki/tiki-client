@@ -1,9 +1,3 @@
-export const NOTE_HEADER_DATA ={
-    
-}
-
-
-
 export const NOTE_DUMMY = [
   {
     id: 1,
@@ -38,7 +32,7 @@ export const NOTE_DUMMY = [
     isFinished: false,
   },
   {
-    id: 4,
+    id: 5,
     startDate: new Date('2024-11-15'),
     endDate: new Date('2024-11-17'),
     title: '아 할거 ㅈㄴ 많다',

@@ -16,11 +16,12 @@ import { NOTE_DUMMY } from '@/page/handover/constant/noteList';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 
+const FILTER_OPTION = [{ value: '최근 작성된 순' }, { value: '과거 작성된 순' }];
+
 const HandoverPage = () => {
-  const [activeSelect, setActiveSelect] = useState(false);
+  const [activeCheck, setActiveCheck] = useState(false);
   const [isChecked, setIsChcked] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const filterOption = [{ value: '최근 작성된 순' }, { value: '과거 작성된 순' }];
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
@@ -35,8 +36,9 @@ const HandoverPage = () => {
   const handleChecked = () => {
     setIsChcked((prevState) => !prevState);
   };
-  const handleSelectClick = () => {
-    setActiveSelect((prevState) => !prevState);
+
+  const handleCheckClick = () => {
+    setActiveCheck((prevState) => !prevState);
   };
 
   return (
@@ -58,7 +60,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleSelectClick}>
+            <Button variant="tertiary" onClick={handleCheckClick}>
               선택
             </Button>
           </Flex>
@@ -69,7 +71,7 @@ const HandoverPage = () => {
               css={{ width: '10.5rem' }}
               placeholder="최근 작성된 순"
               variant="option"
-              options={filterOption}
+              options={FILTER_OPTION}
               ref={ref}
               isOpen={isOpen}
               onTrigger={toggle}
@@ -79,8 +81,8 @@ const HandoverPage = () => {
         </Flex>
       }>
       <Flex styles={{ align: 'center', justify: 'left', height: '1.8rem', marginBottom: '1.4rem' }}>
-        {activeSelect && <CheckBox isChecked={isChecked} onChange={handleChecked} style={{ marginRight: '1.6rem' }} />}
-        <Text tag="body8" css={periodStyle(activeSelect)}>
+        {activeCheck && <CheckBox isChecked={isChecked} onChange={handleChecked} style={{ marginRight: '1.6rem' }} />}
+        <Text tag="body8" css={periodStyle(activeCheck)}>
           활동 기간
         </Text>
         <Text tag="body8" css={titleStyle}>
@@ -95,7 +97,7 @@ const HandoverPage = () => {
       </Flex>
       <Divider />
       <ul>
-        {NOTE_DUMMY.map((data) => (
+        {(selected === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (
           <NoteItem
             key={data.id}
             startDate={data.startDate}
@@ -103,7 +105,8 @@ const HandoverPage = () => {
             title={data.title}
             writer={data.writer}
             isFinished={data.isFinished}
-            activeSelect={activeSelect}
+            activeSelect={activeCheck}
+            isTotalChecked={isChecked}
           />
         ))}
       </ul>
