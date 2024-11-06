@@ -63,9 +63,14 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
         backgroundColor: theme.colors.gray_100,
       },
     }),
-    underline: css({
+    text: css({
+      padding: 0,
+
       color: theme.colors.gray_800,
       backgroundColor: 'transparent',
+
+      fontWeight: 400,
+      ...theme.text.body06,
 
       '&:hover': {
         textDecoration: 'underline',

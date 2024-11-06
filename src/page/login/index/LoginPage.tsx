@@ -57,7 +57,7 @@ const LoginPage = () => {
         <Button
           type="button"
           size="small"
-          variant="underline"
+          variant="text"
           css={findPasswordButtonStyle}
           onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기
