@@ -6,7 +6,13 @@ import Flex from '@/common/component/Flex/Flex';
 import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
 import Text from '@/common/component/Text/Text';
 
-import { entireInfoStyle, infoContainerStyle, infoLayoutStyle, infoStyle, titleStyle } from './NoteDetail.style';
+import {
+  entireInfoStyle,
+  infoContainerStyle,
+  infoLayoutStyle,
+  infoStyle,
+  titleStyle,
+} from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
 
 type NoteComplete = '완료' | '미완료';
 

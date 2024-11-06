@@ -7,12 +7,12 @@ import Flex from '@/common/component/Flex/Flex';
 import { Tab } from '@/common/component/Tab';
 
 import Custom from '@/page/handover/note/component/Custom/Custom';
+import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
 import Template from '@/page/handover/note/component/Template/Template';
 
 import { PATH } from '@/shared/constant/path';
 
 import { noteSectionStyle, tabButtonStyle } from './NotePage.style';
-import NoteDetail from './component/NoteDetail/NoteDetail';
 
 const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
