@@ -27,7 +27,7 @@ export const tabVariantStyle = (variant: Required<TabProps>['variant']) => {
 
       padding: '1.6rem 2rem',
 
-      ...theme.text.body04,
+      ...theme.text.body06,
       fontWeight: 500,
 
       border: 'none',
@@ -41,15 +41,15 @@ export const tabActiveStyle = (isSelected: boolean, variant: Required<TabProps>[
   const style = {
     round: isSelected
       ? css({
-          backgroundColor: theme.colors.white,
+          backgroundColor: theme.colors.gray_100,
 
-          color: theme.colors.key_500,
+          color: theme.colors.black,
           fontWeight: '600',
 
           pointerEvents: 'none',
         })
       : css({
-          backgroundColor: theme.colors.blue_100,
+          backgroundColor: theme.colors.white,
 
           color: theme.colors.gray_800,
           fontWeight: '500',

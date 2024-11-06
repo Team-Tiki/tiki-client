@@ -4,6 +4,7 @@ import { textStyle } from '@/common/component/DatePicker/Trigger/DatePickerTrigg
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
+import { theme } from '@/common/style/theme/theme';
 
 interface DatePickerTriggerProps {
   selectedDate: Date | null;
@@ -21,7 +22,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
         placeholder="YYYY.MM.DD"
         readOnly
         onClick={onClick}
-        css={{ cursor: 'pointer', width }}
+        css={{ cursor: 'pointer', width, ...theme.text.body08, '::placeholder': { ...theme.text.body08 } }}
       />
       {variant === 'range' && (
         <>
@@ -33,7 +34,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
             placeholder="YYYY.MM.DD"
             readOnly
             onClick={onClick}
-            css={{ cursor: 'pointer', width }}
+            css={{ cursor: 'pointer', width, ...theme.text.body08, '::placeholder': { ...theme.text.body08 } }}
           />
         </>
       )}
