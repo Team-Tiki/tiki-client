@@ -115,7 +115,7 @@ const router = createBrowserRouter([
         path: PATH.DASHBOARD,
         element: (
           <Suspense>
-            <h1>대쉬보드 페이지입니다.</h1>
+            <DashboardPage />
           </Suspense>
         ),
       },
@@ -156,14 +156,6 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <h1>HandOver</h1>
-          </Suspense>
-        ),
-      },
-      {
-        path: PATH.DASHBOARD,
-        element: (
-          <Suspense>
-            <DashboardPage />
           </Suspense>
         ),
       },

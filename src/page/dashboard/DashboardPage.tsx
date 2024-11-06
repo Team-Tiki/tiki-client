@@ -3,17 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
-import ArchivingPage from '@/page/archiving/index/ArchivingPage';
+import DateProvider from '@/page/archiving/index/DateProvider';
 import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
+import { dayBodyStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
+import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
+import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { useDate } from '@/page/archiving/index/hook/common/useDate';
-import { contentBoxStyle, fileListStyle, listItemStyle, timelineBtnStyle } from '@/page/dashboard/DashboardPage.style';
+import { Block } from '@/page/archiving/index/type/blockType';
+import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
+import {
+  contentBoxStyle,
+  fileListStyle,
+  handoverBoxStyle,
+  listItemStyle,
+  timelineContentStyle,
+} from '@/page/dashboard/DashboardPage.style';
 import ListItem from '@/page/dashboard/component/ListItem/ListItem';
 import { Notes } from '@/page/dashboard/constant/notes';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { PATH } from '@/shared/constant/path';
+import { useDrawerAction } from '@/shared/store/drawer';
 
 import { FileData } from '@/mock/data/drive';
 
@@ -21,7 +33,14 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   const teamId = localStorage.getItem('teamId');
-  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
+  const { currentYear, currentMonth, endDay } = useDate(teamId!);
+
+  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
+
+  const timeBlocks: Block[] = data.timeBlocks;
+  const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
+
+  const { openDrawer } = useDrawerAction();
 
   const handleNav = (path: string) => {
     navigate(path);
@@ -57,18 +76,41 @@ const DashboardPage = () => {
           variant={'timeline'}
           title={'타임라인'}
           headerOption={
-            <Button variant="outline" onClick={() => handleNav(PATH.ARCHIVING)} css={timelineBtnStyle}>
+            <Button variant="outline" onClick={() => handleNav(PATH.ARCHIVING)}>
               전체보기
             </Button>
           }
           css={[{ height: '40rem' }, contentBoxStyle]}>
-          <TimeLineHeader
-            onPrevMonth={handlePrevMonth}
-            onNextMonth={handleNextMonth}
-            currentYear={currentYear}
-            currentMonth={currentMonth}
-            onToday={handleToday}
-          />
+          <DateProvider teamId={teamId!}>
+            <TimeLineHeader />
+            <Day />
+            <div css={[dayBodyStyle(endDay.getDate()), timelineContentStyle]}>
+              {timeBlocks.map((block) => {
+                const { startDate, endDate } = block;
+                const { startDate: blockStartDate, endDate: blockEndDate } = createTimeBlock({
+                  startDate: new Date(startDate),
+                  endDate: new Date(endDate),
+                  currentYear,
+                  currentMonth,
+                });
+
+                return (
+                  <TimeBlock
+                    key={block.timeBlockId}
+                    startDate={blockStartDate}
+                    endDate={blockEndDate}
+                    color={block.color}
+                    floor={blockFloors[block.timeBlockId] || 1}
+                    blockType={block.blockType}
+                    onBlockClick={() => {
+                      navigate(PATH.ARCHIVING, { state: { selectedBlock: block } });
+                    }}>
+                    {block.name}
+                  </TimeBlock>
+                );
+              })}
+            </div>
+          </DateProvider>
         </ContentBox>
       </Flex>
 
@@ -80,7 +122,7 @@ const DashboardPage = () => {
             전체보기
           </Button>
         }
-        css={[{ paddingRight: '1rem', '&>div:last-child': { height: '85%' } }, contentBoxStyle]}>
+        css={[handoverBoxStyle, contentBoxStyle]}>
         <Flex css={listItemStyle}>
           {Notes.map((note) => {
             return (

@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 
 import { scrollStyle } from '@/common/style/scroll';
-import { theme } from '@/common/style/theme/theme';
 
 export const contentBoxStyle = css({
   '& > header': { height: '6.1rem' },
@@ -12,6 +11,17 @@ export const dashboradScrollStyle = css({
   '::-webkit-scrollbar': {
     width: '0.6rem',
     height: '0.6rem',
+  },
+});
+
+export const handoverBoxStyle = css({
+  width: '30%',
+  height: '64rem',
+
+  paddingRight: '1rem',
+
+  '&>div:last-child': {
+    height: '85%',
   },
 });
 
@@ -27,24 +37,6 @@ export const fileListStyle = css(
   dashboradScrollStyle
 );
 
-export const timelineDivStyle = css({
-  position: 'absolute',
-  top: '0.6rem',
-  right: '0.6rem',
-
-  width: '15rem',
-  height: '6rem',
-
-  backgroundColor: theme.colors.white,
-  zIndex: theme.zIndex.overlayMiddle,
-});
-
-export const timelineBtnStyle = css({
-  position: 'absolute',
-  top: '1rem',
-  right: '1rem',
-});
-
 export const listItemStyle = css(
   {
     flexDirection: 'column',
@@ -53,6 +45,19 @@ export const listItemStyle = css(
     height: '100%',
 
     overflowY: 'scroll',
+  },
+  scrollStyle,
+  dashboradScrollStyle
+);
+
+export const timelineContentStyle = css(
+  {
+    minHeight: '23.6rem',
+    height: '23.6rem',
+
+    padding: '0.6rem 0',
+
+    borderRadius: '8px',
   },
   scrollStyle,
   dashboradScrollStyle
