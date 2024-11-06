@@ -6,10 +6,9 @@ import Select from '@/common/component/Select/Select';
 import { useOverlay } from '@/common/hook';
 
 import EmptySection from '@/page/deleted/component/EmptySection/EmptySection';
-import { contentStyle } from '@/page/drive/index.style';
+import GridSection from '@/page/deleted/component/GridSection/GridSection';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
-import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { File } from '@/shared/type/file';
 
 const DeletedPage = () => {
@@ -51,17 +50,7 @@ const DeletedPage = () => {
           />
         </Flex>
       }>
-      {tmpData.length > 0 ? (
-        <div>
-          <ul css={contentStyle}>
-            {tmpData.map((item) => (
-              <FileGrid key={item.fileId} title={item.title} type={item.type} volume={item.volume} />
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <EmptySection />
-      )}
+      {tmpData.length > 0 ? <GridSection files={tmpData} /> : <EmptySection />}
     </ContentBox>
   );
 };
