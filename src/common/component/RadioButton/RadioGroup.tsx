@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-import RadioButton, { RadioButtonProps } from '@/common/component/RadioButton/RadioButton';
+import RadioButton from '@/common/component/RadioButton/RadioButton';
 import { radioGroupStyle } from '@/common/component/RadioButton/RadioButton.style';
 
 export interface RadioProps {
@@ -18,18 +18,16 @@ interface RadioButtonGroupProps {
 const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedValue = e.target.value;
-
     onChange({ target: { value: selectedValue } } as ChangeEvent<HTMLInputElement>);
   };
 
   const renderRadioButton = () => {
-    return options.map(({ label, value: optionValue, name }: RadioButtonProps, index) => {
+    return options.map(({ label, value: optionValue, name }, index) => {
       const id = `${name}-${index}`;
 
       return (
         <RadioButton
           key={id}
-          role="radiogroup"
           id={id}
           label={label}
           name={name}
@@ -41,7 +39,11 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
     });
   };
 
-  return <div css={radioGroupStyle}>{renderRadioButton()}</div>;
+  return (
+    <div role="radiogroup" css={radioGroupStyle}>
+      {renderRadioButton()}
+    </div>
+  );
 };
 
 export default RadioGroup;
