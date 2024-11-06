@@ -25,7 +25,6 @@ import { Notes } from '@/page/dashboard/constant/notes';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { PATH } from '@/shared/constant/path';
-import { useDrawerAction } from '@/shared/store/drawer';
 
 import { FileData } from '@/mock/data/drive';
 
@@ -39,8 +38,6 @@ const DashboardPage = () => {
 
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
-
-  const { openDrawer } = useDrawerAction();
 
   const handleNav = (path: string) => {
     navigate(path);
