@@ -1,55 +1,41 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
-import { useError, useOverlay } from '@/common/hook';
+import { useError } from '@/common/hook';
 
 import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
-import { DATE_MAXLENGTH, FORMATTED_DATE_MAXLENGTH, SUPPORTING_TEXT } from '@/shared/constant/form';
-import { PATH } from '@/shared/constant/path';
-import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
-import { useToastAction } from '@/shared/store/toast';
+import {
+  DATE_MAXLENGTH,
+  FORMATTED_DATE_MAXLENGTH,
+  PASSWORD_VALID_FORMAT,
+  SUPPORTING_TEXT,
+} from '@/shared/constant/form';
 import { hasKeyInObject } from '@/shared/util/typeGuard';
 
-export type InfoFormData = Omit<UserInfo, 'password' | 'passwordChecker'>;
-
-type InfoFormUserInput = InfoFormData & {
-  authCode: string;
-};
+export type InfoFormData = Omit<UserInfo, 'univ' | 'email'>;
 
 const IS_EMPTY_STRING = {
   name: SUPPORTING_TEXT.NAME,
   birth: SUPPORTING_TEXT.BIRTH,
-  univ: SUPPORTING_TEXT.UNIV,
-  email: SUPPORTING_TEXT.EMAIL,
-  authCode: SUPPORTING_TEXT.EMAIL_NOAUTH,
+  password: SUPPORTING_TEXT.PASSWORD,
+  passwordChecker: SUPPORTING_TEXT.PASSWORD_CHECKER,
 } as const;
 
 export const useInfoForm = () => {
-  const [info, setInfo] = useState<InfoFormUserInput>({ name: '', birth: '', univ: '', email: '', authCode: '' });
+  const [info, setInfo] = useState<InfoFormData>({ name: '', birth: '', password: '', passwordChecker: '' });
 
-  const { error, updateFieldError, clearFieldError } = useError({
+  const { error, updateFieldError, clearFieldError, setErrors } = useError<InfoFormData>({
     name: '',
     birth: '',
-    univ: '',
-    email: '',
-    authCode: '',
+    password: '',
+    passwordChecker: '',
   });
 
-  const { isOpen: isSelectOpen, open: onSelectOpen, close: onSelectClose, toggle: onSelectToggle } = useOverlay();
-
-  const { mutate: verityCodeMutate, isSuccess: isVerified } = useVerifyCodeMutation(info.email, info.authCode);
-
-  const { createToast } = useToastAction();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    clearFieldError('univ');
-
-    onSelectClose();
-  }, [onSelectClose, clearFieldError]);
+  /**
+   * TODD: 추후 UnivForm 로직에서 재사용
+   * const { mutate: verityCodeMutate, isSuccess: isVerified } = useVerifyCodeMutation(info.email, info.authCode);
+   */
 
   const handleInfoChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,18 +74,6 @@ export const useInfoForm = () => {
     [info.birth, clearFieldError]
   );
 
-  const handleUnivSelect = useCallback(
-    (item: string) => {
-      setInfo((prev) => ({
-        ...prev,
-        univ: item,
-      }));
-
-      onSelectClose();
-    },
-    [onSelectClose]
-  );
-
   const validateDate = useCallback(() => {
     if (info.birth === '' || !isValidDate(info.birth)) {
       updateFieldError('birth', 'error');
@@ -109,10 +83,49 @@ export const useInfoForm = () => {
     return true;
   }, [info.birth, updateFieldError]);
 
+  const validatePassword = useCallback(() => {
+    if (info.password === '') {
+      updateFieldError('password', SUPPORTING_TEXT.PASSWORD);
+
+      return false;
+    }
+
+    if (info.passwordChecker === '') {
+      updateFieldError('passwordChecker', SUPPORTING_TEXT.PASSWORD_CHECKER);
+
+      return false;
+    }
+
+    if (info.password !== info.passwordChecker) {
+      setErrors({
+        ...error,
+        password: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
+        passwordChecker: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
+      });
+
+      return false;
+    }
+
+    if (!PASSWORD_VALID_FORMAT.test(info.password)) {
+      updateFieldError('password', SUPPORTING_TEXT.PASSWORD_INVALID);
+
+      return false;
+    }
+
+    return true;
+  }, [error, info, setErrors, updateFieldError]);
+
   const validateForm = useCallback(() => {
     let isFormError = false;
 
     Object.entries(info).some(([key, value]) => {
+      /** 이름 유효성 검사 */
+      if (key === 'name') {
+        if (value === '') {
+          updateFieldError(key, IS_EMPTY_STRING.name);
+        }
+      }
+
       /** 생일 유효성 검사 */
       if (key === 'birth') {
         if (!validateDate()) {
@@ -120,60 +133,28 @@ export const useInfoForm = () => {
           return true;
         }
       }
-      /** 선택된 대학교 검사 */
-      if (key === 'univ' && value === '') {
-        updateFieldError('univ', 'error');
-        isFormError = true;
-        return true;
-      }
-      /** 나머지 info 유효성 검사 */
-      if (value === '' && hasKeyInObject(error, key)) {
-        updateFieldError(key, IS_EMPTY_STRING[key]);
-        if (key === 'authCode') {
-          createToast(SUPPORTING_TEXT.EMAIL_NOAUTH, 'error');
-        }
+      /** 비밀번호 유효성 검사 */
+
+      if (!validatePassword()) {
         isFormError = true;
         return true;
       }
     });
 
     return !isFormError;
-  }, [createToast, info, validateDate, updateFieldError, error]);
+  }, [info, validateDate, updateFieldError, validatePassword]);
 
-  const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-      if (!validateForm() || !isVerified) return;
-
-      const formData: InfoFormData = {
-        name: info.name,
-        birth: info.birth,
-        univ: info.univ,
-        email: info.email,
-      };
-
-      navigate(PATH.SIGNUP_UNIV, {
-        state: {
-          formData,
-        },
-      });
-    },
-    [info, isVerified, navigate, validateForm]
-  );
+    if (!validateForm()) return;
+  };
 
   return {
     info,
     handleInfoChange,
     handleBirthChange,
-    handleUnivSelect,
     handleSubmit,
-    verityCodeMutate,
-    isVerified,
-    isSelectOpen,
-    onSelectOpen,
-    onSelectClose,
-    onSelectToggle,
     error,
   };
 };

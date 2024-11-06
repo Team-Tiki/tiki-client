@@ -1,35 +1,56 @@
-import { useMatch, useNavigate } from 'react-router-dom';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+import Input from '@/common/component/Input/Input';
 
-import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
-import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
-import UnivForm from '@/page/signUp/info/component/UnivForm/UnivForm';
+import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 
-import { PATH } from '@/shared/constant/path';
+import { PLACEHOLDER } from '@/shared/constant/form';
 
 const InfoFormPage = () => {
-  const isUnivPage = useMatch(PATH.SIGNUP_UNIV);
-  const isInfoPage = useMatch(PATH.SIGNUP_INFO);
-
-  const navigate = useNavigate();
+  const { info, handleInfoChange, handleBirthChange, handleSubmit } = useInfoForm();
 
   return (
     <Flex tag="main" css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', gap: '6rem', width: '60rem', padding: '6rem 10.5rem' }}>
+      <form onSubmit={handleSubmit} css={formStyle}>
         <Heading tag="H4">회원가입</Heading>
+        <Flex styles={{ direction: 'column', gap: '2rem' }}>
+          <Input
+            name="name"
+            value={info.name}
+            onChange={handleInfoChange}
+            label="이름"
+            placeholder={PLACEHOLDER.NAME}
+          />
+          <Input
+            name="birth"
+            value={info.birth}
+            onChange={handleBirthChange}
+            label="생년월일"
+            placeholder={PLACEHOLDER.BIRTHDAY}
+          />
 
-        <form css={{ width: '100%' }}>
-          {isUnivPage && <UnivForm />}
-          {isInfoPage && <InfoForm />}
-        </form>
-
-        <Button onClick={() => navigate(PATH.SIGNUP_INFO)} size="xLarge" css={{ width: '100%' }}>
+          <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
+            <Input
+              name="password"
+              value={info.password}
+              onChange={handleInfoChange}
+              placeholder={PLACEHOLDER.PASSWORD}
+              label="비밀번호 설정"
+            />
+            <Input
+              name="passwordChecker"
+              value={info.passwordChecker}
+              onChange={handleInfoChange}
+              placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
+            />
+          </Flex>
+        </Flex>
+        <Button type="submit" size="xLarge" css={{ width: '100%' }}>
           다음
         </Button>
-      </Flex>
+      </form>
     </Flex>
   );
 };

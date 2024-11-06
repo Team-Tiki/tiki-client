@@ -7,8 +7,7 @@ import Heading from '@/common/component/Heading/Heading';
 import TermItem from '@/page/signUp/index/component/TermItem/TermItem';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';
 import { useTermForm } from '@/page/signUp/index/hook/useTermForm';
-import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
-import { formStyle } from '@/page/signUp/info/component/InfoForm/InfoForm.style';
+import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 
 import { PATH } from '@/shared/constant/path';
 

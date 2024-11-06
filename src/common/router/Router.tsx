@@ -18,6 +18,8 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
+import UnivFormPage from '@/page/signUp/info/UnivFormPage';
+
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -67,15 +69,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_INFO,
+        path: PATH.SIGNUP_UNIV,
         element: (
           <Suspense>
-            <InfoFormPage />
+            <UnivFormPage />
           </Suspense>
         ),
       },
       {
-        path: PATH.SIGNUP_UNIV,
+        path: PATH.SIGNUP_INFO,
         element: (
           <Suspense>
             <InfoFormPage />
