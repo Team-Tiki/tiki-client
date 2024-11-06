@@ -15,6 +15,7 @@ export const PATH = {
   ARCHIVING: '/archiving',
   SHOWCASE: '/showcase',
   DRIVE: '/drive',
+  DELETED: '/deleted',
 
   HANDOVER: '/handover',
 
