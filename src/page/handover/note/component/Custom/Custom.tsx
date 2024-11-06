@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import Button from '@/common/component/Button/Button';
 import Label from '@/common/component/Label/Label';
 import { scrollStyle } from '@/common/style/scroll';
@@ -21,10 +19,10 @@ interface CustomProps {
 const Custom = ({ onSubmit }: CustomProps) => {
   const { files, handleFileChange } = useFile();
 
-  const handleFileUpload = useCallback(() => {
+  const handleFileUpload = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;
     fileInput?.click();
-  }, []);
+  };
 
   return (
     <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
