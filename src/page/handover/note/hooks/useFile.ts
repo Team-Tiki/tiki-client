@@ -4,12 +4,13 @@ const useFile = () => {
   const [files, setFiles] = useState<File[]>([]);
 
   const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
+    const selectedFiles = e.target.files;
 
-    if (selectedFile) {
-      setFiles((prev) => [...prev, selectedFile]);
+    if (selectedFiles) {
+      setFiles((prev) => [...prev, ...Array.from(selectedFiles)]);
     }
   }, []);
+
   return { files, handleFileChange };
 };
 
