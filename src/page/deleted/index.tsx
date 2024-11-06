@@ -1,26 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
 import { useOverlay } from '@/common/hook';
+import { useMultiSelect } from '@/common/hook/useMultiSelect';
 
-import EmptySection from '@/page/deleted/component/EmptySection/EmptySection';
-import GridSection from '@/page/deleted/component/GridSection/GridSection';
+import { contentStyle } from '@/page/drive/index.style';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import EmptySection from '@/shared/component/EmptySection/EmptySection';
+import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { File } from '@/shared/type/file';
+
+const tmpData: File[] = [];
 
 const DeletedPage = () => {
   const { isOpen, toggle } = useOverlay();
+  const { ids, handleItemClick, handleReset } = useMultiSelect(tmpData.length);
 
   const [canSelect, setCanSelect] = useState(false);
 
-  const tmpData: File[] = [
-    { fileId: 1, title: '최주용', type: 'pdf', volume: 3000, createdAt: '2024-11-11' },
-    { fileId: 2, title: '남다은', type: 'jpg', volume: 3000, createdAt: '2024-11-11' },
-    { fileId: 3, title: '이채원', type: 'word', volume: 3000, createdAt: '2024-11-11' },
-  ];
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && canSelect) {
+        setCanSelect(false);
+
+        handleReset();
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [canSelect, handleReset]);
 
   return (
     <ContentBox
@@ -50,7 +62,22 @@ const DeletedPage = () => {
           />
         </Flex>
       }>
-      {tmpData.length > 0 ? <GridSection files={tmpData} /> : <EmptySection />}
+      <div>
+        <ul css={contentStyle(tmpData.length === 0)}>
+          {tmpData.map((item) => (
+            <FileGrid
+              key={item.fileId}
+              title={item.title}
+              type={item.type}
+              volume={item.volume}
+              isSelectable={canSelect}
+              isSelected={ids[+item.fileId]}
+              onSelect={() => handleItemClick(+item.fileId)}
+            />
+          ))}
+        </ul>
+      </div>
+      <EmptySection domain="deleted" isVisible={tmpData.length === 0} />
     </ContentBox>
   );
 };

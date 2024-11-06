@@ -18,7 +18,7 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
-import DeletedPage from '@/page/deleted/DeletedPage';
+import DeletedPage from '@/page/deleted';
 
 import { PATH } from '@/shared/constant/path';
 

@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const cardStyle = css({
+  position: 'relative',
+
   width: '100%',
   height: '16rem',
 

@@ -20,4 +20,8 @@ export const headingStyle = css({
 export const textStyle = css({
   color: theme.colors.gray_500,
   fontWeight: 500,
+
+  whiteSpace: 'pre-line',
+  textAlign: 'center',
+  lineHeight: '3rem',
 });
