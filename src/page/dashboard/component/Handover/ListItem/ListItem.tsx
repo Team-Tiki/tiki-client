@@ -12,7 +12,7 @@ import {
   detailContainerStyle,
   detailStyle,
   titleStyle,
-} from '@/page/dashboard/component/ListItem/ListItem.style';
+} from '@/page/dashboard/component/Handover/ListItem/ListItem.style';
 import { ListTag } from '@/page/dashboard/type/listTag';
 import { getVisibleTags } from '@/page/dashboard/util/alignTags';
 import { alignColor } from '@/page/dashboard/util/color';
