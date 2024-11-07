@@ -19,6 +19,8 @@ import {
   TermPage,
 } from '@/common/router/lazy';
 
+import DashboardPage from '@/page/dashboard/DashboardPage';
+
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -114,7 +116,7 @@ const router = createBrowserRouter([
         path: PATH.DASHBOARD,
         element: (
           <Suspense>
-            <h1>대쉬보드 페이지입니다.</h1>
+            <DashboardPage />
           </Suspense>
         ),
       },
