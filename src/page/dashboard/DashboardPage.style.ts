@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 
-import { scrollStyle } from '@/common/style/scroll';
-
 export const contentBoxStyle = css({
   '& > header': { height: '6.1rem' },
   '& > div': { marginTop: '0' },

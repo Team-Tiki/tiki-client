@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ListItem from '@/page/dashboard/component/ListItem/ListItem';
+import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
 
 const meta = {
   title: 'page/entree/ListItem',
