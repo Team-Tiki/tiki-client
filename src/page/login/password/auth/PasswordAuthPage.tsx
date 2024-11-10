@@ -24,6 +24,8 @@ const PasswordAuthPage = () => {
 
   const { value: email, onChange: onEmailChange } = useInput('');
   const { value: authCode, onChange: onAuthCodeChange } = useInput('');
+  const { emailSupportingText, setEmailSupportingText, codeSupportingText, setCodeSupportingText } =
+    useSupportingText();
 
   const {
     remainTime,
@@ -33,11 +35,7 @@ const PasswordAuthPage = () => {
   } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
 
   const { resendMailMutation } = useResendMailMutation(email);
-
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
-
-  const { emailSupportingText, setEmailSupportingText, codeSupportingText, setCodeSupportingText } =
-    useSupportingText();
 
   const handleMailSend = () => {
     resendMailMutation.mutate(undefined, {
