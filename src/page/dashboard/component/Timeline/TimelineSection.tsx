@@ -20,7 +20,7 @@ const TimelineSection = () => {
   const teamId = useTeamId();
   const { currentYear, currentMonth, endDay } = useDate(+teamId);
 
-  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, currentMonth);
 
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
