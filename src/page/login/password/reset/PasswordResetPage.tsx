@@ -68,7 +68,7 @@ const PasswordResetPage = () => {
             type="submit"
             variant="primary"
             css={{ width: '100%' }}
-            size="large"
+            size="xLarge"
             disabled={!handlePasswordValidate()}>
             완료
           </Button>
