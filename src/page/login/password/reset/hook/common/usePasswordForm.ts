@@ -47,7 +47,7 @@ export const usePasswordForm = () => {
       }
 
       if (!PASSWORD_VALID_FORMAT.test(password)) {
-        setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_NOTICE, type: 'error' });
+        setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_INVALID, type: 'error' });
 
         return SUPPORTING_TEXT.PASSWORD_NOTICE;
       }

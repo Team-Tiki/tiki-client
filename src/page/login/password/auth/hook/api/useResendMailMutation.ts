@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { isAxiosError } from 'axios';
 
-import { reSendEmail } from '@/shared/api/emailVerification/password';
+import { reSendEmail } from '@/shared/api/email-verification/password';
 import { useToastAction } from '@/shared/store/toast';
 
 export const useResendMailMutation = (email: string) => {

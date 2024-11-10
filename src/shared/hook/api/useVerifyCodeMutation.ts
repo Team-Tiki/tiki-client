@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { checkAuthCode } from '@/shared/api/emailVerification/checking';
+import { checkAuthCode } from '@/shared/api/email-verification/checking';
 import { useToastAction } from '@/shared/store/toast';
 
 export const useVerifyCodeMutation = (email: string, code: string) => {
