@@ -2,7 +2,7 @@ import { endOfMonth } from 'date-fns';
 
 import { useState } from 'react';
 
-export const useDate = (teamId?: string) => {
+export const useDate = (teamId: number) => {
   const currentDate = new Date();
 
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth() + 1);

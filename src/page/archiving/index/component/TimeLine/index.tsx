@@ -12,6 +12,7 @@ import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTime
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
+import useTeamId from '@/shared/hook/common/useTeamId';
 import { useDrawerIsOpen } from '@/shared/store/drawer';
 
 interface TimeLineProps {
@@ -20,11 +21,10 @@ interface TimeLineProps {
 }
 
 const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
-  const teamId = localStorage.getItem('teamId');
-
+  const teamId = useTeamId();
   const { currentYear, currentMonth, endDay } = useDateContext();
 
-  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
+  const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, currentMonth);
 
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);

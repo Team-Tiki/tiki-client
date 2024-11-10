@@ -17,6 +17,7 @@ import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
+import useTeamId from '@/shared/hook/common/useTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 import { useToastAction } from '@/shared/store/toast';
 
@@ -25,7 +26,7 @@ interface UploadModalProps {
 }
 
 const UploadModal = ({ isVisible }: UploadModalProps) => {
-  const teamId = localStorage.getItem('teamId');
+  const teamId = useTeamId();
 
   const { formData, reset } = useBlockContext();
   const closeModal = useCloseModal();

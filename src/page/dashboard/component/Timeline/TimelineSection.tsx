@@ -12,12 +12,13 @@ import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block'
 import { timelineContentStyle } from '@/page/dashboard/component/Timeline/TimelineSection.style';
 
 import { PATH } from '@/shared/constant/path';
+import useTeamId from '@/shared/hook/common/useTeamId';
 
 const TimelineSection = () => {
   const navigate = useNavigate();
 
-  const teamId = localStorage.getItem('teamId');
-  const { currentYear, currentMonth, endDay } = useDate(teamId!);
+  const teamId = useTeamId();
+  const { currentYear, currentMonth, endDay } = useDate(+teamId);
 
   const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
 
@@ -25,7 +26,7 @@ const TimelineSection = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 
   return (
-    <DateProvider teamId={teamId!}>
+    <DateProvider teamId={+teamId}>
       <TimeLineHeader />
       <Day />
       <div css={[dayBodyStyle(endDay.getDate()), timelineContentStyle]}>

@@ -58,7 +58,7 @@ export const dayBodyStyle = (dayCount: number) =>
     minHeight: 'calc(100vh - 40rem)',
     maxHeight: 'calc(100vh - 2rem)',
 
-    overflowY: 'auto',
+    overflowY: 'scroll',
 
     backgroundColor: theme.colors.gray_100,
   });
