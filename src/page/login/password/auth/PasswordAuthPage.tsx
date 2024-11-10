@@ -36,19 +36,20 @@ const PasswordAuthPage = () => {
 
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
 
-  const { supportingText, setSupportingText } = useSupportingText();
+  const { emailSupportingText, setEmailSupportingText, codeSupportingText, setCodeSupportingText } =
+    useSupportingText();
 
   const handleMailSend = () => {
     resendMailMutation.mutate(undefined, {
       onError: () => {
-        setSupportingText({ text: SUPPORTING_TEXT.EMAIL_INVALID, type: 'error' });
+        setEmailSupportingText({ text: SUPPORTING_TEXT.EMAIL_INVALID, type: 'error' });
       },
     });
 
     handleSend();
     handleResetTimer();
 
-    setSupportingText({ text: SUPPORTING_TEXT.EMAIL_SUCCESS, type: 'success' });
+    setEmailSupportingText({ text: SUPPORTING_TEXT.EMAIL_SUCCESS, type: 'success' });
   };
 
   const handleVerifyCode = useCallback(() => {
@@ -56,6 +57,10 @@ const PasswordAuthPage = () => {
       mutate(undefined, {
         onSuccess: () => {
           setIsVerifyCode(true);
+          setCodeSupportingText({ text: SUPPORTING_TEXT.AUTHCODE_SUCCESS, type: 'success' });
+        },
+        onError: () => {
+          setCodeSupportingText({ text: SUPPORTING_TEXT.AUTHCODE_NO_EQUAL, type: 'error' });
         },
       });
       setIsVerifyCode(false);
@@ -73,12 +78,12 @@ const PasswordAuthPage = () => {
         <Heading tag="H4" css={{ fontWeight: 600, padding: '1.6rem 0', alignItems: 'start' }}>
           비밀번호 재설정
         </Heading>
-        <form css={[formStyle, { width: '51.1rem', height: '78rem' }]} onSubmit={handleSubmit}>
+        <form css={[formStyle, { width: '39rem', height: '78rem' }]} onSubmit={handleSubmit}>
           <Flex styles={{ direction: 'column', width: '100%', gap: '0.2rem', justify: 'space-between' }}>
-            <Flex styles={{ align: 'end', width: '100%', gap: '0.8rem' }}>
+            <Flex styles={{ align: 'end', width: '100%', gap: '0.4rem' }}>
               <Input placeholder={PLACEHOLDER.SCHOOL_EMAIL} value={email} onChange={onEmailChange} />
               <Button
-                css={{ width: '11.1rem' }}
+                css={{ width: '9.7rem' }}
                 variant="outline"
                 size="large"
                 onClick={handleMailSend}
@@ -88,32 +93,43 @@ const PasswordAuthPage = () => {
             </Flex>
             {isMailSent && !resendMailMutation.isError ? (
               <>
-                <SupportingText isSuccess={supportingText.type === 'success'} isError={supportingText.type === 'error'}>
-                  {supportingText.text}
+                <SupportingText
+                  isSuccess={emailSupportingText.type === 'success'}
+                  isError={emailSupportingText.type === 'error'}>
+                  {emailSupportingText.text}
                 </SupportingText>
                 <Flex
                   styles={{
                     align: 'end',
                     justify: 'space-between',
                     width: '100%',
-                    marginTop: '1.6rem',
-                    gap: '1.6rem',
+                    marginTop: '0.4rem',
+                    gap: '0.4rem',
                   }}>
-                  <Input placeholder={PLACEHOLDER.AUTH_CODE} value={authCode} onChange={onAuthCodeChange} />
+                  <Input
+                    placeholder={PLACEHOLDER.AUTH_CODE}
+                    value={authCode}
+                    onChange={onAuthCodeChange}
+                    css={{ position: 'relative' }}
+                  />
                   <span css={timestyle}>{formatTime(remainTime)}</span>
                   <Button
-                    css={{ width: '13rem' }}
+                    css={{ width: '9.7rem', flexShrink: '0' }}
                     size="large"
+                    variant="outline"
                     onClick={handleVerifyCode}
                     disabled={!validateCode(authCode)}>
                     인증하기
                   </Button>
                 </Flex>
+                <SupportingText
+                  isSuccess={codeSupportingText.type === 'success'}
+                  isError={codeSupportingText.type === 'error'}>
+                  {codeSupportingText.text}
+                </SupportingText>
               </>
             ) : (
-              <SupportingText isSuccess={supportingText.type === 'success'} isError={supportingText.type === 'error'}>
-                {supportingText.text}
-              </SupportingText>
+              <SupportingText isError={emailSupportingText.type === 'error'}>{emailSupportingText.text}</SupportingText>
             )}
           </Flex>
           <Button type="submit" variant="primary" size="xLarge" css={{ width: '100%' }} disabled={!isVerifyCode}>

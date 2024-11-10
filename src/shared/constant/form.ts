@@ -18,7 +18,7 @@ export const SUPPORTING_TEXT = {
 
   EMAIL: '이메일을 입력해주세요',
   EMAIL_INVALID: '올바른 이메일을 입력해주세요.',
-  EMAIL_SUCCESS: '회원 인증 메일이 전송되었습니다. 메일함에서 인증번호를 확인해주세요.',
+  EMAIL_SUCCESS: '메일함에서 인증번호를 확인해주세요.',
   EMAIL_EXPIRED: '인증 번호가 만료되었습니다.',
   EMAIL_NOAUTH: '이메일을 인증해주세요.',
   EMAIL_AUTH: '회원가입시 인증한 학교 웹메일을 입력해주세요',
@@ -30,7 +30,9 @@ export const SUPPORTING_TEXT = {
   PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
 
-  AUTHCODE_NO_EQUAL: '인증번호가 일치하지 않습니다.',
+  AUTHCODE: '코드를 입력해주세요.\n메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.',
+  AUTHCODE_NO_EQUAL: '인증코드가 틀립니다.\n올바른 인증코드를 입력해주세요.',
+  AUTHCODE_SUCCESS: '인증이 성공적으로 완료되었습니다.',
 } as const;
 
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;

@@ -9,5 +9,11 @@ export const textStyle = (isError: boolean, isSuccess: boolean) => {
       ? theme.colors.sementic_success
       : theme.colors.gray_400;
 
-  return css({ color: textColor, paddingLeft: '0.8rem', wordBreak: 'break-word', ...theme.text.body09 });
+  return css({
+    color: textColor,
+    paddingLeft: '0.8rem',
+    wordBreak: 'break-word',
+    ...theme.text.body09,
+    whiteSpace: 'pre-line',
+  });
 };

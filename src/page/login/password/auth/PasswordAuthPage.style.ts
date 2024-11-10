@@ -8,7 +8,7 @@ export const pageStyle = css({
   justifyContent: 'center',
 
   width: '39rem',
-  height: '43.7rem',
+  height: '30rem',
 
   whiteSpace: 'nowrap',
 });
@@ -17,7 +17,6 @@ export const formStyle = css({
   display: 'flex',
   position: 'relative',
   flexDirection: 'column',
-  flex: '1',
 
   width: '51.1rem',
 
@@ -31,9 +30,9 @@ export const formStyle = css({
 export const timestyle = css({
   position: 'absolute',
 
-  top: '20rem',
-  right: '13rem',
+  top: '11rem',
+  right: '11.2rem',
 
-  color: theme.colors.key_500,
-  ...theme.text.body04,
+  color: theme.colors.gray_500,
+  ...theme.text.body06,
 });

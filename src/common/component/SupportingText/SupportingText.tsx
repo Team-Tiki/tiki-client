@@ -4,7 +4,6 @@ import { textStyle } from '@/common/component/SupportingText/SupportingText.styl
 
 interface SupportingTextProps extends ComponentPropsWithoutRef<'p'> {
   isError?: boolean;
-
   isSuccess?: boolean;
 }
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SUPPORTING_TEXT } from '../../../../../../shared/constant/form';
+import { SUPPORTING_TEXT } from '@/shared/constant/form';
 
 type SupportingText = {
   text: string;
@@ -8,13 +8,19 @@ type SupportingText = {
 };
 
 export const useSupportingText = () => {
-  const [supportingText, setSupportingText] = useState<SupportingText>({
+  const [emailSupportingText, setEmailSupportingText] = useState<SupportingText>({
     text: SUPPORTING_TEXT.EMAIL_AUTH,
+    type: 'default',
+  });
+  const [codeSupportingText, setCodeSupportingText] = useState<SupportingText>({
+    text: SUPPORTING_TEXT.AUTHCODE,
     type: 'default',
   });
 
   return {
-    supportingText,
-    setSupportingText,
+    emailSupportingText,
+    setEmailSupportingText,
+    codeSupportingText,
+    setCodeSupportingText,
   };
 };
