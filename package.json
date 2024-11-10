@@ -1,18 +1,18 @@
 {
   "name": "tiki-client",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "build-storybook": "storybook build",
+    "check": "concurrently \"pnpm lint\" \"pnpm typeCheck\"",
+    "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
+    "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
-    "typeCheck": "tsc --noEmit",
-    "check": "concurrently \"pnpm lint\" \"pnpm typeCheck\""
+    "typeCheck": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
