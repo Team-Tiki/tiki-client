@@ -18,7 +18,8 @@ export const formStyle = css({
   position: 'relative',
   flexDirection: 'column',
 
-  width: '51.1rem',
+  width: '39rem',
+  height: '21.6rem',
 
   margin: '0 auto',
 

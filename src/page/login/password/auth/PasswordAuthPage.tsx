@@ -5,7 +5,6 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
-import SupportingText from '@/common/component/SupportingText/SupportingText';
 import { useInput } from '@/common/hook/useInput';
 import { useTimer } from '@/common/hook/useTimer';
 
@@ -21,6 +20,8 @@ import { validateCode, validateEmail } from '@/shared/util/validate';
 
 const PasswordAuthPage = () => {
   const [isVerifyCode, setIsVerifyCode] = useState(false);
+  const navigate = useNavigate();
+
   const { value: email, onChange: onEmailChange } = useInput('');
   const { value: authCode, onChange: onAuthCodeChange } = useInput('');
 
@@ -31,7 +32,6 @@ const PasswordAuthPage = () => {
     reset: handleResetTimer,
   } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
 
-  const navigate = useNavigate();
   const { resendMailMutation } = useResendMailMutation(email);
 
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);
@@ -78,12 +78,19 @@ const PasswordAuthPage = () => {
         <Heading tag="H4" css={{ fontWeight: 600, paddingBottom: '6rem', alignItems: 'start' }}>
           비밀번호 재설정
         </Heading>
-        <form css={[formStyle, { width: '39rem', height: '78rem' }]} onSubmit={handleSubmit}>
+        <form css={[formStyle]} onSubmit={handleSubmit}>
           <Flex styles={{ direction: 'column', width: '100%', gap: '0.2rem', justify: 'space-between' }}>
-            <Flex styles={{ align: 'end', width: '100%', gap: '0.4rem' }}>
-              <Input placeholder={PLACEHOLDER.SCHOOL_EMAIL} value={email} onChange={onEmailChange} />
+            <Flex styles={{ align: 'baseline', width: '100%', gap: '0.4rem' }}>
+              <Input
+                placeholder={PLACEHOLDER.SCHOOL_EMAIL}
+                value={email}
+                onChange={onEmailChange}
+                isSuccess={emailSupportingText.type === 'success'}
+                isError={emailSupportingText.type === 'error'}
+                supportingText={emailSupportingText.text}
+              />
               <Button
-                css={{ width: '9.7rem' }}
+                css={{ width: '9.7rem', justifyContent: '' }}
                 variant="outline"
                 size="large"
                 onClick={handleMailSend}
@@ -91,45 +98,34 @@ const PasswordAuthPage = () => {
                 인증 메일 전송
               </Button>
             </Flex>
-            {isMailSent && !resendMailMutation.isError ? (
-              <>
-                <SupportingText
-                  isSuccess={emailSupportingText.type === 'success'}
-                  isError={emailSupportingText.type === 'error'}>
-                  {emailSupportingText.text}
-                </SupportingText>
-                <Flex
-                  styles={{
-                    align: 'end',
-                    justify: 'space-between',
-                    width: '100%',
-                    marginTop: '0.4rem',
-                    gap: '0.4rem',
-                  }}>
-                  <Input
-                    placeholder={PLACEHOLDER.AUTH_CODE}
-                    value={authCode}
-                    onChange={onAuthCodeChange}
-                    css={{ position: 'relative' }}
-                  />
-                  <span css={timestyle}>{formatTime(remainTime)}</span>
-                  <Button
-                    css={{ width: '9.7rem', flexShrink: '0' }}
-                    size="large"
-                    variant="outline"
-                    onClick={handleVerifyCode}
-                    disabled={!validateCode(authCode)}>
-                    인증하기
-                  </Button>
-                </Flex>
-                <SupportingText
+            {isMailSent && !resendMailMutation.isError && (
+              <Flex
+                styles={{
+                  align: 'baseline',
+                  justify: 'space-between',
+                  width: '100%',
+                  marginTop: '0.4rem',
+                  gap: '0.4rem',
+                }}>
+                <Input
+                  placeholder={PLACEHOLDER.AUTH_CODE}
+                  value={authCode}
+                  onChange={onAuthCodeChange}
                   isSuccess={codeSupportingText.type === 'success'}
-                  isError={codeSupportingText.type === 'error'}>
-                  {codeSupportingText.text}
-                </SupportingText>
-              </>
-            ) : (
-              <SupportingText isError={emailSupportingText.type === 'error'}>{emailSupportingText.text}</SupportingText>
+                  isError={codeSupportingText.type === 'error'}
+                  supportingText={codeSupportingText.text}
+                  css={{ position: 'relative' }}
+                />
+                <span css={timestyle}>{formatTime(remainTime)}</span>
+                <Button
+                  css={{ width: '9.7rem', flexShrink: '0' }}
+                  size="large"
+                  variant="outline"
+                  onClick={handleVerifyCode}
+                  disabled={!validateCode(authCode)}>
+                  인증하기
+                </Button>
+              </Flex>
             )}
           </Flex>
           <Button type="submit" variant="primary" size="xLarge" css={{ width: '100%' }} disabled={!isVerifyCode}>
