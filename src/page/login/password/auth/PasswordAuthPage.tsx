@@ -20,6 +20,7 @@ import { validateCode, validateEmail } from '@/shared/util/validate';
 
 const PasswordAuthPage = () => {
   const [isVerifyCode, setIsVerifyCode] = useState(false);
+  const [buttonText, setButtonText] = useState('인증 메일 전송');
   const navigate = useNavigate();
 
   const { value: email, onChange: onEmailChange } = useInput('');
@@ -48,6 +49,7 @@ const PasswordAuthPage = () => {
     handleResetTimer();
 
     setEmailSupportingText({ text: SUPPORTING_TEXT.EMAIL_SUCCESS, type: 'success' });
+    setButtonText('재전송');
   };
 
   const handleVerifyCode = useCallback(() => {
@@ -88,12 +90,12 @@ const PasswordAuthPage = () => {
                 supportingText={emailSupportingText.text}
               />
               <Button
-                css={{ width: '9.7rem', justifyContent: '' }}
+                css={{ width: '9.7rem', flexShrink: '0' }}
                 variant="outline"
                 size="large"
                 onClick={handleMailSend}
                 disabled={!validateEmail(email)}>
-                인증 메일 전송
+                {buttonText}
               </Button>
             </Flex>
             {isMailSent && !resendMailMutation.isError && (
