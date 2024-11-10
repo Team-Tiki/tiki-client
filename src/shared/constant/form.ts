@@ -25,10 +25,11 @@ export const SUPPORTING_TEXT = {
 
   UNIV: '대학교를 선택해주세요.',
 
-  PASSWORD: '비밀번호를 입력해주세요',
-  PASSWORD_INVALID: '영문/숫자/특수문자를 사용해 8자 이상으로 만들어주세요.',
-  PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
+  PASSWORD_NOTICE: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_VALID: '사용가능한 비밀번호입니다.',
+  PASSWORD_CHECKER: '비밀번호 확인을 위해 새로운 비밀번호를 재입력해주세요.',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
+  PASSWORD_EQUAL: '비밀번호가 일치합니다.',
 
   AUTHCODE: '코드를 입력해주세요.\n메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.',
   AUTHCODE_NO_EQUAL: '인증코드가 틀립니다.\n올바른 인증코드를 입력해주세요.',

@@ -14,20 +14,11 @@ import { PATH } from '@/shared/constant/path';
 
 const PasswordResetPage = () => {
   const navigate = useNavigate();
-
   const { state } = useLocation();
-
   const { mutate } = useResetPasswordMutation();
 
-  const {
-    form,
-    handlePasswordChange,
-    handlePasswordValidate,
-    isPasswordCheckerError,
-    isPasswordError,
-    passwordCheckerSupportingTxt,
-    passwordSupportingTxt,
-  } = usePasswordForm();
+  const { form, handlePasswordChange, handlePasswordValidate, passwordSupportingText, passwordCheckerSupportingText } =
+    usePasswordForm();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,27 +40,36 @@ const PasswordResetPage = () => {
   return (
     <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <Flex tag="section" css={pageStyle}>
-        <Heading css={{ padding: '1.6rem 0', alignItems: 'start' }}>비밀번호 재설정</Heading>
+        <Heading tag="H4" css={{ fontWeight: 600, alignItems: 'start', paddingBottom: '6rem' }}>
+          비밀번호 재설정
+        </Heading>
         <form css={formStyle} onSubmit={handleSubmit}>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem', justify: 'space-between' }}>
             <Input
               type="password"
               placeholder={PLACEHOLDER.PASSWORD}
               value={form.updatedPassword}
-              isError={isPasswordError}
-              supportingText={passwordSupportingTxt}
+              isError={passwordSupportingText.type === 'error'}
+              isSuccess={passwordSupportingText.type === 'success'}
+              supportingText={passwordSupportingText.text}
               onChange={(e) => handlePasswordChange('updatedPassword', e)}
             />
             <Input
               type="password"
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
               value={form.updatedPasswordChecker}
-              isError={isPasswordCheckerError}
-              supportingText={passwordCheckerSupportingTxt}
+              isError={passwordCheckerSupportingText.type === 'error'}
+              isSuccess={passwordCheckerSupportingText.type === 'success'}
+              supportingText={passwordCheckerSupportingText.text}
               onChange={(e) => handlePasswordChange('updatedPasswordChecker', e)}
             />
           </Flex>
-          <Button type="submit" variant="primary" size="large" disabled={!handlePasswordValidate()}>
+          <Button
+            type="submit"
+            variant="primary"
+            css={{ width: '100%' }}
+            size="large"
+            disabled={!handlePasswordValidate()}>
             완료
           </Button>
         </form>

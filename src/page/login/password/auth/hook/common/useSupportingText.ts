@@ -1,11 +1,8 @@
 import { useState } from 'react';
 
-import { SUPPORTING_TEXT } from '@/shared/constant/form';
+import { SupportingText } from '@/page/login/password/type/supportingText';
 
-type SupportingText = {
-  text: string;
-  type: 'default' | 'success' | 'error';
-};
+import { SUPPORTING_TEXT } from '@/shared/constant/form';
 
 export const useSupportingText = () => {
   const [emailSupportingText, setEmailSupportingText] = useState<SupportingText>({
