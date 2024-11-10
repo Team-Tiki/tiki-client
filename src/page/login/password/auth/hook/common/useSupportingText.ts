@@ -9,6 +9,7 @@ export const useSupportingText = () => {
     text: SUPPORTING_TEXT.EMAIL_AUTH,
     type: 'default',
   });
+
   const [codeSupportingText, setCodeSupportingText] = useState<SupportingText>({
     text: SUPPORTING_TEXT.AUTHCODE,
     type: 'default',
