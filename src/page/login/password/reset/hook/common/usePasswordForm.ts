@@ -38,47 +38,41 @@ export const usePasswordForm = () => {
     return form.updatedPassword && form.updatedPasswordChecker && isPasswordValid && isConfirmPasswordValid;
   }, [form.updatedPassword, form.updatedPasswordChecker]);
 
-  const handlePasswordMessage = useCallback(
-    (password: string) => {
-      if (password === '') {
-        setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_NOTICE, type: 'default' });
+  const handlePasswordMessage = useCallback((password: string) => {
+    if (password === '') {
+      setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_NOTICE, type: 'default' });
 
-        return SUPPORTING_TEXT.PASSWORD_NOTICE;
-      }
+      return SUPPORTING_TEXT.PASSWORD_NOTICE;
+    }
 
-      if (!PASSWORD_VALID_FORMAT.test(password)) {
-        setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_INVALID, type: 'error' });
+    if (!PASSWORD_VALID_FORMAT.test(password)) {
+      setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_INVALID, type: 'error' });
 
-        return SUPPORTING_TEXT.PASSWORD_NOTICE;
-      }
+      return SUPPORTING_TEXT.PASSWORD_NOTICE;
+    }
 
-      setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_VALID, type: 'success' });
+    setPasswordSupportingText({ text: SUPPORTING_TEXT.PASSWORD_VALID, type: 'success' });
 
-      return SUPPORTING_TEXT.PASSWORD_VALID;
-    },
-    [form.updatedPassword]
-  );
+    return SUPPORTING_TEXT.PASSWORD_VALID;
+  }, []);
 
-  const handlePasswordCheckerMessage = useCallback(
-    (password: string, passwordChecker: string) => {
-      if (passwordChecker === '') {
-        setPasswordCheckerSupportingText({ text: SUPPORTING_TEXT.PASSWORD_CHECKER, type: 'default' });
+  const handlePasswordCheckerMessage = useCallback((password: string, passwordChecker: string) => {
+    if (passwordChecker === '') {
+      setPasswordCheckerSupportingText({ text: SUPPORTING_TEXT.PASSWORD_CHECKER, type: 'default' });
 
-        return SUPPORTING_TEXT.PASSWORD_CHECKER;
-      }
+      return SUPPORTING_TEXT.PASSWORD_CHECKER;
+    }
 
-      if (password !== passwordChecker) {
-        setPasswordCheckerSupportingText({ text: SUPPORTING_TEXT.PASSWORD_NO_EQUAL, type: 'error' });
+    if (password !== passwordChecker) {
+      setPasswordCheckerSupportingText({ text: SUPPORTING_TEXT.PASSWORD_NO_EQUAL, type: 'error' });
 
-        return SUPPORTING_TEXT.PASSWORD_NO_EQUAL;
-      }
+      return SUPPORTING_TEXT.PASSWORD_NO_EQUAL;
+    }
 
-      setPasswordCheckerSupportingText({ text: SUPPORTING_TEXT.PASSWORD_EQUAL, type: 'success' });
+    setPasswordCheckerSupportingText({ text: SUPPORTING_TEXT.PASSWORD_EQUAL, type: 'success' });
 
-      return SUPPORTING_TEXT.PASSWORD_EQUAL;
-    },
-    [form.updatedPassword, form.updatedPasswordChecker]
-  );
+    return SUPPORTING_TEXT.PASSWORD_EQUAL;
+  }, []);
 
   useEffect(() => {
     handlePasswordMessage(form.updatedPassword);
@@ -86,7 +80,7 @@ export const usePasswordForm = () => {
 
   useEffect(() => {
     handlePasswordCheckerMessage(form.updatedPassword, form.updatedPasswordChecker);
-  }, [form.updatedPasswordChecker, handlePasswordCheckerMessage]);
+  }, [form.updatedPassword, form.updatedPasswordChecker, handlePasswordCheckerMessage]);
 
   return {
     form,

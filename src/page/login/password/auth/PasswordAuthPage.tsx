@@ -63,7 +63,7 @@ const PasswordAuthPage = () => {
       });
       setIsVerifyCode(false);
     }
-  }, [authCode, mutate]);
+  }, [authCode, mutate, setCodeSupportingText]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
