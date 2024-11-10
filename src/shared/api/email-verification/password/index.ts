@@ -5,6 +5,5 @@ export const reSendEmail = async (email: string) => {
     email: email,
   });
 
-  console.log(response);
   return response;
 };
