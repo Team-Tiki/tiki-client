@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import IcFile from '@/common/asset/svg/ic_file.svg?react';
+import ICNote from '@/common/asset/svg/ic_note.svg?react';
 import IcTimeLine from '@/common/asset/svg/ic_timeline.svg?react';
 import IcDeleted from '@/common/asset/svg/ic_trash.svg?react';
 import Heading from '@/common/component/Heading/Heading';
@@ -18,7 +19,7 @@ import {
 import { Content } from '@/shared/type/content';
 
 interface ContentBoxProps extends ComponentPropsWithoutRef<'section'> {
-  /** ContentBox를 활용할 도메인, timeline | file | deleted */
+  /** ContentBox를 활용할 도메인, timeline | file | deleted | handover*/
   variant: Content;
 
   title: string;
@@ -33,6 +34,7 @@ const ICON_BY_VARIANT = {
   timeline: <IcTimeLine width={16} height={16} />,
   file: <IcFile width={16} height={16} />,
   deleted: <IcDeleted width={16} height={16} />,
+  handover: <ICNote width={16} height={16} />,
 };
 
 const ContentBox = ({
