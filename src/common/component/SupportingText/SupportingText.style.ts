@@ -2,10 +2,10 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const textStyle = (isError: boolean, isNotice: boolean) => {
+export const textStyle = (isError: boolean, isSuccess: boolean) => {
   const textColor = isError
     ? theme.colors.sementic_red
-    : isNotice
+    : isSuccess
       ? theme.colors.sementic_success
       : theme.colors.gray_400;
 

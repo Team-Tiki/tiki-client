@@ -5,8 +5,10 @@ import { theme } from '@/common/style/theme/theme';
 export const pageStyle = css({
   flexDirection: 'column',
 
-  width: '51.1rem',
-  height: '78rem',
+  justifyContent: 'center',
+
+  width: '39rem',
+  height: '43.7rem',
 
   whiteSpace: 'nowrap',
 });
