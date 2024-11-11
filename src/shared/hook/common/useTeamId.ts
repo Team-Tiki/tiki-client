@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useClubInfoQuery } from '../api/useClubInfoQuery';
+import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 
 const useTeamId = () => {
   const [teamId, setTeamId] = useState(localStorage.getItem('teamId'));
@@ -11,7 +11,7 @@ const useTeamId = () => {
 
   useEffect(() => {
     setTeamId(localStorage.getItem('teamId'));
-  }, [location]); // url이 변경될 때마다 teamId 업데이트
+  }, [location]);
 
   return teamId ?? data?.belongTeamGetResponses[0]?.id ?? '1';
 };
