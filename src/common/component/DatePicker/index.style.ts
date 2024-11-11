@@ -4,6 +4,7 @@ export const containerStyle = (width: string) =>
   css({
     display: 'flex',
     flexDirection: 'column',
+    gap: '1.2rem',
     position: 'relative',
 
     width,

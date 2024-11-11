@@ -15,9 +15,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const SingleDatePicker: Story = {
-  render: () => <DatePicker variant="single" triggerWidth="10.3rem" />,
+  render: () => <DatePicker label="데이트피커" variant="single" triggerWidth="10.3rem" />,
 };
 
 export const RangeDatePicker: Story = {
-  render: () => <DatePicker variant="range" triggerWidth="10.3rem" />,
+  render: () => <DatePicker label="데이트피커" variant="range" triggerWidth="10.3rem" />,
 };

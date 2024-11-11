@@ -14,7 +14,7 @@ import { PATH } from '@/shared/constant/path';
 import { PERSONAL, TERM } from '@/mock/data/term';
 
 const TermPage = () => {
-  const { totalAgreeClicked, termStatus, isConfirmed, handleAllTermsAgree, handleTermAgree } = useTermForm();
+  const { isTotalAgreeClicked, termStatus, isConfirmed, handleAllTermsAgree, handleTermAgree } = useTermForm();
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const TermPage = () => {
       <form css={formStyle}>
         <Heading tag="H4">이용 약관 동의</Heading>
         <Flex styles={{ direction: 'column', width: '100%', gap: '1.6rem' }}>
-          <TermsAgreeButton isClicked={totalAgreeClicked} onClick={handleAllTermsAgree} />
+          <TermsAgreeButton isClicked={isTotalAgreeClicked} onClick={handleAllTermsAgree} />
 
           <TermItem
             term="이용 약관"

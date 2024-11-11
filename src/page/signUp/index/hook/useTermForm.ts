@@ -7,7 +7,7 @@ type TermItem = {
 };
 
 export const useTermForm = () => {
-  const [totalAgreeClicked, setTotalAgreeClicked] = useState(false);
+  const [isTotalAgreeClicked, setIsTotalAgreeClicked] = useState(false);
   const [termStatus, setTermStatus] = useState<TermItem>({
     serviceTerm: false,
     privatePolicy: false,
@@ -17,12 +17,12 @@ export const useTermForm = () => {
   const isConfirmed = termStatus.serviceTerm && termStatus.privatePolicy;
 
   const handleAllTermsAgree = () => {
-    setTotalAgreeClicked((prev) => !prev);
+    setIsTotalAgreeClicked((prev) => !prev);
 
     setTermStatus({
-      serviceTerm: totalAgreeClicked ? false : true,
-      privatePolicy: totalAgreeClicked ? false : true,
-      personalInfo: totalAgreeClicked ? false : true,
+      serviceTerm: isTotalAgreeClicked ? false : true,
+      privatePolicy: isTotalAgreeClicked ? false : true,
+      personalInfo: isTotalAgreeClicked ? false : true,
     });
   };
 
@@ -34,7 +34,7 @@ export const useTermForm = () => {
   };
 
   return {
-    totalAgreeClicked,
+    isTotalAgreeClicked,
     termStatus,
     isConfirmed,
     handleAllTermsAgree,

@@ -1,4 +1,5 @@
 import Button from '@/common/component/Button/Button';
+import DatePicker from '@/common/component/DatePicker';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Input from '@/common/component/Input/Input';
@@ -9,7 +10,7 @@ import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 import { PLACEHOLDER } from '@/shared/constant/form';
 
 const InfoFormPage = () => {
-  const { info, handleInfoChange, handleBirthChange, handleSubmit } = useInfoForm();
+  const { info, handleInfoChange, handleSubmit } = useInfoForm();
 
   return (
     <Flex tag="main" css={pageStyle}>
@@ -23,13 +24,7 @@ const InfoFormPage = () => {
             label="이름"
             placeholder={PLACEHOLDER.NAME}
           />
-          <Input
-            name="birth"
-            value={info.birth}
-            onChange={handleBirthChange}
-            label="생년월일"
-            placeholder={PLACEHOLDER.BIRTHDAY}
-          />
+          <DatePicker label="생년월일" variant="single" triggerWidth="100%" />
 
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
