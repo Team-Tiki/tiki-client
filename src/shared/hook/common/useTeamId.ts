@@ -13,7 +13,7 @@ const useTeamId = () => {
     setTeamId(localStorage.getItem('teamId'));
   }, [location]);
 
-  return teamId ?? data?.belongTeamGetResponses[0]?.id ?? '0';
+  return teamId ?? data!.belongTeamGetResponses[0]?.id;
 };
 
 export default useTeamId;
