@@ -15,40 +15,33 @@ const createObj = (length: number, flag: boolean): MultiSelectStatus => {
 };
 
 export const useMultiSelect = (length: number) => {
-  const org = useMemo(() => createObj(length, false), [length]);
-  const opp = useMemo(() => createObj(length, true), [length]);
+  const defaultValue = useMemo(() => createObj(length, false), [length]);
+  const allTrueValue = useMemo(() => createObj(length, true), [length]);
 
   /**
    * key: id(number), value: true/false 를 갖는 객체
    * 특정 id를 가진 아이템이 선택되었는지를 의미함
    */
-  const [ids, setIds] = useState<MultiSelectStatus>(org);
+  const [ids, setIds] = useState<MultiSelectStatus>(defaultValue);
 
   const handleItemClick = (id: number) => {
-    if (ids[id]) {
-      setIds((prev) => ({
-        ...prev,
-        [id]: false,
-      }));
-    } else {
-      setIds((prev) => ({
-        ...prev,
-        [id]: true,
-      }));
-    }
+    setIds((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   const handleAllClick = () => {
     if (Object.values(ids).every((bool) => bool)) {
-      setIds(org);
+      setIds(defaultValue);
       return;
     }
 
-    setIds(opp);
+    setIds(allTrueValue);
   };
 
   const handleReset = () => {
-    setIds(org);
+    setIds(defaultValue);
   };
 
   return { ids, handleItemClick, handleAllClick, handleReset };
