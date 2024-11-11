@@ -24,14 +24,8 @@ const DatePicker = ({ variant, triggerWidth = '10.3rem' }: DatePickerProps) => {
   };
 
   return (
-    <div ref={ref} css={containerStyle}>
-      <DatePickerTrigger
-        selectedDate={selectedDate}
-        endDate={endDate}
-        onClick={handleInputClick}
-        variant={variant}
-        width={triggerWidth}
-      />
+    <div ref={ref} css={containerStyle(triggerWidth)}>
+      <DatePickerTrigger selectedDate={selectedDate} endDate={endDate} onClick={handleInputClick} variant={variant} />
       {isOpen && (
         <DatePickerCalendar
           selectedDate={selectedDate || new Date()}

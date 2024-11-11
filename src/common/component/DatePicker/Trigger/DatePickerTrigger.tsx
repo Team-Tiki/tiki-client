@@ -9,11 +9,10 @@ interface DatePickerTriggerProps {
   selectedDate: Date | null;
   endDate?: Date | null;
   onClick: () => void;
-  width?: string;
   variant: 'single' | 'range';
 }
 
-const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: DatePickerTriggerProps) => {
+const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePickerTriggerProps) => {
   return (
     <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem' }}>
       <Input
@@ -21,7 +20,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
         placeholder="YYYY.MM.DD"
         readOnly
         onClick={onClick}
-        css={{ cursor: 'pointer', width }}
+        css={{ cursor: 'pointer', width: '100%' }}
       />
       {variant === 'range' && (
         <>
@@ -33,7 +32,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, width, variant }: D
             placeholder="YYYY.MM.DD"
             readOnly
             onClick={onClick}
-            css={{ cursor: 'pointer', width }}
+            css={{ cursor: 'pointer', width: '100%' }}
           />
         </>
       )}
