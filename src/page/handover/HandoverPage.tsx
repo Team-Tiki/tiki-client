@@ -2,16 +2,14 @@ import { useState } from 'react';
 
 import IcSearch from '@/common/asset/svg/ic_search.svg?react';
 import Button from '@/common/component/Button/Button';
-import CheckBox from '@/common/component/CheckBox/CheckBox';
 import Divider from '@/common/component/Divider/Divider';
 import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
-import Text from '@/common/component/Text/Text';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
-import { finishedStyle, periodStyle, titleStyle, writerStyle } from '@/page/handover/HandoverPage.style';
-import NoteItem from '@/page/handover/NoteItem/NoteItem';
+import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
+import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
 import { NOTE_DUMMY } from '@/page/handover/constant/noteList';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
@@ -80,21 +78,7 @@ const HandoverPage = () => {
           </Flex>
         </Flex>
       }>
-      <Flex styles={{ align: 'center', justify: 'left', height: '1.8rem', marginBottom: '1.4rem' }}>
-        {activeCheck && <CheckBox isChecked={isChecked} onChange={handleChecked} style={{ marginRight: '1.6rem' }} />}
-        <Text tag="body8" css={periodStyle(activeCheck)}>
-          활동 기간
-        </Text>
-        <Text tag="body8" css={titleStyle}>
-          노트 제목
-        </Text>
-        <Text tag="body8" css={writerStyle}>
-          작성자
-        </Text>
-        <Text tag="body8" css={finishedStyle}>
-          작성여부
-        </Text>
-      </Flex>
+      <NoteListHeader activeCheck={activeCheck} isChecked={isChecked} handleChecked={handleChecked} />
       <Divider />
       <ul>
         {(selected === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (

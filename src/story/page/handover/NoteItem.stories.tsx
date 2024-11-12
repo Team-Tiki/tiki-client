@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import NoteItem from '@/page/handover/NoteItem/NoteItem';
+import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 
 const meta = {
   title: 'Page/Handover/NoteItem',
