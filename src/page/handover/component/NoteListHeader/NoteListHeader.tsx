@@ -3,6 +3,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
 import { containerStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
+import { fontStyle } from '@/page/handover/component/NoteListHeader/NoteListHeader.style';
 
 interface NoteListHeaderProps {
   activeCheck: boolean;
@@ -12,7 +13,7 @@ interface NoteListHeaderProps {
 
 const NoteListHeader = ({ activeCheck, isChecked, handleChecked }: NoteListHeaderProps) => {
   return (
-    <div css={containerStyle}>
+    <div css={[containerStyle, fontStyle]}>
       <Flex styles={{ align: 'center' }}>
         {activeCheck && <CheckBox isChecked={isChecked} onChange={handleChecked} style={{ marginRight: '1.6rem' }} />}
         <Text tag="body8">활동 기간</Text>

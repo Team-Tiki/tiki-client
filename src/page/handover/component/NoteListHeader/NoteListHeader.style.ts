@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 
-export const containerStyle = css({
-  display: 'grid',
-  gridTemplateColumns: '25.3% 51.7% 11.6% 11.4%',
+import { theme } from '@/common/style/theme/theme';
+
+export const fontStyle = css({
+  '& p': {
+    color: theme.colors.gray_500,
+  },
 });

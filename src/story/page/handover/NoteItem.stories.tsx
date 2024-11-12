@@ -16,6 +16,7 @@ const meta = {
     writer: '짱건',
     isFinished: false,
     activeSelect: false,
+    isTotalChecked: false,
   },
   argTypes: {
     isFinished: {
