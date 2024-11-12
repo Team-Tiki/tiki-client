@@ -10,23 +10,22 @@ import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
-import { NOTE_DUMMY } from '@/page/handover/constant/noteList';
+import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
-
-const FILTER_OPTION = [{ value: '최근 작성된 순' }, { value: '과거 작성된 순' }];
 
 const HandoverPage = () => {
   const [activeCheck, setActiveCheck] = useState(false);
   const [isChecked, setIsChcked] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const [selected, setSelected] = useState('');
+  const [sortOption, setsortOption] = useState('');
 
-  const handleSelect = (id: string) => {
-    setSelected(id);
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSortOption = (id: string) => {
+    setsortOption(id);
 
     close();
   };
@@ -35,7 +34,7 @@ const HandoverPage = () => {
     setIsChcked((prevState) => !prevState);
   };
 
-  const handleCheckClick = () => {
+  const handleActiveCheckClick = () => {
     setActiveCheck((prevState) => !prevState);
   };
 
@@ -58,14 +57,14 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleCheckClick}>
+            <Button variant="tertiary" onClick={handleActiveCheckClick}>
               선택
             </Button>
           </Flex>
 
           <Flex styles={{ align: 'center' }}>
             <Select
-              aria-label={`선택된 아이템: ${selected}`}
+              aria-label={`선택된 아이템: ${sortOption}`}
               css={{ width: '10.5rem' }}
               placeholder="최근 작성된 순"
               variant="option"
@@ -73,7 +72,7 @@ const HandoverPage = () => {
               ref={ref}
               isOpen={isOpen}
               onTrigger={toggle}
-              onSelect={handleSelect}
+              onSelect={handleSortOption}
             />
           </Flex>
         </Flex>
@@ -81,7 +80,7 @@ const HandoverPage = () => {
       <NoteListHeader activeCheck={activeCheck} isChecked={isChecked} handleChecked={handleChecked} />
       <Divider />
       <ul>
-        {(selected === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (
+        {(sortOption === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (
           <NoteItem
             key={data.id}
             startDate={data.startDate}

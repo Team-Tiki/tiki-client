@@ -25,5 +25,3 @@ const NoteListHeader = ({ activeCheck, isChecked, handleChecked }: NoteListHeade
 };
 
 export default NoteListHeader;
-
-// styles={{ align: 'center', justify: 'left', height: '1.8rem', marginBottom: '1.4rem' }}

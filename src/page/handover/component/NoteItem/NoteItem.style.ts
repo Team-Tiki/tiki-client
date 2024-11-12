@@ -17,25 +17,12 @@ export const containerStyle = css({
   },
 });
 
-export const periodStyle = () =>
-  css({
-    width: '26rem',
-  });
-
-export const noteTitleStyle = css({
-  width: '34rem',
-});
-
 export const profileStyle = css({
   width: '2.2rem',
   heigth: '2.2rem',
 
   borderRadius: '100%',
   backgroundColor: theme.colors.gray_300,
-});
-
-export const writerStyle = css({
-  width: '10.4rem',
 });
 
 export const finishedStyle = (isFinished: boolean) =>
@@ -47,4 +34,6 @@ export const finishedStyle = (isFinished: boolean) =>
     backgroundColor: isFinished ? theme.colors.key_400 : theme.colors.gray_300,
   });
 
-export const moreButtonStyle = css({});
+export const moreButtonStyle = css({
+  cursor: 'pointer',
+});

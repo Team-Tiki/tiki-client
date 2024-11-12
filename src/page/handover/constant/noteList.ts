@@ -1,3 +1,5 @@
+export const FILTER_OPTION = [{ value: '최근 작성된 순' }, { value: '과거 작성된 순' }];
+
 export const NOTE_DUMMY = [
   {
     id: 1,

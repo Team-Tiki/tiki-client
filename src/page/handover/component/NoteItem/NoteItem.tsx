@@ -12,10 +12,8 @@ import { formattingDate } from '@/page/archiving/index/util/date';
 import {
   containerStyle,
   finishedStyle,
-  noteTitleStyle,
-  periodStyle,
+  moreButtonStyle,
   profileStyle,
-  writerStyle,
 } from '@/page/handover/component/NoteItem/NoteItem.style';
 
 interface NoteItemProps {
@@ -47,17 +45,17 @@ const NoteItem = ({ startDate, endDate, title, writer, isFinished, activeSelect,
             {activeSelect && (
               <CheckBox isChecked={isChecked} onChange={handleCheck} style={{ marginRight: '1.6rem' }} />
             )}
-            <Text tag="body6" css={periodStyle}>
+            <Text tag="body6" style={{ width: '26rem' }}>
               {`${formattingDate(startDate)} - ${formattingDate(endDate)}`}
             </Text>
           </Flex>
 
-          <Text tag="body6" css={noteTitleStyle}>
+          <Text tag="body6" style={{ width: '34rem' }}>
             {title}
           </Text>
           <Flex styles={{ align: 'center', gap: '0.4rem' }}>
             <img src={avartar} alt="작성자 프로필" css={profileStyle} />
-            <Text tag="body6" css={writerStyle}>
+            <Text tag="body6" style={{ width: '10.4rem' }}>
               {writer}
             </Text>
           </Flex>
@@ -65,7 +63,7 @@ const NoteItem = ({ startDate, endDate, title, writer, isFinished, activeSelect,
             <Text tag="body8" css={finishedStyle(isFinished)}>
               {isFinished ? '작성 완료' : '작성 미완료'}
             </Text>
-            <MoreIcButton width={18} height={18} />
+            <MoreIcButton width={18} height={18} css={moreButtonStyle} />
           </Flex>
         </Flex>
       </Flex>
