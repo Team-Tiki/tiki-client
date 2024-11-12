@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
+import { alignColor } from '@/page/dashboard/util/color';
+
 export const containerStyle = css({
   flexDirection: 'column',
   alignItems: 'center',
@@ -11,6 +13,8 @@ export const containerStyle = css({
 
   backgroundColor: theme.colors.gray_100,
   borderRadius: '8px',
+
+  cursor: 'pointer',
 
   ':hover': {
     backgroundColor: theme.colors.gray_200,
@@ -51,3 +55,15 @@ export const detailStyle = css({
 
   gap: '0.4rem',
 });
+
+export const tagStyle = (color: string) =>
+  css({
+    maxWidth: '18rem',
+
+    color: alignColor(color),
+
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+
+    textOverflow: 'ellipsis',
+  });

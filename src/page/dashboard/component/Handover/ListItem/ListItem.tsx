@@ -11,11 +11,11 @@ import {
   contentStyle,
   detailContainerStyle,
   detailStyle,
+  tagStyle,
   titleStyle,
 } from '@/page/dashboard/component/Handover/ListItem/ListItem.style';
 import { ListTag } from '@/page/dashboard/type/listTag';
 import { getVisibleTags } from '@/page/dashboard/util/alignTags';
-import { alignColor } from '@/page/dashboard/util/color';
 
 export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -41,13 +41,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
         <div ref={tagContanierRef} css={[detailStyle, { display: 'flex', overflow: 'hidden' }]}>
           {visibleTags.map((tag) => {
             return (
-              <Tag
-                key={tag.tagId}
-                css={{
-                  color: alignColor(tag.bgColor),
-                  whiteSpace: 'nowrap',
-                }}
-                bgColor={tag.bgColor}>
+              <Tag key={tag.tagId} css={tagStyle(tag.bgColor)} bgColor={tag.bgColor}>
                 {tag.content}
               </Tag>
             );
