@@ -13,7 +13,7 @@ import {
 
 export interface CommandButtonProps extends ButtonProps {
   variant?: Extract<ButtonProps['variant'], 'primary' | 'secondary' | 'tertiary' | 'outline'>;
-  size?: Extract<ButtonProps['size'], 'large' | 'small'>;
+  size?: Extract<ButtonProps['size'], 'large' | 'small' | 'xSmall'>;
   commandKey: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;

@@ -38,11 +38,11 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       },
     }),
     secondary: css({
-      color: theme.colors.key_500,
-      backgroundColor: theme.colors.key_100,
+      color: theme.colors.gray_800,
+      backgroundColor: theme.colors.white,
 
       '&:hover': {
-        backgroundColor: theme.colors.key_200,
+        backgroundColor: theme.colors.gray_100,
       },
     }),
     tertiary: css({

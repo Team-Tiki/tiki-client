@@ -100,6 +100,12 @@ export const sizeStyle = (size: Required<CommandButtonProps>['size']) => {
 
       ...theme.text.body08,
     }),
+    /** Button_24 */
+    xSmall: css({
+      padding: '0.6rem 1rem',
+
+      ...theme.text.body08,
+    }),
   };
   return style[size];
 };
