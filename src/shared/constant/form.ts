@@ -7,6 +7,7 @@ export const PLACEHOLDER = {
   PASSWORD: '비밀번호 (문자/숫자/기호를 포함한 8자 이상)',
   PASSWORD_CONFIRM: '비밀번호 확인',
   SCHOOL_EMAIL: '학교 웹메일 입력',
+  CUSTOM: '다음 운영진이 참고할 인수인계 노트를 자유롭게 작성해 보세요 (ex. 동아리의 회칙 및 대관정보 등)',
 } as const;
 
 export const EMAIL_REMAIN_TIME = 180 as const;

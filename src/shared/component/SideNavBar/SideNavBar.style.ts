@@ -8,6 +8,8 @@ export const containerStyle = css({
   height: '100vh',
 
   borderRight: `1px solid ${theme.colors.gray_300}`,
+
+  zIndex: theme.zIndex.overlayMiddle,
 });
 
 export const tikiLogoStyle = css({

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
@@ -12,6 +11,7 @@ import {
 } from '@/page/archiving/index/component/TimeBlockModal/component/Upload/UploadModal.style';
 import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePostTimeBlockMutation';
+import { getRandomColor } from '@/page/archiving/index/component/TimeBlockModal/util/color';
 import { formatDatePost } from '@/page/archiving/index/component/TimeBlockModal/util/date';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
@@ -25,9 +25,8 @@ interface UploadModalProps {
 }
 
 const UploadModal = ({ isVisible }: UploadModalProps) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const teamId = searchParams.get('teamId');
+  const teamId = localStorage.getItem('teamId');
+
   const { formData, reset } = useBlockContext();
   const closeModal = useCloseModal();
 
@@ -87,7 +86,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
 
   const data = {
     name: formData.blockName,
-    color: formData.blockColor,
+    color: getRandomColor(),
     startDate: formatDatePost(formData.startDate),
     endDate: formatDatePost(formData.endDate),
     blockType: formData.blockType,

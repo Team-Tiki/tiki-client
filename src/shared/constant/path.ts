@@ -11,11 +11,12 @@ export const PATH = {
   PASSWORD_AUTH: '/password-auth',
   PASSWORD_RESET: '/password-reset',
 
+  DASHBOARD: '/dashboard',
   ARCHIVING: '/archiving',
   SHOWCASE: '/showcase',
   DRIVE: '/drive',
-
   HANDOVER: '/handover',
+  HANDOVER_NOTE: '/handover/note',
 
   COMING_SOON: '/comingsoon',
 } as const;

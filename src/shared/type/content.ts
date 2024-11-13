@@ -1,1 +1,1 @@
-export type Content = 'timeline' | 'file' | 'deleted';
+export type Content = 'timeline' | 'file' | 'deleted' | 'handover';

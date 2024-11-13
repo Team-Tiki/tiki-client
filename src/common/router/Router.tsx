@@ -9,6 +9,7 @@ import {
   ComingsoonPage,
   DrivePage,
   ErrorPage,
+  HandoverNotePage,
   InfoFormPage,
   LandingPage,
   LoginPage,
@@ -17,6 +18,8 @@ import {
   ShowcasePage,
   TermPage,
 } from '@/common/router/lazy';
+
+import DashboardPage from '@/page/dashboard/DashboardPage';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -110,6 +113,14 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: PATH.DASHBOARD,
+        element: (
+          <Suspense>
+            <DashboardPage />
+          </Suspense>
+        ),
+      },
+      {
         path: PATH.SHOWCASE,
         element: (
           <Suspense>
@@ -146,6 +157,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <h1>HandOver</h1>
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.HANDOVER_NOTE,
+        element: (
+          <Suspense>
+            <HandoverNotePage />
           </Suspense>
         ),
       },

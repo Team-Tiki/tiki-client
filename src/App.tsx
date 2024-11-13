@@ -9,10 +9,8 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
 import { HTTPError } from '@/shared/api/HTTPError';
 import Header from '@/shared/component/Header/Header';
-import Login from '@/shared/component/Login/Login';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import SideNavBar from '@/shared/component/SideNavBar/SideNavBar';
-import TimeBlockDrawer from '@/shared/component/TimeBlockDrawer/TimeBlockDrawer';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -48,19 +46,15 @@ const App = () => {
 
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
-      <Login>
-        <ModalContainer />
-
-        <SideNavBar />
-
-        <div css={layoutStyle}>
-          <main css={outletStyle}>
-            <Header />
-            <Outlet />
-          </main>
-          <TimeBlockDrawer />
-        </div>
-      </Login>
+      <ModalContainer />
+      <SideNavBar />
+      <div css={layoutStyle}>
+        <main css={outletStyle}>
+          <Header />
+          <Outlet />
+        </main>
+        <GlobalDrawer />
+      </div>
     </ErrorBoundary>
   );
 };
@@ -77,7 +71,6 @@ const outletStyle = css({
   width: 'calc(100% - 7.6rem)',
 
   padding: '2rem 3.4rem 4.8rem 3.2rem',
-
   marginLeft: '7.6rem',
 
   overflow: 'hidden',

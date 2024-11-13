@@ -20,7 +20,7 @@ export const handleCheckAndSetToken = (config: InternalAxiosRequestConfig) => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 
   if (!accessToken) {
-    window.location.replace(PATH.ROOT);
+    window.location.replace(PATH.LOGIN);
     throw new Error('토큰이 존재하지 않습니다.');
   }
 
@@ -45,8 +45,9 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
 
       return axiosInstance(originRequest);
     } catch (error) {
-      localStorage.clear();
-      window.location.replace(PATH.ROOT);
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      window.location.replace(PATH.LOGIN);
+
       throw new Error('토큰 갱신에 실패하였습니다.');
     }
   }

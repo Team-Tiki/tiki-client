@@ -44,8 +44,6 @@ const LandingPage = () => {
   const { targetRef: feature1Ref } = useIntersectionObserver(handleObserve, option);
   const { targetRef: feature2Ref } = useIntersectionObserver(handleObserve, option);
 
-  const isAuth = !!localStorage.getItem(ACCESS_TOKEN_KEY);
-
   const 세번째뷰로 = () => {
     const next = feature1Ref.current;
 
@@ -56,6 +54,8 @@ const LandingPage = () => {
   };
 
   const 다음페이지로 = () => {
+    const isAuth = !!localStorage.getItem(ACCESS_TOKEN_KEY);
+
     window.location.href = isAuth ? PATH.SHOWCASE : PATH.LOGIN;
   };
 
