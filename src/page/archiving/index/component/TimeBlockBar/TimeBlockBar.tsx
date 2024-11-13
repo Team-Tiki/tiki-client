@@ -1,40 +1,41 @@
 import CloseButton from '@/common/asset/svg/ic_close.svg?react';
-import Button from '@/common/component/Button/Button';
+import CommandButton from '@/common/component/CommandButton/CommandButton';
 import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
 
-import { containerStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
+import BlockInfo from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo';
+import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNotes';
+import { circleStyle, closeBtnStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
+import UploadedFiles from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/UploadedFiles';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
-import { formattingDate } from '@/page/archiving/index/util/date';
+
+import { DrawerContent } from '@/shared/store/drawer';
 
 interface TimeBlockBarProps {
-  title: string;
-  startDate: Date;
-  endDate: Date;
-  blockType: string;
-  color: string;
+  content: DrawerContent;
 }
 
-const TimeBlockBar = ({
-  title = 'OT 준비',
-  startDate = new Date('2024.09.13'),
-  endDate = new Date('2024.09.15'),
-  blockType = 'MEETING',
-  color = '#FFE6E8',
-}: TimeBlockBarProps) => {
+const TimeBlockBar = ({ content }: TimeBlockBarProps) => {
   return (
-    <aside css={containerStyle}>
-      <CloseButton />
-      <Flex>
-        {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}
-        <Button>수정하기</Button>
-      </Flex>
-      <Heading>{title}</Heading>
-      <Text>
-        {formattingDate(startDate)} ~ {formattingDate(endDate)}
-      </Text>
-    </aside>
+    content && (
+      <>
+        <CloseButton width={16} height={16} css={closeBtnStyle} />
+
+        <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>
+          <Flex css={circleStyle(content.color)}>
+            {BLOCK_ICON.find((icon) => icon.name === content.blockType)?.icon(content.color)}
+          </Flex>
+          <CommandButton variant="secondary" commandKey="E" size="xSmall">
+            수정하기
+          </CommandButton>
+        </Flex>
+
+        <Flex styles={{ direction: 'column', gap: '3.6rem' }}>
+          <BlockInfo title={content.title} startDate={content.startDate} endDate={content.endDate} />
+          <TaggedNotes />
+          <UploadedFiles />
+        </Flex>
+      </>
+    )
   );
 };
 

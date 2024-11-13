@@ -2,10 +2,22 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const containerStyle = () =>
-  css({
-    width: '27rem',
-    height: '100vh',
+export const closeBtnStyle = css({
+  position: 'absolute',
 
-    borderLeft: `1px solid ${theme.colors.gray_300}`,
+  right: '2.2rem',
+  top: '3.2rem',
+
+  cursor: 'pointer',
+});
+
+export const circleStyle = (color: string) =>
+  css({
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    padding: '0.6rem',
+
+    borderRadius: '18px',
+    backgroundColor: color,
   });
