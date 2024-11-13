@@ -4,13 +4,14 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = (isOpen: boolean) =>
   css({
+    flexShrink: 0,
     position: 'sticky',
     right: 0,
-
     zIndex: theme.zIndex.overlayMiddle,
 
     width: isOpen ? '27rem' : 0,
     height: 'calc(100vh)',
+    padding: '0 1.6rem',
 
     overflow: 'hidden',
 

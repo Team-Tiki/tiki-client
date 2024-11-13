@@ -1,15 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import CloseButton from '@/common/asset/svg/ic_close.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
 import { useOutsideClick } from '@/common/hook';
 
-import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
-import { formattingDate } from '@/page/archiving/index/util/date';
+import TimeBlockBar from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar';
 
 import { containerStyle } from '@/shared/component/TimeBlockDrawer/TimeBlockDrawer.style';
 import { PATH } from '@/shared/constant/path';
@@ -33,15 +27,7 @@ const TimeBlockDrawer = () => {
 
   return content ? (
     <aside ref={ref} css={containerStyle(isOpen)}>
-      <CloseButton />
-      <Flex>
-        {BLOCK_ICON.find((icon) => icon.name === content.blockType)?.icon(content.color)}
-        <Button>수정하기</Button>
-      </Flex>
-      <Heading>{content.title}</Heading>
-      <Text>
-        {formattingDate(content.startDate)} ~ {formattingDate(content.endDate)}
-      </Text>
+      <TimeBlockBar content={content} />
     </aside>
   ) : (
     <></>
