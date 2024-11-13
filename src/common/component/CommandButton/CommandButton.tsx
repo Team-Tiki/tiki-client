@@ -12,7 +12,7 @@ import {
 } from '@/common/component/CommandButton/CommandButton.style';
 
 export interface CommandButtonProps extends ButtonProps {
-  variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'outline'>;
+  variant?: Extract<ButtonProps['variant'], 'primary' | 'secondary' | 'tertiary' | 'outline'>;
   size?: Extract<ButtonProps['size'], 'large' | 'small'>;
   commandKey: string;
   isCommand?: boolean;

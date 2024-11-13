@@ -38,11 +38,19 @@ export const commonStyle = css({
 });
 
 export const keyStyle = (
-  variant: Extract<'primary' | 'tertiary' | 'outline', Omit<ButtonProps, 'underline' | 'secondary'>['variant']>
+  variant: Extract<'primary' | 'tertiary' | 'outline' | 'secondary', Omit<ButtonProps, 'underline'>['variant']>
 ) => {
   const style = {
     primary: css({
       backgroundColor: theme.colors.white,
+
+      '&:disabled:not(:focus)': {
+        backgroundColor: theme.colors.gray_100,
+        color: theme.colors.gray_500,
+      },
+    }),
+    secondary: css({
+      backgroundColor: theme.colors.gray_100,
 
       '&:disabled:not(:focus)': {
         backgroundColor: theme.colors.gray_100,
