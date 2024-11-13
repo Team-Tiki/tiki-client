@@ -11,6 +11,7 @@ import { HTTPError } from '@/shared/api/HTTPError';
 import Header from '@/shared/component/Header/Header';
 import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import SideNavBar from '@/shared/component/SideNavBar/SideNavBar';
+import TimeBlockDrawer from '@/shared/component/TimeBlockDrawer/TimeBlockDrawer';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
@@ -53,7 +54,7 @@ const App = () => {
           <Header />
           <Outlet />
         </main>
-        <GlobalDrawer />
+        <TimeBlockDrawer />
       </div>
     </ErrorBoundary>
   );

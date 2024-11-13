@@ -12,13 +12,14 @@ import { DrawerContent } from '@/shared/store/drawer';
 
 interface TimeBlockBarProps {
   content: DrawerContent;
+  closeDrawer: () => void;
 }
 
-const TimeBlockBar = ({ content }: TimeBlockBarProps) => {
+const TimeBlockBar = ({ content, closeDrawer }: TimeBlockBarProps) => {
   return (
     content && (
       <>
-        <CloseButton width={16} height={16} css={closeBtnStyle} />
+        <CloseButton width={16} height={16} css={closeBtnStyle} onClick={closeDrawer} />
 
         <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>
           <Flex css={circleStyle(content.color)}>

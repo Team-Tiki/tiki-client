@@ -2,13 +2,15 @@ import { create } from 'zustand';
 
 import { File } from '@/shared/type/file';
 
-type DrawerContent = {
+export type DrawerContent = {
   title: string;
   startDate: Date;
   endDate: Date;
-  files: File[];
   blockType: string;
   color: string;
+  taggedMembers: [];
+  handoverNotes: [];
+  files: File[];
 } | null;
 
 interface DrawerStore {
