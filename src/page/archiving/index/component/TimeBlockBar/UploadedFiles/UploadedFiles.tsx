@@ -4,6 +4,7 @@ import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
+import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/FileItem/FileItem';
 
 interface UploadedFileProps {
@@ -21,7 +22,9 @@ const UploadedFile = ({ isEdit }: UploadedFileProps) => {
     <Flex styles={{ direction: 'column', gap: '1.8rem', width: '100%' }}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
         <IcPaper width={16} height={16} />
-        <Text tag="body6">업로드된 파일</Text>
+        <Text tag="body6" css={listHeaderStyle}>
+          업로드된 파일
+        </Text>
       </Flex>
       {isEdit && (
         <Button variant="outline" size="medium" style={{ width: '100%' }}>

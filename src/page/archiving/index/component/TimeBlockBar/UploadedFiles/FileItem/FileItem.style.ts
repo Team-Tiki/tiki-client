@@ -12,6 +12,12 @@ export const containerStyle = css({
 
   backgroundColor: theme.colors.gray_100,
   borderRadius: '8px',
+
+  cursor: 'pointer',
+
+  '&:hover': {
+    backgroundColor: theme.colors.gray_200,
+  },
 });
 
 export const circleStyle = css({

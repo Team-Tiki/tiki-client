@@ -21,3 +21,7 @@ export const circleStyle = (color: string) =>
     borderRadius: '18px',
     backgroundColor: color,
   });
+
+export const listHeaderStyle = css({
+  color: theme.colors.gray_800,
+});

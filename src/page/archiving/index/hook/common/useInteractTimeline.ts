@@ -25,6 +25,8 @@ export const useInteractTimeline = () => {
       endDate: new Date('2024.09.15'),
       blockType: 'MEETING',
       color: '#FFE6E8',
+      taggedMembers: [],
+      handoverNotes: [],
       files: [],
     });
   };

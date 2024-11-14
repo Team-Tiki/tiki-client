@@ -3,6 +3,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
 import TaggedNoteItem from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNoteItem/TaggedNoteItem';
+import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 
 interface TaggedNotesProps {
   isEdit: boolean;
@@ -19,7 +20,9 @@ const TaggedNotes = ({ isEdit }: TaggedNotesProps) => {
     <Flex styles={{ direction: 'column', gap: '1.8rem' }}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
         <IcNote width={16} height={16} />
-        <Text tag="body6">태그된 인수인계 노트</Text>
+        <Text tag="body6" css={listHeaderStyle}>
+          태그된 인수인계 노트
+        </Text>
       </Flex>
       <Flex tag="ul" styles={{ direction: 'column', gap: '0.8rem' }}>
         {HANDOVER_NOTE_LIST.map((data) => (
