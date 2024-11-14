@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import TrashBox from '@/common/asset/svg/ic_delete.svg?react';
 import Download from '@/common/asset/svg/ic_download.svg?react';
@@ -10,6 +9,7 @@ import Text from '@/common/component/Text/Text';
 import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
 interface ItemProps {
@@ -22,9 +22,7 @@ interface ItemProps {
 }
 
 const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const teamId = searchParams.get('teamId');
+  const teamId = useInitializeTeamId();
 
   const openModal = useOpenModal();
 
@@ -40,7 +38,7 @@ const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
   const handleTrashBoxClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
 
-    openModal('delete', { teamId: +teamId!, itemId: documentId, itemType: 'docs' });
+    openModal('delete', { teamId: teamId, itemId: documentId, itemType: 'docs' });
   };
 
   return (

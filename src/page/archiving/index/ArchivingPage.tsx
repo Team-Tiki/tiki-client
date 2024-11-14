@@ -12,14 +12,16 @@ import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInter
 import { Block } from '@/page/archiving/index/type/blockType';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerAction } from '@/shared/store/drawer';
 import { useOpenModal } from '@/shared/store/modal';
-import { useTeamId } from '@/shared/store/team';
 
 const ArchivingPage = () => {
   const { selectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
+
+  const teamId = useInitializeTeamId();
 
   const location = useLocation();
   const selectedBlockFromDashboard: Block = location.state?.selectedBlock;
@@ -43,7 +45,7 @@ const ArchivingPage = () => {
     openModal('create-block');
   };
   return (
-    <DateProvider teamId={Number(useTeamId())}>
+    <DateProvider teamId={teamId}>
       <Flex css={pageStyle}>
         <ContentBox
           variant="timeline"
