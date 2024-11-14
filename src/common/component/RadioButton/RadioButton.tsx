@@ -11,7 +11,7 @@ export interface RadioButtonProps extends InputHTMLAttributes<HTMLInputElement> 
 const RadioButton = ({ label, value, id, checked, ...props }: RadioButtonProps) => {
   return (
     <div role="radio" aria-label="radio-button" aria-checked={checked} tabIndex={0} css={radioButtonLayoutStyle}>
-      <input id={id} type="radio" value={value} css={inputStyle} {...props} />
+      <input id={id} type="radio" value={value} checked={checked} css={inputStyle} {...props} />
       <label htmlFor={id} css={labelStyle}>
         {label}
       </label>
