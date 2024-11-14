@@ -11,6 +11,7 @@ interface UploadedFileProps {
   isEdit: boolean;
 }
 
+// 어차피 지워질애라 그냥 파일안에 두었습니다.
 const UPLOADED_FILE_LIST = [
   { id: 1, title: '세상에서 제일 긴 제목을 지을거에요 나는', capacity: '2.4 MB' },
   { id: 2, title: 'OT 인수인계', capacity: '2.9 MB' },
