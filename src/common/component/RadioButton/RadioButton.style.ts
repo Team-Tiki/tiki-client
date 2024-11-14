@@ -5,7 +5,7 @@ import { theme } from '@/common/style/theme/theme';
 export const radioButtonLayoutStyle = css({
   display: 'flex',
 
-  gap: '0.4rem',
+  gap: '0.7rem',
 
   cursor: 'pointer',
 });
@@ -38,8 +38,8 @@ export const inputStyle = css({
     top: '50%',
     left: '50%',
 
-    width: '0.75rem',
-    height: '0.75rem',
+    width: '0.7rem',
+    height: '0.7rem',
 
     margin: '0 auto',
 
