@@ -22,6 +22,8 @@ export const buttonStyle = css({
   '&:disabled:not(:focus)': {
     backgroundColor: theme.colors.gray_100,
     color: theme.colors.gray_500,
+
+    cursor: 'default',
   },
 
   transition: 'all .2s ease-in',
