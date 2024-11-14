@@ -11,7 +11,7 @@ interface TaggedNoteItemProps {
 
 const TaggedNoteItem = ({ title, isEdit }: TaggedNoteItemProps) => {
   return (
-    <Flex tag="li" styles={{ gap: '0.8rem' }}>
+    <Flex tag="li" styles={{ gap: '0.8rem', width: '100%' }} style={{ overflow: 'hidden' }}>
       <IcArrowRight width={16} height={16} />
       <Button disabled={isEdit} variant="outline" size="xSmall" css={handoverNoteItemStyle}>
         {title}
