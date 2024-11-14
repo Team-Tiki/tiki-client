@@ -5,14 +5,14 @@ import { theme } from '@/common/style/theme/theme';
 export const noteWrapperStyle = css({
   display: 'flex',
 
+  maxHeight: 'calc(100vh - 33rem)',
+
   flexDirection: 'column',
   gap: '4rem',
 
-  maxHeight: '45rem',
-
   paddingBottom: '5rem',
 
-  overflowY: 'scroll',
+  overflow: 'scroll',
 });
 
 export const layoutStyle = css({
