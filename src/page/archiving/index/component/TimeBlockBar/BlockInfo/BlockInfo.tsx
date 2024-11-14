@@ -1,25 +1,33 @@
+import DatePicker from '@/common/component/DatePicker';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+import Input from '@/common/component/Input/Input';
 import Text from '@/common/component/Text/Text';
 
-import { periodStyle } from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo.style';
+import { periodStyle, titleInputStyle } from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo.style';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
 interface BlockInfoProps {
   title: string;
   startDate: Date;
   endDate: Date;
+  isEdit: boolean;
 }
 
-const BlockInfo = ({ title, startDate, endDate }: BlockInfoProps) => {
+const BlockInfo = ({ title, startDate, endDate, isEdit }: BlockInfoProps) => {
   return (
-    <Flex styles={{ direction: 'column', gap: '1rem' }}>
-      <Heading tag="H6" style={{ marginTop: '1.8rem' }}>
-        {title}
-      </Heading>
-      <Text tag="body6" css={periodStyle}>
-        {formattingDate(startDate)} ~ {formattingDate(endDate)}
-      </Text>
+    <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem', width: '100%' }}>
+      {isEdit ? <Input css={titleInputStyle} value={title} /> : <Heading tag="H6">{title}</Heading>}
+
+      {isEdit ? (
+        <Flex styles={{ align: 'center', direction: 'row' }}>
+          <DatePicker variant="range" triggerWidth="100%" />
+        </Flex>
+      ) : (
+        <Text tag="body6" css={periodStyle}>
+          {formattingDate(startDate)} ~ {formattingDate(endDate)}
+        </Text>
+      )}
     </Flex>
   );
 };

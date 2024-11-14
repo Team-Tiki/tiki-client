@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import CloseButton from '@/common/asset/svg/ic_close.svg?react';
 import CommandButton from '@/common/component/CommandButton/CommandButton';
 import Flex from '@/common/component/Flex/Flex';
@@ -16,6 +18,12 @@ interface TimeBlockBarProps {
 }
 
 const TimeBlockBar = ({ content, closeDrawer }: TimeBlockBarProps) => {
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleEditClick = () => {
+    setIsEdit((prevState) => !prevState);
+  };
+
   return (
     content && (
       <>
@@ -25,15 +33,15 @@ const TimeBlockBar = ({ content, closeDrawer }: TimeBlockBarProps) => {
           <Flex css={circleStyle(content.color)}>
             {BLOCK_ICON.find((icon) => icon.name === content.blockType)?.icon(content.color)}
           </Flex>
-          <CommandButton variant="secondary" commandKey="E" size="xSmall">
-            수정하기
+          <CommandButton variant="secondary" commandKey={isEdit ? 'S' : 'E'} size="xSmall" onClick={handleEditClick}>
+            {isEdit ? '저장' : '수정하기'}
           </CommandButton>
         </Flex>
 
         <Flex styles={{ direction: 'column', gap: '3.6rem' }}>
-          <BlockInfo title={content.title} startDate={content.startDate} endDate={content.endDate} />
-          <TaggedNotes />
-          <UploadedFiles />
+          <BlockInfo title={content.title} startDate={content.startDate} endDate={content.endDate} isEdit={isEdit} />
+          <TaggedNotes isEdit={isEdit} />
+          <UploadedFiles isEdit={isEdit} />
         </Flex>
       </>
     )

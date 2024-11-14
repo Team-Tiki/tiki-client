@@ -1,9 +1,11 @@
+import CloseButton from '@/common/asset/svg/ic_close.svg?react';
 import IcPDF from '@/common/asset/svg/ic_pdf_file.svg?react';
 import Flex from '@/common/component/Flex/Flex';
 import Text from '@/common/component/Text/Text';
 
 import {
   circleStyle,
+  closeBtnStyle,
   containerStyle,
   fileCapacityStyle,
   fileTitleStyle,
@@ -12,22 +14,27 @@ import {
 interface FileItemProps {
   title: string;
   capacity: string;
+  isEdit: boolean;
 }
 
-const FileItem = ({ title, capacity }: FileItemProps) => {
+const FileItem = ({ title, capacity, isEdit }: FileItemProps) => {
   return (
     <Flex tag="li" css={containerStyle}>
-      <Flex css={circleStyle}>
-        <IcPDF width={16} height={16} />
+      <Flex>
+        <Flex css={circleStyle}>
+          <IcPDF width={16} height={16} />
+        </Flex>
+        <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
+          <Text tag="body8" css={fileTitleStyle}>
+            {title}
+          </Text>
+          <Text tag="body8" css={fileCapacityStyle}>
+            {capacity}
+          </Text>
+        </Flex>
       </Flex>
-      <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
-        <Text tag="body8" css={fileTitleStyle}>
-          {title}
-        </Text>
-        <Text tag="body8" css={fileCapacityStyle}>
-          {capacity}
-        </Text>
-      </Flex>
+
+      {isEdit && <CloseButton width={16} height={16} css={closeBtnStyle} />}
     </Flex>
   );
 };

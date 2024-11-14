@@ -4,6 +4,8 @@ import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
   gap: '1.2rem',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 
   width: '100%',
   padding: '0.6rem',
@@ -23,7 +25,7 @@ export const circleStyle = css({
 });
 
 export const fileTitleStyle = css({
-  maxWidth: '18.2rem',
+  maxWidth: '15rem',
 
   whiteSpace: 'nowrap',
   overflow: 'hidden',
@@ -32,4 +34,8 @@ export const fileTitleStyle = css({
 
 export const fileCapacityStyle = css({
   color: theme.colors.gray_800,
+});
+
+export const closeBtnStyle = css({
+  cursor: 'pointer',
 });
