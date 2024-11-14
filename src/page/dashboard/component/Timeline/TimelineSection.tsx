@@ -12,12 +12,12 @@ import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block'
 import { timelineContentStyle } from '@/page/dashboard/component/Timeline/TimelineSection.style';
 
 import { PATH } from '@/shared/constant/path';
-import { useTeamContext } from '@/shared/hook/common/useTeamContext';
+import { useTeamId } from '@/shared/store/team';
 
 const TimelineSection = () => {
   const navigate = useNavigate();
 
-  const teamId = useTeamContext();
+  const teamId = useTeamId();
   const { currentYear, currentMonth, endDay } = useDate(+teamId);
 
   const { data } = useGetTimeBlockQuery(+teamId, 'executive', currentYear, currentMonth);
