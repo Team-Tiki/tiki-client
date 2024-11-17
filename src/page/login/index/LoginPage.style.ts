@@ -17,14 +17,11 @@ export const formStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  width: '51.1rem',
-  height: '53rem',
+  width: '60rem',
 
-  padding: '6rem',
+  padding: '6rem 10.5rem',
   alignItems: 'center',
   justifyContent: 'center',
-
-  gap: '3.2rem',
 });
 
 export const findPasswordButtonStyle = css({

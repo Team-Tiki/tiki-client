@@ -22,11 +22,11 @@ export const dialogStyle = css({
   position: 'fixed',
   top: '50%',
   left: '50%',
-  width: '51.1rem',
 
   zIndex: theme.zIndex.overlayTop,
-  paddingTop: '4.8rem',
-  paddingBottom: '4.8rem',
+
+  padding: '3.2rem 2rem',
+
   borderRadius: '16px',
   border: 'none',
   outline: 'none',
