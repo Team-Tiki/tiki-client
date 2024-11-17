@@ -51,7 +51,15 @@ const getIconByType = (type: string) => {
   }
 };
 
-const FileGrid = ({ title, type, volume, variant = 'primary', isSelectable = false, onSelect, isSelected = false }: FileGridProps) => {
+const FileGrid = ({
+  title,
+  type,
+  volume,
+  variant = 'primary',
+  isSelectable = false,
+  onSelect,
+  isSelected = false,
+}: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   const optionRef = useRef<HTMLDivElement | null>(null);
@@ -65,7 +73,7 @@ const FileGrid = ({ title, type, volume, variant = 'primary', isSelectable = fal
     return y + 118 + 20 < document.documentElement.clientHeight - 48;
   };
 
-  return (      
+  return (
     <article css={cardStyle(variant !== 'primary')}>
       {isSelectable && (
         <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
