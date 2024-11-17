@@ -27,8 +27,7 @@ const TimeBlock = ({
   blockType,
   ...props
 }: TimeBlockProps) => {
-  const blockWidth = (new Date(endDate).getDate() - new Date(startDate).getDate() + 1) * 3.25;
-  const startPosition = (new Date(startDate).getDate() - 1) * 3.85;
+  const daysLength = new Date(endDate).getDate() - new Date(startDate).getDate() + 1;
 
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -41,10 +40,12 @@ const TimeBlock = ({
     <div
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => {
-        handleEnterBlock(e);
+      onKeyDown={(e) => handleEnterBlock(e)}
+      css={blockStyle(color, isSelected)}
+      style={{
+        gridColumn: `${new Date(startDate).getDate()} / span ${daysLength}`,
+        gridRow: `${floor}`,
       }}
-      css={blockStyle(blockWidth, startPosition, floor, color, isSelected)}
       onClick={onBlockClick}
       {...props}>
       {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}

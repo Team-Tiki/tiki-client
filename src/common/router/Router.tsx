@@ -9,6 +9,7 @@ import {
   ComingsoonPage,
   DrivePage,
   ErrorPage,
+  HandoverNotePage,
   InfoFormPage,
   LandingPage,
   LoginPage,
@@ -19,6 +20,7 @@ import {
 } from '@/common/router/lazy';
 
 import UnivFormPage from '@/page/signUp/info/UnivFormPage';
+import DashboardPage from '@/page/dashboard/DashboardPage';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -115,7 +117,7 @@ const router = createBrowserRouter([
         path: PATH.DASHBOARD,
         element: (
           <Suspense>
-            <h1>대쉬보드 페이지입니다.</h1>
+            <DashboardPage />
           </Suspense>
         ),
       },
@@ -156,6 +158,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <h1>HandOver</h1>
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.HANDOVER_NOTE,
+        element: (
+          <Suspense>
+            <HandoverNotePage />
           </Suspense>
         ),
       },

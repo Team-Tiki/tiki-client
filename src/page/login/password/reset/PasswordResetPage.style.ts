@@ -5,8 +5,10 @@ import { theme } from '@/common/style/theme/theme';
 export const pageStyle = css({
   flexDirection: 'column',
 
-  height: '78rem',
-  width: '51.1rem',
+  width: '39rem',
+  height: '30rem',
+
+  justifyContent: 'center',
 
   whiteSpace: 'nowrap',
 });
@@ -15,11 +17,10 @@ export const formStyle = css({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  flex: '1',
 
-  width: '51.1rem',
+  width: '39rem',
+  height: '21.6rem',
 
-  paddingTop: '3.2rem',
   margin: '0 auto',
 
   alignItems: 'center',

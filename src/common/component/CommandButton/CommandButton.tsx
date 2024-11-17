@@ -2,15 +2,16 @@ import { SyntheticEvent } from 'react';
 
 import CommandKey from '@/common/asset/svg/ic_command_key.svg?react';
 import { ButtonProps } from '@/common/component/Button/Button';
-import { sizeStyle, variantStyle } from '@/common/component/Button/Button.style';
+import { variantStyle } from '@/common/component/Button/Button.style';
 import {
   buttonStyle,
   childrenStyle,
   commonStyle,
   keyStyle,
+  sizeStyle,
 } from '@/common/component/CommandButton/CommandButton.style';
 
-interface CommandButtonProps extends ButtonProps {
+export interface CommandButtonProps extends ButtonProps {
   variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'outline'>;
   size?: Extract<ButtonProps['size'], 'large' | 'small'>;
   commandKey: string;
@@ -21,7 +22,7 @@ interface CommandButtonProps extends ButtonProps {
 
 const CommandButton = ({
   variant = 'primary',
-  size = 'large',
+  size = 'small',
   commandKey,
   isCommand = true,
   isFrontIcon = false,

@@ -25,7 +25,7 @@ const Input = (
         <input ref={ref} css={inputStyle} {...props} />
       </div>
       {supportingText && (
-        <SupportingText isError={isError} isNotice={isSuccess}>
+        <SupportingText isError={isError} isSuccess={isSuccess}>
           {supportingText}
         </SupportingText>
       )}

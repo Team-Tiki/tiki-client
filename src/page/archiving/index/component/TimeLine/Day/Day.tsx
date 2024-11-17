@@ -1,38 +1,32 @@
 import { memo } from 'react';
 
-import {
-  dayBodyStyle,
-  dayHeaderStyle,
-  dayStyle,
-  entireDayStyle,
-} from '@/page/archiving/index/component/TimeLine/Day/Day.style';
+import { useDateContext } from '@/page/archiving/index/DateProvider';
+import { dayHeaderStyle, dayStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 
-interface DaySectionProps {
-  currentYear: number;
-  currentMonth: number;
-  endDay: Date;
-}
+import { useDrawerIsOpen } from '@/shared/store/drawer';
 
-const Day = memo(({ currentYear, currentMonth, endDay }: DaySectionProps) => {
+const Day = memo(() => {
+  const { currentYear, currentMonth, endDay } = useDateContext();
+
   const dayCount = endDay.getDate();
   const currentDate = new Date();
 
+  const isOpen = useDrawerIsOpen();
+
   return (
-    <div css={entireDayStyle}>
-      <div css={dayStyle}>
-        {Array.from({ length: dayCount }, (_, day) => {
-          const isToday =
-            day + 1 === currentDate.getDate() &&
-            currentYear === currentDate.getFullYear() &&
-            currentMonth === currentDate.getMonth() + 1;
-          return (
-            <header css={dayHeaderStyle(isToday)} key={day}>
-              {day + 1}
-            </header>
-          );
-        })}
-      </div>
-      <div css={dayBodyStyle} />
+    <div css={dayStyle}>
+      {Array.from({ length: dayCount }, (_, day) => {
+        const isToday =
+          day + 1 === currentDate.getDate() &&
+          currentYear === currentDate.getFullYear() &&
+          currentMonth === currentDate.getMonth() + 1;
+
+        return (
+          <header css={dayHeaderStyle(isToday, isOpen)} key={day}>
+            {day + 1}
+          </header>
+        );
+      })}
     </div>
   );
 });

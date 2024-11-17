@@ -8,16 +8,13 @@ export const pageStyle = () =>
     overflow: 'hidden',
   });
 
-export const contentBoxStyle = css({
-  height: '64rem',
-});
-
 export const timelineStyle = () =>
   css({
     display: 'flex',
     flexDirection: 'column',
 
     width: '100%',
+    height: '49.2rem',
 
     borderRadius: '16px',
 
