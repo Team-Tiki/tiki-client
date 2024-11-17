@@ -8,8 +8,10 @@ import {
   ArchivingPage,
   ComingsoonPage,
   DeletedPage,
+  DashboardPage,
   DrivePage,
   ErrorPage,
+  HandoverNotePage,
   InfoFormPage,
   LandingPage,
   LoginPage,
@@ -17,6 +19,7 @@ import {
   PasswordResetPage,
   ShowcasePage,
   TermPage,
+  UnivFormPage,
 } from '@/common/router/lazy';
 
 import { PATH } from '@/shared/constant/path';
@@ -68,15 +71,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_INFO,
+        path: PATH.SIGNUP_UNIV,
         element: (
           <Suspense>
-            <InfoFormPage />
+            <UnivFormPage />
           </Suspense>
         ),
       },
       {
-        path: PATH.SIGNUP_PASSWORD,
+        path: PATH.SIGNUP_INFO,
         element: (
           <Suspense>
             <InfoFormPage />
@@ -114,7 +117,7 @@ const router = createBrowserRouter([
         path: PATH.DASHBOARD,
         element: (
           <Suspense>
-            <h1>대쉬보드 페이지입니다.</h1>
+            <DashboardPage />
           </Suspense>
         ),
       },
@@ -163,6 +166,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <DeletedPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.HANDOVER_NOTE,
+        element: (
+          <Suspense>
+            <HandoverNotePage />
           </Suspense>
         ),
       },

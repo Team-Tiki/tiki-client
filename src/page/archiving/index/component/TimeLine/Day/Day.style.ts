@@ -17,7 +17,7 @@ export const dayStyle = css({
   justifyContent: 'space-between',
 });
 
-export const dayHeaderStyle = (isToday: boolean) =>
+export const dayHeaderStyle = (isToday: boolean, isOpen: boolean) =>
   css({
     display: 'flex',
 
@@ -37,28 +37,39 @@ export const dayHeaderStyle = (isToday: boolean) =>
     ...theme.text.body08,
 
     ':first-of-type': {
-      marginLeft: '1.9rem',
+      marginLeft: isOpen ? '1.9rem' : '2.1rem',
     },
 
     ':last-of-type': {
-      marginRight: '1.9rem',
+      marginRight: isOpen ? '1.9rem' : '2.1rem',
     },
   });
 
-export const dayBodyStyle = css({
-  position: 'relative',
-  display: 'flex',
+export const dayBodyStyle = (dayCount: number) =>
+  css({
+    display: 'grid',
 
-  height: '46rem',
+    gridTemplateColumns: `repeat(${dayCount}, 1fr)`,
+    gridAutoRows: '3rem',
 
-  justifyContent: 'center',
-  alignItems: 'center',
+    rowGap: '2rem',
+    gap: '1.5rem',
 
-  maxHeight: 'calc(100vh - 2rem)',
+    minHeight: 'calc(100vh - 40rem)',
+    maxHeight: 'calc(100vh - 2rem)',
 
-  overflowY: 'auto',
+    overflowY: 'auto',
 
-  backgroundColor: theme.colors.gray_100,
+    backgroundColor: theme.colors.gray_100,
+  });
 
-  borderRadius: '1.6rem',
-});
+export const dayBodyWrapperStyle = (isOpen: boolean) =>
+  css({
+    padding: isOpen ? '0.8rem 2.1rem' : '0.8rem 2.3rem',
+
+    borderRadius: '1.6rem',
+
+    backgroundColor: theme.colors.gray_100,
+
+    transition: '0.2s ease-in-out',
+  });
