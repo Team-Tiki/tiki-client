@@ -7,8 +7,8 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
-  DeletedPage,
   DashboardPage,
+  DeletedPage,
   DrivePage,
   ErrorPage,
   HandoverNotePage,
