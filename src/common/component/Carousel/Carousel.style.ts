@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 
 import { CarouselProps } from '@/common/component/Carousel/Carousel';
-import { theme } from '@/common/style/theme/theme';
 
 export const itemStyle = (height: string) =>
   css({
@@ -67,8 +66,6 @@ export const arrowStyle = (position: 'left' | 'right') =>
 
     width: '3.2rem',
     height: '3.2rem',
-
-    zIndex: theme.zIndex.overlayBottom,
 
     border: 'none',
     borderRadius: '16px',

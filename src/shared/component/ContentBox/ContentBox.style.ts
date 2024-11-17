@@ -6,7 +6,8 @@ export const sectionStyle = css({
   position: 'relative',
 
   width: '100%',
-  minHeight: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
+
+  height: 'calc(100vh - 11.6rem - 4.8rem - 2rem)',
 
   padding: '0 1.6rem',
 
@@ -49,8 +50,6 @@ export const headerStyle = css({
 
   height: '7.2rem',
 
-  zIndex: theme.zIndex.overlayBottom,
-
   padding: '1.6rem 0rem',
 
   borderBottom: `1px solid ${theme.colors.gray_200}`,
@@ -67,7 +66,6 @@ export const contentOptionStyle = css({
 
 export const contentStyle = css({
   width: '100%',
-  /** 100vh - (상단 헤더 높이 + 헤더옵션 높이 + 컨텐츠옵션 높이 + 레이아웃 패딩바텀 + 레이아웃 패딩탑 + 컨텐츠 박스 border 사이즈 + 컨텐츠스타일의 마진탑) */
   height: 'calc(100vh - 11.6rem - 7.2rem - 6.4rem - 4.8rem - 2rem - 0.2rem - 0.8rem)',
 
   marginTop: '0.8rem',

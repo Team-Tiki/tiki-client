@@ -7,19 +7,22 @@ export const commonStyle = () =>
   css({
     color: theme.colors.white,
 
-    padding: '0.4rem 0.8rem',
     ...theme.text.body08,
   });
 
 export const tagStyle = ({ variant, color, bgColor }: Required<Pick<TagProps, 'variant' | 'color' | 'bgColor'>>) => {
   const style = {
     round: css({
+      padding: '0.4rem 0.8rem',
+
       borderRadius: '1rem',
 
       color: color,
       backgroundColor: bgColor,
     }),
     square: css({
+      padding: '0.8rem',
+
       borderRadius: '0.4rem',
 
       color: color,

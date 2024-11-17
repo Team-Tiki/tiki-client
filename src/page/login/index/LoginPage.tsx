@@ -35,7 +35,7 @@ const LoginPage = () => {
 
   return (
     <section css={pageStyle}>
-      <Logo width={108} height={40} />
+      <Logo css={{ flexShrink: 0 }} width={108} height={40} />
       <form onSubmit={handleLogin} css={formStyle}>
         <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
           <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="아이디" />
@@ -47,17 +47,22 @@ const LoginPage = () => {
           />
         </Flex>
         <Flex styles={{ marginTop: '3.6rem', direction: 'column', width: '100%', gap: '1.2rem' }}>
-          <Button type="submit" variant="primary">
+          <Button size="xLarge" css={{ width: '100%' }} type="submit" variant="primary">
             로그인
           </Button>
-          <Button type="button" variant="secondary" onClick={회원가입페이지로이동}>
+          <Button
+            size="xLarge"
+            css={{ width: '100%' }}
+            type="button"
+            variant="secondary"
+            onClick={회원가입페이지로이동}>
             학교 메일로 회원가입
           </Button>
         </Flex>
         <Button
           type="button"
           size="small"
-          variant="underline"
+          variant="text"
           css={findPasswordButtonStyle}
           onClick={비밀번호찾기페이지로이동}>
           비밀번호 찾기

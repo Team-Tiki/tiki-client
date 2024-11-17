@@ -1,10 +1,8 @@
 import { endOfMonth } from 'date-fns';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export const useDate = (teamId?: string) => {
-  const ref = useRef<HTMLDivElement>(null);
-
   const currentDate = new Date();
 
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth() + 1);
@@ -17,38 +15,34 @@ export const useDate = (teamId?: string) => {
   /** teamId가 변경될 때마다 selectedMonth 초기화 */
   if (teamId !== updatedTeamId) {
     setUpdatedTeamId(teamId);
-    setCurrentMonth(1);
+    setCurrentMonth(currentDate.getMonth() + 1);
+    setCurrentYear(currentDate.getFullYear());
   }
 
   const handlePrevMonth = () => {
-    setCurrentMonth((prevMonth) => prevMonth - 1);
-    ref?.current?.scrollTo(0, 0);
-
     if (currentMonth <= 1) {
       setCurrentMonth(12);
       setCurrentYear((prevYear) => prevYear - 1);
+    } else {
+      setCurrentMonth((prevMonth) => prevMonth - 1);
     }
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth((prevMonth) => prevMonth + 1);
-    ref?.current?.scrollTo(0, 0);
-
     if (currentMonth >= 12) {
       setCurrentMonth(1);
       setCurrentYear((prevYear) => prevYear + 1);
+    } else {
+      setCurrentMonth((prevMonth) => prevMonth + 1);
     }
   };
 
   const handleToday = () => {
     setCurrentYear(currentDate.getFullYear());
     setCurrentMonth(currentDate.getMonth() + 1);
-
-    ref?.current?.scrollTo(0, 0);
   };
 
   return {
-    ref,
     currentDate,
     currentYear,
     handlePrevMonth,

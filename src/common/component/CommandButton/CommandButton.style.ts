@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { ButtonProps } from '@/common/component/Button/Button';
+import { CommandButtonProps } from '@/common/component/CommandButton/CommandButton';
 import { theme } from '@/common/style/theme/theme';
 
 export const buttonStyle = (isFrontIcon: boolean) =>
@@ -76,3 +77,21 @@ export const childrenStyle = css({
 
   gap: '0.4rem',
 });
+
+export const sizeStyle = (size: Required<CommandButtonProps>['size']) => {
+  const style = {
+    /** Button_40 */
+    large: css({
+      padding: '1.1rem 1.0rem 1.1rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_32 */
+    small: css({
+      padding: '0.6rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+  };
+  return style[size];
+};

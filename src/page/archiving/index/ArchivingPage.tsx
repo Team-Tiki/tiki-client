@@ -1,65 +1,71 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
-import { contentBoxStyle, contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
+import { contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
+import DateProvider from '@/page/archiving/index/DateProvider';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
-import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
+import { Block } from '@/page/archiving/index/type/blockType';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import { useDrawerAction } from '@/shared/store/drawer';
 import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
+  const teamId = localStorage.getItem('teamId');
   const { selectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
 
-  const teamId = localStorage.getItem('teamId');
+  const location = useLocation();
+  const selectedBlockFromDashboard: Block = location.state?.selectedBlock;
+  const finalSelectedBlock = selectedBlockFromDashboard || selectedBlock;
 
-  const { ref, currentYear, currentMonth, handlePrevMonth, handleNextMonth, handleToday, endDay } = useDate(teamId!);
+  const { openDrawer } = useDrawerAction();
+
+  useEffect(() => {
+    if (selectedBlockFromDashboard) {
+      /** TODO: 추후 block id에 따른 API 응답으로 데이터 넣기 */
+      openDrawer({
+        title: selectedBlockFromDashboard.name,
+        startDate: '2024-09-13',
+        endDate: '2024-09-24',
+        files: [],
+      });
+    }
+  }, [openDrawer, selectedBlockFromDashboard]);
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
   };
 
   return (
-    <Flex css={pageStyle}>
-      <ContentBox
-        variant="timeline"
-        title="타임라인"
-        headerOption={
-          <Button variant="secondary" onClick={handleOpenBlockModal}>
-            타임블록 추가
-          </Button>
-        }
-        css={contentBoxStyle}>
-        <section css={timelineStyle}>
-          <TimeLineHeader
-            onPrevMonth={handlePrevMonth}
-            onNextMonth={handleNextMonth}
-            currentYear={currentYear}
-            currentMonth={currentMonth}
-            onToday={handleToday}
-          />
-          <Flex css={contentStyle}>
-            <Suspense>
-              {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
-              <TimeLine
-                ref={ref}
-                selectedBlock={selectedBlock}
-                onBlockClick={handleBlockClick}
-                currentYear={currentYear}
-                currentMonth={currentMonth}
-                endDay={endDay}
-              />
-            </Suspense>
-          </Flex>
-        </section>
-      </ContentBox>
-    </Flex>
+    <DateProvider teamId={teamId!}>
+      <Flex css={pageStyle}>
+        <ContentBox
+          variant="timeline"
+          title="타임라인"
+          headerOption={
+            <Button variant="secondary" onClick={handleOpenBlockModal}>
+              타임블록 추가
+            </Button>
+          }>
+          <section css={timelineStyle}>
+            <TimeLineHeader />
+            <Flex css={contentStyle}>
+              <Suspense>
+                {/** fallback UI 디자인 나올 시에 TimeLine 크기만큼 채워서 Layout 안움직이도록 */}
+                <TimeLine selectedBlock={finalSelectedBlock} onBlockClick={handleBlockClick} />
+              </Suspense>
+            </Flex>
+          </section>
+        </ContentBox>
+      </Flex>
+    </DateProvider>
   );
 };
 

@@ -4,12 +4,12 @@ import { textStyle } from '@/common/component/SupportingText/SupportingText.styl
 
 interface SupportingTextProps extends ComponentPropsWithoutRef<'p'> {
   isError?: boolean;
-  isNotice?: boolean;
+  isSuccess?: boolean;
 }
 
-const SupportingText = ({ isError = false, isNotice = false, children, ...props }: SupportingTextProps) => {
+const SupportingText = ({ isError = false, isSuccess = false, children, ...props }: SupportingTextProps) => {
   return (
-    <p {...props} css={textStyle(isError, isNotice)}>
+    <p {...props} css={textStyle(isError, isSuccess)}>
       {children}
     </p>
   );

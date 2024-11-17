@@ -49,6 +49,8 @@ export interface FlexStyle {
 
   width?: string;
   height?: string;
+  maxWidth?: string;
+  maxHeight?: string;
 
   margin?: string;
   marginRight?: string;
@@ -78,6 +80,8 @@ export const getFlexStyle = ({
   shrink = 0,
   width = '',
   height = '',
+  maxWidth = '',
+  maxHeight = '',
   margin = '0',
   marginRight = '',
   marginTop = '',
@@ -106,6 +110,8 @@ export const getFlexStyle = ({
     gap,
     width,
     height,
+    maxWidth,
+    maxHeight,
     margin,
     marginRight,
     marginLeft,
