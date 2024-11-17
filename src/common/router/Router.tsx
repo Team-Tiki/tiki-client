@@ -7,6 +7,7 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
+  DashboardPage,
   DrivePage,
   ErrorPage,
   HandoverNotePage,
@@ -17,10 +18,8 @@ import {
   PasswordResetPage,
   ShowcasePage,
   TermPage,
+  UnivFormPage,
 } from '@/common/router/lazy';
-
-import UnivFormPage from '@/page/signUp/info/UnivFormPage';
-import DashboardPage from '@/page/dashboard/DashboardPage';
 
 import { PATH } from '@/shared/constant/path';
 
