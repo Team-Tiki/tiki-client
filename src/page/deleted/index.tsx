@@ -17,6 +17,12 @@ const tmpData: File[] = [
   { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
   { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
   { fileId: 8, title: '김규홍', volume: 3000, type: 'word', createdAt: '2024-11-11' },
+  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
+  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
+  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
+  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
+  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
+  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
 ];
 
 const DeletedPage = () => {
@@ -70,7 +76,7 @@ const DeletedPage = () => {
         </Flex>
       }>
       <div>
-        <ul css={contentStyle(tmpData.length === 0)}>
+        <ul css={contentStyle(tmpData.length)}>
           {tmpData.map((item) => (
             <FileGrid
               key={item.fileId}

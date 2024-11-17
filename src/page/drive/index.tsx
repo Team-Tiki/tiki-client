@@ -77,7 +77,7 @@ const DrivePage = () => {
           </ul>
         </>
       ) : (
-        <ul css={contentStyle(FileData.length === 0)}>
+        <ul css={contentStyle(FileData.length)}>
           {filteredData.map((item) => (
             <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
           ))}
