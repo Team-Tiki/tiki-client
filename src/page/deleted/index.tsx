@@ -15,13 +15,13 @@ import { File } from '@/shared/type/file';
 
 const tmpData: File[] = [
   { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 2, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 3, title: '김규홍', volume: 3000, type: 'word', createdAt: '2024-11-11' },
+  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
+  { fileId: 8, title: '김규홍', volume: 3000, type: 'word', createdAt: '2024-11-11' },
 ];
 
 const DeletedPage = () => {
   const { isOpen, toggle } = useOverlay();
-  const { ids, handleItemClick, handleAllClick, handleReset } = useMultiSelect(tmpData.length);
+  const { ids, handleItemClick, handleAllClick, handleReset } = useMultiSelect<File>('fileId', tmpData);
 
   const [canSelect, setCanSelect] = useState(false);
 
@@ -78,7 +78,7 @@ const DeletedPage = () => {
               type={item.type}
               volume={item.volume}
               isSelectable={canSelect}
-              isSelected={ids[+item.fileId]}
+              isSelected={ids.includes(+item.fileId)}
               onSelect={() => handleItemClick(+item.fileId)}
             />
           ))}

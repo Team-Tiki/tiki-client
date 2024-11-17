@@ -1,47 +1,42 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-type MultiSelectStatus = {
-  [key: number]: boolean;
+type DataHasIdKey<T> = {
+  [key in keyof T]: T[key];
 };
 
-const createObj = (length: number, flag: boolean): MultiSelectStatus => {
-  const obj: MultiSelectStatus = {};
-
-  for (let i = 1; i <= length; ++i) {
-    obj[i] = flag;
-  }
-
-  return obj;
-};
-
-export const useMultiSelect = (length: number) => {
-  const defaultValue = useMemo(() => createObj(length, false), [length]);
-  const allTrueValue = useMemo(() => createObj(length, true), [length]);
-
-  /**
-   * key: id(number), value: true/false 를 갖는 객체
-   * 특정 id를 가진 아이템이 선택되었는지를 의미함
-   */
-  const [ids, setIds] = useState<MultiSelectStatus>(defaultValue);
+/**
+ * identifier: "fileId"와 같이 해당 아이템을 구분할 수 있는 식별자
+ * select할 시 특정 아이템의 identifier 값을 ids에 넣음
+ */
+export const useMultiSelect = <T extends object>(identifier: keyof T, data: DataHasIdKey<T>[]) => {
+  const [ids, setIds] = useState<number[]>([]);
 
   const handleItemClick = (id: number) => {
-    setIds((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    if (ids.includes(id)) {
+      setIds((prev) => {
+        const origin = [...prev];
+
+        return origin.filter((i) => i !== id);
+      });
+    } else {
+      setIds((prev) => [...prev, id]);
+    }
   };
 
   const handleAllClick = () => {
-    if (Object.values(ids).every((bool) => bool)) {
-      setIds(defaultValue);
-      return;
-    }
+    if (ids.length !== data.length) {
+      const totalIds: number[] = [];
 
-    setIds(allTrueValue);
+      data.forEach((item) => totalIds.push(item[identifier] as number));
+
+      setIds(totalIds);
+    } else {
+      setIds([]);
+    }
   };
 
   const handleReset = () => {
-    setIds(defaultValue);
+    setIds([]);
   };
 
   return { ids, handleItemClick, handleAllClick, handleReset };
