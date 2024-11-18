@@ -20,12 +20,12 @@ const HandoverPage = () => {
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const [sortOption, setsortOption] = useState('');
+  const [sortOption, setSortOption] = useState('');
 
   const [searchValue, setSearchValue] = useState('');
 
   const handleSortOption = (id: string) => {
-    setsortOption(id);
+    setSortOption(id);
 
     close();
   };

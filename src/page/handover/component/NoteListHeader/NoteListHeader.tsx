@@ -13,7 +13,7 @@ interface NoteListHeaderProps {
 
 const NoteListHeader = ({ activeCheck, isChecked, handleChecked }: NoteListHeaderProps) => {
   return (
-    <div css={[containerStyle, fontStyle]}>
+    <header css={[containerStyle, fontStyle]}>
       <Flex styles={{ align: 'center' }}>
         {activeCheck && <CheckBox isChecked={isChecked} onChange={handleChecked} style={{ marginRight: '1.6rem' }} />}
         <Text tag="body8">활동 기간</Text>
@@ -21,7 +21,7 @@ const NoteListHeader = ({ activeCheck, isChecked, handleChecked }: NoteListHeade
       <Text tag="body8">노트 제목</Text>
       <Text tag="body8">작성자</Text>
       <Text tag="body8">작성여부</Text>
-    </div>
+    </header>
   );
 };
 

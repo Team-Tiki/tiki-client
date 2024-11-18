@@ -25,15 +25,6 @@ export const profileStyle = css({
   backgroundColor: theme.colors.gray_300,
 });
 
-export const finishedStyle = (isFinished: boolean) =>
-  css({
-    padding: '0.4rem 0.8rem',
-    borderRadius: '4px',
-    width: isFinished ? '6.1rem' : '7.2rem',
-    color: theme.colors.white,
-    backgroundColor: isFinished ? theme.colors.key_400 : theme.colors.gray_300,
-  });
-
 export const moreButtonStyle = css({
   cursor: 'pointer',
 });
