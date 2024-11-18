@@ -6,5 +6,7 @@ export const useClubInfoQuery = () => {
   return useQuery({
     queryKey: ['clubInfo'],
     queryFn: () => getClubInfo(),
+
+    enabled: !localStorage.getItem('teamId'),
   });
 };
