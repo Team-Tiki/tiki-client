@@ -7,11 +7,11 @@ import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeB
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
-import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/TimelineinDash.style';
+import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/Timeline.style';
 
 import { PATH } from '@/shared/constant/path';
 
-const TimelineinDash = () => {
+const Timeline = () => {
   const navigate = useNavigate();
 
   const teamId = localStorage.getItem('teamId');
@@ -56,4 +56,4 @@ const TimelineinDash = () => {
   );
 };
 
-export default TimelineinDash;
+export default Timeline;
