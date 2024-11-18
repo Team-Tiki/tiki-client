@@ -17,20 +17,25 @@ export const SUPPORTING_TEXT = {
   BIRTH: '생년월일을 입력해주세요',
 
   EMAIL: '이메일을 입력해주세요',
-  EMAIL_INVALID: '유효하지 않은 이메일 주소입니다.',
-  EMAIL_SUCCESS: '메일을 성공적으로 전송하였습니다.',
+  EMAIL_INVALID: '올바른 이메일을 입력해주세요.',
+  EMAIL_SUCCESS: '메일함에서 인증번호를 확인해주세요.',
   EMAIL_EXPIRED: '인증 번호가 만료되었습니다.',
   EMAIL_NOAUTH: '이메일을 인증해주세요.',
+  EMAIL_AUTH: '회원가입시 인증한 학교 웹메일을 입력해주세요',
 
   UNIV: '대학교를 선택해주세요.',
 
   PASSWORD: '비밀번호를 입력해주세요',
-  PASSWORD_INVALID: '영문/숫자/특수문자를 사용해 8자 이상으로 만들어주세요.',
-  PASSWORD_CHECKER: '비밀번호 확인을 입력해주세요',
+  PASSWORD_NOTICE: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_INVALID: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_VALID: '사용가능한 비밀번호입니다.',
+  PASSWORD_CHECKER: '비밀번호 확인을 위해 새로운 비밀번호를 재입력해주세요.',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
+  PASSWORD_EQUAL: '비밀번호가 일치합니다.',
 
-  AUTHCODE_NO_EQUAL: '인증번호가 일치하지 않습니다.',
-  AUTH_CODE: '회원 인증 메일이 전송되었습니다. 메일함에서 인증번호를 확인해주세요.',
+  AUTHCODE: '코드를 입력해주세요.\n메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.',
+  AUTHCODE_NO_EQUAL: '인증코드가 틀립니다.\n올바른 인증코드를 입력해주세요.',
+  AUTHCODE_SUCCESS: '인증이 성공적으로 완료되었습니다.',
 } as const;
 
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;

@@ -25,6 +25,8 @@ export const containerStyle = css({
 
   width: '25.6rem',
 
+  zIndex: theme.zIndex.overlayMiddle,
+
   padding: '1.6rem',
 
   border: `1px solid ${theme.colors.gray_300}`,
