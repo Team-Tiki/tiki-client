@@ -38,7 +38,10 @@ export const commonStyle = css({
 });
 
 export const keyStyle = (
-  variant: Extract<'primary' | 'tertiary' | 'outline' | 'secondary', Omit<ButtonProps, 'underline'>['variant']>
+  variant: Extract<
+    'primary' | 'tertiary' | 'fourth' | 'outline',
+    Omit<ButtonProps, 'underline' | 'secondary'>['variant']
+  >
 ) => {
   const style = {
     primary: css({
@@ -49,7 +52,7 @@ export const keyStyle = (
         color: theme.colors.gray_500,
       },
     }),
-    secondary: css({
+    tertiary: css({
       backgroundColor: theme.colors.gray_100,
 
       '&:disabled:not(:focus)': {
@@ -57,7 +60,7 @@ export const keyStyle = (
         color: theme.colors.gray_500,
       },
     }),
-    tertiary: css({
+    fourth: css({
       backgroundColor: theme.colors.gray_100,
 
       '&:disabled:not(:focus)': {

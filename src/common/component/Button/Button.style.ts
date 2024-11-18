@@ -40,11 +40,11 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
       },
     }),
     secondary: css({
-      color: theme.colors.gray_800,
-      backgroundColor: theme.colors.white,
+      color: theme.colors.key_500,
+      backgroundColor: theme.colors.key_100,
 
       '&:hover': {
-        backgroundColor: theme.colors.gray_100,
+        backgroundColor: theme.colors.key_200,
       },
     }),
     tertiary: css({
@@ -53,6 +53,14 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
       '&:hover': {
         backgroundColor: theme.colors.gray_200,
+      },
+    }),
+    fourth: css({
+      color: theme.colors.gray_800,
+      backgroundColor: theme.colors.white,
+
+      '&:hover': {
+        backgroundColor: theme.colors.gray_100,
       },
     }),
     outline: css({

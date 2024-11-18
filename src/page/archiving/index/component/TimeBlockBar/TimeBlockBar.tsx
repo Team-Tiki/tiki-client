@@ -33,7 +33,7 @@ const TimeBlockBar = ({ content, closeDrawer }: TimeBlockBarProps) => {
           <Flex css={circleStyle(content.color)}>
             {BLOCK_ICON.find((icon) => icon.name === content.blockType)?.icon(content.color)}
           </Flex>
-          <CommandButton variant="secondary" commandKey={isEdit ? 'S' : 'E'} size="xSmall" onClick={handleEditClick}>
+          <CommandButton variant="fourth" commandKey={isEdit ? 'S' : 'E'} size="xSmall" onClick={handleEditClick}>
             {isEdit ? '저장' : '수정하기'}
           </CommandButton>
         </Flex>
