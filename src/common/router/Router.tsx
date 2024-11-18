@@ -8,6 +8,7 @@ import {
   ArchivingPage,
   ComingsoonPage,
   DashboardPage,
+  DeletedPage,
   DrivePage,
   ErrorPage,
   HandoverNotePage,
@@ -157,6 +158,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <h1>HandOver</h1>
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.DELETED,
+        element: (
+          <Suspense>
+            <DeletedPage />
           </Suspense>
         ),
       },

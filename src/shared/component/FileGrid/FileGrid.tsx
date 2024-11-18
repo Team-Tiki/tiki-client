@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
+import CheckBox from '@/common/component/CheckBox/CheckBox';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Menu from '@/common/component/Menu/Menu';
@@ -28,6 +29,10 @@ export type FileGridProps = {
   type: File['type'];
   volume: number;
 
+  isSelectable?: boolean;
+  onSelect?: () => void;
+  isSelected?: boolean;
+
   /**
    * [TODO]
    * onDownLoad
@@ -46,7 +51,15 @@ const getIconByType = (type: string) => {
   }
 };
 
-const FileGrid = ({ title, type, volume, variant = 'primary' }: FileGridProps) => {
+const FileGrid = ({
+  title,
+  type,
+  volume,
+  variant = 'primary',
+  isSelectable = false,
+  onSelect,
+  isSelected = false,
+}: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   const optionRef = useRef<HTMLDivElement | null>(null);
@@ -62,6 +75,9 @@ const FileGrid = ({ title, type, volume, variant = 'primary' }: FileGridProps) =
 
   return (
     <article css={cardStyle(variant !== 'primary')}>
+      {isSelectable && (
+        <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
+      )}
       <div css={iconWrapperStyle(variant !== 'primary')}>{getIconByType(type)}</div>
       <Flex
         styles={{

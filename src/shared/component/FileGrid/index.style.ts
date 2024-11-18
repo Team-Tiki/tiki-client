@@ -4,7 +4,11 @@ import { theme } from '@/common/style/theme/theme';
 
 export const cardStyle = (isSmall: boolean) =>
   css({
+    position: 'relative',
+
     minWidth: '16rem',
+    maxWidth: '22rem',
+
     width: isSmall ? '16rem' : '100%',
     height: isSmall ? '12.2rem' : '16rem',
 

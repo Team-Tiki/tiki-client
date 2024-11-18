@@ -27,23 +27,34 @@ export interface SelectProps extends Omit<ComponentPropsWithRef<'div'>, 'onSelec
   isOpen?: boolean;
   label?: string;
   placeholder?: string;
+  defaultValue?: string;
   onTrigger?: () => void;
   onSelect?: (value: string) => void;
   options: OptionType[];
 }
 
 const Select = (
-  { variant = 'default', isOpen = false, placeholder, label, onTrigger, onSelect, options, ...props }: SelectProps,
+  {
+    variant = 'default',
+    isOpen = false,
+    defaultValue,
+    placeholder,
+    label,
+    onTrigger,
+    onSelect,
+    options,
+    ...props
+  }: SelectProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const [selectedText, setSelectedText] = useState(placeholder);
+  const [selectedText, setSelectedText] = useState(defaultValue || placeholder);
 
   const isSelected = selectedText !== placeholder;
 
   return (
     <Dropdown css={{ width: '100%' }} ref={ref} role="listbox" label={label} {...props}>
       <button onClick={onTrigger} css={triggerStyle(variant, isSelected)}>
-        <span>{selectedText || placeholder}</span>
+        <span>{selectedText}</span>
         {variant === 'option' ? (
           <IcArrowOption css={iconStyle(isOpen)} width={12} height={12} />
         ) : (
