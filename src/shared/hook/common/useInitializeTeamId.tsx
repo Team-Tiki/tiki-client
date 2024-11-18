@@ -9,9 +9,9 @@ export const useInitializeTeamId = () => {
     const teamId = data.belongTeamGetResponses[0].id;
     localStorage.setItem('teamId', teamId.toString());
 
-    setTeamId(data.belongTeamGetResponses[0].id);
+    setTeamId(teamId);
 
-    return data.belongTeamGetResponses[0].id;
+    return teamId;
   }
 
   return Number(localStorage.getItem('teamId'));
