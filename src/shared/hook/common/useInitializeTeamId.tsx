@@ -5,7 +5,7 @@ export const useInitializeTeamId = () => {
   const { data, isSuccess } = useClubInfoQuery();
   const { setTeamId } = useTeamIdAction();
 
-  if (isSuccess) {
+  if (isSuccess && !localStorage.getItem('teamId')) {
     const teamId = data.belongTeamGetResponses[0].id;
     localStorage.setItem('teamId', teamId.toString());
 
