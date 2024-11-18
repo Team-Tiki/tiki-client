@@ -11,18 +11,16 @@ interface BlockInfoProps {
   title: string;
   startDate: Date;
   endDate: Date;
-  isEdit: boolean;
+  isEditable: boolean;
 }
 
-const BlockInfo = ({ title, startDate, endDate, isEdit }: BlockInfoProps) => {
+const BlockInfo = ({ title, startDate, endDate, isEditable }: BlockInfoProps) => {
   return (
     <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem', width: '100%' }}>
-      {isEdit ? <Input css={titleInputStyle} value={title} /> : <Heading tag="H6">{title}</Heading>}
+      {isEditable ? <Input css={titleInputStyle} value={title} /> : <Heading tag="H6">{title}</Heading>}
 
-      {isEdit ? (
-        <Flex styles={{ align: 'center', direction: 'row' }}>
-          <DatePicker variant="range" triggerWidth="100%" />
-        </Flex>
+      {isEditable ? (
+        <DatePicker variant="range" triggerWidth="100%" />
       ) : (
         <Text tag="body6" css={periodStyle}>
           {formattingDate(startDate)} ~ {formattingDate(endDate)}

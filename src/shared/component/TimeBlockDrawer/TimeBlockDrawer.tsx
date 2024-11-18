@@ -25,12 +25,12 @@ const TimeBlockDrawer = () => {
     }
   }, [isOpen, closeDrawer, pathname]);
 
-  return content ? (
-    <aside ref={ref} css={containerStyle(isOpen)}>
-      <TimeBlockBar content={content} closeDrawer={closeDrawer} />
-    </aside>
-  ) : (
-    <></>
+  return (
+    content && (
+      <aside ref={ref} css={containerStyle(isOpen)}>
+        <TimeBlockBar content={content} onCloseDrawer={closeDrawer} />
+      </aside>
+    )
   );
 };
 

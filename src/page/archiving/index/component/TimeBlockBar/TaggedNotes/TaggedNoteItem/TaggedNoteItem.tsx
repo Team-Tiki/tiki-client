@@ -6,14 +6,14 @@ import { handoverNoteItemStyle } from '@/page/archiving/index/component/TimeBloc
 
 interface TaggedNoteItemProps {
   title: string;
-  isEdit: boolean;
+  isEditable: boolean;
 }
 
-const TaggedNoteItem = ({ title, isEdit }: TaggedNoteItemProps) => {
+const TaggedNoteItem = ({ title, isEditable }: TaggedNoteItemProps) => {
   return (
     <Flex tag="li" styles={{ gap: '0.8rem', width: '100%' }} style={{ overflow: 'hidden' }}>
       <IcArrowRight width={16} height={16} />
-      <Button disabled={isEdit} variant="outline" size="xSmall" css={handoverNoteItemStyle}>
+      <Button disabled={isEditable} variant="outline" size="xSmall" css={handoverNoteItemStyle}>
         {title}
       </Button>
     </Flex>

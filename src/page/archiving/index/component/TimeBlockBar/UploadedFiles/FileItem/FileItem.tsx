@@ -14,12 +14,12 @@ import {
 interface FileItemProps {
   title: string;
   capacity: string;
-  isEdit: boolean;
+  isEditable: boolean;
 }
 
-const FileItem = ({ title, capacity, isEdit }: FileItemProps) => {
+const FileItem = ({ title, capacity, isEditable }: FileItemProps) => {
   return (
-    <Flex tag="li" css={containerStyle}>
+    <li css={containerStyle}>
       <Flex>
         <Flex css={circleStyle}>
           <IcPDF width={16} height={16} />
@@ -34,8 +34,8 @@ const FileItem = ({ title, capacity, isEdit }: FileItemProps) => {
         </Flex>
       </Flex>
 
-      {isEdit && <CloseButton width={16} height={16} css={closeBtnStyle} />}
-    </Flex>
+      {isEditable && <CloseButton width={16} height={16} css={closeBtnStyle} />}
+    </li>
   );
 };
 
