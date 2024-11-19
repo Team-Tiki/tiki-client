@@ -42,6 +42,10 @@ const BlockModal = ({ isVisible }: BlockModalProps) => {
     }
   };
 
+  const handleDateChange = () => {
+    // 날짜 선택 코드 추후 작성 필요
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -75,7 +79,7 @@ const BlockModal = ({ isVisible }: BlockModalProps) => {
           </BlockBox>
 
           <BlockBox title="기간">
-            <DatePicker variant="range" triggerWidth="13.5rem" />
+            <DatePicker variant="range" triggerWidth="13.5rem" onChange={handleDateChange} />
           </BlockBox>
         </Flex>
       </Modal.Body>
