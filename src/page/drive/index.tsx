@@ -15,6 +15,7 @@ import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import { contentStyle } from '@/page/drive/index.style';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 
 import { FileData } from '@/mock/data/drive';
@@ -76,12 +77,13 @@ const DrivePage = () => {
           </ul>
         </>
       ) : (
-        <ul css={contentStyle}>
+        <ul css={contentStyle(FileData.length)}>
           {filteredData.map((item) => (
             <FileGrid key={item.fileId} title={item.title} volume={item.volume} type={item.type} />
           ))}
         </ul>
       )}
+      <EmptySection domain="drive" isVisible={FileData.length === 0} />
     </ContentBox>
   );
 };
