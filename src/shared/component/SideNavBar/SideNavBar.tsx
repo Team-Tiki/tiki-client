@@ -59,7 +59,7 @@ const SideNavBar = () => {
               key={data.id}
               isClicked={selectedId === String(data.id)}
               logoUrl={data.iconImageUrl}
-              onLogoClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}
+              onLogoClick={() => handleItemClick(String(data.id), `${PATH.DASHBOARD}?teamId=${data.id}`)}
               hoverMessage={data.name}
             />
           );
