@@ -23,6 +23,8 @@ export const buttonStyle = (isFrontIcon: boolean) =>
     },
 
     cursor: 'pointer',
+
+    transition: 'all .2s ease-in',
   });
 
 export const commonStyle = css({
@@ -88,7 +90,7 @@ export const sizeStyle = (size: Required<CommandButtonProps>['size']) => {
     }),
     /** Button_32 */
     small: css({
-      padding: '0.6rem 1.4rem',
+      padding: '0.7rem 1rem 0.7rem 1.4rem',
 
       ...theme.text.body08,
     }),
