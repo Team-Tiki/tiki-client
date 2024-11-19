@@ -6,7 +6,7 @@ import Flex from '@/common/component/Flex/Flex';
 import { contentBoxStyle, handoverBoxStyle } from '@/page/dashboard/DashboardPage.style';
 import FileSection from '@/page/dashboard/component/File/FileSection';
 import HandoverSection from '@/page/dashboard/component/Handover/HandoverSection';
-import TimelineSection from '@/page/dashboard/component/Timeline/TimelineSection';
+import TimelineSection from '@/page/dashboard/component/Timeline';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { PATH } from '@/shared/constant/path';

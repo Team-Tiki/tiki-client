@@ -6,7 +6,7 @@ export const PATH = {
 
   SIGNUP: '/signup',
   SIGNUP_INFO: '/signup-info',
-  SIGNUP_PASSWORD: '/signup-password',
+  SIGNUP_UNIV: '/signup-univ',
 
   PASSWORD_AUTH: '/password-auth',
   PASSWORD_RESET: '/password-reset',
@@ -15,6 +15,7 @@ export const PATH = {
   ARCHIVING: '/archiving',
   SHOWCASE: '/showcase',
   DRIVE: '/drive',
+  DELETED: '/deleted',
   HANDOVER: '/handover',
   HANDOVER_NOTE: '/handover/note',
 

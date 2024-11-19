@@ -1,27 +1,51 @@
-import { useMatch } from 'react-router-dom';
-
+import Button from '@/common/component/Button/Button';
+import DatePicker from '@/common/component/DatePicker';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
+import Input from '@/common/component/Input/Input';
 
-import { pageStyle } from '@/page/signUp/info/InfoFormPage.style';
-import InfoForm from '@/page/signUp/info/component/InfoForm/InfoForm';
-import PasswordForm from '@/page/signUp/info/component/PasswordForm/PasswordForm';
+import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 
-import { PATH } from '@/shared/constant/path';
+import { PLACEHOLDER } from '@/shared/constant/form';
 
 const InfoFormPage = () => {
-  const isInfoMatched = useMatch(PATH.SIGNUP_INFO);
-  const isPasswordMatched = useMatch(PATH.SIGNUP_PASSWORD);
+  const { info, handleInfoChange, handleSubmit } = useInfoForm();
 
   return (
     <Flex tag="main" css={pageStyle}>
-      <Flex tag="section" styles={{ direction: 'column', gap: '3.2rem', width: '51.1rem' }}>
-        <Heading css={{ padding: '1.6rem 0' }}>회원가입</Heading>
+      <form onSubmit={handleSubmit} css={formStyle}>
+        <Heading tag="H4">회원가입</Heading>
+        <Flex styles={{ direction: 'column', gap: '2rem' }}>
+          <Input
+            name="name"
+            value={info.name}
+            onChange={handleInfoChange}
+            label="이름"
+            placeholder={PLACEHOLDER.NAME}
+          />
+          <DatePicker label="생년월일" variant="single" triggerWidth="100%" />
 
-        {isInfoMatched && <InfoForm />}
-
-        {isPasswordMatched && <PasswordForm />}
-      </Flex>
+          <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
+            <Input
+              name="password"
+              value={info.password}
+              onChange={handleInfoChange}
+              placeholder={PLACEHOLDER.PASSWORD}
+              label="비밀번호 설정"
+            />
+            <Input
+              name="passwordChecker"
+              value={info.passwordChecker}
+              onChange={handleInfoChange}
+              placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
+            />
+          </Flex>
+        </Flex>
+        <Button type="submit" size="xLarge" css={{ width: '100%' }}>
+          다음
+        </Button>
+      </form>
     </Flex>
   );
 };
