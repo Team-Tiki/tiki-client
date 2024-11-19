@@ -16,6 +16,7 @@ import {
   plusBtnStyle,
   titleStyle,
 } from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
+import { TAG_NAME } from '@/page/handover/note/constants/tag';
 
 type Status = '완료' | '미완료';
 
@@ -65,19 +66,21 @@ const NoteDetail = () => {
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          {/* <Button variant="text" css={{ padding: 0 }} onClick={handleAppendTag}>
-            여기를 눌러 활동 태그를 추가해보세요
-          </Button> */}
-          {/* 태그 감싸는 Flex 컴포넌트 */}
           <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}>
-            <Button variant="outline" css={plusBtnStyle}>
-              <PlusBtn width={10} height={10} />
-            </Button>
-            <Tag>event</Tag>
-            <Tag>notice</Tag>
-            <Tag>study</Tag> <Tag>event</Tag>
-            <Tag>notice</Tag>
-            <Tag>study</Tag>
+            {TAG_NAME.data.length > 0 ? (
+              <>
+                <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
+                  <PlusBtn width={10} height={10} />
+                </Button>
+                {TAG_NAME.data.map((tag, index) => (
+                  <Tag key={index}>{tag}</Tag>
+                ))}
+              </>
+            ) : (
+              <Button variant="text" css={{ padding: 0 }} onClick={handleAppendTag}>
+                여기를 눌러 활동 태그를 추가해보세요
+              </Button>
+            )}
           </Flex>
         </li>
         <li css={infoLayoutStyle}>

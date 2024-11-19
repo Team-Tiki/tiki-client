@@ -61,4 +61,10 @@ export const plusBtnStyle = css({
   borderRadius: '0.6rem',
 
   backgroundColor: theme.colors.gray_100,
+
+  '&:hover': {
+    backgroundColor: theme.colors.gray_300,
+
+    transition: 'all 0.2s ease-in',
+  },
 });
