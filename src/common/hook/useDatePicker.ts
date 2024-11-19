@@ -4,10 +4,12 @@ import { useState } from 'react';
 
 export const useDatePicker = (
   variant: 'single' | 'range',
-  onChange: (selectedDate: Date | null, endDate: Date | null) => void
+  onChange: (selectedDate: Date | null, endDate: Date | null) => void,
+  initialSelectedDate: Date | null = null,
+  initialEndDate: Date | null = null
 ) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(initialSelectedDate);
+  const [endDate, setEndDate] = useState<Date | null>(initialEndDate);
 
   const handleSelectDate = (date: Date) => {
     if (variant === 'range') {

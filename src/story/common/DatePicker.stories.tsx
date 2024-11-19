@@ -28,7 +28,12 @@ export const SingleDatePicker: Story = {
 
     return (
       <>
-        <DatePicker variant="single" triggerWidth="10.3rem" onChange={handleDateChange} />
+        <DatePicker
+          variant="single"
+          triggerWidth="10.3rem"
+          onChange={handleDateChange}
+          defaultSelectedDate={new Date('2024-05-12')}
+        />
       </>
     );
   },
@@ -46,7 +51,13 @@ export const RangeDatePicker: Story = {
 
     return (
       <>
-        <DatePicker variant="range" triggerWidth="10.3rem" onChange={handleDateChange} />
+        <DatePicker
+          variant="range"
+          triggerWidth="10.3rem"
+          onChange={handleDateChange}
+          defaultSelectedDate={new Date('2024-05-12')}
+          defaultEndDate={new Date('2024-05-17')}
+        />
       </>
     );
   },
