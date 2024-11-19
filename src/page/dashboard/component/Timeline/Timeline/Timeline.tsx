@@ -1,23 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 
-import DateProvider from '@/page/archiving/index/DateProvider';
+import { useDateContext } from '@/page/archiving/index/DateProvider';
 import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import { dayBodyStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
-import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
 import { useGetTimeBlockQuery } from '@/page/archiving/index/hook/api/useGetTimeBlockQuery';
-import { useDate } from '@/page/archiving/index/hook/common/useDate';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
-import { timelineContentStyle } from '@/page/dashboard/component/Timeline/TimelineSection.style';
+import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/Timeline.style';
 
 import { PATH } from '@/shared/constant/path';
 
-const TimelineSection = () => {
+const Timeline = () => {
   const navigate = useNavigate();
 
   const teamId = localStorage.getItem('teamId');
-  const { currentYear, currentMonth, endDay } = useDate(teamId!);
+
+  const { currentYear, currentMonth, endDay } = useDateContext();
 
   const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
 
@@ -25,8 +24,7 @@ const TimelineSection = () => {
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 
   return (
-    <DateProvider teamId={teamId!}>
-      <TimeLineHeader />
+    <>
       <Day />
       <div css={[dayBodyStyle(endDay.getDate()), timelineContentStyle]}>
         {timeBlocks.map((block) => {
@@ -54,8 +52,8 @@ const TimelineSection = () => {
           );
         })}
       </div>
-    </DateProvider>
+    </>
   );
 };
 
-export default TimelineSection;
+export default Timeline;
