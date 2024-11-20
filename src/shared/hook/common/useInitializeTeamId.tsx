@@ -11,6 +11,7 @@ export const useInitializeTeamId = () => {
     localStorage.setItem('teamId', teamId.toString());
 
     setTeamId(teamId);
+
     return teamId;
   }
 
