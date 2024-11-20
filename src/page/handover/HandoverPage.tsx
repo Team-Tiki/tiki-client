@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import IcSearch from '@/common/asset/svg/ic_search.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -7,6 +7,7 @@ import Flex from '@/common/component/Flex/Flex';
 import Input from '@/common/component/Input/Input';
 import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
+import { useMultiSelect } from '@/common/hook/useMultiSelect';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
@@ -15,12 +16,33 @@ import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 
 const HandoverPage = () => {
-  const [activeCheck, setActiveCheck] = useState(false);
-  const [isChecked, setIsChcked] = useState(false);
+  const [canSelect, setCanSelect] = useState(false);
+
+  const handleCanSelect = () => {
+    setCanSelect(!canSelect);
+  };
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [sortOption, setSortOption] = useState('');
+
+  const { ids, handleItemClick, handleAllClick, handleReset } = useMultiSelect<(typeof NOTE_DUMMY)[0]>(
+    'id',
+    NOTE_DUMMY
+  );
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && canSelect) {
+        setCanSelect(false);
+
+        handleReset();
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [canSelect, handleReset]);
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -29,15 +51,7 @@ const HandoverPage = () => {
 
     close();
   };
-
-  const handleChecked = () => {
-    setIsChcked((prevState) => !prevState);
-  };
-
-  const handleActiveCheckClick = () => {
-    setActiveCheck((prevState) => !prevState);
-  };
-
+  console.log(canSelect);
   return (
     <ContentBox
       variant="handover"
@@ -57,7 +71,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleActiveCheckClick}>
+            <Button variant="tertiary" onClick={handleCanSelect}>
               선택
             </Button>
           </Flex>
@@ -77,7 +91,11 @@ const HandoverPage = () => {
           </Flex>
         </Flex>
       }>
-      <NoteListHeader activeCheck={activeCheck} isChecked={isChecked} handleChecked={handleChecked} />
+      <NoteListHeader
+        isSelected={ids.length === NOTE_DUMMY.length}
+        canSelect={canSelect}
+        handleAllClick={handleAllClick}
+      />
       <Divider />
       <ul>
         {(sortOption === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (
@@ -88,8 +106,9 @@ const HandoverPage = () => {
             title={data.title}
             writer={data.writer}
             isFinished={data.isFinished}
-            activeSelect={activeCheck}
-            isTotalChecked={isChecked}
+            canSelect={canSelect}
+            isSelected={ids.includes(+data.id)}
+            onSelect={() => handleItemClick(+data.id)}
           />
         ))}
       </ul>

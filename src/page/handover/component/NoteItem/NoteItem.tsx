@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import avartar from '@/common/asset/svg/ic_avatar.svg';
 import MoreIcButton from '@/common/asset/svg/ic_more.svg?react';
 import CheckBox from '@/common/component/CheckBox/CheckBox';
@@ -18,28 +16,28 @@ interface NoteItemProps {
   title: string;
   writer: string;
   isFinished: boolean;
-  activeSelect: boolean;
-  isTotalChecked: boolean;
+  canSelect: boolean;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-const NoteItem = ({ startDate, endDate, title, writer, isFinished, activeSelect, isTotalChecked }: NoteItemProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  useEffect(() => {
-    setIsChecked(isTotalChecked);
-  }, [isTotalChecked]);
-
-  const handleCheck = () => {
-    setIsChecked((prevState) => !prevState);
-  };
-
+const NoteItem = ({
+  startDate,
+  endDate,
+  title,
+  writer,
+  isFinished,
+  canSelect,
+  isSelected,
+  onSelect,
+}: NoteItemProps) => {
   return (
     <li>
       <Flex styles={{ align: 'center' }}>
         <Flex styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
           <Flex styles={{ align: 'center' }}>
-            {activeSelect && (
-              <CheckBox isChecked={isChecked} onChange={handleCheck} style={{ marginRight: '1.6rem' }} />
+            {canSelect && (
+              <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} style={{ marginRight: '1.6rem' }} />
             )}
             <Text tag="body6" style={{ width: '26rem' }}>
               {`${formattingDate(startDate)} - ${formattingDate(endDate)}`}

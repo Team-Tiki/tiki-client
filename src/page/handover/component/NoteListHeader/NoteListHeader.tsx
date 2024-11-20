@@ -6,16 +6,16 @@ import { containerStyle } from '@/page/handover/component/NoteItem/NoteItem.styl
 import { fontStyle } from '@/page/handover/component/NoteListHeader/NoteListHeader.style';
 
 interface NoteListHeaderProps {
-  activeCheck: boolean;
-  isChecked: boolean;
-  handleChecked: () => void;
+  isSelected: boolean;
+  canSelect: boolean;
+  handleAllClick: () => void;
 }
 
-const NoteListHeader = ({ activeCheck, isChecked, handleChecked }: NoteListHeaderProps) => {
+const NoteListHeader = ({ isSelected, canSelect, handleAllClick }: NoteListHeaderProps) => {
   return (
     <header css={[containerStyle, fontStyle]}>
       <Flex styles={{ align: 'center' }}>
-        {activeCheck && <CheckBox isChecked={isChecked} onChange={handleChecked} style={{ marginRight: '1.6rem' }} />}
+        {canSelect && <CheckBox isChecked={isSelected} onChange={handleAllClick} style={{ marginRight: '1.6rem' }} />}
         <Text tag="body8">활동 기간</Text>
       </Flex>
       <Text tag="body8">노트 제목</Text>
