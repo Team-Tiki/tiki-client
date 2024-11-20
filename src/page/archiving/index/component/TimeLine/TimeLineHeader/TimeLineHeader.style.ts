@@ -8,8 +8,6 @@ export const headerStyle = css({
 
   top: '0',
 
-  zIndex: theme.zIndex.overlayHigh,
-
   paddingBottom: '1rem',
 
   alignItems: 'center',

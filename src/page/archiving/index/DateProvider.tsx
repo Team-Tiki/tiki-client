@@ -13,7 +13,7 @@ interface DateContextProp {
 
 interface DateProviderProp {
   children: ReactNode;
-  teamId: string;
+  teamId: number;
 }
 
 const DateContext = createContext<DateContextProp>({} as DateContextProp);
@@ -21,7 +21,7 @@ const DateContext = createContext<DateContextProp>({} as DateContextProp);
 export const useDateContext = () => {
   const context = useContext(DateContext);
   if (!context) {
-    throw new Error('Error from DateProvider');
+    throw new Error('Error from DateContext');
   }
   return context;
 };

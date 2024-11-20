@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import SearchIc from '@/common/asset/svg/ic_search.svg?react';
 import Flex from '@/common/component/Flex/Flex';
@@ -13,15 +12,13 @@ import Sort from '@/page/archiving/index/component/DocumentBar/Sort/Sort';
 import { useTotalDocumentQuery } from '@/page/archiving/index/hook/api/useTotalDocumentQuery';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+
 const DocumentTotal = () => {
   const [selected, setSelected] = useState('최근 업로드 순');
 
-  const location = useLocation();
-  const teamId = new URLSearchParams(location.search).get('teamId');
-
-  if (!teamId) throw new Error('has no teamId');
-
-  const { data: documentDatas } = useTotalDocumentQuery(+teamId, 'executive');
+  const teamId = useInitializeTeamId();
+  const { data: documentDatas } = useTotalDocumentQuery(teamId, 'executive');
 
   // input에 입력되는 검색값
   const [searchWord, setSearchWord] = useState('');

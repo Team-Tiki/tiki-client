@@ -10,15 +10,16 @@ import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block'
 import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/Timeline.style';
 
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 const Timeline = () => {
   const navigate = useNavigate();
 
-  const teamId = localStorage.getItem('teamId');
+  const teamId = useInitializeTeamId();
 
   const { currentYear, currentMonth, endDay } = useDateContext();
 
-  const { data } = useGetTimeBlockQuery(+teamId!, 'executive', currentYear, currentMonth);
+  const { data } = useGetTimeBlockQuery(teamId, 'executive', currentYear, currentMonth);
 
   const timeBlocks: Block[] = data.timeBlocks;
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
