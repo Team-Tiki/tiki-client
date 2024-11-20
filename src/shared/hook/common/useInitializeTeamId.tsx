@@ -1,6 +1,5 @@
+import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useTeamIdAction } from '@/shared/store/team';
-
-import { useClubInfoQuery } from '../api/useClubInfoQuery';
 
 export const useInitializeTeamId = () => {
   const { setTeamId } = useTeamIdAction();
