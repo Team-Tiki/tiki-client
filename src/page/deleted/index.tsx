@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Select from '@/common/component/Select/Select';
@@ -27,22 +25,7 @@ const tmpData: File[] = [
 
 const DeletedPage = () => {
   const { isOpen, toggle } = useOverlay();
-  const { ids, handleItemClick, handleAllClick, handleReset } = useMultiSelect<File>('fileId', tmpData);
-
-  const [canSelect, setCanSelect] = useState(false);
-
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && canSelect) {
-        setCanSelect(false);
-
-        handleReset();
-      }
-    };
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [canSelect, handleReset]);
+  const { ids, canSelect, handleItemClick, handleAllClick, handleCanSelect } = useMultiSelect<File>('fileId', tmpData);
 
   return (
     <ContentBox
@@ -61,7 +44,7 @@ const DeletedPage = () => {
               <Button variant="tertiary">영구삭제</Button>
             </Flex>
           ) : (
-            <Button onClick={() => setCanSelect(true)} variant="tertiary">
+            <Button onClick={handleCanSelect} variant="tertiary">
               선택
             </Button>
           )}

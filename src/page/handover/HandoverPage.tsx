@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import IcSearch from '@/common/asset/svg/ic_search.svg?react';
 import Button from '@/common/component/Button/Button';
@@ -16,33 +16,16 @@ import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 
 const HandoverPage = () => {
-  const [canSelect, setCanSelect] = useState(false);
   const [sortOption, setSortOption] = useState('');
   const [searchValue, setSearchValue] = useState('');
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const { ids, handleItemClick, handleAllClick, handleReset } = useMultiSelect<(typeof NOTE_DUMMY)[0]>(
+
+  const { ids, canSelect, handleItemClick, handleAllClick, handleCanSelect } = useMultiSelect<(typeof NOTE_DUMMY)[0]>(
     'id',
     NOTE_DUMMY
   );
-
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && canSelect) {
-        setCanSelect(false);
-
-        handleReset();
-      }
-    };
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [canSelect, handleReset]);
-
-  const handleCanSelect = () => {
-    setCanSelect(!canSelect);
-  };
 
   const handleSortOption = (id: string) => {
     setSortOption(id);
