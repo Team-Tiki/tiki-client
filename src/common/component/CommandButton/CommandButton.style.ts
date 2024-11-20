@@ -40,7 +40,10 @@ export const commonStyle = css({
 });
 
 export const keyStyle = (
-  variant: Extract<'primary' | 'tertiary' | 'outline', Omit<ButtonProps, 'underline' | 'secondary'>['variant']>
+  variant: Extract<
+    'primary' | 'tertiary' | 'fourth' | 'outline',
+    Omit<ButtonProps, 'underline' | 'secondary'>['variant']
+  >
 ) => {
   const style = {
     primary: css({
@@ -52,6 +55,14 @@ export const keyStyle = (
       },
     }),
     tertiary: css({
+      backgroundColor: theme.colors.gray_100,
+
+      '&:disabled:not(:focus)': {
+        backgroundColor: theme.colors.gray_100,
+        color: theme.colors.gray_500,
+      },
+    }),
+    fourth: css({
       backgroundColor: theme.colors.gray_100,
 
       '&:disabled:not(:focus)': {
@@ -91,6 +102,12 @@ export const sizeStyle = (size: Required<CommandButtonProps>['size']) => {
     /** Button_32 */
     small: css({
       padding: '0.7rem 1rem 0.7rem 1.4rem',
+
+      ...theme.text.body08,
+    }),
+    /** Button_24 */
+    xSmall: css({
+      padding: '0.6rem 1rem',
 
       ...theme.text.body08,
     }),

@@ -12,8 +12,8 @@ import {
 } from '@/common/component/CommandButton/CommandButton.style';
 
 export interface CommandButtonProps extends ButtonProps {
-  variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'outline'>;
-  size?: Extract<ButtonProps['size'], 'large' | 'small'>;
+  variant?: Extract<ButtonProps['variant'], 'primary' | 'tertiary' | 'fourth' | 'outline'>;
+  size?: Extract<ButtonProps['size'], 'large' | 'small' | 'xSmall'>;
   commandKey: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;

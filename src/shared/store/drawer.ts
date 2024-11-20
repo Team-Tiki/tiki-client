@@ -2,10 +2,14 @@ import { create } from 'zustand';
 
 import { File } from '@/shared/type/file';
 
-type DrawerContent = {
+export type DrawerContent = {
   title: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
+  blockType: string;
+  color: string;
+  taggedMembers: [];
+  handoverNotes: [];
   files: File[];
 } | null;
 

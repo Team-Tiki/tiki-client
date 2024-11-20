@@ -22,6 +22,8 @@ export const buttonStyle = css({
   '&:disabled:not(:focus)': {
     backgroundColor: theme.colors.gray_100,
     color: theme.colors.gray_500,
+
+    cursor: 'default',
   },
 
   transition: 'all .2s ease-in',
@@ -51,6 +53,14 @@ export const variantStyle = (variant: Required<ButtonProps>['variant']) => {
 
       '&:hover': {
         backgroundColor: theme.colors.gray_200,
+      },
+    }),
+    fourth: css({
+      color: theme.colors.gray_800,
+      backgroundColor: theme.colors.white,
+
+      '&:hover': {
+        backgroundColor: theme.colors.gray_100,
       },
     }),
     outline: css({

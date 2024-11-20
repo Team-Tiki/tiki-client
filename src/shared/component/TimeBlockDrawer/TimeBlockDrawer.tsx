@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Heading from '@/common/component/Heading/Heading';
 import { useOutsideClick } from '@/common/hook';
 
-import { containerStyle } from '@/shared/component/GlobalDrawer/GlobalDrawer.style';
+import TimeBlockBar from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar';
+
+import { containerStyle } from '@/shared/component/TimeBlockDrawer/TimeBlockDrawer.style';
 import { PATH } from '@/shared/constant/path';
 import { useDrawerAction, useDrawerContent, useDrawerIsOpen } from '@/shared/store/drawer';
 
-const GlobalDrawer = () => {
+const TimeBlockDrawer = () => {
   const isOpen = useDrawerIsOpen();
   const { closeDrawer } = useDrawerAction();
   const content = useDrawerContent();
@@ -25,13 +26,12 @@ const GlobalDrawer = () => {
   }, [isOpen, closeDrawer, pathname]);
 
   return (
-    <aside ref={ref} css={containerStyle(isOpen)}>
-      <Heading>{content?.title}</Heading>
-
-      {content?.startDate}
-      {content?.endDate}
-    </aside>
+    content && (
+      <aside ref={ref} css={containerStyle(isOpen)}>
+        <TimeBlockBar content={content} onCloseDrawer={closeDrawer} />
+      </aside>
+    )
   );
 };
 
-export default GlobalDrawer;
+export default TimeBlockDrawer;

@@ -21,8 +21,12 @@ export const useInteractTimeline = () => {
     /** TODO: 추후 block id에 따른 API 응답으로 데이터 넣기 */
     openDrawer({
       title: 'OT 준비',
-      startDate: '2024-09-13',
-      endDate: '2024-09-24',
+      startDate: new Date('2024.09.13'),
+      endDate: new Date('2024.09.15'),
+      blockType: 'MEETING',
+      color: '#FFE6E8',
+      taggedMembers: [],
+      handoverNotes: [],
       files: [],
     });
   };
