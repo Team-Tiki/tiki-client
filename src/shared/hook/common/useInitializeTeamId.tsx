@@ -12,18 +12,14 @@ export const useInitializeTeamId = () => {
     enabled: !localStorage.getItem('teamId'),
   });
 
-  if (isSuccess && data?.data?.teams) {
+  if (isSuccess && data?.data?.teams.length > 0) {
     // localStorage에 teamId가 없는 경우
-    const team = data.data.teams.find((team) => team);
+    const teamId = data.data.teams.find((team) => team.teamId)!.teamId;
+    localStorage.setItem('teamId', teamId.toString());
 
-    if (team) {
-      const teamId = team.teamId;
-      localStorage.setItem('teamId', teamId.toString());
+    setTeamId(teamId);
 
-      setTeamId(teamId);
-
-      return teamId;
-    }
+    return teamId;
   }
 
   return Number(localStorage.getItem('teamId'));
