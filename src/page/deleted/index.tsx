@@ -25,7 +25,10 @@ const tmpData: File[] = [
 
 const DeletedPage = () => {
   const { isOpen, toggle } = useOverlay();
-  const { ids, canSelect, handleItemClick, handleAllClick, handleCanSelect } = useMultiSelect<File>('fileId', tmpData);
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<File>(
+    'fileId',
+    tmpData
+  );
 
   return (
     <ContentBox
@@ -44,7 +47,7 @@ const DeletedPage = () => {
               <Button variant="tertiary">영구삭제</Button>
             </Flex>
           ) : (
-            <Button onClick={handleCanSelect} variant="tertiary">
+            <Button onClick={handleToggleSelect} variant="tertiary">
               선택
             </Button>
           )}

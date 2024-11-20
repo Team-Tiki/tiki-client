@@ -22,10 +22,9 @@ const HandoverPage = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleCanSelect } = useMultiSelect<(typeof NOTE_DUMMY)[0]>(
-    'id',
-    NOTE_DUMMY
-  );
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<
+    (typeof NOTE_DUMMY)[0]
+  >('id', NOTE_DUMMY);
 
   const handleSortOption = (id: string) => {
     setSortOption(id);
@@ -52,7 +51,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleCanSelect}>
+            <Button variant="tertiary" onClick={handleToggleSelect}>
               선택
             </Button>
           </Flex>

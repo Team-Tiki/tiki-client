@@ -49,9 +49,9 @@ export const useMultiSelect = <T extends object>(identifier: keyof T, data: Data
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [canSelect]);
 
-  const handleCanSelect = () => {
-    setCanSelect(!canSelect);
+  const handleToggleSelect = () => {
+    setCanSelect((prev) => !prev);
   };
 
-  return { ids, canSelect, handleItemClick, handleAllClick, handleCanSelect };
+  return { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect };
 };
