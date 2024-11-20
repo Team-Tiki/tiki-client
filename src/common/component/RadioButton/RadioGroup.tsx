@@ -22,7 +22,7 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
   };
 
   const renderRadioButton = () => {
-    return options.map(({ label, value: optionValue, name }, index) => {
+    return options.map(({ label, name, value: optionValue }, index) => {
       const id = `${name}-${index}`;
 
       return (
@@ -33,7 +33,7 @@ const RadioGroup = ({ options, onChange, value }: RadioButtonGroupProps) => {
           name={name}
           value={optionValue}
           onChange={handleChange}
-          checked={value === optionValue}
+          checked={optionValue === value}
         />
       );
     });

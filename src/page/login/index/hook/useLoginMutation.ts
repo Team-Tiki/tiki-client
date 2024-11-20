@@ -25,7 +25,7 @@ export const useLoginMutation = () => {
 
       axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
-      navigate(PATH.SHOWCASE);
+      navigate(PATH.DASHBOARD);
     },
 
     onError: (error: AxiosError) => {

@@ -1,9 +1,11 @@
 import { useCallback, useState } from 'react';
 
+import PlusBtn from '@/common/asset/svg/ic_plus_button.svg?react';
 import Button from '@/common/component/Button/Button';
 import DatePicker from '@/common/component/DatePicker';
 import Flex from '@/common/component/Flex/Flex';
 import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
+import Tag from '@/common/component/Tag/Tag';
 import Text from '@/common/component/Text/Text';
 
 import {
@@ -11,8 +13,10 @@ import {
   infoContainerStyle,
   infoLayoutStyle,
   infoStyle,
+  plusBtnStyle,
   titleStyle,
 } from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
+import { TAG_NAME } from '@/page/handover/note/constants/tag';
 
 type Status = '완료' | '미완료';
 
@@ -62,11 +66,22 @@ const NoteDetail = () => {
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          <Button variant="text" css={{ padding: 0 }} onClick={handleAppendTag}>
-            여기를 눌러 활동 태그를 추가해보세요
-          </Button>
-          {/* 태그 감싸는 Flex 컴포넌트 */}
-          <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }} />
+          <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}>
+            {TAG_NAME.data.length > 0 ? (
+              <>
+                <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
+                  <PlusBtn width={10} height={10} />
+                </Button>
+                {TAG_NAME.data.map((tag, index) => (
+                  <Tag key={index}>{tag}</Tag>
+                ))}
+              </>
+            ) : (
+              <Button variant="text" css={{ padding: 0 }} onClick={handleAppendTag}>
+                여기를 눌러 활동 태그를 추가해보세요
+              </Button>
+            )}
+          </Flex>
         </li>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>

@@ -56,7 +56,7 @@ const LandingPage = () => {
   const 다음페이지로 = () => {
     const isAuth = !!localStorage.getItem(ACCESS_TOKEN_KEY);
 
-    window.location.href = isAuth ? PATH.SHOWCASE : PATH.LOGIN;
+    window.location.href = isAuth ? PATH.DASHBOARD : PATH.LOGIN;
   };
 
   return (

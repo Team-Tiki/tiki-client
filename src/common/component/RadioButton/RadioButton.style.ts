@@ -5,22 +5,56 @@ import { theme } from '@/common/style/theme/theme';
 export const radioButtonLayoutStyle = css({
   display: 'flex',
 
-  gap: '0.4rem',
+  gap: '0.7rem',
 
   cursor: 'pointer',
 });
 
 export const inputStyle = css({
-  '& + label': {
-    cursor: 'pointer',
-    transition: '0.2s ease-in-out',
+  position: 'relative',
 
-    ...theme.text.body06,
-  },
+  appearance: 'none',
+  MozAppearance: 'none',
+  WebkitAppearance: 'none',
 
-  accentColor: theme.colors.key_500,
+  width: '1.5rem',
+  height: '1.5rem',
+
+  border: `1.5px solid ${theme.colors.gray_400}`,
+  borderRadius: '50%',
+
+  backgroundColor: theme.colors.gray_100,
 
   cursor: 'pointer',
+
+  transition: '0.2s ease-in-out',
+
+  '&:checked': {
+    borderColor: theme.colors.key_500,
+  },
+
+  '&:checked::after': {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+
+    width: '0.7rem',
+    height: '0.7rem',
+
+    margin: '0 auto',
+
+    borderRadius: '50%',
+
+    content: '""',
+    backgroundColor: theme.colors.key_500,
+
+    transform: 'translate(-50%, -50%)',
+  },
+
+  '& + label': {
+    cursor: 'pointer',
+    ...theme.text.body06,
+  },
 });
 
 export const labelStyle = css({

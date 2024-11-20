@@ -45,7 +45,7 @@ export const infoLayoutStyle = css({
 
   gap: '2rem',
 
-  alignItems: 'center',
+  alignItems: 'baseline',
 });
 
 export const infoStyle = css({
@@ -53,4 +53,18 @@ export const infoStyle = css({
 
   color: theme.colors.gray_800,
   whiteSpace: 'nowrap',
+});
+
+export const plusBtnStyle = css({
+  padding: '0.5rem',
+
+  borderRadius: '0.6rem',
+
+  backgroundColor: theme.colors.gray_100,
+
+  '&:hover': {
+    backgroundColor: theme.colors.gray_300,
+
+    transition: 'all 0.2s ease-in',
+  },
 });
