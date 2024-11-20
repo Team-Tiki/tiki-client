@@ -17,15 +17,11 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 
 const HandoverPage = () => {
   const [canSelect, setCanSelect] = useState(false);
-
-  const handleCanSelect = () => {
-    setCanSelect(!canSelect);
-  };
+  const [sortOption, setSortOption] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const [sortOption, setSortOption] = useState('');
-
   const { ids, handleItemClick, handleAllClick, handleReset } = useMultiSelect<(typeof NOTE_DUMMY)[0]>(
     'id',
     NOTE_DUMMY
@@ -44,14 +40,16 @@ const HandoverPage = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [canSelect, handleReset]);
 
-  const [searchValue, setSearchValue] = useState('');
+  const handleCanSelect = () => {
+    setCanSelect(!canSelect);
+  };
 
   const handleSortOption = (id: string) => {
     setSortOption(id);
 
     close();
   };
-  console.log(canSelect);
+
   return (
     <ContentBox
       variant="handover"
