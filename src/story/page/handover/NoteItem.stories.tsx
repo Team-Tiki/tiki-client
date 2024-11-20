@@ -15,14 +15,15 @@ const meta = {
     title: '티키 나스닥 상장 리포트',
     writer: '짱건',
     isFinished: false,
-    activeSelect: false,
-    isTotalChecked: false,
+    canSelect: false,
+    isSelected: false,
+    onSelect: () => {},
   },
   argTypes: {
     isFinished: {
       control: { type: 'boolean' },
     },
-    activeSelect: { control: { type: 'boolean' } },
+    isSelected: { control: { type: 'boolean' } },
   },
 } satisfies Meta<typeof NoteItem>;
 
