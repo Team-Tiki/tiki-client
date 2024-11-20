@@ -53,13 +53,13 @@ const SideNavBar = () => {
           hoverMessage={'showcase'}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
-        {data?.data.belongTeamGetResponses.map((data: Team) => {
+        {data?.belongTeamGetResponses.map((data: Team) => {
           return (
             <Item
               key={data.id}
               isClicked={selectedId === String(data.id)}
               logoUrl={data.iconImageUrl}
-              onLogoClick={() => handleItemClick(String(data.id), `${PATH.ARCHIVING}?teamId=${data.id}`)}
+              onLogoClick={() => handleItemClick(String(data.id), `${PATH.DASHBOARD}?teamId=${data.id}`)}
               hoverMessage={data.name}
             />
           );

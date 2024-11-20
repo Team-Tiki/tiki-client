@@ -20,7 +20,7 @@ const RouteNav = () => {
 
   const isDrivePage = pathname === PATH.DRIVE;
   const isArchivingPage = pathname === PATH.ARCHIVING;
-  const isHandoverPage = pathname === PATH.HANDOVER;
+  const isHandoverPage = pathname === PATH.HANDOVER || pathname === PATH.HANDOVER_NOTE;
 
   return (
     <nav>

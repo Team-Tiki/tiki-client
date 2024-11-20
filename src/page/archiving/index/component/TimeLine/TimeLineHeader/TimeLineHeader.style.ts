@@ -3,11 +3,17 @@ import { css } from '@emotion/react';
 import { theme } from '@/common/style/theme/theme';
 
 export const headerStyle = css({
+  position: 'sticky',
   display: 'flex',
 
-  alignItems: 'center',
+  top: '0',
 
+  paddingBottom: '1rem',
+
+  alignItems: 'center',
   gap: '1.2rem',
+
+  backgroundColor: theme.colors.white,
 });
 
 export const commonStyle = css({

@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom';
-
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
@@ -14,6 +12,7 @@ import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
 interface SelectedProps {
@@ -22,12 +21,9 @@ interface SelectedProps {
 }
 
 const Selected = ({ selectedBlock }: SelectedProps) => {
-  const location = useLocation();
-  const teamId = new URLSearchParams(location.search).get('teamId');
+  const teamId = useInitializeTeamId();
 
-  if (!teamId) throw new Error('has no teamId');
-
-  const { data: blockData } = useBlockInfoQuery(+teamId, selectedBlock?.timeBlockId ?? 0);
+  const { data: blockData } = useBlockInfoQuery(teamId, selectedBlock?.timeBlockId ?? 0);
 
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
@@ -35,7 +31,7 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
   const openModal = useOpenModal();
 
   const handleDeleteClick = () => {
-    openModal('delete', { teamId: +teamId!, itemId: selectedBlock.timeBlockId, itemType: 'block' });
+    openModal('delete', { teamId: teamId, itemId: selectedBlock.timeBlockId, itemType: 'block' });
   };
 
   return (
@@ -45,7 +41,7 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
         <Heading tag="H6" css={blockNameStyle}>
           {selectedBlock.name}
         </Heading>
-        <Button variant="underline" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
+        <Button variant="text" size="small" css={deleteBtnStyle} onClick={handleDeleteClick}>
           블록삭제
         </Button>
       </Flex>

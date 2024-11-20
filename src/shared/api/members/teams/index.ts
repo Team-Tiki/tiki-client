@@ -4,5 +4,5 @@ import { ClubInfo } from '@/shared/api/members/teams/type';
 export const getClubInfo = async () => {
   const response = await axiosInstance.get<ClubInfo>(`/members/teams`);
 
-  return response.data;
+  return response.data.data;
 };

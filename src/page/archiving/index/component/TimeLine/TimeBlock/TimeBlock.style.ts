@@ -2,23 +2,20 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-import { BlockColor } from '../../../type/color';
+import { BlockColor } from '@/page/archiving/index/type/color';
 
-export const blockStyle = (width: number, startPosition: number, floor: number, color: string, isSelected: boolean) =>
+export const blockStyle = (color: string, isSelected: boolean) =>
   css({
-    position: 'absolute',
     display: 'flex',
 
     alignItems: 'center',
 
     zIndex: theme.zIndex.overlayBottom,
 
-    top: `${floor * 4.5 - 1}rem`,
-    left: `${startPosition + 1.5}rem`,
-
-    width: `calc(${width}%  - 1%)`,
+    minWidth: '3.6rem',
     height: '3.6rem',
     padding: '0.6rem',
+    margin: '0.2rem',
 
     gap: '0.6rem',
 

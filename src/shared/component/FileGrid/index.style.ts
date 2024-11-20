@@ -2,23 +2,30 @@ import { css } from '@emotion/react';
 
 import { theme } from '@/common/style/theme/theme';
 
-export const cardStyle = css({
-  width: '100%',
-  height: '16rem',
+export const cardStyle = (isSmall: boolean) =>
+  css({
+    position: 'relative',
 
-  padding: '2.4rem 2rem',
+    minWidth: '16rem',
+    maxWidth: '22rem',
 
-  border: `1px solid ${theme.colors.gray_300}`,
-  borderRadius: '12px',
+    width: isSmall ? '16rem' : '100%',
+    height: isSmall ? '12.2rem' : '16rem',
 
-  cursor: 'pointer',
-});
+    padding: isSmall ? '1.2rem' : '2.4rem 2rem',
 
-export const iconWrapperStyle = css({
-  width: '100%',
+    border: `1px solid ${theme.colors.gray_300}`,
+    borderRadius: '12px',
 
-  padding: '1.2rem 0 2rem 0',
-});
+    cursor: 'pointer',
+  });
+
+export const iconWrapperStyle = (isSmall: boolean) =>
+  css({
+    width: '100%',
+
+    padding: isSmall ? '0 0 2rem' : '1.2rem 0 2rem 0',
+  });
 
 export const nameStyle = css({
   ...theme.text.body06,

@@ -46,7 +46,7 @@ const BlockAdd = ({ files, onFilesChange, setFileUrls, setUploadStatus }: BlockA
           styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.3rem' }}
           css={{ marginTop: '1.6rem', whiteSpace: 'nowrap' }}>
           <Text tag="body6">또는</Text>
-          <Button variant="underline" css={buttonStyle} onClick={() => fileInputRef.current?.click()}>
+          <Button variant="text" css={buttonStyle} onClick={() => fileInputRef.current?.click()}>
             여기를 클릭
           </Button>
           <Text tag="body6">하여</Text>

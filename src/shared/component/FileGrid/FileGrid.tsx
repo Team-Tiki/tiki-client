@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
+import CheckBox from '@/common/component/CheckBox/CheckBox';
 import Flex from '@/common/component/Flex/Flex';
 import Heading from '@/common/component/Heading/Heading';
 import Menu from '@/common/component/Menu/Menu';
@@ -21,11 +22,16 @@ import {
 import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
-type FileGridProps = {
+export type FileGridProps = {
+  variant?: 'primary' | 'secondary';
   title: string;
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
   type: File['type'];
   volume: number;
+
+  isSelectable?: boolean;
+  onSelect?: () => void;
+  isSelected?: boolean;
 
   /**
    * [TODO]
@@ -45,7 +51,15 @@ const getIconByType = (type: string) => {
   }
 };
 
-const FileGrid = ({ title, type, volume }: FileGridProps) => {
+const FileGrid = ({
+  title,
+  type,
+  volume,
+  variant = 'primary',
+  isSelectable = false,
+  onSelect,
+  isSelected = false,
+}: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   const optionRef = useRef<HTMLDivElement | null>(null);
@@ -60,33 +74,38 @@ const FileGrid = ({ title, type, volume }: FileGridProps) => {
   };
 
   return (
-    <article css={cardStyle}>
-      <div css={iconWrapperStyle}>{getIconByType(type)}</div>
+    <article css={cardStyle(variant !== 'primary')}>
+      {isSelectable && (
+        <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
+      )}
+      <div css={iconWrapperStyle(variant !== 'primary')}>{getIconByType(type)}</div>
       <Flex
         styles={{
           direction: 'column',
-          gap: '1.2rem',
+          gap: variant === 'primary' ? '1.2rem' : '0.8rem',
         }}>
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
           <Heading css={nameStyle} tag="H3">
             {title}
           </Heading>
-          <Menu onClose={close}>
-            <div ref={optionRef}>
-              <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
-            </div>
-            <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
-                파일 다운로드
-              </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
-                휴지통으로 이동
-              </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
-                인수인계 노트 보기
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          {variant === 'primary' && (
+            <Menu onClose={close}>
+              <div ref={optionRef}>
+                <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
+              </div>
+              <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
+                  파일 다운로드
+                </MenuItem>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
+                  휴지통으로 이동
+                </MenuItem>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
+                  인수인계 노트 보기
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
 
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>

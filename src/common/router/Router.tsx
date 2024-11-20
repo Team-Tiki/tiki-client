@@ -7,8 +7,11 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
+  DashboardPage,
+  DeletedPage,
   DrivePage,
   ErrorPage,
+  HandoverNotePage,
   InfoFormPage,
   LandingPage,
   LoginPage,
@@ -16,6 +19,7 @@ import {
   PasswordResetPage,
   ShowcasePage,
   TermPage,
+  UnivFormPage,
 } from '@/common/router/lazy';
 
 import HandoverPage from '@/page/handover/HandoverPage';
@@ -69,15 +73,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_INFO,
+        path: PATH.SIGNUP_UNIV,
         element: (
           <Suspense>
-            <InfoFormPage />
+            <UnivFormPage />
           </Suspense>
         ),
       },
       {
-        path: PATH.SIGNUP_PASSWORD,
+        path: PATH.SIGNUP_INFO,
         element: (
           <Suspense>
             <InfoFormPage />
@@ -111,6 +115,14 @@ const router = createBrowserRouter([
       </Suspense>
     ),
     children: [
+      {
+        path: PATH.DASHBOARD,
+        element: (
+          <Suspense>
+            <DashboardPage />
+          </Suspense>
+        ),
+      },
       {
         path: PATH.SHOWCASE,
         element: (
@@ -148,6 +160,22 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <HandoverPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.DELETED,
+        element: (
+          <Suspense>
+            <DeletedPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.HANDOVER_NOTE,
+        element: (
+          <Suspense>
+            <HandoverNotePage />
           </Suspense>
         ),
       },
