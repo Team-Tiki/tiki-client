@@ -22,6 +22,8 @@ import {
   UnivFormPage,
 } from '@/common/router/lazy';
 
+import HandoverPage from '@/page/handover/HandoverPage';
+
 import { PATH } from '@/shared/constant/path';
 
 const Public = () => {
@@ -157,7 +159,7 @@ const router = createBrowserRouter([
         path: PATH.HANDOVER,
         element: (
           <Suspense>
-            <h1>HandOver</h1>
+            <HandoverPage />
           </Suspense>
         ),
       },

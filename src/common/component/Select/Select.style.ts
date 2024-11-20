@@ -79,14 +79,13 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
       backgroundColor: theme.colors.white,
 
       whiteSpace: 'nowrap',
+      cursor: 'pointer',
 
       '& > span': {
         ...theme.text.body06,
 
-        width: '80%',
         textAlign: 'start',
         textOverflow: 'ellipsis',
-        overflow: 'hidden',
       },
     },
     /** underline 있는 select trigger 버튼 */
@@ -101,8 +100,11 @@ export const triggerStyle = (variant: Required<SelectProps['variant']>, isSelect
     /** "최근 업로드 순"과 같은 option select */
     variant === 'option'
       ? {
+          height: '3.2rem',
+          padding: '1rem 0.1rem 1rem 1rem',
+
           justifyContent: 'flex-end',
-          gap: '0.2rem',
+          gap: '0.4rem',
 
           fontWeight: 400,
           color: theme.colors.gray_800,
