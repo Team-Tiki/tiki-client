@@ -1,0 +1,28 @@
+{
+  "name": "@tiki/icon",
+  "version": "1.0.0",
+  "description": "icon package for tiki-front",
+  
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "tsup": {
+    "entry": ["index.ts"],
+    "splitting": false,
+    "sourcemap": false,
+    "clean": true
+  },
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts",
+    "generate": "ts-node generateIcon.ts",
+    "svgr": "rm -rf src/* && npx @svgr/cli --typescript --no-dimensions --out-dir src --ignore-existing -- assets/svg"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@svgr/cli": "^8.1.0",
+    "tsup": "^8.3.0"
+  },
+  "devDependencies": {
+    "@tiki/tsconfig": "workspace:^"
+  }
+}
