@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import { Timeout } from '@/shared/type/time';
+import { Timeout } from "../lib";
 
 export const useThrottle = () => {
   const ref = useRef(false);

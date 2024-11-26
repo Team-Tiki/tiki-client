@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 
-import { useIntersectionObserver } from '@/common/hook/useObserver';
+import { useIntersectionObserver } from "./useObserver";
 
-import { Timeout } from '@/shared/type/time';
+import { Timeout } from "../lib";
 
 const useCachedImage = (src: string, width: number, height?: number) => {
   const [shouldRenderOrigin, setShouldRenderOrigin] = useState(false);
@@ -38,7 +38,7 @@ const useCachedImage = (src: string, width: number, height?: number) => {
         }
       });
     },
-    { root: null }
+    { root: null },
   );
 
   const encodedURI = encodeURIComponent(src);

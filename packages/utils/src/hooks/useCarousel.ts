@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
-import { useIntersectionObserver } from '@/common/hook/useObserver';
-import { useThrottle } from '@/common/hook/useThrottle';
+import { useIntersectionObserver } from "./useObserver";
+import { useThrottle } from "./useThrottle";
 
-import { Timeout } from '@/shared/type/time';
+import { Timeout } from "../lib";
 
 export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: number) => {
   /**
@@ -51,7 +51,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
           setCurrentIndex((prev) => (prev > 1 ? prev - 1 : length));
         });
 
-        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
       }, 800);
     }
   };
@@ -66,7 +66,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
           setCurrentIndex((prev) => (prev < length ? prev + 1 : 1));
         });
 
-        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
       }, 800);
     }
   };
@@ -78,7 +78,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
         setCurrentIndex(index);
       });
 
-      itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      itemRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
   };
 
@@ -102,7 +102,7 @@ export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: 
           setCurrentIndex((prev) => (prev < length ? prev + 1 : 1));
         });
 
-        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
       }, autoLoopDelay);
 
       /** Container hover 시 interval 종료 */

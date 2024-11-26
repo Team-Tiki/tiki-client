@@ -1,6 +1,6 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useCallback, useState } from "react";
 
-import { usePreventGoBack } from '@/common/hook/usePreventGoBack';
+import { usePreventGoBack } from "./usePreventGoBack";
 
 export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
