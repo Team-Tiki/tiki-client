@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-export default function useErrorBoundary<ErrorType extends Error>() {
+export const useErrorBoundar = <ErrorType extends Error>() => {
   const [error, setError] = useState<ErrorType | null>(null);
 
   if (error != null) {
@@ -12,4 +12,4 @@ export default function useErrorBoundary<ErrorType extends Error>() {
   }, []);
 
   return { handleError };
-}
+};

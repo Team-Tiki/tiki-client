@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { Timeout } from "../lib";
+type Timeout = ReturnType<typeof setTimeout>;
 
 export const useThrottle = () => {
   const ref = useRef(false);

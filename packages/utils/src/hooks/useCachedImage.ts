@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 
 import { useIntersectionObserver } from "./useObserver";
 
-import { Timeout } from "../lib";
+type Timeout = ReturnType<typeof setTimeout>;
 
-const useCachedImage = (src: string, width: number, height?: number) => {
+export const useCachedImage = (src: string, width: number, height?: number) => {
   const [shouldRenderOrigin, setShouldRenderOrigin] = useState(false);
 
   const deliverTimeout = useRef<Timeout | null>(null);
@@ -48,5 +48,3 @@ const useCachedImage = (src: string, width: number, height?: number) => {
 
   return { src: cdnURI, imgRef: targetRef, onLoad: handleCacheLoaded, onError: handleCacheError, shouldRenderOrigin };
 };
-
-export default useCachedImage;

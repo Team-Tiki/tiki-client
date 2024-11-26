@@ -8,16 +8,16 @@ import {
   startOfMonth,
   startOfWeek,
   subMonths,
-} from 'date-fns';
-import { ko } from 'date-fns/locale';
+} from "date-fns";
+import { ko } from "date-fns/locale";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-const useCalender = (initialDate: Date) => {
+export const useCalender = (initialDate: Date) => {
   const [currentMonth, setCurrentMonth] = useState(initialDate);
 
   const weekStartDate = startOfWeek(new Date());
-  const weekDays = Array.from({ length: 7 }, (_, i) => format(addDays(weekStartDate, i), 'EEEEE', { locale: ko }));
+  const weekDays = Array.from({ length: 7 }, (_, i) => format(addDays(weekStartDate, i), "EEEEE", { locale: ko }));
 
   const currentMonthStart = startOfMonth(currentMonth);
   const currentMonthEnd = endOfMonth(currentMonth);
@@ -44,5 +44,3 @@ const useCalender = (initialDate: Date) => {
     toPrevMonth,
   };
 };
-
-export default useCalender;

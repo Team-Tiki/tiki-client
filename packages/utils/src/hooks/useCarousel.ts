@@ -4,7 +4,7 @@ import { flushSync } from "react-dom";
 import { useIntersectionObserver } from "./useObserver";
 import { useThrottle } from "./useThrottle";
 
-import { Timeout } from "../lib";
+type Timeout = ReturnType<typeof setTimeout>;
 
 export const useCarousel = (length: number, autoLoop?: boolean, autoLoopDelay?: number) => {
   /**
