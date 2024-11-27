@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import ModalContainer from '@/shared/component/Modal/ModalContainer';
+import ModalFunnel from '@/shared/component/Modal/ModalFunnel';
 import { useOpenModal } from '@/shared/store/modal';
 
-const meta: Meta<typeof ModalContainer> = {
+const meta: Meta<typeof ModalFunnel> = {
   title: 'Shared/Modal/ModalsTest',
-  component: ModalContainer,
+  component: ModalFunnel,
   parameters: {
     layout: 'centered',
   },
@@ -31,7 +31,7 @@ export const ModalsTest: Story = {
         <button onClick={() => openModal('invite')}>Open Invite Modal</button>
         <button onClick={() => openModal('member-tag')}>Open MemberTag Modal</button>
         <button onClick={() => openModal('activity-tag')}>Open ActivityTag Modal</button>
-        <ModalContainer />
+        <ModalFunnel />
       </>
     );
   },

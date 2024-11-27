@@ -72,7 +72,5 @@ export const childrenStyle = css({
   display: 'flex',
   alignItems: 'center',
 
-  //padding: '0.4rem',
-
   gap: '0.4rem',
 });

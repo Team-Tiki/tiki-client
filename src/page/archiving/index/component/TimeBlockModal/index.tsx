@@ -1,15 +1,22 @@
 import BlockModal from '@/page/archiving/index/component/TimeBlockModal/component/Block/BlockModal';
 import UploadModal from '@/page/archiving/index/component/TimeBlockModal/component/Upload/UploadModal';
 
-import { useBlockContext } from '@/shared/hook/common/useBlockContext';
+import { useFunnel } from '@/shared/hook/common/funnelContext';
+import { FunnelStep } from '@/shared/util/funnelStep';
 
 export const BlockFlow = () => {
-  const { step } = useBlockContext();
+  const { setTotalSteps } = useFunnel();
+
+  setTotalSteps(2);
 
   return (
     <>
-      <BlockModal isVisible={step === 1} />
-      <UploadModal isVisible={step === 2} />
+      <FunnelStep step={1}>
+        <BlockModal />
+      </FunnelStep>
+      <FunnelStep step={2}>
+        <UploadModal />
+      </FunnelStep>
     </>
   );
 };

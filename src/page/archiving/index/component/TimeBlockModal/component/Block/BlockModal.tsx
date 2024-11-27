@@ -11,16 +11,14 @@ import BlockIcon from '@/page/archiving/index/component/TimeBlockModal/component
 import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
 import { BLOCK_ICON } from '@/page/archiving/index/component/TimeBlockModal/constant/iconBlock';
 
+import { useFunnel } from '@/shared/hook/common/funnelContext';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
-interface BlockModalProps {
-  isVisible: boolean;
-}
+const BlockModal = () => {
+  const [selectedIcon, setSelectedIcon] = useState(-1);
 
-const BlockModal = ({ isVisible }: BlockModalProps) => {
-  const [selectedIcon, setSelectedIcon] = useState<number>(-1);
-
-  const { formData, setFormData, nextStep } = useBlockContext();
+  const { formData, setFormData } = useBlockContext();
+  const { nextStep } = useFunnel();
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {
@@ -45,8 +43,6 @@ const BlockModal = ({ isVisible }: BlockModalProps) => {
   const handleDateChange = () => {
     // 날짜 선택 코드 추후 작성 필요
   };
-
-  if (!isVisible) return null;
 
   return (
     <>

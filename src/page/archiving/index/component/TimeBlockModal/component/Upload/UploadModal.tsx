@@ -8,7 +8,7 @@ import BlockAdd from '@/page/archiving/index/component/TimeBlockModal/component/
 import BlockItem from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/List/BlockItem';
 import {
   flexStyle,
-  scrollStyle,
+  scrollContainerStyle,
 } from '@/page/archiving/index/component/TimeBlockModal/component/Upload/UploadModal.style';
 import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
 import { usePostTimeBlockMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePostTimeBlockMutation';
@@ -19,15 +19,11 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useCloseModal } from '@/shared/store/modal';
 import { useToastAction } from '@/shared/store/toast';
 
-interface UploadModalProps {
-  isVisible: boolean;
-}
-
-const UploadModal = ({ isVisible }: UploadModalProps) => {
+const UploadModal = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const teamId = searchParams.get('teamId');
-  const { formData, reset } = useBlockContext();
+  const { formData, resetFormData } = useBlockContext();
   const closeModal = useCloseModal();
 
   const [files, setFiles] = useState<File[]>([]);
@@ -82,8 +78,6 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
     }
   };
 
-  if (!isVisible) return null;
-
   const data = {
     name: formData.blockName,
     color: formData.blockColor,
@@ -98,7 +92,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
       onSuccess: () => {
         createToast('활동 블록이 생성되었습니다', 'success');
         closeModal();
-        reset();
+        resetFormData();
       },
     });
   };
@@ -107,7 +101,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
     <>
       <Modal.Header step={2} />
       <Modal.Body>
-        <Flex tag={'section'} css={flexStyle}>
+        <Flex css={flexStyle}>
           <Flex
             styles={{
               direction: 'column',
@@ -122,10 +116,10 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
               setFileUrls={setFileUrls}
               setUploadStatus={setUploadStatus}
             />
-            <div className="scroll" css={scrollStyle}>
+            <div css={scrollContainerStyle}>
               {files.map((file) => (
                 <BlockItem
-                  key={file.name}
+                  key={`${file.name}-${file.lastModified}`}
                   title={file.name}
                   onDelete={() => handleDelete(file.name)}
                   /* 임의의 값 넣었음! 추후 서버 로직 다시 짤때 바꿀것!!*/

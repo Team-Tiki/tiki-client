@@ -10,11 +10,12 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import { HTTPError } from '@/shared/api/HTTPError';
 import Header from '@/shared/component/Header/Header';
 import Login from '@/shared/component/Login/Login';
-import ModalContainer from '@/shared/component/Modal/ModalContainer';
 import SNB from '@/shared/component/SideNavBar/LeftSidebar';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import ErrorPage from '@/shared/page/errorPage/ErrorPage';
+
+import ModalFunnel from './shared/component/Modal/ModalFunnel';
 
 const App = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const App = () => {
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
       <Login>
-        <ModalContainer />
+        <ModalFunnel />
         <SNB />
         <main css={layoutStyle}>
           <Header />

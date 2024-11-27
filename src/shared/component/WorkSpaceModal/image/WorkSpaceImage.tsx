@@ -10,16 +10,14 @@ import {
 } from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
 import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImageUpload';
 import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
+import { useFunnel } from '@/shared/hook/common/funnelContext';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-interface WorkSpaceImageProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
+const WorkSpaceImage = () => {
   const { fileURL, imgUploadInput, handleImageChange, handleImageRemove } = useImageUpload();
-  const { nextStep, formData } = useWorkSpaceContext();
+  const { formData } = useWorkSpaceContext();
   const { mutate: postTeamMutate } = usePostTeamMutation();
+  const { nextStep } = useFunnel();
 
   const handleSave = () => {
     postTeamMutate(
@@ -35,8 +33,6 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
       }
     );
   };
-
-  if (!isVisible) return null;
 
   const isButtonActive = !!fileURL;
 

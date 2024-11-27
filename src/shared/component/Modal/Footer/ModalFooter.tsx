@@ -1,8 +1,8 @@
 import Button from '@/common/component/Button/Button';
 import Flex from '@/common/component/Flex/Flex';
 
+import { MODAL_CONTENTS, isModalContentType } from '@/shared/constant/modal';
 import { useCloseModal, useModalContentType } from '@/shared/store/modal';
-import { getFooterContent } from '@/shared/util/modalFooter';
 
 interface ModalFooterProps {
   step?: number;
@@ -10,21 +10,25 @@ interface ModalFooterProps {
   isButtonActive?: boolean;
 }
 
-const ModalFooter = ({ step, buttonClick, isButtonActive }: ModalFooterProps) => {
+const ModalFooter = ({ step = 1, buttonClick, isButtonActive = true }: ModalFooterProps) => {
   const contentType = useModalContentType();
   const closeModal = useCloseModal();
-  const footerButtons = getFooterContent(contentType!, step!, buttonClick, closeModal, isButtonActive);
+
+  if (!isModalContentType(contentType)) return null;
+
+  const modalContent = MODAL_CONTENTS[contentType];
+  const buttons = modalContent.buttons[step - 1];
 
   return (
     <Flex styles={{ direction: 'row', justify: 'center', align: 'center', gap: '1.6rem' }}>
-      {footerButtons.map((button, index) => (
+      {buttons.map((button: (typeof buttons)[number], index: number) => (
         <Button
           css={{ width: '100%' }}
           key={index}
           variant={button.variant}
           size="xLarge"
-          onClick={button.onClick}
-          disabled={button.disabled}>
+          onClick={button.text === '취소' ? closeModal : buttonClick}
+          disabled={button.disabled || !isButtonActive}>
           {button.text}
         </Button>
       ))}

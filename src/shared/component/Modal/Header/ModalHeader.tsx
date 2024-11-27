@@ -1,24 +1,30 @@
 import Flex from '@/common/component/Flex/Flex';
-import { iconTextStyle, infoTextStyle } from '@/common/component/Modal/Header/ModalHeader.style';
 import Text from '@/common/component/Text/Text';
 
+import { iconTextStyle, infoTextStyle } from '@/shared/component/Modal/Header/ModalHeader.style';
+import { MODAL_CONTENTS, isModalContentType } from '@/shared/constant/modal';
 import { useModalContentType } from '@/shared/store/modal';
-import { getHeaderContent } from '@/shared/util/modalHeader';
 
 interface ModalHeaderProps {
   step?: number;
   totalSteps?: number;
 }
 
-const ModalHeader = ({ step, totalSteps = 4 }: ModalHeaderProps) => {
+const ModalHeader = ({ step = 1, totalSteps = 4 }: ModalHeaderProps) => {
   const contentType = useModalContentType();
-  const { icon, title, infoText } = getHeaderContent(contentType!, step, totalSteps);
+
+  if (!isModalContentType(contentType)) return null;
+
+  const modalContent = MODAL_CONTENTS[contentType];
+  const { icon, title, infoText } = modalContent.headers[step - 1];
+
+  const displayIcon = typeof icon === 'function' ? icon(step, totalSteps) : icon; // 함수인지 확인 후 호출
 
   return (
-    <Flex styles={{ direction: 'row', justify: 'flex-start', align: 'center', gap: '1.2rem' }}>
-      {icon && (
+    <Flex tag={'header'} styles={{ direction: 'row', justify: 'flex-start', align: 'center', gap: '1.2rem' }}>
+      {displayIcon && (
         <Text tag="body6" css={iconTextStyle}>
-          {icon}
+          {displayIcon}
         </Text>
       )}
       <Flex styles={{ direction: 'column', justify: 'flex-start', gap: '0.6rem' }}>

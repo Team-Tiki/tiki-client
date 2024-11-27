@@ -1,7 +1,8 @@
-import ModalBody from '@/common/component/Modal/Body/ModalBody';
-import ModalFooter from '@/common/component/Modal/Footer/ModalFooter';
-import ModalHeader from '@/common/component/Modal/Header/ModalHeader';
 import ModalWrapper from '@/common/component/Modal/Wrapper/ModalWrapper';
+
+import ModalBody from '@/shared/component/Modal/Body/ModalBody';
+import ModalFooter from '@/shared/component/Modal/Footer/ModalFooter';
+import ModalHeader from '@/shared/component/Modal/Header/ModalHeader';
 
 export const Modal = Object.assign(ModalWrapper, {
   Header: ModalHeader,

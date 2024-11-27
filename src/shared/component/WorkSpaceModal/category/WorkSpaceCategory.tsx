@@ -5,16 +5,14 @@ import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
+import { useFunnel } from '@/shared/hook/common/funnelContext';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-interface WorkSpaceCategoryProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
+const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
 
-  const { setFormData, nextStep } = useWorkSpaceContext();
+  const { setFormData } = useWorkSpaceContext();
+  const { nextStep } = useFunnel();
 
   const ref = useOutsideClick<HTMLDivElement>(close);
 
@@ -43,8 +41,6 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
       window.removeEventListener('mousedown', handleMouseDown);
     };
   }, [isOpen, close, ref]);
-
-  if (!isVisible) return null;
 
   const handleSelect = (id: string) => {
     setSelected(id);

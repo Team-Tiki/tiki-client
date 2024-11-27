@@ -6,8 +6,8 @@ import Input from '@/common/component/Input/Input';
 import { Modal } from '@/common/component/Modal';
 import Text from '@/common/component/Text/Text';
 
-import MemberItem from '@/shared/component/InviteModal/InviteItem/MemberItem';
 import { inputWrapperStyle, scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { useCloseModal } from '@/shared/store/modal';
 
 const InviteModal = () => {

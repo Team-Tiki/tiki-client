@@ -7,7 +7,9 @@ interface ModalBodyProps {
 }
 
 const ModalBody = ({ children }: ModalBodyProps) => (
-  <Flex styles={{ direction: 'column', justify: 'flex-start', align: 'center', paddingTop: '2rem', grow: '1' }}>
+  <Flex
+    tag={'section'}
+    styles={{ direction: 'column', justify: 'flex-start', align: 'center', paddingTop: '2rem', grow: '1' }}>
     {children}
   </Flex>
 );

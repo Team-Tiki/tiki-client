@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import { theme } from '@/common/style/theme/theme';
+import { scrollStyle } from '@/common/style/scroll';
 
-export const scrollStyle = css({
+export const scrollContainerStyle = css({
   display: 'flex',
   flexDirection: 'column',
   maxHeight: '12rem',
@@ -16,18 +16,7 @@ export const scrollStyle = css({
 
   boxSizing: 'content-box',
 
-  '&::-webkit-scrollbar': {
-    width: '1rem',
-  },
-
-  '&::-webkit-scrollbar-thumb': {
-    backgroundColor: theme.colors.gray_300,
-    borderRadius: '4px',
-  },
-
-  '&::-webkit-scrollbar-track': {
-    backgroundColor: 'transparent',
-  },
+  ...scrollStyle,
 });
 
 export const flexStyle = css({

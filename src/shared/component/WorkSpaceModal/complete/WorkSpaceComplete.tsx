@@ -6,13 +6,7 @@ import { Modal } from '@/common/component/Modal';
 
 import { useCloseModal } from '@/shared/store/modal';
 
-interface WorkSpaceCompleteProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceComplete = ({ isVisible }: WorkSpaceCompleteProps) => {
-  if (!isVisible) return null;
-
+const WorkSpaceComplete = () => {
   const closeModal = useCloseModal();
 
   return (

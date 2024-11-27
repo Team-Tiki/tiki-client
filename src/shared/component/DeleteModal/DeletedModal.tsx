@@ -11,7 +11,7 @@ const DeletedModal = () => {
   const modalData = useModalData();
 
   const itemType = modalData?.itemType;
-  const title = itemType ? DELETED_TITLE[itemType.toUpperCase() as keyof typeof DELETED_TITLE] : '';
+  const title = itemType && DELETED_TITLE[itemType.toUpperCase() as keyof typeof DELETED_TITLE];
 
   const handleDelete = () => {
     //api 로직 추가하기

@@ -6,12 +6,14 @@ import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagMod
 import DeletedModal from '@/shared/component/DeleteModal/DeletedModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
-import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal';
+import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
+import { FunnelProvider } from '@/shared/hook/common/funnelContext';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
+import { FunnelStep } from '@/shared/util/funnelStep';
 
-const ModalContainer = () => {
+const ModalFunnel = () => {
   const isOpen = useModalIsOpen();
   const contentType = useModalContentType();
   const closeModal = useCloseModal();
@@ -31,25 +33,41 @@ const ModalContainer = () => {
           </BlockProvider>
         );
       case 'deleted':
-        return <DeletedModal />;
+        return (
+          <FunnelStep step={1}>
+            <DeletedModal />
+          </FunnelStep>
+        );
       case 'invite':
-        return <InviteModal />;
+        return (
+          <FunnelStep step={1}>
+            <InviteModal />
+          </FunnelStep>
+        );
       case 'member-tag':
-        return <MemberTagModal />;
+        return (
+          <FunnelStep step={1}>
+            <MemberTagModal />
+          </FunnelStep>
+        );
       case 'activity-tag':
-        return <ActivityTagModal />;
+        return (
+          <FunnelStep step={1}>
+            <ActivityTagModal />
+          </FunnelStep>
+        );
       default:
         return null;
     }
   };
 
-  if (!isOpen || !contentType) return null;
+  if (!isOpen) return null;
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      {renderContent()}
+      <FunnelProvider>{renderContent()}</FunnelProvider>
     </Modal>
   );
 };
 
-export default ModalContainer;
+export default ModalFunnel;
