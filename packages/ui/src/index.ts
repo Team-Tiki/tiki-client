@@ -1,3 +1,4 @@
+/** ui components */
 export { default as Button } from "./Button/Button";
 export { Carousel, CarouselItem } from "./Carousel";
 export { default as CheckBox } from "./CheckBox/CheckBox";
@@ -24,3 +25,8 @@ export { default as Toast } from "./Toast/Toast";
 export { default as ToastContainer } from "./ToastContainer/ToastContainer";
 export { default as ToastProvider } from "./ToastContainer/ToastProvider";
 export { default as ToolTip } from "./ToolTip/ToolTip";
+
+/** style, type */
+export * from "./animation";
+export * from "./theme";
+export * from "./types";
