@@ -225,6 +225,9 @@ importers:
       '@tiki/utils':
         specifier: workspace:^
         version: link:../utils
+      tsup:
+        specifier: ^8.3.0
+        version: 8.3.0(@swc/core@1.9.3)(postcss@8.4.49)(typescript@5.7.2)
     devDependencies:
       '@tiki/tsconfig':
         specifier: workspace:^

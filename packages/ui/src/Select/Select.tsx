@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef, ForwardedRef, ReactNode, forwardRef, useState } from "react";
 
-import { Dropdown } from "@/Dropdown";
+import { DropdownItem, DropdownList, DropdownRoot } from "@/Dropdown";
 import { iconStyle, itemStyle, overlayStyle, profileStyle, textFieldStyle, triggerStyle } from "@/Select/Select.style";
 import { scrollStyle } from "@/theme";
 import { IcArrowDownGray, IcDown } from "@tiki/icon";
@@ -44,7 +44,7 @@ const Select = (
   const isSelected = selectedText !== placeholder;
 
   return (
-    <Dropdown css={{ width: "100%" }} ref={ref} role="listbox" label={label} {...props}>
+    <DropdownRoot css={{ width: "100%" }} ref={ref} role="listbox" label={label} {...props}>
       <button onClick={onTrigger} css={triggerStyle(variant, isSelected)}>
         <span>{selectedText}</span>
         {variant === "option" ? (
@@ -54,9 +54,9 @@ const Select = (
         )}
       </button>
 
-      <Dropdown.List css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+      <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
         {options.map((item) => (
-          <Dropdown.Item
+          <DropdownItem
             key={item.value}
             css={itemStyle(variant)}
             onSelect={() => {
@@ -74,10 +74,10 @@ const Select = (
             </p>
 
             {hasKeyInObject(item, "svg") && item.svg}
-          </Dropdown.Item>
+          </DropdownItem>
         ))}
-      </Dropdown.List>
-    </Dropdown>
+      </DropdownList>
+    </DropdownRoot>
   );
 };
 

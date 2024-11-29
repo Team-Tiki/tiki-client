@@ -2,9 +2,13 @@
   "name": "@tiki/ui",
   "version": "1.0.0",
   "description": "ui package for tiki-front",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup --format cjs,esm --dts --sourcemap",
+    "clean": "rm -rf dist",
+    "lint": "eslint ."
   },
   "license": "ISC",
   "devDependencies": {
@@ -12,6 +16,7 @@
   },
   "dependencies": {
     "@tiki/icon": "workspace:^",
-    "@tiki/utils": "workspace:^"
+    "@tiki/utils": "workspace:^",
+    "tsup": "^8.3.0"
   }
 }
