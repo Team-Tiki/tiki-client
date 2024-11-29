@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '@tiki/ui';
+
+import { ButtonHTMLAttributes } from 'react';
 
 import Icon from '@/common/asset/svg/ic_check.svg?react';
-import Button, { ButtonProps } from '@/common/component/Button/Button';
+import { Size } from '@/common/type/design';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'fourth' | 'outline' | 'text';
+  size?: Extract<Size, 'xLarge' | 'large' | 'medium' | 'small' | 'xSmall'>;
+}
 
 const meta = {
   title: 'Common/Button',

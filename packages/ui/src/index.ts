@@ -12,7 +12,7 @@ export { default as Input } from "./Input/Input";
 export { default as Label } from "./Label/Label";
 export { MenuItem, MenuList, MenuRoot } from "./Menu";
 export { default as Modal } from "./Modal/Modal";
-export { default as RadioButton } from "./RadioButton/RadioButton";
+export { RadioButton, RadioGroup } from "./RadioButton";
 export { default as Select } from "./Select/Select";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as SupportingText } from "./SupportingText/SupportingText";

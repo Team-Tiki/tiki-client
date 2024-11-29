@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { CountedInput } from '@tiki/ui';
 
 import { useRef } from 'react';
-
-import CountedInput from '@/common/component/CountedInput/CountedInput';
 
 const meta = {
   title: 'Common/CountedInput',

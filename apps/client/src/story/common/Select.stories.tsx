@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Select } from '@tiki/ui';
 
 import { useState } from 'react';
 
 import IcArrowDown from '@/common/asset/svg/ic_arrow_down.svg?react';
 import IcArrowUp from '@/common/asset/svg/ic_arrow_up.svg?react';
-import Select from '@/common/component/Select/Select';
 import { useOutsideClick, useOverlay } from '@/common/hook';
 
 const meta = {

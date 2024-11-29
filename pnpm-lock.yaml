@@ -56,6 +56,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.49.2
         version: 5.61.3(@tanstack/react-query@5.61.3(react@18.3.1))(react@18.3.1)
+      '@tiki/ui':
+        specifier: workspace:^
+        version: link:../../packages/ui
       axios:
         specifier: ^1.7.2
         version: 1.7.7
@@ -219,12 +222,18 @@ importers:
 
   packages/ui:
     dependencies:
+      '@emotion/react':
+        specifier: ^11.13.3
+        version: 11.13.5(@types/react@18.3.12)(react@18.3.1)
       '@tiki/icon':
         specifier: workspace:^
         version: link:../icon
       '@tiki/utils':
         specifier: workspace:^
         version: link:../utils
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
       tsup:
         specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.9.3)(postcss@8.4.49)(typescript@5.7.2)

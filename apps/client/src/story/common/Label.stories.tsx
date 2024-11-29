@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import Label from '@/common/component/Label/Label';
+import { Label } from '@tiki/ui';
 
 const meta = {
   title: 'Common/Label',

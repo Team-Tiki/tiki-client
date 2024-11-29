@@ -1,9 +1,7 @@
 import { css } from '@emotion/react';
 import { Meta, StoryObj } from '@storybook/react';
+import { Button, Flex, Select } from '@tiki/ui';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Select from '@/common/component/Select/Select';
 import { useOverlay } from '@/common/hook';
 
 import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';

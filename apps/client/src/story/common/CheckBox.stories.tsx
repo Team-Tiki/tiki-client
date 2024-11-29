@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import CheckBox from '@/common/component/CheckBox/CheckBox';
+import { CheckBox } from '@tiki/ui';
 
 const meta = {
   title: 'Common/CheckBox',

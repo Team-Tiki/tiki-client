@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
+import { Flex, Heading } from '@tiki/ui';
 
 const meta = {
   title: 'Common/Heading',

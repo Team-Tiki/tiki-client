@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { RadioGroup } from '@tiki/ui';
 
 import { useState } from 'react';
-
-import RadioGroup from '@/common/component/RadioButton/RadioGroup';
 
 const meta: Meta<typeof RadioGroup> = {
   title: 'Common/RadioGroup',

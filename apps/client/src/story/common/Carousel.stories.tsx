@@ -1,13 +1,11 @@
 import { css } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button, Carousel, CarouselItem, Heading } from '@tiki/ui';
 
 import { MouseEvent } from 'react';
 
 import ArrowLeft from '@/common/asset/svg/ic_arrow_left_white.svg?react';
 import ArrowRight from '@/common/asset/svg/ic_arrow_right_white.svg?react';
-import Button from '@/common/component/Button/Button';
-import Carousel from '@/common/component/Carousel/Carousel';
-import Heading from '@/common/component/Heading/Heading';
 import { theme } from '@/common/style/theme/theme';
 
 import img1 from '/img/advBannerClub1.png';
@@ -93,7 +91,7 @@ export const Default: Story = {
           </button>
         )}>
         {arr.map((num, idx) => (
-          <Carousel.Item css={shadowStyle} key={num} index={idx}>
+          <CarouselItem css={shadowStyle} key={num} index={idx}>
             <div css={{ position: 'absolute', padding: '3.2rem' }}>
               <Heading css={{ color: 'white' }}>{num}번째 슬라이드</Heading>
               <Button css={{ width: '200px' }} variant="primary">
@@ -105,7 +103,7 @@ export const Default: Story = {
               src={idx % 3 === 0 ? img1 : idx % 3 === 1 ? img2 : img3}
               alt={`img${num}`}
             />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
       </Carousel>
     );

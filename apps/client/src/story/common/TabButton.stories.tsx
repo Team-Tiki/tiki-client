@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-
-import TabButton from '@/common/component/Tab/TabButton';
+import { TabButton } from '@tiki/ui';
 
 const meta = {
   title: 'Common/TabButton',

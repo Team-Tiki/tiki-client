@@ -1,14 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { MenuItem, MenuList, MenuRoot } from '@tiki/ui';
 
 import Pencil from '@/common/asset/svg/ic_pencil.svg?react';
-import Menu from '@/common/component/Menu/Menu';
-import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
-import MenuList from '@/common/component/Menu/MenuList/MenuList';
 import { useOverlay } from '@/common/hook';
 
 const meta = {
   title: 'Common/Menu',
-  component: Menu,
+  component: MenuRoot,
   parameters: {
     layout: 'centered',
   },
@@ -30,7 +28,7 @@ const meta = {
       </>
     ),
   },
-} satisfies Meta<typeof Menu>;
+} satisfies Meta<typeof MenuRoot>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -40,7 +38,7 @@ export const Default: Story = {
     const { isOpen, close, toggle } = useOverlay();
 
     return (
-      <Menu onClose={close}>
+      <MenuRoot onClose={close}>
         <button type="button" onClick={toggle}>
           Trigger
         </button>
@@ -55,7 +53,7 @@ export const Default: Story = {
             폴더 전체 다운로드
           </MenuItem>
         </MenuList>
-      </Menu>
+      </MenuRoot>
     );
   },
   args: {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { CommandButton } from '@tiki/ui';
 
 import Icon from '@/common/asset/svg/ic_check.svg?react';
-import CommandButton from '@/common/component/CommandButton/CommandButton';
 
 const meta = {
   title: 'Common/CommandButton',

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import Divider from '@/common/component/Divider/Divider';
+import { Divider } from '@tiki/ui';
 
 const meta = {
   title: 'Common/Divider',

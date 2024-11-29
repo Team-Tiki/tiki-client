@@ -1,8 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import Toast from '@/common/component/Toast/Toast';
-import ToastContainer from '@/common/component/ToastContainer/ToastContainer';
-import ToastProvider from '@/common/component/ToastContainer/ToastProvider';
+import { Toast, ToastContainer, ToastProvider } from '@tiki/ui';
 
 import { useToastAction } from '@/shared/store/toast';
 

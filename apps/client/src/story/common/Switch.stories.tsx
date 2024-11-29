@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Switch } from '@tiki/ui';
 
 import { useState } from 'react';
 
 import Grid from '@/common/asset/svg/ic_grid.svg?react';
 import List from '@/common/asset/svg/ic_list.svg?react';
-import Switch from '@/common/component/Switch/Switch';
 
 const meta = {
   title: 'Common/Switch',

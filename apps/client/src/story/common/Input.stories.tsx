@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Input } from '@tiki/ui';
 
 import SearchIc from '@/common/asset/svg/ic_search.svg?react';
-import Input from '@/common/component/Input/Input';
 
 const meta = {
   title: 'Common/Input',
