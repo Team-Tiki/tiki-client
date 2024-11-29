@@ -3,7 +3,6 @@ import { Children, MouseEvent, MutableRefObject, PropsWithChildren, createContex
 import { useCarousel } from "@tiki/utils";
 import Arrow from "./Arrow";
 import { containerStyle, sliderStyle } from "./Carousel.style";
-import CarouselItem from "./CarouselItem";
 import Dots from "./Dots";
 
 export interface CarouselProps extends PropsWithChildren {
@@ -79,7 +78,5 @@ const Carousel = ({
     </CarouselContext.Provider>
   );
 };
-
-Carousel.Item = CarouselItem;
 
 export default Carousel;

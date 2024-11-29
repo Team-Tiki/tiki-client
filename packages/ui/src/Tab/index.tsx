@@ -1,6 +1,4 @@
-import TabButton from "@/Tab/TabButton";
-import TabList from "@/Tab/TabList";
-import TabPanel from "@/Tab/TabPanel";
-import TabContainer from "@/Tab/Tabs";
-
-export const Tab = Object.assign(TabContainer, { Button: TabButton, List: TabList, Panel: TabPanel });
+export { default as TabButton } from "./TabButton";
+export { default as TabList } from "./TabList";
+export { default as TabPanel } from "./TabPanel";
+export { default as TabRoot } from "./Tabs";
