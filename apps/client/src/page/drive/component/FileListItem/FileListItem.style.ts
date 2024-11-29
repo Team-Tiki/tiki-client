@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
+import { theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
-import { theme } from '@/common/style/theme/theme';
 
 export const containerStyle = css({
   display: 'grid',

@@ -1,5 +1,4 @@
-import Flex from '@/common/component/Flex/Flex';
-import { scrollStyle } from '@/common/style/scroll';
+import { Flex, scrollStyle } from '@tiki/ui';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
 

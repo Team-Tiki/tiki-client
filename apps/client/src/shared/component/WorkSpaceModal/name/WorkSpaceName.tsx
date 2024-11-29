@@ -1,8 +1,6 @@
-import { useState } from 'react';
+import { Button, Flex, Input } from '@tiki/ui';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
+import { useState } from 'react';
 
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import {

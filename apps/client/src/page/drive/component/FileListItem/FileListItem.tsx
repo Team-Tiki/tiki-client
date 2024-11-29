@@ -1,7 +1,5 @@
-import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
-import CheckBox from '@/common/component/CheckBox/CheckBox';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { IcThreeDots } from '@tiki/icon';
+import { CheckBox, Flex, Text } from '@tiki/ui';
 
 import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
 
@@ -34,7 +32,7 @@ const FileListItem = ({
         <time css={timeStyle} dateTime={createdAt}>
           {createdAt}
         </time>
-        <IcOption onClick={() => {}} css={{ cursor: 'pointer' }} role="button" width={20} height={20} />
+        <IcThreeDots onClick={() => {}} css={{ cursor: 'pointer' }} role="button" width={20} height={20} />
       </div>
     </div>
   );

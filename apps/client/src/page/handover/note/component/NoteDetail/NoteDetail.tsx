@@ -1,12 +1,7 @@
-import { useCallback, useState } from 'react';
+import { IcPlusButton } from '@tiki/icon';
+import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import PlusBtn from '@/common/asset/svg/ic_plus_button.svg?react';
-import Button from '@/common/component/Button/Button';
-import DatePicker from '@/common/component/DatePicker';
-import Flex from '@/common/component/Flex/Flex';
-import RadioButtonGroup from '@/common/component/RadioButton/RadioGroup';
-import Tag from '@/common/component/Tag/Tag';
-import Text from '@/common/component/Text/Text';
+import { useCallback, useState } from 'react';
 
 import {
   entireInfoStyle,
@@ -45,7 +40,7 @@ const NoteDetail = () => {
           <Text tag="body6" css={infoStyle}>
             작성 여부
           </Text>
-          <RadioButtonGroup
+          <RadioGroup
             options={[
               {
                 label: '완료',
@@ -70,7 +65,7 @@ const NoteDetail = () => {
             {TAG_NAME.data.length > 0 ? (
               <>
                 <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
-                  <PlusBtn width={10} height={10} />
+                  <IcPlusButton width={10} height={10} />
                 </Button>
                 {TAG_NAME.data.map((tag, index) => (
                   <Tag key={index}>{tag}</Tag>

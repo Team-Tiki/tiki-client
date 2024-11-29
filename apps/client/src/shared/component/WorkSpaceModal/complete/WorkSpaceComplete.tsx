@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
+import { Flex } from '@tiki/ui';
 
 import completePng from '@/common/asset/img/workspace_complete.png';
 import complete from '@/common/asset/img/workspace_complete.webp';
-import Flex from '@/common/component/Flex/Flex';
 
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';

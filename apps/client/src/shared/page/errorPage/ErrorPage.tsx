@@ -1,11 +1,8 @@
+import { Button, Flex, Heading, Text, theme } from '@tiki/ui';
+
 import { useNavigate } from 'react-router-dom';
 
 import errorImg from '@/common/asset/img/error.png';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
-import { theme } from '@/common/style/theme/theme';
 
 import { HTTP_ERROR_MESSAGE, HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { useTokenError } from '@/shared/hook/common/useTokenError';

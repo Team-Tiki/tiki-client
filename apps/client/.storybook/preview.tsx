@@ -1,5 +1,6 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import type { Preview } from '@storybook/react';
+import { theme } from '@tiki/ui';
 
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -7,7 +8,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { GlobalStyle } from '../src/common/style/globalStyle';
-import { theme } from '../src/common/style/theme/theme';
 
 const customViewports = {
   Default: {

@@ -1,7 +1,6 @@
-import { ForwardedRef, forwardRef } from 'react';
+import { Heading, theme } from '@tiki/ui';
 
-import Heading from '@/common/component/Heading/Heading';
-import { theme } from '@/common/style/theme/theme';
+import { ForwardedRef, forwardRef } from 'react';
 
 import Indicator from '@/page/landing/component/Indicator/Indicator';
 import { containerStyle, titleStyle } from '@/page/landing/component/Overview/Overview.style';

@@ -1,4 +1,4 @@
-import Flex from '@/common/component/Flex/Flex';
+import { Flex } from '@tiki/ui';
 
 import { listItemStyle } from '@/page/dashboard/component/Handover/HandoverSection.style';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';

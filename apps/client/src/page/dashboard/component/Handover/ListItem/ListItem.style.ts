@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-
-import { theme } from '@/common/style/theme/theme';
+import { theme } from '@tiki/ui';
 
 import { alignColor } from '@/page/dashboard/util/color';
 

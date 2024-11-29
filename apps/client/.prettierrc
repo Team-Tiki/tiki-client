@@ -13,6 +13,7 @@
   
     "importOrder": [
       "^react(.*)",
+      "^@emtion/(.*)$",
       "^@tanstack/(.*)$",
       "^zustand(.*)",
       "^axios(.*)",

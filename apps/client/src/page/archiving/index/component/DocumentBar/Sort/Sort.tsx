@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { Select } from '@tiki/ui';
+import { useOutsideClick, useOverlay } from '@tiki/utils';
 
-import Select from '@/common/component/Select/Select';
-import { useOutsideClick, useOverlay } from '@/common/hook';
+import { useEffect } from 'react';
 
 import { fontStyle } from '@/page/archiving/index/component/DocumentBar/Sort/Sort.style';
 import { OPTIONS } from '@/page/archiving/index/constant/sortOption';

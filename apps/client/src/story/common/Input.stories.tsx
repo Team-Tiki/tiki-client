@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IcSearch } from '@tiki/icon';
 import { Input } from '@tiki/ui';
-
-import SearchIc from '@/common/asset/svg/ic_search.svg?react';
 
 const meta = {
   title: 'Common/Input',
@@ -34,7 +33,7 @@ export const Default: Story = {
 
 export const Search: Story = {
   args: {
-    LeftIcon: <SearchIc width={16} height={16} />,
+    LeftIcon: <IcSearch width={16} height={16} />,
     isFilled: false,
   },
   argTypes: {

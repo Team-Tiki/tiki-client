@@ -1,8 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Button, Flex, Text } from '@tiki/ui';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { Dispatch, SetStateAction } from 'react';
 
 import {
   boxStyle,

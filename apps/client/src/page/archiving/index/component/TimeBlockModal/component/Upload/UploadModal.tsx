@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { Button, Flex } from '@tiki/ui';
+import { useToastAction } from '@tiki/utils';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
+import { useEffect, useState } from 'react';
 
 import BlockAdd from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd';
 import BlockItem from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/List/BlockItem';
@@ -19,7 +19,6 @@ import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo'
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
-import { useToastAction } from '@/shared/store/toast';
 
 interface UploadModalProps {
   isVisible: boolean;

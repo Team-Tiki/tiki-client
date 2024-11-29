@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IcPencil } from '@tiki/icon';
 import { MenuItem, MenuList, MenuRoot } from '@tiki/ui';
-
-import Pencil from '@/common/asset/svg/ic_pencil.svg?react';
-import { useOverlay } from '@/common/hook';
+import { useOverlay } from '@tiki/utils';
 
 const meta = {
   title: 'Common/Menu',
@@ -43,13 +42,13 @@ export const Default: Story = {
           Trigger
         </button>
         <MenuList isOpen={isOpen} css={{ left: '100%', top: 0 }}>
-          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
+          <MenuItem LeftIcon={<IcPencil width={16} height={16} />} onSelect={toggle}>
             이름 변경
           </MenuItem>
-          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
+          <MenuItem LeftIcon={<IcPencil width={16} height={16} />} onSelect={toggle}>
             휴지통으로 이동
           </MenuItem>
-          <MenuItem LeftIcon={<Pencil width={16} height={16} />} onSelect={toggle}>
+          <MenuItem LeftIcon={<IcPencil width={16} height={16} />} onSelect={toggle}>
             폴더 전체 다운로드
           </MenuItem>
         </MenuList>

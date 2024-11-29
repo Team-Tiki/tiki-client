@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Item from '@/shared/component/SideNavBar/Item/Item';
 
 const meta = {
-  title: 'Shared/SideNavBar/Item',
+  title: 'Shared/SideNavBarItem',
   component: Item,
   parameters: {
     layout: 'centered',

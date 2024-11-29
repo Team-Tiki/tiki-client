@@ -1,10 +1,11 @@
+import { useToastAction } from '@tiki/utils';
+
 import { useMutation } from '@tanstack/react-query';
 
 import { isAxiosError } from 'axios';
 
 import { resetPassword } from '@/shared/api/members/password';
 import { PasswordReset } from '@/shared/api/members/password/type';
-import { useToastAction } from '@/shared/store/toast';
 
 export const useResetPasswordMutation = () => {
   const { createToast } = useToastAction();

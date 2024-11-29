@@ -1,10 +1,11 @@
+import { useToastAction } from '@tiki/utils';
+
 import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient, useQueryErrorResetBoundary } from '@tanstack/react-query';
 
 import { PATH } from '@/shared/constant/path';
 import { useAuth } from '@/shared/store/auth';
-import { useToastAction } from '@/shared/store/toast';
 
 export const useTokenError = () => {
   const { logout } = useAuth();

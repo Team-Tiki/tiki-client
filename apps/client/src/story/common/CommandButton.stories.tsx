@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IcCheck } from '@tiki/icon';
 import { CommandButton } from '@tiki/ui';
-
-import Icon from '@/common/asset/svg/ic_check.svg?react';
 
 const meta = {
   title: 'Common/CommandButton',
@@ -70,7 +69,7 @@ export const WithIcon: Story = {
     variant: 'tertiary',
     children: (
       <>
-        <Icon />
+        <IcCheck />
         Icon
       </>
     ),

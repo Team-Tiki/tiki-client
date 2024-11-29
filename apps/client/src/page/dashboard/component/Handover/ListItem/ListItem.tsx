@@ -1,10 +1,7 @@
-import { HTMLAttributes, useRef } from 'react';
+import { IcCalendarVer2 } from '@tiki/icon';
+import { Flex, Tag, Text, theme } from '@tiki/ui';
 
-import Calender from '@/common/asset/svg/ic_calendar_ver2.svg?react';
-import Flex from '@/common/component/Flex/Flex';
-import Tag from '@/common/component/Tag/Tag';
-import Text from '@/common/component/Text/Text';
-import { theme } from '@/common/style/theme/theme';
+import { HTMLAttributes, useRef } from 'react';
 
 import {
   containerStyle,
@@ -53,7 +50,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
           )}
         </div>
         <Flex css={detailStyle}>
-          <Calender width={16} height={16} />
+          <IcCalendarVer2 width={16} height={16} />
           <Text tag="body8" css={{ color: theme.colors.gray_800 }}>
             {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
           </Text>

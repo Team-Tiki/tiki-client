@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '@tiki/ui';
+import { IcCheck } from '@tiki/icon';
+import { Button, Size } from '@tiki/ui';
 
 import { ButtonHTMLAttributes } from 'react';
-
-import Icon from '@/common/asset/svg/ic_check.svg?react';
-import { Size } from '@/common/type/design';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'fourth' | 'outline' | 'text';
@@ -71,7 +69,7 @@ export const WithIcon: Story = {
     variant: 'tertiary',
     children: (
       <>
-        <Icon />
+        <IcCheck />
         Icon
       </>
     ),

@@ -1,8 +1,4 @@
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
-import { theme } from '@/common/style/theme/theme';
+import { Button, Flex, Heading, Text, theme } from '@tiki/ui';
 
 import DocumentItem from '@/page/archiving/index/component/DocumentBar/Item/Item';
 import { blockNameStyle, deleteBtnStyle } from '@/page/archiving/index/component/DocumentBar/Selected/Selected.style';

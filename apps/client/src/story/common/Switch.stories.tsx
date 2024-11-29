@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IcGrid, IcList } from '@tiki/icon';
 import { Switch } from '@tiki/ui';
 
 import { useState } from 'react';
-
-import Grid from '@/common/asset/svg/ic_grid.svg?react';
-import List from '@/common/asset/svg/ic_list.svg?react';
 
 const meta = {
   title: 'Common/Switch',
@@ -21,8 +19,8 @@ const meta = {
   args: {
     status: 'left',
     onSwitchChange: () => {},
-    LeftIcon: { Icon: List, mode: 'stroke' },
-    RightIcon: { Icon: Grid, mode: 'fill' },
+    LeftIcon: { Icon: IcList, mode: 'stroke' },
+    RightIcon: { Icon: IcGrid, mode: 'fill' },
   },
 } satisfies Meta<typeof Switch>;
 

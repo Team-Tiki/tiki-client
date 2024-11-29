@@ -1,9 +1,7 @@
+import { Flex, ToolTip } from '@tiki/ui';
 import { motion } from 'framer-motion';
 
 import { HTMLAttributes, useState } from 'react';
-
-import Flex from '@/common/component/Flex/Flex';
-import ToolTip from '@/common/component/ToolTip/ToolTip';
 
 import {
   firstSpellStyle,

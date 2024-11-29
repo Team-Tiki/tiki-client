@@ -1,12 +1,7 @@
-import { useState } from 'react';
+import { IcCheck } from '@tiki/icon';
+import { Button, Flex, Modal, Text, scrollStyle, theme } from '@tiki/ui';
 
-import IcCheck from '@/common/asset/svg/ic_check.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Modal from '@/common/component/Modal/Modal';
-import Text from '@/common/component/Text/Text';
-import { scrollStyle } from '@/common/style/scroll';
-import { theme } from '@/common/style/theme/theme';
+import { useState } from 'react';
 
 import {
   containerStyle,

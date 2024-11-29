@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Flex, ToolTip } from '@tiki/ui';
-
-import { theme } from '@/common/style/theme/theme';
+import { Flex, ToolTip, theme } from '@tiki/ui';
 
 const meta = {
   title: 'Common/ToolTip',

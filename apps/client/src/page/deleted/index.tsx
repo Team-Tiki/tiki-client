@@ -1,8 +1,5 @@
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Select from '@/common/component/Select/Select';
-import { useOverlay } from '@/common/hook';
-import { useMultiSelect } from '@/common/hook/useMultiSelect';
+import { Button, Flex, Select } from '@tiki/ui';
+import { useMultiSelect, useOverlay } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
 

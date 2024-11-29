@@ -1,6 +1,4 @@
-import CheckBox from '@/common/component/CheckBox/CheckBox';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { CheckBox, Flex, Text } from '@tiki/ui';
 
 import { headerStyle, rightSideRowStyle } from '@/page/drive/component/FileListHeader/FileListHeader.style';
 

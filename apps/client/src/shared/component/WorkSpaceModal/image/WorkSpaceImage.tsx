@@ -1,8 +1,5 @@
-import TeamProfileAdd from '@/common/asset/svg/ic_team_profile_add.svg?react';
-import TeamProfileDelete from '@/common/asset/svg/ic_team_profile_delete.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Label from '@/common/component/Label/Label';
+import { IcTeamProfileAdd, IcTeamProfileDelete } from '@tiki/icon';
+import { Button, Flex, Label } from '@tiki/ui';
 
 import {
   buttonCompleteStyle,
@@ -54,10 +51,10 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
           <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
         ) : (
           <Label id="imgUploadInput" css={imageAddStyle}>
-            <TeamProfileAdd width={200} height={200} />
+            <IcTeamProfileAdd width={200} height={200} />
           </Label>
         )}
-        {fileURL && <TeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
+        {fileURL && <IcTeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
       </div>
       <input
         id="imgUploadInput"

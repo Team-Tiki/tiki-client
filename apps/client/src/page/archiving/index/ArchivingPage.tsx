@@ -1,8 +1,7 @@
+import { Button, Flex } from '@tiki/ui';
+
 import { Suspense, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
 
 import { contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DateProvider from '@/page/archiving/index/DateProvider';

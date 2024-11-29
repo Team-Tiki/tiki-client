@@ -1,8 +1,5 @@
 import { css } from '@emotion/react';
-
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
-import SupportingText from '@/common/component/SupportingText/SupportingText';
+import { Flex, Input, SupportingText } from '@tiki/ui';
 
 import {
   supportStyle,

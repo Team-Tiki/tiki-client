@@ -1,4 +1,4 @@
-import { theme } from '@/common/style/theme/theme';
+import { theme } from '@tiki/ui';
 
 export const alignColor = (color: string) => {
   switch (color) {

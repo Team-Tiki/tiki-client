@@ -1,6 +1,5 @@
-import IcNote from '@/common/asset/svg/ic_note_black.svg?react';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { IcNoteBlack } from '@tiki/icon';
+import { Flex, Text } from '@tiki/ui';
 
 import TaggedNoteItem from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNoteItem/TaggedNoteItem';
 import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
@@ -20,7 +19,7 @@ const TaggedNotes = ({ isEditable }: TaggedNotesProps) => {
   return (
     <Flex styles={{ direction: 'column', gap: '1.8rem' }}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
-        <IcNote width={16} height={16} />
+        <IcNoteBlack width={16} height={16} />
         <Text tag="body6" css={listHeaderStyle}>
           태그된 인수인계 노트
         </Text>

@@ -1,10 +1,8 @@
+import { LogoTikiMd } from '@tiki/icon';
+import { Button, Flex, Input } from '@tiki/ui';
+
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Logo from '@/common/asset/svg/logo_tiki_md.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
 
 import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
 import { useLoginMutation } from '@/page/login/index/hook/useLoginMutation';
@@ -35,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <section css={pageStyle}>
-      <Logo css={{ flexShrink: 0 }} width={108} height={40} />
+      <LogoTikiMd css={{ flexShrink: 0 }} width={108} height={40} />
       <form onSubmit={handleLogin} css={formStyle}>
         <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
           <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="아이디" />

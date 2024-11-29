@@ -1,8 +1,4 @@
-import Button from '@/common/component/Button/Button';
-import DatePicker from '@/common/component/DatePicker';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Input from '@/common/component/Input/Input';
+import { Button, DatePicker, Flex, Heading, Input } from '@tiki/ui';
 
 import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';

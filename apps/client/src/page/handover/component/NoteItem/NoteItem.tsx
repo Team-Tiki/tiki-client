@@ -1,11 +1,5 @@
-import avartar from '@/common/asset/svg/ic_avatar.svg';
-import MoreIcButton from '@/common/asset/svg/ic_more.svg?react';
-import CheckBox from '@/common/component/CheckBox/CheckBox';
-import Divider from '@/common/component/Divider/Divider';
-import Flex from '@/common/component/Flex/Flex';
-import Tag from '@/common/component/Tag/Tag';
-import Text from '@/common/component/Text/Text';
-import { theme } from '@/common/style/theme/theme';
+import { IcAvatar, IcMore } from '@tiki/icon';
+import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 
 import { formattingDate } from '@/page/archiving/index/util/date';
 import { containerStyle, moreButtonStyle, profileStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
@@ -48,7 +42,7 @@ const NoteItem = ({
             {title}
           </Text>
           <Flex styles={{ align: 'center', gap: '0.4rem' }}>
-            <img src={avartar} alt="작성자 프로필" css={profileStyle} />
+            <IcAvatar css={profileStyle} />
             <Text tag="body6" style={{ width: '10.4rem' }}>
               {writer}
             </Text>
@@ -63,7 +57,7 @@ const NoteItem = ({
                 작성 미완료
               </Tag>
             )}
-            <MoreIcButton width={18} height={18} css={moreButtonStyle} />
+            <IcMore width={18} height={18} css={moreButtonStyle} />
           </Flex>
         </Flex>
       </Flex>

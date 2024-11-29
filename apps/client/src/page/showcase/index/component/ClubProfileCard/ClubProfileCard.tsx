@@ -1,6 +1,5 @@
-import IcDefault from '@/common/asset/svg/ic_default_profile.svg';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
+import { IcDefaultProfile } from '@tiki/icon';
+import { Heading, Text } from '@tiki/ui';
 
 import {
   containerStyle,
@@ -33,7 +32,7 @@ const ClubProfileCard = ({ title, detail, imageUrl, onClick }: ClubProfileCardPr
       {imageUrl ? (
         <CachedImage css={imageStyle} alt={`${title} 프로필 이미지`} imageUrl={imageUrl} width={300} />
       ) : (
-        <img css={imageStyle} src={IcDefault} alt={`${title} 프로필 이미지`} />
+        <IcDefaultProfile css={imageStyle} aria-label={`${title} 프로필 이미지`} />
       )}
 
       <div css={descriptionStyle}>

@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IcArrowDown, IcArrowUp } from '@tiki/icon';
 import { Select } from '@tiki/ui';
+import { useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useState } from 'react';
-
-import IcArrowDown from '@/common/asset/svg/ic_arrow_down.svg?react';
-import IcArrowUp from '@/common/asset/svg/ic_arrow_up.svg?react';
-import { useOutsideClick, useOverlay } from '@/common/hook';
 
 const meta = {
   title: 'Common/Select',

@@ -1,6 +1,4 @@
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
+import { Flex, Heading, Text } from '@tiki/ui';
 
 import { headingStyle, textStyle, topStyle } from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo.style';
 import { STEPS, STEPS_BY_CATEGORY } from '@/shared/constant';

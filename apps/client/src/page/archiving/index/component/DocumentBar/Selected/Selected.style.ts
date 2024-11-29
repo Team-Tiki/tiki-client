@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-
-import { theme } from '@/common/style/theme/theme';
+import { theme } from '@tiki/ui';
 
 export const blockNameStyle = css({
   paddingRight: '0.4rem',

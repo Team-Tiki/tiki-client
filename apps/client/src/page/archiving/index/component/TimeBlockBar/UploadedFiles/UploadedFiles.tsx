@@ -1,8 +1,5 @@
-import IcCloudUpload from '@/common/asset/svg/ic_cloud_upload.svg?react';
-import IcPaper from '@/common/asset/svg/ic_paper.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { IcCloudUpload, IcPaper } from '@tiki/icon';
+import { Button, Flex, Text } from '@tiki/ui';
 
 import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/FileItem/FileItem';

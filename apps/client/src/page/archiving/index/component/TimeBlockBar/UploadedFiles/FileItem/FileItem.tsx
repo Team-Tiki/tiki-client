@@ -1,7 +1,5 @@
-import CloseButton from '@/common/asset/svg/ic_close.svg?react';
-import IcPDF from '@/common/asset/svg/ic_pdf_file.svg?react';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { IcClose, IcPdfFile } from '@tiki/icon';
+import { Flex, Text } from '@tiki/ui';
 
 import {
   circleStyle,
@@ -22,7 +20,7 @@ const FileItem = ({ title, capacity, isEditable }: FileItemProps) => {
     <li css={containerStyle}>
       <Flex>
         <Flex css={circleStyle}>
-          <IcPDF width={16} height={16} />
+          <IcPdfFile width={16} height={16} />
         </Flex>
         <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
           <Text tag="body8" css={fileTitleStyle}>
@@ -34,7 +32,7 @@ const FileItem = ({ title, capacity, isEditable }: FileItemProps) => {
         </Flex>
       </Flex>
 
-      {isEditable && <CloseButton width={16} height={16} css={closeBtnStyle} />}
+      {isEditable && <IcClose width={16} height={16} css={closeBtnStyle} />}
     </li>
   );
 };

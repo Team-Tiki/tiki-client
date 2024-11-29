@@ -1,14 +1,8 @@
-import { useRef } from 'react';
+import { IcThreeDots } from '@tiki/icon';
+import { CheckBox, Flex, Heading, MenuItem, MenuList, MenuRoot, Text } from '@tiki/ui';
+import { useOverlay } from '@tiki/utils';
 
-import IcOption from '@/common/asset/svg/ic_three_dots.svg?react';
-import CheckBox from '@/common/component/CheckBox/CheckBox';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Menu from '@/common/component/Menu/Menu';
-import MenuItem from '@/common/component/Menu/MenuItem/MenuItem';
-import MenuList from '@/common/component/Menu/MenuList/MenuList';
-import Text from '@/common/component/Text/Text';
-import { useOverlay } from '@/common/hook';
+import { useRef } from 'react';
 
 import { FILE_ICON, OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import {
@@ -89,9 +83,9 @@ const FileGrid = ({
             {title}
           </Heading>
           {variant === 'primary' && (
-            <Menu onClose={close}>
+            <MenuRoot onClose={close}>
               <div ref={optionRef}>
-                <IcOption onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
+                <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
               </div>
               <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
                 <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
@@ -104,7 +98,7 @@ const FileGrid = ({
                   인수인계 노트 보기
                 </MenuItem>
               </MenuList>
-            </Menu>
+            </MenuRoot>
           )}
         </Flex>
 

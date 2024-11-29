@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-
-import { theme } from '@/common/style/theme/theme';
+import { theme } from '@tiki/ui';
 
 export const periodStyle = (activeSelect: boolean) =>
   css({

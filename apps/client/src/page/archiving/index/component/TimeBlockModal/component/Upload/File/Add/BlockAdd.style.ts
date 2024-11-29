@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-
-import { theme } from '@/common/style/theme/theme';
+import { theme } from '@tiki/ui';
 
 export const boxStyle = css({
   borderRadius: '8px',

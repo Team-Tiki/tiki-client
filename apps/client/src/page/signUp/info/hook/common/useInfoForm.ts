@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import { useError } from '@tiki/utils';
 
-import { useError } from '@/common/hook';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
 import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
 

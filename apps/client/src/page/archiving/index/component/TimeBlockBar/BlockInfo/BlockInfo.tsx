@@ -1,8 +1,4 @@
-import DatePicker from '@/common/component/DatePicker';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Input from '@/common/component/Input/Input';
-import Text from '@/common/component/Text/Text';
+import { DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 
 import { periodStyle, titleInputStyle } from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo.style';
 import { formattingDate } from '@/page/archiving/index/util/date';

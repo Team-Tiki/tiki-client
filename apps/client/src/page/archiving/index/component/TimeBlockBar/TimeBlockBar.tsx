@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { IcClose } from '@tiki/icon';
+import { CommandButton, Flex } from '@tiki/ui';
 
-import CloseButton from '@/common/asset/svg/ic_close.svg?react';
-import CommandButton from '@/common/component/CommandButton/CommandButton';
-import Flex from '@/common/component/Flex/Flex';
+import { useState } from 'react';
 
 import BlockInfo from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo';
 import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNotes';
@@ -27,7 +26,7 @@ const TimeBlockBar = ({ content, onCloseDrawer }: TimeBlockBarProps) => {
   return (
     content && (
       <section>
-        <CloseButton width={16} height={16} css={closeBtnStyle} onClick={onCloseDrawer} />
+        <IcClose width={16} height={16} css={closeBtnStyle} onClick={onCloseDrawer} />
 
         <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>
           <Flex css={circleStyle(content.color)}>

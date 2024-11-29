@@ -1,5 +1,4 @@
-import DeleteFileIc from '@/common/asset/svg/ic_delete_file.svg?react';
-import FileIc from '@/common/asset/svg/ic_file_round.svg?react';
+import { IcDeleteFile, IcFileRound } from '@tiki/icon';
 
 import { deleteIcStyle, fileInfoStyle, fileStyle } from '@/page/handover/note/component/File/File.style';
 
@@ -14,12 +13,12 @@ const File = ({ file }: FileProps) => {
 
   return (
     <article css={fileStyle}>
-      <FileIc width={32} height={32} />
+      <IcFileRound width={32} height={32} />
       <span css={fileInfoStyle}>
         <p>{file.name}</p>
         <p>{fileVolume}</p>
       </span>
-      <DeleteFileIc css={deleteIcStyle} />
+      <IcDeleteFile css={deleteIcStyle} />
     </article>
   );
 };

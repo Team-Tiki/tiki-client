@@ -1,9 +1,6 @@
-import { useCallback } from 'react';
+import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
-import Button from '@/common/component/Button/Button';
-import Input from '@/common/component/Input/Input';
-import Label from '@/common/component/Label/Label';
-import { scrollStyle } from '@/common/style/scroll';
+import { useCallback } from 'react';
 
 import File from '@/page/handover/note/component/File/File';
 import {

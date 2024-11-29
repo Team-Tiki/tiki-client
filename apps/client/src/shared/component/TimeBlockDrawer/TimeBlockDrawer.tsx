@@ -1,7 +1,7 @@
+import { useOutsideClick } from '@tiki/utils';
+
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
-import { useOutsideClick } from '@/common/hook';
 
 import TimeBlockBar from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar';
 

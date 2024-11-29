@@ -1,4 +1,5 @@
 import { Global, ThemeProvider } from '@emotion/react';
+import { ToastContainer, ToastProvider, theme } from '@tiki/ui';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -6,11 +7,8 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import ToastContainer from '@/common/component/ToastContainer/ToastContainer';
-import ToastProvider from '@/common/component/ToastContainer/ToastProvider';
 import { AppRouter } from '@/common/router/Router';
 import { GlobalStyle } from '@/common/style/globalStyle';
-import { theme } from '@/common/style/theme/theme';
 
 import { worker } from '@/mock/browser';
 

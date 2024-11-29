@@ -1,6 +1,4 @@
-import Button from '@/common/component/Button/Button';
-import Label from '@/common/component/Label/Label';
-import { scrollStyle } from '@/common/style/scroll';
+import { Button, Label, scrollStyle } from '@tiki/ui';
 
 import {
   fileBoxStyle,

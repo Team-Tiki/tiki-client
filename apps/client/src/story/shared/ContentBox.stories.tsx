@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, Flex, Input, Text } from '@tiki/ui';
+import { Button, Flex, Input, Text, theme } from '@tiki/ui';
 
 import { ReactNode } from 'react';
-
-import { theme } from '@/common/style/theme/theme';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 

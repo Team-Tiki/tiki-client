@@ -82,6 +82,7 @@ export { default as IcTeamProfileDelete } from "./src/IcTeamProfileDelete.tsx";
 export { default as IcThreeDots } from "./src/IcThreeDots.tsx";
 export { default as IcTikiLogo } from "./src/IcTikiLogo.tsx";
 export { default as IcTimeline } from "./src/IcTimeline.tsx";
+export { default as IcTimeline2 } from "./src/IcTimeline2.tsx";
 export { default as IcTooltipArrow } from "./src/IcTooltipArrow.tsx";
 export { default as IcTrash } from "./src/IcTrash.tsx";
 export { default as IcUp } from "./src/IcUp.tsx";

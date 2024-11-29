@@ -1,6 +1,6 @@
-import { ForwardedRef, forwardRef } from 'react';
+import { theme } from '@tiki/ui';
 
-import { theme } from '@/common/style/theme/theme';
+import { ForwardedRef, forwardRef } from 'react';
 
 import { containerStyle } from '@/page/archiving/index/component/DocumentBar/DocumentBar.style';
 import { Block } from '@/page/archiving/index/type/blockType';

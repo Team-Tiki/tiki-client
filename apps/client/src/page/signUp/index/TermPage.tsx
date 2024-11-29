@@ -1,8 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { Button, Flex, Heading } from '@tiki/ui';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
+import { useNavigate } from 'react-router-dom';
 
 import TermItem from '@/page/signUp/index/component/TermItem/TermItem';
 import TermsAgreeButton from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton';

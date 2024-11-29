@@ -1,6 +1,4 @@
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
+import { Button, Flex, Heading } from '@tiki/ui';
 
 import {
   buttonStyle,

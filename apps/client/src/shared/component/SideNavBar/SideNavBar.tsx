@@ -1,14 +1,12 @@
+import { IcTikiLogo } from '@tiki/icon';
+import { Divider, Flex, ToolTip, theme } from '@tiki/ui';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import addUrl from '@/common/asset/svg/ic_add.svg';
 import avatarUrl from '@/common/asset/svg/ic_avatar.svg';
 import globalUrl from '@/common/asset/svg/ic_global.svg';
-import TikiLogo from '@/common/asset/svg/ic_tiki_logo.svg?react';
-import Divider from '@/common/component/Divider/Divider';
-import Flex from '@/common/component/Flex/Flex';
-import ToolTip from '@/common/component/ToolTip/ToolTip';
-import { theme } from '@/common/style/theme/theme';
 
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
@@ -44,7 +42,7 @@ const SideNavBar = () => {
 
   return (
     <nav css={containerStyle}>
-      <TikiLogo css={tikiLogoStyle} />
+      <IcTikiLogo css={tikiLogoStyle} />
       <Flex tag="ul" styles={{ direction: 'column', align: 'center' }}>
         <Item
           logoUrl={globalUrl}

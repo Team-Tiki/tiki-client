@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { Button, Flex } from '@tiki/ui';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
+import { useNavigate } from 'react-router-dom';
 
 import { contentBoxStyle, handoverBoxStyle } from '@/page/dashboard/DashboardPage.style';
 import FileSection from '@/page/dashboard/component/File/FileSection';

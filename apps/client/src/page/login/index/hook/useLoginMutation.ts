@@ -1,3 +1,5 @@
+import { useToastAction } from '@tiki/utils';
+
 import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
@@ -10,7 +12,6 @@ import { postSignIn } from '@/shared/api/auth/signin';
 import { axiosInstance } from '@/shared/api/instance';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import { useToastAction } from '@/shared/store/toast';
 
 export const useLoginMutation = () => {
   const { createToast } = useToastAction();

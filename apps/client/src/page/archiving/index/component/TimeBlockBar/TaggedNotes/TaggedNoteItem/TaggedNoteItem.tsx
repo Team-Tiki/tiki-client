@@ -1,6 +1,5 @@
-import IcArrowRight from '@/common/asset/svg/ic_subdirectory_arrow_right.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
+import { IcSubdirectoryArrowRight } from '@tiki/icon';
+import { Button, Flex } from '@tiki/ui';
 
 import { handoverNoteItemStyle } from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNoteItem/TaggedNoteItem.style';
 
@@ -12,7 +11,7 @@ interface TaggedNoteItemProps {
 const TaggedNoteItem = ({ title, isEditable }: TaggedNoteItemProps) => {
   return (
     <Flex tag="li" styles={{ gap: '0.8rem', width: '100%' }} style={{ overflow: 'hidden' }}>
-      <IcArrowRight width={16} height={16} />
+      <IcSubdirectoryArrowRight width={16} height={16} />
       <Button disabled={isEditable} variant="outline" size="xSmall" css={handoverNoteItemStyle}>
         {title}
       </Button>

@@ -1,7 +1,5 @@
-import Delete from '@/common/asset/svg/ic_file_delete.svg?react';
-import Flex from '@/common/component/Flex/Flex';
-import Spinner from '@/common/component/Spinner/Spinner';
-import Text from '@/common/component/Text/Text';
+import { IcFileDelete } from '@tiki/icon';
+import { Flex, Spinner, Text } from '@tiki/ui';
 
 import {
   borderStyle,
@@ -25,7 +23,7 @@ const BlockItem = ({ title, onDelete, isUploading }: BlockItemProps) => {
       {isUploading ? (
         <Spinner size={20} />
       ) : (
-        <Delete width={20} height={20} css={{ cursor: 'pointer' }} onClick={onDelete} />
+        <IcFileDelete width={20} height={20} css={{ cursor: 'pointer' }} onClick={onDelete} />
       )}
     </Flex>
   );

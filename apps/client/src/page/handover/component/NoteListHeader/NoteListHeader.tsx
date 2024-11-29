@@ -1,6 +1,4 @@
-import CheckBox from '@/common/component/CheckBox/CheckBox';
-import Flex from '@/common/component/Flex/Flex';
-import Text from '@/common/component/Text/Text';
+import { CheckBox, Flex, Text } from '@tiki/ui';
 
 import { containerStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
 import { fontStyle } from '@/page/handover/component/NoteListHeader/NoteListHeader.style';

@@ -1,7 +1,8 @@
+import { useToastAction } from '@tiki/utils';
+
 import { useMutation } from '@tanstack/react-query';
 
 import { checkAuthCode } from '@/shared/api/email-verification/checking';
-import { useToastAction } from '@/shared/store/toast';
 
 export const useVerifyCodeMutation = (email: string, code: string) => {
   const { createToast } = useToastAction();

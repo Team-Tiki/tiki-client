@@ -1,7 +1,6 @@
-import { ReactNode } from 'react';
+import { Flex, Heading } from '@tiki/ui';
 
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
+import { ReactNode } from 'react';
 
 interface BlockBoxProps {
   title: string;

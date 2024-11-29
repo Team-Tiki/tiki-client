@@ -1,11 +1,8 @@
 import { css } from '@emotion/react';
+import { IcArrowLeftWhite, IcArrowRightWhite } from '@tiki/icon';
+import { Carousel, CarouselItem, theme } from '@tiki/ui';
 
 import { MouseEvent } from 'react';
-
-import { default as ArrowLeft } from '@/common/asset/svg/ic_arrow_left_white.svg?react';
-import { default as ArrowRight } from '@/common/asset/svg/ic_arrow_right_white.svg?react';
-import Carousel from '@/common/component/Carousel/Carousel';
-import { theme } from '@/common/style/theme/theme';
 
 import AdvBanner from '@/page/showcase/index/component/AdvBanner/AdvBanner';
 import { ADVBANNER } from '@/page/showcase/index/constant/banner';
@@ -17,18 +14,18 @@ const BannerSlider = () => {
       autoLoop={true}
       renderedLeftArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void) => (
         <button onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
-          <ArrowLeft width="1.6rem" height="1.6rem" />
+          <IcArrowLeftWhite width="1.6rem" height="1.6rem" />
         </button>
       )}
       renderedRightArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void) => (
         <button onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
-          <ArrowRight width="1.6rem" height="1.6rem" />
+          <IcArrowRightWhite width="1.6rem" height="1.6rem" />
         </button>
       )}>
       {ADVBANNER.map((adv) => (
-        <Carousel.Item key={adv.id} index={adv.id - 1}>
+        <CarouselItem key={adv.id} index={adv.id - 1}>
           <AdvBanner title={adv.name} imageUrl={adv.imageUrl} externUrl={adv.externUrl} />
-        </Carousel.Item>
+        </CarouselItem>
       ))}
     </Carousel>
   );

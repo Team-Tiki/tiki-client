@@ -1,14 +1,8 @@
-import { useState } from 'react';
+import { IcGrid, IcList, IcSearch } from '@tiki/icon';
+import { Button, Flex, Input, Select, Switch } from '@tiki/ui';
+import { useDeferredSearchFilter } from '@tiki/utils';
 
-import Grid from '@/common/asset/svg/ic_grid.svg?react';
-import List from '@/common/asset/svg/ic_list.svg?react';
-import IcSearch from '@/common/asset/svg/ic_search.svg?react';
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
-import Select from '@/common/component/Select/Select';
-import Switch from '@/common/component/Switch/Switch';
-import useDeferedSearchFilter from '@/common/hook/useDeferedSearchFilter';
+import { useState } from 'react';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
@@ -26,7 +20,7 @@ const DrivePage = () => {
   const [alignOption, setAlignOption] = useState<'list' | 'grid'>('list');
   const [searchValue, setSearchValue] = useState('');
 
-  const { isStale, filteredData } = useDeferedSearchFilter(FileData, searchValue);
+  const { isStale, filteredData } = useDeferredSearchFilter(FileData, searchValue);
 
   return (
     <ContentBox
@@ -57,8 +51,8 @@ const DrivePage = () => {
           <Flex styles={{ align: 'center' }}>
             <Switch
               status={alignOption === 'list' ? 'left' : 'right'}
-              LeftIcon={{ Icon: List, mode: 'stroke' }}
-              RightIcon={{ Icon: Grid, mode: 'fill' }}
+              LeftIcon={{ Icon: IcList, mode: 'stroke' }}
+              RightIcon={{ Icon: IcGrid, mode: 'fill' }}
               onSwitchChange={() => setAlignOption((prev) => (prev === 'list' ? 'grid' : 'list'))}
             />
             <Select css={{ width: '13rem' }} placeholder="최근 업로드 순" variant="option" options={filterOption} />

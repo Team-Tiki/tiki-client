@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
+import { Button, Flex, Select } from '@tiki/ui';
+import { useOutsideClick, useOverlay } from '@tiki/utils';
 
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Select from '@/common/component/Select/Select';
-import { useOutsideClick, useOverlay } from '@/common/hook';
+import { useEffect, useState } from 'react';
 
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';

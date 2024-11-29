@@ -1,6 +1,6 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { IcCheck } from '@tiki/icon';
 
-import IcCheck from '@/common/asset/svg/ic_check.svg?react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import { buttonStyle } from '@/page/signUp/index/component/TermsAgreeButton/TermsAgreeButton.style';
 

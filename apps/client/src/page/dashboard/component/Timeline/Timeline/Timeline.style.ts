@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-
-import { scrollStyle } from '@/common/style/scroll';
+import { scrollStyle } from '@tiki/ui';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
 

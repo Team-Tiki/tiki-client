@@ -1,13 +1,8 @@
-import { useState } from 'react';
+import { IcSearch } from '@tiki/icon';
+import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
+import { useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import IcSearch from '@/common/asset/svg/ic_search.svg?react';
-import Button from '@/common/component/Button/Button';
-import Divider from '@/common/component/Divider/Divider';
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
-import Select from '@/common/component/Select/Select';
-import { useOutsideClick, useOverlay } from '@/common/hook';
-import { useMultiSelect } from '@/common/hook/useMultiSelect';
+import { useState } from 'react';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';

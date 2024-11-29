@@ -1,12 +1,8 @@
+import { Button, Flex, Heading, Input } from '@tiki/ui';
+import { useInput, useTimer } from '@tiki/utils';
+
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Input from '@/common/component/Input/Input';
-import { useInput } from '@/common/hook/useInput';
-import { useTimer } from '@/common/hook/useTimer';
 
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/auth/PasswordAuthPage.style';
 import { useResendMailMutation } from '@/page/login/password/auth/hook/api/useResendMailMutation';

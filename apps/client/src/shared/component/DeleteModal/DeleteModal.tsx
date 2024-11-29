@@ -1,7 +1,4 @@
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
+import { Button, Flex, Heading, Text } from '@tiki/ui';
 
 import { useDeleteBlockMutation } from '@/page/archiving/index/hook/api/useDeleteBlockMutaion';
 import { useDeleteDocumentMutation } from '@/page/archiving/index/hook/api/useDeleteDocumentMutation';

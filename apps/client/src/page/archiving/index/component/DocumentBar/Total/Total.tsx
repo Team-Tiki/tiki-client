@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { IcSearch } from '@tiki/icon';
+import { Flex, Input, Text } from '@tiki/ui';
+import { useDebounce } from '@tiki/utils';
 
-import SearchIc from '@/common/asset/svg/ic_search.svg?react';
-import Flex from '@/common/component/Flex/Flex';
-import Input from '@/common/component/Input/Input';
-import Text from '@/common/component/Text/Text';
-import { useDebounce } from '@/common/hook';
+import { useState } from 'react';
 
 import Item from '@/page/archiving/index/component/DocumentBar/Item/Item';
 import { blockNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
@@ -41,7 +39,7 @@ const DocumentTotal = () => {
         <Input
           placeholder={'문서를 검색해보세요'}
           value={searchWord}
-          LeftIcon={<SearchIc />}
+          LeftIcon={<IcSearch />}
           onChange={(e) => {
             setSearchWord(e.target.value);
           }}

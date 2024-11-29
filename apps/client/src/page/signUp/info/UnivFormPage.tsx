@@ -1,7 +1,4 @@
-import Button from '@/common/component/Button/Button';
-import Flex from '@/common/component/Flex/Flex';
-import Heading from '@/common/component/Heading/Heading';
-import Input from '@/common/component/Input/Input';
+import { Button, Flex, Heading, Input } from '@tiki/ui';
 
 import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { useUnivForm } from '@/page/signUp/info/hook/common/useUnivForm';

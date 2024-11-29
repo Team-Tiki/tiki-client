@@ -1,5 +1,4 @@
-import Heading from '@/common/component/Heading/Heading';
-import Text from '@/common/component/Text/Text';
+import { Heading, Text } from '@tiki/ui';
 
 import { headingStyle, sectionStyle, textStyle } from '@/shared/component/EmptySection/EmptySection.style';
 import { HEADING, TEXT } from '@/shared/component/EmptySection/constant';

@@ -1,8 +1,7 @@
 import { css } from '@emotion/react';
+import { IcArrowDown } from '@tiki/icon';
 
 import { ComponentPropsWithoutRef } from 'react';
-
-import IcArrowDown from '@/common/asset/svg/ic_key_arrow.svg?react';
 
 interface IndicatorProps extends ComponentPropsWithoutRef<'svg'> {
   onNext?: () => void;

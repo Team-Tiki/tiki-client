@@ -1,12 +1,9 @@
 import { css } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, Carousel, CarouselItem, Heading } from '@tiki/ui';
+import { IcArrowLeftWhite, IcArrowRightWhite } from '@tiki/icon';
+import { Button, Carousel, CarouselItem, Heading, theme } from '@tiki/ui';
 
 import { MouseEvent } from 'react';
-
-import ArrowLeft from '@/common/asset/svg/ic_arrow_left_white.svg?react';
-import ArrowRight from '@/common/asset/svg/ic_arrow_right_white.svg?react';
-import { theme } from '@/common/style/theme/theme';
 
 import img1 from '/img/advBannerClub1.png';
 import img2 from '/img/advBannerClub2.png';
@@ -82,12 +79,12 @@ export const Default: Story = {
         autoLoop={true}
         renderedLeftArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void) => (
           <button onClick={onClick} css={[arrowStyle, { left: '1.6rem' }]}>
-            <ArrowLeft width="1.6rem" height="1.6rem" />
+            <IcArrowLeftWhite width="1.6rem" height="1.6rem" />
           </button>
         )}
         renderedRightArrow={(onClick: (e: MouseEvent<HTMLButtonElement>) => void) => (
           <button onClick={onClick} css={[arrowStyle, { right: '1.6rem' }]}>
-            <ArrowRight width="1.6rem" height="1.6rem" />
+            <IcArrowRightWhite width="1.6rem" height="1.6rem" />
           </button>
         )}>
         {arr.map((num, idx) => (

@@ -1,6 +1,6 @@
-import { useMatch } from 'react-router-dom';
+import { Heading } from '@tiki/ui';
 
-import Heading from '@/common/component/Heading/Heading';
+import { useMatch } from 'react-router-dom';
 
 import { headerStyle } from '@/shared/component/Header/Header.style';
 import RouteNav from '@/shared/component/RouteNav/RouteNav';

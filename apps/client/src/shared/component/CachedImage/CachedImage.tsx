@@ -1,6 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { useCachedImage } from '@tiki/utils';
 
-import useCachedImage from '@/common/hook/useCachedImage';
+import { HTMLAttributes } from 'react';
 
 interface CachedImageProps extends HTMLAttributes<HTMLImageElement> {
   imageUrl: string;
