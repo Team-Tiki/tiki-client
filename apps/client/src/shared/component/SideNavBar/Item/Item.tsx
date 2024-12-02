@@ -1,3 +1,4 @@
+import { IcAdd, IcGlobal } from '@tiki/icon';
 import { Flex, ToolTip } from '@tiki/ui';
 import { motion } from 'framer-motion';
 
@@ -11,13 +12,43 @@ import {
 } from '@/shared/component/SideNavBar/Item/Item.style';
 
 interface ItemProps extends HTMLAttributes<HTMLDivElement> {
-  hoverMessage: string;
-  logoUrl: string | null;
+  variant:
+    | {
+        type: 'add';
+        hoverMessage: string;
+      }
+    | {
+        type: 'dashboard';
+        hoverMessage: string;
+      }
+    | {
+        type: 'team';
+        logoUrl: string | null;
+        hoverMessage: string;
+      };
   isClicked: boolean;
   onLogoClick: () => void;
 }
 
-const Item = ({ logoUrl = '', isClicked, onLogoClick, hoverMessage, ...props }: ItemProps) => {
+const getItemsInfo = (variant: Required<ItemProps['variant']>) => {
+  switch (variant?.type) {
+    case 'add': {
+      return <IcAdd width={16} height={16} />;
+    }
+    case 'dashboard': {
+      return <IcGlobal width={20} height={20} />;
+    }
+    case 'team': {
+      return variant.logoUrl ? (
+        <img src={variant.logoUrl} alt="팀 프로필 이미지" />
+      ) : (
+        <span css={firstSpellStyle}>{variant.hoverMessage[0]}</span>
+      );
+    }
+  }
+};
+
+const Item = ({ variant, isClicked, onLogoClick, ...props }: ItemProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -39,7 +70,7 @@ const Item = ({ logoUrl = '', isClicked, onLogoClick, hoverMessage, ...props }: 
       {isClicked && (
         <motion.div layoutId="snb_indicator" css={[pageIndicatorStyle(isClicked, isHover), indicatorStyle]} />
       )}
-      <ToolTip message={hoverMessage} position="right" gap={0.8}>
+      <ToolTip message={variant.hoverMessage} position="right" gap={0.8}>
         <div
           role="button"
           tabIndex={0}
@@ -48,7 +79,7 @@ const Item = ({ logoUrl = '', isClicked, onLogoClick, hoverMessage, ...props }: 
           onKeyDown={handleEnterKeyDown}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}>
-          {logoUrl ? <img src={logoUrl} alt="버튼 아이콘" /> : <span css={firstSpellStyle}>{hoverMessage[0]}</span>}
+          {getItemsInfo(variant)}
         </div>
       </ToolTip>
     </Flex>

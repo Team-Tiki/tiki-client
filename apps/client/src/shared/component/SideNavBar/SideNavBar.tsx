@@ -1,12 +1,8 @@
-import { IcTikiLogo } from '@tiki/icon';
+import { IcAvatar, IcTikiLogo } from '@tiki/icon';
 import { Divider, Flex, ToolTip, theme } from '@tiki/ui';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import addUrl from '@/common/asset/svg/ic_add.svg';
-import avatarUrl from '@/common/asset/svg/ic_avatar.svg';
-import globalUrl from '@/common/asset/svg/ic_global.svg';
 
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
@@ -45,10 +41,9 @@ const SideNavBar = () => {
       <IcTikiLogo css={tikiLogoStyle} />
       <Flex tag="ul" styles={{ direction: 'column', align: 'center' }}>
         <Item
-          logoUrl={globalUrl}
+          variant={{ type: 'dashboard', hoverMessage: 'showcase' }}
           isClicked={selectedId === 'showcase'}
           onLogoClick={() => handleItemClick('showcase', PATH.SHOWCASE)}
-          hoverMessage={'showcase'}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
         {data?.belongTeamGetResponses.map((data: Team) => {
@@ -56,17 +51,15 @@ const SideNavBar = () => {
             <Item
               key={data.id}
               isClicked={selectedId === String(data.id)}
-              logoUrl={data.iconImageUrl}
+              variant={{ type: 'team', logoUrl: data.iconImageUrl, hoverMessage: data.name }}
               onLogoClick={() => handleItemClick(String(data.id), `${PATH.DASHBOARD}?teamId=${data.id}`)}
-              hoverMessage={data.name}
             />
           );
         })}
         <Item
-          logoUrl={addUrl}
+          variant={{ type: 'add', hoverMessage: '새로운 워크스페이스 생성' }}
           isClicked={false}
           onLogoClick={handleWorkspaceClick}
-          hoverMessage={'새로운 워크스페이스 생성'}
         />
         <Flex css={settingStyle}>
           <ToolTip message={'내 정보 수정하기'} position="right" gap={0.8}>
@@ -79,7 +72,7 @@ const SideNavBar = () => {
               onKeyDown={() => {
                 alert('현재 준비중인 기능입니다.');
               }}>
-              <img src={avatarUrl} alt="버튼 아이콘" />
+              <IcAvatar width={32} height={32} />
             </div>
           </ToolTip>
         </Flex>

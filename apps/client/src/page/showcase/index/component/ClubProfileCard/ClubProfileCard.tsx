@@ -1,14 +1,14 @@
 import { IcDefaultProfile } from '@tiki/icon';
 import { Heading, Text } from '@tiki/ui';
 
+import CachedImage from '@/common/component/CachedImage/CachedImage';
+
 import {
   containerStyle,
   descriptionStyle,
   detailStyle,
   imageStyle,
 } from '@/page/showcase/index/component/ClubProfileCard/ClubProfileCard.style';
-
-import CachedImage from '@/shared/component/CachedImage/CachedImage';
 
 interface ClubProfileCardProps {
   title: string;
