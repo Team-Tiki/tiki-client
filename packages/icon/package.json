@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
     "generate": "ts-node generateIcon.ts",
-    "svgr": "rm -rf src/* && npx @svgr/cli --typescript --no-dimensions --out-dir src --ignore-existing -- assets/svg"
+    "svgr": "rm -rf src/* && npx @svgr/cli --typescript --no-dimensions --no-index --out-dir src --ignore-existing -- assets/svg"
   },
   "license": "ISC",
   "dependencies": {

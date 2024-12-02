@@ -25,7 +25,8 @@ const generate = () => {
     outputDir,
     files
       .map((file) => `export { default as ${path.basename(file.fileName, ".tsx")} } from "./src/${file.fileName}";`)
-      .join("\n"),
+      .join("\n")
+      .concat("\n"),
   );
 };
 
