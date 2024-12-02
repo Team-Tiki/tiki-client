@@ -10,20 +10,17 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    hoverMessage: {
-      control: { type: 'text' },
-    },
     isClicked: {
       control: { type: 'boolean' },
-    },
-    logoUrl: {
-      control: { type: 'text' },
     },
   },
 
   args: {
-    hoverMessage: 'Tiki 화이팅',
-    logoUrl: '',
+    variant: {
+      type: 'team',
+      logoUrl: '',
+      hoverMessage: '팀 프로필',
+    },
     isClicked: false,
     onLogoClick: () => {},
   },
