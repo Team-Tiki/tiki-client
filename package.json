@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "pnpm --filter client lint",
     "check": "concurrently \"pnpm lint\" \"pnpm typecheck\"",
+    "build-storybook": "pnpm --filter client build-storybook",
     "client": "pnpm --filter client",
     "landing": "pnpm --filter landing",
     "tsconfig": "pnpm --filter @tiki/tsconfig",
