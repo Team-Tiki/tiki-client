@@ -6,13 +6,11 @@
   "scripts": {
     "build": "tsc && vite build",
     "build-storybook": "storybook build",
-    "check": "concurrently \"pnpm lint\" \"pnpm typeCheck\"",
     "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
     "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "typeCheck": "tsc --noEmit"
+    "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
     "@sentry/react": "^8.22.0",
