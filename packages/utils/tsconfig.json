@@ -2,10 +2,8 @@
   "extends": "@tiki/tsconfig/base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "noEmit": true,
     "composite": true,
-    "declaration": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
