@@ -24,7 +24,10 @@ const generate = () => {
   fs.writeFileSync(
     outputDir,
     files
-      .map((file) => `export { default as ${path.basename(file.fileName, ".tsx")} } from "./src/${file.fileName}";`)
+      .map(
+        (file) =>
+          `export { default as ${path.basename(file.fileName, ".tsx")} } from "./src/${path.basename(file.fileName, ".tsx")}";`,
+      )
       .join("\n")
       .concat("\n"),
   );
