@@ -6,12 +6,12 @@
     "rootDir": "./",
     "baseUrl": "./src",
     "outDir": "./dist",
-    "composite": true,
-    "module": "CommonJS",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "jsx": "react-jsx",
+    "noEmit": true
   },
-  "include": ["src", "**/*.ts", "**/*.tsx", "svgr.d.ts"],
+  "include": ["src", "svgr.d.ts"],
   "exclude": ["node_modules", "dist"],
 }
   
