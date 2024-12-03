@@ -25,8 +25,6 @@ const config: StorybookConfig = {
     if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        '@tiki/ui': path.resolve(__dirname, '../../../packages/ui/dist'),
-        '@tiki/icon': path.resolve(__dirname, '../../../packages/icon/dist'),
         '@': path.resolve(__dirname, '../src'),
         '@/common': path.resolve(__dirname, '../src/common'),
         '@/page': path.resolve(__dirname, '../src/page'),
