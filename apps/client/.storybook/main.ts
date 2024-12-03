@@ -29,17 +29,16 @@ const config: StorybookConfig = {
     const { mergeConfig } = await import('vite');
 
     if (config.resolve) {
-      if (config.resolve) {
-        config.resolve.alias = {
+      (config.resolve.preserveSymlinks = true),
+        (config.resolve.alias = {
           ...config.resolve.alias,
-          '@tiki/ui': resolve(__dirname, '../../packages/ui/dist'),
-          '@tiki/icon': resolve(__dirname, '../../packages/icon/dist'),
+          '@tiki/ui': resolve(__dirname, '../../../packages/ui/dist'),
+          '@tiki/icon': resolve(__dirname, '../../../packages/icon/dist'),
           '@': resolve(__dirname, '../src'),
           '@/common': resolve(__dirname, '../src/common'),
           '@/page': resolve(__dirname, '../src/page'),
           '@/shared': resolve(__dirname, '../src/shared'),
-        };
-      }
+        });
     }
 
     return mergeConfig(config, {
