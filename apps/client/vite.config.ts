@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@tiki/ui': path.resolve(__dirname, '../../packages/ui'),
+        '@tiki/icon': path.resolve(__dirname, '../../packages/icon'),
       },
     },
 
