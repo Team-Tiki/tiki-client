@@ -1,6 +1,6 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import type { Preview } from '@storybook/react';
-import { theme } from '@tiki/ui/dist/index.mjs';
+import { theme } from '@tiki/ui/dist/index';
 
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
