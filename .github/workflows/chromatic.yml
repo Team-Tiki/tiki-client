@@ -10,9 +10,6 @@ jobs:
      name: Storybook Chromatic Deployment
      runs-on: ubuntu-latest
      steps:
-       - name: measure time
-         run: 'echo "::set-output name=START_TIME::$(date +%s)"'
-
        - uses: actions/checkout@v1
        - name: Install pnpm
          uses: pnpm/action-setup@v4
@@ -22,23 +19,36 @@ jobs:
          uses: actions/setup-node@v4
          with:
            node-version: 21
+
+       - name: Cache node modules
+         id: cache-node
+         uses: actions/cache@v4
+         with:
+          path: |
+            **/node_modules
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
        - name: Install dependencies
+         if: steps.cache-node.outputs.cache-hit != 'true'
          run: pnpm install --frozen-lockfile
+
        - name: Build tiki ui
          id: cache-tiki-ui
          uses: actions/cache@v4
          with: 
           path: packages/ui/dist
-          key: ${{runner.os}}-tiki-ui-${{hashFiles('packages/ui/package.json', 'packages/ui/src/**')}}
-          restore-key: ${{runner.os}}-tiki-ui-
+          key: ${{runner.os}}-ui-${{hashFiles('packages/ui/package.json', 'packages/ui/src/**')}}
+          restore-keys: ${{runner.os}}-ui-
       
        - name: Build tiki icon
          id: cache-tiki-icon
          uses: actions/cache@v4
          with:
           path: packages/icon/dist
-          key: ${{runner.os}}-tiki-icon-${{hashFiles('packages/icon/package.json', 'packages/icon/src/**')}}
-          restore-key: ${{runner.os}}-tiki-icon
+          key: ${{runner.os}}-icon-${{hashFiles('packages/icon/package.json', 'packages/icon/src/**')}}
+          restore-keys: ${{runner.os}}-icon-
 
        - name: Check ui cache hit
          if: steps.cache-tiki-ui.outputs.cache-hit != 'true'
@@ -54,9 +64,6 @@ jobs:
          with:
            projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
            token: ${{ secrets.GITHUB_TOKEN }}
-
-       - name: measure time
-         run: 'Total Build Time: $((END_TIME - $START_TIME)) seconds'
 
        - name: Comment PR
          uses: thollander/actions-comment-pull-request@v2
