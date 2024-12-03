@@ -19,11 +19,12 @@ const config: StorybookConfig = {
     options: {},
   },
   async viteFinal(config) {
+    config.optimizeDeps = {
+      include: ['@tiki/ui', '@tiki/icon'],
+    };
     if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        '@tiki/ui': path.resolve(__dirname, '../../../packages/ui'),
-        '@tiki/icon': path.resolve(__dirname, '../../../packages/icon'),
         '@': path.resolve(__dirname, '../src'),
         '@/common': path.resolve(__dirname, '../src/common'),
         '@/page': path.resolve(__dirname, '../src/page'),
