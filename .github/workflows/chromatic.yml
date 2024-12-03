@@ -26,7 +26,7 @@ jobs:
          run: pnpm install --frozen-lockfile
        - name: Build tiki ui
          id: cache-tiki-ui
-         uses: actions/cache@4
+         uses: actions/cache@v4
          with: 
           path: packages/ui/dist
           key: ${{runner.os}}-tiki-ui-${{hashFiles('packages/ui/package.json', 'packages/ui/src/**')}}
@@ -34,7 +34,7 @@ jobs:
       
        - name: Build tiki icon
          id: cache-tiki-icon
-         uses: action/cache@4
+         uses: actions/cache@v4
          with:
           path: packages/icon/dist
           key: ${{runner.os}}-tiki-icon-${{hashFiles('packages/icon/package.json', 'packages/icon/src/**')}}
