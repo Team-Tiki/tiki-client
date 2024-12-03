@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-**/.next-env.d.ts
+**/next-env.d.ts
 **/.env
 
 *storybook.log
