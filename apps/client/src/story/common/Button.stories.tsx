@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IcCheck } from '@tiki/icon';
-import { Button, Size } from '@tiki/ui';
+import type { Size } from '@tiki/ui';
+import { Button } from '@tiki/ui';
 
 import { ButtonHTMLAttributes } from 'react';
 

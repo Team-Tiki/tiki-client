@@ -19,6 +19,9 @@ const config: StorybookConfig = {
     options: {},
   },
   async viteFinal(config) {
+    config.optimizeDeps = {
+      include: ['@tiki/ui', '@tiki/icon'],
+    };
     if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
