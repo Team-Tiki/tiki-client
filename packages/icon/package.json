@@ -11,12 +11,6 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "tsup": {
-    "entry": ["index.ts"],
-    "splitting": false,
-    "sourcemap": false,
-    "clean": true
-  },
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
     "generate": "ts-node generateIcon.ts",
