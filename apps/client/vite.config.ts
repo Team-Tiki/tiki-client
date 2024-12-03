@@ -1,5 +1,6 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { PluginOption, defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
@@ -34,6 +35,13 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
+
+    resolve: {
+      alias: {
+        find: '@tiki/ui',
+        replacement: path.resolve(__dirname, 'node_modules', '@tiki', 'ui'),
+      },
+    },
 
     build: {
       sourcemap: true,
