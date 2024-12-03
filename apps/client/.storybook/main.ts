@@ -32,8 +32,6 @@ const config: StorybookConfig = {
       (config.resolve.preserveSymlinks = true),
         (config.resolve.alias = {
           ...config.resolve.alias,
-          '@tiki/ui': resolve(__dirname, '../../../packages/ui/dist'),
-          '@tiki/icon': resolve(__dirname, '../../../packages/icon/dist'),
           '@': resolve(__dirname, '../src'),
           '@/common': resolve(__dirname, '../src/common'),
           '@/page': resolve(__dirname, '../src/page'),
