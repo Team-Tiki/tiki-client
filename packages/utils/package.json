@@ -1,0 +1,10 @@
+{
+  "name": "@tiki/utils",
+  "version": "1.0.0",
+  "description": "utils package for tiki-front",
+  "main": "src/index.ts",
+  "license": "ISC",
+  "devDependencies": {
+    "@tiki/tsconfig": "workspace:^"
+  }
+}

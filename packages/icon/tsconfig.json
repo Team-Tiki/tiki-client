@@ -1,0 +1,17 @@
+{
+  "extends": "@tiki/tsconfig/base.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "noEmit": true
+  },
+  "include": ["src", "svgr.d.ts"],
+  "exclude": ["node_modules", "dist"],
+}
+  

@@ -1,0 +1,32 @@
+{
+  "name": "@tiki/ui",
+  "version": "1.0.0",
+  "description": "ui package for tiki-front",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports":{
+    ".":{
+      "import": "./dist/index.mjs",
+      "require":"./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup --format cjs,esm --dts --sourcemap",
+    "clean": "rm -rf dist",
+    "lint": "eslint ."
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@tiki/tsconfig": "workspace:^"
+  },
+  "dependencies": {
+    "@tiki/icon": "workspace:^",
+    "@tiki/utils": "workspace:^",
+    "tsup": "^8.3.0"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.13.3",
+    "react": "^18.3.1"
+  }
+}

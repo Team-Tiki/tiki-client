@@ -1,0 +1,19 @@
+{
+  "extends": "@tiki/tsconfig/react-components.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+  
+    "declaration": true,
+    "declarationDir": "./dist",
+    "declarationMap": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "@/*":["src/*"],
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"],
+}
+  

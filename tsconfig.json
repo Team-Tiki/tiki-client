@@ -1,34 +1,27 @@
 {
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "target": "ES2020",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@/common/*": ["src/common/*"],
-      "@/page/*": ["src/page/*"],
-      "@/shared/*": ["src/shared/*"],
-      "@/story/*": ["src/story/*"],
-      "@/mocks/*": ["src/mock/*"]
+  "extends": "./packages/tsconfig/base.json",
+  "exclude": [
+    "./apps/**/dist/**",
+    "./apps/**/node_modules/**",
+    "./packages/**/dist/**",
+    "./packages/**/node_modules/**"
+  ],
+  
+  "references": [
+    {
+      "path": "apps/client"
     },
-    "jsxImportSource": "@emotion/react"
-  },
-  /*svg*/
-  "exclude": ["node_modules", "dist"],
-  "include": ["src", "./svg.d.ts", "./src/shared/api/index.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+    {
+      "path": "apps/landing"
+    },
+    {
+      "path": "packages/ui"
+    },
+    {
+      "path": "packages/icon"
+    },
+    {
+      "path": "packages/utils"
+    }
+  ]
 }

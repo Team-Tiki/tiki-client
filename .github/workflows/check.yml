@@ -20,7 +20,7 @@ jobs:
       - name: Setup Pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 9.1.3
 
       - name: Cache node modules
         id: cache-node

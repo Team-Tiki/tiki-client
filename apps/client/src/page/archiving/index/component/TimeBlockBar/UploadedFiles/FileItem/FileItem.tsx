@@ -1,0 +1,40 @@
+import { IcClose, IcPdfFile } from '@tiki/icon';
+import { Flex, Text } from '@tiki/ui';
+
+import {
+  circleStyle,
+  closeBtnStyle,
+  containerStyle,
+  fileCapacityStyle,
+  fileTitleStyle,
+} from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/FileItem/FileItem.style';
+
+interface FileItemProps {
+  title: string;
+  capacity: string;
+  isEditable: boolean;
+}
+
+const FileItem = ({ title, capacity, isEditable }: FileItemProps) => {
+  return (
+    <li css={containerStyle}>
+      <Flex>
+        <Flex css={circleStyle}>
+          <IcPdfFile width={16} height={16} />
+        </Flex>
+        <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
+          <Text tag="body8" css={fileTitleStyle}>
+            {title}
+          </Text>
+          <Text tag="body8" css={fileCapacityStyle}>
+            {capacity}
+          </Text>
+        </Flex>
+      </Flex>
+
+      {isEditable && <IcClose width={16} height={16} css={closeBtnStyle} />}
+    </li>
+  );
+};
+
+export default FileItem;
