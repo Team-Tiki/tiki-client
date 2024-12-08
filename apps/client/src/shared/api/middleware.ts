@@ -57,7 +57,7 @@ export const tokenMiddleware: Middleware = {
         const newResponse = await fetch(newRequest);
 
         if (!newResponse.ok) {
-          const errorData = await newResponse.json().catch(() => ({ message: '요청 재시도 실패' }));
+          const errorData = await newResponse.json().catch(() => ({ message: '재요청 실패' }));
 
           throw new HTTPError(newResponse.status, errorData.message);
         }
