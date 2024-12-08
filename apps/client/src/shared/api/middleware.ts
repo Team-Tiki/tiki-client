@@ -5,7 +5,6 @@ import { AxiosError } from 'axios';
 
 import { HTTPError } from '@/shared/api/HTTPError';
 import { getReissuedToken } from '@/shared/api/auth/reissue';
-import { axiosInstance } from '@/shared/api/instance';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
@@ -33,7 +32,7 @@ export const authMiddleware: Middleware = {
 
 /* 토큰 갱신 */
 export const tokenMiddleware: Middleware = {
-  async onError({ error }) {
+  async onError({ error, request }) {
     const axiosError = error as AxiosError<ErrorResponse>;
     const originRequest = axiosError.config;
 
@@ -46,11 +45,24 @@ export const tokenMiddleware: Middleware = {
     if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
       try {
         const { data } = await getReissuedToken();
-
         localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
-        originRequest.data.headers.Authorization = `Bearer ${data.accessToken}`;
 
-        return axiosInstance(originRequest);
+        /* 기존의 Authorization 헤더를 갱신 후 재요청 */
+        const newHeaders = {
+          ...Object.fromEntries(request.headers.entries()),
+          Authorization: `Bearer ${data.accessToken}`,
+        };
+
+        const newRequest = new Request(request, { headers: newHeaders });
+        const newResponse = await fetch(newRequest);
+
+        if (!newResponse.ok) {
+          const errorData = await newResponse.json().catch(() => ({ message: '요청 재시도 실패' }));
+
+          throw new HTTPError(newResponse.status, errorData.message);
+        }
+
+        return newResponse;
       } catch (error) {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         window.location.replace(PATH.LOGIN);
@@ -58,6 +70,7 @@ export const tokenMiddleware: Middleware = {
         throw new Error('토큰 갱신에 실패하였습니다.');
       }
     }
+
     return Promise.reject(axiosError);
   },
 };
@@ -72,7 +85,6 @@ export const apiMiddleware: Middleware = {
 
     Sentry.withScope((scope) => {
       scope.setLevel('error');
-      scope.setExtra('errorResponse', axiosError.response);
       scope.captureMessage(`[API Error] ${window.location.href}`);
     });
 
