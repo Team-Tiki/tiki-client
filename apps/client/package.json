@@ -61,6 +61,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "globals": "^15.7.0",
     "msw": "^2.3.1",
+    "openapi-fetch": "^0.13.3",
     "openapi-typescript": "^7.4.4",
     "prettier": "^3.3.2",
     "rollup-plugin-visualizer": "^5.12.0",
