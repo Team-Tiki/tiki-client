@@ -15,6 +15,7 @@ interface ErrorResponse {
   code?: number;
 }
 
+/* 토큰 여부 확인 */
 export const authMiddleware: Middleware = {
   async onRequest({ request }) {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -30,6 +31,7 @@ export const authMiddleware: Middleware = {
   },
 };
 
+/* 토큰 갱신 */
 export const tokenMiddleware: Middleware = {
   async onError({ error }) {
     const axiosError = error as AxiosError<ErrorResponse>;
@@ -70,6 +72,7 @@ export const apiMiddleware: Middleware = {
 
     Sentry.withScope((scope) => {
       scope.setLevel('error');
+      scope.setExtra('errorResponse', axiosError.response);
       scope.captureMessage(`[API Error] ${window.location.href}`);
     });
 
