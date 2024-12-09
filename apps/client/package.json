@@ -11,7 +11,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "generate": "pnpm openapi-typescript ./src/shared/openapi/schema.json -o ./src/shared/openapi/schema.d.ts"
+    "generate": "pnpm openapi-typescript ./src/shared/__generated__/schema.json -o ./src/shared/__generated__/schema.d.ts"
   },
   "dependencies": {
     "@sentry/react": "^8.22.0",
