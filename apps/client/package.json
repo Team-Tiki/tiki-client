@@ -11,7 +11,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "generate": "npx openapi-typescript ./src/shared/openapi/schema.json -o ./src/shared/openapi/schema.d.ts"
+    "generate": "pnpm openapi-typescript ./src/shared/openapi/schema.json -o ./src/shared/openapi/schema.d.ts"
   },
   "dependencies": {
     "@sentry/react": "^8.22.0",
@@ -24,6 +24,7 @@
     "framer-motion": "^11.11.11",
     "mime": "^4.0.4",
     "openapi-fetch": "^0.13.3",
+    "openapi-react-query": "^0.2.8",
     "openapi-typescript": "^7.4.4",
     "react-hook-form": "^7.53.1",
     "react-router-dom": "^6.24.1"
