@@ -1,12 +1,12 @@
 import createFetchClient from 'openapi-fetch';
 
 import { apiMiddleware, authMiddleware, tokenMiddleware } from '@/shared/api/middleware';
-import { paths } from '@/shared/openapi/types';
+import { paths } from '@/shared/openapi/schema';
 
-export const baseUrl = `${import.meta.env.VITE_BASE_URL}/api/v1`;
+const baseURL = `${import.meta.env.VITE_BASE_URL}`;
 
 export const client = createFetchClient<paths>({
-  baseUrl,
+  baseUrl: baseURL,
   credentials: 'include',
 
   headers: {
@@ -15,15 +15,13 @@ export const client = createFetchClient<paths>({
 });
 
 export const publicClient = createFetchClient<paths>({
-  baseUrl,
+  baseUrl: baseURL,
   credentials: 'include',
 
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-export const $api = client;
 
 client.use(tokenMiddleware);
 client.use(authMiddleware);

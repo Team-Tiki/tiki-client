@@ -592,7 +592,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/teams/{teamId}/members/{kickOutMemberId}": {
+    "/api/v1/team-member/teams/{teamId}/members/{kickOutMemberId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -608,7 +608,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/teams/{teamId}/leave": {
+    "/api/v1/team-member/teams/{teamId}/leave": {
         parameters: {
             query?: never;
             header?: never;
