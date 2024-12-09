@@ -12,8 +12,8 @@
       "@/story/*": ["src/story/*"],
       "@/mocks/*": ["src/mock/*"]
     },
-    "jsxImportSource": "@emotion/react"
-    // "noUncheckedIndexedAccess": true // 타입 안정성 높임
+    "jsxImportSource": "@emotion/react",
+    "noUncheckedIndexedAccess": true // 타입 안정성 높임
   },
   /*svg*/
   "exclude": ["node_modules", "dist"],
