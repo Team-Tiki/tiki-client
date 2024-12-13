@@ -23,6 +23,7 @@ import {
 } from '@/common/router/lazy';
 
 import HandoverPage from '@/page/handover/HandoverPage';
+import WorkspaceSettingPage from '@/page/workspaceSetting';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -176,6 +177,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <HandoverNotePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.WORKSPACE_SETTING,
+        element: (
+          <Suspense>
+            <WorkspaceSettingPage />
           </Suspense>
         ),
       },

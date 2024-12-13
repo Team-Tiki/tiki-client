@@ -11,12 +11,13 @@ const Header = () => {
   const title = 'TIKI 워크스페이스';
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
+  const isWorkspaceSettingPage = useMatch(PATH.WORKSPACE_SETTING);
 
   return (
     <header css={headerStyle}>
       <Heading tag="H1">{title}</Heading>
 
-      {!isDashboardPage && <RouteNav />}
+      {!isDashboardPage && !isWorkspaceSettingPage && <RouteNav />}
     </header>
   );
 };
