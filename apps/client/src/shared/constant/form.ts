@@ -36,6 +36,13 @@ export const SUPPORTING_TEXT = {
   AUTHCODE: '코드를 입력해주세요.\n메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.',
   AUTHCODE_NO_EQUAL: '인증코드가 틀립니다.\n올바른 인증코드를 입력해주세요.',
   AUTHCODE_SUCCESS: '인증이 성공적으로 완료되었습니다.',
+
+  NICKNAME_NOTICE: '워크스페이스에서 사용할 닉네임을 입력해주세요.',
+  NICKNAME_INVALID_LENGTH: '닉네임은 32자 이하로 설정해주세요.',
+
+  WORKSPACE_NAME_NOTICE: '워크스페이스명은 변경일로부터 30일 이후에 변경할 수 있습니다. \n 신중하게 결정해주세요.',
+  WORKSPACE_NAME_INVALID_LENGTH: '워크스페이스명은 40자 이하로 설정해주세요.',
+  WORKSPACE_NAME_EMPTY: '워크스페이스명을 입력해주세요.',
 } as const;
 
 export const FORMATTED_DATE_MAXLENGTH = 10 as const;
