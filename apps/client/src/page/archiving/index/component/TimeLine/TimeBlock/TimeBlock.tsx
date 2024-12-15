@@ -3,13 +3,12 @@ import React, { HTMLAttributes, ReactNode } from 'react';
 import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock.style';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { BlockType } from '@/page/archiving/index/type/blockType';
-import { BlockColor } from '@/page/archiving/index/type/color';
 
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   startDate: Date;
   endDate: Date;
-  color: BlockColor;
+  color: string;
   floor: number;
   blockType: BlockType;
   isSelected?: boolean;
