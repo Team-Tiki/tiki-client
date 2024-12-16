@@ -40,7 +40,7 @@ const config: StorybookConfig = {
     }
 
     return mergeConfig(config, {
-      optimizeDeps: ['@tiki/ui', '@tiki/icon'],
+      optimizeDeps: ['@tiki/ui', '@tiki/icon', '@tiki/utils'],
     });
   },
 };

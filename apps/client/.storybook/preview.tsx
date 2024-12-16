@@ -1,6 +1,6 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import type { Preview } from '@storybook/react';
-import { theme } from '@tiki/ui';
+import { ToastContainer, ToastProvider, theme } from '@tiki/ui';
 
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -44,6 +44,8 @@ export const decorators = [
         <ThemeProvider theme={theme}>
           <Global styles={GlobalStyle} />
           <Story />
+          <ToastContainer />
+          <ToastProvider />
         </ThemeProvider>
       </QueryClientProvider>
     </MemoryRouter>
