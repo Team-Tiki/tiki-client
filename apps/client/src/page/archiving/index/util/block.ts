@@ -1,4 +1,4 @@
-import { Block } from '@/page/archiving/index/type/blockType';
+import { TimeBlockData } from '@/page/archiving/index/component/TimeLine';
 
 interface Floors {
   [key: string]: number;
@@ -65,16 +65,16 @@ export const createTimeBlock = ({ startDate, endDate, currentYear, currentMonth 
 };
 
 // 타임블록의 상하 배치 함수
-export const alignBlocks = (data: Block[], endDay: Date, currentMonth: number, currentYear: number): Floors => {
-  const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(data.length).fill(false));
+export const alignBlocks = (data: TimeBlockData, endDay: Date, currentMonth: number, currentYear: number): Floors => {
+  const timeTable: boolean[][] = Array.from({ length: endDay.getDate() + 1 }, () => Array(data!.length).fill(false));
   const floors: Floors = {};
 
-  data.forEach((block) => {
+  data?.forEach((block) => {
     const { startDate, endDate } = block;
 
     const { startDate: blockStartDate, endDate: blockEndDate } = createTimeBlock({
-      startDate: parseLocalDate(startDate.toString()),
-      endDate: parseLocalDate(endDate.toString()),
+      startDate: parseLocalDate(startDate!.toString()),
+      endDate: parseLocalDate(endDate!.toString()),
       currentYear,
       currentMonth,
     });
@@ -97,7 +97,7 @@ export const alignBlocks = (data: Block[], endDay: Date, currentMonth: number, c
             timeTable[day][depth] = true;
           }
         });
-        floors[block.timeBlockId] = depth;
+        floors[block.timeBlockId!] = depth;
         break;
       }
     }
