@@ -36,11 +36,12 @@ const config: StorybookConfig = {
           '@/common': resolve(__dirname, '../src/common'),
           '@/page': resolve(__dirname, '../src/page'),
           '@/shared': resolve(__dirname, '../src/shared'),
+          '@tiki/ui': resolve(__dirname, '../../../packages/ui/dist'),
         });
     }
 
     return mergeConfig(config, {
-      optimizeDeps: ['@tiki/ui', '@tiki/icon', '@tiki/utils'],
+      optimizeDeps: ['@tiki/ui', '@tiki/icon'],
     });
   },
 };

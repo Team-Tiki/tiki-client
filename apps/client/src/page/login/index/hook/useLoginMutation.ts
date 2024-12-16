@@ -1,4 +1,4 @@
-import { useToastAction } from '@tiki/utils';
+import { useToastAction } from '@tiki/ui';
 
 import { useNavigate } from 'react-router-dom';
 

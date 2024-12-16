@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Toast } from '@tiki/ui';
-import { useToastAction } from '@tiki/utils';
+import { Toast, useToastAction } from '@tiki/ui';
 
 const meta = {
   title: 'Common/Toast',

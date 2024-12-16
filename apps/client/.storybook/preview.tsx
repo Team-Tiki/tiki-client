@@ -9,16 +9,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { GlobalStyle } from '../src/common/style/globalStyle';
 
-const customViewports = {
-  Default: {
-    name: 'Default',
-    styles: {
-      width: '1366px',
-      height: '768px',
-    },
-  },
-};
-
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -27,10 +17,6 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
-    },
-    viewport: {
-      viewports: { ...customViewports },
-      defaultViewport: 'Default',
     },
   },
 };

@@ -1,4 +1,4 @@
-import { useToastAction } from '@tiki/utils';
+import { useToastAction } from '@tiki/ui';
 
 import { useMutation } from '@tanstack/react-query';
 
