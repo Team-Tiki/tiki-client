@@ -43,7 +43,7 @@ const CommandButton = ({
     >
       <span css={childrenStyle}>{children}</span>
       <div css={[commonStyle, keyStyle(variant)]}>
-        {isCommand && <IcCommandKey />}
+        {isCommand && <IcCommandKey width={10} height={10} />}
         {commandKey}
       </div>
     </button>
