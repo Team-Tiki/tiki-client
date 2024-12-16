@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Toast, ToastContainer, ToastProvider } from '@tiki/ui';
-import { useToastAction } from '@tiki/utils';
+import { Toast, useToastAction } from '@tiki/ui';
 
 const meta = {
   title: 'Common/Toast',
@@ -24,14 +23,7 @@ export const Default: Story = {
   render: () => {
     const { createToast } = useToastAction();
 
-    return (
-      <>
-        <ToastContainer />
-        <ToastProvider />
-
-        <button onClick={() => createToast('토스트 띄우기 성공!')}>Create Toast</button>
-      </>
-    );
+    return <button onClick={() => createToast('토스트 띄우기 성공!')}>Create Toast</button>;
   },
 };
 
@@ -40,14 +32,9 @@ export const Error: Story = {
     const { createToast } = useToastAction();
 
     return (
-      <>
-        <ToastContainer />
-        <ToastProvider />
-
-        <button onClick={() => createToast('에러가 발생하였어요 에러가 발생하였어요 에러가 발생하였어요', 'error')}>
-          Create Toast
-        </button>
-      </>
+      <button onClick={() => createToast('에러가 발생하였어요 에러가 발생하였어요 에러가 발생하였어요', 'error')}>
+        Create Toast
+      </button>
     );
   },
 };
@@ -56,13 +43,6 @@ export const Success: Story = {
   render: () => {
     const { createToast } = useToastAction();
 
-    return (
-      <>
-        <ToastContainer />
-        <ToastProvider />
-
-        <button onClick={() => createToast('축하드려요 ! 성공했습니다.', 'success')}>Create Toast</button>
-      </>
-    );
+    return <button onClick={() => createToast('축하드려요 ! 성공했습니다.', 'success')}>Create Toast</button>;
   },
 };

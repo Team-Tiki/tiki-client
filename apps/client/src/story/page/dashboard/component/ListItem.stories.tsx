@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
 
 const meta = {
-  title: 'page/entree/ListItem',
+  title: 'Page/Entry/ListItem',
   component: ListItem,
   parameters: {
     layout: 'centered',

@@ -1,6 +1,6 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import type { Preview } from '@storybook/react';
-import { theme } from '@tiki/ui';
+import { ToastContainer, ToastProvider, theme } from '@tiki/ui';
 
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -8,16 +8,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { GlobalStyle } from '../src/common/style/globalStyle';
-
-const customViewports = {
-  Default: {
-    name: 'Default',
-    styles: {
-      width: '1366px',
-      height: '768px',
-    },
-  },
-};
 
 const preview: Preview = {
   parameters: {
@@ -27,10 +17,6 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
-    },
-    viewport: {
-      viewports: { ...customViewports },
-      defaultViewport: 'Default',
     },
   },
 };
@@ -44,6 +30,8 @@ export const decorators = [
         <ThemeProvider theme={theme}>
           <Global styles={GlobalStyle} />
           <Story />
+          <ToastContainer />
+          <ToastProvider />
         </ThemeProvider>
       </QueryClientProvider>
     </MemoryRouter>

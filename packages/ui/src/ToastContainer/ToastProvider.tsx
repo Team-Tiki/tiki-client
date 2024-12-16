@@ -1,6 +1,6 @@
 import Toast from "@/Toast/Toast";
 
-import { useToastAction, useToastList } from "@tiki/utils";
+import { useToastAction, useToastList } from "../Toast/store";
 
 const ToastFactory = () => {
   const toastList = useToastList();

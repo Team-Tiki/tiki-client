@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { IcArrowDown, IcArrowUp } from '@tiki/icon';
 import { Select } from '@tiki/ui';
 import { useOutsideClick, useOverlay } from '@tiki/utils';
 
@@ -12,7 +11,7 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    options: [{ value: 'option 1' }, { value: 'option 2' }, { value: '최주용 남다은 이채원 김규홍 정보운 김보미' }],
+    options: [{ value: 'option 1' }, { value: 'option 2' }, { value: '최주용 남다은 이채원 김규홍 정보운' }],
   },
 } satisfies Meta<typeof Select>;
 
@@ -196,10 +195,7 @@ export const OptionList: Story = {
       close();
     };
 
-    const options = [
-      { value: '최근 정렬 순', svg: <IcArrowUp /> },
-      { value: '과거 정렬 순대를 먹을래 말래', svg: <IcArrowDown /> },
-    ];
+    const options = [{ value: '최근 정렬 순' }, { value: '과거 정렬 순대를 먹을래 말래' }];
 
     return (
       <Select
