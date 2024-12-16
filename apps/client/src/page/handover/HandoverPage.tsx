@@ -3,12 +3,14 @@ import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
 import { useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
 import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import { PATH } from '@/shared/constant/path';
 
 const HandoverPage = () => {
   const [sortOption, setSortOption] = useState('');
@@ -16,6 +18,7 @@ const HandoverPage = () => {
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
+  const navigate = useNavigate();
 
   const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<
     (typeof NOTE_DUMMY)[0]
@@ -25,6 +28,10 @@ const HandoverPage = () => {
     setSortOption(id);
 
     close();
+  };
+
+  const 노트작성페이지로이동 = () => {
+    navigate(PATH.HANDOVER_NOTE);
   };
 
   return (
@@ -40,7 +47,7 @@ const HandoverPage = () => {
             LeftIcon={<IcSearch width={16} height={16} />}
             placeholder="노트 제목을 검색해보세요"
           />
-          <Button>새 노트 작성</Button>
+          <Button onClick={노트작성페이지로이동}>새 노트 작성</Button>
         </Flex>
       }
       contentOption={
