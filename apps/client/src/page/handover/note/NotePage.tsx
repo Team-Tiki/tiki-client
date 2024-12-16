@@ -7,9 +7,16 @@ import Custom from '@/page/handover/note/component/Custom/Custom';
 import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
 import Template from '@/page/handover/note/component/Template/Template';
 
+import { components, paths } from '@/shared/__generated__/schema';
+import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 import { noteSectionStyle, tabButtonStyle } from './NotePage.style';
+
+type NoteDetail = components['schemas']['NoteDetailGetServiceResponse'];
+type Note = paths['/api/v1/notes/{teamId}/{noteId}']['get']['responses']['200']['content']['*/*'];
+type NoteId = components['schemas']['NoteListGetServiceResponse']['noteGetResponseList'];
 
 const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -20,13 +27,57 @@ const NotePage = () => {
     setSelectedTab(tabId);
   };
 
+  const teamId = useInitializeTeamId();
+  const noteIdData = $api.useQuery('get', '/api/v1/notes/{teamId}', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
+
+  const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
+
+  const { data: noteData } = $api.useQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+      path: {
+        teamId,
+        noteId: noteIdData.data?.data?.noteGetResponseList?.[0]?.noteId!,
+      },
+    },
+    enabled: !!noteIdData,
+  });
+
+  const [noteDetail, setNoteDetail] = useState({
+    title: noteData?.data?.title,
+    author: noteData?.data?.author,
+    status: noteData?.data?.complete,
+
+    startDate: noteData?.data?.startDate,
+    endDate: noteData?.data?.endDate,
+  });
+
+  const [templateData, setTemplateData] = useState({
+    answerWhatActivity: '',
+    answerHowToPrepare: '',
+    answerWhatIsDisappointedThing: '',
+    answerHowToFix: '',
+  });
+
+  const [customData, setCustomData] = useState({
+    contents: '',
+  });
+
   const handleSubmit = () => {
     /** 제출 로직 */
   };
 
   return (
     <section css={noteSectionStyle}>
-      <NoteDetail />
+      <NoteDetail detail={noteDetail} setDetail={setNoteDetail} />
 
       <TabRoot css={{ flexGrow: '1' }}>
         <TabList selectedTab={selectedTab} onTabClick={handleTabClick}>
@@ -42,8 +93,8 @@ const NotePage = () => {
           </CommandButton>
         </Flex>
         <TabPanel selectedTab={selectedTab}>
-          <Template onSubmit={handleSubmit} />
-          <Custom onSubmit={handleSubmit} />
+          <Template data={templateData} setData={setTemplateData} />
+          <Custom data={customData} setData={setCustomData} />
         </TabPanel>
       </TabRoot>
     </section>

@@ -1,7 +1,7 @@
 import { IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import {
   entireInfoStyle,
@@ -14,26 +14,39 @@ import {
 import { TAG_NAME } from '@/page/handover/note/constants/tag';
 
 type Status = '완료' | '미완료';
+interface NoteDetailType {
+  detail: {
+    title: string;
+    status: boolean;
+    period: Date;
+  };
+  setDetail: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      status: string;
+      tags: Array<string>;
+      period: null;
+    }>
+  >;
+}
 
-const NoteDetail = () => {
-  const [status, setStatus] = useState<Status>('미완료');
-
+const NoteDetail = ({ detail, setDetail }: NoteDetailType) => {
   const handleAppendTag = () => {
     /** 모달 호출 */
   };
-
   const handleChangeStatus = useCallback((value: Status) => {
-    setStatus(value);
+    setDetail((prev) => ({ ...prev, status: value }));
   }, []);
 
   return (
     <aside css={entireInfoStyle}>
-      <input css={titleStyle} placeholder="노트 제목" />
+      <input css={titleStyle} placeholder="노트 제목" value={detail.title} onChange={(e) => e.target.value} />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>
             작성자
           </Text>
+          {/* GET으로 받아온 author값 설정해야함 */}
           <Text tag="body6">정건</Text>
         </li>
         <li css={infoLayoutStyle}>
@@ -54,7 +67,7 @@ const NoteDetail = () => {
               },
             ]}
             onChange={(e) => handleChangeStatus(e.target.value as Status)}
-            value={status}
+            value={detail.status ? '완료' : '미완료'}
           />
         </li>
         <li css={infoLayoutStyle}>
