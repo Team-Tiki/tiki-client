@@ -7,8 +7,9 @@ import { cardStyle, iconWrapperStyle, nameStyle, optionTextStyle } from '@/share
 
 type FolderGridProps = {
   variant?: 'primary' | 'secondary';
-  title: string;
-  /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
+  name: string;
+  path: string;
+  createdTime: string;
 
   /**
    * TODO
@@ -18,7 +19,7 @@ type FolderGridProps = {
    */
 };
 
-const FolderGrid = ({ title, variant = 'primary' }: FolderGridProps) => {
+const FolderGrid = ({ name, variant = 'primary' }: FolderGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   return (
@@ -27,7 +28,7 @@ const FolderGrid = ({ title, variant = 'primary' }: FolderGridProps) => {
 
       <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
         <Heading css={nameStyle} tag="H3">
-          {title}
+          {name}
         </Heading>
 
         {variant === 'primary' && (
