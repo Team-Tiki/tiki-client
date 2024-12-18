@@ -3,23 +3,15 @@ import { CheckBox, Flex, Text } from '@tiki/ui';
 
 import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
 
-import { DocumentItem } from '@/shared/api/teams/drive/type';
+import { components } from '@/shared/__generated__/schema';
 import { getFormattedDate } from '@/shared/util/date';
-import { getFileVolume } from '@/shared/util/file';
 
-type FileListItemProps = Omit<DocumentItem, 'documentId' | 'type'> & {
+type FolderListItemProps = components['schemas']['FolderGetResponse'] & {
   isSelected?: boolean;
   onSelect?: () => void;
 };
 
-const FileListItem = ({
-  name,
-  createdTime,
-  url,
-  capacity,
-  isSelected = false,
-  onSelect = () => {},
-}: FileListItemProps) => {
+const FolderListItem = ({ name, createdTime, isSelected = false, onSelect = () => {} }: FolderListItemProps) => {
   return (
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
@@ -28,8 +20,8 @@ const FileListItem = ({
       </Flex>
 
       <div css={rightSideRowStyle}>
-        <Text tag="body6">{getFileVolume(capacity ?? 0)}</Text>
-        <Text tag="body6">{url?.split('.').at(-1)}</Text>
+        <Text tag="body6">---</Text>
+        <Text tag="body6">폴더</Text>
         <time css={timeStyle} dateTime={createdTime}>
           {getFormattedDate(createdTime ?? new Date().toISOString())}
         </time>
@@ -39,4 +31,4 @@ const FileListItem = ({
   );
 };
 
-export default FileListItem;
+export default FolderListItem;
