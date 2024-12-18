@@ -1,6 +1,6 @@
 import { IcGrid, IcList, IcSearch } from '@tiki/icon';
 import { Button, Flex, Input, Select, Switch } from '@tiki/ui';
-import { hasKeyInObject, useOutsideClick, useOverlay } from '@tiki/utils';
+import { hasKeyInObject, useDeferredSearchFilter, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useState } from 'react';
 
@@ -42,12 +42,8 @@ const DrivePage = () => {
     reset();
   };
 
-  const filteredDocuments = [...data.documents].filter(
-    (item) => !searchValue || JSON.stringify(Object.values(item)).includes(searchValue)
-  );
-  const filteredFolders = [...data.folders].filter(
-    (item) => !searchValue || JSON.stringify(Object.values(item)).includes(searchValue)
-  );
+  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.documents, searchValue);
+  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.folders, searchValue);
 
   const filteredResult = [...filteredDocuments, ...filteredFolders].sort((a, b) =>
     selected === '최근 업로드 순'
