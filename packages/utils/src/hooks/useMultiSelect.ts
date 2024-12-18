@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 type DataHasIdKey<T> = {
   [key in keyof T]: T[key];
@@ -38,20 +38,26 @@ export const useMultiSelect = <T extends object>(identifier: keyof T, data: Data
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && canSelect) {
+      if (e.key === "Escape" && canSelect) {
         setCanSelect(false);
 
         setIds([]);
       }
     };
-    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
 
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [canSelect]);
 
   const handleToggleSelect = () => {
     setCanSelect((prev) => !prev);
+
+    setIds([]);
   };
 
-  return { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect };
+  const handleReset = () => {
+    setIds([]);
+  };
+
+  return { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect, handleReset };
 };
