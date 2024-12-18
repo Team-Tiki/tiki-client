@@ -42,6 +42,19 @@ const DrivePage = () => {
     reset();
   };
 
+  const filteredDocuments = [...data.documents].filter(
+    (item) => !searchValue || JSON.stringify(Object.values(item)).includes(searchValue)
+  );
+  const filteredFolders = [...data.folders].filter(
+    (item) => !searchValue || JSON.stringify(Object.values(item)).includes(searchValue)
+  );
+
+  const filteredResult = [...filteredDocuments, ...filteredFolders].sort((a, b) =>
+    selected === '최근 업로드 순'
+      ? new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
+      : new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime()
+  );
+
   const {
     selectAll,
     selectDocument,
@@ -51,13 +64,10 @@ const DrivePage = () => {
     isSelectable,
     getFolderIsSelected,
     getDocumentIsSelected,
-  } = useSelectDocuments(data);
-
-  const filteredResult = [...data.documents, ...data.folders].sort((a, b) =>
-    selected === '최근 업로드 순'
-      ? new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
-      : new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime()
-  );
+  } = useSelectDocuments({
+    documents: filteredDocuments,
+    folders: filteredFolders,
+  });
 
   const handleSelect = (id: string) => {
     setSelected(id as FilterOption);

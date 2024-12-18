@@ -24,6 +24,13 @@ export const useMultiSelect = <T extends object>(identifier: keyof T, data: Data
     }
   };
 
+  const handleAllActive = () => {
+    const totalIds: number[] = [];
+    data.forEach((item) => totalIds.push(item[identifier] as number));
+
+    setIds(totalIds);
+  };
+
   const handleAllClick = () => {
     if (ids.length !== data.length) {
       const totalIds: number[] = [];
@@ -59,5 +66,5 @@ export const useMultiSelect = <T extends object>(identifier: keyof T, data: Data
     setIds([]);
   };
 
-  return { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect, handleReset };
+  return { ids, canSelect, handleItemClick, handleAllActive, handleAllClick, handleToggleSelect, handleReset };
 };

@@ -7,7 +7,7 @@ export const useSelectDocuments = (data: DriveResponse['data']) => {
     ids: documentIds,
     handleItemClick: handleDocumentClick,
     canSelect: isDocumentSelectable,
-    handleAllClick: handleDocumentAllClick,
+    handleAllActive: handleAllDocumentActive,
     handleToggleSelect: handleDocumentSelect,
     handleReset: handleDocumentReset,
   } = useMultiSelect('documentId', data.documents);
@@ -15,7 +15,7 @@ export const useSelectDocuments = (data: DriveResponse['data']) => {
     ids: folderIds,
     handleItemClick: handleFolderClick,
     canSelect: isFolderSelectable,
-    handleAllClick: handleFolderAllClick,
+    handleAllActive: handleAllFolderActive,
     handleToggleSelect: handleFolderSelect,
     handleReset: handleFolderReset,
   } = useMultiSelect('folderId', data.folders);
@@ -28,8 +28,14 @@ export const useSelectDocuments = (data: DriveResponse['data']) => {
   };
 
   const handleAllSelect = () => {
-    handleDocumentAllClick();
-    handleFolderAllClick();
+    if (documentIds.length !== data.documents.length || folderIds.length !== data.folders.length) {
+      // 두 리스트 중 하나라도 선택안된게 있다면
+      handleAllDocumentActive();
+      handleAllFolderActive();
+    } else {
+      handleDocumentReset();
+      handleFolderReset();
+    }
   };
 
   const handleReset = () => {
