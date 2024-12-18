@@ -93,7 +93,7 @@ const FileGrid = ({
             {type} 문서
           </Text>
           <Text tag="body8" css={textStyle}>
-            {getFileVolume(capacity)}
+            {getFileVolume(capacity ?? 0)}
           </Text>
         </Flex>
       </Flex>

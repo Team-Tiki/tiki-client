@@ -1,5 +1,5 @@
 import { IcFolderLarge, IcThreeDots } from '@tiki/icon';
-import { Flex, Heading, MenuItem, MenuList, MenuRoot, theme } from '@tiki/ui';
+import { CheckBox, Flex, Heading, MenuItem, MenuList, MenuRoot, theme } from '@tiki/ui';
 import { useOverlay } from '@tiki/utils';
 
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
@@ -10,7 +10,9 @@ type FolderGridProps = {
   name: string;
   path: string;
   createdTime: string;
-
+  isSelectable?: boolean;
+  onSelect?: () => void;
+  isSelected?: boolean;
   /**
    * TODO
    * onChangeName
@@ -19,11 +21,14 @@ type FolderGridProps = {
    */
 };
 
-const FolderGrid = ({ name, variant = 'primary' }: FolderGridProps) => {
+const FolderGrid = ({ name, variant = 'primary', isSelectable, isSelected = false, onSelect }: FolderGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   return (
     <article css={cardStyle(variant !== 'primary')}>
+      {isSelectable && (
+        <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
+      )}
       <div css={iconWrapperStyle(variant !== 'primary')}>{<IcFolderLarge width={40} height={40} />}</div>
 
       <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
