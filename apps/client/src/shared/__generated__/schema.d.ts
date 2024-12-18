@@ -169,6 +169,10 @@ export interface paths {
     };
     get?: never;
     put?: never;
+    /**
+     * 템플릿 노트 생성
+     * @description 새로운 템플릿 형식 노트를 생성한다.
+     */
     post: operations['createNoteTemplate'];
     delete?: never;
     options?: never;
@@ -185,6 +189,10 @@ export interface paths {
     };
     get?: never;
     put?: never;
+    /**
+     * 자유 형식 노트 생성
+     * @description 새로운 자유 형식 노트를 생성한다.
+     */
     post: operations['createNoteFree'];
     delete?: never;
     options?: never;
@@ -312,22 +320,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/teams/{teamId}/name': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['updateTeamName'];
-    trace?: never;
-  };
   '/api/v1/teams/{teamId}/member/{targetId}/admin': {
     parameters: {
       query?: never;
@@ -344,20 +336,20 @@ export interface paths {
     patch: operations['alterAdmin'];
     trace?: never;
   };
-  '/api/v1/teams/{teamId}/icon': {
+  '/api/v1/teams/{teamId}/inform': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get?: never;
+    get: operations['getTeamName'];
     put?: never;
     post?: never;
     delete?: never;
     options?: never;
     head?: never;
-    patch: operations['updateIconImage'];
+    patch: operations['updateTeamAndTeamMemberInform'];
     trace?: never;
   };
   '/api/v1/teams/{teamId}/folders/{folderId}': {
@@ -409,6 +401,10 @@ export interface paths {
     delete?: never;
     options?: never;
     head?: never;
+    /**
+     * 템플릿 노트 수정
+     * @description 기존 템플릿 노트를 수정한다.
+     */
     patch: operations['updateNoteTemplate'];
     trace?: never;
   };
@@ -425,6 +421,10 @@ export interface paths {
     delete?: never;
     options?: never;
     head?: never;
+    /**
+     * 자유 형식 노트 수정
+     * @description 기존 자유 형식 노트를 수정한다.
+     */
     patch: operations['updateNoteFree'];
     trace?: never;
   };
@@ -460,6 +460,26 @@ export interface paths {
      * @description 타임라인을 조회한다.
      */
     get: operations['getTimeline'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/teams/{teamId}/drive': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * 드라이브 조회
+     * @description 드라이브 뷰를 조회한다.
+     */
+    get: operations['getDrive'];
     put?: never;
     post?: never;
     delete?: never;
@@ -515,7 +535,7 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    get: operations['getMemberTeamPosition'];
+    get: operations['getMemberTeamInform'];
     put?: never;
     post?: never;
     delete?: never;
@@ -531,9 +551,17 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /**
+     * 노트 목록 조회
+     * @description 특정 팀의 노트 목록을 조회한다.
+     */
     get: operations['getNote'];
     put?: never;
     post?: never;
+    /**
+     * 노트 삭제
+     * @description 특정 팀의 노트를 삭제한다.
+     */
     delete: operations['deleteNotes'];
     options?: never;
     head?: never;
@@ -547,6 +575,10 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /**
+     * 노트 상세 조회
+     * @description 특정 노트의 상세 정보를 조회한다.
+     */
     get: operations['getNoteDetail'];
     put?: never;
     post?: never;
@@ -881,11 +913,10 @@ export interface components {
       message?: string;
       data?: components['schemas']['SignInGetResponse'];
     };
-    UpdateTeamNameRequest: {
-      newTeamName: string;
-    };
-    UpdateTeamIconRequest: {
-      iconImageUrl: string;
+    TeamMemberAndTeamInformUpdateRequest: {
+      teamMemberName: string;
+      teamName: string;
+      teamUrl: string;
     };
     FolderNameUpdateRequest: {
       /**
@@ -997,12 +1028,13 @@ export interface components {
     TimelineGetResponse: {
       timeBlocks?: components['schemas']['TimeBlockGetResponse'][];
     };
-    DocumentGetResponse: {
-      documentId: number;
-      name: string;
-      url: string;
-      capacity: number;
-      createdTime: string;
+    DocumentDetailGetResponse: {
+      /** Format: int64 */
+      documentId?: number;
+      fileName?: string;
+      fileUrl?: string;
+      /** Format: int64 */
+      tagId?: number;
     };
     NoteNameGetResponse: {
       /** Format: int64 */
@@ -1015,10 +1047,21 @@ export interface components {
       data?: components['schemas']['TimeBlockDetailGetResponse'];
     };
     TimeBlockDetailGetResponse: {
-      documents?: components['schemas']['DocumentGetResponse'][];
+      documents?: components['schemas']['DocumentDetailGetResponse'][];
       notes?: components['schemas']['NoteNameGetResponse'][];
     };
-    FolderGetResponse: {
+    SuccessResponseTeamInformGetResponse: {
+      success?: boolean;
+      message?: string;
+      data?: components['schemas']['TeamInformGetResponse'];
+    };
+    TeamInformGetResponse: {
+      teamName: string;
+      /** @enum {string} */
+      university: '건국대학교';
+      teamIconUrl: string;
+    };
+    FolderInfoGetResponse: {
       /** Format: int64 */
       id?: number;
       name?: string;
@@ -1027,15 +1070,54 @@ export interface components {
       path?: string;
     };
     FoldersGetResponse: {
-      folders?: components['schemas']['FolderGetResponse'][];
+      folders?: components['schemas']['FolderInfoGetResponse'][];
     };
     SuccessResponseFoldersGetResponse: {
       success?: boolean;
       message?: string;
       data?: components['schemas']['FoldersGetResponse'];
     };
-    DocumentsGetResponse: {
+    DocumentGetResponse: {
+      /** Format: int64 */
+      documentId?: number;
+      name?: string;
+      url?: string;
+      /** Format: double */
+      capacity?: number;
+      /** Format: date-time */
+      createdTime?: string;
+      type?: string;
+    };
+    DriveGetResponse: {
       documents?: components['schemas']['DocumentGetResponse'][];
+      folders?: components['schemas']['FolderGetResponse'][];
+    };
+    FolderGetResponse: {
+      /** Format: int64 */
+      folderId?: number;
+      name?: string;
+      /** Format: date-time */
+      createdTime?: string;
+      path?: string;
+      type?: string;
+    };
+    SuccessResponseDriveGetResponse: {
+      success?: boolean;
+      message?: string;
+      data?: components['schemas']['DriveGetResponse'];
+    };
+    DocumentInfoGetResponse: {
+      /** Format: int64 */
+      documentId?: number;
+      name?: string;
+      url?: string;
+      /** Format: double */
+      capacity?: number;
+      /** Format: date-time */
+      createdTime?: string;
+    };
+    DocumentsGetResponse: {
+      documents?: components['schemas']['DocumentInfoGetResponse'][];
     };
     SuccessResponseDocumentsGetResponse: {
       success?: boolean;
@@ -1073,14 +1155,15 @@ export interface components {
       message?: string;
       data?: components['schemas']['CategoriesGetResponse'];
     };
-    MemberTeamPositionGetResponse: {
+    MemberTeamInformGetResponse: {
       /** @enum {string} */
-      position?: 'ADMIN' | 'EXECUTIVE' | 'MEMBER';
+      position: 'ADMIN' | 'EXECUTIVE' | 'MEMBER';
+      name: string;
     };
-    SuccessResponseMemberTeamPositionGetResponse: {
+    SuccessResponseMemberTeamInformGetResponse: {
       success?: boolean;
       message?: string;
-      data?: components['schemas']['MemberTeamPositionGetResponse'];
+      data?: components['schemas']['MemberTeamInformGetResponse'];
     };
     NoteGetResponse: {
       /** Format: int64 */
@@ -1103,11 +1186,54 @@ export interface components {
       message?: string;
       data?: components['schemas']['NoteListGetServiceResponse'];
     };
-    NoteDetailGetServiceResponse: Record<string, never>;
-    SuccessResponseNoteDetailGetServiceResponse: {
-      success?: boolean;
-      message?: string;
-      data?: components['schemas']['NoteDetailGetServiceResponse'];
+    DocumentTagGetServiceResponse: {
+      /** Format: int64 */
+      id?: number;
+      fileName?: string;
+      fileUrl?: string;
+      /** Format: double */
+      capacity?: number;
+    };
+    NoteFreeDetailGetServiceResponse: {
+      /** Format: int64 */
+      noteId?: number;
+      /** @enum {string} */
+      noteType?: 'FREE' | 'TEMPLATE';
+      title?: string;
+      author?: string;
+      /** Format: date */
+      startDate?: string;
+      /** Format: date */
+      endDate?: string;
+      complete?: boolean;
+      contents?: string;
+      documentList?: components['schemas']['DocumentTagGetServiceResponse'][];
+      timeBlockList?: components['schemas']['TimeBlockTagServiceResponse'][];
+    };
+    TimeBlockTagServiceResponse: {
+      /** Format: int64 */
+      id?: number;
+      name?: string;
+      color?: string;
+    };
+    NoteTemplateDetailGetServiceResponse: {
+      /** Format: int64 */
+      noteId?: number;
+      /** @enum {string} */
+      noteType?: 'FREE' | 'TEMPLATE';
+      title?: string;
+      author?: string;
+      /** Format: date */
+      startDate?: string;
+      /** Format: date */
+      endDate?: string;
+      complete?: boolean;
+      answerWhatActivity?: string;
+      answerHowToPrepare?: string;
+      answerWhatIsDisappointedThing?: string;
+      answerHowToFix?: string;
+      documentList?: components['schemas']['DocumentTagGetServiceResponse'][];
+      timeBlockList?: components['schemas']['TimeBlockTagServiceResponse'][];
     };
     BelongTeamGetResponse: {
       /** Format: int64 */
@@ -1684,7 +1810,7 @@ export interface operations {
     parameters: {
       query?: {
         /**
-         * @description 조회할 폴더 id
+         * @description 조회할 폴더 id (최상단은 비워두기)
          * @example 1
          */
         folderId?: number;
@@ -1734,7 +1860,7 @@ export interface operations {
     parameters: {
       query?: {
         /**
-         * @description 생성할 폴더가 속할 폴더 id
+         * @description 생성할 폴더가 속할 폴더 id (최상단은 비워두기)
          * @example 1
          */
         folderId?: number;
@@ -1841,7 +1967,7 @@ export interface operations {
     parameters: {
       query?: {
         /**
-         * @description 조회할 폴더 id
+         * @description 조회할 폴더 id (최상단은 비워두기)
          * @example 1
          */
         folderId?: number;
@@ -2007,13 +2133,58 @@ export interface operations {
       };
     };
     responses: {
-      /** @description OK */
-      200: {
+      /** @description 노트 생성 성공 */
+      201: {
         headers: {
           [name: string]: unknown;
         };
         content: {
           '*/*': components['schemas']['SuccessResponseNoteCreateServiceResponse'];
+        };
+      };
+      /** @description 요청 데이터 오류 */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 팀에 존재하지 않는 회원 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
         };
       };
     };
@@ -2031,13 +2202,58 @@ export interface operations {
       };
     };
     responses: {
-      /** @description OK */
-      200: {
+      /** @description 노트 생성 성공 */
+      201: {
         headers: {
           [name: string]: unknown;
         };
         content: {
           '*/*': components['schemas']['SuccessResponseNoteCreateServiceResponse'];
+        };
+      };
+      /** @description 요청 데이터 오류 */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 팀에 존재하지 않는 회원 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
         };
       };
     };
@@ -2393,32 +2609,6 @@ export interface operations {
       };
     };
   };
-  updateTeamName: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateTeamNameRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-    };
-  };
   alterAdmin: {
     parameters: {
       query?: never;
@@ -2442,7 +2632,29 @@ export interface operations {
       };
     };
   };
-  updateIconImage: {
+  getTeamName: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        teamId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['SuccessResponseTeamInformGetResponse'];
+        };
+      };
+    };
+  };
+  updateTeamAndTeamMemberInform: {
     parameters: {
       query?: never;
       header?: never;
@@ -2453,7 +2665,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['UpdateTeamIconRequest'];
+        'application/json': components['schemas']['TeamMemberAndTeamInformUpdateRequest'];
       };
     };
     responses: {
@@ -2552,6 +2764,10 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
+        /**
+         * @description 노트 id
+         * @example 1
+         */
         noteId: number;
       };
       cookie?: never;
@@ -2562,13 +2778,58 @@ export interface operations {
       };
     };
     responses: {
-      /** @description OK */
+      /** @description 노트 수정 성공 */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
           '*/*': components['schemas']['BaseResponse'];
+        };
+      };
+      /** @description 요청 데이터 오류 */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 존재하지 않는 노트 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
         };
       };
     };
@@ -2578,6 +2839,10 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
+        /**
+         * @description 노트 id
+         * @example 1
+         */
         noteId: number;
       };
       cookie?: never;
@@ -2588,13 +2853,58 @@ export interface operations {
       };
     };
     responses: {
-      /** @description OK */
+      /** @description 노트 수정 성공 */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
           '*/*': components['schemas']['BaseResponse'];
+        };
+      };
+      /** @description 요청 데이터 오류 */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 존재하지 않는 노트 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
         };
       };
     };
@@ -2741,6 +3051,56 @@ export interface operations {
       };
     };
   };
+  getDrive: {
+    parameters: {
+      query?: {
+        /**
+         * @description 조회할 폴더 id (최상단은 비워두기)
+         * @example 1
+         */
+        folderId?: number;
+      };
+      header?: never;
+      path: {
+        /**
+         * @description 팀 id
+         * @example 1
+         */
+        teamId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 성공 */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['SuccessResponseDriveGetResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+    };
+  };
   getCapacityInfo: {
     parameters: {
       query?: never;
@@ -2823,7 +3183,7 @@ export interface operations {
       };
     };
   };
-  getMemberTeamPosition: {
+  getMemberTeamInform: {
     parameters: {
       query?: never;
       header?: never;
@@ -2840,26 +3200,38 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          '*/*': components['schemas']['SuccessResponseMemberTeamPositionGetResponse'];
+          '*/*': components['schemas']['SuccessResponseMemberTeamInformGetResponse'];
         };
       };
     };
   };
   getNote: {
     parameters: {
-      query?: {
-        createdAt?: string;
-        sortOrder?: 'ASC' | 'DESC';
+      query: {
+        /**
+         * @description 생성시간
+         * @example yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn
+         */
+        createdAt: string;
+        /**
+         * @description 정렬 순서
+         * @example ASC, DESC
+         */
+        sortOrder: 'ASC' | 'DESC';
       };
       header?: never;
       path: {
+        /**
+         * @description 팀 id
+         * @example 1
+         */
         teamId: number;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description OK */
+      /** @description 조회 성공 */
       200: {
         headers: {
           [name: string]: unknown;
@@ -2868,28 +3240,122 @@ export interface operations {
           '*/*': components['schemas']['SuccessResponseNoteListGetServiceResponse'];
         };
       };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 팀에 존재하지 않는 회원 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
     };
   };
   deleteNotes: {
     parameters: {
-      query: {
-        noteIds: number[];
-      };
+      query?: never;
       header?: never;
       path: {
+        /**
+         * @description 팀 id
+         * @example 1
+         */
         teamId: number;
+        /**
+         * @description 노트 id 리스트
+         * @example [
+         *       1,
+         *       2,
+         *       3,
+         *       4,
+         *       5
+         *     ]
+         */
+        noteIds: number[];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description OK */
-      200: {
+      /** @description 삭제 성공 */
+      204: {
         headers: {
           [name: string]: unknown;
         };
         content: {
           '*/*': components['schemas']['SuccessResponseVoid'];
+        };
+      };
+      /** @description 요청 데이터 오류 */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 팀에 존재하지 않는 회원 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
         };
       };
     };
@@ -2899,20 +3365,66 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
+        /**
+         * @description 팀 id
+         * @example 1
+         */
         teamId: number;
+        /**
+         * @description 노트 id
+         * @example 1
+         */
         noteId: number;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description OK */
+      /** @description 조회 성공 */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          '*/*': components['schemas']['SuccessResponseNoteDetailGetServiceResponse'];
+          'application/json':
+            | components['schemas']['NoteFreeDetailGetServiceResponse']
+            | components['schemas']['NoteTemplateDetailGetServiceResponse'];
+        };
+      };
+      /** @description 접근 권한 없음(토큰 에러) */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 팀에 존재하지 않는 회원 */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 서버 내부 오류 */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description 클라이언트(요청) 오류 */
+      '4xx': {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ErrorResponse'];
         };
       };
     };
