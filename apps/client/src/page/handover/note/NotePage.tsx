@@ -6,58 +6,37 @@ import { useNavigate } from 'react-router-dom';
 import Custom from '@/page/handover/note/component/Custom/Custom';
 import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
 import Template from '@/page/handover/note/component/Template/Template';
+import { NoteDetailType } from '@/page/handover/note/type/note';
+import { formattingDateWithBar } from '@/page/handover/note/util/date';
 
-import { components, paths } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 import { noteSectionStyle, tabButtonStyle } from './NotePage.style';
 
-type NoteDetail = components['schemas']['NoteDetailGetServiceResponse'];
-type Note = paths['/api/v1/notes/{teamId}/{noteId}']['get']['responses']['200']['content']['*/*'];
-type NoteId = components['schemas']['NoteListGetServiceResponse']['noteGetResponseList'];
-
 const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const navigate = useNavigate();
-
-  const handleTabClick = (tabId: number) => {
-    setSelectedTab(tabId);
-  };
-
   const teamId = useInitializeTeamId();
-  const noteIdData = $api.useQuery('get', '/api/v1/notes/{teamId}', {
-    params: {
-      path: {
-        teamId,
-      },
-    },
-  });
-
-  const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
 
   const { data: noteData } = $api.useQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
     params: {
       path: {
         teamId,
-        noteId: noteIdData.data?.data?.noteGetResponseList?.[0]?.noteId!,
+        noteId: 30,
       },
     },
-    enabled: !!noteIdData,
   });
 
-  const [noteDetail, setNoteDetail] = useState({
-    title: noteData?.data?.title,
-    author: noteData?.data?.author,
-    status: noteData?.data?.complete,
-
-    startDate: noteData?.data?.startDate,
-    endDate: noteData?.data?.endDate,
+  const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
+    title: noteData?.title || '',
+    author: noteData?.author || '',
+    complete: noteData?.complete || false,
+    timeBlockList: noteData?.timeBlockList || [],
+    startDate: noteData?.startDate || formattingDateWithBar(new Date()),
+    endDate: noteData?.endDate || formattingDateWithBar(new Date()),
   });
 
   const [templateData, setTemplateData] = useState({
@@ -65,20 +44,85 @@ const NotePage = () => {
     answerHowToPrepare: '',
     answerWhatIsDisappointedThing: '',
     answerHowToFix: '',
+    documentList: noteData?.documentList || [],
   });
 
   const [customData, setCustomData] = useState({
     contents: '',
   });
 
+  const handleTabClick = (tabId: number) => setSelectedTab(tabId);
+
+  const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
+  const { mutate: submitFree } = $api.useMutation('post', '/api/v1/notes/free');
+
   const handleSubmit = () => {
-    /** 제출 로직 */
+    if (!noteData) {
+      console.log('노트 데이터가 없습니다');
+      return;
+    }
+
+    if (noteData.noteType === 'TEMPLATE') {
+      templateMutation(
+        {
+          body: {
+            title: noteDetail.title,
+            complete: noteDetail.complete,
+            startDate: noteDetail.startDate,
+            endDate: noteDetail.endDate,
+            answerWhatActivity: templateData.answerWhatActivity,
+            answerHowToPrepare: templateData.answerHowToPrepare,
+            answerWhatIsDisappointedThing: templateData.answerWhatIsDisappointedThing,
+            answerHowToFix: templateData.answerHowToFix,
+            timeBlockIds: noteData.timeBlockList?.map((item) => item.id!),
+            documentIds: templateData.documentList?.map((item) => item.id!),
+            teamId,
+          },
+        },
+        {
+          onSuccess: () => {
+            alert('템플릿 노트가 저장되었습니다.');
+            navigate(PATH.HANDOVER);
+          },
+          onError: (error) => {
+            console.error('에러 발생:', error);
+            alert('템플릿 노트 저장에 실패했습니다.');
+          },
+        }
+      );
+    }
+
+    if (noteData.noteType === 'FREE') {
+      submitFree(
+        {
+          body: {
+            title: noteDetail.title,
+            complete: noteDetail.complete,
+            startDate: noteDetail.startDate,
+            endDate: noteDetail.endDate,
+            contents: customData.contents,
+            timeBlockIds: noteData.timeBlockList?.map((item) => item.id!),
+            documentIds: templateData.documentList?.map((item) => item.id!),
+            teamId,
+          },
+        },
+        {
+          onSuccess: () => {
+            alert('자유 노트가 저장되었습니다.');
+            navigate(PATH.HANDOVER);
+          },
+          onError: (error) => {
+            console.error('에러 발생:', error);
+            alert('자유 노트 저장에 실패했습니다.');
+          },
+        }
+      );
+    }
   };
 
   return (
     <section css={noteSectionStyle}>
       <NoteDetail detail={noteDetail} setDetail={setNoteDetail} />
-
       <TabRoot css={{ flexGrow: '1' }}>
         <TabList selectedTab={selectedTab} onTabClick={handleTabClick}>
           <TabButton css={tabButtonStyle}>템플릿 작성</TabButton>

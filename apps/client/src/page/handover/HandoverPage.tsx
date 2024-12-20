@@ -31,7 +31,7 @@ const HandoverPage = () => {
   };
 
   const 노트작성페이지로이동 = () => {
-    navigate(PATH.HANDOVER_NOTE);
+    navigate(PATH.CREATE_HANDOVER_NOTE);
   };
 
   return (
