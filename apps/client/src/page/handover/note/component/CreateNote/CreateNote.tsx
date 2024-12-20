@@ -17,11 +17,6 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const navigate = useNavigate();
-  const teamId = useInitializeTeamId();
-
-  const { createToast } = useToastAction();
-
   const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
     title: '',
     author: '',
@@ -43,6 +38,11 @@ const CreateNotePage = () => {
     contents: '',
     documentList: [],
   });
+
+  const navigate = useNavigate();
+  const teamId = useInitializeTeamId();
+
+  const { createToast } = useToastAction();
 
   const handleTabClick = (tabId: number) => setSelectedTab(tabId);
 
