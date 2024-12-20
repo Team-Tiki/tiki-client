@@ -53,7 +53,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
 
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle}>
-          <label id="author" css={infoStyle}>
+          <label htmlFor="author" css={infoStyle}>
             작성자
           </label>
           <input

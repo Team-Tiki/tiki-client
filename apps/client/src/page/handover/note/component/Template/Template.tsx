@@ -10,8 +10,6 @@ import {
 import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
 
-import { $api } from '@/shared/api/client';
-
 const Template = () => {
   // const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setValues((prev) => ({
@@ -26,8 +24,6 @@ const Template = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;
     fileInput?.click();
   };
-
-  const { mutate } = $api.useMutation('post', '/api/v1/notes/template');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

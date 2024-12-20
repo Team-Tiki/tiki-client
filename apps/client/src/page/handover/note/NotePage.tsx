@@ -37,7 +37,7 @@ const NotePage = () => {
     endDate: noteData?.endDate || formattingDateWithBar(new Date()),
   });
 
-  const [templateData, setTemplateData] = useState({
+  const [templateData] = useState({
     answerWhatActivity: '',
     answerHowToPrepare: '',
     answerWhatIsDisappointedThing: '',
@@ -45,7 +45,7 @@ const NotePage = () => {
     documentList: noteData?.documentList || [],
   });
 
-  const [customData, setCustomData] = useState({
+  const [customData] = useState({
     contents: '',
   });
 

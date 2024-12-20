@@ -13,7 +13,7 @@ import {
 } from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
 import { NoteDetailType } from '@/page/handover/note/type/note';
 
-type Status = '완료' | '미완료';
+// type Status = '완료' | '미완료';
 
 interface NoteDetailProp {
   detail: NoteDetailType;
@@ -24,7 +24,7 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const handleAppendTag = () => {
     /** 모달 호출 */
   };
-  const handleChangeStatus = useCallback((value: Status) => {}, []);
+  const handleChangeStatus = useCallback(() => {}, []);
 
   return (
     <aside css={entireInfoStyle}>
@@ -59,7 +59,7 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
                 name: 'note',
               },
             ]}
-            onChange={(e) => handleChangeStatus(e.target.value as Status)}
+            onChange={() => handleChangeStatus()}
             value={detail.complete ? '완료' : '미완료'}
           />
         </li>
