@@ -3,28 +3,36 @@ import { useMultiSelect, useOverlay } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
 
+import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
-import { File } from '@/shared/type/file';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { getFileType } from '@/shared/util/file';
 
-const tmpData: File[] = [
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 8, title: '김규홍', volume: 3000, type: 'word', createdAt: '2024-11-11' },
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-];
+interface FileData {
+  documentId: number;
+  name: string;
+  url: string;
+  capacity: number;
+}
 
 const DeletedPage = () => {
   const { isOpen, toggle } = useOverlay();
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<File>(
-    'fileId',
-    tmpData
+
+  const teamId = useInitializeTeamId();
+
+  const { data } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
+
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<FileData>(
+    'documentId',
+    data?.data?.deletedDocuments || []
   );
 
   return (
@@ -59,21 +67,22 @@ const DeletedPage = () => {
         </Flex>
       }>
       <div>
-        <ul css={contentStyle(tmpData.length)}>
-          {tmpData.map((item) => (
+        <ul css={contentStyle(data?.data?.deletedDocuments.length ?? 0)}>
+          {data?.data?.deletedDocuments.map((item) => (
             <FileGrid
-              key={item.fileId}
-              title={item.title}
-              type={item.type}
-              volume={item.volume}
+              key={item.documentId}
+              title={item.name}
+              type={getFileType(item.name) || ''}
+              volume={item.capacity}
               isSelectable={canSelect}
-              isSelected={ids.includes(+item.fileId)}
-              onSelect={() => handleItemClick(+item.fileId)}
+              isSelected={ids.includes(+item.documentId)}
+              onSelect={() => handleItemClick(+item.documentId)}
+              isDeleted={true}
             />
           ))}
         </ul>
       </div>
-      <EmptySection domain="deleted" isVisible={tmpData.length === 0} />
+      <EmptySection domain="deleted" isVisible={data?.data?.deletedDocuments.length === 0} />
     </ContentBox>
   );
 };
