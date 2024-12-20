@@ -32,15 +32,6 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
     fileInput?.click();
   };
 
-  // const { mutate } = $api.useMutation('post', '/api/v1/notes/template');
-
-  // const handleSubmit = (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   // console.log('Submitted values:', values);
-
-  //   // mutate({ body: values });
-  // };
-
   return (
     <form css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
