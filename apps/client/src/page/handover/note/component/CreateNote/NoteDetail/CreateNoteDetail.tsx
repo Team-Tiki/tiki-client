@@ -8,11 +8,13 @@ import {
   infoContainerStyle,
   infoLayoutStyle,
   infoStyle,
-  inputStyle,
   plusBtnStyle,
   titleStyle,
 } from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
 import { NoteDetailType } from '@/page/handover/note/type/note';
+
+import { $api } from '@/shared/api/client';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 type Status = '완료' | '미완료';
 
@@ -42,6 +44,20 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   //   }));
   // };
 
+  const teamId = useInitializeTeamId();
+  const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
+
+  const { data: memberData } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
+
   return (
     <aside css={entireInfoStyle}>
       <input
@@ -55,13 +71,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
           <label htmlFor="author" css={infoStyle}>
             작성자
           </label>
-          <input
-            css={inputStyle}
-            type="text"
-            id="author"
-            placeholder="작성자를 입력하세요."
-            onChange={(e) => setDetail((prev) => ({ ...prev, author: e.target.value }))}
-          />
+          <Text tag="body6">{memberData?.data?.name}</Text>
         </li>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>
