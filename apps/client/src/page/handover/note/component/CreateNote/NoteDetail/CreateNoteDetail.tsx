@@ -23,8 +23,7 @@ interface NoteDetailProp {
 
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const handleAppendTag = () => {
-    /** 모달 호출 로직 */
-    alert('활동 태그 추가 모달을 호출합니다.');
+    /** 태그 모달 호출 로직 */
   };
 
   const handleChangeStatus = useCallback(
