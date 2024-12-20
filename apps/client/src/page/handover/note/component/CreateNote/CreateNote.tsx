@@ -47,7 +47,7 @@ const CreateNotePage = () => {
   const handleTabClick = (tabId: number) => setSelectedTab(tabId);
 
   const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
-  const { mutate: submitFree } = $api.useMutation('post', '/api/v1/notes/free');
+  const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -82,7 +82,7 @@ const CreateNotePage = () => {
     }
 
     if (selectedTab == 1) {
-      submitFree(
+      customMutation(
         {
           body: {
             title: noteDetail.title,

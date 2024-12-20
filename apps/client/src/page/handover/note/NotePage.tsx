@@ -3,9 +3,7 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } fr
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Custom from '@/page/handover/note/component/Custom/Custom';
 import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
-import Template from '@/page/handover/note/component/Template/Template';
 import { NoteDetailType } from '@/page/handover/note/type/note';
 import { formattingDateWithBar } from '@/page/handover/note/util/date';
 
@@ -54,7 +52,7 @@ const NotePage = () => {
   const handleTabClick = (tabId: number) => setSelectedTab(tabId);
 
   const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
-  const { mutate: submitFree } = $api.useMutation('post', '/api/v1/notes/free');
+  const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
 
   const handleSubmit = () => {
     if (!noteData) {
@@ -80,20 +78,14 @@ const NotePage = () => {
           },
         },
         {
-          onSuccess: () => {
-            alert('템플릿 노트가 저장되었습니다.');
-            navigate(PATH.HANDOVER);
-          },
-          onError: (error) => {
-            console.error('에러 발생:', error);
-            alert('템플릿 노트 저장에 실패했습니다.');
-          },
+          onSuccess: () => {},
+          onError: () => {},
         }
       );
     }
 
     if (noteData.noteType === 'FREE') {
-      submitFree(
+      customMutation(
         {
           body: {
             title: noteDetail.title,
@@ -107,14 +99,8 @@ const NotePage = () => {
           },
         },
         {
-          onSuccess: () => {
-            alert('자유 노트가 저장되었습니다.');
-            navigate(PATH.HANDOVER);
-          },
-          onError: (error) => {
-            console.error('에러 발생:', error);
-            alert('자유 노트 저장에 실패했습니다.');
-          },
+          onSuccess: () => {},
+          onError: () => {},
         }
       );
     }
@@ -137,8 +123,8 @@ const NotePage = () => {
           </CommandButton>
         </Flex>
         <TabPanel selectedTab={selectedTab}>
-          <Template data={templateData} setData={setTemplateData} />
-          <Custom data={customData} setData={setCustomData} />
+          {/* <Template data={templateData} setData={setTemplateData} />
+          <Custom data={customData} setData={setCustomData} /> */}
         </TabPanel>
       </TabRoot>
     </section>
