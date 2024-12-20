@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { noteSectionStyle, tabButtonStyle } from '@/page/handover/note/NotePage.style';
 import CreateCustomNote from '@/page/handover/note/component/CreateNote/Custom/CreateCustomNote';
-import CreateNoteDetail from '@/page/handover/note/component/CreateNote/NoteDetail/NoteDetail';
+import CreateNoteDetail from '@/page/handover/note/component/CreateNote/NoteDetail/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handover/note/component/CreateNote/Template/CreateTemplateNote';
 import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handover/note/type/note';
 import { formattingDateWithBar } from '@/page/handover/note/util/date';
