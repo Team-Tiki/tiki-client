@@ -13,19 +13,19 @@ import {
   optionTextStyle,
   textStyle,
 } from '@/shared/component/FileGrid/index.style';
-import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
 export type FileGridProps = {
   variant?: 'primary' | 'secondary';
   title: string;
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
-  type: File['type'];
+  type: string;
   volume: number;
 
   isSelectable?: boolean;
   onSelect?: () => void;
   isSelected?: boolean;
+  isDeleted?: boolean;
 
   /**
    * [TODO]
@@ -53,6 +53,7 @@ const FileGrid = ({
   isSelectable = false,
   onSelect,
   isSelected = false,
+  isDeleted = false,
 }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
@@ -85,8 +86,9 @@ const FileGrid = ({
           {variant === 'primary' && (
             <MenuRoot onClose={close}>
               <div ref={optionRef}>
-                <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
+                {!isDeleted && <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />}
               </div>
+
               <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
                 <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
                   파일 다운로드
