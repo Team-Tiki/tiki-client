@@ -7,6 +7,7 @@ import { noteSectionStyle, tabButtonStyle } from '@/page/handover/note/NotePage.
 import CreateCustomNote from '@/page/handover/note/component/CreateNote/Custom/CreateCustomNote';
 import CreateTemplateNote from '@/page/handover/note/component/CreateNote/Template/CreateTemplateNote';
 import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
+import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handover/note/type/note';
 
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
@@ -18,34 +19,26 @@ const CreateNotePage = () => {
   const navigate = useNavigate();
   const teamId = useInitializeTeamId();
 
-  const { data: noteData } = $api.useQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
-    params: {
-      path: {
-        teamId,
-        noteId: 30,
-      },
-    },
+  const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
+    title: '',
+    author: '',
+    complete: false,
+    timeBlockList: [],
+    startDate: '',
+    endDate: '',
   });
 
-  const [noteDetail, setNoteDetail] = useState<NoteDetail>({
-    title: noteData?.title || '',
-    author: noteData?.author || '',
-    complete: noteData?.complete || false,
-    timeBlockList: noteData?.timeBlockList || [],
-    startDate: noteData?.startDate || '',
-    endDate: noteData?.endDate || '',
-  });
-
-  const [templateData, setTemplateData] = useState({
+  const [templateData, setTemplateData] = useState<TemplateNote>({
     answerWhatActivity: '',
     answerHowToPrepare: '',
     answerWhatIsDisappointedThing: '',
     answerHowToFix: '',
-    documentList: noteData?.documentList || [],
+    documentList: [],
   });
 
-  const [customData, setCustomData] = useState({
+  const [customData, setCustomData] = useState<CustomNote>({
     contents: '',
+    documentList: [],
   });
 
   const handleTabClick = (tabId: number) => setSelectedTab(tabId);
@@ -54,12 +47,7 @@ const CreateNotePage = () => {
   const { mutate: submitFree } = $api.useMutation('post', '/api/v1/notes/free');
 
   const handleSubmit = () => {
-    if (!noteData) {
-      console.log('노트 데이터가 없습니다');
-      return;
-    }
-
-    if (noteData.noteType === 'TEMPLATE') {
+    if (selectedTab == 0) {
       templateMutation(
         {
           body: {
@@ -71,8 +59,8 @@ const CreateNotePage = () => {
             answerHowToPrepare: templateData.answerHowToPrepare,
             answerWhatIsDisappointedThing: templateData.answerWhatIsDisappointedThing,
             answerHowToFix: templateData.answerHowToFix,
-            timeBlockIds: noteData.timeBlockList?.filter((item) => item.id !== undefined).map((item) => item.id!),
-            documentIds: templateData.documentList?.filter((item) => item.id !== undefined).map((item) => item.id!),
+            timeBlockIds: noteDetail.timeBlockList?.map((item) => item.id!),
+            documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
         },
@@ -89,7 +77,7 @@ const CreateNotePage = () => {
       );
     }
 
-    if (noteData.noteType === 'FREE') {
+    if (selectedTab == 1) {
       submitFree(
         {
           body: {
@@ -98,6 +86,9 @@ const CreateNotePage = () => {
             startDate: noteDetail.startDate,
             endDate: noteDetail.endDate,
             contents: customData.contents,
+            timeBlockIds: noteDetail.timeBlockList?.map((item) => item.id!),
+            documentIds: templateData.documentList?.map((item) => item.id!),
+            teamId,
           },
         },
         {

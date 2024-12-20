@@ -1,5 +1,7 @@
 import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
+import { Dispatch, SetStateAction } from 'react';
+
 import File from '@/page/handover/note/component/File/File';
 import {
   fileBoxStyle,
@@ -9,18 +11,24 @@ import {
 } from '@/page/handover/note/component/Template/Template.style';
 import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
+import { TemplateNote } from '@/page/handover/note/type/note';
 
 import { $api } from '@/shared/api/client';
 
-const CreateTemplateNote = () => {
-  // const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValues((prev) => ({
-  //     ...prev,
-  //     [id]: event.target.value,
-  //   }));
-  // };
+interface TemplateNoteProps {
+  data: TemplateNote;
+  setData: Dispatch<SetStateAction<TemplateNote>>;
+}
 
+const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
   const { files, handleFileChange } = useFile();
+
+  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setData((prev) => ({
+      ...prev,
+      [id]: event.target.value,
+    }));
+  };
 
   const handleFileUpload = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;

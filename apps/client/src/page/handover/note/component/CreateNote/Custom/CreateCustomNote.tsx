@@ -1,5 +1,7 @@
 import { Button, Label, scrollStyle } from '@tiki/ui';
 
+import { Dispatch, SetStateAction } from 'react';
+
 import {
   fileBoxStyle,
   guideStyle,
@@ -9,14 +11,16 @@ import {
 } from '@/page/handover/note/component/Custom/Custom.style';
 import File from '@/page/handover/note/component/File/File';
 import useFile from '@/page/handover/note/hooks/useFile';
+import { CustomNote } from '@/page/handover/note/type/note';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 
-interface CustomProps {
-  onSubmit: () => void;
+interface CustomNoteProps {
+  data: CustomNote;
+  setData: Dispatch<SetStateAction<CustomNote>>;
 }
 
-const CreateCustomNote = ({ onSubmit }: CustomProps) => {
+const CreateCustomNote = ({ data, setData }: CustomNoteProps) => {
   const { files, handleFileChange } = useFile();
 
   const handleFileUpload = () => {
@@ -25,7 +29,7 @@ const CreateCustomNote = ({ onSubmit }: CustomProps) => {
   };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
+    <form css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
         <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} />
       </div>
