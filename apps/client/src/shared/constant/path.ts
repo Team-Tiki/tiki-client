@@ -18,6 +18,7 @@ export const PATH = {
   DELETED: '/deleted',
   HANDOVER: '/handover',
   HANDOVER_NOTE: '/handover/note',
+  CREATE_HANDOVER_NOTE: '/handover/create-note',
 
   COMING_SOON: '/comingsoon',
 } as const;
