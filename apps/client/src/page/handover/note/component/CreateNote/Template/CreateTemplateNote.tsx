@@ -13,17 +13,14 @@ import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
 import { TemplateNote } from '@/page/handover/note/type/note';
 
-import { $api } from '@/shared/api/client';
-
 interface TemplateNoteProps {
-  data: TemplateNote;
   setData: Dispatch<SetStateAction<TemplateNote>>;
 }
 
-const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
+const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   const { files, handleFileChange } = useFile();
 
-  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({
       ...prev,
       [id]: event.target.value,
@@ -35,26 +32,21 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
     fileInput?.click();
   };
 
-  const { mutate } = $api.useMutation('post', '/api/v1/notes/template');
+  // const { mutate } = $api.useMutation('post', '/api/v1/notes/template');
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // console.log('Submitted values:', values);
+  // const handleSubmit = (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   // console.log('Submitted values:', values);
 
-    // mutate({ body: values });
-  };
+  //   // mutate({ body: values });
+  // };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={handleSubmit}>
+    <form css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
         <div css={layoutStyle} key={item.id}>
           <Label id={item.id}>{item.QUESTION}</Label>
-          <Input
-            id={item.id}
-            placeholder={item.PLACEHOLDER}
-            // value={values[item.id as keyof typeof values]}
-            // onChange={handleChange(item.id)}
-          />
+          <Input id={item.id} placeholder={item.PLACEHOLDER} onChange={handleNoteContents(item.id)} />
         </div>
       ))}
 

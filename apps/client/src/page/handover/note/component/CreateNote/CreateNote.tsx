@@ -1,13 +1,14 @@
-import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } from '@tiki/ui';
+import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, useToastAction } from '@tiki/ui';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { noteSectionStyle, tabButtonStyle } from '@/page/handover/note/NotePage.style';
 import CreateCustomNote from '@/page/handover/note/component/CreateNote/Custom/CreateCustomNote';
+import CreateNoteDetail from '@/page/handover/note/component/CreateNote/NoteDetail/NoteDetail';
 import CreateTemplateNote from '@/page/handover/note/component/CreateNote/Template/CreateTemplateNote';
-import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
 import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handover/note/type/note';
+import { formattingDateWithBar } from '@/page/handover/note/util/date';
 
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
@@ -19,13 +20,15 @@ const CreateNotePage = () => {
   const navigate = useNavigate();
   const teamId = useInitializeTeamId();
 
+  const { createToast } = useToastAction();
+
   const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
     title: '',
     author: '',
     complete: false,
     timeBlockList: [],
-    startDate: '',
-    endDate: '',
+    startDate: formattingDateWithBar(new Date()),
+    endDate: formattingDateWithBar(new Date()),
   });
 
   const [templateData, setTemplateData] = useState<TemplateNote>({
@@ -46,7 +49,9 @@ const CreateNotePage = () => {
   const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
   const { mutate: submitFree } = $api.useMutation('post', '/api/v1/notes/free');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
     if (selectedTab == 0) {
       templateMutation(
         {
@@ -66,12 +71,11 @@ const CreateNotePage = () => {
         },
         {
           onSuccess: () => {
-            alert('템플릿 노트가 저장되었습니다.');
+            createToast('템플릿 노트가 저장되었습니다.', 'success');
             navigate(PATH.HANDOVER);
           },
-          onError: (error) => {
-            console.error('에러 발생:', error);
-            alert('템플릿 노트 저장에 실패했습니다.');
+          onError: () => {
+            createToast('노트 저장에 실패했습니다', 'error');
           },
         }
       );
@@ -93,12 +97,11 @@ const CreateNotePage = () => {
         },
         {
           onSuccess: () => {
-            alert('자유 노트가 저장되었습니다.');
+            createToast('자유 노트가 저장되었습니다.', 'success');
             navigate(PATH.HANDOVER);
           },
-          onError: (error) => {
-            console.error('에러 발생:', error);
-            alert('자유 노트 저장에 실패했습니다.');
+          onError: () => {
+            createToast('노트 저장에 실패했습니다', 'error');
           },
         }
       );
@@ -106,8 +109,8 @@ const CreateNotePage = () => {
   };
 
   return (
-    <section css={noteSectionStyle}>
-      <NoteDetail detail={noteDetail} setDetail={setNoteDetail} />
+    <form css={noteSectionStyle} onSubmit={handleSubmit}>
+      <CreateNoteDetail detail={noteDetail} setDetail={setNoteDetail} />
       <TabRoot css={{ flexGrow: '1' }}>
         <TabList selectedTab={selectedTab} onTabClick={handleTabClick}>
           <TabButton css={tabButtonStyle}>템플릿 작성</TabButton>
@@ -122,11 +125,11 @@ const CreateNotePage = () => {
           </CommandButton>
         </Flex>
         <TabPanel selectedTab={selectedTab}>
-          {selectedTab === 0 && <CreateTemplateNote data={templateData} setData={setTemplateData} />}
-          {selectedTab === 1 && <CreateCustomNote data={customData} setData={setCustomData} />}
+          <CreateTemplateNote setData={setTemplateData} />
+          <CreateCustomNote setData={setCustomData} />
         </TabPanel>
       </TabRoot>
-    </section>
+    </form>
   );
 };
 

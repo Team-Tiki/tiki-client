@@ -15,12 +15,11 @@ import { CustomNote } from '@/page/handover/note/type/note';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 
-interface CustomNoteProps {
-  data: CustomNote;
+interface CustomProps {
   setData: Dispatch<SetStateAction<CustomNote>>;
 }
 
-const CreateCustomNote = ({ data, setData }: CustomNoteProps) => {
+const CreateCustomNote = ({ setData }: CustomProps) => {
   const { files, handleFileChange } = useFile();
 
   const handleFileUpload = () => {
@@ -28,10 +27,17 @@ const CreateCustomNote = ({ data, setData }: CustomNoteProps) => {
     fileInput?.click();
   };
 
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setData((prev) => ({
+      ...prev,
+      contents: e.target.value,
+    }));
+  };
+
   return (
     <form css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
-        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} />
+        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} onChange={handleTextareaChange} />
       </div>
       <div css={layoutStyle}>
         <Label id="file" css={guideStyle}>
