@@ -164,6 +164,7 @@ const DrivePage = () => {
                   <div>
                     <FileListItem
                       key={String(file.documentId + file.type)}
+                      documentId={file.documentId}
                       name={file.name}
                       capacity={file.capacity}
                       url={file.url}
@@ -199,6 +200,7 @@ const DrivePage = () => {
               const folder = item as FolderItem;
               return (
                 <FolderGrid
+                  key={folder.folderId}
                   name={folder.name}
                   createdTime={folder.createdTime}
                   path={folder.path}
