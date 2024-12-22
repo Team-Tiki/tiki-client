@@ -13,11 +13,12 @@ import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments'
 import { contentStyle, uploadLabelStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
 
+import { getPresignedUrl } from '@/shared/api/file/upload';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
-import { useTeamId } from '@/shared/store/team';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
@@ -28,16 +29,15 @@ const filterOptions = [{ value: '최근 업로드 순' }, { value: '과거 업�
 const DrivePage = () => {
   const [alignOption, setAlignOption] = useState<'list' | 'grid'>('list');
   const [searchValue, setSearchValue] = useState('');
-
-  const [folderId, setFolderId] = useQueryParam('folderId', NumberParam);
-
-  const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState<FilterOption>('최근 업로드 순');
 
+  const [folderId, setFolderId] = useQueryParam('folderId', NumberParam);
+  const { isOpen, close, toggle } = useOverlay();
+  const ref = useOutsideClick<HTMLDivElement>(close);
+
   const { data } = useDriveData(folderId);
-  const { mutate } = useUploadFile();
-  const teamId = useTeamId();
+  const { mutate } = useUploadFile(folderId);
+  const teamId = useInitializeTeamId();
 
   const { filteredData: filteredDocuments } = useDeferredSearchFilter(data?.data?.documents ?? [], searchValue);
   const { filteredData: filteredFolders } = useDeferredSearchFilter(data?.data?.folders ?? [], searchValue);
@@ -73,17 +73,27 @@ const DrivePage = () => {
     reset();
   };
 
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
 
     const fileList = e.target.files;
 
-    const requestData: CreateFileRequest[] = Array.from({ length: fileList.length }).map((_, i) => ({
-      fileName: fileList[i].name,
-      fileUrl: 'https://ti-kii.com',
-      fileKey: 'jpg',
-      capacity: fileList[i].size,
-    }));
+    const promiseUrls: Promise<{ fileName: string; url: string } | undefined>[] = [];
+
+    Array.from({ length: fileList.length }).forEach((_, i) =>
+      promiseUrls.push(getPresignedUrl(extractFileExtension(fileList[i].name)))
+    );
+
+    const urls = await Promise.all(promiseUrls);
+
+    const request: CreateFileRequest[] = urls.map((item, i) => {
+      return {
+        fileName: fileList[i].name,
+        fileUrl: item?.url ?? '',
+        fileKey: item?.fileName ?? '',
+        capacity: fileList[i].size,
+      };
+    });
 
     mutate({
       params: {
@@ -95,7 +105,7 @@ const DrivePage = () => {
         },
       },
       body: {
-        documents: requestData,
+        documents: request,
       },
     });
   };
@@ -215,6 +225,8 @@ const DrivePage = () => {
           {filteredResult?.map((item) => {
             if (hasKeyInObject(item, 'documentId')) {
               const file = item as DocumentItem;
+
+              console.log(file);
               return (
                 <FileGrid
                   key={file.documentId}

@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 
 import { usePutUploadMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePutUploadMutation';
 
-import { getFile } from '@/shared/api/file/upload';
+import { getPresignedUrl } from '@/shared/api/file/upload';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { extractFileExtension } from '@/shared/util/file';
 
@@ -32,7 +32,7 @@ const useFile = ({ files, onFilesChange, setFileUrls, setUploadStatus }: useFile
       for (let index = 0; index < uniqueNewFiles.length; index++) {
         const file = uniqueNewFiles[index];
         const fileExtension = extractFileExtension(file.name);
-        const fileData = await getFile(fileExtension);
+        const fileData = await getPresignedUrl(fileExtension);
         const fileName = file.name;
         newUploadStatus[fileName] = false;
         setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));

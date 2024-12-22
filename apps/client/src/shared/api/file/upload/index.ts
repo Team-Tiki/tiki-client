@@ -1,10 +1,13 @@
-import { axiosInstance } from '@/shared/api/instance';
+import { client } from '@/shared/api/client';
 
-export const getFile = async (fileFormat: string) => {
-  const response = await axiosInstance.get('/file/upload', {
+export const getPresignedUrl = async (fileFormat: string) => {
+  const response = await client.GET('/api/v1/file/upload', {
     params: {
-      fileFormat: fileFormat,
+      query: {
+        fileFormat,
+      },
     },
   });
-  return response.data.data;
+
+  return response.data?.data;
 };
