@@ -1,21 +1,23 @@
 import { IcGrid, IcList, IcSearch } from '@tiki/icon';
 import { Button, Flex, Input, Select, Switch } from '@tiki/ui';
 import { hasKeyInObject, useDeferredSearchFilter, useOutsideClick, useOverlay } from '@tiki/utils';
+import { NumberParam, useQueryParam } from 'use-query-params';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
-import { useDriveData } from '@/page/drive/hook/api/queries';
+import { useDriveData, useUploadFile } from '@/page/drive/hook/api/queries';
 import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments';
-import { contentStyle } from '@/page/drive/index.style';
+import { contentStyle, uploadLabelStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
+import { useTeamId } from '@/shared/store/team';
 import { File } from '@/shared/type/file';
 
 import { FileData } from '@/mock/data/drive';
@@ -26,20 +28,18 @@ const DrivePage = () => {
   const [alignOption, setAlignOption] = useState<'list' | 'grid'>('list');
   const [searchValue, setSearchValue] = useState('');
 
+  const [folderId, setFolderId] = useQueryParam('folderId', NumberParam);
+
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState<FilterOption>('최근 업로드 순');
 
-  const { data } = useDriveData();
+  const { data } = useDriveData(folderId);
+  const { mutate } = useUploadFile();
+  const teamId = useTeamId();
 
-  const handleChangeAlignOption = (option: 'list' | 'grid') => {
-    setAlignOption(option);
-
-    reset();
-  };
-
-  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
-  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue);
+  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data?.data?.documents ?? [], searchValue);
+  const { filteredData: filteredFolders } = useDeferredSearchFilter(data?.data?.folders ?? [], searchValue);
 
   const filteredResult = [...filteredDocuments, ...filteredFolders].sort((a, b) =>
     selected === '최근 업로드 순'
@@ -66,6 +66,29 @@ const DrivePage = () => {
 
     close();
   };
+  const handleChangeAlignOption = (option: 'list' | 'grid') => {
+    setAlignOption(option);
+
+    reset();
+  };
+
+  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+
+    mutate({
+      params: {
+        path: {
+          teamId,
+        },
+        query: {
+          folderId: 0,
+        },
+      },
+      body: {
+        documents: [],
+      },
+    });
+  };
 
   return (
     <ContentBox
@@ -82,7 +105,10 @@ const DrivePage = () => {
             placeholder="파일 및 폴더 명을 검색하세요"
           />
           <Button variant="secondary">삭제된 항목</Button>
-          <Button>파일 업로드</Button>
+          <label css={uploadLabelStyle} htmlFor="drive-file">
+            파일 업로드
+          </label>
+          <input multiple id="drive-file" type="file" css={{ display: 'none' }} onChange={handleChangeFile} />
         </Flex>
       }
       contentOption={
@@ -113,7 +139,6 @@ const DrivePage = () => {
               }
             })()}
           </Flex>
-
           <Flex styles={{ align: 'center' }}>
             <Switch
               status={alignOption === 'list' ? 'left' : 'right'}
@@ -198,9 +223,8 @@ const DrivePage = () => {
               return (
                 <FolderGrid
                   key={folder.folderId}
-                  name={folder.name}
-                  createdTime={folder.createdTime}
-                  path={folder.path}
+                  {...folder}
+                  onFolderClick={() => setFolderId(folder.folderId)}
                   isSelectable={isSelectable}
                   isSelected={getFolderIsSelected(folder.folderId)}
                   onSelect={() => selectFolder(folder.folderId)}

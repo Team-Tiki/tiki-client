@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import * as Sentry from '@sentry/react';
+import { QueryParamProvider } from 'use-query-params';
+import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -47,15 +49,17 @@ const App = () => {
 
   return (
     <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
-      <ModalContainer />
-      <SideNavBar />
-      <div css={layoutStyle}>
-        <main css={outletStyle}>
-          <Header />
-          <Outlet />
-        </main>
-        <TimeBlockDrawer />
-      </div>
+      <QueryParamProvider adapter={ReactRouter6Adapter}>
+        <ModalContainer />
+        <SideNavBar />
+        <div css={layoutStyle}>
+          <main css={outletStyle}>
+            <Header />
+            <Outlet />
+          </main>
+          <TimeBlockDrawer />
+        </div>
+      </QueryParamProvider>
     </ErrorBoundary>
   );
 };

@@ -2,17 +2,17 @@ import { IcFolderLarge, IcThreeDots } from '@tiki/icon';
 import { CheckBox, Flex, Heading, MenuItem, MenuList, MenuRoot, theme } from '@tiki/ui';
 import { useOverlay } from '@tiki/utils';
 
+import { FolderItem } from '@/page/drive/type';
+
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import { cardStyle, iconWrapperStyle, nameStyle, optionTextStyle } from '@/shared/component/FileGrid/index.style';
 
-type FolderGridProps = {
+type FolderGridProps = FolderItem & {
   variant?: 'primary' | 'secondary';
-  name: string;
-  path: string;
-  createdTime: string;
   isSelectable?: boolean;
   onSelect?: () => void;
   isSelected?: boolean;
+  onFolderClick?: () => void;
   /**
    * TODO
    * onChangeName
@@ -21,11 +21,23 @@ type FolderGridProps = {
    */
 };
 
-const FolderGrid = ({ name, variant = 'primary', isSelectable, isSelected = false, onSelect }: FolderGridProps) => {
+const FolderGrid = ({
+  name,
+  variant = 'primary',
+  isSelectable,
+  isSelected = false,
+  onSelect,
+  onFolderClick,
+}: FolderGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   return (
-    <article css={cardStyle(variant !== 'primary')}>
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onFolderClick}
+      onKeyDown={(e) => e.key === 'Enter' && onFolderClick?.()}
+      css={cardStyle(variant !== 'primary')}>
       {isSelectable && (
         <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
       )}
@@ -55,7 +67,7 @@ const FolderGrid = ({ name, variant = 'primary', isSelectable, isSelected = fals
           </MenuRoot>
         )}
       </Flex>
-    </article>
+    </div>
   );
 };
 
