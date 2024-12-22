@@ -8,7 +8,7 @@ import { ChangeEvent, useState } from 'react';
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
-import { useDriveData, useUploadFile } from '@/page/drive/hook/api/queries';
+import { CreateFileRequest, useDriveData, useUploadFile } from '@/page/drive/hook/api/queries';
 import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments';
 import { contentStyle, uploadLabelStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
@@ -19,6 +19,7 @@ import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
 import { useTeamId } from '@/shared/store/team';
 import { File } from '@/shared/type/file';
+import { extractFileExtension } from '@/shared/util/file';
 
 import { FileData } from '@/mock/data/drive';
 
@@ -73,7 +74,16 @@ const DrivePage = () => {
   };
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const fileList = e.target.files;
+
+    const requestData: CreateFileRequest[] = Array.from({ length: fileList.length }).map((_, i) => ({
+      fileName: fileList[i].name,
+      fileUrl: 'https://ti-kii.com',
+      fileKey: 'jpg',
+      capacity: fileList[i].size,
+    }));
 
     mutate({
       params: {
@@ -81,11 +91,11 @@ const DrivePage = () => {
           teamId,
         },
         query: {
-          folderId: 0,
+          folderId: folderId === null ? undefined : folderId,
         },
       },
       body: {
-        documents: [],
+        documents: requestData,
       },
     });
   };
@@ -210,7 +220,7 @@ const DrivePage = () => {
                   key={file.documentId}
                   name={file.name}
                   capacity={file.capacity}
-                  type={file.url?.split('.').at(-1) as File}
+                  type={extractFileExtension(file.url) as File}
                   url={file.url}
                   createdTime={file.createdTime}
                   isSelected={getDocumentIsSelected(file.documentId)}
