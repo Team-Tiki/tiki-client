@@ -8,7 +8,6 @@ import CreateCustomNote from '@/page/handover/note/component/CreateNote/Custom/C
 import CreateNoteDetail from '@/page/handover/note/component/CreateNote/NoteDetail/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handover/note/component/CreateNote/Template/CreateTemplateNote';
 import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handover/note/type/note';
-import { formattingDateWithBar } from '@/page/handover/note/util/date';
 
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
@@ -17,27 +16,11 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
-    title: '',
-    author: '',
-    complete: false,
-    timeBlockList: [],
-    startDate: formattingDateWithBar(new Date()),
-    endDate: formattingDateWithBar(new Date()),
-  });
+  const [noteDetail, setNoteDetail] = useState<NoteDetailType>({} as NoteDetailType);
 
-  const [templateData, setTemplateData] = useState<TemplateNote>({
-    answerWhatActivity: '',
-    answerHowToPrepare: '',
-    answerWhatIsDisappointedThing: '',
-    answerHowToFix: '',
-    documentList: [],
-  });
+  const [templateData, setTemplateData] = useState<TemplateNote>({} as TemplateNote);
 
-  const [customData, setCustomData] = useState<CustomNote>({
-    contents: '',
-    documentList: [],
-  });
+  const [customData, setCustomData] = useState<CustomNote>({} as CustomNote);
 
   const navigate = useNavigate();
   const teamId = useInitializeTeamId();
