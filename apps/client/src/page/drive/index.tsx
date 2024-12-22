@@ -10,8 +10,8 @@ import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
 import { useDriveData } from '@/page/drive/hook/api/queries';
 import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments';
 import { contentStyle } from '@/page/drive/index.style';
+import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
 
-import { DocumentItem, FolderItem } from '@/shared/api/teams/drive/type';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
@@ -19,8 +19,6 @@ import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
 import { File } from '@/shared/type/file';
 
 import { FileData } from '@/mock/data/drive';
-
-type FilterOption = '최근 업로드 순' | '과거 업로드 순';
 
 const filterOptions = [{ value: '최근 업로드 순' }, { value: '과거 업로드 순' }];
 
@@ -32,9 +30,7 @@ const DrivePage = () => {
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState<FilterOption>('최근 업로드 순');
 
-  const {
-    data: { data },
-  } = useDriveData();
+  const { data } = useDriveData();
 
   const handleChangeAlignOption = (option: 'list' | 'grid') => {
     setAlignOption(option);
@@ -42,8 +38,8 @@ const DrivePage = () => {
     reset();
   };
 
-  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.documents, searchValue);
-  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.folders, searchValue);
+  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
+  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue);
 
   const filteredResult = [...filteredDocuments, ...filteredFolders].sort((a, b) =>
     selected === '최근 업로드 순'
@@ -151,6 +147,7 @@ const DrivePage = () => {
                     <FolderListItem
                       key={String(folder.folderId + folder.type)}
                       name={folder.name}
+                      path={folder.path}
                       createdTime={folder.createdTime}
                       isSelected={getFolderIsSelected(folder.folderId)}
                       onSelect={() => selectFolder(folder.folderId)}

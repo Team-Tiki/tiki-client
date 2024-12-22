@@ -6,7 +6,7 @@ import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/compo
 import { components } from '@/shared/__generated__/schema';
 import { getFormattedDate } from '@/shared/util/date';
 
-type FolderListItemProps = components['schemas']['FolderGetResponse'] & {
+type FolderListItemProps = Omit<components['schemas']['FolderGetResponse'], 'folderId' | 'type'> & {
   isSelected?: boolean;
   onSelect?: () => void;
 };

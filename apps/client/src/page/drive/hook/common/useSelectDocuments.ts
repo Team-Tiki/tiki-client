@@ -1,8 +1,8 @@
 import { useMultiSelect } from '@tiki/utils';
 
-import { DriveResponse } from '@/shared/api/teams/drive/type';
+import { components } from '@/shared/__generated__/schema';
 
-export const useSelectDocuments = (data: DriveResponse['data']) => {
+export const useSelectDocuments = (data: components['schemas']['DriveGetResponse']) => {
   const {
     ids: documentIds,
     handleItemClick: handleDocumentClick,
@@ -29,12 +29,10 @@ export const useSelectDocuments = (data: DriveResponse['data']) => {
 
   const handleAllSelect = () => {
     if (documentIds.length !== data.documents.length || folderIds.length !== data.folders.length) {
-      // 두 리스트 중 하나라도 선택안된게 있다면
       handleAllDocumentActive();
       handleAllFolderActive();
     } else {
-      handleDocumentReset();
-      handleFolderReset();
+      handleReset();
     }
   };
 
