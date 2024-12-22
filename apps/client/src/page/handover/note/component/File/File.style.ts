@@ -34,4 +34,5 @@ export const deleteIcStyle = css({
   marginLeft: 'auto',
 
   cursor: 'pointer',
+  flexShrink: 0,
 });

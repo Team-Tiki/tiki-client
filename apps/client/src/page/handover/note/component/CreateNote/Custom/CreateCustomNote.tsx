@@ -43,7 +43,7 @@ const CreateCustomNote = ({ setData }: CustomProps) => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={handleFileChange} />
+        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
         <div css={fileBoxStyle}>
           {files.map((file) => (
             <File key={file.name} file={file} />
