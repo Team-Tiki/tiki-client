@@ -17,4 +17,4 @@ export interface TimeBlockList {
   };
 }
 
-export type BlockType = 'MEETING' | 'NOTICE' | 'ACCOUNTING' | 'TASK' | 'STUDY' | 'EVENT';
+export type BlockType = 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';

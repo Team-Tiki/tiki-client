@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
-import { BlockColor } from '@/page/archiving/index/type/color';
-
 export const blockStyle = (color: string, isSelected: boolean) =>
   css({
     display: 'flex',
@@ -30,7 +28,7 @@ export const blockStyle = (color: string, isSelected: boolean) =>
     cursor: 'pointer',
   });
 
-export const blockNameStyle = (background: BlockColor) =>
+export const blockNameStyle = (background: string) =>
   css({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
