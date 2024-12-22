@@ -6,7 +6,7 @@ import { apiMiddleware, authMiddleware, tokenMiddleware } from '@/shared/api/mid
 
 const baseURL = `${import.meta.env.VITE_BASE_URL}`;
 
-const client = createFetchClient<paths>({
+export const client = createFetchClient<paths>({
   baseUrl: baseURL,
   credentials: 'include',
 
