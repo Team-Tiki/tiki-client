@@ -3,6 +3,8 @@ import { Flex, scrollStyle } from '@tiki/ui';
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
 
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
+import { File } from '@/shared/type/file';
+import { extractFileExtension } from '@/shared/util/file';
 
 import { FileData } from '@/mock/data/drive';
 
@@ -11,7 +13,15 @@ const FileSection = () => {
     <Flex css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}>
       {FileData.map((file) => {
         return (
-          <FileGrid key={file.fileId} variant="secondary" title={file.title} type={file.type} volume={file.volume} />
+          <FileGrid
+            key={file.documentId}
+            variant="secondary"
+            name={file.name}
+            type={extractFileExtension(file.name) as File}
+            capacity={file.capacity}
+            createdTime={file.createdTime}
+            url={file.url}
+          />
         );
       })}
     </Flex>

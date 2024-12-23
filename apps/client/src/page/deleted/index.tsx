@@ -3,27 +3,31 @@ import { useMultiSelect, useOverlay } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
 
+import { components } from '@/shared/__generated__/schema';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { File } from '@/shared/type/file';
+import { extractFileExtension } from '@/shared/util/file';
 
-const tmpData: File[] = [
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 8, title: '김규홍', volume: 3000, type: 'word', createdAt: '2024-11-11' },
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
-  { fileId: 1, title: '최주용', volume: 3000, type: 'pdf', createdAt: '2024-11-11' },
-  { fileId: 5, title: '남다은', volume: 3000, type: 'jpg', createdAt: '2024-11-11' },
+type Document = components['schemas']['DocumentGetResponse'];
+
+const tmpData: Document[] = [
+  { documentId: 1, name: '최주용', capacity: 3000, type: 'pdf', createdTime: '2024-11-11', url: '' },
+  { documentId: 5, name: '남다은', capacity: 3000, type: 'jpg', createdTime: '2024-11-11', url: '' },
+  { documentId: 8, name: '김규홍', capacity: 3000, type: 'word', createdTime: '2024-11-11', url: '' },
+  { documentId: 1, name: '최주용', capacity: 3000, type: 'pdf', createdTime: '2024-11-11', url: '' },
+  { documentId: 5, name: '남다은', capacity: 3000, type: 'jpg', createdTime: '2024-11-11', url: '' },
+  { documentId: 1, name: '최주용', capacity: 3000, type: 'pdf', createdTime: '2024-11-11', url: '' },
+  { documentId: 5, name: '남다은', capacity: 3000, type: 'jpg', createdTime: '2024-11-11', url: '' },
+  { documentId: 1, name: '최주용', capacity: 3000, type: 'pdf', createdTime: '2024-11-11', url: '' },
+  { documentId: 5, name: '남다은', capacity: 3000, type: 'jpg', createdTime: '2024-11-11', url: '' },
 ];
 
 const DeletedPage = () => {
   const { isOpen, toggle } = useOverlay();
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<File>(
-    'fileId',
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<Document>(
+    'documentId',
     tmpData
   );
 
@@ -62,13 +66,15 @@ const DeletedPage = () => {
         <ul css={contentStyle(tmpData.length)}>
           {tmpData.map((item) => (
             <FileGrid
-              key={item.fileId}
-              title={item.title}
-              type={item.type}
-              volume={item.volume}
+              key={item.documentId}
+              name={item.name}
+              type={extractFileExtension(item.name) as File}
+              capacity={item.capacity}
+              createdTime={item.createdTime}
+              url={item.url}
               isSelectable={canSelect}
-              isSelected={ids.includes(+item.fileId)}
-              onSelect={() => handleItemClick(+item.fileId)}
+              isSelected={ids.includes(+item.documentId)}
+              onSelect={() => handleItemClick(+item.documentId)}
             />
           ))}
         </ul>

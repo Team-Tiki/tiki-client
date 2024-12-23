@@ -17,11 +17,11 @@ const meta = {
     ),
   ],
   args: {
-    fileId: 1,
-    title: '폴더 이름',
-    volume: 3000,
-    createdAt: '2024년 9월 30일 오전 10:13',
-    type: 'jpeg',
+    documentId: 1,
+    name: '폴더 이름',
+    capacity: 3000,
+    createdTime: '2024년 9월 30일 오전 10:13',
+    url: '',
   },
 } satisfies Meta<typeof FileListItem>;
 
