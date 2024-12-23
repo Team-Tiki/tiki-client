@@ -1,4 +1,4 @@
-name: Client CI
+name: Client Check
 
 on:
   pull_request:
