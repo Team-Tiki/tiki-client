@@ -9,7 +9,9 @@
     "tsconfig": "pnpm --filter @tiki/tsconfig",
     "icon": "pnpm --filter @tiki/icon",
     "ui": "pnpm --filter @tiki/ui",
-    "utils": "pnpm --filter @tiki/utils"
+    "utils": "pnpm --filter @tiki/utils",
+    "build:ui": "pnpm --filter @tiki/ui build",
+    "build:icon": "pnpm --filter @tiki/icon build"
   },
   "workspaces": [
     "apps/*",
