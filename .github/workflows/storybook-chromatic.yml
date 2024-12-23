@@ -1,4 +1,4 @@
-name: 'Chromatic Deployment'
+name: 'Storybook Chromatic Deployment'
 
 on:
    pull_request:
@@ -6,8 +6,7 @@ on:
        - develop
 
 jobs:
-   test:
-     name: Storybook Chromatic Deployment
+   build:
      runs-on: ubuntu-latest
      steps:
        - uses: actions/checkout@v1
