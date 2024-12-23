@@ -17,7 +17,7 @@ const meta: Meta<typeof FileGrid> = {
     ),
   ],
   args: {
-    volume: 2000,
+    capacity: 2000,
   },
 };
 
@@ -26,22 +26,22 @@ type Story = StoryObj<typeof meta>;
 
 export const PDF: Story = {
   args: {
-    title: '최주용',
+    name: '최주용',
     type: 'pdf',
   },
 };
 
 export const Word: Story = {
   args: {
-    title: '김규홍',
-    type: 'word',
-    volume: 30000,
+    name: '김규홍',
+    type: 'doc',
+    capacity: 30000,
   },
 };
 
 export const Image: Story = {
   args: {
-    title: '이채원',
+    name: '이채원',
     type: 'pdf',
   },
 };
@@ -56,7 +56,7 @@ export const Secondary: Story = {
   ],
   args: {
     variant: 'secondary',
-    title: '이채원',
+    name: '이채원',
     type: 'pdf',
   },
 };
