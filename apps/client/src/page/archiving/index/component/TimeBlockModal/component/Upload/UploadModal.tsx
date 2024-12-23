@@ -1,5 +1,4 @@
-import { Button, Flex } from '@tiki/ui';
-import { useToastAction } from '@tiki/utils';
+import { Button, Flex, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 

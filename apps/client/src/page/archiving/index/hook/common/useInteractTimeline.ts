@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { Block } from '@/page/archiving/index/type/blockType';
+import { TimeBlockData } from '@/page/archiving/index/component/TimeLine';
 
 import { useDrawerAction } from '@/shared/store/drawer';
 
 export const useInteractTimeline = () => {
-  const [selectedBlock, setSelectedBlock] = useState<Block>();
+  const [selectedBlock, setSelectedBlock] = useState<TimeBlockData>();
 
   const { openDrawer } = useDrawerAction();
 

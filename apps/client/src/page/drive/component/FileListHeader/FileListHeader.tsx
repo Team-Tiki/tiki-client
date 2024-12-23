@@ -1,18 +1,13 @@
-import { CheckBox, Flex, Text } from '@tiki/ui';
+import { Text } from '@tiki/ui';
 
 import { headerStyle, rightSideRowStyle } from '@/page/drive/component/FileListHeader/FileListHeader.style';
 
-interface FileListHeaderProps {
-  onSelectAll: () => void;
-}
-
-const FileListHeader = ({ onSelectAll }: FileListHeaderProps) => {
+const FileListHeader = () => {
   return (
     <header css={headerStyle}>
-      <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
-        <CheckBox isChecked={false} onChange={onSelectAll} />
+      <div css={{ marginLeft: '3.4rem' }}>
         <Text tag="body6">이름</Text>
-      </Flex>
+      </div>
 
       <div css={rightSideRowStyle}>
         <Text tag="body6">크기</Text>

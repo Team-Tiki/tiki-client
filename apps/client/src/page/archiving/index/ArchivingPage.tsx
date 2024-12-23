@@ -5,10 +5,9 @@ import { useLocation } from 'react-router-dom';
 
 import { contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
 import DateProvider from '@/page/archiving/index/DateProvider';
-import TimeLine from '@/page/archiving/index/component/TimeLine';
+import TimeLine, { TimeBlockData } from '@/page/archiving/index/component/TimeLine';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
-import { Block } from '@/page/archiving/index/type/blockType';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -23,7 +22,7 @@ const ArchivingPage = () => {
   const teamId = useInitializeTeamId();
 
   const location = useLocation();
-  const selectedBlockFromDashboard: Block = location.state?.selectedBlock;
+  const selectedBlockFromDashboard: TimeBlockData = location.state?.selectedBlock;
   const finalSelectedBlock = selectedBlockFromDashboard || selectedBlock;
 
   const { openDrawer } = useDrawerAction();
@@ -32,7 +31,7 @@ const ArchivingPage = () => {
     if (selectedBlockFromDashboard) {
       /** TODO: 추후 block id에 따른 API 응답으로 데이터 넣기 */
       openDrawer({
-        title: selectedBlockFromDashboard.name,
+        title: selectedBlockFromDashboard[0].name!,
         startDate: new Date('2024-09-13'),
         endDate: new Date('2024-09-24'),
         blockType: 'MEETING',
