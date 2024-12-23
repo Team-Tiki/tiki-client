@@ -4,11 +4,13 @@ import { useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
 
-import { DocumentItem } from '@/shared/api/teams/drive/type';
+import { components } from '@/shared/__generated__/schema';
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import { optionListStyle, optionTextStyle } from '@/shared/component/FileGrid/index.style';
 import { getFormattedDate } from '@/shared/util/date';
 import { getFileVolume } from '@/shared/util/file';
+
+type DocumentItem = components['schemas']['DocumentGetResponse'];
 
 type FileListItemProps = Omit<DocumentItem, 'type'> & {
   isSelected?: boolean;
