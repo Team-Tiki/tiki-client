@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: '폴더 이름',
+    name: '폴더 이름',
   },
 };
 
@@ -36,6 +36,6 @@ export const Secondary: Story = {
   ],
   args: {
     variant: 'secondary',
-    title: '폴더 이름',
+    name: '폴더 이름',
   },
 };
