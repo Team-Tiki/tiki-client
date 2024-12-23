@@ -3,15 +3,13 @@
   "private": true,
   "scripts": {
     "lint": "pnpm --filter client lint",
-    "check": "concurrently \"pnpm lint\" \"pnpm typecheck\"",
     "build-storybook": "pnpm --filter @tiki/ui build && pnpm --filter @tiki/icon build && pnpm --filter client build-storybook",
     "client": "pnpm --filter client",
     "landing": "pnpm --filter landing",
     "tsconfig": "pnpm --filter @tiki/tsconfig",
     "icon": "pnpm --filter @tiki/icon",
     "ui": "pnpm --filter @tiki/ui",
-    "utils": "pnpm --filter @tiki/utils",
-    "typecheck": "tsc --noEmit"
+    "utils": "pnpm --filter @tiki/utils"
   },
   "workspaces": [
     "apps/*",

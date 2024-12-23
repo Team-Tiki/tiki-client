@@ -1,4 +1,4 @@
-name: CI Build
+name: Client CI
 
 on:
   pull_request:
@@ -38,7 +38,7 @@ jobs:
       - name: Check
         run: |
           set -o pipefail
-          pnpm check | tee result
+          pnpm --filter client check | tee result
 
       - name: Print Summary
         run: |
