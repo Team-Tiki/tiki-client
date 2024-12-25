@@ -11,7 +11,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "generate": "openapi-typescript http://www.tiki-sopt.p-e.kr/v3/api-docs -o ./src/shared/__generated__/schema.d.ts"
+    "generate": "openapi-typescript https://www.tiki-sopt.p-e.kr/v3/api-docs -o ./src/shared/__generated__/schema.d.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "concurrently \"pnpm lint\" \"pnpm typecheck\""
   },
   "dependencies": {
     "@sentry/react": "^8.22.0",

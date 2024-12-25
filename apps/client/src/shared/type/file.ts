@@ -1,11 +1,23 @@
-export type File = {
-  fileId: string | number;
-  title: string;
-  volume: number;
-  createdAt: string;
-  type: 'pdf' | 'jpeg' | 'png' | 'jpg' | 'ppt' | 'word';
-};
-
-export type Folder = File[] & {
-  title: string;
-};
+export type File =
+  /** 이미지 */
+  | 'jpg'
+  | 'jpeg'
+  | 'png'
+  | 'webp'
+  | 'avif'
+  | 'gif'
+  /** PDF */
+  | 'pdf'
+  /** 메모장 */
+  | 'txt'
+  /** 한컴오피스 */
+  | 'hwp'
+  /** 파워포인트 */
+  | 'ppt'
+  | 'pptx'
+  /** 엑셀 */
+  | 'xls'
+  | 'xlsx'
+  /** 워드 */
+  | 'doc'
+  | 'docx';
