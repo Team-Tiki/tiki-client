@@ -1,0 +1,5 @@
+export const ERROR_NAME = {
+  VALIDATE: 'VALIDATE',
+  EMPTY: 'EMPTY',
+  OVER_LENGTH: 'OVER_LENGTH',
+};
