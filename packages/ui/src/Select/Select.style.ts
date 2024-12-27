@@ -138,6 +138,8 @@ export const triggerStyle = (
       border: `1px solid ${theme.colors.gray_200}`,
 
       backgroundColor: theme.colors.gray_100,
+
+      pointerEvents: 'none',
     },
   );
 

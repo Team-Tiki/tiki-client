@@ -51,7 +51,7 @@ const WorkspaceSettingPage = () => {
   };
 
   return (
-    <form css={containerStyle} onSubmit={(event) => handleWorkspaceInfoSubmit(event)}>
+    <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
       <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle}>
         저장
       </CommandButton>
@@ -80,7 +80,7 @@ const WorkspaceSettingPage = () => {
 
         <Flex styles={{ align: 'center', gap: '1.2rem' }}>
           {workspaceData.teamImage ? (
-            <img src={workspaceData.teamImage} alt="팀 대표 이미지" css={teamImageStyle} />
+            <img src={workspaceData.teamImage} alt="팀 대표" css={teamImageStyle} />
           ) : (
             <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle, teamImageTextStyle]}>
               {workspaceData.workspaceName[0]}

@@ -32,14 +32,15 @@ const InfoSetting = ({ workspaceName, onWorkspaceDataChange, error, onErrorChang
   };
 
   const defineSupportigtext = (errorName: string) => {
-    if (errorName === ERROR_NAME.VALIDATE) {
-      return SUPPORTING_TEXT.WORKSPACE_NAME_NOTICE;
-    }
-    if (errorName === ERROR_NAME.EMPTY) {
-      return SUPPORTING_TEXT.WORKSPACE_NAME_EMPTY;
-    }
-    if (errorName === ERROR_NAME.OVER_LENGTH) {
-      return SUPPORTING_TEXT.WORKSPACE_NAME_INVALID_LENGTH;
+    switch (errorName) {
+      case ERROR_NAME.VALIDATE:
+        return SUPPORTING_TEXT.WORKSPACE_NAME_NOTICE;
+
+      case ERROR_NAME.EMPTY:
+        return SUPPORTING_TEXT.WORKSPACE_NAME_EMPTY;
+
+      case ERROR_NAME.OVER_LENGTH:
+        return SUPPORTING_TEXT.WORKSPACE_NAME_INVALID_LENGTH;
     }
   };
 
