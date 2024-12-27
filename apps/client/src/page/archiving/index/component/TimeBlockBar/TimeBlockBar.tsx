@@ -9,6 +9,8 @@ import { circleStyle, closeBtnStyle } from '@/page/archiving/index/component/Tim
 import UploadedFiles from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/UploadedFiles';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 
+import { $api } from '@/shared/api/client';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { DrawerContent } from '@/shared/store/drawer';
 
 interface TimeBlockBarProps {
@@ -22,6 +24,18 @@ const TimeBlockBar = ({ content, onCloseDrawer }: TimeBlockBarProps) => {
   const handleEditClick = () => {
     setIsEditable((prevState) => !prevState);
   };
+
+  const teamId = useInitializeTeamId();
+
+  const { data } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
+
+  console.log(data?.data?.position);
 
   return (
     content && (

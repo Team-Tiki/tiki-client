@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "generate": "openapi-typescript https://www.tiki-sopt.p-e.kr/v3/api-docs -o ./src/shared/__generated__/schema.d.ts"
+
   },
   "dependencies": {
     "@sentry/react": "^8.22.0",
