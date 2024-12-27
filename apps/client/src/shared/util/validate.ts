@@ -7,3 +7,13 @@ export const validateEmail = (email: string) => {
 export const validateCode = (authCode: string) => {
   return authCode.trim().length > 0 && authCode.trim().length === 6;
 };
+
+export class Validate {
+  static isEmpty = (value: string) => {
+    return !(value.trim().length > 0);
+  };
+
+  static validateLength = (value: string, length: number) => {
+    return value.length <= length;
+  };
+}

@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "lint": "pnpm --filter client lint",
-    "check": "concurrently \"pnpm lint\" \"pnpm typecheck\"",
     "build-storybook": "pnpm --filter @tiki/ui build && pnpm --filter @tiki/icon build && pnpm --filter client build-storybook",
     "client": "pnpm --filter client",
     "landing": "pnpm --filter landing",
@@ -11,7 +10,8 @@
     "icon": "pnpm --filter @tiki/icon",
     "ui": "pnpm --filter @tiki/ui",
     "utils": "pnpm --filter @tiki/utils",
-    "typecheck": "tsc --noEmit"
+    "build:ui": "pnpm --filter @tiki/ui build",
+    "build:icon": "pnpm --filter @tiki/icon build"
   },
   "workspaces": [
     "apps/*",
