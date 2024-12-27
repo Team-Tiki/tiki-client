@@ -211,3 +211,30 @@ export const OptionList: Story = {
     );
   },
 };
+
+export const Disabled: Story = {
+  render: (args) => {
+    const { isOpen, close, toggle } = useOverlay();
+    const ref = useOutsideClick<HTMLDivElement>(close);
+    const [selected, setSelected] = useState('');
+
+    const handleSelect = (id: string) => {
+      setSelected(id);
+
+      close();
+    };
+
+    return (
+      <Select
+        aria-label={`선택된 아이템: ${selected}`}
+        variant="disabled"
+        {...args}
+        ref={ref}
+        isOpen={isOpen}
+        placeholder="Scroll Select"
+        onTrigger={toggle}
+        onSelect={handleSelect}
+      />
+    );
+  },
+};

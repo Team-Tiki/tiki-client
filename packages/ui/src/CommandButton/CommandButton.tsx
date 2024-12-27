@@ -1,13 +1,22 @@
-import { SyntheticEvent } from "react";
+import { SyntheticEvent } from 'react';
 
-import { ButtonProps } from "@/Button/Button";
-import { variantStyle } from "@/Button/Button.style";
-import { buttonStyle, childrenStyle, commonStyle, keyStyle, sizeStyle } from "@/CommandButton/CommandButton.style";
-import { IcCommandKey } from "@tiki/icon";
+import { ButtonProps } from '@/Button/Button';
+import { variantStyle } from '@/Button/Button.style';
+import {
+  buttonStyle,
+  childrenStyle,
+  commonStyle,
+  keyStyle,
+  sizeStyle,
+} from '@/CommandButton/CommandButton.style';
+import { IcCommandKey } from '@tiki/icon';
 
 export interface CommandButtonProps extends ButtonProps {
-  variant?: Extract<ButtonProps["variant"], "primary" | "tertiary" | "fourth" | "outline">;
-  size?: Extract<ButtonProps["size"], "large" | "small" | "xSmall">;
+  variant?: Extract<
+    ButtonProps['variant'],
+    'primary' | 'tertiary' | 'fourth' | 'outline'
+  >;
+  size?: Extract<ButtonProps['size'], 'large' | 'small' | 'xSmall'>;
   commandKey: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;
@@ -15,8 +24,8 @@ export interface CommandButtonProps extends ButtonProps {
 }
 
 const CommandButton = ({
-  variant = "primary",
-  size = "small",
+  variant = 'primary',
+  size = 'small',
   commandKey,
   isCommand = true,
   isFrontIcon = false,
