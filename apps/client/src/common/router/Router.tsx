@@ -186,7 +186,7 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <CreateNotePage />
-        </Suspense>
+          </Suspense>
         ),
       },
       {
