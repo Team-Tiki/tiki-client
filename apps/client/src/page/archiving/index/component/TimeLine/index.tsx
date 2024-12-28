@@ -38,6 +38,7 @@ const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
       },
     },
   });
+
   const timeBlocks = data.data?.timeBlocks ?? [];
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 

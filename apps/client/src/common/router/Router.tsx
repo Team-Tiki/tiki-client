@@ -24,6 +24,7 @@ import {
 
 import HandoverPage from '@/page/handover/HandoverPage';
 import CreateNotePage from '@/page/handover/note/component/CreateNote/CreateNote';
+import WorkspaceSettingPage from '@/page/workspaceSetting';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -185,6 +186,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <CreateNotePage />
+        </Suspense>
+        ),
+      },
+      {
+        path: PATH.WORKSPACE_SETTING,
+        element: (
+          <Suspense>
+            <WorkspaceSettingPage />
           </Suspense>
         ),
       },
