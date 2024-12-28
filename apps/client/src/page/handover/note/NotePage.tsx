@@ -17,6 +17,7 @@ const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const navigate = useNavigate();
+
   const teamId = useInitializeTeamId();
 
   const { data: noteData } = $api.useQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
