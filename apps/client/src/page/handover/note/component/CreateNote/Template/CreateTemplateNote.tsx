@@ -1,5 +1,7 @@
 import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
+import { Dispatch, SetStateAction } from 'react';
+
 import File from '@/page/handover/note/component/File/File';
 import {
   fileBoxStyle,
@@ -9,40 +11,33 @@ import {
 } from '@/page/handover/note/component/Template/Template.style';
 import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
+import { TemplateNote } from '@/page/handover/note/type/note';
 
-const Template = () => {
-  // const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValues((prev) => ({
-  //     ...prev,
-  //     [id]: event.target.value,
-  //   }));
-  // };
+interface TemplateNoteProps {
+  setData: Dispatch<SetStateAction<TemplateNote>>;
+}
 
+const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   const { files, handleFileChange } = useFile();
+
+  const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setData((prev) => ({
+      ...prev,
+      [id]: event.target.value,
+    }));
+  };
 
   const handleFileUpload = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;
     fileInput?.click();
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // console.log('Submitted values:', values);
-
-    // mutate({ body: values });
-  };
-
   return (
-    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={handleSubmit}>
+    <form css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
         <div css={layoutStyle} key={item.id}>
           <Label id={item.id}>{item.QUESTION}</Label>
-          <Input
-            id={item.id}
-            placeholder={item.PLACEHOLDER}
-            // value={values[item.id as keyof typeof values]}
-            // onChange={handleChange(item.id)}
-          />
+          <Input id={item.id} placeholder={item.PLACEHOLDER} onChange={handleNoteContents(item.id)} />
         </div>
       ))}
 
@@ -50,7 +45,7 @@ const Template = () => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={handleFileChange} />
+        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
         <div css={fileBoxStyle}>
           {files.map((file) => (
             <File key={file.name} file={file} />
@@ -64,4 +59,4 @@ const Template = () => {
   );
 };
 
-export default Template;
+export default CreateTemplateNote;
