@@ -1,4 +1,4 @@
-import { Button, Flex } from '@tiki/ui';
+import { Button, Flex, Text } from '@tiki/ui';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ const Timeline = () => {
   if (teamId === 0) {
     return (
       <Flex styles={{ justify: 'center', align: 'center', direction: 'column' }}>
-        <h2>소속된 팀이 없습니다.</h2>
+        <Text>소속된 팀이 없습니다.</Text>
         <Button
           onClick={() => navigate(PATH.ROOT)}
           css={{
