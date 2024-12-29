@@ -7,14 +7,19 @@ type TeamResponse = paths['/api/v1/teams']['get']['responses']['200']['content']
 export const useInitializeTeamId = () => {
   const { setTeamId } = useTeamIdAction();
 
-  const { data, isSuccess } = $api.useQuery('get', '/api/v1/teams', {
+  const { data, isSuccess } = $api.useQuery('get', '/api/v1/members/teams', {
     select: (response: TeamResponse) => {
       return response.data;
     },
   });
 
   if (isSuccess && !localStorage.getItem('teamId')) {
-    const teamId = (data?.data?.teams && data?.data.teams[0]?.teamId) ?? 0;
+    // 소속된 팀이 없는 경우 0 반환
+    if (data.data?.belongTeamGetResponses.length === 0) {
+      return 0;
+    }
+
+    const teamId = data.data?.belongTeamGetResponses[0].id ?? 0;
     localStorage.setItem('teamId', teamId!.toString());
 
     setTeamId(teamId);
