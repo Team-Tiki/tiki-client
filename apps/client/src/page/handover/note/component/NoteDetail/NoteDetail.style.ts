@@ -52,6 +52,16 @@ export const infoStyle = css({
 
   color: theme.colors.gray_800,
   whiteSpace: 'nowrap',
+
+  ...theme.text.body06,
+});
+
+export const inputStyle = css({
+  border: 'none',
+
+  background: 'transparent',
+
+  outline: 'none',
 });
 
 export const plusBtnStyle = css({
