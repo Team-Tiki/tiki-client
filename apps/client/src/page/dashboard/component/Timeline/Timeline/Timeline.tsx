@@ -18,19 +18,26 @@ const Timeline = () => {
 
   const { currentYear, currentMonth, endDay } = useDateContext();
 
-  const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/timeline', {
-    params: {
-      query: {
-        type: 'executive',
-        date: `${currentYear}-${currentMonth.toString().padStart(2, '0')}`,
-      },
-      path: {
-        teamId,
+  const { data } = $api.useQuery(
+    'get',
+    '/api/v1/teams/{teamId}/timeline',
+    {
+      params: {
+        query: {
+          type: 'executive',
+          date: `${currentYear}-${currentMonth.toString().padStart(2, '0')}`,
+        },
+        path: {
+          teamId,
+        },
       },
     },
-  });
+    {
+      enabled: teamId !== 0,
+    }
+  );
 
-  const timeBlocks = data.data?.timeBlocks ?? [];
+  const timeBlocks = data?.data?.timeBlocks ?? [];
 
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 
