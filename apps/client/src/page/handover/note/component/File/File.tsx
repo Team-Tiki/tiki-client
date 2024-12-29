@@ -13,12 +13,12 @@ const File = ({ file }: FileProps) => {
 
   return (
     <article css={fileStyle}>
-      <IcFileRound width={32} height={32} />
+      <IcFileRound width={32} height={32} css={{ flexShrink: 0 }} />
       <span css={fileInfoStyle}>
         <p>{file.name}</p>
         <p>{fileVolume}</p>
       </span>
-      <IcDeleteFile css={deleteIcStyle} />
+      <IcDeleteFile width={10} height={10} css={deleteIcStyle} />
     </article>
   );
 };

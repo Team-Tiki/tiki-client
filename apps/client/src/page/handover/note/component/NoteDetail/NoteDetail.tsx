@@ -1,7 +1,7 @@
 import { IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import {
   entireInfoStyle,
@@ -11,30 +11,36 @@ import {
   plusBtnStyle,
   titleStyle,
 } from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
-import { TAG_NAME } from '@/page/handover/note/constants/tag';
+import { NoteDetailType } from '@/page/handover/note/type/note';
 
-type Status = '완료' | '미완료';
+// type Status = '완료' | '미완료';
 
-const NoteDetail = () => {
-  const [status, setStatus] = useState<Status>('미완료');
+interface NoteDetailProp {
+  detail: NoteDetailType;
+  setDetail: React.Dispatch<React.SetStateAction<NoteDetailType>>;
+}
 
+const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const handleAppendTag = () => {
     /** 모달 호출 */
   };
-
-  const handleChangeStatus = useCallback((value: Status) => {
-    setStatus(value);
-  }, []);
+  const handleChangeStatus = useCallback(() => {}, []);
 
   return (
     <aside css={entireInfoStyle}>
-      <input css={titleStyle} placeholder="노트 제목" />
+      <input
+        css={titleStyle}
+        placeholder="노트 제목"
+        value={detail.title}
+        onChange={(e) => setDetail((prev) => ({ ...prev, title: e.target.value }))}
+      />
+
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>
             작성자
           </Text>
-          <Text tag="body6">정건</Text>
+          <Text tag="body6">{detail.author}</Text>
         </li>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>
@@ -53,8 +59,8 @@ const NoteDetail = () => {
                 name: 'note',
               },
             ]}
-            onChange={(e) => handleChangeStatus(e.target.value as Status)}
-            value={status}
+            onChange={() => handleChangeStatus()}
+            value={detail.complete ? '완료' : '미완료'}
           />
         </li>
         <li css={infoLayoutStyle}>
@@ -62,13 +68,15 @@ const NoteDetail = () => {
             활동 태그
           </Text>
           <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}>
-            {TAG_NAME.data.length > 0 ? (
+            {detail.timeBlockList.length > 0 ? (
               <>
                 <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
                   <IcPlusButton width={10} height={10} />
                 </Button>
-                {TAG_NAME.data.map((tag, index) => (
-                  <Tag key={index}>{tag}</Tag>
+                {detail.timeBlockList.map((tag) => (
+                  <Tag key={tag.id} color={tag.color}>
+                    {tag.name}
+                  </Tag>
                 ))}
               </>
             ) : (
