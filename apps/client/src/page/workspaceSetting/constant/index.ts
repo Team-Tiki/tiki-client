@@ -6,5 +6,12 @@ export const ERROR_NAME = {
 
 export const POSITION = {
   ADMIN: 'ADMIN',
-  EXCUTIVE: 'EXCUTIVE',
+  EXECUTIVE: 'EXECUTIVE',
+  MEMBER: 'MEMBER',
+};
+
+export const POSITION_VALUE = {
+  ADMIN: '관리자',
+  EXECUTIVE: '임원진',
+  MEMBER: '멤버',
 };

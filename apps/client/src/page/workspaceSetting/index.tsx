@@ -1,6 +1,6 @@
-import { Button, CommandButton, Flex, Text } from '@tiki/ui';
+import { Button, CommandButton, Flex, Spinner, Text } from '@tiki/ui';
 
-import { useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
@@ -12,18 +12,47 @@ import {
   teamImageTextStyle,
   workspaceDeleteButton,
 } from '@/page/workspaceSetting/styles';
+import { MemberType } from '@/page/workspaceSetting/type';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
-  const [workspaceData, setWorkspaceData] = useState({
-    nickName: '김규홍',
-    workspaceName: 'Tiki 티키',
-    collegeName: '서울시립대학교',
-    teamImage: '',
+  const teamId = useInitializeTeamId();
+
+  useRef();
+
+  const { data } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
   });
+
+  // 추후 워크스페이스 api 붙일때 타입 수정 예정
+  const [workspaceData, setWorkspaceData] = useState({
+    name: '',
+    position: 'MEMBER',
+    workspaceName: '',
+    collegeName: '',
+    teamImage: '',
+  } as MemberType & {
+    workspaceName: string;
+    collegeName: string;
+    teamImage: string;
+  });
+
+  useEffect(() => {
+    if (data) {
+      setWorkspaceData((prev) => ({
+        ...prev,
+        name: data.data?.name ?? '',
+        position: data.data?.position ?? 'MEMBER',
+      }));
+    }
+  }, [data]);
 
   const [error, setError] = useState({
     nicknameError: ERROR_NAME.VALIDATE,
@@ -41,7 +70,7 @@ const WorkspaceSettingPage = () => {
   const handleWorkspaceInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (Validate.isEmpty(workspaceData.nickName)) {
+    if (Validate.isEmpty(workspaceData.name)) {
       handleErrorChange('nicknameError', ERROR_NAME.EMPTY);
       return;
     }
@@ -52,18 +81,6 @@ const WorkspaceSettingPage = () => {
     }
   };
 
-  const teamId = useInitializeTeamId();
-
-  const { data } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
-    params: {
-      path: {
-        teamId,
-      },
-    },
-  });
-
-  const position = data?.data?.position;
-
   return (
     <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
       <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle}>
@@ -71,12 +88,14 @@ const WorkspaceSettingPage = () => {
       </CommandButton>
 
       <ProfileSetting
-        nickName={workspaceData.nickName}
+        name={workspaceData.name}
+        position={workspaceData.position}
         onWorkspaceDataChange={handleWorkspaceDataChange}
         error={error.nicknameError}
         onErrorChange={handleErrorChange}
       />
-      {position === POSITION.ADMIN && (
+
+      {workspaceData.position === POSITION.ADMIN && (
         <>
           <InfoSetting
             workspaceName={workspaceData.workspaceName}
@@ -114,7 +133,7 @@ const WorkspaceSettingPage = () => {
       )}
 
       <Button variant="outline" size="small" css={workspaceDeleteButton}>
-        {position === POSITION.ADMIN ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
+        {workspaceData.position === POSITION.ADMIN ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
       </Button>
     </form>
   );
