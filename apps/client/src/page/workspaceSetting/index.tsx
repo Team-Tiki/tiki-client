@@ -63,7 +63,7 @@ const WorkspaceSettingPage = () => {
   });
 
   const position = data?.data?.position;
-  console.log(teamId);
+
   return (
     <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
       <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle}>
@@ -76,7 +76,7 @@ const WorkspaceSettingPage = () => {
         error={error.nicknameError}
         onErrorChange={handleErrorChange}
       />
-      {position === POSITION.EXCUTIVE && (
+      {position === POSITION.ADMIN && (
         <>
           <InfoSetting
             workspaceName={workspaceData.workspaceName}
@@ -114,7 +114,7 @@ const WorkspaceSettingPage = () => {
       )}
 
       <Button variant="outline" size="small" css={workspaceDeleteButton}>
-        {position === POSITION.EXCUTIVE ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
+        {position === POSITION.ADMIN ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
       </Button>
     </form>
   );
