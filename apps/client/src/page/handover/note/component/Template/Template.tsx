@@ -1,7 +1,5 @@
 import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
-import { useCallback } from 'react';
-
 import File from '@/page/handover/note/component/File/File';
 import {
   fileBoxStyle,
@@ -12,28 +10,41 @@ import {
 import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
 
-interface TemplateProps {
-  onSubmit: () => void;
-}
+const Template = () => {
+  // const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setValues((prev) => ({
+  //     ...prev,
+  //     [id]: event.target.value,
+  //   }));
+  // };
 
-const Template = ({ onSubmit }: TemplateProps) => {
   const { files, handleFileChange } = useFile();
 
-  const handleFileUpload = useCallback(() => {
+  const handleFileUpload = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;
     fileInput?.click();
-  }, []);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // console.log('Submitted values:', values);
+
+    // mutate({ body: values });
+  };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={onSubmit}>
-      {TEMPLATE.map((item, index) => {
-        return (
-          <div css={layoutStyle} key={index}>
-            <Label id={item.id}>{item.QUESTION}</Label>
-            <Input id={item.id} placeholder={item.PLACEHOLDER} />
-          </div>
-        );
-      })}
+    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={handleSubmit}>
+      {TEMPLATE.map((item) => (
+        <div css={layoutStyle} key={item.id}>
+          <Label id={item.id}>{item.QUESTION}</Label>
+          <Input
+            id={item.id}
+            placeholder={item.PLACEHOLDER}
+            // value={values[item.id as keyof typeof values]}
+            // onChange={handleChange(item.id)}
+          />
+        </div>
+      ))}
 
       <div css={layoutStyle}>
         <Label id="file" css={guideStyle}>

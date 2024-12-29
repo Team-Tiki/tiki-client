@@ -4,7 +4,8 @@ import { useOverlay } from '@tiki/utils';
 
 import { useRef } from 'react';
 
-import { FILE_ICON, OPTION_ICON } from '@/shared/component/FileGrid/icon';
+import { components } from '@/shared/__generated__/schema';
+import { OPTION_ICON, getIconByType } from '@/shared/component/FileGrid/icon';
 import {
   cardStyle,
   iconWrapperStyle,
@@ -13,15 +14,13 @@ import {
   optionTextStyle,
   textStyle,
 } from '@/shared/component/FileGrid/index.style';
+import { File } from '@/shared/type/file';
 import { getFileVolume } from '@/shared/util/file';
 
-export type FileGridProps = {
+export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], 'documentId'> & {
   variant?: 'primary' | 'secondary';
-  title: string;
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
-  type: string;
-  volume: number;
-
+  type: File;
   isSelectable?: boolean;
   onSelect?: () => void;
   isSelected?: boolean;
@@ -35,20 +34,10 @@ export type FileGridProps = {
    */
 };
 
-const getIconByType = (type: string) => {
-  if (type === 'pdf') {
-    return FILE_ICON['pdf'];
-  } else if (type === 'word') {
-    return FILE_ICON['word'];
-  } else {
-    return FILE_ICON['image'];
-  }
-};
-
 const FileGrid = ({
-  title,
+  name,
+  capacity,
   type,
-  volume,
   variant = 'primary',
   isSelectable = false,
   onSelect,
@@ -81,7 +70,7 @@ const FileGrid = ({
         }}>
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
           <Heading css={nameStyle} tag="H3">
-            {title}
+            {name}
           </Heading>
           {variant === 'primary' && (
             <MenuRoot onClose={close}>
@@ -109,7 +98,7 @@ const FileGrid = ({
             {type} 문서
           </Text>
           <Text tag="body8" css={textStyle}>
-            {getFileVolume(volume)}
+            {getFileVolume(capacity ?? 0)}
           </Text>
         </Flex>
       </Flex>

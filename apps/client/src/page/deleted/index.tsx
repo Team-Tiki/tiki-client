@@ -1,4 +1,4 @@
-import { Button, Flex, Select } from '@tiki/ui';
+import { Button, Flex } from '@tiki/ui';
 import { useMultiSelect, useOverlay } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
@@ -8,7 +8,7 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { getFileType } from '@/shared/util/file';
+import { extractFileExtension } from '@/shared/util/file';
 
 interface FileData {
   documentId: number;
@@ -56,14 +56,6 @@ const DeletedPage = () => {
               선택
             </Button>
           )}
-          <Select
-            isOpen={isOpen}
-            css={{ width: '11rem' }}
-            variant="option"
-            options={[{ value: '최근 삭제 순' }, { value: '과거 삭제 순' }]}
-            defaultValue="최근 삭제 순"
-            onTrigger={toggle}
-          />
         </Flex>
       }>
       <div>
@@ -71,13 +63,32 @@ const DeletedPage = () => {
           {data?.data?.deletedDocuments.map((item) => (
             <FileGrid
               key={item.documentId}
-              title={item.name}
-              type={getFileType(item.name) || ''}
-              volume={item.capacity}
               isSelectable={canSelect}
               isSelected={ids.includes(+item.documentId)}
               onSelect={() => handleItemClick(+item.documentId)}
               isDeleted={true}
+              name={item.name}
+              url={item.url}
+              capacity={item.capacity}
+              createdTime={''}
+              type={
+                extractFileExtension(item.name) as
+                  | 'jpg'
+                  | 'jpeg'
+                  | 'png'
+                  | 'webp'
+                  | 'avif'
+                  | 'gif'
+                  | 'pdf'
+                  | 'txt'
+                  | 'hwp'
+                  | 'ppt'
+                  | 'pptx'
+                  | 'xls'
+                  | 'xlsx'
+                  | 'doc'
+                  | 'docx'
+              }
             />
           ))}
         </ul>
