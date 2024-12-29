@@ -15,9 +15,3 @@ export const getFileVolume = (volume: number) => {
 
   return `${volume.toFixed(2)}${units[index]}`;
 };
-
-export const getFileType = (fileName: string) => {
-  const type = fileName.split('.').pop();
-
-  return type;
-};
