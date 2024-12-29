@@ -12,12 +12,13 @@ const Header = () => {
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
   const isWorkspaceSettingPage = useMatch(PATH.WORKSPACE_SETTING);
+  const isOnBoardingPage = useMatch(PATH.ONBOARDING);
 
-  const isVisible = !isDashboardPage && !isWorkspaceSettingPage;
+  const isVisible = !isDashboardPage && !isWorkspaceSettingPage && !isOnBoardingPage;
 
   return (
     <header css={headerStyle}>
-      <Heading tag="H1">{title}</Heading>
+      {!isOnBoardingPage && <Heading tag="H1">{title}</Heading>}
 
       {isVisible && <RouteNav />}
     </header>

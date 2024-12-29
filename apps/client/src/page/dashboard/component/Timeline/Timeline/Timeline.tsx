@@ -1,5 +1,3 @@
-import { Button, Flex, Text } from '@tiki/ui';
-
 import { useNavigate } from 'react-router-dom';
 
 import { useDateContext } from '@/page/archiving/index/DateProvider';
@@ -19,26 +17,6 @@ const Timeline = () => {
   const teamId = useInitializeTeamId();
 
   const { currentYear, currentMonth, endDay } = useDateContext();
-
-  // teamId가 0이면 (가입되어 있는 팀이 없으면) 대체 뷰를 렌더링
-  if (teamId === 0) {
-    return (
-      <Flex styles={{ justify: 'center', align: 'center', direction: 'column' }}>
-        <Text>소속된 팀이 없습니다.</Text>
-        <Button
-          onClick={() => navigate(PATH.ROOT)}
-          css={{
-            marginTop: '1rem',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            border: 'none',
-            cursor: 'pointer',
-          }}>
-          랜딩페이지로 이동
-        </Button>
-      </Flex>
-    );
-  }
 
   const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/timeline', {
     params: {
