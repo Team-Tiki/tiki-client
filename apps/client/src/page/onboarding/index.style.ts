@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { theme } from '@tiki/ui';
 
 export const pageStyle = css({
   display: 'flex',
@@ -8,4 +9,8 @@ export const pageStyle = css({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+});
+
+export const textStyle = css({
+  color: theme.colors.gray_800,
 });

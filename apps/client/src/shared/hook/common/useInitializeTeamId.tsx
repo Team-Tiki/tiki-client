@@ -24,8 +24,6 @@ export const useInitializeTeamId = () => {
 
     const teamId = data.data?.belongTeamGetResponses[0].id ?? 0;
 
-    localStorage.setItem('teamId', teamId!.toString());
-
     if (teamId === 0) {
       navigate(PATH.ONBOARDING);
     }
