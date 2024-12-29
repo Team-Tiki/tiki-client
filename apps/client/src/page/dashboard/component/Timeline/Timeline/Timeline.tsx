@@ -18,6 +18,8 @@ const Timeline = () => {
 
   const teamId = useInitializeTeamId();
 
+  const { currentYear, currentMonth, endDay } = useDateContext();
+
   // teamId가 0이면 (가입되어 있는 팀이 없으면) 대체 뷰를 렌더링
   if (teamId === 0) {
     return (
@@ -37,8 +39,6 @@ const Timeline = () => {
       </Flex>
     );
   }
-
-  const { currentYear, currentMonth, endDay } = useDateContext();
 
   const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/timeline', {
     params: {
