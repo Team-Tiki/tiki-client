@@ -3,7 +3,8 @@ import { useTeamId } from '@/shared/store/team';
 
 export const useNoteData = (createdAt: string, sortOrder?: 'ASC' | 'DESC') => {
   const teamId = useTeamId();
-  const { data } = $api.useQuery('get', '/api/v1/notes/{teamId}', {
+
+  return $api.useQuery('get', '/api/v1/notes/{teamId}', {
     params: {
       path: {
         teamId,
@@ -14,6 +15,4 @@ export const useNoteData = (createdAt: string, sortOrder?: 'ASC' | 'DESC') => {
       },
     },
   });
-
-  return data;
 };
