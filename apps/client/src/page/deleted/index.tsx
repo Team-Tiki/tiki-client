@@ -1,5 +1,5 @@
 import { Button, Flex } from '@tiki/ui';
-import { useMultiSelect, useOverlay } from '@tiki/utils';
+import { useMultiSelect } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
 
@@ -8,6 +8,7 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
 interface FileData {
@@ -18,8 +19,6 @@ interface FileData {
 }
 
 const DeletedPage = () => {
-  const { isOpen, toggle } = useOverlay();
-
   const teamId = useInitializeTeamId();
 
   const { data } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
@@ -63,32 +62,15 @@ const DeletedPage = () => {
           {data?.data?.deletedDocuments.map((item) => (
             <FileGrid
               key={item.documentId}
-              isSelectable={canSelect}
-              isSelected={ids.includes(+item.documentId)}
-              onSelect={() => handleItemClick(+item.documentId)}
               isDeleted={true}
               name={item.name}
+              type={extractFileExtension(item.name) as File}
               url={item.url}
               capacity={item.capacity}
               createdTime={''}
-              type={
-                extractFileExtension(item.name) as
-                  | 'jpg'
-                  | 'jpeg'
-                  | 'png'
-                  | 'webp'
-                  | 'avif'
-                  | 'gif'
-                  | 'pdf'
-                  | 'txt'
-                  | 'hwp'
-                  | 'ppt'
-                  | 'pptx'
-                  | 'xls'
-                  | 'xlsx'
-                  | 'doc'
-                  | 'docx'
-              }
+              isSelectable={canSelect}
+              isSelected={ids.includes(+item.documentId)}
+              onSelect={() => handleItemClick(+item.documentId)}
             />
           ))}
         </ul>
