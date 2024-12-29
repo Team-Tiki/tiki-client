@@ -2,7 +2,15 @@ import { Button, Flex, Heading, Text } from '@tiki/ui';
 
 import { pageStyle } from '@/page/onboarding/index.style';
 
+import { useOpenModal } from '@/shared/store/modal';
+
 const OnBoardingPage = () => {
+  const openModal = useOpenModal();
+
+  const handleCreateWorkSpace = () => {
+    openModal('create-workspace');
+  };
+
   return (
     <Flex css={pageStyle}>
       <Heading tag="H5" css={{ fontWeight: 600 }}>
@@ -13,7 +21,9 @@ const OnBoardingPage = () => {
         <br />
         이미 생성된 워크스페이스가 있다면 초대 메일을 통해 팀 워크스페이스에 합류할 수 있습니다.
       </Text>
-      <Button size="small">워크스페이스 생성</Button>
+      <Button size="small" onClick={handleCreateWorkSpace}>
+        워크스페이스 생성
+      </Button>
     </Flex>
   );
 };
