@@ -56,7 +56,7 @@ const ProfileSetting = ({ nickName, onWorkspaceDataChange, error, onErrorChange 
         />
         <Select
           aria-label={`선택된 직책: ${select_options[0].value}`}
-          variant="outline"
+          variant="disabled"
           ref={ref}
           isOpen={isOpen}
           placeholder={select_options[0].value}

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
-import { ERROR_NAME } from '@/page/workspaceSetting/constant';
+import { ERROR_NAME, POSITION } from '@/page/workspaceSetting/constant';
 import {
   containerStyle,
   saveButtonStyle,
@@ -13,6 +13,8 @@ import {
   workspaceDeleteButton,
 } from '@/page/workspaceSetting/styles';
 
+import { $api } from '@/shared/api/client';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
@@ -50,6 +52,18 @@ const WorkspaceSettingPage = () => {
     }
   };
 
+  const teamId = useInitializeTeamId();
+
+  const { data } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
+
+  const position = data?.data?.position;
+  console.log(teamId);
   return (
     <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
       <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle}>
@@ -62,42 +76,45 @@ const WorkspaceSettingPage = () => {
         error={error.nicknameError}
         onErrorChange={handleErrorChange}
       />
-
-      <InfoSetting
-        workspaceName={workspaceData.workspaceName}
-        onWorkspaceDataChange={handleWorkspaceDataChange}
-        error={error.workspaceNameError}
-        onErrorChange={handleErrorChange}
-      />
-
-      <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
-        <Flex styles={{ direction: 'column', gap: '0.4rem' }}>
-          <Text tag="body6">팀 대표 이미지</Text>
-          <Text tag="body9" css={teamImageTextStyle}>
-            최소 360x360px 크기의 PNG 혹은 JPG 파일만 업로드 가능합니다.
-          </Text>
-        </Flex>
-
-        <Flex styles={{ align: 'center', gap: '1.2rem' }}>
-          {workspaceData.teamImage ? (
-            <img src={workspaceData.teamImage} alt="팀 대표" css={teamImageStyle} />
-          ) : (
-            <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle, teamImageTextStyle]}>
-              {workspaceData.workspaceName[0]}
+      {position === POSITION.EXCUTIVE && (
+        <>
+          <InfoSetting
+            workspaceName={workspaceData.workspaceName}
+            onWorkspaceDataChange={handleWorkspaceDataChange}
+            error={error.workspaceNameError}
+            onErrorChange={handleErrorChange}
+          />
+          <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
+            <Flex styles={{ direction: 'column', gap: '0.4rem' }}>
+              <Text tag="body6">팀 대표 이미지</Text>
+              <Text tag="body9" css={teamImageTextStyle}>
+                최소 360x360px 크기의 PNG 혹은 JPG 파일만 업로드 가능합니다.
+              </Text>
             </Flex>
-          )}
-          <Flex styles={{ gap: '0.4rem' }}>
-            <Button variant="outline" size="small">
-              삭제
-            </Button>
-            <Button variant="outline" size="small">
-              업로드
-            </Button>
+
+            <Flex styles={{ align: 'center', gap: '1.2rem' }}>
+              {workspaceData.teamImage ? (
+                <img src={workspaceData.teamImage} alt="팀 대표" css={teamImageStyle} />
+              ) : (
+                <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle, teamImageTextStyle]}>
+                  {workspaceData.workspaceName[0]}
+                </Flex>
+              )}
+              <Flex styles={{ gap: '0.4rem' }}>
+                <Button variant="outline" size="small">
+                  삭제
+                </Button>
+                <Button variant="outline" size="small">
+                  업로드
+                </Button>
+              </Flex>
+            </Flex>
           </Flex>
-        </Flex>
-      </Flex>
+        </>
+      )}
+
       <Button variant="outline" size="small" css={workspaceDeleteButton}>
-        워크스페이스 삭제
+        {position === POSITION.EXCUTIVE ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
       </Button>
     </form>
   );

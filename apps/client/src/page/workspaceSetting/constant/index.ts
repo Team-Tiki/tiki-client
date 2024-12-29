@@ -3,3 +3,8 @@ export const ERROR_NAME = {
   EMPTY: 'EMPTY',
   OVER_LENGTH: 'OVER_LENGTH',
 };
+
+export const POSITION = {
+  ADMIN: 'ADMIN',
+  EXCUTIVE: 'EXCUTIVE',
+};
