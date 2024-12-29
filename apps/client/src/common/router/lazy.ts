@@ -16,3 +16,4 @@ export const HandoverNotePage = lazy(() => import('@/page/handover/note/NotePage
 export const DashboardPage = lazy(() => import('@/page/dashboard/DashboardPage'));
 export const UnivFormPage = lazy(() => import('@/page/signUp/info/UnivFormPage'));
 export const CreateNotePage = lazy(() => import('@/page/handover/note/component/CreateNote/CreateNote'));
+export const OnBoardingPage = lazy(() => import('@/page/onboarding/index'));

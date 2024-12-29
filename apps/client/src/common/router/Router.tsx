@@ -15,6 +15,7 @@ import {
   InfoFormPage,
   LandingPage,
   LoginPage,
+  OnBoardingPage,
   PasswordAuthPage,
   PasswordResetPage,
   ShowcasePage,
@@ -194,6 +195,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <WorkspaceSettingPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.ONBOARDING,
+        element: (
+          <Suspense>
+            <OnBoardingPage />
           </Suspense>
         ),
       },
