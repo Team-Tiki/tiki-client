@@ -17,7 +17,7 @@ import { getVisibleTags } from '@/page/dashboard/util/alignTags';
 export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   content: string;
-  date: Date;
+  date: string;
   tags?: ListTag[];
 }
 
@@ -52,7 +52,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
         <Flex css={detailStyle}>
           <IcCalendarVer2 width={16} height={16} />
           <Text tag="body8" css={{ color: theme.colors.gray_800 }}>
-            {`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}
+            {`${date.substring(0, 2)}.${date.substring(3, 5)}.${date.substring(6, 8)}`}
           </Text>
         </Flex>
       </Flex>
