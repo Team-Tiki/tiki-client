@@ -1,11 +1,15 @@
 import { Flex } from '@tiki/ui';
 
+import { useMemo } from 'react';
+
 import { listItemStyle } from '@/page/dashboard/component/Handover/HandoverSection.style';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
 import { useNoteData } from '@/page/handover/hook/api/queries';
 
 const HandoverSection = () => {
-  const { data } = useNoteData(`${new Date().toISOString()}`);
+  const createdAt = useMemo(() => new Date().toISOString().slice(0, -1), []);
+
+  const { data } = useNoteData(createdAt, 'ASC');
 
   return (
     <Flex css={listItemStyle}>
