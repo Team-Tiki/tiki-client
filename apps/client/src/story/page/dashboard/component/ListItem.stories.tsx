@@ -26,7 +26,7 @@ const meta = {
   args: {
     title: '3차 정기 회의',
     content: '티키의 3번째 정기 회의록입니다. 티키의 3번째 정기 회의록입니다.',
-    date: new Date(),
+    date: '2024-12-30',
   },
 } satisfies Meta<typeof ListItem>;
 
