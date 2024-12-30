@@ -52,7 +52,7 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
         <Flex css={detailStyle}>
           <IcCalendarVer2 width={16} height={16} />
           <Text tag="body8" css={{ color: theme.colors.gray_800 }}>
-            {`${date.substring(0, 2)}.${date.substring(3, 5)}.${date.substring(6, 8)}`}
+            {`${date.substring(0, 4)}.${date.substring(5, 7)}.${date.substring(8, 10)}`}
           </Text>
         </Flex>
       </Flex>
