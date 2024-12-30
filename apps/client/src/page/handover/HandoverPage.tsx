@@ -9,10 +9,28 @@ import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
 import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
 
+import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 const HandoverPage = () => {
+  const teamId = useInitializeTeamId();
+  const date = new Date();
+
+  const { data } = $api.useQuery('get', '/api/v1/notes/{teamId}', {
+    params: {
+      query: {
+        createdAt: date,
+        sortOrder: 'DESC',
+      },
+      path: {
+        teamId,
+      },
+    },
+  });
+
+  console.log(data);
   const [sortOption, setSortOption] = useState('');
   const [searchValue, setSearchValue] = useState('');
 
