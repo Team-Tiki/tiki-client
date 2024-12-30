@@ -1,6 +1,6 @@
-import { Button, CommandButton, Flex, Spinner, Text } from '@tiki/ui';
+import { Button, CommandButton, Flex, Text } from '@tiki/ui';
 
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
