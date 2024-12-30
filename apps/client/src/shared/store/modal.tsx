@@ -1,17 +1,15 @@
 import { create } from 'zustand';
 
-interface DeleteModalData {
-  teamId: number;
-  itemId: number;
-  itemType: 'block' | 'docs';
+interface DeletedModalData {
+  itemType: 'trash' | 'permanent';
 }
 
 interface ModalState {
   isOpen: boolean;
   contentType: string | null;
-  modalData: DeleteModalData | null;
+  modalData: DeletedModalData | null;
   actions: {
-    openModal: (contentType: string, data?: DeleteModalData | null) => void;
+    openModal: (contentType: string, data?: DeletedModalData | null) => void;
     closeModal: () => void;
   };
 }
@@ -22,9 +20,12 @@ const useModalStore = create<ModalState>((set) => ({
   modalData: null,
   actions: {
     openModal: (contentType, data = null) => {
-      set({ isOpen: true, contentType, modalData: data });
+      set({
+        isOpen: true,
+        contentType,
+        modalData: data || null,
+      });
     },
-
     closeModal: () => set({ isOpen: false, contentType: null, modalData: null }),
   },
 }));
