@@ -1,49 +1,40 @@
 import { IcSearch } from '@tiki/icon';
 import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
-import { useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
+import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
-import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
+import { FILTER_OPTION, FILTER_ORDER, FILTER_TYPE, Note } from '@/page/handover/constant';
+import { useNoteData } from '@/page/handover/hook/api/queries';
 
-import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { PATH } from '@/shared/constant/path';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 const HandoverPage = () => {
-  const teamId = useInitializeTeamId();
-  const date = new Date();
+  const createdAt = useMemo(() => new Date().toISOString().slice(0, -1), []);
 
-  const { data } = $api.useQuery('get', '/api/v1/notes/{teamId}', {
-    params: {
-      query: {
-        createdAt: date,
-        sortOrder: 'DESC',
-      },
-      path: {
-        teamId,
-      },
-    },
-  });
+  const [sortOption, setSortOption] = useState<FILTER_TYPE>('ASC');
 
-  console.log(data);
-  const [sortOption, setSortOption] = useState('');
   const [searchValue, setSearchValue] = useState('');
+
+  const filterKeyword = useDebounce(searchValue, 400);
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const navigate = useNavigate();
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<
-    (typeof NOTE_DUMMY)[0]
-  >('id', NOTE_DUMMY);
+  const { data } = useNoteData(createdAt, sortOption);
+
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<Note>(
+    'noteId',
+    data?.data?.noteGetResponseList ?? []
+  );
 
   const handleSortOption = (id: string) => {
-    setSortOption(id);
+    setSortOption(FILTER_ORDER[id as keyof typeof FILTER_ORDER] as FILTER_TYPE);
 
     close();
   };
@@ -72,7 +63,7 @@ const HandoverPage = () => {
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
             <Button variant="tertiary" onClick={handleToggleSelect}>
-              선택
+              {canSelect ? '삭제' : '선택'}
             </Button>
           </Flex>
 
@@ -92,25 +83,27 @@ const HandoverPage = () => {
         </Flex>
       }>
       <NoteListHeader
-        isSelected={ids.length === NOTE_DUMMY.length}
+        isSelected={ids.length === data?.data?.noteGetResponseList.length}
         canSelect={canSelect}
         handleAllClick={handleAllClick}
       />
       <Divider />
       <ul>
-        {(sortOption === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (
-          <NoteItem
-            key={data.id}
-            startDate={data.startDate}
-            endDate={data.endDate}
-            title={data.title}
-            writer={data.writer}
-            isFinished={data.isFinished}
-            canSelect={canSelect}
-            isSelected={ids.includes(+data.id)}
-            onSelect={() => handleItemClick(+data.id)}
-          />
-        ))}
+        {data?.data?.noteGetResponseList
+          .filter((data) => data.title.includes(filterKeyword.trim()))
+          .map((data) => (
+            <NoteItem
+              key={data.noteId}
+              startDate={data.startDate}
+              endDate={data.endDate}
+              title={data.title}
+              author={data.author}
+              complete={data.complete}
+              canSelect={canSelect}
+              isSelected={ids.includes(+data.noteId)}
+              onSelect={() => handleItemClick(+data.noteId)}
+            />
+          ))}
       </ul>
     </ContentBox>
   );

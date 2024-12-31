@@ -24,6 +24,6 @@ export const profileStyle = css({
   backgroundColor: theme.colors.gray_300,
 });
 
-export const moreButtonStyle = css({
+export const closeButtonStyle = css({
   cursor: 'pointer',
 });
