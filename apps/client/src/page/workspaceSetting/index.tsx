@@ -1,4 +1,5 @@
 import { Button, CommandButton, Flex, Text } from '@tiki/ui';
+import path from 'path';
 
 import { useEffect, useRef, useState } from 'react';
 
@@ -43,6 +44,7 @@ const WorkspaceSettingPage = () => {
     collegeName: string;
     teamImage: string;
   });
+  const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
 
   useEffect(() => {
     if (data) {
@@ -79,6 +81,25 @@ const WorkspaceSettingPage = () => {
       handleErrorChange('workspaceNameError', ERROR_NAME.EMPTY);
       return;
     }
+
+    infoMutation(
+      {
+        body: { teamMemberName: 'string', teamName: 'RAH', teamUrl: '' },
+        params: {
+          path: {
+            teamId,
+          },
+        },
+      },
+      {
+        onSuccess: () => {
+          console.log('성공');
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
   };
 
   return (
