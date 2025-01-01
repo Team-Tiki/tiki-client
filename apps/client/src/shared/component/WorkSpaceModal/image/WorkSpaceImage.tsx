@@ -11,15 +11,15 @@ import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImag
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-interface WorkSpaceImageProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
+const WorkSpaceImage = () => {
   const { fileURL, imgUploadInput, handleImageChange, handleImageRemove } = useImageUpload();
-  const { nextStep, formData } = useWorkSpaceContext();
+
+  const { formData } = useWorkSpaceContext();
+  const { nextStep } = useFunnel();
+
   const { mutate: postTeamMutate } = usePostTeamMutation();
 
   const handleSave = () => {
@@ -36,8 +36,6 @@ const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
       }
     );
   };
-
-  if (!isVisible) return null;
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>

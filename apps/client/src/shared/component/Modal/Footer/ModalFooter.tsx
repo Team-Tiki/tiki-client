@@ -1,53 +1,77 @@
+import { Button, Flex } from '@tiki/ui';
+
 export interface FooterButton {
   text: string;
   onClick?: () => void;
-  variant: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'underline';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text';
   disabled?: boolean;
 }
 
-export const getFooterContent = (
+interface ModalFooterProps {
+  contentType: string;
+  step?: number;
+  buttonClick?: () => void;
+  closeModal?: () => void;
+  isButtonActive?: boolean;
+}
+
+export const ModalFooter = ({
+  contentType,
+  step = 1,
+  buttonClick,
+  closeModal,
+  isButtonActive = true,
+}: ModalFooterProps) => {
+  const buttons = ModalFooterButtons(contentType, step, buttonClick, closeModal, isButtonActive);
+
+  return (
+    <Flex styles={{ gap: '1rem', justify: 'flex-end' }}>
+      {buttons.map((button, index) => (
+        <Button key={index} onClick={button.onClick} disabled={button.disabled} variant={button.variant}>
+          {button.text}
+        </Button>
+      ))}
+    </Flex>
+  );
+};
+
+const ModalFooterButtons = (
   contentType: string,
   step: number,
   buttonClick?: () => void,
   closeModal?: () => void,
   isButtonActive: boolean = true
 ): FooterButton[] => {
+  const createButton = (
+    text: string,
+    onClick?: () => void,
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text',
+    disabled?: boolean
+  ): FooterButton => ({ text, onClick, variant, disabled });
+
   switch (contentType) {
     case 'create-workspace':
       return [
-        step >= 3 ? { text: '건너뛰기', onClick: buttonClick, variant: 'outline' } : false,
-        {
-          text: step === 4 ? '확인' : '다음으로',
-          onClick: buttonClick,
-          variant: 'primary',
-          disabled: !isButtonActive,
-        },
+        step >= 3 ? createButton('건너뛰기', buttonClick, 'outline') : null,
+        createButton(step === 4 ? '확인' : '다음으로', buttonClick, 'primary', !isButtonActive),
       ].filter(Boolean) as FooterButton[];
 
-    /* 디자인 확정시 추후 수정 필요 */
     case 'create-block':
-      return [
-        { text: '취소', onClick: closeModal, variant: 'outline' },
-        { text: '다음으로', onClick: buttonClick, variant: 'primary' },
-      ];
+      return [createButton('취소', closeModal, 'outline'), createButton('다음으로', buttonClick, 'primary')];
 
     case 'deleted':
-      return [
-        { text: '취소', onClick: closeModal, variant: 'outline' },
-        { text: '삭제', onClick: buttonClick, variant: 'primary' },
-      ];
+      return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];
 
     case 'invite':
       return [
-        { text: '취소', onClick: closeModal, variant: 'outline' },
-        { text: '초대', onClick: buttonClick, variant: 'primary', disabled: !isButtonActive },
+        createButton('취소', closeModal, 'outline'),
+        createButton('초대', buttonClick, 'primary', !isButtonActive),
       ];
+
     case 'member-tag':
     case 'activity-tag':
-      return [
-        { text: '취소', onClick: closeModal, variant: 'outline' },
-        { text: '완료', onClick: buttonClick, variant: 'primary' },
-      ];
+      return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];
+
     default:
       return [];
   }

@@ -8,15 +8,14 @@ import {
   inputWrapperStyle,
   sectionStyle,
 } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-interface WorkSpaceNameProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
+const WorkSpaceName = () => {
   const [inputValue, setInputValue] = useState('');
-  const { setFormData, nextStep } = useWorkSpaceContext();
+
+  const { setFormData } = useWorkSpaceContext();
+  const { nextStep } = useFunnel();
 
   const handleNext = () => {
     setFormData({ name: inputValue });
@@ -28,8 +27,6 @@ const WorkSpaceName = ({ isVisible }: WorkSpaceNameProps) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-
-  if (!isVisible) return null;
 
   return (
     <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>

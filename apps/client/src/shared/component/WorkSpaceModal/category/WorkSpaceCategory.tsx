@@ -6,16 +6,14 @@ import { useEffect, useState } from 'react';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { buttonStyle, sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
-interface WorkSpaceCategoryProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
+const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
 
-  const { setFormData, nextStep } = useWorkSpaceContext();
+  const { setFormData } = useWorkSpaceContext();
+  const { nextStep } = useFunnel();
 
   const ref = useOutsideClick<HTMLDivElement>(close);
 
@@ -44,8 +42,6 @@ const WorkSpaceCategory = ({ isVisible }: WorkSpaceCategoryProps) => {
       window.removeEventListener('mousedown', handleMouseDown);
     };
   }, [isOpen, close, ref]);
-
-  if (!isVisible) return null;
 
   const handleSelect = (id: string) => {
     setSelected(id);

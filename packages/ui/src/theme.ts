@@ -1,5 +1,3 @@
-import { css } from "@emotion/react";
-
 const colors = {
   black: "#0E121B",
   black_shade: "linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%)",
@@ -146,13 +144,15 @@ export const theme = {
   shadow,
 };
 
-export const scrollStyle = css`
-  ::-webkit-scrollbar {
-    width: 0.8rem;
-    height: 0.8rem;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${theme.colors.gray_300};
-    border-radius: 10rem;
-  }
-`;
+export const scrollStyle = {
+  "::-webkit-scrollbar": {
+    width: "0.8rem",
+  },
+  "::-webkit-scrollbar-thumb": {
+    background: theme.colors.gray_300,
+    borderRadius: "10rem",
+  },
+  "::-webkit-scrollbar-track": {
+    background: "transparent",
+  },
+};

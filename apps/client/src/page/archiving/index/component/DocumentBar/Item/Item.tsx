@@ -8,7 +8,6 @@ import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useOpenModal } from '@/shared/store/modal';
 
 interface ItemProps {
   documentId: number;
@@ -22,8 +21,6 @@ interface ItemProps {
 const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
   const teamId = useInitializeTeamId();
 
-  const openModal = useOpenModal();
-
   const onClickDocumentItem = () => {
     window.open(fileUrl);
   };
@@ -35,8 +32,6 @@ const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
 
   const handleTrashBoxClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-
-    openModal('delete', { teamId: teamId, itemId: documentId, itemType: 'docs' });
   };
 
   return (

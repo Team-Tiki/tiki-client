@@ -9,7 +9,6 @@ import { DocumentType } from '@/page/archiving/index/type/documentType';
 import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useOpenModal } from '@/shared/store/modal';
 
 interface SelectedProps {
   selectedBlock: Block;
@@ -24,11 +23,7 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
   const startDate = formattingDate(selectedBlock.startDate);
   const endDate = formattingDate(selectedBlock.endDate);
 
-  const openModal = useOpenModal();
-
-  const handleDeleteClick = () => {
-    openModal('delete', { teamId: teamId, itemId: selectedBlock.timeBlockId, itemType: 'block' });
-  };
+  const handleDeleteClick = () => {};
 
   return (
     <Flex tag="section" styles={{ direction: 'column', gap: '0.8rem', padding: '1.6rem' }}>

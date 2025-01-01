@@ -8,6 +8,8 @@ import { PLACEHOLDER } from '@/shared/constant/form';
 const InfoFormPage = () => {
   const { info, handleInfoChange, handleSubmit } = useInfoForm();
 
+  const handleDateChange = () => {};
+
   return (
     <Flex tag="main" css={pageStyle}>
       <form onSubmit={handleSubmit} css={formStyle}>
@@ -20,7 +22,7 @@ const InfoFormPage = () => {
             label="이름"
             placeholder={PLACEHOLDER.NAME}
           />
-          <DatePicker label="생년월일" variant="single" triggerWidth="100%" />
+          <DatePicker variant="single" triggerWidth="100%" onChange={handleDateChange} />
 
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input

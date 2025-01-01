@@ -1,5 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { DatePicker } from '@tiki/ui';
+
+import { useState } from 'react';
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Common/DatePicker',
@@ -11,12 +13,49 @@ const meta: Meta<typeof DatePicker> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const SingleDatePicker: Story = {
-  render: () => <DatePicker label="데이트피커" variant="single" triggerWidth="10.3rem" />,
+export const SingleDatePicker = {
+  render: () => {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+
+    const handleDateChange = (start: Date | null, end: Date | null) => {
+      setSelectedDate(start);
+      setEndDate(end);
+    };
+    return (
+      <>
+        <DatePicker
+          variant="single"
+          triggerWidth="10.3rem"
+          onChange={handleDateChange}
+          defaultSelectedDate={new Date('2024-05-12')}
+        />
+      </>
+    );
+  },
 };
 
-export const RangeDatePicker: Story = {
-  render: () => <DatePicker label="데이트피커" variant="range" triggerWidth="10.3rem" />,
+export const RangeDatePicker = {
+  render: () => {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+
+    const handleDateChange = (start: Date | null, end: Date | null) => {
+      setSelectedDate(start);
+      setEndDate(end);
+    };
+
+    return (
+      <>
+        <DatePicker
+          variant="range"
+          triggerWidth="10.3rem"
+          onChange={handleDateChange}
+          defaultSelectedDate={new Date('2024-05-12')}
+          defaultEndDate={new Date('2024-05-17')}
+        />
+      </>
+    );
+  },
 };

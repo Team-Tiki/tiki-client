@@ -7,13 +7,7 @@ import complete from '@/common/asset/img/workspace_complete.webp';
 import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
 import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
 
-interface WorkSpaceCompleteProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceComplete = ({ isVisible }: WorkSpaceCompleteProps) => {
-  if (!isVisible) return null;
-
+const WorkSpaceComplete = () => {
   return (
     <Flex
       tag={'section'}
