@@ -3,21 +3,25 @@ import { useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { containerStyle } from '@/page/workspaceSetting/component/styles';
 import { ERROR_NAME } from '@/page/workspaceSetting/constant';
+import { hasRecentUpdates } from '@/page/workspaceSetting/util';
 
 import { SUPPORTING_TEXT } from '@/shared/constant/form';
 import { Validate } from '@/shared/util/validate';
 
 interface InfoSettingProps {
-  workspaceName: string;
+  teamName: string;
+  namingUpdatedAt: string;
   onWorkspaceDataChange: (key: string, value: string) => void;
   error: string;
   onErrorChange: (key: string, value: string) => void;
 }
 const select_options = [{ value: '건국대학교' }];
 
-const InfoSetting = ({ workspaceName, onWorkspaceDataChange, error, onErrorChange }: InfoSettingProps) => {
+const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, onErrorChange }: InfoSettingProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
+
+  const isChangeTeamName = hasRecentUpdates(namingUpdatedAt ?? '');
 
   const handleNameChange = (value: string) => {
     if (Validate.validateLength(value, 30) || Validate.isEmpty(value)) {
@@ -28,7 +32,7 @@ const InfoSetting = ({ workspaceName, onWorkspaceDataChange, error, onErrorChang
       onErrorChange('workspaceNameError', ERROR_NAME.OVER_LENGTH);
     }
 
-    onWorkspaceDataChange('workspaceName', value);
+    onWorkspaceDataChange('teamName', value);
   };
 
   const defineSupportigtext = (errorName: string) => {
@@ -49,7 +53,8 @@ const InfoSetting = ({ workspaceName, onWorkspaceDataChange, error, onErrorChang
       <Text tag="body6">워크스페이스 관리</Text>
       <Flex styles={{ gap: '1.6rem', marginTop: '1.2rem', maxWidth: '68.8rem' }}>
         <Input
-          value={workspaceName}
+          value={teamName}
+          isDisabled={!isChangeTeamName}
           supportingText={defineSupportigtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
           onClick={() => handleNameChange('')}
@@ -57,7 +62,7 @@ const InfoSetting = ({ workspaceName, onWorkspaceDataChange, error, onErrorChang
           isError={error !== ERROR_NAME.VALIDATE}
         />
         <Select
-          aria-label={`선택된 아이템: ${workspaceName}`}
+          aria-label={`선택된 아이템: ${teamName}`}
           variant="disabled"
           ref={ref}
           isOpen={isOpen}

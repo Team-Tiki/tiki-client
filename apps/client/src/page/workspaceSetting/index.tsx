@@ -26,7 +26,8 @@ const WorkspaceSettingPage = () => {
     teamName: '',
     university: '건국대학교',
     teamIconUrl: '',
-  } as MemberType & Omit<TeamType, 'namingUpdatedAt'>);
+    namingUpdatedAt: '',
+  } as MemberType & TeamType);
 
   const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
 
@@ -104,6 +105,7 @@ const WorkspaceSettingPage = () => {
         },
       }
     );
+
     if (workspaceData.position === POSITION.ADMIN) {
       infoMutation(
         {
@@ -143,7 +145,8 @@ const WorkspaceSettingPage = () => {
       {workspaceData.position === POSITION.ADMIN && (
         <>
           <InfoSetting
-            workspaceName={workspaceData.teamName}
+            teamName={workspaceData.teamName}
+            namingUpdatedAt={workspaceData.namingUpdatedAt}
             onWorkspaceDataChange={handleWorkspaceDataChange}
             error={error.workspaceNameError}
             onErrorChange={handleErrorChange}
