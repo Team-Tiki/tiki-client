@@ -18,13 +18,9 @@ export const useInitializeTeamId = () => {
   });
 
   if (isSuccess && !localStorage.getItem('teamId')) {
-    if (data.data?.belongTeamGetResponses.length === 0) {
-      navigate(PATH.ONBOARDING);
-    }
-
     const teamId = data.data?.belongTeamGetResponses[0].id ?? 0;
 
-    if (teamId === 0) {
+    if (data.data?.belongTeamGetResponses.length === 0 || teamId === 0) {
       navigate(PATH.ONBOARDING);
     }
 
