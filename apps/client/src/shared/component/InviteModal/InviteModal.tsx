@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { inputWrapperStyle, scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
-import { useCloseModal } from '@/shared/store/modal';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 
-const InviteModal = () => {
+const InviteModal = ({ step }: { step: number }) => {
   const [inputValue, setInputValue] = useState('');
   const [inviteList, setInviteList] = useState<string[]>([]);
 
-  const closeModal = useCloseModal();
-
   const isButtonActive = inputValue.trim().length > 0;
+
+  const { nextStep } = useFunnel();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -32,7 +32,7 @@ const InviteModal = () => {
 
   return (
     <>
-      <Modal.Header />
+      <Modal.Header step={step} />
       <Modal.Body>
         <Flex styles={{ direction: 'column', gap: '2rem', width: '100%' }}>
           <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem', width: '100%' }}>
@@ -66,7 +66,13 @@ const InviteModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="invite" buttonClick={closeModal} isButtonActive={!isButtonActive} />
+      <Modal.Footer
+        contentType="invite"
+        buttonClick={() => {
+          nextStep();
+        }}
+        isButtonActive={!isButtonActive}
+      />
     </>
   );
 };

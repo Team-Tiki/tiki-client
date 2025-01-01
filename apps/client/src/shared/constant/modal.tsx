@@ -26,25 +26,47 @@ export const isModalContentType = (type: string | null): type is ModalContentTyp
 
 export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
   'create-workspace': {
-    steps: 4,
+    steps: 5,
     headers: [
       {
         icon: (step: number, totalSteps: number) =>
-          step === totalSteps ? <IcWorkspaceSuccess width={40} height={40} /> : <span>{`${step}/${totalSteps}`}</span>,
+          step === totalSteps + 1 ? (
+            <IcWorkspaceSuccess width={40} height={40} />
+          ) : (
+            <span>{`${step}/${totalSteps}`}</span>
+          ),
         title: '워크스페이스 이름 입력',
         infoText: '워크스페이스 이름을 입력해주세요.',
       },
       {
         icon: (step: number, totalSteps: number) =>
-          step === totalSteps ? <IcWorkspaceSuccess width={40} height={40} /> : <span>{`${step}/${totalSteps}`}</span>,
+          step === totalSteps + 1 ? (
+            <IcWorkspaceSuccess width={40} height={40} />
+          ) : (
+            <span>{`${step}/${totalSteps}`}</span>
+          ),
         title: '카테고리 선택',
         infoText: '카테고리를 선택해주세요.',
       },
       {
         icon: (step: number, totalSteps: number) =>
-          step === totalSteps ? <IcWorkspaceSuccess width={40} height={40} /> : <span>{`${step}/${totalSteps}`}</span>,
+          step === totalSteps + 1 ? (
+            <IcWorkspaceSuccess width={40} height={40} />
+          ) : (
+            <span>{`${step}/${totalSteps}`}</span>
+          ),
         title: '프로필 이미지 등록',
         infoText: '프로필 이미지를 등록해주세요.',
+      },
+      {
+        icon: (step: number, totalSteps: number) =>
+          step === totalSteps + 1 ? (
+            <IcWorkspaceSuccess width={40} height={40} />
+          ) : (
+            <span>{`${step}/${totalSteps}`}</span>
+          ),
+        title: '팀원 초대',
+        infoText: '워크스페이스에 팀원을 초대할 수 있습니다.',
       },
       {
         icon: (step: number, totalSteps: number) =>

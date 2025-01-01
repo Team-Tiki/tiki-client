@@ -25,9 +25,14 @@ export const ModalFooter = ({
   const buttons = ModalFooterButtons(contentType, step, buttonClick, closeModal, isButtonActive);
 
   return (
-    <Flex styles={{ gap: '1rem', justify: 'flex-end' }}>
+    <Flex style={{ gap: '1.6rem', justifyContent: 'flex-end' }}>
       {buttons.map((button, index) => (
-        <Button key={index} onClick={button.onClick} disabled={button.disabled} variant={button.variant}>
+        <Button
+          key={index}
+          onClick={button.onClick}
+          disabled={button.disabled}
+          variant={button.variant}
+          css={{ width: '100%' }}>
           {button.text}
         </Button>
       ))}
@@ -53,7 +58,7 @@ const ModalFooterButtons = (
     case 'create-workspace':
       return [
         step >= 3 ? createButton('건너뛰기', buttonClick, 'outline') : null,
-        createButton(step === 4 ? '확인' : '다음으로', buttonClick, 'primary', !isButtonActive),
+        createButton(step === 5 ? '확인' : '다음으로', buttonClick, 'primary', !isButtonActive),
       ].filter(Boolean) as FooterButton[];
 
     case 'create-block':
@@ -64,8 +69,8 @@ const ModalFooterButtons = (
 
     case 'invite':
       return [
-        createButton('취소', closeModal, 'outline'),
-        createButton('초대', buttonClick, 'primary', !isButtonActive),
+        createButton('건너뛰기', buttonClick, 'outline', false),
+        createButton('다음으로', buttonClick, 'primary', !isButtonActive),
       ];
 
     case 'member-tag':

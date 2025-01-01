@@ -8,32 +8,12 @@ import {
   imageDeleteStyle,
 } from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
 import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImageUpload';
-import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
-import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 const WorkSpaceImage = () => {
   const { fileURL, imgUploadInput, handleImageChange, handleImageRemove } = useImageUpload();
 
-  const { formData } = useWorkSpaceContext();
   const { nextStep } = useFunnel();
-
-  const { mutate: postTeamMutate } = usePostTeamMutation();
-
-  const handleSave = () => {
-    postTeamMutate(
-      {
-        name: formData.name,
-        category: formData.category,
-        iconImageUrl: formData.fileUrlData,
-      },
-      {
-        onSuccess: async () => {
-          nextStep();
-        },
-      }
-    );
-  };
 
   const isButtonActive = !!fileURL;
 
@@ -60,7 +40,12 @@ const WorkSpaceImage = () => {
           onChange={handleImageChange}
         />
       </Modal.Body>
-      <Modal.Footer step={3} contentType="create-workspace" buttonClick={handleSave} isButtonActive={isButtonActive} />
+      <Modal.Footer
+        step={3}
+        contentType="create-workspace"
+        buttonClick={() => nextStep()}
+        isButtonActive={isButtonActive}
+      />
     </>
   );
 };
