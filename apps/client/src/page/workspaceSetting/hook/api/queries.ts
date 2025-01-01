@@ -12,3 +12,15 @@ export const usePositionData = () => {
     },
   });
 };
+
+export const useTeamData = () => {
+  const teamId = useInitializeTeamId();
+
+  return $api.useQuery('get', '/api/v1/teams/{teamId}/inform', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
+};

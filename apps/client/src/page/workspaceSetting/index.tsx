@@ -1,12 +1,11 @@
 import { Button, CommandButton, Flex, Text } from '@tiki/ui';
-import path from 'path';
 
 import { useEffect, useState } from 'react';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
 import { ERROR_NAME, POSITION } from '@/page/workspaceSetting/constant';
-import { usePositionData } from '@/page/workspaceSetting/hook/api/queries';
+import { usePositionData, useTeamData } from '@/page/workspaceSetting/hook/api/queries';
 import {
   containerStyle,
   saveButtonStyle,
@@ -14,26 +13,30 @@ import {
   teamImageTextStyle,
   workspaceDeleteButton,
 } from '@/page/workspaceSetting/styles';
-import { MemberType } from '@/page/workspaceSetting/type';
+import { MemberType, TeamType } from '@/page/workspaceSetting/type';
 
+import { $api } from '@/shared/api/client';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
-  // 추후 워크스페이스 api 붙일때 타입 수정 예정
   const [workspaceData, setWorkspaceData] = useState({
     name: '',
     position: 'MEMBER',
-    workspaceName: '',
-    collegeName: '',
-    teamImage: '',
-  } as MemberType & {
-    workspaceName: string;
-    collegeName: string;
-    teamImage: string;
-  });
+    teamName: '',
+    university: '건국대학교',
+    teamIconUrl: '',
+  } as MemberType & Omit<TeamType, 'namingUpdatedAt'>);
+
+  const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
+
   const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
 
   const { data } = usePositionData();
+
+  const { data: teamData } = useTeamData();
+
+  const teamId = useInitializeTeamId();
 
   useEffect(() => {
     if (data?.success) {
@@ -44,6 +47,16 @@ const WorkspaceSettingPage = () => {
       }));
     }
   }, [data]);
+
+  useEffect(() => {
+    if (teamData?.success) {
+      setWorkspaceData((prev) => ({
+        ...prev,
+        teamName: teamData?.data?.teamName ?? '',
+        teamIconUrl: teamData?.data?.teamIconUrl ?? '',
+      }));
+    }
+  }, [teamData]);
 
   const [error, setError] = useState({
     nicknameError: ERROR_NAME.VALIDATE,
@@ -66,14 +79,16 @@ const WorkspaceSettingPage = () => {
       return;
     }
 
-    if (Validate.isEmpty(workspaceData.workspaceName)) {
+    if (Validate.isEmpty(workspaceData.teamName)) {
       handleErrorChange('workspaceNameError', ERROR_NAME.EMPTY);
       return;
     }
 
-    infoMutation(
+    nameMutation(
       {
-        body: { teamMemberName: 'string', teamName: 'RAH', teamUrl: '' },
+        body: {
+          newName: workspaceData.name,
+        },
         params: {
           path: {
             teamId,
@@ -82,13 +97,33 @@ const WorkspaceSettingPage = () => {
       },
       {
         onSuccess: () => {
-          console.log('성공');
+          console.log('이름 변경 성공');
         },
         onError: (error) => {
           console.log(error);
         },
       }
     );
+    if (workspaceData.position === POSITION.ADMIN) {
+      infoMutation(
+        {
+          body: { teamName: 'aaa', teamUrl: '' },
+          params: {
+            path: {
+              teamId,
+            },
+          },
+        },
+        {
+          onSuccess: () => {
+            console.log('팀 정보 변경 성공');
+          },
+          onError: (error) => {
+            console.log(error);
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -108,7 +143,7 @@ const WorkspaceSettingPage = () => {
       {workspaceData.position === POSITION.ADMIN && (
         <>
           <InfoSetting
-            workspaceName={workspaceData.workspaceName}
+            workspaceName={workspaceData.teamName}
             onWorkspaceDataChange={handleWorkspaceDataChange}
             error={error.workspaceNameError}
             onErrorChange={handleErrorChange}
@@ -122,11 +157,11 @@ const WorkspaceSettingPage = () => {
             </Flex>
 
             <Flex styles={{ align: 'center', gap: '1.2rem' }}>
-              {workspaceData.teamImage ? (
-                <img src={workspaceData.teamImage} alt="팀 대표" css={teamImageStyle} />
+              {workspaceData.teamIconUrl ? (
+                <img src={workspaceData.teamIconUrl} alt="팀 대표" css={teamImageStyle} />
               ) : (
                 <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle, teamImageTextStyle]}>
-                  {workspaceData.workspaceName[0]}
+                  {workspaceData.teamName[0]}
                 </Flex>
               )}
               <Flex styles={{ gap: '0.4rem' }}>
