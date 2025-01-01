@@ -8,6 +8,7 @@ import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
 interface ItemProps {
+  documentId: number;
   children?: ReactNode;
   blockName?: string;
   fileUrl: string;
