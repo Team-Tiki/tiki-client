@@ -1,6 +1,6 @@
 import { Button, CommandButton, Flex, Text } from '@tiki/ui';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
@@ -26,8 +26,7 @@ const WorkspaceSettingPage = () => {
     teamName: '',
     university: '건국대학교',
     teamIconUrl: '',
-    namingUpdatedAt: '',
-  } as MemberType & TeamType);
+  } as MemberType & Omit<TeamType, 'namingUpdatedAt'>);
 
   const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
 
@@ -40,6 +39,21 @@ const WorkspaceSettingPage = () => {
   const { data } = usePositionData();
 
   const { data: teamData } = useTeamData();
+
+  const initialData = useRef<MemberType & Omit<TeamType, 'namingUpdatedAt'>>();
+
+  if (data?.success && teamData?.success) {
+    initialData.current = {
+      name: data?.data?.name ?? '',
+      position: data?.data?.position ?? 'MEMBER',
+      teamName: teamData?.data?.teamName ?? '',
+      university: teamData?.data?.university ?? '건국대학교',
+      teamIconUrl: teamData?.data?.teamIconUrl ?? '',
+    };
+  }
+
+  // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
+  const isSubmitable = JSON.stringify(initialData.current) !== JSON.stringify(workspaceData);
 
   const teamId = useInitializeTeamId();
 
@@ -113,7 +127,7 @@ const WorkspaceSettingPage = () => {
     if (workspaceData.position === POSITION.ADMIN) {
       infoMutation(
         {
-          body: { teamName: 'aaa', teamUrl: '' },
+          body: { teamName: workspaceData.teamName, teamUrl: workspaceData.teamIconUrl },
           params: {
             path: {
               teamId,
@@ -169,7 +183,7 @@ const WorkspaceSettingPage = () => {
 
   return (
     <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
-      <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle}>
+      <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle} disabled={!isSubmitable}>
         저장
       </CommandButton>
 
@@ -185,7 +199,7 @@ const WorkspaceSettingPage = () => {
         <>
           <InfoSetting
             teamName={workspaceData.teamName}
-            namingUpdatedAt={workspaceData.namingUpdatedAt}
+            namingUpdatedAt={teamData?.data?.namingUpdatedAt ?? ''}
             onWorkspaceDataChange={handleWorkspaceDataChange}
             error={error.workspaceNameError}
             onErrorChange={handleErrorChange}
