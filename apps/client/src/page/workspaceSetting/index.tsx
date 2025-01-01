@@ -1,11 +1,12 @@
 import { Button, CommandButton, Flex, Text } from '@tiki/ui';
 import path from 'path';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
 import { ERROR_NAME, POSITION } from '@/page/workspaceSetting/constant';
+import { usePositionData } from '@/page/workspaceSetting/hook/api/queries';
 import {
   containerStyle,
   saveButtonStyle,
@@ -15,23 +16,9 @@ import {
 } from '@/page/workspaceSetting/styles';
 import { MemberType } from '@/page/workspaceSetting/type';
 
-import { $api } from '@/shared/api/client';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
-  const teamId = useInitializeTeamId();
-
-  useRef();
-
-  const { data } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
-    params: {
-      path: {
-        teamId,
-      },
-    },
-  });
-
   // 추후 워크스페이스 api 붙일때 타입 수정 예정
   const [workspaceData, setWorkspaceData] = useState({
     name: '',
@@ -46,8 +33,10 @@ const WorkspaceSettingPage = () => {
   });
   const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
 
+  const { data } = usePositionData();
+
   useEffect(() => {
-    if (data) {
+    if (data?.success) {
       setWorkspaceData((prev) => ({
         ...prev,
         name: data.data?.name ?? '',
