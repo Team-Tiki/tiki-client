@@ -47,8 +47,8 @@ const App = () => {
 
   return (
     <>
-      <ModalFunnel />
       <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
+        <ModalFunnel />
         <SideNavBar />
         <div css={layoutStyle}>
           <main css={outletStyle}>

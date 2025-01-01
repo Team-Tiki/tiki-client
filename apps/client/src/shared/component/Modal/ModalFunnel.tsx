@@ -1,11 +1,10 @@
-import { Modal } from '@tiki/ui';
-
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
 import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
+import { Modal } from '@/shared/component/Modal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
