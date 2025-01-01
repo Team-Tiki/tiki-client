@@ -1,5 +1,7 @@
 import { Modal } from '@tiki/ui';
 
+import { Suspense } from 'react';
+
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
 import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
@@ -23,34 +25,44 @@ const ModalFunnel = () => {
     switch (contentType) {
       case 'create-workspace':
         return (
-          <WorkSpaceProvider>
-            <WorkSpaceFlow />
-          </WorkSpaceProvider>
+          <Suspense>
+            <WorkSpaceProvider>
+              <WorkSpaceFlow />
+            </WorkSpaceProvider>
+          </Suspense>
         );
       case 'create-block':
         return (
-          <BlockProvider>
-            <BlockFlow />
-          </BlockProvider>
+          <Suspense>
+            <BlockProvider>
+              <BlockFlow />
+            </BlockProvider>
+          </Suspense>
         );
       case 'deleted':
         return (
-          <FunnelStep step={1}>
-            <DeletedModal />
-          </FunnelStep>
+          <Suspense>
+            <FunnelStep step={1}>
+              <DeletedModal />
+            </FunnelStep>
+          </Suspense>
         );
 
       case 'member-tag':
         return (
-          <FunnelStep step={1}>
-            <MemberTagModal />
-          </FunnelStep>
+          <Suspense>
+            <FunnelStep step={1}>
+              <MemberTagModal />
+            </FunnelStep>
+          </Suspense>
         );
       case 'activity-tag':
         return (
-          <FunnelStep step={1}>
-            <ActivityTagModal />
-          </FunnelStep>
+          <Suspense>
+            <FunnelStep step={1}>
+              <ActivityTagModal />
+            </FunnelStep>
+          </Suspense>
         );
       default:
         return null;
