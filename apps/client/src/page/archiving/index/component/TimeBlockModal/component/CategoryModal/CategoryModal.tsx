@@ -14,19 +14,18 @@ import { useFunnel } from '@/shared/hook/common/useFunnel';
 const CategoryModal = () => {
   const [selectedIcon, setSelectedIcon] = useState<number>(-1);
 
-  const { formData, setFormData } = useBlockContext();
+  const { setFormData } = useBlockContext();
   const { nextStep } = useFunnel();
 
   const isButtonActive = selectedIcon !== -1;
 
   const handleNext = () => {
     if (isButtonActive) {
-      const blockIconType = BLOCK_CATEGORY[selectedIcon].name;
+      const blockIconType = BLOCK_CATEGORY[selectedIcon].type;
       setFormData({
         blockType: blockIconType,
-        startDate: formData.startDate,
-        endDate: formData.endDate,
       });
+
       nextStep();
     }
   };

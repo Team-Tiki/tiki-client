@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 import {
   boxStyle,
   buttonStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/Upload/File/Add/BlockAdd.style';
+} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Add/BlockAdd.style';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';

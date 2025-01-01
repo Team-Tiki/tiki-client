@@ -1,5 +1,7 @@
 import { DatePicker, Flex, Input, Text, theme } from '@tiki/ui';
 
+import { useState } from 'react';
+
 import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
 
 import { Modal } from '@/shared/component/Modal';
@@ -7,22 +9,33 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
 const BlockInfoModal = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
   const { formData, setFormData } = useBlockContext();
   const { nextStep } = useFunnel();
 
-  const isButtonActive = formData.blockName.trim() !== '';
+  const isButtonActive = formData.name.trim() !== '' && !!selectedDate && !!endDate;
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {
-      setFormData({ blockName: e.target.value });
+      setFormData({
+        name: e.target.value,
+        startDate: selectedDate?.toISOString(),
+        endDate: endDate?.toISOString(),
+      });
     }
   };
 
-  const handleDateChange = () => {};
+  const handleDateChange = (start: Date | null, end: Date | null) => {
+    setSelectedDate(start);
+    setEndDate(end);
+  };
 
   const handleNext = () => {
     if (isButtonActive) {
       setFormData({
+        name: formData.name,
         startDate: formData.startDate,
         endDate: formData.endDate,
       });
@@ -39,11 +52,11 @@ const BlockInfoModal = () => {
             <Input
               placeholder="ex.활동명"
               css={{ width: '100%' }}
-              value={formData.blockName}
+              value={formData.name}
               onChange={handleBlockNameChange}
             />
             <Text tag="body8" css={{ color: theme.colors.gray_700 }}>
-              {formData.blockName.length} / 25
+              {formData.name.length} / 25
             </Text>
           </Flex>
         </BlockBox>
