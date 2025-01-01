@@ -11,12 +11,14 @@ interface BlockInfoProps {
 }
 
 const BlockInfo = ({ title, startDate, endDate, isEditable }: BlockInfoProps) => {
+  const handleDateChange = () => {};
+
   return (
     <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem', width: '100%' }}>
       {isEditable ? <Input css={titleInputStyle} value={title} /> : <Heading tag="H6">{title}</Heading>}
 
       {isEditable ? (
-        <DatePicker variant="range" triggerWidth="100%" />
+        <DatePicker onChange={handleDateChange} variant="range" triggerWidth="100%" />
       ) : (
         <Text tag="body6" css={periodStyle}>
           {formattingDate(startDate)} ~ {formattingDate(endDate)}
