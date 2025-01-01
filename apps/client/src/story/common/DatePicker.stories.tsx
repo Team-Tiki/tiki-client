@@ -16,8 +16,8 @@ export default meta;
 
 export const SingleDatePicker = {
   render: () => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
+    const [, setSelectedDate] = useState<Date | null>(null);
+    const [, setEndDate] = useState<Date | null>(null);
 
     const handleDateChange = (start: Date | null, end: Date | null) => {
       setSelectedDate(start);
@@ -38,8 +38,8 @@ export const SingleDatePicker = {
 
 export const RangeDatePicker = {
   render: () => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
+    const [, setSelectedDate] = useState<Date | null>(null);
+    const [, setEndDate] = useState<Date | null>(null);
 
     const handleDateChange = (start: Date | null, end: Date | null) => {
       setSelectedDate(start);

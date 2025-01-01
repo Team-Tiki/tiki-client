@@ -13,6 +13,8 @@ const meta: Meta<typeof ModalFunnel> = {
 
 type Story = StoryObj<typeof meta>;
 
+export default meta;
+
 export const Deleted: Story = {
   render: () => {
     const openModal = useOpenModal();

@@ -7,10 +7,7 @@ import { ReactNode } from 'react';
 import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
 import { downloadDocument } from '@/page/archiving/index/util/document';
 
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-
 interface ItemProps {
-  documentId: number;
   children?: ReactNode;
   blockName?: string;
   fileUrl: string;
@@ -18,9 +15,7 @@ interface ItemProps {
   fileName: string;
 }
 
-const Item = ({ documentId, children, fileUrl, fileName }: ItemProps) => {
-  const teamId = useInitializeTeamId();
-
+const Item = ({ children, fileUrl, fileName }: ItemProps) => {
   const onClickDocumentItem = () => {
     window.open(fileUrl);
   };

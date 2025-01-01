@@ -56,7 +56,7 @@ const MemberTagModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="member-tag" buttonClick={closeModal} isButtonActive={!isButtonActive}></Modal.Footer>
+      <Modal.Footer contentType="member-tag" buttonClick={closeModal} isButtonActive={!isButtonActive} />
     </>
   );
 };

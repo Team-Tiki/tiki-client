@@ -6,6 +6,7 @@ import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
 import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
+import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
@@ -47,7 +48,14 @@ const ModalFunnel = () => {
             </FunnelStep>
           </Suspense>
         );
-
+      case 'invite':
+        return (
+          <Suspense>
+            <FunnelStep step={1}>
+              <InviteModal step={1} />
+            </FunnelStep>
+          </Suspense>
+        );
       case 'member-tag':
         return (
           <Suspense>
