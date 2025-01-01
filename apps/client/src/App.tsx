@@ -46,17 +46,19 @@ const App = () => {
   };
 
   return (
-    <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
+    <>
       <ModalFunnel />
-      <SideNavBar />
-      <div css={layoutStyle}>
-        <main css={outletStyle}>
-          <Header />
-          <Outlet />
-        </main>
-        <TimeBlockDrawer />
-      </div>
-    </ErrorBoundary>
+      <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
+        <SideNavBar />
+        <div css={layoutStyle}>
+          <main css={outletStyle}>
+            <Header />
+            <Outlet />
+          </main>
+          <TimeBlockDrawer />
+        </div>
+      </ErrorBoundary>
+    </>
   );
 };
 

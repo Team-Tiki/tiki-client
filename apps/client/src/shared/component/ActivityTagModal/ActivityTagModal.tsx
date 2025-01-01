@@ -1,10 +1,10 @@
 import { IcSearch } from '@tiki/icon';
-import { Flex, Input, Text, scrollStyle } from '@tiki/ui';
+import { Flex, Input, Text } from '@tiki/ui';
 
 import { useState } from 'react';
 
 import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
-import { textStyle } from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem.style';
+import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import { Modal } from '@/shared/component/Modal';
 import { ACITIVITY_TAG_DATA } from '@/shared/constant';
 import { useCloseModal } from '@/shared/store/modal';

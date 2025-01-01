@@ -26,7 +26,6 @@ export const FunnelProvider = ({ children }: { children: ReactNode }) => {
   const nextStep = useCallback(() => {
     setCurrentStep((prev) => {
       const next = prev < totalSteps ? prev + 1 : prev;
-      console.log('Next step:', next); // 디버깅용
       return next;
     });
   }, [totalSteps]);
@@ -34,25 +33,20 @@ export const FunnelProvider = ({ children }: { children: ReactNode }) => {
   const prevStep = useCallback(() => {
     setCurrentStep((prev) => {
       const prevStep = prev > 1 ? prev - 1 : prev;
-      console.log('Previous step:', prevStep); // 디버깅용
       return prevStep;
     });
   }, []);
 
   const resetSteps = useCallback(() => {
-    console.log('Reset steps'); // 디버깅용
     setCurrentStep(1);
   }, []);
 
   const setTotalSteps = useCallback((steps: number) => {
-    console.log('Setting total steps:', steps); // 디버깅용
     setTotalStepsState(steps);
     setCurrentStep(1);
   }, []);
 
-  useEffect(() => {
-    console.log('Current step updated:', currentStep); // 디버깅용
-  }, [currentStep]);
+  useEffect(() => {}, [currentStep]);
 
   return (
     <FunnelContext.Provider value={{ currentStep, totalSteps, nextStep, prevStep, resetSteps, setTotalSteps }}>

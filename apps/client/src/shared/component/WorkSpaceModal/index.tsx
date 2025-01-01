@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage';
@@ -8,7 +10,9 @@ import { FunnelStep } from '@/shared/util/funnelStep';
 export const WorkSpaceFlow = () => {
   const { setTotalSteps } = useFunnel();
 
-  setTotalSteps(4);
+  useEffect(() => {
+    setTotalSteps(4);
+  }, [setTotalSteps]);
 
   return (
     <>
