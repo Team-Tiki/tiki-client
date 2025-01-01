@@ -1,4 +1,4 @@
-import { Flex, useToastAction } from '@tiki/ui';
+import { Flex } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
@@ -8,7 +8,6 @@ import {
   flexStyle,
   scrollContainerStyle,
 } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal.style';
-import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
 
 import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
@@ -17,6 +16,7 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
+// Modal 컴포넌트 내에서 size prop 전달
 const UploadModal = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<Files>({});
@@ -29,9 +29,6 @@ const UploadModal = () => {
   const closeModal = useCloseModal();
 
   const { mutate: timeblockMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block', {});
-  const { mutate: fileDeleteMutate } = useDeleteFileMutation();
-
-  const { createToast } = useToastAction();
 
   useEffect(() => {
     const allUploaded =
@@ -48,33 +45,6 @@ const UploadModal = () => {
     });
     setIsAllUploaded(false);
   };
-
-  // const handleDelete = (fileName: string) => {
-  //   const fileToDelete = files.find((file) => file.name === fileName);
-  //   if (fileToDelete) {
-  //     fileDeleteMutate(
-  //       { fileName: fileToDelete.name },
-  //       {
-  //         onSuccess: () => {
-  //           setFiles((prevFiles) => {
-  //             const updatedFiles = prevFiles.filter((file) => file.name !== fileName);
-  //             return updatedFiles;
-  //           });
-  //           setFileUrls((prevUrls) => {
-  //             const newUrls = { ...prevUrls };
-  //             delete newUrls[fileName];
-  //             return newUrls;
-  //           });
-  //           setUploadStatus((prevStatus) => {
-  //             const newStatus = { ...prevStatus };
-  //             delete newStatus[fileName];
-  //             return newStatus;
-  //           });
-  //         },
-  //       }
-  //     );
-  //   }
-  // };
 
   const data = {
     name: formData.name,
@@ -98,13 +68,12 @@ const UploadModal = () => {
       },
       body: {
         ...data,
-        blockType: formData.blockType as 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC',
       },
     });
   };
 
   return (
-    <>
+    <Modal isOpen={true} size="large" onClose={closeModal}>
       <Modal.Header step={2} />
       <Modal.Body>
         <Flex css={flexStyle}>
@@ -127,8 +96,6 @@ const UploadModal = () => {
                 <BlockItem
                   key={`${file.name}-${file.lastModified}`}
                   title={file.name}
-                  // onDelete={() => handleDelete(file.name)}
-                  /* 임의의 값 넣었음! 추후 서버 로직 다시 짤때 바꿀것!!*/
                   fileSize="2.4MB"
                   uploadedSize="0.2MB"
                   isUploading={!uploadStatus[file.name]}
@@ -139,7 +106,7 @@ const UploadModal = () => {
         </Flex>
       </Modal.Body>
       <Modal.Footer step={3} contentType="create-block" buttonClick={handleSave} />
-    </>
+    </Modal>
   );
 };
 

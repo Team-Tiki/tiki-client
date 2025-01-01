@@ -1,3 +1,4 @@
+import { IcFileUpload } from '@tiki/icon';
 import { Button, Flex, Text } from '@tiki/ui';
 
 import { Dispatch, SetStateAction } from 'react';
@@ -39,19 +40,17 @@ const BlockAdd = ({ files, onFilesChange, setFileUrls, setUploadStatus }: BlockA
       onDrop={(event) => handleDrop(event)}>
       <Flex tag={'form'} styles={{ direction: 'column', align: 'center', justify: 'center' }}>
         <input type="file" multiple style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
-        <Text tag="body6">업로드할 파일을 여기로 드래그 하세요</Text>
+        <IcFileUpload width={32} height={32} css={{ marginBottom: '1.2rem' }} />
+        <Text tag="body6">업로드할 파일을 끌어다 놓으세요.</Text>
         <Flex
-          styles={{ direction: 'row', align: 'center', justify: 'center', gap: '0.3rem' }}
-          css={{ marginTop: '1.6rem', whiteSpace: 'nowrap' }}>
-          <Text tag="body6">또는</Text>
-          <Button variant="text" css={buttonStyle} onClick={() => fileInputRef.current?.click()}>
-            여기를 클릭
-          </Button>
-          <Text tag="body6">하여</Text>
+          styles={{ direction: 'column', align: 'center', justify: 'center', gap: '0.8rem' }}
+          css={{ margin: '1.6rem 0 2rem 0', whiteSpace: 'nowrap' }}>
+          <Text tag="body8">JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.</Text>
+          <Text tag="body8">최대 파일 크기는 50MB입니다.</Text>
         </Flex>
-        <Text tag="body6" css={{ marginTop: '0.5rem' }}>
-          업로드할 파일을 선택하세요
-        </Text>
+        <Button variant="outline" css={buttonStyle} onClick={() => fileInputRef.current?.click()}>
+          파일 브라우저
+        </Button>
       </Flex>
     </Flex>
   );

@@ -6,7 +6,6 @@ interface BlockItemProps {
   title: string;
   fileSize: string;
   uploadedSize: string;
-  // onDelete: () => void;
   isUploading: boolean;
 }
 
@@ -27,7 +26,6 @@ const BlockItem = ({ title, fileSize, uploadedSize }: BlockItemProps) => {
           direction: 'row',
           align: 'center',
         }}>
-        {/* <File width={44} height={44} /> */}
         <Flex styles={{ direction: 'column', align: 'flex-start', gap: '0.6rem' }}>
           <Text tag="body8">{title}</Text>
           <Text tag="body8" css={textStyle}>

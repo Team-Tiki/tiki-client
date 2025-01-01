@@ -41,6 +41,7 @@ export { default as IcEventGray } from './src/IcEventGray';
 export { default as IcFile } from "./src/IcFile";
 export { default as IcFileDelete } from "./src/IcFileDelete";
 export { default as IcFileRound } from "./src/IcFileRound";
+export { default as IcFileUpload } from "./src/IcFileUpload";
 export { default as IcFolder } from "./src/IcFolder";
 export { default as IcFolderCopy } from "./src/IcFolderCopy";
 export { default as IcFolderLarge } from "./src/IcFolderLarge";
