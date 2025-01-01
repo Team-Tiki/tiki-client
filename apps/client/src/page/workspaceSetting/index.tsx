@@ -33,6 +33,10 @@ const WorkspaceSettingPage = () => {
 
   const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
 
+  const { mutate: teamDeleteMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}');
+
+  const { mutate: teamLeaveMutation } = $api.useMutation('delete', '/api/v1/team-member/teams/{teamId}/leave');
+
   const { data } = usePositionData();
 
   const { data: teamData } = useTeamData();
@@ -128,6 +132,41 @@ const WorkspaceSettingPage = () => {
     }
   };
 
+  const handleDeleteClick = () => {
+    if (workspaceData.position === POSITION.ADMIN) {
+      teamDeleteMutation(
+        {
+          params: {
+            path: {
+              teamId,
+            },
+          },
+        },
+        {
+          onSuccess: () => {
+            console.log('팀 삭제 성공');
+          },
+        }
+      );
+      return;
+    }
+
+    teamLeaveMutation(
+      {
+        params: {
+          path: {
+            teamId,
+          },
+        },
+      },
+      {
+        onSuccess: () => {
+          console.log('팀 탈퇴 성공');
+        },
+      }
+    );
+  };
+
   return (
     <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
       <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle}>
@@ -180,7 +219,7 @@ const WorkspaceSettingPage = () => {
         </>
       )}
 
-      <Button variant="outline" size="small" css={workspaceDeleteButton}>
+      <Button variant="outline" size="small" css={workspaceDeleteButton} onClick={handleDeleteClick}>
         {workspaceData.position === POSITION.ADMIN ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
       </Button>
     </form>
