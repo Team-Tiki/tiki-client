@@ -34,6 +34,7 @@ export { default as IcDelete } from "./src/IcDelete";
 export { default as IcDeleteFile } from "./src/IcDeleteFile";
 export { default as IcDown } from "./src/IcDown";
 export { default as IcDownload } from "./src/IcDownload";
+export { default as IcEtc } from "./src/IcEtc";
 export { default as IcEvent } from "./src/IcEvent";
 export { default as IcEventCircle } from "./src/IcEventCircle";
 export { default as IcEventGray } from './src/IcEventGray';
@@ -106,4 +107,5 @@ export { default as LogoMail } from "./src/LogoMail";
 export { default as LogoSymbol } from "./src/LogoSymbol";
 export { default as LogoTikiMd } from "./src/LogoTikiMd";
 export { default as LogoTikiSm } from "./src/LogoTikiSm";
+
 

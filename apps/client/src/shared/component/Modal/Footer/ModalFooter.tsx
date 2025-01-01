@@ -62,7 +62,19 @@ const ModalFooterButtons = (
       ].filter(Boolean) as FooterButton[];
 
     case 'create-block':
-      return [createButton('취소', closeModal, 'outline'), createButton('다음으로', buttonClick, 'primary')];
+      if (step === 1) {
+        return [createButton('다음', buttonClick, 'primary', !isButtonActive)];
+      }
+      if (step === 2 || step === 3) {
+        return [
+          createButton('이전', closeModal, 'outline'),
+          createButton('다음', buttonClick, 'primary', !isButtonActive),
+        ];
+      }
+      return [
+        createButton('이전', closeModal, 'outline'),
+        createButton('생성', buttonClick, 'primary', !isButtonActive),
+      ];
 
     case 'deleted':
       return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];
