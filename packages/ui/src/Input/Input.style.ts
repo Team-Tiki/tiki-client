@@ -1,52 +1,55 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import { theme } from "@/theme";
+import { theme } from '@/theme';
 
 export const containerStyle = css({
-  display: "flex",
-  flexDirection: "column",
-  gap: "0.2rem",
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.2rem',
 
-  width: "100%",
+  width: '100%',
 
-  "&>label": {
-    margin: "0 0 1rem",
+  '&>label': {
+    margin: '0 0 1rem',
   },
 });
 
-export const inputStyle = css({
-  width: "100%",
-
-  border: "none",
-  backgroundColor: "transparent",
-  fontWeight: 400,
-  ...theme.text.body06,
-
-  outline: "none",
-
-  "::placeholder": {
-    color: theme.colors.gray_500,
-    ...theme.text.body06,
-  },
-});
-
-export const contentStyle = (isFilled: boolean) =>
+export const inputStyle = (isDisabled: boolean) =>
   css({
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
+    width: '100%',
 
-    position: "relative",
+    border: 'none',
 
-    height: "4rem",
+    backgroundColor: isDisabled ? theme.colors.gray_100 : 'none',
+    color: isDisabled ? theme.colors.gray_500 : 'inherit',
+    fontWeight: 400,
+    ...theme.text.body06,
 
-    padding: "1.3rem 1.2rem",
+    outline: 'none',
 
-    backgroundColor: isFilled ? theme.colors.gray_100 : "none",
+    '::placeholder': {
+      color: theme.colors.gray_500,
+      ...theme.text.body06,
+    },
+  });
+
+export const contentStyle = (isFilled: boolean, isDisabled: boolean) =>
+  css({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+
+    position: 'relative',
+
+    height: '4rem',
+
+    padding: '1.3rem 1.2rem',
+
+    backgroundColor: isFilled || isDisabled ? theme.colors.gray_100 : 'none',
     boxShadow: theme.shadow.inset,
-    borderRadius: "8px",
+    borderRadius: '8px',
 
-    "&:focus-within": {
+    '&:focus-within': {
       boxShadow: theme.shadow.inset_focus,
     },
   });
