@@ -349,7 +349,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["updateTeamAndTeamMemberInform"];
+        patch: operations["updateTeamInform"];
         trace?: never;
     };
     "/api/v1/teams/{teamId}/folders/{folderId}": {
@@ -901,8 +901,7 @@ export interface components {
             message: string;
             data?: components["schemas"]["SignInGetResponse"];
         };
-        TeamMemberAndTeamInformUpdateRequest: {
-            teamMemberName: string;
+        TeamInformUpdateRequest: {
             teamName: string;
             teamUrl: string;
         };
@@ -1037,6 +1036,8 @@ export interface components {
             /** @enum {string} */
             university: "건국대학교";
             teamIconUrl: string;
+            /** Format: date */
+            namingUpdatedAt: string;
         };
         FolderInfoGetResponse: {
             /** Format: int64 */
@@ -2622,7 +2623,7 @@ export interface operations {
             };
         };
     };
-    updateTeamAndTeamMemberInform: {
+    updateTeamInform: {
         parameters: {
             query?: never;
             header?: never;
@@ -2633,7 +2634,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TeamMemberAndTeamInformUpdateRequest"];
+                "application/json": components["schemas"]["TeamInformUpdateRequest"];
             };
         };
         responses: {

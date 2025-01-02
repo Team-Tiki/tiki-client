@@ -3,6 +3,7 @@ import { theme } from '@tiki/ui';
 
 export const inputWrapperStyle = css({
   width: '68.1rem',
+
   height: '4rem',
 });
 
