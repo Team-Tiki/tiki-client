@@ -20,7 +20,6 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
-  // 추후 워크스페이스 api 붙일때 타입 수정 예정
   const [workspaceData, setWorkspaceData] = useState({
     name: '',
     position: 'MEMBER',
@@ -54,7 +53,7 @@ const WorkspaceSettingPage = () => {
   }
 
   // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
-  const isSubmitable = JSON.stringify(initialData.current) !== JSON.stringify(workspaceData);
+  const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(workspaceData);
 
   const teamId = useInitializeTeamId();
 
@@ -79,8 +78,8 @@ const WorkspaceSettingPage = () => {
   }, [teamData]);
 
   const [error, setError] = useState({
-    nicknameError: ERROR_NAME.VALIDATE,
-    workspaceNameError: ERROR_NAME.VALIDATE,
+    nameError: ERROR_NAME.VALIDATE,
+    teamNameError: ERROR_NAME.VALIDATE,
   });
 
   const handleWorkspaceDataChange = (key: string, value: string) => {
@@ -95,96 +94,62 @@ const WorkspaceSettingPage = () => {
     e.preventDefault();
 
     if (Validate.isEmpty(workspaceData.name)) {
-      handleErrorChange('nicknameError', ERROR_NAME.EMPTY);
+      handleErrorChange('nameError', ERROR_NAME.EMPTY);
       return;
     }
 
     if (Validate.isEmpty(workspaceData.teamName)) {
-      handleErrorChange('workspaceNameError', ERROR_NAME.EMPTY);
+      handleErrorChange('teamNameError', ERROR_NAME.EMPTY);
       return;
     }
 
-    nameMutation(
-      {
-        body: {
-          newName: workspaceData.name,
+    nameMutation({
+      body: {
+        newName: workspaceData.name,
+      },
+      params: {
+        path: {
+          teamId,
         },
+      },
+    });
+
+    if (workspaceData.position === POSITION.ADMIN) {
+      infoMutation({
+        body: { teamName: workspaceData.teamName, teamUrl: workspaceData.teamIconUrl },
         params: {
           path: {
             teamId,
           },
         },
-      },
-      {
-        onSuccess: () => {
-          console.log('이름 변경 성공');
-        },
-        onError: (error) => {
-          console.log(error);
-        },
-      }
-    );
-
-    if (workspaceData.position === POSITION.ADMIN) {
-      infoMutation(
-        {
-          body: { teamName: workspaceData.teamName, teamUrl: workspaceData.teamIconUrl },
-          params: {
-            path: {
-              teamId,
-            },
-          },
-        },
-        {
-          onSuccess: () => {
-            console.log('팀 정보 변경 성공');
-          },
-          onError: (error) => {
-            console.log(error);
-          },
-        }
-      );
+      });
     }
   };
 
   const handleDeleteClick = () => {
     if (workspaceData.position === POSITION.ADMIN) {
-      teamDeleteMutation(
-        {
-          params: {
-            path: {
-              teamId,
-            },
-          },
-        },
-        {
-          onSuccess: () => {
-            console.log('팀 삭제 성공');
-          },
-        }
-      );
-      return;
-    }
-
-    teamLeaveMutation(
-      {
+      teamDeleteMutation({
         params: {
           path: {
             teamId,
           },
         },
-      },
-      {
-        onSuccess: () => {
-          console.log('팀 탈퇴 성공');
+      });
+      return;
+    }
+
+    teamLeaveMutation({
+      params: {
+        path: {
+          teamId,
         },
-      }
-    );
+      },
+    });
   };
 
   return (
     <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
-      <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle} disabled={!isSubmitable}>
+      <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle} disabled={!canSubmit}>
         저장
       </CommandButton>
 
@@ -192,7 +157,7 @@ const WorkspaceSettingPage = () => {
         name={workspaceData.name}
         position={workspaceData.position}
         onWorkspaceDataChange={handleWorkspaceDataChange}
-        error={error.nicknameError}
+        error={error.nameError}
         onErrorChange={handleErrorChange}
       />
 
@@ -202,7 +167,7 @@ const WorkspaceSettingPage = () => {
             teamName={workspaceData.teamName}
             namingUpdatedAt={teamData?.data?.namingUpdatedAt ?? ''}
             onWorkspaceDataChange={handleWorkspaceDataChange}
-            error={error.workspaceNameError}
+            error={error.teamNameError}
             onErrorChange={handleErrorChange}
           />
           <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
