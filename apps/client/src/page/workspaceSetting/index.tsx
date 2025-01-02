@@ -20,6 +20,7 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
+  // 추후 워크스페이스 api 붙일때 타입 수정 예정
   const [workspaceData, setWorkspaceData] = useState({
     name: '',
     position: 'MEMBER',

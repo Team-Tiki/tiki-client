@@ -26,6 +26,8 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   };
   const handleChangeStatus = useCallback(() => {}, []);
 
+  const handleDateChange = () => {};
+
   return (
     <aside css={entireInfoStyle}>
       <input
@@ -90,7 +92,7 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>
-          <DatePicker variant="range" triggerWidth="12" />
+          <DatePicker onChange={handleDateChange} variant="range" triggerWidth="12" />
         </li>
       </ul>
     </aside>
