@@ -19,14 +19,11 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
-interface UploadModalProps {
-  isVisible: boolean;
-}
-
-const UploadModal = ({ isVisible }: UploadModalProps) => {
+const UploadModal = () => {
   const teamId = useInitializeTeamId();
 
-  const { formData, reset } = useBlockContext();
+  const { formData, resetFormData } = useBlockContext();
+
   const closeModal = useCloseModal();
 
   const [files, setFiles] = useState<File[]>([]);
@@ -81,8 +78,6 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
     }
   };
 
-  if (!isVisible) return null;
-
   const data = {
     name: formData.blockName,
     color: getRandomColor(),
@@ -97,7 +92,7 @@ const UploadModal = ({ isVisible }: UploadModalProps) => {
       onSuccess: () => {
         createToast('활동 블록이 생성되었습니다', 'success');
         closeModal();
-        reset();
+        resetFormData();
       },
     });
   };

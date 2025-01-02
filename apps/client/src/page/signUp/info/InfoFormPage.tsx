@@ -23,7 +23,6 @@ const InfoFormPage = () => {
             placeholder={PLACEHOLDER.NAME}
           />
           <DatePicker onChange={handleDateChange} variant="single" triggerWidth="100%" />
-
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
               name="password"

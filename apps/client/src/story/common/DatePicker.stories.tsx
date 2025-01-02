@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { DatePicker } from '@tiki/ui';
 
 import { useState } from 'react';
@@ -13,9 +13,8 @@ const meta: Meta<typeof DatePicker> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const SingleDatePicker: Story = {
+export const SingleDatePicker = {
   render: () => {
     const [, setSelectedDate] = useState<Date | null>(null);
     const [, setEndDate] = useState<Date | null>(null);
@@ -24,7 +23,6 @@ export const SingleDatePicker: Story = {
       setSelectedDate(start);
       setEndDate(end);
     };
-
     return (
       <>
         <DatePicker
@@ -38,7 +36,7 @@ export const SingleDatePicker: Story = {
   },
 };
 
-export const RangeDatePicker: Story = {
+export const RangeDatePicker = {
   render: () => {
     const [, setSelectedDate] = useState<Date | null>(null);
     const [, setEndDate] = useState<Date | null>(null);
