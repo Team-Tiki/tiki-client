@@ -92,10 +92,18 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     ],
   },
   'create-block': {
-    steps: 2,
+    steps: 4,
     headers: [
-      { icon: <IcBlockCreate width={40} height={40} />, title: '타임블록 생성', infoText: '블록 정보를 입력해주세요.' },
-      { icon: <IcBlockCreate width={40} height={40} />, title: '파일 업로드', infoText: '파일을 업로드해주세요.' },
+      {
+        icon: <IcBlockCreate width={40} height={40} />,
+        title: '타임 블록 생성',
+        infoText: '블록 정보를 입력해주세요.',
+      },
+      {
+        icon: <IcBlockCreate width={40} height={40} />,
+        title: '타임 블록 생성',
+        infoText: '타임라인에 추가할 파일을 선택해주세요.',
+      },
     ],
     buttons: [
       [
@@ -104,7 +112,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       ],
       [
         { text: '취소', variant: 'outline' },
-        { text: '완료', variant: 'primary' },
+        { text: '업로드', variant: 'primary' },
       ],
     ],
   },

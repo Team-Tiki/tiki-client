@@ -32,6 +32,7 @@ export { default as IcCommandKey } from "./src/IcCommandKey";
 export { default as IcDefaultProfile } from "./src/IcDefaultProfile";
 export { default as IcDelete } from "./src/IcDelete";
 export { default as IcDeleteFile } from "./src/IcDeleteFile";
+export { default as IcDocument } from "./src/IcDocument";
 export { default as IcDown } from "./src/IcDown";
 export { default as IcDownload } from "./src/IcDownload";
 export { default as IcEtc } from "./src/IcEtc";
