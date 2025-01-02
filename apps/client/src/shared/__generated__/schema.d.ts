@@ -4,742 +4,742 @@
  */
 
 export interface paths {
-  '/api/v1/teams': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 전체 팀 조회
+         * @description 가입한 대학의 전체 팀을 조회한다.
+         */
+        get: operations["getAllTeams"];
+        put?: never;
+        /**
+         * 팀 생성
+         * @description 팀을 생성한다.
+         */
+        post: operations["createTeam"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 전체 팀 조회
-     * @description 가입한 대학의 전체 팀을 조회한다.
-     */
-    get: operations['getAllTeams'];
-    put?: never;
-    /**
-     * 팀 생성
-     * @description 팀을 생성한다.
-     */
-    post: operations['createTeam'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/trash': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/trash": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 휴지통 조회
+         * @description 휴지통을 조회한다.
+         */
+        get: operations["getTrash"];
+        put?: never;
+        /**
+         * 휴지통 문서 복구
+         * @description 휴지통 속 문서를 여러 개 복구한다.
+         */
+        post: operations["restore"];
+        /**
+         * 휴지통 문서 삭제
+         * @description 휴지통 속 문서를 여러 개 삭제한다.
+         */
+        delete: operations["deleteTrash"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 휴지통 조회
-     * @description 휴지통을 조회한다.
-     */
-    get: operations['getTrash'];
-    put?: never;
-    /**
-     * 휴지통 문서 복구
-     * @description 휴지통 속 문서를 여러 개 복구한다.
-     */
-    post: operations['restore'];
-    /**
-     * 휴지통 문서 삭제
-     * @description 휴지통 속 문서를 여러 개 삭제한다.
-     */
-    delete: operations['deleteTrash'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/time-block': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/time-block": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 타임 블록 생성
+         * @description 타임 블록을 생성한다.
+         */
+        post: operations["createTimeBlock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 타임 블록 생성
-     * @description 타임 블록을 생성한다.
-     */
-    post: operations['createTimeBlock'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/time-block/{timeBlockId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/time-block/{timeBlockId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 타임 블록 상세 조회
+         * @description 타임 블록을 상세 조회한다.
+         */
+        get: operations["getTimeBlockDetail"];
+        put?: never;
+        /**
+         * 타임 블록 파일 태그 추가
+         * @description 타임 블록에 파일 태그를 추가한다.
+         */
+        post: operations["createDocumentTag"];
+        /**
+         * 타임 블록 삭제
+         * @description 타임 블록을 삭제한다.
+         */
+        delete: operations["deleteTimeBlock"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 타임 블록 상세 조회
-     * @description 타임 블록을 상세 조회한다.
-     */
-    get: operations['getTimeBlockDetail'];
-    put?: never;
-    /**
-     * 타임 블록 파일 태그 추가
-     * @description 타임 블록에 파일 태그를 추가한다.
-     */
-    post: operations['createDocumentTag'];
-    /**
-     * 타임 블록 삭제
-     * @description 타임 블록을 삭제한다.
-     */
-    delete: operations['deleteTimeBlock'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/folders': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/folders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 폴더 조회
+         * @description 폴더를 여러 개 조회한다.
+         */
+        get: operations["getFolders"];
+        put?: never;
+        /**
+         * 폴더 생성
+         * @description 폴더를 생성한다.
+         */
+        post: operations["createFolder"];
+        /**
+         * 폴더 삭제
+         * @description 폴더를 여러 개 삭제한다.
+         */
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 폴더 조회
-     * @description 폴더를 여러 개 조회한다.
-     */
-    get: operations['getFolders'];
-    put?: never;
-    /**
-     * 폴더 생성
-     * @description 폴더를 생성한다.
-     */
-    post: operations['createFolder'];
-    /**
-     * 폴더 삭제
-     * @description 폴더를 여러 개 삭제한다.
-     */
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/documents': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 문서 조회
+         * @description 문서를 조회한다.
+         */
+        get: operations["getDocuments"];
+        put?: never;
+        /**
+         * 문서 생성
+         * @description 문서를 여러 개 생성한다.
+         */
+        post: operations["createDocuments"];
+        /**
+         * 문서 삭제
+         * @description 문서를 여러 개 삭제한다.
+         */
+        delete: operations["delete_1"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 문서 조회
-     * @description 문서를 조회한다.
-     */
-    get: operations['getDocuments'];
-    put?: never;
-    /**
-     * 문서 생성
-     * @description 문서를 여러 개 생성한다.
-     */
-    post: operations['createDocuments'];
-    /**
-     * 문서 삭제
-     * @description 문서를 여러 개 삭제한다.
-     */
-    delete: operations['delete_1'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/template': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 템플릿 노트 생성
+         * @description 새로운 템플릿 형식 노트를 생성한다.
+         */
+        post: operations["createNoteTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 템플릿 노트 생성
-     * @description 새로운 템플릿 형식 노트를 생성한다.
-     */
-    post: operations['createNoteTemplate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/free': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/free": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 자유 형식 노트 생성
+         * @description 새로운 자유 형식 노트를 생성한다.
+         */
+        post: operations["createNoteFree"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 자유 형식 노트 생성
-     * @description 새로운 자유 형식 노트를 생성한다.
-     */
-    post: operations['createNoteFree'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/members': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 회원가입 API
+         * @description 회원가입을 위한 정보를 보낸다.
+         */
+        post: operations["signUp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 회원가입 API
-     * @description 회원가입을 위한 정보를 보낸다.
-     */
-    post: operations['signUp'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/file': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/file": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * s3 파일 삭제
+         * @description s3의 파일 삭제한다.
+         */
+        post: operations["deleteFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * s3 파일 삭제
-     * @description s3의 파일 삭제한다.
-     */
-    post: operations['deleteFile'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/email-verification/signup': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/email-verification/signup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 회원가입 메일 전송
+         * @description 회원 가입을 진행한다.
+         */
+        post: operations["sendSignUpMail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 회원가입 메일 전송
-     * @description 회원 가입을 진행한다.
-     */
-    post: operations['sendSignUpMail'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/email-verification/password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/email-verification/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 비밀번호 재설정 메일 전송
+         * @description 비밀번호 재설정을 위한 이메일을 보낸다.
+         */
+        post: operations["sendChangingPasswordMail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 비밀번호 재설정 메일 전송
-     * @description 비밀번호 재설정을 위한 이메일을 보낸다.
-     */
-    post: operations['sendChangingPasswordMail'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/email-verification/checking': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/email-verification/checking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 메일 인증
+         * @description 인증번호 확인
+         */
+        post: operations["checkCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 메일 인증
-     * @description 인증번호 확인
-     */
-    post: operations['checkCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/sign-in': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/auth/sign-in": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 로그인
+         * @description 로그인을 진행한다.
+         */
+        post: operations["signIn"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 로그인
-     * @description 로그인을 진행한다.
-     */
-    post: operations['signIn'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/member/{targetId}/admin': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/member/{targetId}/admin": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["alterAdmin"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['alterAdmin'];
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/inform': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/inform": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTeamName"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateTeamInform"];
+        trace?: never;
     };
-    get: operations['getTeamName'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['updateTeamAndTeamMemberInform'];
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/folders/{folderId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/folders/{folderId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 폴더 이름 수정
+         * @description 폴더 이름을 수정한다.
+         */
+        patch: operations["updateFolderName"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 폴더 이름 수정
-     * @description 폴더 이름을 수정한다.
-     */
-    patch: operations['updateFolderName'];
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/members/name': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/members/name": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateTeamMemberName"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['updateTeamMemberName'];
-    trace?: never;
-  };
-  '/api/v1/notes/template/{noteId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/template/{noteId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 템플릿 노트 수정
+         * @description 기존 템플릿 노트를 수정한다.
+         */
+        patch: operations["updateNoteTemplate"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 템플릿 노트 수정
-     * @description 기존 템플릿 노트를 수정한다.
-     */
-    patch: operations['updateNoteTemplate'];
-    trace?: never;
-  };
-  '/api/v1/notes/free/{noteId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/free/{noteId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 자유 형식 노트 수정
+         * @description 기존 자유 형식 노트를 수정한다.
+         */
+        patch: operations["updateNoteFree"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 자유 형식 노트 수정
-     * @description 기존 자유 형식 노트를 수정한다.
-     */
-    patch: operations['updateNoteFree'];
-    trace?: never;
-  };
-  '/api/v1/members/password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/members/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 비밀번호 변경
+         * @description 비밀번호를 변경합니다.
+         */
+        patch: operations["changePassword"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 비밀번호 변경
-     * @description 비밀번호를 변경합니다.
-     */
-    patch: operations['changePassword'];
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/timeline': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/timeline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 타임라인 조회
+         * @description 타임라인을 조회한다.
+         */
+        get: operations["getTimeline"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 타임라인 조회
-     * @description 타임라인을 조회한다.
-     */
-    get: operations['getTimeline'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/drive': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/drive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 드라이브 조회
+         * @description 드라이브 뷰를 조회한다.
+         */
+        get: operations["getDrive"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 드라이브 조회
-     * @description 드라이브 뷰를 조회한다.
-     */
-    get: operations['getDrive'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/capacity': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/capacity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 팀 용량 정보 조회
+         * @description 팀 용량 정보를 조회한다.
+         */
+        get: operations["getCapacityInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 팀 용량 정보 조회
-     * @description 팀 용량 정보를 조회한다.
-     */
-    get: operations['getCapacityInfo'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/category': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/category": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 카테고리 조회
+         * @description 카테고리 리스트를 조회한다.
+         */
+        get: operations["getCategories"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 카테고리 조회
-     * @description 카테고리 리스트를 조회한다.
-     */
-    get: operations['getCategories'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/members/position': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/members/position": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMemberTeamInform"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getMemberTeamInform'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/{teamId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/{teamId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 노트 목록 조회
+         * @description 특정 팀의 노트 목록을 조회한다.
+         */
+        get: operations["getNote"];
+        put?: never;
+        post?: never;
+        /**
+         * 노트 삭제
+         * @description 특정 팀의 노트를 삭제한다.
+         */
+        delete: operations["deleteNotes"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 노트 목록 조회
-     * @description 특정 팀의 노트 목록을 조회한다.
-     */
-    get: operations['getNote'];
-    put?: never;
-    post?: never;
-    /**
-     * 노트 삭제
-     * @description 특정 팀의 노트를 삭제한다.
-     */
-    delete: operations['deleteNotes'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/{teamId}/{noteId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/{teamId}/{noteId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 노트 상세 조회
+         * @description 특정 노트의 상세 정보를 조회한다.
+         */
+        get: operations["getNoteDetail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 노트 상세 조회
-     * @description 특정 노트의 상세 정보를 조회한다.
-     */
-    get: operations['getNoteDetail'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/members/teams': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/members/teams": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 소속 팀 가져오기
+         * @description 왼쪽 사이드바의 소속된 팀 정보를 가져옵니다.
+         */
+        get: operations["getBelongTeam"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 소속 팀 가져오기
-     * @description 왼쪽 사이드바의 소속된 팀 정보를 가져옵니다.
-     */
-    get: operations['getBelongTeam'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/file/upload': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/file/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Presigned Url 생성
+         * @description s3로부터 Presigned Url을 생성한다.
+         */
+        get: operations["getPreSignedUrl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * Presigned Url 생성
-     * @description s3로부터 Presigned Url을 생성한다.
-     */
-    get: operations['getPreSignedUrl'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/documents/team/{teamId}/timeline': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/documents/team/{teamId}/timeline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 전체 문서 조회
+         * @description 전체 문서를 조회한다.
+         */
+        get: operations["getAllDocuments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 전체 문서 조회
-     * @description 전체 문서를 조회한다.
-     */
-    get: operations['getAllDocuments'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/reissue': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/auth/reissue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 엑세스 토큰 재발급
+         * @description 엑세스 토큰 재발급 메서드입니다.
+         */
+        get: operations["reissue"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 엑세스 토큰 재발급
-     * @description 엑세스 토큰 재발급 메서드입니다.
-     */
-    get: operations['reissue'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * 팀 삭제
+         * @description 팀을 삭제한다.
+         */
+        delete: operations["deleteTeam"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * 팀 삭제
-     * @description 팀을 삭제한다.
-     */
-    delete: operations['deleteTeam'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * 타임 블록 파일 태그 삭제
+         * @description 타임 블록의 파일 태그를 삭제한다.
+         */
+        delete: operations["deleteDocumentTag"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * 타임 블록 파일 태그 삭제
-     * @description 타임 블록의 파일 태그를 삭제한다.
-     */
-    delete: operations['deleteDocumentTag'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/members/{kickOutMemberId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/members/{kickOutMemberId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["kickOutMemberFromTeam"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['kickOutMemberFromTeam'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/leave': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/leave": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["leaveTeam"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['leaveTeam'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -901,8 +901,7 @@ export interface components {
             message: string;
             data?: components["schemas"]["SignInGetResponse"];
         };
-        TeamMemberAndTeamInformUpdateRequest: {
-            teamMemberName: string;
+        TeamInformUpdateRequest: {
             teamName: string;
             teamUrl: string;
         };
@@ -1037,6 +1036,8 @@ export interface components {
             /** @enum {string} */
             university: "건국대학교";
             teamIconUrl: string;
+            /** Format: date */
+            namingUpdatedAt: string;
         };
         FolderInfoGetResponse: {
             /** Format: int64 */
@@ -2622,7 +2623,7 @@ export interface operations {
             };
         };
     };
-    updateTeamAndTeamMemberInform: {
+    updateTeamInform: {
         parameters: {
             query?: never;
             header?: never;
@@ -2633,7 +2634,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TeamMemberAndTeamInformUpdateRequest"];
+                "application/json": components["schemas"]["TeamInformUpdateRequest"];
             };
         };
         responses: {

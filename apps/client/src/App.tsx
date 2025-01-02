@@ -9,7 +9,7 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 
 import { HTTPError } from '@/shared/api/HTTPError';
 import Header from '@/shared/component/Header/Header';
-import ModalContainer from '@/shared/component/Modal/ModalContainer';
+import ModalFunnel from '@/shared/component/Modal/ModalFunnel';
 import SideNavBar from '@/shared/component/SideNavBar/SideNavBar';
 import TimeBlockDrawer from '@/shared/component/TimeBlockDrawer/TimeBlockDrawer';
 import { HTTP_STATUS_CODE } from '@/shared/constant/api';
@@ -46,17 +46,19 @@ const App = () => {
   };
 
   return (
-    <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
-      <ModalContainer />
-      <SideNavBar />
-      <div css={layoutStyle}>
-        <main css={outletStyle}>
-          <Header />
-          <Outlet />
-        </main>
-        <TimeBlockDrawer />
-      </div>
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary fallback={ErrorPage} onReset={handleResetError}>
+        <ModalFunnel />
+        <SideNavBar />
+        <div css={layoutStyle}>
+          <main css={outletStyle}>
+            <Header />
+            <Outlet />
+          </main>
+          <TimeBlockDrawer />
+        </div>
+      </ErrorBoundary>
+    </>
   );
 };
 

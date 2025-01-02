@@ -17,14 +17,15 @@ export const buttonStyle = (isFrontIcon: boolean) =>
 
     gap: "0.4rem",
 
+    cursor: "pointer",
+
+    transition: "all .2s ease-in",
+
+
     "&:disabled:not(:focus)": {
       backgroundColor: theme.colors.gray_100,
       color: theme.colors.gray_500,
     },
-
-    cursor: "pointer",
-
-    transition: "all .2s ease-in",
   });
 
 export const commonStyle = css({
@@ -37,6 +38,7 @@ export const commonStyle = css({
   color: theme.colors.gray_800,
 
   ...theme.text.body10,
+
 });
 
 export const keyStyle = (
@@ -89,6 +91,8 @@ export const childrenStyle = css({
   padding: "0.4rem",
 
   gap: "0.4rem",
+
+  whiteSpace: 'nowrap'
 });
 
 export const sizeStyle = (size: Required<CommandButtonProps>["size"]) => {

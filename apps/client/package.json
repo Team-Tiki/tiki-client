@@ -23,6 +23,7 @@
     "@tiki/icon": "workspace:^",
     "@tiki/ui": "workspace:^",
     "@tiki/utils": "workspace:^",
+    "@toss/use-funnel": "^1.4.2",
     "axios": "^1.7.2",
     "framer-motion": "^11.11.11",
     "mime": "^4.0.4",
