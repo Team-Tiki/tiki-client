@@ -4,3800 +4,3761 @@
  */
 
 export interface paths {
-  '/api/v1/teams': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 전체 팀 조회
+         * @description 가입한 대학의 전체 팀을 조회한다.
+         */
+        get: operations["getAllTeams"];
+        put?: never;
+        /**
+         * 팀 생성
+         * @description 팀을 생성한다.
+         */
+        post: operations["createTeam"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 전체 팀 조회
-     * @description 가입한 대학의 전체 팀을 조회한다.
-     */
-    get: operations['getAllTeams'];
-    put?: never;
-    /**
-     * 팀 생성
-     * @description 팀을 생성한다.
-     */
-    post: operations['createTeam'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/trash': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/trash": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 휴지통 조회
+         * @description 휴지통을 조회한다.
+         */
+        get: operations["getTrash"];
+        put?: never;
+        /**
+         * 휴지통 문서 복구
+         * @description 휴지통 속 문서를 여러 개 복구한다.
+         */
+        post: operations["restore"];
+        /**
+         * 휴지통 문서 삭제
+         * @description 휴지통 속 문서를 여러 개 삭제한다.
+         */
+        delete: operations["deleteTrash"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 휴지통 조회
-     * @description 휴지통을 조회한다.
-     */
-    get: operations['getTrash'];
-    put?: never;
-    /**
-     * 휴지통 문서 복구
-     * @description 휴지통 속 문서를 여러 개 복구한다.
-     */
-    post: operations['restore'];
-    /**
-     * 휴지통 문서 삭제
-     * @description 휴지통 속 문서를 여러 개 삭제한다.
-     */
-    delete: operations['deleteTrash'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/time-block': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/time-block": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 타임 블록 생성
+         * @description 타임 블록을 생성한다.
+         */
+        post: operations["createTimeBlock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 타임 블록 생성
-     * @description 타임 블록을 생성한다.
-     */
-    post: operations['createTimeBlock'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/time-block/{timeBlockId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/time-block/{timeBlockId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 타임 블록 상세 조회
+         * @description 타임 블록을 상세 조회한다.
+         */
+        get: operations["getTimeBlockDetail"];
+        put?: never;
+        /**
+         * 타임 블록 파일 태그 추가
+         * @description 타임 블록에 파일 태그를 추가한다.
+         */
+        post: operations["createDocumentTag"];
+        /**
+         * 타임 블록 삭제
+         * @description 타임 블록을 삭제한다.
+         */
+        delete: operations["deleteTimeBlock"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 타임 블록 상세 조회
-     * @description 타임 블록을 상세 조회한다.
-     */
-    get: operations['getTimeBlockDetail'];
-    put?: never;
-    /**
-     * 타임 블록 파일 태그 추가
-     * @description 타임 블록에 파일 태그를 추가한다.
-     */
-    post: operations['createDocumentTag'];
-    /**
-     * 타임 블록 삭제
-     * @description 타임 블록을 삭제한다.
-     */
-    delete: operations['deleteTimeBlock'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/folders': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/folders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 폴더 조회
+         * @description 폴더를 여러 개 조회한다.
+         */
+        get: operations["getFolders"];
+        put?: never;
+        /**
+         * 폴더 생성
+         * @description 폴더를 생성한다.
+         */
+        post: operations["createFolder"];
+        /**
+         * 폴더 삭제
+         * @description 폴더를 여러 개 삭제한다.
+         */
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 폴더 조회
-     * @description 폴더를 여러 개 조회한다.
-     */
-    get: operations['getFolders'];
-    put?: never;
-    /**
-     * 폴더 생성
-     * @description 폴더를 생성한다.
-     */
-    post: operations['createFolder'];
-    /**
-     * 폴더 삭제
-     * @description 폴더를 여러 개 삭제한다.
-     */
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/documents': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 문서 조회
+         * @description 문서를 조회한다.
+         */
+        get: operations["getDocuments"];
+        put?: never;
+        /**
+         * 문서 생성
+         * @description 문서를 여러 개 생성한다.
+         */
+        post: operations["createDocuments"];
+        /**
+         * 문서 삭제
+         * @description 문서를 여러 개 삭제한다.
+         */
+        delete: operations["delete_1"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 문서 조회
-     * @description 문서를 조회한다.
-     */
-    get: operations['getDocuments'];
-    put?: never;
-    /**
-     * 문서 생성
-     * @description 문서를 여러 개 생성한다.
-     */
-    post: operations['createDocuments'];
-    /**
-     * 문서 삭제
-     * @description 문서를 여러 개 삭제한다.
-     */
-    delete: operations['delete_1'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/template': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 템플릿 노트 생성
+         * @description 새로운 템플릿 형식 노트를 생성한다.
+         */
+        post: operations["createNoteTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 템플릿 노트 생성
-     * @description 새로운 템플릿 형식 노트를 생성한다.
-     */
-    post: operations['createNoteTemplate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/free': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/free": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 자유 형식 노트 생성
+         * @description 새로운 자유 형식 노트를 생성한다.
+         */
+        post: operations["createNoteFree"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 자유 형식 노트 생성
-     * @description 새로운 자유 형식 노트를 생성한다.
-     */
-    post: operations['createNoteFree'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/members': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 회원가입 API
+         * @description 회원가입을 위한 정보를 보낸다.
+         */
+        post: operations["signUp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 회원가입 API
-     * @description 회원가입을 위한 정보를 보낸다.
-     */
-    post: operations['signUp'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/file': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/file": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * s3 파일 삭제
+         * @description s3의 파일 삭제한다.
+         */
+        post: operations["deleteFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * s3 파일 삭제
-     * @description s3의 파일 삭제한다.
-     */
-    post: operations['deleteFile'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/email-verification/signup': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/email-verification/signup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 회원가입 메일 전송
+         * @description 회원 가입을 진행한다.
+         */
+        post: operations["sendSignUpMail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 회원가입 메일 전송
-     * @description 회원 가입을 진행한다.
-     */
-    post: operations['sendSignUpMail'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/email-verification/password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/email-verification/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 비밀번호 재설정 메일 전송
+         * @description 비밀번호 재설정을 위한 이메일을 보낸다.
+         */
+        post: operations["sendChangingPasswordMail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 비밀번호 재설정 메일 전송
-     * @description 비밀번호 재설정을 위한 이메일을 보낸다.
-     */
-    post: operations['sendChangingPasswordMail'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/email-verification/checking': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/email-verification/checking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 메일 인증
+         * @description 인증번호 확인
+         */
+        post: operations["checkCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 메일 인증
-     * @description 인증번호 확인
-     */
-    post: operations['checkCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/sign-in': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/auth/sign-in": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 로그인
+         * @description 로그인을 진행한다.
+         */
+        post: operations["signIn"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /**
-     * 로그인
-     * @description 로그인을 진행한다.
-     */
-    post: operations['signIn'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/member/{targetId}/admin': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/member/{targetId}/admin": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["alterAdmin"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['alterAdmin'];
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/inform': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/inform": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTeamName"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateTeamInform"];
+        trace?: never;
     };
-    get: operations['getTeamName'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['updateTeamAndTeamMemberInform'];
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/folders/{folderId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/folders/{folderId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 폴더 이름 수정
+         * @description 폴더 이름을 수정한다.
+         */
+        patch: operations["updateFolderName"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 폴더 이름 수정
-     * @description 폴더 이름을 수정한다.
-     */
-    patch: operations['updateFolderName'];
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/members/name': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/members/name": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateTeamMemberName"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch: operations['updateTeamMemberName'];
-    trace?: never;
-  };
-  '/api/v1/notes/template/{noteId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/template/{noteId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 템플릿 노트 수정
+         * @description 기존 템플릿 노트를 수정한다.
+         */
+        patch: operations["updateNoteTemplate"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 템플릿 노트 수정
-     * @description 기존 템플릿 노트를 수정한다.
-     */
-    patch: operations['updateNoteTemplate'];
-    trace?: never;
-  };
-  '/api/v1/notes/free/{noteId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/free/{noteId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 자유 형식 노트 수정
+         * @description 기존 자유 형식 노트를 수정한다.
+         */
+        patch: operations["updateNoteFree"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 자유 형식 노트 수정
-     * @description 기존 자유 형식 노트를 수정한다.
-     */
-    patch: operations['updateNoteFree'];
-    trace?: never;
-  };
-  '/api/v1/members/password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/members/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 비밀번호 변경
+         * @description 비밀번호를 변경합니다.
+         */
+        patch: operations["changePassword"];
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * 비밀번호 변경
-     * @description 비밀번호를 변경합니다.
-     */
-    patch: operations['changePassword'];
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/timeline': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/timeline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 타임라인 조회
+         * @description 타임라인을 조회한다.
+         */
+        get: operations["getTimeline"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 타임라인 조회
-     * @description 타임라인을 조회한다.
-     */
-    get: operations['getTimeline'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/drive': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/drive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 드라이브 조회
+         * @description 드라이브 뷰를 조회한다.
+         */
+        get: operations["getDrive"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 드라이브 조회
-     * @description 드라이브 뷰를 조회한다.
-     */
-    get: operations['getDrive'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/capacity': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/capacity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 팀 용량 정보 조회
+         * @description 팀 용량 정보를 조회한다.
+         */
+        get: operations["getCapacityInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 팀 용량 정보 조회
-     * @description 팀 용량 정보를 조회한다.
-     */
-    get: operations['getCapacityInfo'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/category': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/category": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 카테고리 조회
+         * @description 카테고리 리스트를 조회한다.
+         */
+        get: operations["getCategories"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 카테고리 조회
-     * @description 카테고리 리스트를 조회한다.
-     */
-    get: operations['getCategories'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/members/position': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/members/position": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMemberTeamInform"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getMemberTeamInform'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/{teamId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/{teamId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 노트 목록 조회
+         * @description 특정 팀의 노트 목록을 조회한다.
+         */
+        get: operations["getNote"];
+        put?: never;
+        post?: never;
+        /**
+         * 노트 삭제
+         * @description 특정 팀의 노트를 삭제한다.
+         */
+        delete: operations["deleteNotes"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 노트 목록 조회
-     * @description 특정 팀의 노트 목록을 조회한다.
-     */
-    get: operations['getNote'];
-    put?: never;
-    post?: never;
-    /**
-     * 노트 삭제
-     * @description 특정 팀의 노트를 삭제한다.
-     */
-    delete: operations['deleteNotes'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/notes/{teamId}/{noteId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/notes/{teamId}/{noteId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 노트 상세 조회
+         * @description 특정 노트의 상세 정보를 조회한다.
+         */
+        get: operations["getNoteDetail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 노트 상세 조회
-     * @description 특정 노트의 상세 정보를 조회한다.
-     */
-    get: operations['getNoteDetail'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/members/teams': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/members/teams": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 소속 팀 가져오기
+         * @description 왼쪽 사이드바의 소속된 팀 정보를 가져옵니다.
+         */
+        get: operations["getBelongTeam"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 소속 팀 가져오기
-     * @description 왼쪽 사이드바의 소속된 팀 정보를 가져옵니다.
-     */
-    get: operations['getBelongTeam'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/file/upload': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/file/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Presigned Url 생성
+         * @description s3로부터 Presigned Url을 생성한다.
+         */
+        get: operations["getPreSignedUrl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * Presigned Url 생성
-     * @description s3로부터 Presigned Url을 생성한다.
-     */
-    get: operations['getPreSignedUrl'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/documents/team/{teamId}/timeline': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/documents/team/{teamId}/timeline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 전체 문서 조회
+         * @description 전체 문서를 조회한다.
+         */
+        get: operations["getAllDocuments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 전체 문서 조회
-     * @description 전체 문서를 조회한다.
-     */
-    get: operations['getAllDocuments'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/reissue': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/auth/reissue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 엑세스 토큰 재발급
+         * @description 엑세스 토큰 재발급 메서드입니다.
+         */
+        get: operations["reissue"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /**
-     * 엑세스 토큰 재발급
-     * @description 엑세스 토큰 재발급 메서드입니다.
-     */
-    get: operations['reissue'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * 팀 삭제
+         * @description 팀을 삭제한다.
+         */
+        delete: operations["deleteTeam"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * 팀 삭제
-     * @description 팀을 삭제한다.
-     */
-    delete: operations['deleteTeam'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * 타임 블록 파일 태그 삭제
+         * @description 타임 블록의 파일 태그를 삭제한다.
+         */
+        delete: operations["deleteDocumentTag"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * 타임 블록 파일 태그 삭제
-     * @description 타임 블록의 파일 태그를 삭제한다.
-     */
-    delete: operations['deleteDocumentTag'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/members/{kickOutMemberId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/members/{kickOutMemberId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["kickOutMemberFromTeam"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['kickOutMemberFromTeam'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/team-member/teams/{teamId}/leave': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/v1/team-member/teams/{teamId}/leave": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["leaveTeam"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['leaveTeam'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    ErrorResponse: {
-      success?: boolean;
-      message: string;
-    };
-    TeamCreateRequest: {
-      name: string;
-      /** @enum {string} */
-      category:
-        | '전체'
-        | '학술연구'
-        | '문화예술'
-        | '스포츠레저'
-        | '사회활동'
-        | '취미활동'
-        | '창업비즈니스'
-        | '과학기술'
-        | '종교'
-        | '국제교류'
-        | '네트워킹';
-      iconImageUrl: string;
-    };
-    SuccessResponseTeamCreateResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['TeamCreateResponse'];
-    };
-    TeamCreateResponse: {
-      /** Format: int64 */
-      teamId: number;
-    };
-    TimeBlockCreateRequest: {
-      name: string;
-      color: string;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      /** @enum {string} */
-      blockType: 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';
-      documentIds: number[];
-    };
-    SuccessResponseTimeBlockCreateResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['TimeBlockCreateResponse'];
-    };
-    TimeBlockCreateResponse: {
-      /** Format: int64 */
-      timeBlockId: number;
-    };
-    SuccessResponseObject: {
-      success?: boolean;
-      message: string;
-      data?: Record<string, never>;
-    };
-    FolderCreateRequest: {
-      /**
-       * @description 폴더 이름
-       * @example 폴더 1
-       */
-      name: string;
-    };
-    FolderCreateResponse: {
-      /** Format: int64 */
-      folderId: number;
-    };
-    SuccessResponseFolderCreateResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['FolderCreateResponse'];
-    };
-    DocumentCreateRequest: {
-      /**
-       * @description 파일 이름
-       * @example tiki.jpg
-       */
-      fileName: string;
-      /**
-       * @description 파일 url
-       * @example https://.../tiki.jpg
-       */
-      fileUrl: string;
-      /**
-       * @description 파일 key
-       * @example ....jpg
-       */
-      fileKey: string;
-      /**
-       * Format: double
-       * @description 파일 용량
-       * @example 1.23
-       */
-      capacity: number;
-    };
-    DocumentsCreateRequest: {
-      documents: components['schemas']['DocumentCreateRequest'][];
-    };
-    NoteTemplateCreateRequest: {
-      title: string;
-      complete: boolean;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      answerWhatActivity: string;
-      answerHowToPrepare: string;
-      answerWhatIsDisappointedThing: string;
-      answerHowToFix: string;
-      timeBlockIds: number[];
-      documentIds: number[];
-      /** Format: int64 */
-      teamId: number;
-    };
-    NoteCreateServiceResponse: {
-      /** Format: int64 */
-      noteId?: number;
-    };
-    SuccessResponseNoteCreateServiceResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['NoteCreateServiceResponse'];
-    };
-    NoteFreeCreateRequest: {
-      title: string;
-      complete: boolean;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      contents: string;
-      timeBlockIds: number[];
-      documentIds: number[];
-      /** Format: int64 */
-      teamId: number;
-    };
-    MemberProfileCreateRequest: {
-      name: string;
-      /** Format: date */
-      birth: string;
-      /** @enum {string} */
-      univ: '건국대학교';
-      email: string;
-      password: string;
-      passwordChecker: string;
-    };
-    BaseResponse: Record<string, never>;
-    S3DeleteRequest: {
-      fileKey: string;
-    };
-    EmailRequest: {
-      email: string;
-    };
-    CodeVerificationRequest: {
-      email: string;
-      code: string;
-    };
-    SignInRequest: {
-      email: string;
-      password: string;
-    };
-    SignInGetResponse: {
-      accessToken: string;
-      refreshToken: string;
-    };
-    SuccessResponseSignInGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['SignInGetResponse'];
-    };
-    TeamMemberAndTeamInformUpdateRequest: {
-      teamMemberName: string;
-      teamName: string;
-      teamUrl: string;
-    };
-    FolderNameUpdateRequest: {
-      /**
-       * @description 수정할 폴더 이름
-       * @example 수정할 폴더 1
-       */
-      name: string;
-    };
-    UpdateTeamMemberNameRequest: {
-      newName: string;
-    };
-    NoteTemplateUpdateRequest: {
-      title: string;
-      complete: boolean;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      answerWhatActivity: string;
-      answerHowToPrepare: string;
-      answerWhatIsDisappointedThing: string;
-      answerHowToFix: string;
-      timeBlockIds: number[];
-      documentIds: number[];
-      /** Format: int64 */
-      teamId: number;
-    };
-    NoteFreeUpdateRequest: {
-      title: string;
-      complete: boolean;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      contents: string;
-      timeBlockIds: number[];
-      documentIds: number[];
-      /** Format: int64 */
-      teamId: number;
-    };
-    PasswordChangeRequest: {
-      email: string;
-      password: string;
-      passwordChecker: string;
-    };
-    SuccessResponseTeamsGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['TeamsGetResponse'];
-    };
-    TeamGetResponse: {
-      /** Format: int64 */
-      teamId: number;
-      name: string;
-      /** @enum {string} */
-      category:
-        | '전체'
-        | '학술연구'
-        | '문화예술'
-        | '스포츠레저'
-        | '사회활동'
-        | '취미활동'
-        | '창업비즈니스'
-        | '과학기술'
-        | '종교'
-        | '국제교류'
-        | '네트워킹';
-      /** @enum {string} */
-      univ: '건국대학교';
-      overview: string;
-      imageUrl: string;
-    };
-    TeamsGetResponse: {
-      teams: components['schemas']['TeamGetResponse'][];
-    };
-    DeletedDocumentGetResponse: {
-      /** Format: int64 */
-      documentId: number;
-      name: string;
-      url: string;
-      /** Format: double */
-      capacity: number;
-    };
-    DeletedDocumentsGetResponse: {
-      deletedDocuments: components['schemas']['DeletedDocumentGetResponse'][];
-    };
-    SuccessResponseDeletedDocumentsGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['DeletedDocumentsGetResponse'];
-    };
-    SuccessResponseTimelineGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['TimelineGetResponse'];
-    };
-    TimeBlockGetResponse: {
-      /** Format: int64 */
-      timeBlockId: number;
-      name: string;
-      color: string;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      /** @enum {string} */
-      blockType: 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';
-    };
-    TimelineGetResponse: {
-      timeBlocks: components['schemas']['TimeBlockGetResponse'][];
-    };
-    DocumentDetailGetResponse: {
-      /** Format: int64 */
-      documentId: number;
-      fileName: string;
-      fileUrl: string;
-      /** Format: int64 */
-      tagId: number;
-    };
-    NoteNameGetResponse: {
-      /** Format: int64 */
-      noteId: number;
-      noteName: string;
-    };
-    SuccessResponseTimeBlockDetailGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['TimeBlockDetailGetResponse'];
-    };
-    TimeBlockDetailGetResponse: {
-      documents: components['schemas']['DocumentDetailGetResponse'][];
-      notes: components['schemas']['NoteNameGetResponse'][];
-    };
-    SuccessResponseTeamInformGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['TeamInformGetResponse'];
-    };
-    TeamInformGetResponse: {
-      teamName: string;
-      /** @enum {string} */
-      university: '건국대학교';
-      teamIconUrl: string;
-    };
-    FolderInfoGetResponse: {
-      /** Format: int64 */
-      id: number;
-      name: string;
-      /** Format: date-time */
-      createdTime: string;
-      path: string;
-    };
-    FoldersGetResponse: {
-      folders: components['schemas']['FolderInfoGetResponse'][];
-    };
-    SuccessResponseFoldersGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['FoldersGetResponse'];
-    };
-    DocumentGetResponse: {
-      /** Format: int64 */
-      documentId: number;
-      name: string;
-      url: string;
-      /** Format: double */
-      capacity: number;
-      /** Format: date-time */
-      createdTime: string;
-      type: string;
-    };
-    DriveGetResponse: {
-      documents: components['schemas']['DocumentGetResponse'][];
-      folders: components['schemas']['FolderGetResponse'][];
-    };
-    FolderGetResponse: {
-      /** Format: int64 */
-      folderId: number;
-      name: string;
-      /** Format: date-time */
-      createdTime: string;
-      path: string;
-      type: string;
-    };
-    SuccessResponseDriveGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['DriveGetResponse'];
-    };
-    DocumentInfoGetResponse: {
-      /** Format: int64 */
-      documentId: number;
-      name: string;
-      url: string;
-      /** Format: double */
-      capacity: number;
-      /** Format: date-time */
-      createdTime: string;
-    };
-    DocumentsGetResponse: {
-      documents: components['schemas']['DocumentInfoGetResponse'][];
-    };
-    SuccessResponseDocumentsGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['DocumentsGetResponse'];
-    };
-    SuccessResponseUsageGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['UsageGetResponse'];
-    };
-    UsageGetResponse: {
-      /** Format: double */
-      capacity: number;
-      /** Format: double */
-      usage: number;
-    };
-    CategoriesGetResponse: {
-      categories: (
-        | '전체'
-        | '학술연구'
-        | '문화예술'
-        | '스포츠레저'
-        | '사회활동'
-        | '취미활동'
-        | '창업비즈니스'
-        | '과학기술'
-        | '종교'
-        | '국제교류'
-        | '네트워킹'
-      )[];
-    };
-    SuccessResponseCategoriesGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['CategoriesGetResponse'];
-    };
-    MemberTeamInformGetResponse: {
-      /** @enum {string} */
-      position: 'ADMIN' | 'EXECUTIVE' | 'MEMBER';
-      name: string;
-    };
-    SuccessResponseMemberTeamInformGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['MemberTeamInformGetResponse'];
-    };
-    NoteGetResponse: {
-      /** Format: int64 */
-      noteId: number;
-      title: string;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      author: string;
-      complete: boolean;
-      /** Format: date-time */
-      lastUpdatedAt: string;
-    };
-    NoteListGetServiceResponse: {
-      noteGetResponseList: components['schemas']['NoteGetResponse'][];
-    };
-    SuccessResponseNoteListGetServiceResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['NoteListGetServiceResponse'];
-    };
-    DocumentTagGetServiceResponse: {
-      /** Format: int64 */
-      id?: number;
-      fileName?: string;
-      fileUrl?: string;
-      /** Format: double */
-      capacity?: number;
-    };
-    NoteFreeDetailGetServiceResponse: {
-      /** Format: int64 */
-      noteId: number;
-      /** @enum {string} */
-      noteType: 'FREE' | 'TEMPLATE';
-      title: string;
-      author: string;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      complete: boolean;
-      contents: string;
-      documentList: components['schemas']['DocumentTagGetServiceResponse'][];
-      timeBlockList: components['schemas']['TimeBlockTagServiceResponse'][];
-    };
-    TimeBlockTagServiceResponse: {
-      /** Format: int64 */
-      id?: number;
-      name?: string;
-      color?: string;
-    };
-    NoteTemplateDetailGetServiceResponse: {
-      /** Format: int64 */
-      noteId: number;
-      /** @enum {string} */
-      noteType: 'FREE' | 'TEMPLATE';
-      title: string;
-      author: string;
-      /** Format: date */
-      startDate: string;
-      /** Format: date */
-      endDate: string;
-      complete: boolean;
-      answerWhatActivity: string;
-      answerHowToPrepare: string;
-      answerWhatIsDisappointedThing: string;
-      answerHowToFix: string;
-      documentList: components['schemas']['DocumentTagGetServiceResponse'][];
-      timeBlockList: components['schemas']['TimeBlockTagServiceResponse'][];
-    };
-    BelongTeamGetResponse: {
-      /** Format: int64 */
-      id: number;
-      name: string;
-      iconImageUrl: string;
-    };
-    BelongTeamsGetResponse: {
-      belongTeamGetResponses: components['schemas']['BelongTeamGetResponse'][];
-    };
-    SuccessResponseBelongTeamsGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['BelongTeamsGetResponse'];
-    };
-    PreSignedUrlResponse: {
-      fileName: string;
-      url: string;
-    };
-    SuccessResponsePreSignedUrlResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['PreSignedUrlResponse'];
-    };
-    SuccessResponse: {
-      success?: boolean;
-      message: string;
-      data?: Record<string, never>;
-    };
-    ReissueGetResponse: {
-      accessToken: string;
-    };
-    SuccessResponseReissueGetResponse: {
-      success?: boolean;
-      message: string;
-      data?: components['schemas']['ReissueGetResponse'];
-    };
-    SuccessResponseVoid: {
-      success?: boolean;
-      message: string;
-      data?: Record<string, never>;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    schemas: {
+        ErrorResponse: {
+            success: boolean;
+            message: string;
+        };
+        TeamCreateRequest: {
+            name: string;
+            /** @enum {string} */
+            category: "전체" | "학술연구" | "문화예술" | "스포츠레저" | "사회활동" | "취미활동" | "창업비즈니스" | "과학기술" | "종교" | "국제교류" | "네트워킹";
+            iconImageUrl: string;
+        };
+        SuccessResponseTeamCreateResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TeamCreateResponse"];
+        };
+        TeamCreateResponse: {
+            /** Format: int64 */
+            teamId: number;
+        };
+        TimeBlockCreateRequest: {
+            name: string;
+            color: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            /** @enum {string} */
+            blockType: "MEETING" | "RECRUITING" | "STUDY" | "EVENT" | "NOTICE" | "ETC";
+            documentIds: number[];
+        };
+        SuccessResponseTimeBlockCreateResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TimeBlockCreateResponse"];
+        };
+        TimeBlockCreateResponse: {
+            /** Format: int64 */
+            timeBlockId: number;
+        };
+        SuccessResponseObject: {
+            success: boolean;
+            message: string;
+            data?: Record<string, never>;
+        };
+        FolderCreateRequest: {
+            /**
+             * @description 폴더 이름
+             * @example 폴더 1
+             */
+            name: string;
+        };
+        FolderCreateResponse: {
+            /** Format: int64 */
+            folderId: number;
+        };
+        SuccessResponseFolderCreateResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["FolderCreateResponse"];
+        };
+        DocumentCreateRequest: {
+            /**
+             * @description 파일 이름
+             * @example tiki.jpg
+             */
+            fileName: string;
+            /**
+             * @description 파일 url
+             * @example https://.../tiki.jpg
+             */
+            fileUrl: string;
+            /**
+             * @description 파일 key
+             * @example ....jpg
+             */
+            fileKey: string;
+            /**
+             * Format: double
+             * @description 파일 용량
+             * @example 1.23
+             */
+            capacity: number;
+        };
+        DocumentsCreateRequest: {
+            documents: components["schemas"]["DocumentCreateRequest"][];
+        };
+        NoteTemplateCreateRequest: {
+            title: string;
+            complete: boolean;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            answerWhatActivity: string;
+            answerHowToPrepare: string;
+            answerWhatIsDisappointedThing: string;
+            answerHowToFix: string;
+            timeBlockIds: number[];
+            documentIds: number[];
+            /** Format: int64 */
+            teamId: number;
+        };
+        NoteCreateServiceResponse: {
+            /** Format: int64 */
+            noteId: number;
+        };
+        SuccessResponseNoteCreateServiceResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["NoteCreateServiceResponse"];
+        };
+        NoteFreeCreateRequest: {
+            title: string;
+            complete: boolean;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            contents: string;
+            timeBlockIds: number[];
+            documentIds: number[];
+            /** Format: int64 */
+            teamId: number;
+        };
+        MemberProfileCreateRequest: {
+            name: string;
+            /** Format: date */
+            birth: string;
+            /** @enum {string} */
+            univ: "건국대학교";
+            email: string;
+            password: string;
+            passwordChecker: string;
+        };
+        S3DeleteRequest: {
+            fileKey: string;
+        };
+        EmailRequest: {
+            email: string;
+        };
+        CodeVerificationRequest: {
+            email: string;
+            code: string;
+        };
+        SignInRequest: {
+            email: string;
+            password: string;
+        };
+        SignInGetResponse: {
+            accessToken: string;
+            refreshToken: string;
+        };
+        SuccessResponseSignInGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["SignInGetResponse"];
+        };
+        TeamInformUpdateRequest: {
+            teamName: string;
+            teamUrl: string;
+        };
+        FolderNameUpdateRequest: {
+            /**
+             * @description 수정할 폴더 이름
+             * @example 수정할 폴더 1
+             */
+            name: string;
+        };
+        UpdateTeamMemberNameRequest: {
+            newName: string;
+        };
+        NoteTemplateUpdateRequest: {
+            title: string;
+            complete: boolean;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            answerWhatActivity: string;
+            answerHowToPrepare: string;
+            answerWhatIsDisappointedThing: string;
+            answerHowToFix: string;
+            timeBlockIds: number[];
+            documentIds: number[];
+            /** Format: int64 */
+            teamId: number;
+        };
+        NoteFreeUpdateRequest: {
+            title: string;
+            complete: boolean;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            contents: string;
+            timeBlockIds: number[];
+            documentIds: number[];
+            /** Format: int64 */
+            teamId: number;
+        };
+        PasswordChangeRequest: {
+            email: string;
+            password: string;
+            passwordChecker: string;
+        };
+        SuccessResponseTeamsGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TeamsGetResponse"];
+        };
+        TeamGetResponse: {
+            /** Format: int64 */
+            teamId: number;
+            name: string;
+            /** @enum {string} */
+            category: "전체" | "학술연구" | "문화예술" | "스포츠레저" | "사회활동" | "취미활동" | "창업비즈니스" | "과학기술" | "종교" | "국제교류" | "네트워킹";
+            /** @enum {string} */
+            univ: "건국대학교";
+            overview: string;
+            imageUrl: string;
+        };
+        TeamsGetResponse: {
+            teams: components["schemas"]["TeamGetResponse"][];
+        };
+        DeletedDocumentGetResponse: {
+            /** Format: int64 */
+            documentId: number;
+            name: string;
+            url: string;
+            /** Format: double */
+            capacity: number;
+        };
+        DeletedDocumentsGetResponse: {
+            deletedDocuments: components["schemas"]["DeletedDocumentGetResponse"][];
+        };
+        SuccessResponseDeletedDocumentsGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["DeletedDocumentsGetResponse"];
+        };
+        SuccessResponseTimelineGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TimelineGetResponse"];
+        };
+        TimeBlockGetResponse: {
+            /** Format: int64 */
+            timeBlockId: number;
+            name: string;
+            color: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            /** @enum {string} */
+            blockType: "MEETING" | "RECRUITING" | "STUDY" | "EVENT" | "NOTICE" | "ETC";
+        };
+        TimelineGetResponse: {
+            timeBlocks: components["schemas"]["TimeBlockGetResponse"][];
+        };
+        DocumentDetailGetResponse: {
+            /** Format: int64 */
+            documentId: number;
+            fileName: string;
+            fileUrl: string;
+            /** Format: int64 */
+            tagId: number;
+        };
+        NoteNameGetResponse: {
+            /** Format: int64 */
+            noteId: number;
+            noteName: string;
+        };
+        SuccessResponseTimeBlockDetailGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TimeBlockDetailGetResponse"];
+        };
+        TimeBlockDetailGetResponse: {
+            documents: components["schemas"]["DocumentDetailGetResponse"][];
+            notes: components["schemas"]["NoteNameGetResponse"][];
+        };
+        SuccessResponseTeamInformGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TeamInformGetResponse"];
+        };
+        TeamInformGetResponse: {
+            teamName: string;
+            /** @enum {string} */
+            university: "건국대학교";
+            teamIconUrl: string;
+            /** Format: date */
+            namingUpdatedAt: string;
+        };
+        FolderInfoGetResponse: {
+            /** Format: int64 */
+            id: number;
+            name: string;
+            /** Format: date-time */
+            createdTime: string;
+            path: string;
+        };
+        FoldersGetResponse: {
+            folders: components["schemas"]["FolderInfoGetResponse"][];
+        };
+        SuccessResponseFoldersGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["FoldersGetResponse"];
+        };
+        DocumentGetResponse: {
+            /** Format: int64 */
+            documentId: number;
+            name: string;
+            url: string;
+            /** Format: double */
+            capacity: number;
+            /** Format: date-time */
+            createdTime: string;
+            type: string;
+        };
+        DriveGetResponse: {
+            documents: components["schemas"]["DocumentGetResponse"][];
+            folders: components["schemas"]["FolderGetResponse"][];
+        };
+        FolderGetResponse: {
+            /** Format: int64 */
+            folderId: number;
+            name: string;
+            /** Format: date-time */
+            createdTime: string;
+            path: string;
+            type: string;
+        };
+        SuccessResponseDriveGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["DriveGetResponse"];
+        };
+        DocumentInfoGetResponse: {
+            /** Format: int64 */
+            documentId: number;
+            name: string;
+            url: string;
+            /** Format: double */
+            capacity: number;
+            /** Format: date-time */
+            createdTime: string;
+        };
+        DocumentsGetResponse: {
+            documents: components["schemas"]["DocumentInfoGetResponse"][];
+        };
+        SuccessResponseDocumentsGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["DocumentsGetResponse"];
+        };
+        SuccessResponseUsageGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["UsageGetResponse"];
+        };
+        UsageGetResponse: {
+            /** Format: double */
+            capacity: number;
+            /** Format: double */
+            usage: number;
+        };
+        CategoriesGetResponse: {
+            categories: ("전체" | "학술연구" | "문화예술" | "스포츠레저" | "사회활동" | "취미활동" | "창업비즈니스" | "과학기술" | "종교" | "국제교류" | "네트워킹")[];
+        };
+        SuccessResponseCategoriesGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["CategoriesGetResponse"];
+        };
+        MemberTeamInformGetResponse: {
+            /** @enum {string} */
+            position: "ADMIN" | "EXECUTIVE" | "MEMBER";
+            name: string;
+        };
+        SuccessResponseMemberTeamInformGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["MemberTeamInformGetResponse"];
+        };
+        NoteGetResponse: {
+            /** Format: int64 */
+            noteId: number;
+            title: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            author: string;
+            complete: boolean;
+            /** Format: date-time */
+            lastUpdatedAt: string;
+        };
+        NoteListGetServiceResponse: {
+            noteGetResponseList: components["schemas"]["NoteGetResponse"][];
+        };
+        SuccessResponseNoteListGetServiceResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["NoteListGetServiceResponse"];
+        };
+        DocumentTagGetServiceResponse: {
+            /** Format: int64 */
+            id: number;
+            fileName: string;
+            fileUrl: string;
+            /** Format: double */
+            capacity: number;
+        };
+        NoteFreeDetailGetServiceResponse: {
+            /** Format: int64 */
+            noteId: number;
+            /** @enum {string} */
+            noteType: "FREE" | "TEMPLATE";
+            title: string;
+            author: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            complete: boolean;
+            contents: string;
+            documentList: components["schemas"]["DocumentTagGetServiceResponse"][];
+            timeBlockList: components["schemas"]["TimeBlockTagServiceResponse"][];
+        };
+        TimeBlockTagServiceResponse: {
+            /** Format: int64 */
+            id: number;
+            name: string;
+            color: string;
+        };
+        NoteTemplateDetailGetServiceResponse: {
+            /** Format: int64 */
+            noteId: number;
+            /** @enum {string} */
+            noteType: "FREE" | "TEMPLATE";
+            title: string;
+            author: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            complete: boolean;
+            answerWhatActivity: string;
+            answerHowToPrepare: string;
+            answerWhatIsDisappointedThing: string;
+            answerHowToFix: string;
+            documentList: components["schemas"]["DocumentTagGetServiceResponse"][];
+            timeBlockList: components["schemas"]["TimeBlockTagServiceResponse"][];
+        };
+        BelongTeamGetResponse: {
+            /** Format: int64 */
+            id: number;
+            name: string;
+            iconImageUrl: string;
+        };
+        BelongTeamsGetResponse: {
+            belongTeamGetResponses: components["schemas"]["BelongTeamGetResponse"][];
+        };
+        SuccessResponseBelongTeamsGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["BelongTeamsGetResponse"];
+        };
+        PreSignedUrlResponse: {
+            fileName: string;
+            url: string;
+        };
+        SuccessResponsePreSignedUrlResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["PreSignedUrlResponse"];
+        };
+        SuccessResponse: {
+            success: boolean;
+            message: string;
+            data?: Record<string, never>;
+        };
+        ReissueGetResponse: {
+            accessToken: string;
+        };
+        SuccessResponseReissueGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["ReissueGetResponse"];
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-  getAllTeams: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseTeamsGetResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createTeam: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TeamCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseTeamCreateResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getTrash: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseDeletedDocumentsGetResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  restore: {
-    parameters: {
-      query: {
-        /**
-         * @description 복구할 파일 id 리스트
-         * @example [
-         *       1,
-         *       2
-         *     ]
-         */
-        documentId: number[];
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': Record<string, never>;
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  deleteTrash: {
-    parameters: {
-      query: {
-        /**
-         * @description 삭제할 파일 id 리스트
-         * @example [
-         *       1,
-         *       2
-         *     ]
-         */
-        documentId: number[];
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': Record<string, never>;
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createTimeBlock: {
-    parameters: {
-      query: {
-        /**
-         * @description 타임라인 타입
-         * @example executive, member
-         */
-        type: string;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TimeBlockCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseTimeBlockCreateResponse'];
-        };
-      };
-      /** @description 타입 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음 */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원, 유효하지 않은 팀 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getTimeBlockDetail: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 타임 블록 id
-         * @example 1
-         */
-        timeBlockId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseTimeBlockDetailGetResponse'];
-        };
-      };
-      /** @description 접근 권한 없음 */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원, 유효하지 않은 타임 블록 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createDocumentTag: {
-    parameters: {
-      query: {
-        /**
-         * @description 추가할 파일 id 리스트
-         * @example [
-         *       1,
-         *       2
-         *     ]
-         */
-        documentId: number[];
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 타임 블록 id
-         * @example 1
-         */
-        timeBlockId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseObject'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  deleteTimeBlock: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 타임 블록 id
-         * @example 1
-         */
-        timeBlockId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': Record<string, never>;
-        };
-      };
-      /** @description 접근 권한 없음 */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원, 유효하지 않은 타임 블록 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getFolders: {
-    parameters: {
-      query?: {
-        /**
-         * @description 조회할 폴더 id (최상단은 비워두기)
-         * @example 1
-         */
-        folderId?: number;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseFoldersGetResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createFolder: {
-    parameters: {
-      query?: {
-        /**
-         * @description 생성할 폴더가 속할 폴더 id (최상단은 비워두기)
-         * @example 1
-         */
-        folderId?: number;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['FolderCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseFolderCreateResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query: {
-        /**
-         * @description 삭제할 폴더 id 리스트
-         * @example [
-         *       1,
-         *       2
-         *     ]
-         */
-        folderId: number[];
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': Record<string, never>;
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getDocuments: {
-    parameters: {
-      query?: {
-        /**
-         * @description 조회할 폴더 id (최상단은 비워두기)
-         * @example 1
-         */
-        folderId?: number;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseDocumentsGetResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createDocuments: {
-    parameters: {
-      query?: {
-        /**
-         * @description 생성할 파일이 속할 폴더 id
-         * @example 1
-         */
-        folderId?: number;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DocumentsCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseObject'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  delete_1: {
-    parameters: {
-      query: {
-        /**
-         * @description 삭제할 파일 id 리스트
-         * @example [
-         *       1,
-         *       2
-         *     ]
-         */
-        documentId: number[];
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': Record<string, never>;
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createNoteTemplate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['NoteTemplateCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 노트 생성 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseNoteCreateServiceResponse'];
-        };
-      };
-      /** @description 요청 데이터 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  createNoteFree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['NoteFreeCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 노트 생성 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseNoteCreateServiceResponse'];
-        };
-      };
-      /** @description 요청 데이터 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  signUp: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['MemberProfileCreateRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 비밀번호 불일치 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 이미 가입된 아이디 */
-      409: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  deleteFile: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['S3DeleteRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description S3 버킷의 파일 삭제 실패 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  sendSignUpMail: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['EmailRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 이메일 형식 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 이미 가입된 아이디 */
-      409: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  sendChangingPasswordMail: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['EmailRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 이메일 형식 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 가입되지 않은 이메일 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  checkCode: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CodeVerificationRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 이메일 형식 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 인증 값 불일치 */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 인증 정보가 존재하지 않음 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  signIn: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SignInRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseSignInGetResponse'];
-        };
-      };
-      /** @description 일치하지 않은 비밀번호 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  alterAdmin: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-        targetId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-    };
-  };
-  getTeamName: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseTeamInformGetResponse'];
-        };
-      };
-    };
-  };
-  updateTeamAndTeamMemberInform: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TeamMemberAndTeamInformUpdateRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-    };
-  };
-  updateFolderName: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 수정할 폴더 id
-         * @example 1
-         */
-        folderId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['FolderNameUpdateRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseObject'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  updateTeamMemberName: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateTeamMemberNameRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-    };
-  };
-  updateNoteTemplate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 노트 id
-         * @example 1
-         */
-        noteId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['NoteTemplateUpdateRequest'];
-      };
-    };
-    responses: {
-      /** @description 노트 수정 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 요청 데이터 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 존재하지 않는 노트 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  updateNoteFree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 노트 id
-         * @example 1
-         */
-        noteId: number;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['NoteFreeUpdateRequest'];
-      };
-    };
-    responses: {
-      /** @description 노트 수정 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 요청 데이터 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 존재하지 않는 노트 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  changePassword: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PasswordChangeRequest'];
-      };
-    };
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 비밀번호가 일치하지 않습니다. */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getTimeline: {
-    parameters: {
-      query: {
-        /**
-         * @description 타임라인 타입
-         * @example executive, member
-         */
-        type: string;
-        /**
-         * @description 조회할 타임라인의 년도와 월 정보
-         * @example 2024-07
-         */
-        date: string;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseTimelineGetResponse'];
-        };
-      };
-      /** @description 타입 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음 */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원, 유효하지 않은 팀 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getDrive: {
-    parameters: {
-      query?: {
-        /**
-         * @description 조회할 폴더 id (최상단은 비워두기)
-         * @example 1
-         */
-        folderId?: number;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseDriveGetResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getCapacityInfo: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseUsageGetResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getCategories: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseCategoriesGetResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getMemberTeamInform: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseMemberTeamInformGetResponse'];
-        };
-      };
-    };
-  };
-  getNote: {
-    parameters: {
-      query: {
-        /**
-         * @description 생성시간
-         * @example yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn
-         */
-        createdAt: string;
-        /**
-         * @description 정렬 순서
-         * @example ASC, DESC
-         */
-        sortOrder: 'ASC' | 'DESC';
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 조회 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseNoteListGetServiceResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  deleteNotes: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 노트 id 리스트
-         * @example [
-         *       1,
-         *       2,
-         *       3,
-         *       4,
-         *       5
-         *     ]
-         */
-        noteIds: number[];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 삭제 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseVoid'];
-        };
-      };
-      /** @description 요청 데이터 오류 */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getNoteDetail: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 노트 id
-         * @example 1
-         */
-        noteId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 조회 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json':
-            | components['schemas']['NoteFreeDetailGetServiceResponse']
-            | components['schemas']['NoteTemplateDetailGetServiceResponse'];
-        };
-      };
-      /** @description 접근 권한 없음(토큰 에러) */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getBelongTeam: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseBelongTeamsGetResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getPreSignedUrl: {
-    parameters: {
-      query: {
-        /**
-         * @description 파일 형식
-         * @example hwp, pdf, ...
-         */
-        fileFormat: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponsePreSignedUrlResponse'];
-        };
-      };
-      /** @description S3 PRESIGNED URL 불러오기 실패 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  getAllDocuments: {
-    parameters: {
-      query: {
-        /**
-         * @description 타임라인 타입
-         * @example executive, member
-         */
-        type: string;
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseDocumentsGetResponse'];
-        };
-      };
-      /** @description 접근 권한 없음 */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 팀에 존재하지 않는 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  reissue: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseReissueGetResponse'];
-        };
-      };
-      /** @description 유효하지 않은 키, 인증되지 않은 사용자 */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  deleteTeam: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-      /** @description 유효하지 않은 회원 */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  deleteDocumentTag: {
-    parameters: {
-      query: {
-        /**
-         * @description 삭제할 파일 태그 id 리스트
-         * @example [
-         *       1,
-         *       2
-         *     ]
-         */
-        tagId: number[];
-      };
-      header?: never;
-      path: {
-        /**
-         * @description 팀 id
-         * @example 1
-         */
-        teamId: number;
-        /**
-         * @description 타임 블록 id
-         * @example 1
-         */
-        timeBlockId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description 성공 */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['SuccessResponseObject'];
-        };
-      };
-      /** @description 서버 내부 오류 */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-      /** @description 클라이언트(요청) 오류 */
-      '4xx': {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  kickOutMemberFromTeam: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-        kickOutMemberId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
-    };
-  };
-  leaveTeam: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        teamId: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': components['schemas']['BaseResponse'];
-        };
-      };
+    getAllTeams: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamsGetResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createTeam: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TeamCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamCreateResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getTrash: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseDeletedDocumentsGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    restore: {
+        parameters: {
+            query: {
+                /**
+                 * @description 복구할 파일 id 리스트
+                 * @example [
+                 *       1,
+                 *       2
+                 *     ]
+                 */
+                documentId: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteTrash: {
+        parameters: {
+            query: {
+                /**
+                 * @description 삭제할 파일 id 리스트
+                 * @example [
+                 *       1,
+                 *       2
+                 *     ]
+                 */
+                documentId: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createTimeBlock: {
+        parameters: {
+            query: {
+                /**
+                 * @description 타임라인 타입
+                 * @example executive, member
+                 */
+                type: string;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TimeBlockCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTimeBlockCreateResponse"];
+                };
+            };
+            /** @description 타입 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원, 유효하지 않은 팀 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getTimeBlockDetail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 타임 블록 id
+                 * @example 1
+                 */
+                timeBlockId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTimeBlockDetailGetResponse"];
+                };
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원, 유효하지 않은 타임 블록 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createDocumentTag: {
+        parameters: {
+            query: {
+                /**
+                 * @description 추가할 파일 id 리스트
+                 * @example [
+                 *       1,
+                 *       2
+                 *     ]
+                 */
+                documentId: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 타임 블록 id
+                 * @example 1
+                 */
+                timeBlockId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteTimeBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 타임 블록 id
+                 * @example 1
+                 */
+                timeBlockId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원, 유효하지 않은 타임 블록 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getFolders: {
+        parameters: {
+            query?: {
+                /**
+                 * @description 조회할 폴더 id (최상단은 비워두기)
+                 * @example 1
+                 */
+                folderId?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseFoldersGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createFolder: {
+        parameters: {
+            query?: {
+                /**
+                 * @description 생성할 폴더가 속할 폴더 id (최상단은 비워두기)
+                 * @example 1
+                 */
+                folderId?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FolderCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseFolderCreateResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query: {
+                /**
+                 * @description 삭제할 폴더 id 리스트
+                 * @example [
+                 *       1,
+                 *       2
+                 *     ]
+                 */
+                folderId: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getDocuments: {
+        parameters: {
+            query?: {
+                /**
+                 * @description 조회할 폴더 id (최상단은 비워두기)
+                 * @example 1
+                 */
+                folderId?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseDocumentsGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createDocuments: {
+        parameters: {
+            query?: {
+                /**
+                 * @description 생성할 파일이 속할 폴더 id
+                 * @example 1
+                 */
+                folderId?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DocumentsCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    delete_1: {
+        parameters: {
+            query: {
+                /**
+                 * @description 삭제할 파일 id 리스트
+                 * @example [
+                 *       1,
+                 *       2
+                 *     ]
+                 */
+                documentId: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createNoteTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteTemplateCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 노트 생성 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseNoteCreateServiceResponse"];
+                };
+            };
+            /** @description 요청 데이터 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createNoteFree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteFreeCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 노트 생성 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseNoteCreateServiceResponse"];
+                };
+            };
+            /** @description 요청 데이터 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    signUp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MemberProfileCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 비밀번호 불일치 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 이미 가입된 아이디 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteFile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["S3DeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description S3 버킷의 파일 삭제 실패 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    sendSignUpMail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmailRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 이메일 형식 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 이미 가입된 아이디 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    sendChangingPasswordMail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmailRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 이메일 형식 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 가입되지 않은 이메일 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    checkCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CodeVerificationRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 이메일 형식 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 인증 값 불일치 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 인증 정보가 존재하지 않음 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    signIn: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SignInRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseSignInGetResponse"];
+                };
+            };
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseSignInGetResponse"];
+                };
+            };
+            /** @description 일치하지 않은 비밀번호 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    alterAdmin: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+                targetId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
+    };
+    getTeamName: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamInformGetResponse"];
+                };
+            };
+        };
+    };
+    updateTeamInform: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TeamInformUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
+    };
+    updateFolderName: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 수정할 폴더 id
+                 * @example 1
+                 */
+                folderId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FolderNameUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateTeamMemberName: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateTeamMemberNameRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
+    };
+    updateNoteTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 노트 id
+                 * @example 1
+                 */
+                noteId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteTemplateUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description 노트 수정 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 요청 데이터 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 존재하지 않는 노트 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateNoteFree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 노트 id
+                 * @example 1
+                 */
+                noteId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteFreeUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description 노트 수정 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 요청 데이터 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 존재하지 않는 노트 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    changePassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PasswordChangeRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 비밀번호가 일치하지 않습니다. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getTimeline: {
+        parameters: {
+            query: {
+                /**
+                 * @description 타임라인 타입
+                 * @example executive, member
+                 */
+                type: string;
+                /**
+                 * @description 조회할 타임라인의 년도와 월 정보
+                 * @example 2024-07
+                 */
+                date: string;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTimelineGetResponse"];
+                };
+            };
+            /** @description 타입 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원, 유효하지 않은 팀 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getDrive: {
+        parameters: {
+            query?: {
+                /**
+                 * @description 조회할 폴더 id (최상단은 비워두기)
+                 * @example 1
+                 */
+                folderId?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseDriveGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getCapacityInfo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseUsageGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getCategories: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseCategoriesGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getMemberTeamInform: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseMemberTeamInformGetResponse"];
+                };
+            };
+        };
+    };
+    getNote: {
+        parameters: {
+            query: {
+                /**
+                 * @description 생성시간
+                 * @example yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn
+                 */
+                createdAt: string;
+                /**
+                 * @description 정렬 순서
+                 * @example ASC, DESC
+                 */
+                sortOrder: "ASC" | "DESC";
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 조회 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseNoteListGetServiceResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteNotes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 노트 id 리스트
+                 * @example [
+                 *       1,
+                 *       2,
+                 *       3,
+                 *       4,
+                 *       5
+                 *     ]
+                 */
+                noteIds: number[];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 삭제 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 요청 데이터 오류 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getNoteDetail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 노트 id
+                 * @example 1
+                 */
+                noteId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 조회 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteFreeDetailGetServiceResponse"] | components["schemas"]["NoteTemplateDetailGetServiceResponse"];
+                };
+            };
+            /** @description 접근 권한 없음(토큰 에러) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getBelongTeam: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseBelongTeamsGetResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getPreSignedUrl: {
+        parameters: {
+            query: {
+                /**
+                 * @description 파일 형식
+                 * @example hwp, pdf, ...
+                 */
+                fileFormat: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponsePreSignedUrlResponse"];
+                };
+            };
+            /** @description S3 PRESIGNED URL 불러오기 실패 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getAllDocuments: {
+        parameters: {
+            query: {
+                /**
+                 * @description 타임라인 타입
+                 * @example executive, member
+                 */
+                type: string;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseDocumentsGetResponse"];
+                };
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    reissue: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseReissueGetResponse"];
+                };
+            };
+            /** @description 유효하지 않은 키, 인증되지 않은 사용자 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteTeam: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteDocumentTag: {
+        parameters: {
+            query: {
+                /**
+                 * @description 삭제할 파일 태그 id 리스트
+                 * @example [
+                 *       1,
+                 *       2
+                 *     ]
+                 */
+                tagId: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 타임 블록 id
+                 * @example 1
+                 */
+                timeBlockId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    kickOutMemberFromTeam: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+                kickOutMemberId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
+    };
+    leaveTeam: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
     };
-  };
 }
