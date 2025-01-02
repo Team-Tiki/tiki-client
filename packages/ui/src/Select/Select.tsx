@@ -3,6 +3,7 @@ import {
   ForwardedRef,
   ReactNode,
   forwardRef,
+  useEffect,
   useState,
 } from 'react';
 
@@ -60,6 +61,12 @@ const Select = (
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const [selectedText, setSelectedText] = useState(defaultValue || placeholder);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedText(defaultValue);
+    }
+  }, [defaultValue]);
 
   const isSelected = selectedText !== placeholder;
 
