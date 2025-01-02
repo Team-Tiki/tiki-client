@@ -35,14 +35,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     [setDetail]
   );
 
-  // const handleDateChange = (date: [Date, Date]) => {
-  //   const [startDate, endDate] = date;
-  //   setDetail((prev) => ({
-  //     ...prev,
-  //     startDate: startDate ? startDate.toISOString() : new Date().toISOString(),
-  //     endDate: endDate ? endDate.toISOString() : new Date().toISOString(),
-  //   }));
-  // };
+  const handleDateChange = () => {};
 
   const teamId = useInitializeTeamId();
   const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
@@ -100,7 +93,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>
-          <DatePicker variant="range" triggerWidth="12" />
+          <DatePicker onChange={handleDateChange} variant="range" triggerWidth="12" />
         </li>
       </ul>
     </aside>
