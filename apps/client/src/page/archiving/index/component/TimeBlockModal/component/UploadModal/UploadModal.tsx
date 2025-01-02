@@ -3,12 +3,14 @@ import { Flex } from '@tiki/ui';
 import { useState } from 'react';
 
 import AppendFile from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile';
-import BrowseFile from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Browse/BrowseFile';
+import BrowseFile from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/BrowseFile';
 import { flexStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
+import { useBlockContext } from '@/shared/hook/common/useBlockContext';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
@@ -22,9 +24,12 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   const [selectedFiles, setSelectedFiles] = useState<DocumentDetail[]>([]);
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
-  const isOpen = useModalIsOpen();
+  const { prevStep, nextStep } = useFunnel();
 
+  const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
+
+  const { setFormData } = useBlockContext();
 
   const teamId = useInitializeTeamId();
 
@@ -39,14 +44,24 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
     },
   });
 
-  console.log(fileData);
+  const handleFileSelect = (selected: DocumentDetail[]) => {
+    setSelectedFiles((prev) => {
+      const combined = [...prev, ...selected];
 
-  const handleFileSelect = (selectedFiles: DocumentDetail[]) => {
-    setSelectedFiles(selectedFiles);
+      // 중복 제거
+      return Array.from(new Map(combined.map((file) => [file.documentId, file])).values());
+    });
   };
 
-  const handleFilesChange = (files: File[]) => {
-    console.log('Uploaded Files:', files);
+  const handleNext = () => {
+    const documentIds = selectedFiles.map((file) => file.documentId);
+
+    setFormData({
+      documentIds,
+    });
+
+    onConfirmFile(selectedFiles);
+    nextStep();
   };
 
   return (
@@ -55,7 +70,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
       <Modal.Body>
         <Flex css={flexStyle}>
           {fileData?.data?.documents.length === 0 || isAddingFiles ? (
-            <AppendFile onFilesChange={handleFilesChange} />
+            <AppendFile setSelectedFiles={handleFileSelect} />
           ) : (
             <BrowseFile
               files={fileData?.data?.documents || []}
@@ -69,7 +84,8 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
       <Modal.Footer
         step={3}
         contentType="create-block"
-        buttonClick={() => onConfirmFile(selectedFiles)}
+        buttonClick={handleNext}
+        prevStep={() => prevStep()}
         isButtonActive={selectedFiles.length > 0}
       />
     </Modal>

@@ -1,11 +1,13 @@
 import { useToastAction } from '@tiki/ui';
 
 import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
-import FileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Selected/FileItem/FileItem';
+import FileItem from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem';
+import { fileListWrapperStyle } from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal.style';
 
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
@@ -16,11 +18,14 @@ interface SelectedFileModalProps {
 const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
   const teamId = useInitializeTeamId();
 
-  const { formData } = useBlockContext();
-
+  const { prevStep } = useFunnel();
   const closeModal = useCloseModal();
 
+  const { formData } = useBlockContext();
+
   const { createToast } = useToastAction();
+
+  console.log('file:', selectedFiles);
 
   const { mutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block');
 
@@ -36,12 +41,7 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
           },
         },
         body: {
-          name: formData.name,
-          color: formData.color,
-          blockType: formData.blockType,
-          startDate: formData.startDate,
-          endDate: formData.endDate,
-          documentIds: formData.documentIds,
+          ...formData,
         },
       },
       {
@@ -61,11 +61,13 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
     <>
       <Modal.Header step={4} />
       <Modal.Body>
-        {selectedFiles.map((file) => (
-          <FileItem key={file.name} fileName={file.name} />
-        ))}
+        <ul css={fileListWrapperStyle}>
+          {selectedFiles.map((file) => (
+            <FileItem key={file.documentId} fileName={file.name} />
+          ))}
+        </ul>
       </Modal.Body>
-      <Modal.Footer step={4} contentType="create-block" buttonClick={handleCreateBlock} />
+      <Modal.Footer step={4} contentType="create-block" buttonClick={handleCreateBlock} prevStep={prevStep} />
     </>
   );
 };

@@ -1,8 +1,9 @@
 import { DatePicker, Flex, Input, Text, theme } from '@tiki/ui';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
+import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { Modal } from '@/shared/component/Modal';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
@@ -13,16 +14,15 @@ const BlockInfoModal = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   const { formData, setFormData } = useBlockContext();
-  const { nextStep } = useFunnel();
+  const { prevStep, nextStep } = useFunnel();
 
   const isButtonActive = formData.name.trim() !== '' && !!selectedDate && !!endDate;
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {
       setFormData({
+        ...formData,
         name: e.target.value,
-        startDate: selectedDate?.toISOString(),
-        endDate: endDate?.toISOString(),
       });
     }
   };
@@ -32,13 +32,16 @@ const BlockInfoModal = () => {
     setEndDate(end);
   };
 
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      startDate: formatDateToString(selectedDate),
+      endDate: formatDateToString(endDate),
+    });
+  }, [selectedDate, endDate, setFormData]);
+
   const handleNext = () => {
     if (isButtonActive) {
-      setFormData({
-        name: formData.name,
-        startDate: formData.startDate,
-        endDate: formData.endDate,
-      });
       nextStep();
     }
   };
@@ -65,7 +68,13 @@ const BlockInfoModal = () => {
           <DatePicker variant="range" triggerWidth="13.5rem" onChange={handleDateChange} />
         </BlockBox>
       </Modal.Body>
-      <Modal.Footer step={2} contentType="create-block" buttonClick={handleNext} isButtonActive={isButtonActive} />
+      <Modal.Footer
+        step={2}
+        contentType="create-block"
+        buttonClick={handleNext}
+        prevStep={() => prevStep()}
+        isButtonActive={isButtonActive}
+      />
     </>
   );
 };

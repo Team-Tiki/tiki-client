@@ -3,7 +3,7 @@ import { Text } from '@tiki/ui';
 import {
   headerStyle,
   rightSideRowStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Browse/File/BrowseFileHeader.style';
+} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/FileHeader/BrowseFileHeader.style';
 
 const BrowseFileHeader = () => {
   return (

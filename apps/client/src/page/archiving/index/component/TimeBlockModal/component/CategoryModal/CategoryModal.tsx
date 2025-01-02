@@ -6,6 +6,7 @@ import CategoryButton, {
   BlockColor,
 } from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/Category/Category';
 import { BLOCK_CATEGORY } from '@/page/archiving/index/component/TimeBlockModal/constant/category';
+import { colorToHex } from '@/page/archiving/index/component/TimeBlockModal/util/color';
 
 import { Modal } from '@/shared/component/Modal';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
@@ -22,8 +23,10 @@ const CategoryModal = () => {
   const handleNext = () => {
     if (isButtonActive) {
       const blockIconType = BLOCK_CATEGORY[selectedIcon].type;
+      const blockIconColor = BLOCK_CATEGORY[selectedIcon].color;
       setFormData({
         blockType: blockIconType,
+        color: colorToHex(blockIconColor),
       });
 
       nextStep();

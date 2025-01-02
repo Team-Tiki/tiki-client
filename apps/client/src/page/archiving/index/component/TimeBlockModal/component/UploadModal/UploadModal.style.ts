@@ -4,7 +4,7 @@ import { scrollStyle } from '@tiki/ui';
 export const scrollContainerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  maxHeight: '33.6rem',
+  maxHeight: '39.5rem',
   width: '100%',
 
   position: 'relative',

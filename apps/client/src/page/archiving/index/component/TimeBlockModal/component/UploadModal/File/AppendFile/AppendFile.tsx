@@ -3,21 +3,25 @@ import { Button, Flex, Text, scrollStyle } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
+import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
 import {
   boxStyle,
   buttonStyle,
 } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
-import BlockItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/BlockItem';
+import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
+import { getFileVolume } from '@/shared/util/file';
+
 interface AppendFileProps {
-  onFilesChange: (files: File[]) => void;
+  setSelectedFiles: (files: DocumentDetail[]) => void;
 }
 
-const AppendFile = ({ onFilesChange }: AppendFileProps) => {
+const AppendFile = ({ setSelectedFiles }: AppendFileProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<{ [key: string]: string }>({});
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
+  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
   const [isAllUploaded, setIsAllUploaded] = useState(true);
 
   const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
@@ -29,6 +33,16 @@ const AppendFile = ({ onFilesChange }: AppendFileProps) => {
         );
         return [...prevFiles, ...uniqueFiles];
       });
+
+      // File -> DocumentDetail로 변환
+      const documentDetails: DocumentDetail[] = newFiles.map((file) => ({
+        documentId: Date.now(), // 고유한 ID 생성
+        name: file.name,
+        url: '', // 업로드 후 URL이 설정될 예정
+        capacity: file.size, // 용량 매핑
+        createdTime: new Date().toISOString(), // 현재 시간
+      }));
+      setSelectedFiles(documentDetails);
     },
     setFileUrls,
     setUploadStatus,
@@ -39,8 +53,7 @@ const AppendFile = ({ onFilesChange }: AppendFileProps) => {
       files.length === 0 || (files.length > 0 && Object.values(uploadStatus).every((status) => status));
 
     setIsAllUploaded(allUploaded);
-    onFilesChange(files);
-  }, [uploadStatus, files, onFilesChange]);
+  }, [uploadStatus, files]);
 
   const handleDelete = (fileName: string) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
@@ -61,7 +74,7 @@ const AppendFile = ({ onFilesChange }: AppendFileProps) => {
   };
 
   return (
-    <>
+    <Flex styles={{ direction: 'column', width: '100%' }}>
       <Flex
         styles={{
           direction: 'column',
@@ -91,17 +104,19 @@ const AppendFile = ({ onFilesChange }: AppendFileProps) => {
           </Button>
         </Flex>
       </Flex>
-      <div className="scroll" css={scrollStyle}>
+      <div css={[scrollStyle, { maxHeight: '25rem', overflow: 'scroll' }]}>
         {files.map((file) => (
-          <BlockItem
+          <UploadedFileItem
             key={file.name}
             title={file.name}
+            fileSize={getFileVolume(file.size)}
+            uploadedSize={getFileVolume(file.size)}
             onDelete={() => handleDelete(file.name)}
             isUploading={!uploadStatus[file.name]}
           />
         ))}
       </div>
-    </>
+    </Flex>
   );
 };
 

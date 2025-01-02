@@ -2,12 +2,11 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Flex, Input } from '@tiki/ui';
 import { useDebounce } from '@tiki/utils';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import BrowseFileHeader from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Browse/File/BrowseFileHeader';
-import BrowseFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Browse/File/BrowseFileItem';
+import BrowseFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem';
+import BrowseFileHeader from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/FileHeader/BrowseFileHeader';
 import { scrollContainerStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal.style';
-import { DocumentItem } from '@/page/drive/type';
 
 import { components } from '@/shared/__generated__/schema';
 
@@ -16,13 +15,12 @@ type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 interface BrowseFileProps {
   files: DocumentDetail[];
   selectedFiles: DocumentDetail[];
-  onSelectedFilesChange: (selectedFiles: DocumentDetail[]) => void; // 선택 변경 핸들러
-  onShowBlockAdd: () => void; // 파일 업로드 화면 전환 핸들러
+  onSelectedFilesChange: (selectedFiles: DocumentDetail[]) => void;
+  onShowBlockAdd: () => void;
 }
 
 const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAdd }: BrowseFileProps) => {
   const [searchFile, setSearchFile] = useState('');
-  const [isSelected, setIsSelected] = useState(false);
 
   const filterKeyword = useDebounce(searchFile, 500);
 
@@ -40,6 +38,10 @@ const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAd
 
     onSelectedFilesChange(updatedSelection);
   };
+
+  useEffect(() => {
+    console.log(selectedFiles);
+  }, [selectedFiles]);
 
   return (
     <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%' }}>
@@ -59,24 +61,18 @@ const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAd
         <>
           <BrowseFileHeader />
           <ul css={{ marginTop: '4.8rem' }}>
-            {filteredFiles.map((item) => {
-              const file = item as DocumentItem;
-
-              return (
-                <BrowseFileItem
-                  key={String(file.documentId + file.type)}
-                  documentId={file.documentId}
-                  name={file.name}
-                  capacity={file.capacity}
-                  url={file.url}
-                  createdTime={file.createdTime}
-                  isSelected={isSelected}
-                  onSelect={() => {
-                    setIsSelected(!isSelected);
-                  }}
-                />
-              );
-            })}
+            {filteredFiles.map((file) => (
+              <BrowseFileItem
+                key={file.documentId}
+                documentId={file.documentId}
+                name={file.name}
+                capacity={file.capacity}
+                url={file.url}
+                createdTime={file.createdTime}
+                isSelected={selectedFiles.some((selectedFile) => selectedFile.documentId === file.documentId)}
+                onSelect={() => handleFileSelect(file)}
+              />
+            ))}
           </ul>
         </>
       </div>

@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
+import { ellipsisStyle } from '@/common/style/ellipsis';
+
 export const itemStyle = (isSelected: boolean) =>
   css({
     padding: '1rem',
@@ -20,14 +22,21 @@ export const itemStyle = (isSelected: boolean) =>
   });
 
 export const textStyle = css({
-  width: '42.9rem',
+  maxWidth: '50rem',
 
+  color: theme.colors.black,
+
+  fontWeight: 400,
+
+  ...ellipsisStyle,
+});
+
+export const capacityStyle = css({
   color: theme.colors.gray_800,
 });
 
 export const borderStyle = css({
   borderRadius: '8px',
-  border: `1px solid ${theme.colors.gray_300}`,
 
-  width: '37.5rem',
+  width: '76.8rem',
 });

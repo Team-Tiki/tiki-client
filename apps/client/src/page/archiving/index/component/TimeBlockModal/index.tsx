@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import BlockInfoModal from '@/page/archiving/index/component/TimeBlockModal/component/BlockInfoModal/BlockInfoModal';
 import CategoryModal from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/CategoryModal';
-import SelectedFileModal from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Selected/SelectedFileModal';
+import SelectedFileModal from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal';
 import UploadModal from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal';
 
 import { components } from '@/shared/__generated__/schema';

@@ -36,6 +36,13 @@ export const containerStyle = (isSelected: boolean) =>
   });
 
 export const timeStyle = css({
+  display: 'flex',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  gap: '2rem',
+
   ...theme.text.body06,
 });
 
