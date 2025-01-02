@@ -5,18 +5,21 @@ import CategoryModal from '@/page/archiving/index/component/TimeBlockModal/compo
 import SelectedFileModal from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Selected/SelectedFileModal';
 import UploadModal from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal';
 
+import { components } from '@/shared/__generated__/schema';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { FunnelStep } from '@/shared/util/funnelStep';
 
+export type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
+
 export const BlockFlow = () => {
   const { setTotalSteps } = useFunnel();
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<DocumentDetail[]>([]);
 
   useEffect(() => {
     setTotalSteps(4);
   }, [setTotalSteps]);
 
-  const handleFilesConfirmed = (selectedFiles: File[]) => {
+  const handleFilesConfirmed = (selectedFiles: DocumentDetail[]) => {
     setFiles(selectedFiles);
   };
 
@@ -29,7 +32,7 @@ export const BlockFlow = () => {
         <BlockInfoModal />
       </FunnelStep>
       <FunnelStep step={3}>
-        <UploadModal onFilesConfirmed={handleFilesConfirmed} />
+        <UploadModal onConfirmFile={handleFilesConfirmed} />
       </FunnelStep>
       <FunnelStep step={4}>
         <SelectedFileModal selectedFiles={files} />

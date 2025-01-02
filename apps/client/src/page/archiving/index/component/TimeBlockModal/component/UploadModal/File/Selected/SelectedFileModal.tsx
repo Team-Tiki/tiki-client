@@ -1,5 +1,6 @@
 import { useToastAction } from '@tiki/ui';
 
+import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
 import FileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Selected/FileItem/FileItem';
 
 import { $api } from '@/shared/api/client';
@@ -9,7 +10,7 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
 interface SelectedFileModalProps {
-  selectedFiles: File[];
+  selectedFiles: DocumentDetail[];
 }
 
 const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {

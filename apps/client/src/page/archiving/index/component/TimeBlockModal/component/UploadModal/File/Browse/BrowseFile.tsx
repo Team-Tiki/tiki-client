@@ -4,9 +4,9 @@ import { useDebounce } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
+import BrowseFileHeader from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Browse/File/BrowseFileHeader';
 import BrowseFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/Browse/File/BrowseFileItem';
 import { scrollContainerStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal.style';
-import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import { DocumentItem } from '@/page/drive/type';
 
 import { components } from '@/shared/__generated__/schema';
@@ -14,8 +14,8 @@ import { components } from '@/shared/__generated__/schema';
 type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 
 interface BrowseFileProps {
-  files: DocumentDetail[]; // 문서 목록
-  selectedFiles: DocumentDetail[]; // 선택된 문서 목록
+  files: DocumentDetail[];
+  selectedFiles: DocumentDetail[];
   onSelectedFilesChange: (selectedFiles: DocumentDetail[]) => void; // 선택 변경 핸들러
   onShowBlockAdd: () => void; // 파일 업로드 화면 전환 핸들러
 }
@@ -43,7 +43,6 @@ const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAd
 
   return (
     <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%' }}>
-      {/* 검색 및 파일 업로드 버튼 */}
       <Flex css={{ flexDirection: 'row', alignItems: 'center', gap: '0.4rem', width: '100%' }}>
         <Input
           placeholder="문서를 검색해보세요"
@@ -58,26 +57,24 @@ const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAd
 
       <div css={scrollContainerStyle}>
         <>
-          <FileListHeader />
-          <ul>
+          <BrowseFileHeader />
+          <ul css={{ marginTop: '4.8rem' }}>
             {filteredFiles.map((item) => {
               const file = item as DocumentItem;
 
               return (
-                <>
-                  <BrowseFileItem
-                    key={String(file.documentId + file.type)}
-                    documentId={file.documentId}
-                    name={file.name}
-                    capacity={file.capacity}
-                    url={file.url}
-                    createdTime={file.createdTime}
-                    isSelected={isSelected}
-                    onSelect={() => {
-                      setIsSelected(!isSelected);
-                    }}
-                  />
-                </>
+                <BrowseFileItem
+                  key={String(file.documentId + file.type)}
+                  documentId={file.documentId}
+                  name={file.name}
+                  capacity={file.capacity}
+                  url={file.url}
+                  createdTime={file.createdTime}
+                  isSelected={isSelected}
+                  onSelect={() => {
+                    setIsSelected(!isSelected);
+                  }}
+                />
               );
             })}
           </ul>

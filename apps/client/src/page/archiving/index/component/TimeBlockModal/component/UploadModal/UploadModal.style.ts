@@ -4,10 +4,9 @@ import { scrollStyle } from '@tiki/ui';
 export const scrollContainerStyle = css({
   display: 'flex',
   flexDirection: 'column',
-  maxHeight: '76.8rem',
+  maxHeight: '33.6rem',
   width: '100%',
 
-  gap: '1.2rem',
   position: 'relative',
 
   overflowY: 'auto',

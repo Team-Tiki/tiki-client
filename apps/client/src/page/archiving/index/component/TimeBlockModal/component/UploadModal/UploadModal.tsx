@@ -10,6 +10,7 @@ import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
 type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 
@@ -21,15 +22,24 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   const [selectedFiles, setSelectedFiles] = useState<DocumentDetail[]>([]);
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
+  const isOpen = useModalIsOpen();
+
+  const closeModal = useCloseModal();
+
   const teamId = useInitializeTeamId();
 
-  const { data: fileData } = $api.useQuery('get', '/api/v1/teams/{teamId}/documents', {
+  const { data: fileData } = $api.useQuery('get', '/api/v1/documents/team/{teamId}/timeline', {
     params: {
+      query: {
+        type: 'executive',
+      },
       path: {
         teamId,
       },
     },
   });
+
+  console.log(fileData);
 
   const handleFileSelect = (selectedFiles: DocumentDetail[]) => {
     setSelectedFiles(selectedFiles);
@@ -40,11 +50,11 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   };
 
   return (
-    <Modal size="large" isOpen>
+    <Modal size="large" isOpen={isOpen} onClose={closeModal}>
       <Modal.Header step={2} />
       <Modal.Body>
         <Flex css={flexStyle}>
-          {isAddingFiles || fileData?.data?.documents.length === 0 ? (
+          {fileData?.data?.documents.length === 0 || isAddingFiles ? (
             <AppendFile onFilesChange={handleFilesChange} />
           ) : (
             <BrowseFile
