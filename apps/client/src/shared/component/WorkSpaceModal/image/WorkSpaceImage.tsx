@@ -1,73 +1,52 @@
 import { IcTeamProfileAdd, IcTeamProfileDelete } from '@tiki/icon';
-import { Button, Flex, Label } from '@tiki/ui';
+import { Label } from '@tiki/ui';
 
+import { Modal } from '@/shared/component/Modal';
 import {
-  buttonCompleteStyle,
   imageAddStyle,
   imageBoxStyle,
   imageDeleteStyle,
 } from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
 import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImageUpload';
-import WorkSapceInfo from '@/shared/component/WorkSpaceModal/info/WorkSpaceInfo';
-import { sectionStyle } from '@/shared/component/WorkSpaceModal/name/WorkSpaceName.style';
-import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
-import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 
-interface WorkSpaceImageProps {
-  isVisible: boolean;
-}
-
-const WorkSpaceImage = ({ isVisible }: WorkSpaceImageProps) => {
+const WorkSpaceImage = () => {
   const { fileURL, imgUploadInput, handleImageChange, handleImageRemove } = useImageUpload();
-  const { nextStep, formData } = useWorkSpaceContext();
-  const { mutate: postTeamMutate } = usePostTeamMutation();
 
-  const handleSave = () => {
-    postTeamMutate(
-      {
-        name: formData.name,
-        category: formData.category,
-        iconImageUrl: formData.fileUrlData,
-      },
-      {
-        onSuccess: async () => {
-          nextStep();
-        },
-      }
-    );
-  };
+  const { nextStep } = useFunnel();
 
-  if (!isVisible) return null;
+  const isButtonActive = !!fileURL;
 
   return (
-    <Flex tag={'section'} styles={{ direction: 'column', justify: 'center', align: 'center' }} css={sectionStyle}>
-      <WorkSapceInfo
-        step="image"
-        title="동아리 프로필 이미지 등록"
-        info="우리 동아리의 프로필에 표시할 이미지를 등록해주세요"
+    <>
+      <Modal.Header step={3} totalSteps={4} />
+      <Modal.Body>
+        <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
+          {fileURL ? (
+            <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
+          ) : (
+            <Label id="imgUploadInput" css={imageAddStyle}>
+              <IcTeamProfileAdd width={200} height={200} />
+            </Label>
+          )}
+          {fileURL && <IcTeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
+        </div>
+        <input
+          id="imgUploadInput"
+          css={{ display: 'none' }}
+          type="file"
+          accept="image/*"
+          ref={imgUploadInput}
+          onChange={handleImageChange}
+        />
+      </Modal.Body>
+      <Modal.Footer
+        step={3}
+        contentType="create-workspace"
+        buttonClick={() => nextStep()}
+        isButtonActive={isButtonActive}
       />
-      <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
-        {fileURL ? (
-          <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
-        ) : (
-          <Label id="imgUploadInput" css={imageAddStyle}>
-            <IcTeamProfileAdd width={200} height={200} />
-          </Label>
-        )}
-        {fileURL && <IcTeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
-      </div>
-      <input
-        id="imgUploadInput"
-        css={{ display: 'none' }}
-        type="file"
-        accept="image/*"
-        ref={imgUploadInput}
-        onChange={handleImageChange}
-      />
-      <Button css={buttonCompleteStyle} variant="primary" size="medium" onClick={handleSave}>
-        완료
-      </Button>
-    </Flex>
+    </>
   );
 };
 

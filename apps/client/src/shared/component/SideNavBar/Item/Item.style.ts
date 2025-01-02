@@ -12,11 +12,21 @@ export const itemStyle = (isClicked: boolean) =>
     padding: '0.1rem',
 
     backgroundColor: theme.colors.gray_100,
+
     borderRadius: '10px',
-    border: isClicked ? `1px solid ${theme.colors.key_500}` : 0,
+    border: isClicked ? `1px solid ${theme.colors.key_500}` : 'transparent',
 
     '&:hover': {
       border: `1px solid ${theme.colors.key_500}`,
+    },
+
+    '& > img': {
+      width: '3.3rem',
+      height: '3.3rem',
+
+      borderRadius: '9px',
+
+      objectFit: 'cover',
     },
 
     cursor: 'pointer',
