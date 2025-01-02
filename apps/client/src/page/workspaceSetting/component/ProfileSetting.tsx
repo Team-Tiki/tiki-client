@@ -1,21 +1,25 @@
 import { Flex, Input, Select, Text } from '@tiki/ui';
-import { useOutsideClick, useOverlay } from '@tiki/utils';
+import { useOutsideClick } from '@tiki/utils';
 
-import { ERROR_NAME } from '@/page/workspaceSetting/constant';
+import { ERROR_NAME, POSITION, POSITION_VALUE } from '@/page/workspaceSetting/constant';
+import { MemberType } from '@/page/workspaceSetting/type';
 
 import { SUPPORTING_TEXT } from '@/shared/constant/form';
 import { Validate } from '@/shared/util/validate';
 
-interface ProfileSettingProps {
-  nickName: string;
+interface ProfileSettingProps extends MemberType {
   onWorkspaceDataChange: (key: string, value: string) => void;
   error: string;
   onErrorChange: (key: string, value: string) => void;
 }
 
-const ProfileSetting = ({ nickName, onWorkspaceDataChange, error, onErrorChange }: ProfileSettingProps) => {
-  const select_options = [{ value: '관리자' }, { value: '임원진' }];
-  const { isOpen, close, toggle } = useOverlay();
+const select_options = [
+  { value: POSITION_VALUE.ADMIN },
+  { value: POSITION_VALUE.EXECUTIVE },
+  { value: POSITION_VALUE.MEMBER },
+];
+
+const ProfileSetting = ({ name, position, onWorkspaceDataChange, error, onErrorChange }: ProfileSettingProps) => {
   const ref = useOutsideClick<HTMLDivElement>(close);
 
   const handleNameChange = (value: string) => {
@@ -27,7 +31,7 @@ const ProfileSetting = ({ nickName, onWorkspaceDataChange, error, onErrorChange 
       onErrorChange('nicknameError', ERROR_NAME.OVER_LENGTH);
     }
 
-    onWorkspaceDataChange('nickName', value);
+    onWorkspaceDataChange('name', value);
   };
 
   const defineSupportigtext = (errorName: string) => {
@@ -47,7 +51,7 @@ const ProfileSetting = ({ nickName, onWorkspaceDataChange, error, onErrorChange 
       <Text tag="body6">개인 프로필 관리</Text>
       <Flex styles={{ gap: '1.6rem', marginTop: '1.2rem', maxWidth: '68.8rem' }}>
         <Input
-          value={nickName}
+          value={name}
           supportingText={defineSupportigtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
           onClick={() => handleNameChange('')}
@@ -56,11 +60,10 @@ const ProfileSetting = ({ nickName, onWorkspaceDataChange, error, onErrorChange 
         />
         <Select
           aria-label={`선택된 직책: ${select_options[0].value}`}
-          variant="outline"
+          variant={position === POSITION.ADMIN ? 'outline' : 'disabled'}
           ref={ref}
-          isOpen={isOpen}
-          placeholder={select_options[0].value}
-          onTrigger={toggle}
+          placeholder={POSITION_VALUE[position]}
+          defaultValue={POSITION_VALUE[position]}
           options={select_options}
         />
       </Flex>
