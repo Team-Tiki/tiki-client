@@ -1,8 +1,8 @@
 import { $api } from '@/shared/api/client';
-import { useTeamId } from '@/shared/store/team';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 export const useNoteData = (createdAt: string, sortOrder?: 'ASC' | 'DESC') => {
-  const teamId = useTeamId();
+  const teamId = useInitializeTeamId();
 
   return $api.useQuery('get', '/api/v1/notes/{teamId}', {
     params: {

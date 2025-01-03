@@ -1,10 +1,6 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { backgroundStyle, dialogStyle } from "@/Modal/Modal.style";
 import { ReactNode, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
-
-import { backgroundStyle, dialogStyle } from "@/Modal/Modal.style";
 
 interface ModalProps {
   isOpen: boolean;
@@ -12,7 +8,7 @@ interface ModalProps {
   onClose?: () => void;
 }
 
-const Modal = ({ isOpen, children, onClose }: ModalProps) => {
+const ModalWrapper = ({ isOpen, children, onClose }: ModalProps) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -28,12 +24,13 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
 
       document.body.style.overflow = "hidden";
       document.body.style.maxWidth = `${widthWithoutScrollbar}px`;
+
       window.addEventListener("keydown", handleKeyDown);
     }
-
     return () => {
       document.body.style.overflow = "auto";
       document.body.style.maxWidth = "100vw";
+
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
@@ -52,4 +49,4 @@ const Modal = ({ isOpen, children, onClose }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default ModalWrapper;

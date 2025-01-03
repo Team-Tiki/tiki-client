@@ -349,7 +349,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["updateTeamAndTeamMemberInform"];
+        patch: operations["updateTeamInform"];
         trace?: never;
     };
     "/api/v1/teams/{teamId}/folders/{folderId}": {
@@ -745,7 +745,7 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         ErrorResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
         };
         TeamCreateRequest: {
@@ -755,7 +755,7 @@ export interface components {
             iconImageUrl: string;
         };
         SuccessResponseTeamCreateResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["TeamCreateResponse"];
         };
@@ -775,7 +775,7 @@ export interface components {
             documentIds: number[];
         };
         SuccessResponseTimeBlockCreateResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["TimeBlockCreateResponse"];
         };
@@ -784,7 +784,7 @@ export interface components {
             timeBlockId: number;
         };
         SuccessResponseObject: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: Record<string, never>;
         };
@@ -800,7 +800,7 @@ export interface components {
             folderId: number;
         };
         SuccessResponseFolderCreateResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["FolderCreateResponse"];
         };
@@ -848,10 +848,10 @@ export interface components {
         };
         NoteCreateServiceResponse: {
             /** Format: int64 */
-            noteId?: number;
+            noteId: number;
         };
         SuccessResponseNoteCreateServiceResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["NoteCreateServiceResponse"];
         };
@@ -878,7 +878,6 @@ export interface components {
             password: string;
             passwordChecker: string;
         };
-        BaseResponse: Record<string, never>;
         S3DeleteRequest: {
             fileKey: string;
         };
@@ -898,12 +897,11 @@ export interface components {
             refreshToken: string;
         };
         SuccessResponseSignInGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["SignInGetResponse"];
         };
-        TeamMemberAndTeamInformUpdateRequest: {
-            teamMemberName: string;
+        TeamInformUpdateRequest: {
             teamName: string;
             teamUrl: string;
         };
@@ -952,7 +950,7 @@ export interface components {
             passwordChecker: string;
         };
         SuccessResponseTeamsGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["TeamsGetResponse"];
         };
@@ -982,12 +980,12 @@ export interface components {
             deletedDocuments: components["schemas"]["DeletedDocumentGetResponse"][];
         };
         SuccessResponseDeletedDocumentsGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["DeletedDocumentsGetResponse"];
         };
         SuccessResponseTimelineGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["TimelineGetResponse"];
         };
@@ -1020,7 +1018,7 @@ export interface components {
             noteName: string;
         };
         SuccessResponseTimeBlockDetailGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["TimeBlockDetailGetResponse"];
         };
@@ -1029,7 +1027,7 @@ export interface components {
             notes: components["schemas"]["NoteNameGetResponse"][];
         };
         SuccessResponseTeamInformGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["TeamInformGetResponse"];
         };
@@ -1038,6 +1036,8 @@ export interface components {
             /** @enum {string} */
             university: "건국대학교";
             teamIconUrl: string;
+            /** Format: date */
+            namingUpdatedAt: string;
         };
         FolderInfoGetResponse: {
             /** Format: int64 */
@@ -1051,7 +1051,7 @@ export interface components {
             folders: components["schemas"]["FolderInfoGetResponse"][];
         };
         SuccessResponseFoldersGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["FoldersGetResponse"];
         };
@@ -1080,7 +1080,7 @@ export interface components {
             type: string;
         };
         SuccessResponseDriveGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["DriveGetResponse"];
         };
@@ -1098,12 +1098,12 @@ export interface components {
             documents: components["schemas"]["DocumentInfoGetResponse"][];
         };
         SuccessResponseDocumentsGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["DocumentsGetResponse"];
         };
         SuccessResponseUsageGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["UsageGetResponse"];
         };
@@ -1117,7 +1117,7 @@ export interface components {
             categories: ("전체" | "학술연구" | "문화예술" | "스포츠레저" | "사회활동" | "취미활동" | "창업비즈니스" | "과학기술" | "종교" | "국제교류" | "네트워킹")[];
         };
         SuccessResponseCategoriesGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["CategoriesGetResponse"];
         };
@@ -1127,7 +1127,7 @@ export interface components {
             name: string;
         };
         SuccessResponseMemberTeamInformGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["MemberTeamInformGetResponse"];
         };
@@ -1148,17 +1148,17 @@ export interface components {
             noteGetResponseList: components["schemas"]["NoteGetResponse"][];
         };
         SuccessResponseNoteListGetServiceResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["NoteListGetServiceResponse"];
         };
         DocumentTagGetServiceResponse: {
             /** Format: int64 */
-            id?: number;
-            fileName?: string;
-            fileUrl?: string;
+            id: number;
+            fileName: string;
+            fileUrl: string;
             /** Format: double */
-            capacity?: number;
+            capacity: number;
         };
         NoteFreeDetailGetServiceResponse: {
             /** Format: int64 */
@@ -1178,9 +1178,9 @@ export interface components {
         };
         TimeBlockTagServiceResponse: {
             /** Format: int64 */
-            id?: number;
-            name?: string;
-            color?: string;
+            id: number;
+            name: string;
+            color: string;
         };
         NoteTemplateDetailGetServiceResponse: {
             /** Format: int64 */
@@ -1211,7 +1211,7 @@ export interface components {
             belongTeamGetResponses: components["schemas"]["BelongTeamGetResponse"][];
         };
         SuccessResponseBelongTeamsGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["BelongTeamsGetResponse"];
         };
@@ -1220,12 +1220,12 @@ export interface components {
             url: string;
         };
         SuccessResponsePreSignedUrlResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["PreSignedUrlResponse"];
         };
         SuccessResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: Record<string, never>;
         };
@@ -1233,14 +1233,9 @@ export interface components {
             accessToken: string;
         };
         SuccessResponseReissueGetResponse: {
-            success?: boolean;
+            success: boolean;
             message: string;
             data?: components["schemas"]["ReissueGetResponse"];
-        };
-        SuccessResponseVoid: {
-            success?: boolean;
-            message: string;
-            data?: Record<string, never>;
         };
     };
     responses: never;
@@ -1422,9 +1417,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": Record<string, never>;
-                };
+                content?: never;
             };
             /** @description 서버 내부 오류 */
             500: {
@@ -1475,9 +1468,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": Record<string, never>;
-                };
+                content?: never;
             };
             /** @description 서버 내부 오류 */
             500: {
@@ -1730,9 +1721,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": Record<string, never>;
-                };
+                content?: never;
             };
             /** @description 접근 권한 없음 */
             403: {
@@ -1905,9 +1894,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": Record<string, never>;
-                };
+                content?: never;
             };
             /** @description 서버 내부 오류 */
             500: {
@@ -2062,9 +2049,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": Record<string, never>;
-                };
+                content?: never;
             };
             /** @description 서버 내부 오류 */
             500: {
@@ -2243,7 +2228,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 비밀번호 불일치 */
@@ -2303,7 +2288,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description S3 버킷의 파일 삭제 실패 */
@@ -2345,7 +2330,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 이메일 형식 오류 */
@@ -2405,7 +2390,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 이메일 형식 오류 */
@@ -2465,7 +2450,16 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 이메일 형식 오류 */
@@ -2537,6 +2531,15 @@ export interface operations {
                     "*/*": components["schemas"]["SuccessResponseSignInGetResponse"];
                 };
             };
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseSignInGetResponse"];
+                };
+            };
             /** @description 일치하지 않은 비밀번호 */
             400: {
                 headers: {
@@ -2593,7 +2596,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
         };
@@ -2620,7 +2623,7 @@ export interface operations {
             };
         };
     };
-    updateTeamAndTeamMemberInform: {
+    updateTeamInform: {
         parameters: {
             query?: never;
             header?: never;
@@ -2631,7 +2634,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TeamMemberAndTeamInformUpdateRequest"];
+                "application/json": components["schemas"]["TeamInformUpdateRequest"];
             };
         };
         responses: {
@@ -2641,7 +2644,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
         };
@@ -2720,7 +2723,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
         };
@@ -2750,7 +2753,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 요청 데이터 오류 */
@@ -2825,7 +2828,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 요청 데이터 오류 */
@@ -2894,7 +2897,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
             /** @description 비밀번호가 일치하지 않습니다. */
@@ -3275,9 +3278,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": components["schemas"]["SuccessResponseVoid"];
-                };
+                content?: never;
             };
             /** @description 요청 데이터 오류 */
             400: {
@@ -3628,9 +3629,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": components["schemas"]["BaseResponse"];
-                };
+                content?: never;
             };
             /** @description 유효하지 않은 회원 */
             404: {
@@ -3695,9 +3694,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": components["schemas"]["SuccessResponseObject"];
-                };
+                content?: never;
             };
             /** @description 서버 내부 오류 */
             500: {
@@ -3737,7 +3734,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
         };
@@ -3759,7 +3756,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["BaseResponse"];
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
         };

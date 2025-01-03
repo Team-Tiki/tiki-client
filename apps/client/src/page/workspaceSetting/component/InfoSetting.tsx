@@ -13,18 +13,18 @@ interface InfoSettingProps {
   error: string;
   onErrorChange: (key: string, value: string) => void;
 }
+const select_options = [{ value: '건국대학교' }];
 
 const InfoSetting = ({ workspaceName, onWorkspaceDataChange, error, onErrorChange }: InfoSettingProps) => {
-  const select_options = [{ value: '건국대학교' }];
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
 
   const handleNameChange = (value: string) => {
-    if (Validate.validateLength(value, 40) || Validate.isEmpty(value)) {
+    if (Validate.validateLength(value, 30) || Validate.isEmpty(value)) {
       onErrorChange('workspaceNameError', ERROR_NAME.VALIDATE);
     }
 
-    if (!Validate.validateLength(value, 40)) {
+    if (!Validate.validateLength(value, 30)) {
       onErrorChange('workspaceNameError', ERROR_NAME.OVER_LENGTH);
     }
 

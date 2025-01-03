@@ -1,36 +1,54 @@
 import DatePickerCalendar from "@/DatePicker/Calendar/DatePickerCalendar";
-import DatePickerTrigger from "@/DatePicker/Trigger/DatePickerTrigger";
 import { containerStyle } from "@/DatePicker/index.style";
-import Label from "@/Label/Label";
+import DatePickerTrigger from "@/DatePicker/Trigger/DatePickerTrigger";
 import { useDatePicker, useOutsideClick, useOverlay } from "@tiki/utils";
 
 interface DatePickerProps {
-  label?: string;
   variant: "single" | "range";
   triggerWidth?: string;
+  onChange: (selectedDate: Date | null, endDate: Date | null) => void;
+  defaultSelectedDate?: Date;
+  defaultEndDate?: Date;
 }
 
-const DatePicker = ({ label, variant, triggerWidth = "10.3rem" }: DatePickerProps) => {
+const DatePicker = ({
+  variant,
+  triggerWidth = "10.3rem",
+  onChange,
+  defaultSelectedDate,
+  defaultEndDate,
+}: DatePickerProps) => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const { selectedDate, endDate, handleSelectDate, clearDates } = useDatePicker(variant);
+
+  const initialSelectedDate = defaultSelectedDate ? new Date(defaultSelectedDate) : null;
+  const initialEndDate = defaultEndDate ? new Date(defaultEndDate) : null;
+
+  const { selectedDate, endDate, handleSelectDate, clearDates } = useDatePicker(
+    variant,
+    onChange,
+    initialSelectedDate,
+    initialEndDate,
+  );
 
   const handleInputClick = () => {
-    // 캘린더가 닫혀 있고, 시작날짜와 종료날짜가 모두 선택된 경우에만 날짜 초기화
     if (!isOpen && selectedDate && endDate) {
       clearDates();
     }
     toggle();
   };
-
   return (
-    <div ref={ref} css={containerStyle(triggerWidth)}>
-      {label && <Label id={label}>{label}</Label>}
-      <DatePickerTrigger selectedDate={selectedDate} endDate={endDate} onClick={handleInputClick} variant={variant} />
+    <div ref={ref} css={containerStyle}>
+      <DatePickerTrigger
+        selectedDate={selectedDate || initialSelectedDate}
+        endDate={endDate || initialEndDate}
+        onClick={handleInputClick}
+        variant={variant}
+      />
       {isOpen && (
         <DatePickerCalendar
-          selectedDate={selectedDate || new Date()}
-          endDate={endDate}
+          selectedDate={selectedDate || initialSelectedDate || new Date()}
+          endDate={endDate || initialEndDate}
           setSelectedDate={handleSelectDate}
           variant={variant}
         />
@@ -38,5 +56,4 @@ const DatePicker = ({ label, variant, triggerWidth = "10.3rem" }: DatePickerProp
     </div>
   );
 };
-
 export default DatePicker;
