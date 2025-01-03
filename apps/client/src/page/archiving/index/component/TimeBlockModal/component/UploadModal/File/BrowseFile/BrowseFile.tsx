@@ -30,21 +30,16 @@ const BrowseFile = ({ files, selectedFiles, onUpdateSelection, onShowBlockAdd }:
   );
 
   const handleFileSelect = (file: DocumentDetail) => {
-    console.log(file);
-    console.log(selectedFiles);
     const isSelected = selectedFiles.some((selectedFile) => selectedFile.documentId === file.documentId);
 
     const updatedSelection = isSelected
       ? selectedFiles.filter((selectedFile) => selectedFile.documentId !== file.documentId)
       : [...selectedFiles, file];
-    console.log(updatedSelection);
 
     onUpdateSelection(updatedSelection);
   };
 
-  useEffect(() => {
-    console.log(selectedFiles);
-  }, [selectedFiles]);
+  useEffect(() => {}, [selectedFiles]);
 
   return (
     <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%' }}>

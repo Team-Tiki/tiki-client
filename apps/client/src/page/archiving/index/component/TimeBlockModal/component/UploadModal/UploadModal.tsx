@@ -46,10 +46,11 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
 
   const handleFileSelect = (selected: DocumentDetail[]) => {
     setSelectedFiles((prev) => {
-      const combined = [...prev, ...selected];
+      const combinedFiles = prev.concat(selected);
 
-      // 중복 제거
-      return Array.from(new Map(combined.map((file) => [file.documentId, file])).values());
+      return combinedFiles.filter(
+        (file, index) => index === combinedFiles.findIndex((f) => f.documentId === file.documentId)
+      );
     });
   };
 

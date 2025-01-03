@@ -14,18 +14,11 @@ import { extractFileExtension, extractFileName } from '@/shared/util/file';
 type DocumentItem = components['schemas']['DocumentGetResponse'];
 
 type FileListItemProps = Omit<DocumentItem, 'type'> & {
-  isSelected?: boolean;
-  onSelect?: () => void;
+  isSelected: boolean;
+  onSelect: () => void;
 };
 
-const BrowseFileItem = ({
-  documentId,
-  name,
-  createdTime,
-  url,
-  isSelected = false,
-  onSelect = () => {},
-}: FileListItemProps) => {
+const BrowseFileItem = ({ documentId, name, createdTime, url, isSelected, onSelect }: FileListItemProps) => {
   return (
     <div key={documentId} css={{ margin: '0.4rem', borderBottom: `1px solid ${theme.colors.gray_300}` }}>
       <div css={containerStyle(isSelected)} onClick={onSelect}>
