@@ -8,6 +8,8 @@ import { boxStyle } from '@/page/archiving/index/component/TimeBlockModal/compon
 import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
+import { $api } from '@/shared/api/client';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { getFileVolume } from '@/shared/util/file';
 
 interface AppendFileProps {
@@ -23,6 +25,10 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
 
+  const teamId = useInitializeTeamId();
+
+  const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
+
   const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
     files,
     onFilesChange: (newFiles) => {
@@ -31,25 +37,51 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
           (newFile) => !prevFiles.some((file) => file.name === newFile.name && file.size === newFile.size)
         );
         const updatedFiles = [...prevFiles, ...uniqueFiles];
-
         handleSelectFiles(updatedFiles);
-
         return updatedFiles;
       });
     },
     setUploadStatus,
   });
 
-  const handleSelectFiles = (updatedFiles: FileWithDocumentId[]) => {
-    const documentDetails: DocumentDetail[] = updatedFiles.map((file) => ({
-      documentId: file.documentId || 0, // documentId가 없을 경우 0으로 초기화
-      name: file.name,
-      url: '',
-      capacity: file.size,
-      createdTime: new Date().toISOString(),
-    }));
+  const handleSelectFiles = async (updatedFiles: FileWithDocumentId[]) => {
+    const documentDetails: DocumentDetail[] = [];
 
-    onSelectFile(documentDetails);
+    postDocumentMutation(
+      {
+        params: {
+          path: {
+            teamId,
+          },
+        },
+        body: {
+          documents: updatedFiles.map((file) => ({
+            fileName: file.name,
+            fileUrl: '',
+            fileKey: '',
+            capacity: file.size,
+          })),
+        },
+      },
+      {
+        onSuccess: (data) => {
+          data?.data?.response?.forEach((document, index) => {
+            documentDetails.push({
+              documentId: document.documentId,
+              name: updatedFiles[index].name,
+              url: '',
+              capacity: updatedFiles[index].size,
+              createdTime: new Date().toISOString(),
+            });
+          });
+
+          onSelectFile(documentDetails);
+        },
+        onError: (error) => {
+          console.error(error);
+        },
+      }
+    );
   };
 
   const handleDelete = (fileName: string) => {
@@ -97,7 +129,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
           </Button>
         </Flex>
       </Flex>
-      <div css={[scrollStyle, { maxHeight: '25rem', overflow: 'scroll' }]}>
+      <div css={[scrollStyle, { maxHeight: '25rem', overflowY: 'auto' }]}>
         {files.map((file) => (
           <UploadedFileItem
             key={file.name}
