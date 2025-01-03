@@ -85,13 +85,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={3}
-        contentType="create-block"
-        buttonClick={handleNext}
-        prevStep={() => prevStep()}
-        isButtonActive={selectedFiles.length > 0}
-      />
+      <Modal.Footer step={3} contentType="create-block" buttonClick={handleNext} prevStep={() => prevStep()} />
     </Modal>
   );
 };

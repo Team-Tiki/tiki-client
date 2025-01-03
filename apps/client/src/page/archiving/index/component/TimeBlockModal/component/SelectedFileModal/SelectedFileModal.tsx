@@ -1,5 +1,7 @@
 import { useToastAction } from '@tiki/ui';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
 import FileItem from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem';
 import { fileListWrapperStyle } from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal.style';
@@ -25,6 +27,7 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
 
   const { createToast } = useToastAction();
 
+  const queryClient = useQueryClient();
   const { mutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block');
 
   const handleCreateBlock = () => {
@@ -41,13 +44,18 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
       {
         onSuccess: () => {
           createToast('타임 블록이 생성되었습니다.', 'success');
+
+          queryClient.invalidateQueries({
+            queryKey: ['get', '/api/v1/teams/{teamId}/timeline'],
+          });
+
+          closeModal();
         },
         onError: () => {
           createToast('타임 블록 생성을 실패했습니다.', 'error');
         },
       }
     );
-    closeModal();
   };
 
   return (
