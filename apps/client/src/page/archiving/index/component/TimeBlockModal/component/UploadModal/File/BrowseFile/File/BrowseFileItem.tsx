@@ -1,6 +1,8 @@
 import { IcCheckBlue } from '@tiki/icon';
 import { Flex, Text, theme } from '@tiki/ui';
 
+import { KeyboardEvent } from 'react';
+
 import {
   containerStyle,
   rightSideRowStyle,
@@ -19,9 +21,15 @@ type FileListItemProps = Omit<DocumentItem, 'type'> & {
 };
 
 const BrowseFileItem = ({ documentId, name, createdTime, url, isSelected, onSelect }: FileListItemProps) => {
+  const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      onSelect();
+    }
+  };
+
   return (
     <div key={documentId} css={{ margin: '0.4rem', borderBottom: `1px solid ${theme.colors.gray_300}` }}>
-      <div css={containerStyle(isSelected)} onClick={onSelect}>
+      <div css={containerStyle(isSelected)} onClick={onSelect} onKeyDown={handleKeyPress} role="button" tabIndex={0}>
         <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
           <Text tag="body6">{extractFileName(name)}</Text>
         </Flex>

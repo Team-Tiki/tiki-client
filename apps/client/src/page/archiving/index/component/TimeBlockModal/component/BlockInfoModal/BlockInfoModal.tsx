@@ -38,7 +38,7 @@ const BlockInfoModal = () => {
       startDate: formatDateToString(selectedDate),
       endDate: formatDateToString(endDate),
     });
-  }, [selectedDate, endDate, setFormData]);
+  }, [selectedDate, endDate, setFormData, formData]);
 
   const handleNext = () => {
     if (isButtonActive) {

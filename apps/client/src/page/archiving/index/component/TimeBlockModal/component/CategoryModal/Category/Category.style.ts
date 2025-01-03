@@ -1,6 +1,7 @@
-import { Theme, css } from '@emotion/react';
+import { css } from '@emotion/react';
+import { theme } from '@tiki/ui';
 
-export const wrapperStyle = (color: string, isSelected: boolean) => (theme: Theme) =>
+export const wrapperStyle = (color: string, isSelected: boolean) =>
   css({
     display: 'flex',
 
@@ -16,15 +17,14 @@ export const wrapperStyle = (color: string, isSelected: boolean) => (theme: Them
 
     borderRadius: '8px',
     border: 'none',
-
-    backgroundColor: isSelected ? theme.colors?.[`${color}_100`] : theme.colors.gray_100,
-    color: isSelected ? theme.colors?.[`${color}_200`] : theme.colors.gray_500,
+    backgroundColor: isSelected ? theme.colors?.[`${color}_100` as keyof typeof theme.colors] : theme.colors.gray_100,
+    color: isSelected ? theme.colors?.[`${color}_200` as keyof typeof theme.colors] : theme.colors.gray_500,
 
     cursor: 'pointer',
 
     '& > svg': {
       '& > path': {
-        fill: isSelected ? theme.colors?.[`${color}_200`] : theme.colors.gray_400,
+        fill: isSelected ? theme.colors?.[`${color}_200` as keyof typeof theme.colors] : theme.colors.gray_400,
       },
     },
   });
