@@ -15,7 +15,6 @@ const BlockInfo = ({ title, startDate, endDate, isEditable }: BlockInfoProps) =>
     // 날짜 선택 코드 추후 작성 필요
   };
 
-
   return (
     <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem', width: '100%' }}>
       {isEditable ? <Input css={titleInputStyle} value={title} /> : <Heading tag="H6">{title}</Heading>}
