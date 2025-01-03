@@ -53,6 +53,10 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
     });
   };
 
+  const handleSelectedFilesChange = (updatedFiles: DocumentDetail[]) => {
+    setSelectedFiles(updatedFiles);
+  };
+
   const handleNext = () => {
     const documentIds = selectedFiles.map((file) => file.documentId);
 
@@ -70,13 +74,13 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
       <Modal.Body>
         <Flex css={flexStyle}>
           {fileData?.data?.documents.length === 0 || isAddingFiles ? (
-            <AppendFile setSelectedFiles={handleFileSelect} />
+            <AppendFile onSelectFile={handleFileSelect} selectedFiles={selectedFiles} />
           ) : (
             <BrowseFile
               files={fileData?.data?.documents || []}
               selectedFiles={selectedFiles}
-              onSelectedFilesChange={handleFileSelect}
               onShowBlockAdd={() => setIsAddingFiles(true)}
+              onUpdateSelection={handleSelectedFilesChange}
             />
           )}
         </Flex>

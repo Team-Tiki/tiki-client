@@ -1,28 +1,27 @@
 import { IcFileUpload } from '@tiki/icon';
 import { Button, Flex, Text, scrollStyle } from '@tiki/ui';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
-import {
-  boxStyle,
-  buttonStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
+import { boxStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
 import { getFileVolume } from '@/shared/util/file';
 
 interface AppendFileProps {
-  setSelectedFiles: (files: DocumentDetail[]) => void;
+  selectedFiles: DocumentDetail[];
+  onSelectFile: (files: DocumentDetail[]) => void;
 }
 
-const AppendFile = ({ setSelectedFiles }: AppendFileProps) => {
-  const [files, setFiles] = useState<File[]>([]);
-  const [fileUrls, setFileUrls] = useState<{ [key: string]: string }>({});
+interface FileWithDocumentId extends File {
+  documentId?: number;
+}
+
+const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
+  const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
-  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
-  const [isAllUploaded, setIsAllUploaded] = useState(true);
 
   const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
     files,
@@ -31,44 +30,38 @@ const AppendFile = ({ setSelectedFiles }: AppendFileProps) => {
         const uniqueFiles = newFiles.filter(
           (newFile) => !prevFiles.some((file) => file.name === newFile.name && file.size === newFile.size)
         );
-        return [...prevFiles, ...uniqueFiles];
-      });
+        const updatedFiles = [...prevFiles, ...uniqueFiles];
 
-      // File -> DocumentDetail로 변환
-      const documentDetails: DocumentDetail[] = newFiles.map((file) => ({
-        documentId: Date.now(), // 고유한 ID 생성
-        name: file.name,
-        url: '', // 업로드 후 URL이 설정될 예정
-        capacity: file.size, // 용량 매핑
-        createdTime: new Date().toISOString(), // 현재 시간
-      }));
-      setSelectedFiles(documentDetails);
+        handleSelectFiles(updatedFiles);
+
+        return updatedFiles;
+      });
     },
-    setFileUrls,
     setUploadStatus,
   });
 
-  useEffect(() => {
-    const allUploaded =
-      files.length === 0 || (files.length > 0 && Object.values(uploadStatus).every((status) => status));
+  const handleSelectFiles = (updatedFiles: FileWithDocumentId[]) => {
+    const documentDetails: DocumentDetail[] = updatedFiles.map((file) => ({
+      documentId: file.documentId || 0, // documentId가 없을 경우 0으로 초기화
+      name: file.name,
+      url: '',
+      capacity: file.size,
+      createdTime: new Date().toISOString(),
+    }));
 
-    setIsAllUploaded(allUploaded);
-  }, [uploadStatus, files]);
+    onSelectFile(documentDetails);
+  };
 
   const handleDelete = (fileName: string) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    const updatedFiles = files.filter((file) => file.name !== fileName);
+    setFiles(updatedFiles);
 
-    setFileUrls((prevUrls) => {
-      const newUrls = { ...prevUrls };
-      delete newUrls[fileName];
-
-      return newUrls;
-    });
+    const updatedSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
+    onSelectFile(updatedSelectedFiles);
 
     setUploadStatus((prevStatus) => {
       const newStatus = { ...prevStatus };
       delete newStatus[fileName];
-
       return newStatus;
     });
   };
@@ -99,7 +92,7 @@ const AppendFile = ({ setSelectedFiles }: AppendFileProps) => {
             </Text>
           </Flex>
 
-          <Button variant="outline" css={buttonStyle} onClick={() => fileInputRef.current?.click()}>
+          <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
             파일 브라우저
           </Button>
         </Flex>
@@ -109,8 +102,8 @@ const AppendFile = ({ setSelectedFiles }: AppendFileProps) => {
           <UploadedFileItem
             key={file.name}
             title={file.name}
-            fileSize={getFileVolume(file.size)}
-            uploadedSize={getFileVolume(file.size)}
+            fileSize={getFileVolume(file.size || 0)}
+            uploadedSize={getFileVolume(file.size || 0)}
             onDelete={() => handleDelete(file.name)}
             isUploading={!uploadStatus[file.name]}
           />

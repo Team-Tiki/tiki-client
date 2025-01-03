@@ -18,14 +18,12 @@ interface SelectedFileModalProps {
 const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
   const teamId = useInitializeTeamId();
 
+  const { formData } = useBlockContext();
+
   const { prevStep } = useFunnel();
   const closeModal = useCloseModal();
 
-  const { formData } = useBlockContext();
-
   const { createToast } = useToastAction();
-
-  console.log('file:', selectedFiles);
 
   const { mutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block');
 
@@ -33,12 +31,8 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
     mutate(
       {
         params: {
-          path: {
-            teamId,
-          },
-          query: {
-            type: 'executive',
-          },
+          path: { teamId },
+          query: { type: 'executive' },
         },
         body: {
           ...formData,
@@ -53,7 +47,6 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
         },
       }
     );
-
     closeModal();
   };
 

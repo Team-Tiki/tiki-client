@@ -15,11 +15,11 @@ type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 interface BrowseFileProps {
   files: DocumentDetail[];
   selectedFiles: DocumentDetail[];
-  onSelectedFilesChange: (selectedFiles: DocumentDetail[]) => void;
+  onUpdateSelection: (selectedFiles: DocumentDetail[]) => void;
   onShowBlockAdd: () => void;
 }
 
-const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAdd }: BrowseFileProps) => {
+const BrowseFile = ({ files, selectedFiles, onUpdateSelection, onShowBlockAdd }: BrowseFileProps) => {
   const [searchFile, setSearchFile] = useState('');
 
   const filterKeyword = useDebounce(searchFile, 500);
@@ -30,13 +30,16 @@ const BrowseFile = ({ files, selectedFiles, onSelectedFilesChange, onShowBlockAd
   );
 
   const handleFileSelect = (file: DocumentDetail) => {
+    console.log(file);
+    console.log(selectedFiles);
     const isSelected = selectedFiles.some((selectedFile) => selectedFile.documentId === file.documentId);
 
     const updatedSelection = isSelected
       ? selectedFiles.filter((selectedFile) => selectedFile.documentId !== file.documentId)
       : [...selectedFiles, file];
+    console.log(updatedSelection);
 
-    onSelectedFilesChange(updatedSelection);
+    onUpdateSelection(updatedSelection);
   };
 
   useEffect(() => {
