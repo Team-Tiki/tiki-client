@@ -11,6 +11,7 @@ export { default as IcArrowDown } from "./src/IcArrowDown";
 export { default as IcArrowDownGray } from "./src/IcArrowDownGray";
 export { default as IcArrowDropDown } from "./src/IcArrowDropDown";
 export { default as IcArrowForward } from "./src/IcArrowForward";
+
 export { default as IcArrowLeft } from "./src/IcArrowLeft";
 export { default as IcArrowLeftWhite } from "./src/IcArrowLeftWhite";
 export { default as IcArrowRight } from "./src/IcArrowRight";
@@ -34,7 +35,6 @@ export { default as IcCommandKey } from "./src/IcCommandKey";
 export { default as IcDefaultProfile } from "./src/IcDefaultProfile";
 export { default as IcDelete } from "./src/IcDelete";
 export { default as IcDeleteFile } from "./src/IcDeleteFile";
-export { default as IcDocument } from "./src/IcDocument";
 export { default as IcDown } from "./src/IcDown";
 export { default as IcDownload } from "./src/IcDownload";
 export { default as IcEtc } from "./src/IcEtc";
