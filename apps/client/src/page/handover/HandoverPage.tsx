@@ -2,7 +2,7 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
 import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useMemo, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
@@ -14,7 +14,7 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { PATH } from '@/shared/constant/path';
 
 const HandoverPage = () => {
-  const createdAt = useMemo(() => new Date().toISOString().slice(0, -1), []);
+  const createdAt = useRef<string>(new Date().toISOString().slice(0, -1)).current;
 
   const [sortOption, setSortOption] = useState<FILTER_TYPE>('ASC');
 
