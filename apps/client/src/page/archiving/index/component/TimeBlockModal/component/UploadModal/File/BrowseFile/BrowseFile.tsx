@@ -2,7 +2,7 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Flex, Input } from '@tiki/ui';
 import { useDebounce } from '@tiki/utils';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import BrowseFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem';
 import BrowseFileHeader from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/FileHeader/BrowseFileHeader';
@@ -38,8 +38,6 @@ const BrowseFile = ({ files, selectedFiles, onUpdateSelection, onShowBlockAdd }:
 
     onUpdateSelection(updatedSelection);
   };
-
-  useEffect(() => {}, [selectedFiles]);
 
   return (
     <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%' }}>

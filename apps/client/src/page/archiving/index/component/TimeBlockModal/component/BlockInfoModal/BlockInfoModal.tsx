@@ -53,7 +53,7 @@ const BlockInfoModal = () => {
         <BlockBox title="이름">
           <Flex styles={{ align: 'flex-end', direction: 'column', gap: '0.8rem', width: '100%' }}>
             <Input
-              placeholder="ex.활동명"
+              placeholder="ex. 활동명"
               css={{ width: '100%' }}
               value={formData.name}
               onChange={handleBlockNameChange}
