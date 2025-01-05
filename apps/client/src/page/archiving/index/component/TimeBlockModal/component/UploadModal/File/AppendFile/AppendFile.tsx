@@ -14,14 +14,14 @@ import { getFileVolume } from '@/shared/util/file';
 
 interface AppendFileProps {
   selectedFiles: DocumentDetail[];
-  onSelectFile: (files: DocumentDetail[]) => void;
+  onUploadFile: (files: DocumentDetail[]) => void;
 }
 
 interface FileWithDocumentId extends File {
   documentId?: number;
 }
 
-const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
+const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
 
@@ -29,6 +29,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
   const { createToast } = useToastAction();
 
   const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
+  const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
 
   const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
     files,
@@ -39,7 +40,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
         );
 
         const updatedFiles = [...prevFiles, ...uniqueFiles];
-        handleSelectFiles(updatedFiles);
+        handleUploadFile(updatedFiles);
 
         return updatedFiles;
       });
@@ -47,8 +48,8 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
     setUploadStatus,
   });
 
-  const handleSelectFiles = async (updatedFiles: FileWithDocumentId[]) => {
-    const documentDetails: DocumentDetail[] = [];
+  const handleUploadFile = (updatedFiles: FileWithDocumentId[]) => {
+    const documentDetailList: DocumentDetail[] = [];
 
     postDocumentMutation(
       {
@@ -69,7 +70,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
       {
         onSuccess: (data) => {
           data?.data?.response?.forEach((document, index) => {
-            documentDetails.push({
+            documentDetailList.push({
               documentId: document.documentId,
               name: updatedFiles[index].name,
               url: '',
@@ -78,7 +79,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
             });
           });
 
-          onSelectFile(documentDetails);
+          onUploadFile(documentDetailList);
         },
         onError: (error) => {
           createToast(`${error.message}`, 'error');
@@ -87,17 +88,28 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
     );
   };
 
-  const handleDelete = (fileName: string) => {
+  const handleDelete = (fileName: string, documentId: number) => {
     const updatedFiles = files.filter((file) => file.name !== fileName);
     setFiles(updatedFiles);
 
     const updatedSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
-    onSelectFile(updatedSelectedFiles);
+    onUploadFile(updatedSelectedFiles);
 
     setUploadStatus((prevStatus) => {
       const newStatus = { ...prevStatus };
       delete newStatus[fileName];
       return newStatus;
+    });
+
+    deleteDocumentMutation({
+      params: {
+        query: {
+          documentId: [documentId],
+        },
+        path: {
+          teamId,
+        },
+      },
     });
   };
 
@@ -139,7 +151,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
             title={file.name}
             fileSize={getFileVolume(file.size || 0)}
             uploadedSize={getFileVolume(file.size || 0)}
-            onDelete={() => handleDelete(file.name)}
+            onDelete={() => handleDelete(file.name, file.documentId ?? 0)}
             isUploading={!uploadStatus[file.name]}
           />
         ))}
