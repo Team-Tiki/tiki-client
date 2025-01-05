@@ -75,7 +75,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
       <Modal.Body>
         <Flex css={flexStyle}>
           {fileData?.data?.documents.length === 0 || isAddingFiles ? (
-            <AppendFile onSelectFile={handleFileSelect} selectedFiles={selectedFiles} />
+            <AppendFile onUploadFile={handleFileSelect} selectedFiles={selectedFiles} />
           ) : (
             <BrowseFile
               files={fileData?.data?.documents || []}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DatePicker, Flex, Input, Text, theme } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
@@ -10,13 +11,13 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
 const BlockInfoModal = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   const { formData, setFormData } = useBlockContext();
   const { prevStep, nextStep } = useFunnel();
 
-  const isButtonActive = formData.name.trim() !== '' && !!selectedDate && !!endDate;
+  const isButtonActive = formData.name.trim() !== '' && !!startDate && !!endDate;
 
   const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 25) {
@@ -28,23 +29,23 @@ const BlockInfoModal = () => {
   };
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
-    setSelectedDate(start);
+    setStartDate(start);
     setEndDate(end);
   };
-
-  useEffect(() => {
-    setFormData({
-      ...formData,
-      startDate: formatDateToString(selectedDate),
-      endDate: formatDateToString(endDate),
-    });
-  }, [selectedDate, endDate, setFormData, formData]);
 
   const handleNext = () => {
     if (isButtonActive) {
       nextStep();
     }
   };
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      startDate: formatDateToString(startDate),
+      endDate: formatDateToString(endDate),
+    });
+  }, [startDate, endDate, setFormData]);
 
   return (
     <>
