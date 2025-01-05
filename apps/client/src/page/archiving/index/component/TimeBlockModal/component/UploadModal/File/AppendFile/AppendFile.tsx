@@ -1,5 +1,5 @@
 import { IcFileUpload } from '@tiki/icon';
-import { Button, Flex, Text, scrollStyle } from '@tiki/ui';
+import { Button, Flex, Text, scrollStyle, useToastAction } from '@tiki/ui';
 
 import { useState } from 'react';
 
@@ -26,6 +26,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
 
   const teamId = useInitializeTeamId();
+  const { createToast } = useToastAction();
 
   const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
 
@@ -36,8 +37,10 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
         const uniqueFiles = newFiles.filter(
           (newFile) => !prevFiles.some((file) => file.name === newFile.name && file.size === newFile.size)
         );
+
         const updatedFiles = [...prevFiles, ...uniqueFiles];
         handleSelectFiles(updatedFiles);
+
         return updatedFiles;
       });
     },
@@ -78,7 +81,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
           onSelectFile(documentDetails);
         },
         onError: (error) => {
-          console.error(error);
+          createToast(`${error.message}`, 'error')
         },
       }
     );

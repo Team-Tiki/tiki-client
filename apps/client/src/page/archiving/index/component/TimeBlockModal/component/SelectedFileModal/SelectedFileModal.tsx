@@ -20,14 +20,15 @@ interface SelectedFileModalProps {
 const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
   const teamId = useInitializeTeamId();
 
+  const { createToast } = useToastAction();
   const { formData } = useBlockContext();
 
   const { prevStep } = useFunnel();
   const closeModal = useCloseModal();
 
-  const { createToast } = useToastAction();
 
   const queryClient = useQueryClient();
+
   const { mutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block');
 
   const handleCreateBlock = () => {
