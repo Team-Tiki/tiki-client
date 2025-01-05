@@ -26,7 +26,6 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
   const { prevStep } = useFunnel();
   const closeModal = useCloseModal();
 
-
   const queryClient = useQueryClient();
 
   const { mutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block');

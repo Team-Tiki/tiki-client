@@ -81,7 +81,7 @@ const AppendFile = ({ selectedFiles, onSelectFile }: AppendFileProps) => {
           onSelectFile(documentDetails);
         },
         onError: (error) => {
-          createToast(`${error.message}`, 'error')
+          createToast(`${error.message}`, 'error');
         },
       }
     );
