@@ -24,6 +24,7 @@ import {
 
 import HandoverPage from '@/page/handover/HandoverPage';
 import CreateNotePage from '@/page/handover/note/component/CreateNote/CreateNote';
+import InvitedPage from '@/page/invite';
 import WorkspaceSettingPage from '@/page/workspaceSetting';
 
 import { PATH } from '@/shared/constant/path';
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense>
             <InfoFormPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.INVITE,
+        element: (
+          <Suspense>
+            <InvitedPage />
           </Suspense>
         ),
       },

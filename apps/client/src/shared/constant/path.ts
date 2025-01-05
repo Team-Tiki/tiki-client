@@ -8,6 +8,8 @@ export const PATH = {
   SIGNUP_INFO: '/signup-info',
   SIGNUP_UNIV: '/signup-univ',
 
+  INVITE: '/invite',
+
   PASSWORD_AUTH: '/password-auth',
   PASSWORD_RESET: '/password-reset',
 
