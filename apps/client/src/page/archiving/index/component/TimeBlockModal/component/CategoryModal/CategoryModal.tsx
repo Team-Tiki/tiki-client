@@ -2,10 +2,9 @@ import { Flex } from '@tiki/ui';
 
 import { useState } from 'react';
 
-import CategoryButton, {
-  BlockColor,
-} from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/Category/Category';
+import CategoryItem from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/Category/Category';
 import { BLOCK_CATEGORY } from '@/page/archiving/index/component/TimeBlockModal/constant/category';
+import { BlockColor } from '@/page/archiving/index/component/TimeBlockModal/type/block';
 import { colorToHex } from '@/page/archiving/index/component/TimeBlockModal/util/color';
 
 import { Modal } from '@/shared/component/Modal';
@@ -24,6 +23,7 @@ const CategoryModal = () => {
     if (isButtonActive) {
       const blockIconType = BLOCK_CATEGORY[selectedIcon].type;
       const blockIconColor = BLOCK_CATEGORY[selectedIcon].color;
+
       setFormData({
         blockType: blockIconType,
         color: colorToHex(blockIconColor),
@@ -37,9 +37,9 @@ const CategoryModal = () => {
     <>
       <Modal.Header />
       <Modal.Body>
-        <Flex styles={{ width: '36.5rem', wrap: 'wrap', gap: '0.6rem', justify: 'center' }}>
+        <Flex tag="ul" styles={{ width: '36.5rem', wrap: 'wrap', gap: '0.6rem', justify: 'center' }}>
           {BLOCK_CATEGORY.map((icon, index) => (
-            <CategoryButton
+            <CategoryItem
               key={icon.name}
               categoryType={icon.name}
               icon={icon.icon}
