@@ -9,6 +9,7 @@ export const PATH = {
   SIGNUP_UNIV: '/signup-univ',
 
   INVITE: '/invite',
+  INVITE_IN: '/invite-in',
 
   PASSWORD_AUTH: '/password-auth',
   PASSWORD_RESET: '/password-reset',

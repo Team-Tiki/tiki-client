@@ -127,6 +127,14 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: PATH.INVITE_IN,
+        element: (
+          <Suspense>
+            <InvitedPage />
+          </Suspense>
+        ),
+      },
+      {
         path: PATH.DASHBOARD,
         element: (
           <Suspense>
