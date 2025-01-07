@@ -1,9 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { DatePicker, Flex, Input } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
 import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
+import { useBlockName } from '@/page/archiving/index/component/TimeBlockModal/hook/common/useBlockName';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { Modal } from '@/shared/component/Modal';
@@ -14,28 +14,15 @@ import { useFunnel } from '@/shared/hook/common/useFunnel';
 const BlockInfoModal = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [isNameError, setIsNameError] = useState(false);
 
   const { formData, setFormData } = useBlockContext();
   const { prevStep, nextStep } = useFunnel();
 
-  const isButtonActive = formData.name.trim() !== '' && !!startDate && !!endDate;
+  const { blockName, isNameError, handleBlockNameChange } = useBlockName({
+    onChange: (name) => setFormData({ ...formData, name }),
+  });
 
-  const handleBlockNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 25) {
-      setIsNameError(true);
-      return;
-    }
-
-    if (e.target.value.length <= 25) {
-      setFormData({
-        ...formData,
-        name: e.target.value,
-      });
-
-      setIsNameError(false);
-    }
-  };
+  const isButtonActive = blockName.trim() !== '' && !!startDate && !!endDate;
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
     setStartDate(start);
@@ -54,7 +41,7 @@ const BlockInfoModal = () => {
       startDate: formatDateToString(startDate),
       endDate: formatDateToString(endDate),
     });
-  }, [startDate, endDate, setFormData]);
+  }, [startDate, endDate]);
 
   return (
     <>
@@ -66,7 +53,7 @@ const BlockInfoModal = () => {
               id="time-block-title"
               placeholder="ex. 활동명"
               css={{ width: '100%' }}
-              value={formData.name}
+              value={blockName}
               onChange={handleBlockNameChange}
               isError={isNameError}
               supportingText={isNameError ? SUPPORTING_TEXT.TIMEBLOCK_NAME_LENGTH : ''}
