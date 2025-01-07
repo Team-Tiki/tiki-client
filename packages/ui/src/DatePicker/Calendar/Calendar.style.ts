@@ -33,6 +33,8 @@ export const containerStyle = css({
   borderRadius: "8px",
 
   backgroundColor: theme.colors.white,
+
+  boxShadow: theme.shadow.shadow02
 });
 
 export const datesContainerStyle = css({

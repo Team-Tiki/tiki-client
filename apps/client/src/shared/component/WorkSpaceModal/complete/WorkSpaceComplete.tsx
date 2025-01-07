@@ -20,7 +20,7 @@ const WorkSpaceComplete = () => {
         iconImageUrl: formData.fileUrlData,
       },
       {
-        onSuccess: async () => {
+        onSuccess: () => {
           closeModal();
         },
       }

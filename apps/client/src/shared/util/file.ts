@@ -15,3 +15,9 @@ export const getFileVolume = (volume: number) => {
 
   return `${volume.toFixed(2)}${units[index]}`;
 };
+
+export const extractFileName = (fileName: string) => {
+  const lastDotIndex = fileName.lastIndexOf('.');
+
+  return lastDotIndex !== -1 ? fileName.substring(0, lastDotIndex) : fileName;
+};
