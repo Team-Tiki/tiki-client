@@ -17,10 +17,17 @@ import { FunnelStep } from '@/shared/util/funnelStep';
 
 const ModalFunnel = () => {
   const isOpen = useModalIsOpen();
-
   const contentType = useModalContentType();
-
   const closeModal = useCloseModal();
+
+  const getModalSize = () => {
+    switch (contentType) {
+      case 'deleted':
+        return 'small';
+      default:
+        return 'medium';
+    }
+  };
 
   const renderContent = () => {
     switch (contentType) {
@@ -43,9 +50,7 @@ const ModalFunnel = () => {
       case 'deleted':
         return (
           <Suspense>
-            <FunnelStep step={1}>
-              <DeletedModal />
-            </FunnelStep>
+            <DeletedModal />
           </Suspense>
         );
       case 'invite':
@@ -80,7 +85,7 @@ const ModalFunnel = () => {
   if (!isOpen) return null;
 
   return (
-    <Modal isOpen={isOpen} onClose={closeModal}>
+    <Modal isOpen={isOpen} onClose={closeModal} size={getModalSize()}>
       <FunnelProvider>{renderContent()}</FunnelProvider>
     </Modal>
   );
