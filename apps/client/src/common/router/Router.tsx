@@ -7,24 +7,24 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
+  CreateNotePage,
   DashboardPage,
   DeletedPage,
   DrivePage,
   ErrorPage,
   HandoverNotePage,
+  HandoverPage,
   InfoFormPage,
   LandingPage,
   LoginPage,
+  OnBoardingPage,
   PasswordAuthPage,
   PasswordResetPage,
   ShowcasePage,
   TermPage,
   UnivFormPage,
+  WorkSpaceSettingPage,
 } from '@/common/router/lazy';
-
-import HandoverPage from '@/page/handover/HandoverPage';
-import CreateNotePage from '@/page/handover/note/component/CreateNote/CreateNote';
-import WorkspaceSettingPage from '@/page/workspaceSetting';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -193,7 +193,15 @@ const router = createBrowserRouter([
         path: PATH.WORKSPACE_SETTING,
         element: (
           <Suspense>
-            <WorkspaceSettingPage />
+            <WorkSpaceSettingPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.ONBOARDING,
+        element: (
+          <Suspense>
+            <OnBoardingPage />
           </Suspense>
         ),
       },

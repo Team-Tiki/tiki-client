@@ -46,6 +46,7 @@ const ArchivingPage = () => {
   const handleOpenBlockModal = () => {
     openModal('create-block');
   };
+
   return (
     <DateProvider teamId={teamId}>
       <Flex css={pageStyle}>
