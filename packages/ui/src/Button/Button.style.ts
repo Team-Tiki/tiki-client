@@ -93,6 +93,14 @@ export const variantStyle = (variant: Required<ButtonProps>["variant"]) => {
         textDecoration: "underline",
       },
     }),
+    delete: css({
+      color: theme.colors.sementic_red,
+      backgroundColor: theme.colors.sementic_red_10,
+
+      "&:hover": {
+        backgroundColor: theme.colors.sementic_red_20,
+      },
+    }),
   };
   return style[variant];
 };
