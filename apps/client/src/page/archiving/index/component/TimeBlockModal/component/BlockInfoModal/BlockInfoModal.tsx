@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DatePicker, Flex, Input } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
