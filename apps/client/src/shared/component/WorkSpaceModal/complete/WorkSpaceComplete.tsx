@@ -1,6 +1,7 @@
 import completePng from '@/common/asset/img/workspace_complete.png';
 import complete from '@/common/asset/img/workspace_complete.webp';
 
+import { queryClient } from '@/shared/api/queryClient';
 import { Modal } from '@/shared/component/Modal';
 import { usePostTeamMutation } from '@/shared/hook/api/usePostTeamMutation';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
@@ -20,7 +21,9 @@ const WorkSpaceComplete = () => {
         iconImageUrl: formData.fileUrlData,
       },
       {
-        onSuccess: async () => {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
+
           closeModal();
         },
       }

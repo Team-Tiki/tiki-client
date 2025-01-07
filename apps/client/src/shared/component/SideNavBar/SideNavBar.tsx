@@ -4,21 +4,21 @@ import { Divider, Flex, ToolTip, theme } from '@tiki/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { $api } from '@/shared/api/client';
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
 import { PATH } from '@/shared/constant/path';
-import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useOpenModal } from '@/shared/store/modal';
 import { Team } from '@/shared/type/team';
 
 const SideNavBar = () => {
-  const { data } = useClubInfoQuery();
-
   const [selectedId, setSelectedId] = useState('showcase');
 
   const navigate = useNavigate();
 
   const openModal = useOpenModal();
+
+  const { data } = $api.useQuery('get', '/api/v1/members/teams');
 
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
@@ -46,7 +46,7 @@ const SideNavBar = () => {
           onLogoClick={() => handleItemClick('showcase', PATH.SHOWCASE)}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
-        {data?.belongTeamGetResponses.map((data: Team) => {
+        {data?.data?.belongTeamGetResponses.map((data: Team) => {
           return (
             <Item
               key={data.id}

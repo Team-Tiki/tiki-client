@@ -15,9 +15,12 @@ import {
 } from '@/page/workspaceSetting/styles';
 import { MemberType } from '@/page/workspaceSetting/type';
 
+import { useOpenModal } from '@/shared/store/modal';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
+  const openModal = useOpenModal();
+
   // 추후 워크스페이스 api 붙일때 타입 수정 예정
   const [workspaceData, setWorkspaceData] = useState({
     name: '',
@@ -67,6 +70,12 @@ const WorkspaceSettingPage = () => {
     if (Validate.isEmpty(workspaceData.workspaceName)) {
       handleErrorChange('workspaceNameError', ERROR_NAME.EMPTY);
       return;
+    }
+  };
+
+  const handleWorkspace = () => {
+    if (workspaceData.position === POSITION.ADMIN) {
+      openModal('deleted');
     }
   };
 
@@ -121,7 +130,7 @@ const WorkspaceSettingPage = () => {
         </>
       )}
 
-      <Button variant="outline" size="small" css={workspaceDeleteButton}>
+      <Button variant="outline" size="small" css={workspaceDeleteButton} onClick={handleWorkspace}>
         {workspaceData.position === POSITION.ADMIN ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
       </Button>
     </form>

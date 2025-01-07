@@ -6,7 +6,6 @@ export const titleStyle = css({
   fontWeight: 600,
 });
 
-export const detailStyle = css({
+export const contentStyle = css({
   color: theme.colors.gray_800,
-  fontWeight: 500,
 });

@@ -29,6 +29,16 @@ export const DELETED_TITLE = {
   PERMANENT: '파일을 완전히 삭제하시겠습니까?',
 } as const;
 
+export const DELETE_WORKSPACE = {
+  TITLE: '정말 워크스페이스를 삭제하시겠습니까?',
+  CONTENT: '워크스페이스가 즉시 삭제됩니다.',
+};
+
+export const DELETE_EXECUTIVE = {
+  TITLE: '임원진을 워크스페이스를 삭제하시겠습니까?',
+  CONTENT: '임원진을 워크스페이스에서 내보냅니다.',
+};
+
 export const DELETED_DETAIL = '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다' as const;
 
 export const MEMBER_DATA = [
