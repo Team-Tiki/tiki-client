@@ -20,62 +20,45 @@ const ModalFunnel = () => {
   const contentType = useModalContentType();
   const closeModal = useCloseModal();
 
-  const getModalSize = () => {
-    switch (contentType) {
-      case 'deleted':
-        return 'small';
-      default:
-        return 'medium';
-    }
-  };
+  if (contentType === 'deleted') {
+    return (
+      <Suspense>
+        <DeletedModal />
+      </Suspense>
+    );
+  }
 
   const renderContent = () => {
     switch (contentType) {
       case 'create-workspace':
         return (
-          <Suspense>
-            <WorkSpaceProvider>
-              <WorkSpaceFlow />
-            </WorkSpaceProvider>
-          </Suspense>
+          <WorkSpaceProvider>
+            <WorkSpaceFlow />
+          </WorkSpaceProvider>
         );
       case 'create-block':
         return (
-          <Suspense>
-            <BlockProvider>
-              <BlockFlow />
-            </BlockProvider>
-          </Suspense>
-        );
-      case 'deleted':
-        return (
-          <Suspense>
-            <DeletedModal />
-          </Suspense>
+          <BlockProvider>
+            <BlockFlow />
+          </BlockProvider>
         );
       case 'invite':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <InviteModal step={1} />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <InviteModal step={1} />
+          </FunnelStep>
         );
       case 'member-tag':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <MemberTagModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <MemberTagModal />
+          </FunnelStep>
         );
       case 'activity-tag':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <ActivityTagModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <ActivityTagModal />
+          </FunnelStep>
         );
       default:
         return null;
@@ -85,8 +68,10 @@ const ModalFunnel = () => {
   if (!isOpen) return null;
 
   return (
-    <Modal isOpen={isOpen} onClose={closeModal} size={getModalSize()}>
-      <FunnelProvider>{renderContent()}</FunnelProvider>
+    <Modal isOpen={isOpen} onClose={closeModal}>
+      <Suspense>
+        <FunnelProvider>{renderContent()}</FunnelProvider>
+      </Suspense>
     </Modal>
   );
 };

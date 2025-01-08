@@ -18,7 +18,7 @@ const SideNavBar = () => {
 
   const openModal = useOpenModal();
 
-  const { data } = $api.useQuery('get', '/api/v1/members/teams');
+  const { data } = $api.useQuery('get', '/api/v1/members/teams', {});
 
   const handleItemClick = (id: string, path: string) => {
     setSelectedId(id);
