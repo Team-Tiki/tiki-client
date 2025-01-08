@@ -5,11 +5,11 @@ import { Modal } from '@/shared/component/Modal';
 import { useCloseModal } from '@/shared/store/modal';
 
 interface CautionModalProps {
-  infoText?: string;
-  content?: string;
-  desc?: string;
-  footerType?: 'caution' | 'caution-modify';
-  onClick?: () => void;
+  infoText: string;
+  content: string;
+  desc: string;
+  footerType: 'caution' | 'caution-modify';
+  onClick: () => void;
   onClose?: () => void;
 }
 
