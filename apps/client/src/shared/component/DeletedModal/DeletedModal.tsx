@@ -3,11 +3,13 @@ import { Flex, Text } from '@tiki/ui';
 import { detailStyle, titleStyle } from '@/shared/component/DeletedModal/DeletedModal.style';
 import { Modal } from '@/shared/component/Modal';
 import { DELETED_DETAIL, DELETED_TITLE } from '@/shared/constant';
-import { useCloseModal, useModalData } from '@/shared/store/modal';
+import { isDeletedModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 
 const DeletedModal = () => {
   const closeModal = useCloseModal();
   const modalData = useModalData();
+
+  if (!isDeletedModalData(modalData)) return null;
 
   const itemType = modalData?.itemType;
   const title = itemType && DELETED_TITLE[itemType.toUpperCase() as keyof typeof DELETED_TITLE];

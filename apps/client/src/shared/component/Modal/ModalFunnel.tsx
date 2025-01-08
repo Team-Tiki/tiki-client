@@ -13,7 +13,13 @@ import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
-import { useCloseModal, useModalContentType, useModalData, useModalIsOpen } from '@/shared/store/modal';
+import {
+  isCautionModalData,
+  useCloseModal,
+  useModalContentType,
+  useModalData,
+  useModalIsOpen,
+} from '@/shared/store/modal';
 import { FunnelStep } from '@/shared/util/funnelStep';
 
 const ModalFunnel = () => {
@@ -63,16 +69,19 @@ const ModalFunnel = () => {
           </FunnelStep>
         );
       case 'caution':
-        return (
-          <CautionModal
-            infoText={modalData?.infoText}
-            content={modalData?.content}
-            desc={modalData?.desc}
-            footerType={modalData?.footerType}
-            onClick={modalData?.onClick}
-            onClose={modalData?.onClose}
-          />
-        );
+        if (isCautionModalData(modalData)) {
+          return (
+            <CautionModal
+              infoText={modalData?.infoText}
+              content={modalData?.content}
+              desc={modalData?.desc}
+              footerType={modalData?.footerType}
+              onClick={modalData?.onClick}
+              onClose={modalData?.onClose}
+            />
+          );
+        }
+        break;
       default:
         return null;
     }
