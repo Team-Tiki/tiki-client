@@ -15,7 +15,7 @@ const DeletedModal = () => {
   return (
     <Modal isOpen={true} onClose={closeModal} size="small">
       <Modal.Body>
-        <Flex styles={{ width: '100%', direction: 'column', gap: '2rem', padding: '0' }}>
+        <Flex styles={{ width: '100%', direction: 'column', gap: '2rem' }}>
           <Text tag="body4" css={titleStyle}>
             {title}
           </Text>

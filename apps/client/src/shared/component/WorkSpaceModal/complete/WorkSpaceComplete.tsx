@@ -41,14 +41,16 @@ const WorkSpaceComplete = () => {
     <>
       <Modal.Header step={5} totalSteps={5} />
       <Modal.Body>
-        <picture>
-          <source srcSet={complete} />
-          <img
-            css={{ width: '30rem', height: '30rem', objectFit: 'cover' }}
-            src={completePng}
-            alt="워크 스페이스 생성 완료"
-          />
-        </picture>
+        <div css={{ width: '100%', paddingTop: '2rem' }}>
+          <picture>
+            <source srcSet={complete} />
+            <img
+              css={{ width: '30rem', height: '30rem', objectFit: 'cover' }}
+              src={completePng}
+              alt="워크 스페이스 생성 완료"
+            />
+          </picture>
+        </div>
       </Modal.Body>
       <Modal.Footer step={1} contentType="create-workspace" buttonClick={handleSave} />
     </>

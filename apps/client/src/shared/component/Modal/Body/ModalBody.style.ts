@@ -7,7 +7,5 @@ export const wrapper = css({
   justifyContent: 'flex-start',
   alignItems: 'center',
 
-  paddingTop: '2rem',
-
   flexGrow: '1',
 });
