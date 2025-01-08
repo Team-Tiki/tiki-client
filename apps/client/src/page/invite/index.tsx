@@ -1,26 +1,41 @@
 import { LogoTikiSm } from '@tiki/icon';
-import { Button, Flex, theme } from '@tiki/ui';
+import { Button, Flex, Heading, Text } from '@tiki/ui';
 
-import { pageStyle } from '@/page/login/index/LoginPage.style';
+import { useMatch } from 'react-router-dom';
+
+import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
+
+import { PATH } from '@/shared/constant/path';
 
 const InviteData = {
-  invitor: 'invitor',
-  teamImg: 'teamImg',
-  teamName: 'teamName',
+  invitor: '김가온',
+  teamImg: '',
+  teamName: 'TIKI',
 };
+
 const InvitedPage = () => {
+  const isLogined = useMatch(PATH.INVITE_IN);
+
   return (
-    <Flex styles={{ justify: 'center', paddingTop: '15rem' }}>
-      <Flex styles={{ direction: 'column', gap: '6rem', width: '39rem' }}>
+    <Flex styles={{ justify: 'center', paddingTop: `${isLogined ? '14rem' : '20rem'}` }}>
+      <Flex tag="section" styles={{ direction: 'column', gap: '6rem', width: '39rem' }}>
         <LogoTikiSm width={70} />
-        <div>
-          {InviteData.invitor}님의 초대
-          <div>
-            <img src={InviteData.teamImg} alt="팀 프로필 이미지" />
-            <p>{InviteData.teamName} 워크스페이스</p>
-          </div>
-        </div>
-        <Button>로그인하고 초대수락하기</Button>
+        <Flex css={inviteStyle}>
+          <Text tag="body4">{InviteData.invitor}님의 초대</Text>
+          <Flex styles={{ justify: 'center', align: 'center', gap: '0.4rem' }}>
+            {InviteData.teamImg ? (
+              <img src={InviteData.teamImg} alt="팀 프로필 이미지" />
+            ) : (
+              <span css={firstSpellStyle}>{InviteData.teamName[0]}</span>
+            )}
+            <Heading tag="H5" css={{ padding: '1.4rem 1rem' }}>
+              {InviteData.teamName} 워크스페이스
+            </Heading>
+          </Flex>
+        </Flex>
+        <Button size="xLarge" css={{ width: '100%' }}>
+          로그인하고 초대수락하기
+        </Button>
       </Flex>
     </Flex>
   );
