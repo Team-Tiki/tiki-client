@@ -1,30 +1,35 @@
-import { Flex, Text } from '@tiki/ui';
+import { Text } from '@tiki/ui';
 
-import { contentStyle } from '@/shared/component/CautionModal/CautionModal.style';
+import { bodyStyle, contentStyle, descStyle } from '@/shared/component/CautionModal/CautionModal.style';
 import { Modal } from '@/shared/component/Modal';
+import { useCloseModal } from '@/shared/store/modal';
 
 interface CautionModalProps {
   infoText?: string;
   content?: string;
-  subContent?: string;
+  desc?: string;
   footerType?: 'caution' | 'caution-modify';
+  onClick?: () => void;
+  onClose?: () => void;
 }
 
-const CautionModal = ({ infoText, content, subContent = '', footerType }: CautionModalProps) => {
+const CautionModal = ({ infoText, content, desc = '', footerType, onClick, onClose }: CautionModalProps) => {
+  const modalClose = useCloseModal();
+
   return (
     <>
       <Modal.Header infoText={infoText} />
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '1.6rem' }}>
+        <div css={bodyStyle}>
           <Text tag="body4" css={contentStyle}>
             {content}
           </Text>
-          <Text tag="body8" css={contentStyle}>
-            {subContent}
+          <Text tag="body8" css={descStyle}>
+            {desc}
           </Text>
-        </Flex>
+        </div>
       </Modal.Body>
-      <Modal.Footer contentType={footerType!} />
+      <Modal.Footer contentType={footerType!} buttonClick={onClick} closeModal={onClose ?? modalClose} />
     </>
   );
 };

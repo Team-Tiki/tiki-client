@@ -1,15 +1,20 @@
 import { create } from 'zustand';
 
-interface DeletedModalData {
-  itemType: 'trash' | 'permanent';
+interface CautionModalData {
+  infoText?: string;
+  content?: string;
+  desc?: string;
+  footerType?: 'caution' | 'caution-modify';
+  onClick?: () => void;
+  onClose?: () => void;
 }
 
 interface ModalState {
   isOpen: boolean;
   contentType: string | null;
-  modalData: DeletedModalData | null;
+  modalData: CautionModalData | null;
   actions: {
-    openModal: (contentType: string, data?: DeletedModalData | null) => void;
+    openModal: (contentType: string, data?: CautionModalData | null) => void;
     closeModal: () => void;
   };
 }
