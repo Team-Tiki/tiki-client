@@ -1,15 +1,15 @@
 import { create } from 'zustand';
 
-interface DeletedModalData {
-  itemType: 'trash' | 'permanent';
-}
-
 interface ModalState {
   isOpen: boolean;
   contentType: string | null;
-  modalData: DeletedModalData | null;
+  modalData: {
+    title?: string;
+    content?: string;
+    onClick?: () => void;
+  } | null;
   actions: {
-    openModal: (contentType: string, data?: DeletedModalData | null) => void;
+    openModal: (contentType: string, data?: ModalState['modalData']) => void;
     closeModal: () => void;
   };
 }

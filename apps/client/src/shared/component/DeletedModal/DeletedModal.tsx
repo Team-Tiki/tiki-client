@@ -1,67 +1,31 @@
-import { Flex, Text, useToastAction } from '@tiki/ui';
+import { Flex, Text } from '@tiki/ui';
 
-import { useNavigate } from 'react-router-dom';
-
-import { usePositionData } from '@/page/workspaceSetting/hook/api/queries';
-
-import { $api } from '@/shared/api/client';
-import { queryClient } from '@/shared/api/queryClient';
 import { contentStyle, titleStyle } from '@/shared/component/DeletedModal/DeletedModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { DELETE_EXECUTIVE, DELETE_WORKSPACE } from '@/shared/constant';
-import { PATH } from '@/shared/constant/path';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useCloseModal } from '@/shared/store/modal';
+import { useCloseModal, useModalData } from '@/shared/store/modal';
 
 const DeletedModal = () => {
-  const navigate = useNavigate();
-  const teamId = useInitializeTeamId();
-
-  const { createToast } = useToastAction();
-
+  const modalData = useModalData();
   const closeModal = useCloseModal();
 
-  const { mutate: deleteTeam } = $api.useMutation('delete', '/api/v1/teams/{teamId}');
-  const { data: positionData } = usePositionData();
-  const position = positionData?.data?.position;
+  if (!modalData) return null;
 
-  // const { mutate: deleteTeamMember} = $api.useMutation('delete', '/api/v1/team-member/teams/{teamId}/members/{kickOutMemberId}')
-
-  const handleDelete = () => {
-    if (position === 'ADMIN') {
-      deleteTeam(
-        { params: { path: { teamId } } },
-        {
-          onSuccess: () => {
-            localStorage.removeItem('teamId');
-
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
-
-            closeModal();
-            navigate(PATH.DASHBOARD);
-          },
-          onError: () => {
-            createToast('워크스페이스 삭제 과정에서 오류가 발생했습니다', 'error');
-          },
-        }
-      );
-    }
-  };
+  const { title, content, onClick } = modalData;
 
   return (
-    <>
+    <Modal isOpen={true} onClose={closeModal} size="small">
       <Modal.Body>
-        <Flex styles={{ width: '100%', direction: 'column', gap: '2.8rem' }}>
+        <Flex styles={{ width: '100%', direction: 'column', gap: '2rem', padding: '0' }}>
           <Text tag="body4" css={titleStyle}>
-            {position === 'ADMIN' ? DELETE_WORKSPACE.TITLE : DELETE_EXECUTIVE.TITLE}
+            {title}
           </Text>
           <Text tag="body7" css={contentStyle}>
-            {position === 'ADMIN' ? DELETE_WORKSPACE.CONTENT : DELETE_EXECUTIVE.CONTENT}
+            {content}
           </Text>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="deleted" buttonClick={handleDelete} closeModal={closeModal} />
-    </>
+      <Modal.Footer contentType="deleted" buttonClick={onClick || closeModal} closeModal={closeModal} />
+    </Modal>
   );
 };
 
