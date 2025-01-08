@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
 export const inputWrapperStyle = css({
-  maxWidth: '24.7rem',
+  width: '68.1rem',
+
   height: '4rem',
 });
 

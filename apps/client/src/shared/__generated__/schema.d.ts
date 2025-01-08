@@ -830,6 +830,18 @@ export interface components {
         DocumentsCreateRequest: {
             documents: components["schemas"]["DocumentCreateRequest"][];
         };
+        DocumentCreateResponse: {
+            /** Format: int64 */
+            documentId: number;
+        };
+        DocumentsCreateResponse: {
+            response: components["schemas"]["DocumentCreateResponse"][];
+        };
+        SuccessResponseDocumentsCreateResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["DocumentsCreateResponse"];
+        };
         NoteTemplateCreateRequest: {
             title: string;
             complete: boolean;
@@ -1997,7 +2009,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["SuccessResponseObject"];
+                    "*/*": components["schemas"]["SuccessResponseDocumentsCreateResponse"];
                 };
             };
             /** @description 서버 내부 오류 */

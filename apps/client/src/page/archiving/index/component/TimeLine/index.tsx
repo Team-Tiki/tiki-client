@@ -1,4 +1,3 @@
-// TimeLine.tsx
 import React from 'react';
 
 import { useDateContext } from '@/page/archiving/index/DateProvider';

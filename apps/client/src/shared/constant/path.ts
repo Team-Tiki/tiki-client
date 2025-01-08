@@ -21,4 +21,5 @@ export const PATH = {
   CREATE_HANDOVER_NOTE: '/handover/create-note',
   WORKSPACE_SETTING: '/workspace-setting',
   COMING_SOON: '/comingsoon',
+  ONBOARDING: '/onboarding',
 } as const;
