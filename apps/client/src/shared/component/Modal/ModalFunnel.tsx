@@ -72,11 +72,11 @@ const ModalFunnel = () => {
         if (isCautionModalData(modalData)) {
           return (
             <CautionModal
-              infoText={modalData?.infoText!}
-              content={modalData?.content!}
-              desc={modalData?.desc!}
-              footerType={modalData?.footerType!}
-              onClick={modalData?.onClick!}
+              infoText={modalData?.infoText || ''}
+              content={modalData?.content || ''}
+              desc={modalData?.desc || ''}
+              footerType={modalData?.footerType || 'caution'}
+              onClick={modalData?.onClick || (() => {})}
               onClose={modalData?.onClose}
             />
           );
