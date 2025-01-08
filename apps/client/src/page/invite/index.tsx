@@ -1,5 +1,5 @@
 import { LogoTikiSm } from '@tiki/icon';
-import { Button, Flex, Heading, Text } from '@tiki/ui';
+import { Button, Flex, Heading, Text, theme } from '@tiki/ui';
 
 import { useMatch } from 'react-router-dom';
 
@@ -15,6 +15,7 @@ const InviteData = {
 
 const InvitedPage = () => {
   const isLogined = useMatch(PATH.INVITE_IN);
+  const isExpired = false;
 
   return (
     <Flex styles={{ justify: 'center', paddingTop: `${isLogined ? '14rem' : '20rem'}` }}>
@@ -33,9 +34,20 @@ const InvitedPage = () => {
             </Heading>
           </Flex>
         </Flex>
-        <Button size="xLarge" css={{ width: '100%' }}>
-          로그인하고 초대수락하기
-        </Button>
+        {isLogined ? (
+          <Flex css={{ width: '100%', justifyContent: 'space-between' }}>
+            <Button size="xLarge" variant="secondary">
+              초대 수락
+            </Button>
+            <Button size="xLarge" css={{ color: theme.colors.sementic_red, backgroundColor: '#FFF6F7' }}>
+              거절하기
+            </Button>
+          </Flex>
+        ) : (
+          <Button size="xLarge" disabled={isExpired} css={{ width: '100%' }}>
+            {isExpired ? '초대가 만료되었습니다.' : '로그인하고 초대수락하기'}
+          </Button>
+        )}
       </Flex>
     </Flex>
   );
