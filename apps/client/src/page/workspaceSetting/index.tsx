@@ -91,10 +91,8 @@ const WorkspaceSettingPage = () => {
 
             localStorage.removeItem('teamId');
 
-            setTimeout(() => {
-              navigate(PATH.DASHBOARD);
-              window.location.reload();
-            }, 0);
+            navigate(PATH.DASHBOARD);
+            window.location.reload();
           },
           onError: (error) => {
             createToast('워크스페이스 삭제 과정에서 오류가 발생했습니다', 'error');
