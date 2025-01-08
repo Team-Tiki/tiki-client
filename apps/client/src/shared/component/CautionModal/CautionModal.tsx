@@ -7,9 +7,10 @@ interface CautionModalProps {
   infoText?: string;
   content?: string;
   subContent?: string;
+  footerType?: 'caution' | 'caution-modify';
 }
 
-const CautionModal = ({ infoText, content, subContent = '' }: CautionModalProps) => {
+const CautionModal = ({ infoText, content, subContent = '', footerType }: CautionModalProps) => {
   return (
     <>
       <Modal.Header infoText={infoText} />
@@ -23,7 +24,7 @@ const CautionModal = ({ infoText, content, subContent = '' }: CautionModalProps)
           </Text>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="caution" />
+      <Modal.Footer contentType={footerType!} />
     </>
   );
 };
