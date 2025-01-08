@@ -1,13 +1,16 @@
+import { useQueryClient } from '@tanstack/react-query';
+
 import completePng from '@/common/asset/img/workspace_complete.png';
 import complete from '@/common/asset/img/workspace_complete.webp';
 
 import { $api } from '@/shared/api/client';
-import { queryClient } from '@/shared/api/queryClient';
 import { Modal } from '@/shared/component/Modal';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal } from '@/shared/store/modal';
 
 const WorkSpaceComplete = () => {
+  const queryClient = useQueryClient();
+
   const closeModal = useCloseModal();
 
   const { formData } = useWorkSpaceContext();
@@ -25,11 +28,7 @@ const WorkSpaceComplete = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ['get', '/api/v1/members/teams'],
-          });
-
-          queryClient.refetchQueries({
-            queryKey: ['get', '/api/v1/members/teams'],
+            queryKey: ['get', '/api/v1/members/teams', {}],
           });
 
           closeModal();

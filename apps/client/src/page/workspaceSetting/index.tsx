@@ -3,6 +3,8 @@ import { Button, CommandButton, Flex, Text, useToastAction } from '@tiki/ui';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
 import { ERROR_NAME, POSITION } from '@/page/workspaceSetting/constant';
@@ -16,7 +18,6 @@ import {
 import { MemberType } from '@/page/workspaceSetting/type';
 
 import { $api } from '@/shared/api/client';
-import { queryClient } from '@/shared/api/queryClient';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -47,6 +48,8 @@ const WorkspaceSettingPage = () => {
 
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
+
+  const queryClient = useQueryClient();
 
   const { mutate: deleteTeam } = $api.useMutation('delete', '/api/v1/teams/{teamId}');
   const { data } = usePositionData();
@@ -80,24 +83,22 @@ const WorkspaceSettingPage = () => {
         { params: { path: { teamId } } },
         {
           onSuccess: () => {
-            localStorage.removeItem('teamId');
-
-            const newTeamId = useInitializeTeamId();
-            localStorage.setItem('teamId', newTeamId.toString());
-
             queryClient.invalidateQueries({
-              queryKey: ['get', '/api/v1/members/teams', {}],
-            });
-
-            queryClient.refetchQueries({
-              queryKey: ['get', '/api/v1/members/teams', {}],
+              queryKey: ['get', '/api/v1/members/teams'],
             });
 
             closeModal();
-            navigate(PATH.DASHBOARD);
+
+            localStorage.removeItem('teamId');
+
+            setTimeout(() => {
+              navigate(PATH.DASHBOARD);
+              window.location.reload();
+            }, 0);
           },
-          onError: () => {
+          onError: (error) => {
             createToast('워크스페이스 삭제 과정에서 오류가 발생했습니다', 'error');
+            console.error(error);
           },
         }
       );
