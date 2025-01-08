@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
 import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
+import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
@@ -26,52 +27,42 @@ const ModalFunnel = () => {
     switch (contentType) {
       case 'create-workspace':
         return (
-          <Suspense>
-            <WorkSpaceProvider>
-              <WorkSpaceFlow />
-            </WorkSpaceProvider>
-          </Suspense>
+          <WorkSpaceProvider>
+            <WorkSpaceFlow />
+          </WorkSpaceProvider>
         );
       case 'create-block':
         return (
-          <Suspense>
-            <BlockProvider>
-              <BlockFlow />
-            </BlockProvider>
-          </Suspense>
+          <BlockProvider>
+            <BlockFlow />
+          </BlockProvider>
         );
       case 'deleted':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <DeletedModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <DeletedModal />
+          </FunnelStep>
         );
       case 'invite':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <InviteModal step={1} />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <InviteModal step={1} />
+          </FunnelStep>
         );
       case 'member-tag':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <MemberTagModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <MemberTagModal />
+          </FunnelStep>
         );
       case 'activity-tag':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <ActivityTagModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <ActivityTagModal />
+          </FunnelStep>
         );
+      case 'caution':
+        return <CautionModal />;
       default:
         return null;
     }
@@ -81,7 +72,9 @@ const ModalFunnel = () => {
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <FunnelProvider>{renderContent()}</FunnelProvider>
+      <Suspense>
+        <FunnelProvider>{renderContent()}</FunnelProvider>
+      </Suspense>
     </Modal>
   );
 };
