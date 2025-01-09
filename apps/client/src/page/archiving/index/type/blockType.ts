@@ -1,11 +1,9 @@
-import { BlockColor } from './color';
-
 export interface Block {
   timeBlockId: number;
   name: string;
-  color: BlockColor;
-  startDate: Date;
-  endDate: Date;
+  color: string;
+  startDate: string;
+  endDate: string;
   blockType: BlockType;
 }
 
