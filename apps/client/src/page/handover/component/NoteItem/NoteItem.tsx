@@ -2,7 +2,7 @@ import { IcAvatar, IcClose } from '@tiki/icon';
 import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 
 import { closeButtonStyle, containerStyle, profileStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
-import { Note } from '@/page/handover/constant';
+import { Note } from '@/page/handover/type';
 
 interface NoteItemProps extends Omit<Note, 'noteId' | 'lastUpdatedAt'> {
   canSelect: boolean;

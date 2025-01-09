@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
-import { FILTER_OPTION, FILTER_ORDER, FILTER_TYPE, Note } from '@/page/handover/constant';
+import { FILTER_OPTION, FILTER_ORDER } from '@/page/handover/constant';
 import { useNoteData } from '@/page/handover/hook/api/queries';
+import { FILTER_TYPE, Note } from '@/page/handover/type';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { PATH } from '@/shared/constant/path';

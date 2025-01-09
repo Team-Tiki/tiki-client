@@ -9,6 +9,8 @@ export const containerStyle = css({
   margin: '1.6rem 0 ',
   minHeight: '1.8rem',
 
+  cursor: 'potiner',
+
   '& *': {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
