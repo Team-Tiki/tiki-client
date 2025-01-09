@@ -4,8 +4,8 @@ import { File } from '@/shared/type/file';
 
 export type DrawerContent = {
   title: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   blockType: string;
   color: string;
   taggedMembers: [];
