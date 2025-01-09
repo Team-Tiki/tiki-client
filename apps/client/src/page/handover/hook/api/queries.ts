@@ -11,7 +11,7 @@ export const useNoteData = (createdAt: string, sortOrder?: 'ASC' | 'DESC') => {
       },
       query: {
         createdAt,
-        sortOrder: sortOrder || 'DESC',
+        sortOrder: sortOrder || 'ASC',
       },
     },
   });
