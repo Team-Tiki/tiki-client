@@ -11,8 +11,12 @@ import { FILTER_OPTION, FILTER_ORDER } from '@/page/handover/constant';
 import { useNoteData } from '@/page/handover/hook/api/queries';
 import { FILTER_TYPE, Note } from '@/page/handover/type';
 
+import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const HandoverPage = () => {
   const createdAt = useRef<string>(new Date().toISOString().slice(0, -1)).current;
@@ -26,13 +30,44 @@ const HandoverPage = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const navigate = useNavigate();
+  const teamId = useInitializeTeamId();
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
 
-  const { data } = useNoteData(createdAt, sortOption);
+  const { data, refetch } = useNoteData(createdAt, sortOption);
+  const { mutate: noteMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<Note>(
     'noteId',
     data?.data?.noteGetResponseList ?? []
   );
+
+  const handleNoteCloseClick = (noteIds: number[]) => {
+    openModal('caution', {
+      infoText: CAUTION.DELETE_NOTE.INFO_TEXT,
+      content: CAUTION.DELETE_NOTE.CONTENT,
+      desc: CAUTION.DELETE_NOTE.DESC,
+      footerType: 'caution',
+      onClick: () => {
+        noteMutate({
+          params: {
+            path: { teamId },
+            query: {
+              noteIds: noteIds,
+            },
+          },
+        });
+        closeModal();
+      },
+      onClose: () => {
+        closeModal();
+      },
+    });
+  };
 
   const handleSortOption = (id: string) => {
     setSortOption(FILTER_ORDER[id as keyof typeof FILTER_ORDER] as FILTER_TYPE);
@@ -63,7 +98,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleToggleSelect}>
+            <Button variant="tertiary" onClick={canSelect ? () => handleNoteCloseClick(ids) : handleToggleSelect}>
               {canSelect ? '삭제' : '선택'}
             </Button>
           </Flex>
@@ -95,6 +130,7 @@ const HandoverPage = () => {
           .map((data) => (
             <NoteItem
               key={data.noteId}
+              noteId={data.noteId}
               startDate={data.startDate}
               endDate={data.endDate}
               title={data.title}
@@ -103,6 +139,7 @@ const HandoverPage = () => {
               canSelect={canSelect}
               isSelected={ids.includes(+data.noteId)}
               onSelect={() => handleItemClick(+data.noteId)}
+              onNoteCloseClick={handleNoteCloseClick}
             />
           ))}
       </ul>

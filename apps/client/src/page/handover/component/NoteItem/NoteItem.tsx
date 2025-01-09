@@ -4,10 +4,11 @@ import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 import { closeButtonStyle, containerStyle, profileStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
 import { Note } from '@/page/handover/type';
 
-interface NoteItemProps extends Omit<Note, 'noteId' | 'lastUpdatedAt'> {
+interface NoteItemProps extends Omit<Note, 'lastUpdatedAt'> {
   canSelect: boolean;
   isSelected: boolean;
   onSelect: () => void;
+  onNoteCloseClick: (ids: number[]) => void;
 }
 
 const formattingDateToKorean = (date: string) => {
@@ -16,7 +17,18 @@ const formattingDateToKorean = (date: string) => {
   return `${year}년 ${parseInt(month, 10)}월 ${parseInt(day, 10)}일`;
 };
 
-const NoteItem = ({ startDate, endDate, title, author, complete, canSelect, isSelected, onSelect }: NoteItemProps) => {
+const NoteItem = ({
+  noteId,
+  startDate,
+  endDate,
+  title,
+  author,
+  complete,
+  canSelect,
+  isSelected,
+  onSelect,
+  onNoteCloseClick,
+}: NoteItemProps) => {
   return (
     <li>
       <Flex styles={{ align: 'center' }}>
@@ -49,7 +61,7 @@ const NoteItem = ({ startDate, endDate, title, author, complete, canSelect, isSe
                 작성 미완료
               </Tag>
             )}
-            <IcClose width={18} height={18} css={closeButtonStyle} />
+            <IcClose width={18} height={18} css={closeButtonStyle} onClick={() => onNoteCloseClick([noteId])} />
           </Flex>
         </Flex>
       </Flex>
