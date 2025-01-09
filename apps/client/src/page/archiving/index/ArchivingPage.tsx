@@ -43,7 +43,7 @@ const ArchivingPage = () => {
           <section css={timelineStyle}>
             <TimeLineHeader />
             <Flex css={contentStyle}>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense>
                 <TimeLine selectedBlock={finalSelectedBlock} onBlockClick={handleBlockClick} />
               </Suspense>
             </Flex>
