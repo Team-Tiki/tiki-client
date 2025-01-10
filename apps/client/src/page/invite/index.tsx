@@ -35,7 +35,7 @@ const InvitedPage = () => {
           </Flex>
         </Flex>
         {isLogined ? (
-          <Flex css={{ width: '100%', justifyContent: 'space-between' }}>
+          <Flex css={{ '&, &>*': { width: '100%' }, gap: '0.4rem' }}>
             <Button size="xLarge" variant="secondary">
               초대 수락
             </Button>
