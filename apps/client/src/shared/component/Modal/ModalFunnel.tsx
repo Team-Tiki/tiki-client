@@ -25,10 +25,10 @@ import { FunnelStep } from '@/shared/util/funnelStep';
 const ModalFunnel = () => {
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
-  
+
   const contentType = useModalContentType();
   const modalData = useModalData();
-  
+
   if (!isOpen) return null;
 
   if (contentType === 'deleted') {
