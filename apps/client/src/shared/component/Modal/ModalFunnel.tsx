@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 
 import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
+import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
@@ -12,13 +13,20 @@ import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
-import { useCloseModal, useModalContentType, useModalIsOpen } from '@/shared/store/modal';
+import {
+  isCautionModalData,
+  useCloseModal,
+  useModalContentType,
+  useModalData,
+  useModalIsOpen,
+} from '@/shared/store/modal';
 import { FunnelStep } from '@/shared/util/funnelStep';
 
 const ModalFunnel = () => {
   const isOpen = useModalIsOpen();
 
   const contentType = useModalContentType();
+  const modalData = useModalData();
 
   const closeModal = useCloseModal();
 
@@ -26,52 +34,54 @@ const ModalFunnel = () => {
     switch (contentType) {
       case 'create-workspace':
         return (
-          <Suspense>
-            <WorkSpaceProvider>
-              <WorkSpaceFlow />
-            </WorkSpaceProvider>
-          </Suspense>
+          <WorkSpaceProvider>
+            <WorkSpaceFlow />
+          </WorkSpaceProvider>
         );
       case 'create-block':
         return (
-          <Suspense>
-            <BlockProvider>
-              <BlockFlow />
-            </BlockProvider>
-          </Suspense>
+          <BlockProvider>
+            <BlockFlow />
+          </BlockProvider>
         );
       case 'deleted':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <DeletedModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <DeletedModal />
+          </FunnelStep>
         );
       case 'invite':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <InviteModal step={1} />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <InviteModal step={1} />
+          </FunnelStep>
         );
       case 'member-tag':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <MemberTagModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <MemberTagModal />
+          </FunnelStep>
         );
       case 'activity-tag':
         return (
-          <Suspense>
-            <FunnelStep step={1}>
-              <ActivityTagModal />
-            </FunnelStep>
-          </Suspense>
+          <FunnelStep step={1}>
+            <ActivityTagModal />
+          </FunnelStep>
         );
+      case 'caution':
+        if (isCautionModalData(modalData)) {
+          return (
+            <CautionModal
+              infoText={modalData?.infoText || ''}
+              content={modalData?.content || ''}
+              desc={modalData?.desc || ''}
+              footerType={modalData?.footerType || 'caution'}
+              onClick={modalData?.onClick || (() => {})}
+              onClose={modalData?.onClose}
+            />
+          );
+        }
+        break;
       default:
         return null;
     }
@@ -81,7 +91,9 @@ const ModalFunnel = () => {
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <FunnelProvider>{renderContent()}</FunnelProvider>
+      <Suspense>
+        <FunnelProvider>{renderContent()}</FunnelProvider>
+      </Suspense>
     </Modal>
   );
 };

@@ -10,24 +10,41 @@ import CreateTemplateNote from '@/page/handover/note/component/CreateNote/Templa
 import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handover/note/type/note';
 
 import { $api } from '@/shared/api/client';
+import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-
   const [noteDetail, setNoteDetail] = useState<NoteDetailType>({} as NoteDetailType);
-
   const [templateData, setTemplateData] = useState<TemplateNote>({} as TemplateNote);
-
   const [customData, setCustomData] = useState<CustomNote>({} as CustomNote);
 
   const navigate = useNavigate();
   const teamId = useInitializeTeamId();
 
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
+
   const { createToast } = useToastAction();
 
-  const handleTabClick = (tabId: number) => setSelectedTab(tabId);
+  const handleTabClick = (tabId: number) => {
+    openModal('caution', {
+      infoText: CAUTION.NOTE.INFO_TEXT,
+      content: CAUTION.NOTE.CONTENT,
+      desc: CAUTION.NOTE.DESC,
+      footerType: 'caution-modify',
+      onClick: () => {
+        setSelectedTab(+tabId)!;
+        closeModal();
+      },
+      onClose: () => {
+        setSelectedTab(+!tabId)!;
+        closeModal();
+      },
+    });
+  };
 
   const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
   const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
