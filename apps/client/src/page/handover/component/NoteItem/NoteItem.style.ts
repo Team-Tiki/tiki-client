@@ -9,6 +9,8 @@ export const containerStyle = css({
   margin: '1.6rem 0 ',
   minHeight: '1.8rem',
 
+  cursor: 'potiner',
+
   '& *': {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -24,6 +26,6 @@ export const profileStyle = css({
   backgroundColor: theme.colors.gray_300,
 });
 
-export const moreButtonStyle = css({
+export const closeButtonStyle = css({
   cursor: 'pointer',
 });
