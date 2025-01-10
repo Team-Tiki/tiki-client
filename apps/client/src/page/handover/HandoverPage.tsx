@@ -1,21 +1,22 @@
 import { IcSearch } from '@tiki/icon';
-import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
+import { Button, Divider, Flex, Input, Select, Spinner } from '@tiki/ui';
 import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
 import { FILTER_OPTION, FILTER_ORDER } from '@/page/handover/constant';
 import { useNoteData } from '@/page/handover/hook/api/queries';
-import { FILTER_TYPE, Note } from '@/page/handover/type';
+import { FILTER_TYPE, NoteListType, NoteType } from '@/page/handover/type';
 
 import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useIntersect } from '@/shared/hook/common/useIntersect';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const HandoverPage = () => {
@@ -23,26 +24,56 @@ const HandoverPage = () => {
 
   const [searchValue, setSearchValue] = useState('');
 
+  const [noteList, setNoteList] = useState<NoteListType>([]);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState('');
+
+  const { data, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+
+  // 정렬 기준 변경시 노트리스트 초기화
+  useEffect(() => {
+    setLastUpdatedAt('');
+    setNoteList([]);
+  }, [sortOption]);
+
+  useEffect(() => {
+    if (data?.data?.noteGetResponseList) {
+      setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
+    }
+  }, [data]);
+
   const filterKeyword = useDebounce(searchValue, 400);
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
+
   const navigate = useNavigate();
+
   const teamId = useInitializeTeamId();
+
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
-  const { data, refetch } = useNoteData('', sortOption);
+  const targetRef = useIntersect((entry, observer) => {
+    observer.unobserve(entry.target);
+    if (isFetching) return;
+    // console.log(noteList);
+    setLastUpdatedAt(noteList ? noteList[noteList?.length - 1].lastUpdatedAt : '');
+  });
 
   const { mutate: noteListMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
     onSuccess: () => {
-      refetch();
+      setLastUpdatedAt('');
+      setNoteList([]);
     },
   });
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<Note>(
+  // useEffect(() => {
+  //   refetch();
+  // }, [lastUpdatedAt, refetch]);
+
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
     'noteId',
-    data?.data?.noteGetResponseList ?? []
+    noteList ?? []
   );
 
   const handleNoteCloseClick = (noteIds: number[]) => {
@@ -81,6 +112,20 @@ const HandoverPage = () => {
     navigate(PATH.CREATE_HANDOVER_NOTE);
   };
 
+  const handleMultiDeleteButtonClick = () => {
+    console.log(canSelect, !ids.length);
+    if (canSelect && !ids.length) {
+      handleToggleSelect();
+      return;
+    }
+
+    if (canSelect) {
+      handleNoteCloseClick(ids);
+      return;
+    }
+
+    handleToggleSelect();
+  };
   return (
     <ContentBox
       variant="handover"
@@ -100,7 +145,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={canSelect ? () => handleNoteCloseClick(ids) : handleToggleSelect}>
+            <Button variant="tertiary" onClick={handleMultiDeleteButtonClick}>
               {canSelect ? '삭제' : '선택'}
             </Button>
           </Flex>
@@ -127,8 +172,8 @@ const HandoverPage = () => {
       />
       <Divider />
       <ul>
-        {data?.data?.noteGetResponseList
-          .filter((data) => data.title.includes(filterKeyword.trim()))
+        {noteList
+          ?.filter((data) => data.title.includes(filterKeyword.trim()))
           .map((data) => (
             <NoteItem
               key={data.noteId}
@@ -144,6 +189,8 @@ const HandoverPage = () => {
               onNoteCloseClick={handleNoteCloseClick}
             />
           ))}
+        {isFetching && <Spinner size={20} />}
+        <div style={{ height: '1px' }} ref={targetRef} />
       </ul>
     </ContentBox>
   );
