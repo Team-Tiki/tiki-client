@@ -22,8 +22,7 @@ const InfoFormPage = () => {
             label="이름"
             placeholder={PLACEHOLDER.NAME}
           />
-          <DatePicker variant="single" triggerWidth="100%" onChange={handleDateChange} />
-
+          <DatePicker onChange={handleDateChange} variant="single" triggerWidth="100%" />
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
               name="password"
