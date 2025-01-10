@@ -10,17 +10,17 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    startDate: new Date('2024-11-15'),
-    endDate: new Date('2024-11-17'),
+    startDate: '2024-11-15',
+    endDate: '2024-11-17',
     title: '티키 나스닥 상장 리포트',
-    writer: '짱건',
-    isFinished: false,
+    author: '짱건',
+    complete: false,
     canSelect: false,
     isSelected: false,
     onSelect: () => {},
   },
   argTypes: {
-    isFinished: {
+    complete: {
       control: { type: 'boolean' },
     },
     isSelected: { control: { type: 'boolean' } },
