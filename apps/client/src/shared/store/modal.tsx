@@ -4,9 +4,15 @@ interface ModalState {
   isOpen: boolean;
   contentType: ModalContentType | null;
   modalData: {
+    // Deleted Modal
     title?: string;
     content?: string;
     onClick?: () => void;
+    // Caution Modal
+    infoText?: string;
+    desc?: string;
+    footerType?: 'caution' | 'caution-modify';
+    onClose?: () => void;
   } | null;
   actions: {
     openModal: (contentType: ModalContentType, data?: ModalState['modalData']) => void;
