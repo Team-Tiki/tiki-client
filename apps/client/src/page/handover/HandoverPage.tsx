@@ -2,7 +2,7 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
 import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
@@ -19,9 +19,7 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const HandoverPage = () => {
-  const createdAt = useRef<string>(new Date().toISOString().slice(0, -1)).current;
-
-  const [sortOption, setSortOption] = useState<FILTER_TYPE>('ASC');
+  const [sortOption, setSortOption] = useState<FILTER_TYPE>('DESC');
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -34,8 +32,9 @@ const HandoverPage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
-  const { data, refetch } = useNoteData(createdAt, sortOption);
-  const { mutate: noteMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
+  const { data, refetch } = useNoteData('', sortOption);
+
+  const { mutate: noteListMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
     onSuccess: () => {
       refetch();
     },
@@ -53,7 +52,10 @@ const HandoverPage = () => {
       desc: CAUTION.DELETE_NOTE.DESC,
       footerType: 'caution',
       onClick: () => {
-        noteMutate({
+        if (!noteIds) {
+          return;
+        }
+        noteListMutate({
           params: {
             path: { teamId },
             query: {

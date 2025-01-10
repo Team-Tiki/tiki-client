@@ -160,6 +160,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/team-invitation/team-member": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createTeamMemberFromInvitation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/notes/template": {
         parameters: {
             query?: never;
@@ -240,7 +256,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/email-verification/signup": {
+    "/api/v1/email/verification/signup": {
         parameters: {
             query?: never;
             header?: never;
@@ -260,7 +276,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/email-verification/password": {
+    "/api/v1/email/verification/password": {
         parameters: {
             query?: never;
             header?: never;
@@ -280,7 +296,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/email-verification/checking": {
+    "/api/v1/email/verification/checking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["checkCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/email/invitation/team/{teamId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -290,10 +322,10 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * 메일 인증
-         * @description 인증번호 확인
+         * 팀원 초대 메일 전송
+         * @description 팀원 초대를 위한 이메일을 전송한다.
          */
-        post: operations["checkCode"];
+        post: operations["sendInvitationMail"];
         delete?: never;
         options?: never;
         head?: never;
@@ -528,6 +560,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/team-member/teams/{teamId}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMembers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/team-member/teams/{teamId}/members/position": {
         parameters: {
             query?: never;
@@ -539,6 +587,38 @@ export interface paths {
         put?: never;
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/team-invitation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getInvitationInform"];
+        put?: never;
+        post?: never;
+        delete: operations["deleteTeamInvitationFromUser"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/team-invitation/team/{teamId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTeamInvitation"];
+        put?: never;
+        post?: never;
+        delete: operations["deleteTeamInvitationFromAdmin"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1133,6 +1213,20 @@ export interface components {
             message: string;
             data?: components["schemas"]["CategoriesGetResponse"];
         };
+        SuccessResponseTeamMembersGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TeamMembersGetResponse"];
+        };
+        TeamMemberGetResponse: {
+            name: string;
+            /** @enum {string} */
+            position: "ADMIN" | "EXECUTIVE" | "MEMBER";
+            email: string;
+        };
+        TeamMembersGetResponse: {
+            teamMemberGetResponses: components["schemas"]["TeamMemberGetResponse"][];
+        };
         MemberTeamInformGetResponse: {
             /** @enum {string} */
             position: "ADMIN" | "EXECUTIVE" | "MEMBER";
@@ -1142,6 +1236,29 @@ export interface components {
             success: boolean;
             message: string;
             data?: components["schemas"]["MemberTeamInformGetResponse"];
+        };
+        SuccessResponseTeamInvitationInformGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TeamInvitationInformGetResponse"];
+        };
+        TeamInvitationInformGetResponse: {
+            sender: string;
+            teamName: string;
+            teamIconUrl: string;
+            /** Format: int64 */
+            teamId: number;
+        };
+        SuccessResponseTeamInvitationEmailsGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["TeamInvitationEmailsGetResponse"];
+        };
+        TeamInvitationEmailGetResponse: {
+            email: string;
+        };
+        TeamInvitationEmailsGetResponse: {
+            teamInvitationEmailGetResponses: components["schemas"]["TeamInvitationEmailGetResponse"][];
         };
         NoteGetResponse: {
             /** Format: int64 */
@@ -2083,6 +2200,29 @@ export interface operations {
             };
         };
     };
+    createTeamMemberFromInvitation: {
+        parameters: {
+            query: {
+                teamId: number;
+                teamInvitationId: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
+    };
     createNoteTemplate: {
         parameters: {
             query?: never;
@@ -2337,7 +2477,7 @@ export interface operations {
         };
         responses: {
             /** @description 성공 */
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2397,7 +2537,7 @@ export interface operations {
         };
         responses: {
             /** @description 성공 */
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2456,15 +2596,6 @@ export interface operations {
             };
         };
         responses: {
-            /** @description 성공 */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["SuccessResponseObject"];
-                };
-            };
             /** @description Created */
             201: {
                 headers: {
@@ -2474,7 +2605,37 @@ export interface operations {
                     "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
-            /** @description 이메일 형식 오류 */
+        };
+    };
+    sendInvitationMail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmailRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 이미 존재하는 팀원 */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -2483,16 +2644,7 @@ export interface operations {
                     "*/*": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description 인증 값 불일치 */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 인증 정보가 존재하지 않음 */
+            /** @description 팀이 존재하지 않음 */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -2503,15 +2655,6 @@ export interface operations {
             };
             /** @description 서버 내부 오류 */
             500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 클라이언트(요청) 오류 */
-            "4xx": {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -3164,6 +3307,28 @@ export interface operations {
             };
         };
     };
+    getMembers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamMembersGetResponse"];
+                };
+            };
+        };
+    };
     getMemberTeamInform: {
         parameters: {
             query?: never;
@@ -3182,6 +3347,96 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["SuccessResponseMemberTeamInformGetResponse"];
+                };
+            };
+        };
+    };
+    getInvitationInform: {
+        parameters: {
+            query: {
+                invitationId: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamInvitationInformGetResponse"];
+                };
+            };
+        };
+    };
+    deleteTeamInvitationFromUser: {
+        parameters: {
+            query: {
+                invitationId: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+        };
+    };
+    getTeamInvitation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamInvitationEmailsGetResponse"];
+                };
+            };
+        };
+    };
+    deleteTeamInvitationFromAdmin: {
+        parameters: {
+            query: {
+                invitationId: number;
+            };
+            header?: never;
+            path: {
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
                 };
             };
         };
@@ -3261,14 +3516,7 @@ export interface operations {
     };
     deleteNotes: {
         parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /**
-                 * @description 팀 id
-                 * @example 1
-                 */
-                teamId: number;
+            query: {
                 /**
                  * @description 노트 id 리스트
                  * @example [
@@ -3280,6 +3528,14 @@ export interface operations {
                  *     ]
                  */
                 noteIds: number[];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
             };
             cookie?: never;
         };
