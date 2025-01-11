@@ -13,7 +13,7 @@ const NoteListHeader = ({ isSelected, canSelect, handleAllClick }: NoteListHeade
   return (
     <header css={[containerStyle, fontStyle]}>
       <Flex styles={{ align: 'center' }}>
-        {canSelect && <CheckBox isChecked={!isSelected} onChange={handleAllClick} style={{ marginRight: '1.6rem' }} />}
+        {canSelect && <CheckBox isChecked={isSelected} onChange={handleAllClick} style={{ marginRight: '1.6rem' }} />}
         <Text tag="body8">활동 기간</Text>
       </Flex>
       <Text tag="body8">노트 제목</Text>
