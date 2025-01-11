@@ -2,7 +2,7 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Divider, Flex, Input, Select, Spinner } from '@tiki/ui';
 import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
@@ -31,8 +31,8 @@ const HandoverPage = () => {
 
   // 정렬 기준 변경시 노트리스트 초기화
   useEffect(() => {
-    setLastUpdatedAt('');
     setNoteList([]);
+    setLastUpdatedAt('');
   }, [sortOption]);
 
   useEffect(() => {
@@ -40,6 +40,8 @@ const HandoverPage = () => {
       setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
     }
   }, [data]);
+
+  console.log(noteList);
 
   const filterKeyword = useDebounce(searchValue, 400);
 
@@ -56,20 +58,15 @@ const HandoverPage = () => {
   const targetRef = useIntersect((entry, observer) => {
     observer.unobserve(entry.target);
     if (isFetching) return;
-    // console.log(noteList);
     setLastUpdatedAt(noteList ? noteList[noteList?.length - 1].lastUpdatedAt : '');
   });
 
   const { mutate: noteListMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
     onSuccess: () => {
-      setLastUpdatedAt('');
       setNoteList([]);
+      setLastUpdatedAt('');
     },
   });
-
-  // useEffect(() => {
-  //   refetch();
-  // }, [lastUpdatedAt, refetch]);
 
   const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
     'noteId',
@@ -113,7 +110,6 @@ const HandoverPage = () => {
   };
 
   const handleMultiDeleteButtonClick = () => {
-    console.log(canSelect, !ids.length);
     if (canSelect && !ids.length) {
       handleToggleSelect();
       return;
@@ -189,7 +185,11 @@ const HandoverPage = () => {
               onNoteCloseClick={handleNoteCloseClick}
             />
           ))}
-        {isFetching && <Spinner size={20} />}
+        {isFetching && (
+          <Flex styles={{ justify: 'center', marginTop: '1rem' }}>
+            <Spinner size={20} />
+          </Flex>
+        )}
         <div style={{ height: '1px' }} ref={targetRef} />
       </ul>
     </ContentBox>
