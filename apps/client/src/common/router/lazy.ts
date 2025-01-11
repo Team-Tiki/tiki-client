@@ -13,7 +13,7 @@ export const ComingsoonPage = lazy(() => import('@/shared/page/comingsoonPage/Co
 export const DrivePage = lazy(() => import('@/page/drive/index'));
 export const DeletedPage = lazy(() => import('@/page/deleted'));
 export const HandoverPage = lazy(() => import('@/page/handover/HandoverPage'));
-export const HandoverNotePage = lazy(() => import('@/page/handover/note/NotePage'));
+export const HandoverNotePage = lazy(() => import('@/page/handover/note/component/ModifyNote/NotePage'));
 export const DashboardPage = lazy(() => import('@/page/dashboard/DashboardPage'));
 export const UnivFormPage = lazy(() => import('@/page/signUp/info/UnivFormPage'));
 export const CreateNotePage = lazy(() => import('@/page/handover/note/component/CreateNote/CreateNote'));

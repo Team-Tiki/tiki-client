@@ -77,3 +77,21 @@ export const plusBtnStyle = css({
     transition: 'all 0.2s ease-in',
   },
 });
+
+export const authorStyle = css({
+  color: theme.colors.gray_800,
+
+  outline: 'none',
+  border: 'none',
+
+  whiteSpace: 'nowrap',
+
+  backgroundColor: theme.colors.gray_100,
+
+  ...theme.text.body06,
+
+  '::placeholder': {
+    color: theme.colors.gray_800,
+    ...theme.text.body06,
+  },
+});

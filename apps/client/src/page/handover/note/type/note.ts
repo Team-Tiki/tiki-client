@@ -1,8 +1,8 @@
 import { components } from '@/shared/__generated__/schema';
 
-export type NoteDetailType = Pick<
+export type NoteInfoType = Pick<
   components['schemas']['NoteTemplateDetailGetServiceResponse'],
-  'title' | 'author' | 'complete' | 'startDate' | 'endDate' | 'complete' | 'timeBlockList'
+  'title' | 'complete' | 'startDate' | 'endDate' | 'complete' | 'timeBlockList'
 >;
 
 export type TemplateNote = Pick<
