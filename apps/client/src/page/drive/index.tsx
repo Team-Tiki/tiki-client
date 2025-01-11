@@ -183,6 +183,7 @@ const DrivePage = () => {
               return (
                 <FileGrid
                   key={file.documentId}
+                  documentId={file.documentId}
                   name={file.name}
                   capacity={file.capacity}
                   type={file.url?.split('.').at(-1) as File}

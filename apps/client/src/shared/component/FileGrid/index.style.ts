@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
+import { ellipsisStyle } from '@/common/style/ellipsis';
+
 export const cardStyle = (isSmall: boolean) =>
   css({
     position: 'relative',
@@ -29,6 +31,8 @@ export const iconWrapperStyle = (isSmall: boolean) =>
 export const nameStyle = css({
   ...theme.text.body06,
   fontWeight: 500,
+
+  ...ellipsisStyle,
 });
 
 export const textStyle = css({
