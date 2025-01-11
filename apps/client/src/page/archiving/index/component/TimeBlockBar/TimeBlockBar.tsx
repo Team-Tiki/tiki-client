@@ -6,7 +6,7 @@ import { useState } from 'react';
 import BlockInfo from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo';
 import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNotes';
 import { circleStyle, closeBtnStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
-import UploadedFiles from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/UploadedFiles';
+import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 
 import { DrawerContent } from '@/shared/store/drawer';
@@ -39,13 +39,13 @@ const TimeBlockBar = ({ content, onCloseDrawer }: TimeBlockBarProps) => {
 
         <Flex styles={{ direction: 'column', gap: '3.6rem' }}>
           <BlockInfo
-            title={content.title}
+            title={content.name}
             startDate={content.startDate}
             endDate={content.endDate}
             isEditable={isEditable}
           />
-          <TaggedNotes isEditable={isEditable} />
-          <UploadedFiles isEditable={isEditable} />
+          <TaggedNotes isEditable={isEditable} notes={content.notes} />
+          <UploadedDocuments isEditable={isEditable} documents={content.documents} />
         </Flex>
       </section>
     )
