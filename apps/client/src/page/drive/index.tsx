@@ -73,6 +73,7 @@ const DrivePage = () => {
     isSelectable,
     getFolderIsSelected,
     getDocumentIsSelected,
+    getSelectedDocumentIds,
   } = useSelectDocuments({
     documents: filteredDocuments,
     folders: filteredFolders,
@@ -84,7 +85,7 @@ const DrivePage = () => {
     close();
   };
 
-  const handleDeleteFile = (documentId: number) => {
+  const handleDeleteFile = (documentId: number[]) => {
     openModal('caution', {
       infoText: CAUTION.DELETE_FILE.INFO_TEXT,
       content: CAUTION.DELETE_FILE.CONTENT,
@@ -94,7 +95,7 @@ const DrivePage = () => {
           {
             params: {
               path: { teamId },
-              query: { documentId: [documentId] },
+              query: { documentId: documentId },
             },
           },
           {
@@ -102,7 +103,6 @@ const DrivePage = () => {
               closeModal();
 
               createToast('파일을 성공적으로 삭제했습니다.', 'success');
-
               queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
             },
             onError: () => {
@@ -150,7 +150,9 @@ const DrivePage = () => {
                       <Button onClick={selectAll} variant="tertiary">
                         전체 선택
                       </Button>
-                      <Button variant="tertiary">삭제</Button>
+                      <Button variant="tertiary" onClick={() => handleDeleteFile(getSelectedDocumentIds())}>
+                        삭제
+                      </Button>
                       <Button variant="tertiary">다운로드</Button>
                       <Button onClick={toggleSelection} variant="tertiary">
                         취소
@@ -217,7 +219,7 @@ const DrivePage = () => {
                       isSelectable={isSelectable}
                       isSelected={getDocumentIsSelected(file.documentId)}
                       onSelect={() => selectDocument(file.documentId)}
-                      onDelete={() => handleDeleteFile(file.documentId)}
+                      onDelete={() => handleDeleteFile([file.documentId])}
                     />
                   </div>
                 );
@@ -241,7 +243,7 @@ const DrivePage = () => {
                   isSelectable={isSelectable}
                   isSelected={getDocumentIsSelected(file.documentId)}
                   onSelect={() => selectDocument(file.documentId!)}
-                  onDelete={() => handleDeleteFile(file.documentId)}
+                  onDelete={() => handleDeleteFile([file.documentId])}
                 />
               );
             } else if (hasKeyInObject(item, 'folderId')) {
