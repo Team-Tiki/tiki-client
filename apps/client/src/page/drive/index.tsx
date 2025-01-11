@@ -39,7 +39,6 @@ const DrivePage = () => {
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-
   const teamId = useInitializeTeamId();
 
   const { createToast } = useToastAction();
@@ -49,7 +48,17 @@ const DrivePage = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
+  const { mutate: deleteFileMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents', {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
+    },
+  });
+  const { mutate: deleteFolderMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/folders', {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
+    },
+  });
+
   const { data } = useDriveData();
 
   const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
@@ -77,6 +86,7 @@ const DrivePage = () => {
     getFolderIsSelected,
     getDocumentIsSelected,
     documentIds,
+    folderIds,
   } = useSelectDocuments({
     documents: filteredDocuments,
     folders: filteredFolders,
@@ -88,31 +98,25 @@ const DrivePage = () => {
     close();
   };
 
-  const handleDeleteFile = (documentId: number[]) => {
+  const handleDelete = (documents: number[], folders: number[]) => {
+    if (documents.length === 0 && folders.length === 0) return;
+
     openModal('caution', {
       infoText: CAUTION.DELETE_FILE.INFO_TEXT,
       content: CAUTION.DELETE_FILE.CONTENT,
       desc: CAUTION.DELETE_FILE.DESC,
       onClick: () => {
-        mutate(
-          {
-            params: {
-              path: { teamId },
-              query: { documentId: documentId },
-            },
-          },
-          {
-            onSuccess: () => {
-              closeModal();
+        try {
+          documents.length > 0 &&
+            deleteFileMutation({ params: { path: { teamId }, query: { documentId: documents } } }),
+            folders.length > 0 && deleteFolderMutation({ params: { path: { teamId }, query: { folderId: folders } } }),
+            closeModal();
 
-              createToast('파일을 성공적으로 삭제했습니다.', 'success');
-              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
-            },
-            onError: () => {
-              createToast('파일을 삭제하는 도중 오류가 발생했습니다.', 'error');
-            },
-          }
-        );
+          createToast('성공적으로 삭제했습니다.', 'success');
+          reset();
+        } catch (error) {
+          createToast('삭제 도중 오류가 발생했습니다.', 'error');
+        }
       },
     });
   };
@@ -155,7 +159,7 @@ const DrivePage = () => {
                       <Button onClick={selectAll} variant="tertiary">
                         전체 선택
                       </Button>
-                      <Button variant="tertiary" onClick={() => handleDeleteFile(documentIds)}>
+                      <Button variant="tertiary" onClick={() => handleDelete(documentIds, folderIds)}>
                         삭제
                       </Button>
                       <Button variant="tertiary">다운로드</Button>
@@ -206,6 +210,7 @@ const DrivePage = () => {
                       isSelectable={isSelectable}
                       isSelected={getFolderIsSelected(folder.folderId)}
                       onSelect={() => selectFolder(folder.folderId)}
+                      onDelete={() => handleDelete([], [folder.folderId])}
                     />
                   </div>
                 );
@@ -224,7 +229,7 @@ const DrivePage = () => {
                       isSelectable={isSelectable}
                       isSelected={getDocumentIsSelected(file.documentId)}
                       onSelect={() => selectDocument(file.documentId)}
-                      onDelete={() => handleDeleteFile([file.documentId])}
+                      onDelete={() => handleDelete([file.documentId], [])}
                     />
                   </div>
                 );
@@ -248,7 +253,7 @@ const DrivePage = () => {
                   isSelectable={isSelectable}
                   isSelected={getDocumentIsSelected(file.documentId)}
                   onSelect={() => selectDocument(file.documentId!)}
-                  onDelete={() => handleDeleteFile([file.documentId])}
+                  onDelete={() => handleDelete([file.documentId], [])}
                 />
               );
             } else if (hasKeyInObject(item, 'folderId')) {
@@ -262,6 +267,7 @@ const DrivePage = () => {
                   isSelectable={isSelectable}
                   isSelected={getFolderIsSelected(folder.folderId)}
                   onSelect={() => selectFolder(folder.folderId)}
+                  onDelete={() => handleDelete([], [folder.folderId])}
                 />
               );
             }

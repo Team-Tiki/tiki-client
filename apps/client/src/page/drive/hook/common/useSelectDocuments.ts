@@ -58,5 +58,6 @@ export const useSelectDocuments = (data: components['schemas']['DriveGetResponse
     selectFolder: handleFolderClick,
     reset: handleReset,
     documentIds,
+    folderIds,
   };
 };
