@@ -3,6 +3,7 @@ import { Button, Flex, Input, Select, Switch, useToastAction } from '@tiki/ui';
 import { hasKeyInObject, useDeferredSearchFilter, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -20,6 +21,7 @@ import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
 import { CAUTION } from '@/shared/constant';
+import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { File } from '@/shared/type/file';
@@ -31,32 +33,33 @@ const filterOptions = [{ value: '최근 업로드 순' }, { value: '과거 업�
 const DrivePage = () => {
   const [alignOption, setAlignOption] = useState<'list' | 'grid'>('list');
   const [searchValue, setSearchValue] = useState('');
+  const [selected, setSelected] = useState<FilterOption>('최근 업로드 순');
+
+  const navigate = useNavigate();
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const [selected, setSelected] = useState<FilterOption>('최근 업로드 순');
 
   const teamId = useInitializeTeamId();
+
+  const { createToast } = useToastAction();
 
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
   const queryClient = useQueryClient();
 
-  const { createToast } = useToastAction();
-
   const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
-
   const { data } = useDriveData();
+
+  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
+  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue);
 
   const handleChangeAlignOption = (option: 'list' | 'grid') => {
     setAlignOption(option);
 
     reset();
   };
-
-  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
-  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue);
 
   const filteredResult = [...filteredDocuments, ...filteredFolders].sort((a, b) =>
     selected === '최근 업로드 순'
@@ -128,7 +131,9 @@ const DrivePage = () => {
             LeftIcon={<IcSearch width={16} height={16} />}
             placeholder="파일 및 폴더 명을 검색하세요"
           />
-          <Button variant="secondary">삭제된 항목</Button>
+          <Button variant="secondary" onClick={() => navigate(PATH.DELETED)}>
+            삭제된 항목
+          </Button>
           <Button>파일 업로드</Button>
         </Flex>
       }
