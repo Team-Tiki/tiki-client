@@ -44,7 +44,7 @@ export const useSelectDocuments = (data: components['schemas']['DriveGetResponse
   const getDocumentIsSelected = (id: number) => documentIds.includes(id);
   const getFolderIsSelected = (id: number) => folderIds.includes(id);
 
-  const getSelectedDocumentIds = () => documentIds;
+  const selectedDocumentIds = () => documentIds;
 
   return {
     selectedDocumentsIds: documentIds,
@@ -57,6 +57,6 @@ export const useSelectDocuments = (data: components['schemas']['DriveGetResponse
     selectDocument: handleDocumentClick,
     selectFolder: handleFolderClick,
     reset: handleReset,
-    getSelectedDocumentIds,
+    documentIds,
   };
 };

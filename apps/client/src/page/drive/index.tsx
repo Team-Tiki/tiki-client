@@ -76,7 +76,7 @@ const DrivePage = () => {
     isSelectable,
     getFolderIsSelected,
     getDocumentIsSelected,
-    getSelectedDocumentIds,
+    documentIds,
   } = useSelectDocuments({
     documents: filteredDocuments,
     folders: filteredFolders,
@@ -155,7 +155,7 @@ const DrivePage = () => {
                       <Button onClick={selectAll} variant="tertiary">
                         전체 선택
                       </Button>
-                      <Button variant="tertiary" onClick={() => handleDeleteFile(getSelectedDocumentIds())}>
+                      <Button variant="tertiary" onClick={() => handleDeleteFile(documentIds)}>
                         삭제
                       </Button>
                       <Button variant="tertiary">다운로드</Button>
