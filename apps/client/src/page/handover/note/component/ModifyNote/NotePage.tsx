@@ -99,7 +99,6 @@ const NotePage = () => {
   const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
   const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
 
-  // ✅ 공통 Payload 함수
   const buildCommonPayload = () => ({
     title: noteDetail.title,
     complete: noteDetail.complete,
@@ -109,7 +108,7 @@ const NotePage = () => {
     teamId,
   });
 
-  const handleSubmit = () =>
+  const handleSubmit = () => {
     if (!noteData) {
       console.log('노트 데이터가 없습니다');
       return;

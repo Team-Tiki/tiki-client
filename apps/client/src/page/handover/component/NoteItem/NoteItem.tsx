@@ -1,13 +1,19 @@
 import { IcAvatar, IcClose } from '@tiki/icon';
 import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 
-import { closeButtonStyle, containerStyle, profileStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
+import {
+  closeButtonStyle,
+  containerStyle,
+  profileStyle,
+  wrapperStyle,
+} from '@/page/handover/component/NoteItem/NoteItem.style';
 import { Note } from '@/page/handover/type';
 
 interface NoteItemProps extends Omit<Note, 'noteId' | 'lastUpdatedAt'> {
   canSelect: boolean;
   isSelected: boolean;
   onSelect: () => void;
+  onClick: () => void;
 }
 
 const formattingDateToKorean = (date: string) => {
@@ -16,10 +22,20 @@ const formattingDateToKorean = (date: string) => {
   return `${year}년 ${parseInt(month, 10)}월 ${parseInt(day, 10)}일`;
 };
 
-const NoteItem = ({ startDate, endDate, title, author, complete, canSelect, isSelected, onSelect }: NoteItemProps) => {
+const NoteItem = ({
+  startDate,
+  endDate,
+  title,
+  author,
+  complete,
+  canSelect,
+  isSelected,
+  onSelect,
+  onClick,
+}: NoteItemProps) => {
   return (
     <li>
-      <Flex styles={{ align: 'center' }}>
+      <div css={wrapperStyle} onClick={onClick}>
         <Flex styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
           <Flex styles={{ align: 'center' }}>
             {canSelect && (
@@ -52,7 +68,7 @@ const NoteItem = ({ startDate, endDate, title, author, complete, canSelect, isSe
             <IcClose width={18} height={18} css={closeButtonStyle} />
           </Flex>
         </Flex>
-      </Flex>
+      </div>
       <Divider color={theme.colors.gray_300} />
     </li>
   );
