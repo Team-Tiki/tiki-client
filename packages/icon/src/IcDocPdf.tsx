@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { SVGProps } from 'react';
-const SvgIcPdfFile = (props: SVGProps<SVGSVGElement>) => (
+const SvgIcDocPdf = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -21,4 +21,4 @@ const SvgIcPdfFile = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export default SvgIcPdfFile;
+export default SvgIcDocPdf;
