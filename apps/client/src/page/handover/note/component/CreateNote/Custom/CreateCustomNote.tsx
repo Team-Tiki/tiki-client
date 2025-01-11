@@ -2,14 +2,14 @@ import { Button, Label, scrollStyle } from '@tiki/ui';
 
 import { Dispatch, SetStateAction } from 'react';
 
+import File from '@/page/handover/note/component/File/File';
 import {
   fileBoxStyle,
   guideStyle,
   layoutStyle,
   noteWrapperStyle,
   textareaStyle,
-} from '@/page/handover/note/component/Custom/Custom.style';
-import File from '@/page/handover/note/component/File/File';
+} from '@/page/handover/note/component/ModifyNote/Custom/Custom.style';
 import useFile from '@/page/handover/note/hooks/useFile';
 import { CustomNote } from '@/page/handover/note/type/note';
 
@@ -35,7 +35,7 @@ const CreateCustomNote = ({ setData }: CustomProps) => {
   };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]}>
+    <div css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
         <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} onChange={handleTextareaChange} />
       </div>
@@ -53,7 +53,7 @@ const CreateCustomNote = ({ setData }: CustomProps) => {
           파일 연동하기
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 

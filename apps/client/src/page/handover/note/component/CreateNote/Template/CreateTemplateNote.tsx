@@ -8,7 +8,7 @@ import {
   guideStyle,
   layoutStyle,
   noteWrapperStyle,
-} from '@/page/handover/note/component/Template/Template.style';
+} from '@/page/handover/note/component/ModifyNote/Template/Template.style';
 import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
 import { TemplateNote } from '@/page/handover/note/type/note';
@@ -33,7 +33,7 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]}>
+    <div css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
         <div css={layoutStyle} key={item.id}>
           <Label id={item.id}>{item.QUESTION}</Label>
@@ -55,7 +55,7 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
           파일 연동하기
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 
