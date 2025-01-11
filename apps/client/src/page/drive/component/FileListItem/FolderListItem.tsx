@@ -8,14 +8,21 @@ import { getFormattedDate } from '@/shared/util/date';
 
 type FolderListItemProps = Omit<components['schemas']['FolderGetResponse'], 'folderId' | 'type'> & {
   isSelected?: boolean;
+  isSelectable: boolean;
   onSelect?: () => void;
 };
 
-const FolderListItem = ({ name, createdTime, isSelected = false, onSelect = () => {} }: FolderListItemProps) => {
+const FolderListItem = ({
+  name,
+  createdTime,
+  isSelected = false,
+  isSelectable,
+  onSelect = () => {},
+}: FolderListItemProps) => {
   return (
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
-        <CheckBox isChecked={isSelected} onChange={onSelect} />
+        {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
         <Text tag="body6">{name}</Text>
       </Flex>
 

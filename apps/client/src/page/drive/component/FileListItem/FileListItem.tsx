@@ -13,8 +13,10 @@ import { getFileVolume } from '@/shared/util/file';
 type DocumentItem = components['schemas']['DocumentGetResponse'];
 
 type FileListItemProps = Omit<DocumentItem, 'type'> & {
+  isSelectable?: boolean;
   isSelected?: boolean;
   onSelect?: () => void;
+  onDelete?: (documentId: number) => void;
 };
 
 const FileListItem = ({
@@ -23,8 +25,10 @@ const FileListItem = ({
   createdTime,
   url,
   capacity,
+  isSelectable,
   isSelected = false,
   onSelect = () => {},
+  onDelete = () => {},
 }: FileListItemProps) => {
   const { isOpen, toggle, close } = useOverlay();
   const ref = useOutsideClick(close);
@@ -41,7 +45,7 @@ const FileListItem = ({
   return (
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
-        <CheckBox isChecked={isSelected} onChange={onSelect} />
+        {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
         <Text tag="body6">{name}</Text>
       </Flex>
 
@@ -67,7 +71,7 @@ const FileListItem = ({
             <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
               파일 다운로드
             </MenuItem>
-            <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
+            <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => onDelete(documentId)}>
               휴지통으로 이동
             </MenuItem>
             <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
