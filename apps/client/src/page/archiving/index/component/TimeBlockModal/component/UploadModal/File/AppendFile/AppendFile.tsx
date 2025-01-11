@@ -7,6 +7,7 @@ import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal'
 import { boxStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
+import { formatFileCapacity } from '@/page/archiving/index/component/TimeBlockModal/util/file';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -63,7 +64,7 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
             fileName: file.name,
             fileUrl: '',
             fileKey: '',
-            capacity: file.size,
+            capacity: formatFileCapacity(file.size),
           })),
         },
       },
@@ -74,7 +75,7 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
               documentId: document.documentId,
               name: updatedFiles[index].name,
               url: '',
-              capacity: updatedFiles[index].size,
+              capacity: formatFileCapacity(updatedFiles[index].size),
               createdTime: new Date().toISOString(),
             });
           });
