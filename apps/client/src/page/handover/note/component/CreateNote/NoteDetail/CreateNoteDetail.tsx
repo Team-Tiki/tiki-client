@@ -15,6 +15,7 @@ import { NoteDetailType } from '@/page/handover/note/type/note';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useOpenModal } from '@/shared/store/modal';
 
 type Status = '완료' | '미완료';
 
@@ -24,8 +25,10 @@ interface NoteDetailProp {
 }
 
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
+  const openModal = useOpenModal();
+
   const handleAppendTag = () => {
-    /** 태그 모달 호출 로직 */
+    openModal('activity-tag');
   };
 
   const handleChangeStatus = useCallback(
