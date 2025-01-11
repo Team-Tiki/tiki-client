@@ -5,12 +5,16 @@ import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/T
 import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem';
 import { Documents } from '@/page/archiving/index/type/blockType';
 
+import { $api } from '@/shared/api/client';
+
 interface UploadedDocumentsProps {
   isEditable: boolean;
   documents: Documents;
 }
 
 const UploadedDocuments = ({ isEditable, documents }: UploadedDocumentsProps) => {
+  const handleFileDeleteButtonClick = () => {};
+
   return (
     <Flex styles={{ direction: 'column', gap: '1.8rem', width: '100%' }}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
