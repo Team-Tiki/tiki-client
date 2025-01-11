@@ -5,6 +5,8 @@ import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
 import { FILTER_OPTION, FILTER_ORDER } from '@/page/handover/constant';
@@ -29,19 +31,7 @@ const HandoverPage = () => {
 
   const { data, isFetching } = useNoteData(lastUpdatedAt, sortOption);
 
-  // 정렬 기준 변경시 노트리스트 초기화
-  useEffect(() => {
-    setNoteList([]);
-    setLastUpdatedAt('');
-  }, [sortOption]);
-
-  useEffect(() => {
-    if (data?.data?.noteGetResponseList) {
-      setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
-    }
-  }, [data]);
-
-  console.log(noteList);
+  const queryClient = useQueryClient();
 
   const filterKeyword = useDebounce(searchValue, 400);
 
@@ -55,23 +45,38 @@ const HandoverPage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
+    'noteId',
+    noteList ?? []
+  );
+
+  // 스크롤 감지하는 로직
   const targetRef = useIntersect((entry, observer) => {
     observer.unobserve(entry.target);
     if (isFetching) return;
-    setLastUpdatedAt(noteList ? noteList[noteList?.length - 1].lastUpdatedAt : '');
+
+    setLastUpdatedAt(noteList.length > 0 ? noteList[noteList?.length - 1].lastUpdatedAt : '');
   });
 
   const { mutate: noteListMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
     onSuccess: () => {
       setNoteList([]);
       setLastUpdatedAt('');
+      queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/notes/{teamId}'],
+      });
     },
   });
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
-    'noteId',
-    noteList ?? []
-  );
+  useEffect(() => {
+    if (data?.data?.noteGetResponseList) {
+      if (lastUpdatedAt) {
+        setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
+        return;
+      }
+      setNoteList(data.data!.noteGetResponseList);
+    }
+  }, [data, lastUpdatedAt]);
 
   const handleNoteCloseClick = (noteIds: number[]) => {
     openModal('caution', {
@@ -91,6 +96,11 @@ const HandoverPage = () => {
             },
           },
         });
+
+        if (canSelect) {
+          handleToggleSelect();
+        }
+
         closeModal();
       },
       onClose: () => {
@@ -101,6 +111,7 @@ const HandoverPage = () => {
 
   const handleSortOption = (id: string) => {
     setSortOption(FILTER_ORDER[id as keyof typeof FILTER_ORDER] as FILTER_TYPE);
+    setLastUpdatedAt('');
 
     close();
   };

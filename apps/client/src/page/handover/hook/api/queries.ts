@@ -10,7 +10,7 @@ export const useNoteData = (createdAt: string, sortOrder?: 'ASC' | 'DESC') => {
         teamId,
       },
       query: {
-        createdAt,
+        createdAt: createdAt || '',
         sortOrder: sortOrder || 'ASC',
       },
     },
