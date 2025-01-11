@@ -1,8 +1,10 @@
 import { IcGrid, IcList, IcSearch } from '@tiki/icon';
-import { Button, Flex, Input, Select, Switch } from '@tiki/ui';
+import { Button, Flex, Input, Select, Switch, useToastAction } from '@tiki/ui';
 import { hasKeyInObject, useDeferredSearchFilter, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
@@ -12,10 +14,14 @@ import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments'
 import { contentStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
 
+import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
+import { CAUTION } from '@/shared/constant';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { File } from '@/shared/type/file';
 
 import { FileData } from '@/mock/data/drive';
@@ -29,6 +35,17 @@ const DrivePage = () => {
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
   const [selected, setSelected] = useState<FilterOption>('최근 업로드 순');
+
+  const teamId = useInitializeTeamId();
+
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
+
+  const queryClient = useQueryClient();
+
+  const { createToast } = useToastAction();
+
+  const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
 
   const { data } = useDriveData();
 
@@ -65,6 +82,36 @@ const DrivePage = () => {
     setSelected(id as FilterOption);
 
     close();
+  };
+
+  const handleDeleteFile = (documentId: number) => {
+    openModal('caution', {
+      infoText: CAUTION.DELETE_FILE.INFO_TEXT,
+      content: CAUTION.DELETE_FILE.CONTENT,
+      desc: CAUTION.DELETE_FILE.DESC,
+      onClick: () => {
+        mutate(
+          {
+            params: {
+              path: { teamId },
+              query: { documentId: [documentId] },
+            },
+          },
+          {
+            onSuccess: () => {
+              closeModal();
+
+              createToast('파일을 성공적으로 삭제했습니다.', 'success');
+
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
+            },
+            onError: () => {
+              createToast('파일을 삭제하는 도중 오류가 발생했습니다.', 'error');
+            },
+          }
+        );
+      },
+    });
   };
 
   return (
@@ -149,6 +196,7 @@ const DrivePage = () => {
                       name={folder.name}
                       path={folder.path}
                       createdTime={folder.createdTime}
+                      isSelectable={isSelectable}
                       isSelected={getFolderIsSelected(folder.folderId)}
                       onSelect={() => selectFolder(folder.folderId)}
                     />
@@ -166,8 +214,10 @@ const DrivePage = () => {
                       capacity={file.capacity}
                       url={file.url}
                       createdTime={file.createdTime}
+                      isSelectable={isSelectable}
                       isSelected={getDocumentIsSelected(file.documentId)}
                       onSelect={() => selectDocument(file.documentId)}
+                      onDelete={() => handleDeleteFile(file.documentId)}
                     />
                   </div>
                 );
@@ -183,15 +233,15 @@ const DrivePage = () => {
               return (
                 <FileGrid
                   key={file.documentId}
-                  documentId={file.documentId}
                   name={file.name}
                   capacity={file.capacity}
                   type={file.url?.split('.').at(-1) as File}
                   url={file.url}
                   createdTime={file.createdTime}
+                  isSelectable={isSelectable}
                   isSelected={getDocumentIsSelected(file.documentId)}
                   onSelect={() => selectDocument(file.documentId!)}
-                  isSelectable={isSelectable}
+                  onDelete={() => handleDeleteFile(file.documentId)}
                 />
               );
             } else if (hasKeyInObject(item, 'folderId')) {
