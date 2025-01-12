@@ -10,7 +10,7 @@ import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { getFileVolume } from '@/shared/util/file';
+import { convertToKB, getFileVolume } from '@/shared/util/file';
 
 interface AppendFileProps {
   selectedFiles: DocumentDetail[];
@@ -63,7 +63,7 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
             fileName: file.name,
             fileUrl: '',
             fileKey: '',
-            capacity: file.size,
+            capacity: convertToKB(file.size),
           })),
         },
       },
@@ -74,7 +74,7 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
               documentId: document.documentId,
               name: updatedFiles[index].name,
               url: '',
-              capacity: updatedFiles[index].size,
+              capacity: convertToKB(updatedFiles[index].size),
               createdTime: new Date().toISOString(),
             });
           });
