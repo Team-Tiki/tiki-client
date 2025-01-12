@@ -1,7 +1,7 @@
 import {
   IcActivityTag,
   IcBlockCreate,
-  IcCaution,
+  IcError,
   IcInvite,
   IcMemberTag,
   IcWarning,
@@ -189,22 +189,6 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       {
         icon: <IcActivityTag width={40} height={40} />,
         title: '활동 태그',
-        infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
-      },
-    ],
-    buttons: [
-      [
-        { text: '취소', variant: 'outline' },
-        { text: '완료', variant: 'primary' },
-      ],
-    ],
-  },
-  caution: {
-    steps: 1,
-    headers: [
-      {
-        icon: <IcCaution width={40} height={40} />,
-        title: '주의!',
         infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
       },
     ],

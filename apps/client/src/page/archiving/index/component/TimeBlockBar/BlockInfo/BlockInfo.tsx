@@ -1,12 +1,11 @@
 import { DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 
 import { periodStyle, titleInputStyle } from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo.style';
-import { formattingDate } from '@/page/archiving/index/util/date';
 
 interface BlockInfoProps {
   title: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   isEditable: boolean;
 }
 
@@ -23,7 +22,7 @@ const BlockInfo = ({ title, startDate, endDate, isEditable }: BlockInfoProps) =>
         <DatePicker onChange={handleDateChange} variant="range" triggerWidth="100%" />
       ) : (
         <Text tag="body6" css={periodStyle}>
-          {formattingDate(startDate)} ~ {formattingDate(endDate)}
+          {startDate} ~ {endDate}
         </Text>
       )}
     </Flex>

@@ -38,6 +38,7 @@ export { default as IcDelete } from "./src/IcDelete";
 export { default as IcDeleteFile } from "./src/IcDeleteFile";
 export { default as IcDown } from "./src/IcDown";
 export { default as IcDownload } from "./src/IcDownload";
+export { default as IcError } from "./src/IcError";
 export { default as IcEtc } from "./src/IcEtc";
 export { default as IcEvent } from "./src/IcEvent";
 export { default as IcEventCircle } from "./src/IcEventCircle";
