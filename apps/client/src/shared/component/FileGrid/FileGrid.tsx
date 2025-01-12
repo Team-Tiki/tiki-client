@@ -24,7 +24,7 @@ export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], '
   isSelectable?: boolean;
   isSelected?: boolean;
   onSelect?: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   isDeleted?: boolean;
 
   /**
@@ -43,7 +43,7 @@ const FileGrid = ({
   onSelect,
   isSelected = false,
   isDeleted = false,
-  onDelete,
+  onDelete = () => {},
 }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
