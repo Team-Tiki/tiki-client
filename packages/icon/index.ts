@@ -1,3 +1,5 @@
+export { default as IcError } from './src/IcError';
+
 export { default as IcAccounting } from './src/IcAccounting';
 export { default as IcActivityTag } from './src/IcActivityTag';
 export { default as IcAdd } from './src/IcAdd';
