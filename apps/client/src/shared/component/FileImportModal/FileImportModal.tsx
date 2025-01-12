@@ -40,6 +40,9 @@ const FileImportModal = ({ onUpload }: FileImportModalProps) => {
   const teamId = useInitializeTeamId();
   const filterKeyword = useDebounce(searchFile, 500);
 
+  const isButtonActive = selectedFiles.length !== 0;
+  console.log(isButtonActive);
+
   const { data: fileData } = $api.useQuery('get', '/api/v1/documents/team/{teamId}/timeline', {
     params: {
       query: { type: 'executive' },
@@ -116,7 +119,7 @@ const FileImportModal = ({ onUpload }: FileImportModalProps) => {
           )}
         </div>
       </Modal.Body>
-      <Modal.Footer contentType="file" closeModal={closeModal} buttonClick={onUpload} />
+      <Modal.Footer contentType="file" closeModal={closeModal} buttonClick={onUpload} isButtonActive={isButtonActive} />
     </>
   );
 };
