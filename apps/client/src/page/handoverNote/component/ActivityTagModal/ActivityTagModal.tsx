@@ -28,18 +28,15 @@ const ActivityTagModal = () => {
 
   const filterKeyword = useDebounce(inputValue, 500);
   const filteredFiles = useMemo(
-    () =>
-      data.data?.tImeBlockTaggingResponses.filter((tag) =>
-        tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))
-      ),
-    [data, filterKeyword]
+    () => activityTags.filter((tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
+    [activityTags, filterKeyword]
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleDeleteActivityTag = (id: number) => {
+  const handleDeleteActivityTag = (e: React.MouseEvent, id: number) => {
     setActivityTags((prevTags) => prevTags.filter((tag) => tag.timeBlockId !== id));
   };
 
@@ -63,7 +60,7 @@ const ActivityTagModal = () => {
                   date={formatDateToDots(data.startDate)}
                   tag={data.type}
                   color={data.color}
-                  onDelete={() => handleDeleteActivityTag(data.timeBlockId)}
+                  onDelete={(e) => handleDeleteActivityTag(e, data.timeBlockId)}
                 />
               ))
             ) : (
