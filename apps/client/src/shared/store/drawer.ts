@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
-export type DrawerContent = (Omit<Block, 'timeBlockId'> & BlockDetail) | null;
+export type DrawerContent = (Block & BlockDetail) | null;
 
 interface DrawerStore {
   isOpen: boolean;

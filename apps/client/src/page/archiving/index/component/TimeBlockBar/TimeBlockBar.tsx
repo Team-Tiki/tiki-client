@@ -1,11 +1,11 @@
 import { IcClose } from '@tiki/icon';
-import { CommandButton, Flex } from '@tiki/ui';
+import { Flex } from '@tiki/ui';
 
 import { useState } from 'react';
 
 import BlockInfo from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo';
 import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNotes';
-import { circleStyle, closeBtnStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
+import { closeBtnStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss';
 
 import { DrawerContent } from '@/shared/store/drawer';
@@ -38,7 +38,7 @@ const TimeBlockBar = ({ content, onCloseDrawer }: TimeBlockBarProps) => {
             blockType={content.blockType}
           />
           <TaggedNotes isEditable={isEditable} notes={content.notes} />
-          <UploadedDocuments isEditable={isEditable} documents={content.documents} />
+          <UploadedDocuments isEditable={isEditable} documents={content.documents} timeBlockId={content.timeBlockId} />
         </Flex>
       </section>
     )

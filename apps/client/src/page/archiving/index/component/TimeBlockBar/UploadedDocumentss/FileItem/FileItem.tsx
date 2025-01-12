@@ -10,14 +10,45 @@ import {
 } from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem.style';
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
+import { $api } from '@/shared/api/client';
+import { queryClient } from '@/shared/api/queryClient';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+
 interface FileItemProps {
   title: string;
   capacity: string;
   isEditable: boolean;
+  timeBlockId: number;
+  tagId: number;
 }
 
-const FileItem = ({ title, capacity, isEditable }: FileItemProps) => {
+const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemProps) => {
   const fileType = title.split('.')[title.split('.').length - 1];
+
+  const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
+      });
+    },
+  });
+
+  const teamId = useInitializeTeamId();
+
+  const handleFileDeleteButtonClick = () => {
+    console.log(teamId, timeBlockId, tagId);
+    mutate({
+      params: {
+        path: {
+          teamId,
+          timeBlockId,
+        },
+        query: {
+          tagId: [tagId],
+        },
+      },
+    });
+  };
 
   return (
     <li css={containerStyle}>
@@ -33,7 +64,7 @@ const FileItem = ({ title, capacity, isEditable }: FileItemProps) => {
         </Flex>
       </Flex>
 
-      {isEditable && <IcClose width={16} height={16} css={closeBtnStyle} />}
+      {isEditable && <IcClose width={16} height={16} css={closeBtnStyle} onClick={handleFileDeleteButtonClick} />}
     </li>
   );
 };
