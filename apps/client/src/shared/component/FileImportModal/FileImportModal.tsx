@@ -25,11 +25,11 @@ type File = components['schemas']['DocumentInfoGetResponse'];
 
 const FileImportModal = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [uploadStatus, setUploadStatus] = useState<Record<string, boolean>>({});
   const [searchFile, setSearchFile] = useState('');
 
   const modalData = useModalData();
   const closeModal = useCloseModal();
+
   const { isOpen, open, close } = useOverlay();
   const dropdownRef = useOutsideClick<HTMLDivElement>(close);
 
@@ -56,7 +56,6 @@ const FileImportModal = () => {
 
     if (!isSelected) {
       setSelectedFiles((prev) => [...prev, item]);
-      setUploadStatus((prevStatus) => ({ ...prevStatus, [item.name]: true }));
     }
 
     close();
@@ -112,7 +111,6 @@ const FileImportModal = () => {
                   fileSize={getFileVolume(file.capacity || 0)}
                   uploadedSize={getFileVolume(file.capacity || 0)}
                   onDelete={() => handleDelete(file.documentId ?? 0)}
-                  isUploading={!uploadStatus[file.name]}
                   size="small"
                 />
               </div>

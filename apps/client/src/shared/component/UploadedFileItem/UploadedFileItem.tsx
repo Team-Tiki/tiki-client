@@ -1,21 +1,25 @@
 import { IcCheckGreen, IcClose, IcFileItem } from '@tiki/icon';
 import { Flex, Spinner, Text } from '@tiki/ui';
 
-import {
-  borderStyle,
-  textStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem.style';
+import { borderStyle, textStyle } from '@/shared/component/UploadedFileItem/UploadedFileItem.style';
 
 interface BlockItemProps {
   title: string;
-  isUploading: boolean;
+  isUploading?: boolean;
   fileSize: string;
   uploadedSize: string;
   onDelete: () => void;
   size?: 'small' | 'large';
 }
 
-const UploadedFileItem = ({ title, isUploading, fileSize, uploadedSize, onDelete, size = 'large' }: BlockItemProps) => {
+const UploadedFileItem = ({
+  title,
+  isUploading = false,
+  fileSize,
+  uploadedSize,
+  onDelete,
+  size = 'large',
+}: BlockItemProps) => {
   /* 추가해야 할 것 : 프로그래스바  ==> 서버로직 짤때 컴포넌트로 따로 빼서 적용할 것!*/
 
   return (
