@@ -1,6 +1,5 @@
 import { CommandButton, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 import { format } from 'date-fns';
-import path from 'path';
 
 import { SyntheticEvent, useEffect, useState } from 'react';
 
@@ -13,43 +12,39 @@ import {
 } from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo.style';
 import { circleStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
-import { Block } from '@/page/archiving/index/type/blockType';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useDrawerContent } from '@/shared/store/drawer';
+import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
 type BlockInfoProps = {
   isEditable: boolean;
   onEditClick: () => void;
-} & Block;
+};
 
-const BlockInfo = ({
-  timeBlockId,
-  name,
-  startDate,
-  color,
-  endDate,
-  isEditable,
-  blockType,
-  onEditClick,
-}: BlockInfoProps) => {
-  const [blockInfo, setBlockInfo] = useState<{ name: string; startDate: string; endDate: string }>({
-    name: name,
-    startDate: startDate,
-    endDate: endDate,
-  });
+const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
+  const { name, startDate, endDate, color, blockType } = { ...useDrawerContent() };
 
-  useEffect(() => {
-    setBlockInfo({
-      name: name,
-      startDate: startDate,
-      endDate: endDate,
-    });
-  }, [name, startDate, endDate]);
+  const timeBlockId = useTimeBlockId();
 
   const teamId = useInitializeTeamId();
 
   const queryClient = useQueryClient();
+
+  const [blockInfo, setBlockInfo] = useState<{ name: string; startDate: string; endDate: string }>({
+    name: name ?? '',
+    startDate: startDate ?? '',
+    endDate: endDate ?? '',
+  });
+
+  useEffect(() => {
+    setBlockInfo({
+      name: name ?? '',
+      startDate: startDate ?? '',
+      endDate: endDate ?? '',
+    });
+  }, [name, startDate, endDate]);
 
   const { mutate } = $api.useMutation('patch', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
     onSuccess: () => {
@@ -88,7 +83,9 @@ const BlockInfo = ({
   return (
     <form css={containerStyle}>
       <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>
-        <Flex css={circleStyle(color)}>{BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}</Flex>
+        <Flex css={circleStyle(color ?? '')}>
+          {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color ?? '')}
+        </Flex>
         <CommandButton
           type={isEditable ? 'button' : 'submit'}
           variant="fourth"

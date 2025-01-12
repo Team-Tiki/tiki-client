@@ -39,8 +39,6 @@ const TimeBlock = ({
 
   const { data } = useBlockDetailInfoQuery(timeBlockId);
 
-  // console.log(data?.data?.documents);
-
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
