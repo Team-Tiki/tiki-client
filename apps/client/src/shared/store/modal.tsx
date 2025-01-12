@@ -13,7 +13,11 @@ interface CautionModalData {
   onClose?: () => void;
 }
 
-type ModalData = DeletedModalData | CautionModalData;
+interface FileModalData {
+  onUpload: () => void;
+}
+
+type ModalData = DeletedModalData | CautionModalData | FileModalData;
 
 type ModalContentType =
   | 'create-workspace'
@@ -59,4 +63,8 @@ export const isCautionModalData = (data: ModalData | null): data is CautionModal
 
 export const isDeletedModalData = (data: ModalData | null): data is DeletedModalData => {
   return !!data && 'itemType' in data;
+};
+
+export const isFileModalData = (data: ModalData | null): data is FileModalData => {
+  return !!data && 'onUpload' in data;
 };

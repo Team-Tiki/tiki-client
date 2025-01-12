@@ -19,20 +19,17 @@ import {
 import { Modal } from '@/shared/component/Modal';
 import { FILE } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useCloseModal } from '@/shared/store/modal';
+import { isFileModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
 
 type File = components['schemas']['DocumentInfoGetResponse'];
 
-interface FileImportModalProps {
-  onUpload: () => void; // 연동 버튼 클릭시 핸들러
-}
-
-const FileImportModal = ({ onUpload }: FileImportModalProps) => {
+const FileImportModal = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadStatus, setUploadStatus] = useState<Record<string, boolean>>({});
   const [searchFile, setSearchFile] = useState('');
 
+  const modalData = useModalData();
   const closeModal = useCloseModal();
   const { isOpen, open, close } = useOverlay();
   const dropdownRef = useOutsideClick<HTMLDivElement>(close);
@@ -70,6 +67,12 @@ const FileImportModal = ({ onUpload }: FileImportModalProps) => {
     setSelectedFiles((prev) => prev.filter((file) => file.documentId !== documentId));
   };
 
+  const handleUpload = () => {
+    if (isFileModalData(modalData) && modalData.onUpload) {
+      modalData.onUpload();
+    }
+  };
+
   return (
     <>
       <Modal.Header />
@@ -103,7 +106,7 @@ const FileImportModal = ({ onUpload }: FileImportModalProps) => {
             <div css={emptyStyle}>{FILE.NO_CONNECTED_FILE}</div>
           ) : (
             selectedFiles.map((file) => (
-              <div css={[scrollStyle, fileListStyle]}>
+              <div css={[scrollStyle, fileListStyle]} key={file.documentId}>
                 <UploadedFileItem
                   key={file.documentId}
                   title={file.name}
@@ -118,7 +121,12 @@ const FileImportModal = ({ onUpload }: FileImportModalProps) => {
           )}
         </div>
       </Modal.Body>
-      <Modal.Footer contentType="file" closeModal={closeModal} buttonClick={onUpload} isButtonActive={isButtonActive} />
+      <Modal.Footer
+        contentType="file"
+        closeModal={closeModal}
+        buttonClick={handleUpload}
+        isButtonActive={isButtonActive}
+      />
     </>
   );
 };

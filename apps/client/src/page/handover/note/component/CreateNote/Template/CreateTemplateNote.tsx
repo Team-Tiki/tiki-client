@@ -13,7 +13,7 @@ import { TEMPLATE } from '@/page/handover/note/constants/template';
 import useFile from '@/page/handover/note/hooks/useFile';
 import { TemplateNote } from '@/page/handover/note/type/note';
 
-import { useOpenModal } from '@/shared/store/modal';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 interface TemplateNoteProps {
   setData: Dispatch<SetStateAction<TemplateNote>>;
@@ -21,6 +21,7 @@ interface TemplateNoteProps {
 
 const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   const openModal = useOpenModal();
+  const closeModal = useCloseModal();
   const { files, handleFileChange } = useFile();
 
   const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +32,11 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   };
 
   const handleFileUpload = () => {
-    openModal('file');
-    // const fileInput = document.getElementById('file') as HTMLInputElement;
-    // fileInput?.click();
+    openModal('file', {
+      onUpload: () => {
+        closeModal();
+      },
+    });
   };
 
   return (
