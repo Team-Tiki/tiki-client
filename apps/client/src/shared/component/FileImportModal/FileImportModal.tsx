@@ -4,8 +4,6 @@ import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
-import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
-
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import {
@@ -17,6 +15,7 @@ import {
   textFieldStyle,
 } from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
+import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { FILE } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { isFileModalData, useCloseModal, useModalData } from '@/shared/store/modal';
