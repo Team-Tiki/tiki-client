@@ -56,7 +56,6 @@ export const textFieldStyle = css({
 export const fileListStyle = css({
   maxHeight: '30.4rem',
 
-  marginTop: '2rem',
   overflow: 'scroll',
 });
 
@@ -69,5 +68,15 @@ export const emptyStyle = css({
   alignItems: 'center',
 
   color: theme.colors.gray_800,
+  ...theme.text.body08,
+});
+
+export const notFoundStyle = css({
+  padding: '2.2rem 0.4rem 2.2rem 0.8rem',
+
+  margin: '0.8rem',
+
+  pointerEvents: 'none',
+
   ...theme.text.body08,
 });

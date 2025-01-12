@@ -1,8 +1,8 @@
 import { IcFileItem, IcSearch } from '@tiki/icon';
 import { DropdownItem, DropdownList, DropdownRoot, Input, scrollStyle } from '@tiki/ui';
-import { useOutsideClick, useOverlay } from '@tiki/utils';
+import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
 
@@ -12,10 +12,12 @@ import {
   emptyStyle,
   fileListStyle,
   itemStyle,
+  notFoundStyle,
   overlayStyle,
   textFieldStyle,
 } from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
+import { FILE } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
@@ -25,13 +27,14 @@ type File = components['schemas']['DocumentInfoGetResponse'];
 const FileImportModal = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadStatus, setUploadStatus] = useState<Record<string, boolean>>({});
+  const [searchFile, setSearchFile] = useState('');
 
+  const closeModal = useCloseModal();
   const { isOpen, open, close } = useOverlay();
   const dropdownRef = useOutsideClick<HTMLDivElement>(close);
 
-  const closeModal = useCloseModal();
-
   const teamId = useInitializeTeamId();
+  const filterKeyword = useDebounce(searchFile, 500);
 
   const { data: fileData } = $api.useQuery('get', '/api/v1/documents/team/{teamId}/timeline', {
     params: {
@@ -39,6 +42,12 @@ const FileImportModal = () => {
       path: { teamId },
     },
   });
+
+  const filteredFiles = useMemo(
+    () =>
+      fileData?.data?.documents.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
+    [fileData, filterKeyword]
+  );
 
   const handleSelect = (item: File) => {
     const isSelected = selectedFiles.some((file) => file.documentId === item.documentId);
@@ -59,23 +68,33 @@ const FileImportModal = () => {
     <>
       <Modal.Header />
       <Modal.Body>
-        <Input LeftIcon={<IcSearch width={16} height={16} />} isFilled={false} onFocus={open} placeholder="파일 검색" />
+        <Input
+          LeftIcon={<IcSearch width={16} height={16} />}
+          isFilled={false}
+          onFocus={open}
+          placeholder="search"
+          onChange={(e) => setSearchFile(e.target.value)}
+        />
         <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
           <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
-            {fileData?.data?.documents.map((file) => (
-              <DropdownItem key={file.documentId} css={itemStyle} onSelect={() => handleSelect(file)}>
-                <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
-                <p css={textFieldStyle}>
-                  {file.name}
-                  {file.url && <span>{file.url}</span>}
-                </p>
-              </DropdownItem>
-            ))}
+            {filteredFiles?.length === 0 ? (
+              <DropdownItem css={notFoundStyle}>{FILE.NOT_FOUND}</DropdownItem>
+            ) : (
+              filteredFiles?.map((file) => (
+                <DropdownItem key={file.documentId} css={itemStyle} onSelect={() => handleSelect(file)}>
+                  <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
+                  <p css={textFieldStyle}>
+                    {file.name}
+                    {file.url && <span>{file.url}</span>}
+                  </p>
+                </DropdownItem>
+              ))
+            )}
           </DropdownList>
         </DropdownRoot>
         <div css={{ marginTop: '2rem' }}>
           {selectedFiles.length === 0 ? (
-            <div css={emptyStyle}>연동된 파일이 없습니다.</div>
+            <div css={emptyStyle}>{FILE.NO_CONNECTED_FILE}</div>
           ) : (
             selectedFiles.map((file) => (
               <div css={[scrollStyle, fileListStyle]}>
