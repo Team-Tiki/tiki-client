@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
-import { Block } from '@/page/archiving/index/type/blockType';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useDrawerAction } from '@/shared/store/drawer';
 
@@ -10,11 +9,10 @@ export const useInteractTimeline = () => {
 
   const { openDrawer } = useDrawerAction();
 
-  const { data } = useBlockDetailInfoQuery(selectedBlock?.timeBlockId as number);
-
   const handleBlockClick = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
-    block: Block
+    block: Block,
+    blockDetail: BlockDetail
   ) => {
     e.stopPropagation();
 
@@ -27,13 +25,14 @@ export const useInteractTimeline = () => {
     setSelectedBlock(block);
 
     openDrawer({
+      timeBlockId: block.timeBlockId,
       name: block.name,
       startDate: block.startDate,
       endDate: block.endDate,
       blockType: block.blockType,
       color: block.color,
-      documents: data?.data?.documents ?? [],
-      notes: data?.data?.notes ?? [],
+      documents: blockDetail.documents ?? [],
+      notes: blockDetail.notes ?? [],
     });
   };
 

@@ -2,24 +2,33 @@ import React, { HTMLAttributes, ReactNode } from 'react';
 
 import { blockNameStyle, blockStyle } from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock.style';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
-import { BlockType } from '@/page/archiving/index/type/blockType';
+import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
+import { Block, BlockDetail, BlockType } from '@/page/archiving/index/type/blockType';
 
 interface TimeBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
+  block: Block;
   startDate: Date;
   endDate: Date;
   color: string;
+  timeBlockId: number;
   floor: number;
   blockType: BlockType;
   isSelected?: boolean;
-  onBlockClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+  onBlockClick: (
+    e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
+    block: Block,
+    blockDetail: BlockDetail
+  ) => void;
 }
 
 const TimeBlock = ({
+  block,
   startDate,
   endDate,
   children,
   color,
+  timeBlockId,
   floor,
   onBlockClick,
   isSelected = false,
@@ -28,10 +37,14 @@ const TimeBlock = ({
 }: TimeBlockProps) => {
   const daysLength = new Date(endDate).getDate() - new Date(startDate).getDate() + 1;
 
+  const { data } = useBlockDetailInfoQuery(timeBlockId);
+
   const handleEnterBlock = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      onBlockClick(e);
+      if (data?.data) {
+        onBlockClick(e, block, data?.data);
+      }
     }
   };
 
@@ -45,7 +58,7 @@ const TimeBlock = ({
         gridColumn: `${new Date(startDate).getDate()} / span ${daysLength}`,
         gridRow: `${floor}`,
       }}
-      onClick={onBlockClick}
+      onClick={(e) => onBlockClick(e, block, data?.data ?? { documents: [], notes: [] })}
       {...props}>
       {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}
       <span css={blockNameStyle(color)}>{children}</span>

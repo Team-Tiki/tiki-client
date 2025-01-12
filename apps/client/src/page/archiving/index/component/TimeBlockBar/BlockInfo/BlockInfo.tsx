@@ -12,8 +12,6 @@ import { circleStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeB
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { Block } from '@/page/archiving/index/type/blockType';
 
-import { $api } from '@/shared/api/client';
-
 type BlockInfoProps = {
   isEditable: boolean;
   onEditClick: () => void;
@@ -28,7 +26,6 @@ const BlockInfo = ({ name, startDate, color, endDate, isEditable, blockType, onE
     handleblockInfoChange('startDate', endDate ? format(endDate, 'yyyy-MM-dd') : '2025-01-14');
   };
 
-  console.log(blockInfo);
   const handleblockInfoChange = (key: string, value: string) => {
     setBlockInfo((prev) => (prev = { ...prev, [key]: value }));
   };
