@@ -12,9 +12,10 @@ interface BlockItemProps {
   fileSize: string;
   uploadedSize: string;
   onDelete: () => void;
+  size?: 'small' | 'large';
 }
 
-const UploadedFileItem = ({ title, isUploading, fileSize, uploadedSize, onDelete }: BlockItemProps) => {
+const UploadedFileItem = ({ title, isUploading, fileSize, uploadedSize, onDelete, size = 'large' }: BlockItemProps) => {
   /* 추가해야 할 것 : 프로그래스바  ==> 서버로직 짤때 컴포넌트로 따로 빼서 적용할 것!*/
 
   return (
@@ -23,16 +24,16 @@ const UploadedFileItem = ({ title, isUploading, fileSize, uploadedSize, onDelete
         direction: 'row',
         align: 'center',
         justify: 'space-between',
-        padding: '1.5rem 1.2rem',
+        padding: size === 'large' ? '1.5rem 1.2rem' : '',
       }}
-      css={borderStyle}>
+      css={borderStyle(size)}>
       <Flex styles={{ justify: 'center', align: 'center' }}>
         <IcFileItem width={20} height={20} css={{ margin: '1.2rem', flexShrink: '0' }} />
         <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
-          <Text tag="body8" css={textStyle}>
+          <Text tag="body8" css={textStyle(size)}>
             {title}
           </Text>
-          <Text tag="body8" css={textStyle}>
+          <Text tag="body8" css={textStyle(size)}>
             {fileSize} 중 {uploadedSize}
           </Text>
         </Flex>

@@ -205,7 +205,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcFileUpload width={40} height={40} css />,
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
         title: '파일 연동',
         infoText: '연동할 파일을 선택하세요',
       },
