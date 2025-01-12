@@ -12,6 +12,7 @@ import {
 } from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem.style';
 import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
 import { Document } from '@/page/archiving/index/type/blockType';
+import { downloadDocument } from '@/page/archiving/index/util/document';
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
 import { $api } from '@/shared/api/client';
@@ -19,11 +20,11 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
-interface FileItemProps extends Omit<Document, 'documentId' | 'fileUrl'> {
+interface FileItemProps extends Omit<Document, 'documentId'> {
   isEditable: boolean;
 }
 
-const FileItem = ({ fileName, capacity, isEditable, tagId }: FileItemProps) => {
+const FileItem = ({ fileName, capacity, isEditable, tagId, fileUrl }: FileItemProps) => {
   const queryClient = useQueryClient();
 
   const timeBlockId = useTimeBlockId();
@@ -71,7 +72,18 @@ const FileItem = ({ fileName, capacity, isEditable, tagId }: FileItemProps) => {
   };
 
   return (
-    <li css={containerStyle}>
+    <li
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+      role="button"
+      tabIndex={0}
+      aria-label={`Download ${fileUrl}`}
+      css={containerStyle}
+      onClick={() => downloadDocument(fileUrl)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          downloadDocument(fileUrl);
+        }
+      }}>
       <Flex styles={{ gap: '1.2rem' }}>
         <Flex css={circleStyle}>{selectFileIc(fileType)}</Flex>
         <Flex styles={{ direction: 'column', gap: '0.6rem' }}>

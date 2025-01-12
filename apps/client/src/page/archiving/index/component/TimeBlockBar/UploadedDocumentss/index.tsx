@@ -38,6 +38,7 @@ const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
             capacity={data.capacity}
             isEditable={isEditable}
             tagId={data.tagId}
+            fileUrl={data.fileUrl}
           />
         ))}
       </Flex>
