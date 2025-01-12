@@ -3,7 +3,7 @@ import { Modal } from '@tiki/ui';
 import { Suspense } from 'react';
 
 import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
-import ActivityTagModal from '@/page/handover/note/component/ActivityTagModal/ActivityTagModal';
+import ActivityTagModal from '@/page/handoverNote/component/ActivityTagModal/ActivityTagModal';
 
 import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';

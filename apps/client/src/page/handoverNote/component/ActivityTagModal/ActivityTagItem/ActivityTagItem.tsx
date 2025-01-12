@@ -5,7 +5,7 @@ import {
   iconBackStyle,
   tagStyle,
   textStyle,
-} from '@/page/handover/note/component/ActivityTagModal/ActivityTagItem/ActivityTagItem.style';
+} from '@/page/handoverNote/component/ActivityTagModal/ActivityTagItem/ActivityTagItem.style';
 
 import { TAG_ICON } from '@/shared/constant/icon';
 

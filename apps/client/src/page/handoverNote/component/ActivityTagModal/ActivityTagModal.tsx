@@ -3,7 +3,7 @@ import { Flex, Input, Text } from '@tiki/ui';
 
 import { useState } from 'react';
 
-import ActivityTagItem from '@/page/handover/note/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
+import ActivityTagItem from '@/page/handoverNote/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
 
 import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import { Modal } from '@/shared/component/Modal';

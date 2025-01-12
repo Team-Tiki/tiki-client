@@ -8,10 +8,10 @@ import {
   layoutStyle,
   noteWrapperStyle,
   textareaStyle,
-} from '@/page/handover/note/component/Custom/Custom.style';
-import File from '@/page/handover/note/component/File/File';
-import useFile from '@/page/handover/note/hooks/useFile';
-import { CustomNote } from '@/page/handover/note/type/note';
+} from '@/page/handoverNote/component/Custom/Custom.style';
+import File from '@/page/handoverNote/component/File/File';
+import useFile from '@/page/handoverNote/hooks/useFile';
+import { CustomNote } from '@/page/handoverNote/type/note';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 
