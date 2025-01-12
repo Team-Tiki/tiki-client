@@ -1,4 +1,4 @@
-import { Button, Flex } from '@tiki/ui';
+import { Button, Flex, useToastAction } from '@tiki/ui';
 import { useMultiSelect } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
@@ -20,6 +20,7 @@ interface FileData {
 
 const DeletedPage = () => {
   const teamId = useInitializeTeamId();
+  const { createToast } = useToastAction();
 
   const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
@@ -36,10 +37,21 @@ const DeletedPage = () => {
 
   const deleteMutation = $api.useMutation('delete', '/api/v1/teams/{teamId}/trash', {
     onSuccess: () => {
+      createToast(`삭제가 완료되었습니다.`, 'success');
       refetch();
     },
     onError: (error) => {
-      console.error('삭제 실패:', error);
+      createToast(`${error.message}`, 'error');
+    },
+  });
+
+  const restoreMutation = $api.useMutation('post', '/api/v1/teams/{teamId}/trash', {
+    onSuccess: () => {
+      createToast(`복구가 완료되었습니다.`, 'success');
+      refetch();
+    },
+    onError: (error) => {
+      createToast(`${error.message}`, 'error');
     },
   });
 
@@ -56,15 +68,6 @@ const DeletedPage = () => {
     });
     handleReset();
   };
-
-  const restoreMutation = $api.useMutation('post', '/api/v1/teams/{teamId}/trash', {
-    onSuccess: () => {
-      refetch();
-    },
-    onError: (error) => {
-      console.error('복원 실패:', error);
-    },
-  });
 
   const handleRestore = () => {
     restoreMutation.mutate({
