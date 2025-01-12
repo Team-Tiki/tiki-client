@@ -74,7 +74,7 @@ const ActivityTagModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="activity-tag" buttonClick={closeModal} />
+      <Modal.Footer contentType="activity-tag" buttonClick={closeModal} closeModal={closeModal} />
     </>
   );
 };
