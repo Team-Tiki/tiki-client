@@ -25,7 +25,7 @@ import { getFileVolume } from '@/shared/util/file';
 type File = components['schemas']['DocumentInfoGetResponse'];
 
 interface FileImportModalProps {
-  onUpload: () => void;
+  onUpload: () => void; // 연동 버튼 클릭시 핸들러
 }
 
 const FileImportModal = ({ onUpload }: FileImportModalProps) => {
