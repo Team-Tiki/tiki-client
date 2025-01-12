@@ -3,10 +3,10 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/NotePage.style';
 import CreateCustomNote from '@/page/handoverNote/component/CreateNote/Custom/CreateCustomNote';
 import CreateNoteDetail from '@/page/handoverNote/component/CreateNote/NoteDetail/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handoverNote/component/CreateNote/Template/CreateTemplateNote';
+import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
 import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handoverNote/type/note';
 
 import { $api } from '@/shared/api/client';

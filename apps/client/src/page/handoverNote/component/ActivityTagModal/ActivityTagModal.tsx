@@ -5,17 +5,26 @@ import { useState } from 'react';
 
 import ActivityTagItem from '@/page/handoverNote/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
 
+import { $api } from '@/shared/api/client';
 import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { ACITIVITY_TAG_DATA } from '@/shared/constant';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
 const ActivityTagModal = () => {
-  const [inputValue, setInputValue] = useState('');
-
-  const [activityTags, setActivityTags] = useState(() => [...ACITIVITY_TAG_DATA]);
-
   const closeModal = useCloseModal();
+  const teamId = useInitializeTeamId();
+
+  const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
+    params: {
+      path: { teamId },
+    },
+  });
+
+  console.log(data);
+
+  const [activityTags, setActivityTags] = useState(data?.data?.tImeBlockTaggingResponses || []);
+  const [inputValue, setInputValue] = useState('');
 
   /* 드롭다운 검색 기능 추가할때 버튼활성화 조건 바꾸기! */
   const isButtonActive = inputValue.trim().length > 0;
@@ -25,7 +34,7 @@ const ActivityTagModal = () => {
   };
 
   const handleDeleteActivityTag = (id: number) => {
-    setActivityTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
+    setActivityTags((prevTags) => prevTags.filter((tag) => tag.timeBlockId !== id));
   };
 
   return (
@@ -43,12 +52,12 @@ const ActivityTagModal = () => {
             {activityTags.length > 0 ? (
               activityTags.map((data) => (
                 <ActivityTagItem
-                  key={data.id}
-                  title={data.title}
-                  date={data.date}
-                  tag={data.tag}
+                  key={data.timeBlockId}
+                  title={data.name}
+                  date={data.startDate}
+                  tag={data.type}
                   color={data.color}
-                  onDelete={() => handleDeleteActivityTag(data.id)}
+                  onDelete={() => handleDeleteActivityTag(data.timeBlockId)}
                 />
               ))
             ) : (
