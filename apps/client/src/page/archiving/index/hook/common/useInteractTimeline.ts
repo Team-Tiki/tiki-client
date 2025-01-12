@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useDrawerAction } from '@/shared/store/drawer';
+import { useTimeBlockIdAction } from '@/shared/store/timeBlockId';
 
 export const useInteractTimeline = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const { openDrawer } = useDrawerAction();
+
+  const { setTimeBlockId } = useTimeBlockIdAction();
 
   const handleBlockClick = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
@@ -21,6 +24,8 @@ export const useInteractTimeline = () => {
       inline: 'center',
       block: 'center',
     });
+
+    setTimeBlockId(block.timeBlockId);
 
     setSelectedBlock(block);
 

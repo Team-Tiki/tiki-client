@@ -9,3 +9,5 @@ export type BlockDetail = components['schemas']['TimeBlockDetailGetResponse'];
 export type Documents = components['schemas']['DocumentDetailGetResponse'][];
 
 export type Notes = components['schemas']['NoteNameGetResponse'][];
+
+export type Document = components['schemas']['DocumentDetailGetResponse'];

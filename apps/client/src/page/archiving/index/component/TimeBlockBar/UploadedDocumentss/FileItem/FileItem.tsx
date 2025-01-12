@@ -10,23 +10,29 @@ import {
   fileCapacityStyle,
   fileTitleStyle,
 } from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem.style';
+import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
+import { Document } from '@/page/archiving/index/type/blockType';
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
+import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
-interface FileItemProps {
-  title: string;
-  capacity: string;
+interface FileItemProps extends Omit<Document, 'documentId' | 'fileUrl'> {
   isEditable: boolean;
-  timeBlockId: number;
-  tagId: number;
 }
 
-const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemProps) => {
-  const fileType = title.split('.')[title.split('.').length - 1];
-
+const FileItem = ({ fileName, capacity, isEditable, tagId }: FileItemProps) => {
   const queryClient = useQueryClient();
+
+  const timeBlockId = useTimeBlockId();
+  const teamId = useInitializeTeamId();
+
+  const { openDrawer } = useDrawerAction();
+  const content = useDrawerContent();
+
+  const { data } = useBlockDetailInfoQuery(timeBlockId);
 
   const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
     onSuccess: () => {
@@ -36,10 +42,9 @@ const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemP
     },
   });
 
-  const teamId = useInitializeTeamId();
+  const fileType = fileName.split('.')[fileName.split('.').length - 1];
 
   const handleFileDeleteButtonClick = () => {
-    console.log(teamId, timeBlockId, tagId);
     mutate(
       {
         params: {
@@ -53,7 +58,14 @@ const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemP
         },
       },
       {
-        onSuccess: () => console.log('태그 삭제 성공'),
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'] });
+          content &&
+            openDrawer({
+              ...content,
+              documents: data?.data?.documents ?? [],
+            });
+        },
       }
     );
   };
@@ -64,7 +76,7 @@ const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemP
         <Flex css={circleStyle}>{selectFileIc(fileType)}</Flex>
         <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
           <Text tag="body8" css={fileTitleStyle}>
-            {title}
+            {fileName}
           </Text>
           <Text tag="body8" css={fileCapacityStyle}>
             {capacity}
