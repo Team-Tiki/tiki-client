@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 
 import { containerStyle } from "@/Toast/Toast.style";
 import { Timeout } from "@/types";
-import { IcCautionToast, IcSuccess } from "@tiki/icon";
+import { IcCaution, IcSuccess } from "@tiki/icon";
 
 export interface ToastProps extends ComponentPropsWithoutRef<"div"> {
   variant?: "error" | "success" | "default";
@@ -20,7 +20,7 @@ const Toast = ({ variant, children, showDuration = 3000, onClose, ...props }: To
   const hideRef = useRef<Timeout>();
 
   const Icon = () => {
-    if (variant === "error") return <IcCautionToast width={16} height={16} />;
+    if (variant === "error") return <IcCaution width={16} height={16} />;
     if (variant === "success") return <IcSuccess width={16} height={16} />;
     return null;
   };
