@@ -6,7 +6,6 @@ import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { useBlockInfoQuery } from '@/page/archiving/index/hook/api/useBlockInfoQuery';
 import { Block } from '@/page/archiving/index/type/blockType';
 import { DocumentType } from '@/page/archiving/index/type/documentType';
-import { formattingDate } from '@/page/archiving/index/util/date';
 
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
@@ -20,8 +19,8 @@ const Selected = ({ selectedBlock }: SelectedProps) => {
 
   const { data: blockData } = useBlockInfoQuery(teamId, selectedBlock?.timeBlockId ?? 0);
 
-  const startDate = formattingDate(selectedBlock.startDate);
-  const endDate = formattingDate(selectedBlock.endDate);
+  const startDate = selectedBlock.startDate;
+  const endDate = selectedBlock.endDate;
 
   const handleDeleteClick = () => {};
 

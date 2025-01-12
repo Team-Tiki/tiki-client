@@ -1,4 +1,4 @@
-import { IcEvent, IcMeeting, IcNotice, IcRecruiting, IcStudy } from '@tiki/icon';
+import { IcEtc, IcEvent, IcMeeting, IcNotice, IcRecruiting, IcStudy } from '@tiki/icon';
 
 import { ReactNode } from 'react';
 
@@ -29,5 +29,9 @@ export const BLOCK_ICON: BlockIcon[] = [
   {
     name: 'EVENT',
     icon: (color: string) => <IcEvent width={16} height={16} css={iconStyle(color)} />,
+  },
+  {
+    name: 'ETC',
+    icon: (color: string) => <IcEtc width={16} height={16} css={iconStyle(color)} />,
   },
 ];

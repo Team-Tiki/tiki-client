@@ -20,8 +20,8 @@ const Toast = ({ variant, children, showDuration = 3000, onClose, ...props }: To
   const hideRef = useRef<Timeout>();
 
   const Icon = () => {
-    if (variant === "error") return <IcCaution />;
-    if (variant === "success") return <IcSuccess />;
+    if (variant === "error") return <IcCaution width={16} height={16} />;
+    if (variant === "success") return <IcSuccess width={16} height={16} />;
     return null;
   };
 
@@ -52,7 +52,7 @@ const Toast = ({ variant, children, showDuration = 3000, onClose, ...props }: To
         <span>{children}</span>
         <Icon />
       </div>,
-      document.getElementById("toast-container") as Element,
+      document.getElementById("toast-container") as Element
     )
   );
 };

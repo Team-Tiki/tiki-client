@@ -1,0 +1,48 @@
+import { IcCheckGreen, IcClose, IcFileItem } from '@tiki/icon';
+import { Flex, Spinner, Text } from '@tiki/ui';
+
+import {
+  borderStyle,
+  textStyle,
+} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem.style';
+
+interface BlockItemProps {
+  title: string;
+  isUploading: boolean;
+  fileSize: string;
+  uploadedSize: string;
+  onDelete: () => void;
+}
+
+const UploadedFileItem = ({ title, isUploading, fileSize, uploadedSize, onDelete }: BlockItemProps) => {
+  /* 추가해야 할 것 : 프로그래스바  ==> 서버로직 짤때 컴포넌트로 따로 빼서 적용할 것!*/
+
+  return (
+    <Flex
+      styles={{
+        direction: 'row',
+        align: 'center',
+        justify: 'space-between',
+        padding: '1.5rem 1.2rem',
+      }}
+      css={borderStyle}>
+      <Flex styles={{ justify: 'center', align: 'center' }}>
+        <IcFileItem width={20} height={20} css={{ margin: '1.2rem', flexShrink: '0' }} />
+        <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
+          <Text tag="body8" css={textStyle}>
+            {title}
+          </Text>
+          <Text tag="body8" css={textStyle}>
+            {fileSize} 중 {uploadedSize}
+          </Text>
+        </Flex>
+      </Flex>
+      <Flex styles={{ justify: 'center', align: 'center', gap: '1.2rem' }}>
+        {isUploading ? <Spinner size={20} /> : <IcCheckGreen width={16} height={16} />}
+        <IcClose width={16} height={16} css={{ margin: '1.2rem', cursor: 'pointer' }} onClick={onDelete} />
+      </Flex>
+    </Flex>
+  );
+};
+
+export default UploadedFileItem;
