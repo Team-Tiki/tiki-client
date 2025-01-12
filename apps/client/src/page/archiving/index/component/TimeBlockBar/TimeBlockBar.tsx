@@ -29,6 +29,7 @@ const TimeBlockBar = ({ content, onCloseDrawer }: TimeBlockBarProps) => {
 
         <Flex styles={{ direction: 'column', gap: '3.6rem' }}>
           <BlockInfo
+            timeBlockId={content.timeBlockId}
             name={content.name}
             color={content.color}
             startDate={content.startDate}

@@ -1,6 +1,8 @@
 import { IcClose } from '@tiki/icon';
 import { Flex, Text } from '@tiki/ui';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import {
   circleStyle,
   closeBtnStyle,
@@ -11,7 +13,6 @@ import {
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
 import { $api } from '@/shared/api/client';
-import { queryClient } from '@/shared/api/queryClient';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 interface FileItemProps {
@@ -25,6 +26,7 @@ interface FileItemProps {
 const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemProps) => {
   const fileType = title.split('.')[title.split('.').length - 1];
 
+  const queryClient = useQueryClient();
   const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -37,17 +39,22 @@ const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemP
 
   const handleFileDeleteButtonClick = () => {
     console.log(teamId, timeBlockId, tagId);
-    mutate({
-      params: {
-        path: {
-          teamId,
-          timeBlockId,
-        },
-        query: {
-          tagId: [tagId],
+    mutate(
+      {
+        params: {
+          path: {
+            teamId,
+            timeBlockId,
+          },
+          query: {
+            tagId: [tagId],
+          },
         },
       },
-    });
+      {
+        onSuccess: () => console.log('태그 삭제 성공'),
+      }
+    );
   };
 
   return (

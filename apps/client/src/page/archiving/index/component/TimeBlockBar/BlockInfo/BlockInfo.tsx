@@ -1,7 +1,10 @@
 import { CommandButton, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 import { format } from 'date-fns';
+import path from 'path';
 
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import {
   containerStyle,
@@ -12,18 +15,53 @@ import { circleStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeB
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { Block } from '@/page/archiving/index/type/blockType';
 
+import { $api } from '@/shared/api/client';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+
 type BlockInfoProps = {
   isEditable: boolean;
   onEditClick: () => void;
-} & Omit<Block, 'timeBlockId'>;
+} & Block;
 
-const BlockInfo = ({ name, startDate, color, endDate, isEditable, blockType, onEditClick }: BlockInfoProps) => {
-  const [blockInfo, setBlockInfo] = useState({ name: name, startDate: startDate, endDate: endDate });
+const BlockInfo = ({
+  timeBlockId,
+  name,
+  startDate,
+  color,
+  endDate,
+  isEditable,
+  blockType,
+  onEditClick,
+}: BlockInfoProps) => {
+  const [blockInfo, setBlockInfo] = useState<{ name: string; startDate: string; endDate: string }>({
+    name: name,
+    startDate: startDate,
+    endDate: endDate,
+  });
+
+  useEffect(() => {
+    setBlockInfo({
+      name: name,
+      startDate: startDate,
+      endDate: endDate,
+    });
+  }, [name, startDate, endDate]);
+
+  const teamId = useInitializeTeamId();
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = $api.useMutation('patch', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
+    onSuccess: () => {
+      onEditClick();
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
+    },
+  });
 
   // null 처리 임시방편..
-  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    handleblockInfoChange('startDate', startDate ? format(startDate, 'yyyy-MM-dd') : '2025-01-14');
-    handleblockInfoChange('startDate', endDate ? format(endDate, 'yyyy-MM-dd') : '2025-01-14');
+  const handleDateChange = (start: Date | null, end: Date | null) => {
+    handleblockInfoChange('startDate', format(start ?? blockInfo.startDate, 'yyyy-MM-dd'));
+    handleblockInfoChange('endDate', format(end ?? blockInfo.endDate, 'yyyy-MM-dd'));
   };
 
   const handleblockInfoChange = (key: string, value: string) => {
@@ -32,8 +70,23 @@ const BlockInfo = ({ name, startDate, color, endDate, isEditable, blockType, onE
 
   const handleSubmit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
+
+    mutate({
+      params: {
+        path: {
+          teamId,
+          timeBlockId,
+        },
+      },
+      body: {
+        name: blockInfo.name,
+        startDate: blockInfo.startDate,
+        endDate: blockInfo.endDate,
+      },
+    });
   };
 
+  console.log(blockInfo);
   return (
     <form css={containerStyle}>
       <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>
@@ -69,7 +122,7 @@ const BlockInfo = ({ name, startDate, color, endDate, isEditable, blockType, onE
           />
         ) : (
           <Text tag="body6" css={periodStyle}>
-            {startDate} ~ {endDate}
+            {blockInfo.startDate} ~ {blockInfo.endDate}
           </Text>
         )}
       </Flex>
