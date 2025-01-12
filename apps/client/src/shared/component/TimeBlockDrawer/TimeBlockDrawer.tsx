@@ -28,7 +28,7 @@ const TimeBlockDrawer = () => {
   return (
     content && (
       <aside ref={ref} css={containerStyle(isOpen)}>
-        <TimeBlockBar content={content} onCloseDrawer={closeDrawer} />
+        <TimeBlockBar onCloseDrawer={closeDrawer} />
       </aside>
     )
   );
