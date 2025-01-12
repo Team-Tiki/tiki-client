@@ -2,6 +2,7 @@ import {
   IcActivityTag,
   IcBlockCreate,
   IcCaution,
+  IcFileUpload,
   IcInvite,
   IcMemberTag,
   IcWarning,
@@ -15,6 +16,7 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'file'
   | 'caution';
 
 interface ModalHeader {
@@ -199,13 +201,29 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       ],
     ],
   },
+  file: {
+    steps: 1,
+    headers: [
+      {
+        icon: <IcFileUpload width={40} height={40} css />,
+        title: '파일 연동',
+        infoText: '연동할 파일을 선택하세요',
+      },
+    ],
+    buttons: [
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '연동', variant: 'primary' },
+      ],
+    ],
+  },
   caution: {
     steps: 1,
     headers: [
       {
         icon: <IcCaution width={40} height={40} />,
         title: '주의!',
-        infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
+        infoText: '',
       },
     ],
     buttons: [

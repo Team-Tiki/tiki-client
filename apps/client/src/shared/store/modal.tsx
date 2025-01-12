@@ -22,6 +22,7 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'file'
   | 'caution';
 
 interface ModalState {
