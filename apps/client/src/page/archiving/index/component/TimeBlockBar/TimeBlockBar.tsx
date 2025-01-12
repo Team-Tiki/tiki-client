@@ -38,8 +38,8 @@ const TimeBlockBar = ({ content, onCloseDrawer }: TimeBlockBarProps) => {
             onEditClick={handleEditClick}
             blockType={content.blockType}
           />
-          <TaggedNotes isEditable={isEditable} notes={content.notes} />
-          <UploadedDocuments isEditable={isEditable} documents={content.documents} timeBlockId={content.timeBlockId} />
+          <TaggedNotes isEditable={isEditable} />
+          <UploadedDocuments isEditable={isEditable} />
         </Flex>
       </section>
     )

@@ -27,6 +27,7 @@ const FileItem = ({ title, capacity, isEditable, timeBlockId, tagId }: FileItemP
   const fileType = title.split('.')[title.split('.').length - 1];
 
   const queryClient = useQueryClient();
+
   const { mutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
     onSuccess: () => {
       queryClient.invalidateQueries({

@@ -58,7 +58,6 @@ const BlockInfo = ({
     },
   });
 
-  // null 처리 임시방편..
   const handleDateChange = (start: Date | null, end: Date | null) => {
     handleblockInfoChange('startDate', format(start ?? blockInfo.startDate, 'yyyy-MM-dd'));
     handleblockInfoChange('endDate', format(end ?? blockInfo.endDate, 'yyyy-MM-dd'));
@@ -86,7 +85,6 @@ const BlockInfo = ({
     });
   };
 
-  console.log(blockInfo);
   return (
     <form css={containerStyle}>
       <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>

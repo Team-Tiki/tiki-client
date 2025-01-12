@@ -3,15 +3,18 @@ import { Button, Flex, Text } from '@tiki/ui';
 
 import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem';
-import { Documents } from '@/page/archiving/index/type/blockType';
+
+import { useDrawerContent } from '@/shared/store/drawer';
 
 interface UploadedDocumentsProps {
   isEditable: boolean;
-  documents: Documents;
-  timeBlockId: number;
 }
 
-const UploadedDocuments = ({ isEditable, documents, timeBlockId }: UploadedDocumentsProps) => {
+const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
+  const content = useDrawerContent();
+
+  console.log(content?.documents);
+
   return (
     <Flex styles={{ direction: 'column', gap: '1.8rem', width: '100%' }}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
@@ -27,13 +30,13 @@ const UploadedDocuments = ({ isEditable, documents, timeBlockId }: UploadedDocum
         </Button>
       )}
       <Flex tag="ul" styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
-        {documents?.map((data) => (
+        {content?.documents?.map((data) => (
           <FileItem
             key={data.documentId}
             title={data.fileName}
             capacity={'10.4 MB'}
             isEditable={isEditable}
-            timeBlockId={timeBlockId}
+            timeBlockId={content.timeBlockId}
             tagId={data.tagId}
           />
         ))}
