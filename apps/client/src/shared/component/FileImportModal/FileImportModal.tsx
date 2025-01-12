@@ -24,7 +24,11 @@ import { getFileVolume } from '@/shared/util/file';
 
 type File = components['schemas']['DocumentInfoGetResponse'];
 
-const FileImportModal = () => {
+interface FileImportModalProps {
+  onUpload: () => void;
+}
+
+const FileImportModal = ({ onUpload }: FileImportModalProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadStatus, setUploadStatus] = useState<Record<string, boolean>>({});
   const [searchFile, setSearchFile] = useState('');
@@ -112,7 +116,7 @@ const FileImportModal = () => {
           )}
         </div>
       </Modal.Body>
-      <Modal.Footer contentType="file" closeModal={closeModal} buttonClick={closeModal} />
+      <Modal.Footer contentType="file" closeModal={closeModal} buttonClick={onUpload} />
     </>
   );
 };
