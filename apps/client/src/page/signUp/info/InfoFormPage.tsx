@@ -11,8 +11,8 @@ const InfoFormPage = () => {
     error,
     validMessage,
     handleInfoChange,
-    handlePasswordBlur,
-    handlePasswordCheckerBlur,
+    updateCheckerMessage,
+    updatePasswordMessage,
     handleBirthChange,
     handleSubmit,
   } = useInfoForm();
@@ -35,7 +35,7 @@ const InfoFormPage = () => {
               name="password"
               value={info.password}
               onChange={handleInfoChange}
-              onBlur={handlePasswordBlur}
+              onBlur={updatePasswordMessage}
               placeholder={PLACEHOLDER.PASSWORD}
               label="비밀번호 설정"
               isSuccess={!!validMessage.password}
@@ -46,7 +46,7 @@ const InfoFormPage = () => {
               name="passwordChecker"
               value={info.passwordChecker}
               onChange={handleInfoChange}
-              onBlur={handlePasswordCheckerBlur}
+              onBlur={updateCheckerMessage}
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
               isSuccess={!!validMessage.passwordChecker}
               isError={!!error.passwordChecker}

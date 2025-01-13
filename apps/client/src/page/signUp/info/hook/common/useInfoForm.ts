@@ -42,6 +42,13 @@ export const useInfoForm = () => {
     }));
     if (value !== '' && hasKeyInObject(error, key)) {
       clearFieldError(key);
+
+      if (key !== 'name') {
+        setValidMessage((prev) => ({
+          ...prev,
+          [key]: '',
+        }));
+      }
     }
   };
 
@@ -128,7 +135,7 @@ export const useInfoForm = () => {
     mutate(formData);
   };
 
-  const handlePasswordBlur = () => {
+  const updatePasswordMessage = () => {
     if (info.password !== '' && !PASSWORD_VALID_FORMAT.test(info.password)) {
       updateFieldError('password', SUPPORTING_TEXT.PASSWORD_INVALID);
     } else if (info.password !== '' && PASSWORD_VALID_FORMAT.test(info.password)) {
@@ -139,7 +146,7 @@ export const useInfoForm = () => {
     }
   };
 
-  const handlePasswordCheckerBlur = () => {
+  const updateCheckerMessage = () => {
     if (info.passwordChecker !== '' && info.password !== info.passwordChecker) {
       updateFieldError('passwordChecker', SUPPORTING_TEXT.PASSWORD_NO_EQUAL);
     } else if (info.passwordChecker !== '' && info.password === info.passwordChecker) {
@@ -154,8 +161,8 @@ export const useInfoForm = () => {
     info,
     handleInfoChange,
     handleBirthChange,
-    handlePasswordBlur,
-    handlePasswordCheckerBlur,
+    updatePasswordMessage,
+    updateCheckerMessage,
     handleSubmit,
     validMessage,
     error,
