@@ -2,10 +2,12 @@ import { CommandButton, Flex, Input, Text } from '@tiki/ui';
 
 import { useState } from 'react';
 
+import { $api } from '@/shared/api/client';
 import { inputWrapperStyle, scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 const InviteModal = ({ step }: { step: number }) => {
   const [inputValue, setInputValue] = useState('');
@@ -14,6 +16,9 @@ const InviteModal = ({ step }: { step: number }) => {
   const isButtonActive = inputValue.trim().length > 0;
 
   const { nextStep } = useFunnel();
+
+  const teamId = useInitializeTeamId();
+  const { mutate } = $api.useMutation('post', '/api/v1/email/invitation/team/{teamId}');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -28,6 +33,12 @@ const InviteModal = ({ step }: { step: number }) => {
 
   const handleDeleteInvite = (email: string) => {
     setInviteList(inviteList.filter((item) => item !== email));
+  };
+
+  const handleNextStep = () => {
+    inviteList.forEach((email) => {
+      mutate({ params: { path: { teamId } }, body: { email: email } }, { onSuccess: () => nextStep() });
+    });
   };
 
   return (
@@ -48,7 +59,7 @@ const InviteModal = ({ step }: { step: number }) => {
               disabled={!isButtonActive}
               isCommand={false}
               onClick={handleAddInvite}
-              css={{ width: '12rem', height: '4rem' }}>
+              css={{ width: '12rem', height: '4rem', padding: '1rem' }}>
               추가
             </CommandButton>
           </Flex>
@@ -66,13 +77,7 @@ const InviteModal = ({ step }: { step: number }) => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        contentType="invite"
-        buttonClick={() => {
-          nextStep();
-        }}
-        isButtonActive={!isButtonActive}
-      />
+      <Modal.Footer contentType="invite" buttonClick={handleNextStep} isButtonActive={!isButtonActive} />
     </>
   );
 };
