@@ -6,7 +6,7 @@ import { useDatePicker, useOutsideClick, useOverlay } from "@tiki/utils";
 interface DatePickerProps {
   variant: "single" | "range";
   triggerWidth?: string;
-  onChange: (selectedDate: Date | null, endDate?: Date | null) => void;
+  onChange: (selectedDate: Date | null, endDate: Date | null) => void;
   defaultSelectedDate?: Date;
   defaultEndDate?: Date;
 }
