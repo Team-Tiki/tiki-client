@@ -22,8 +22,6 @@ export default defineConfig(({ mode }) => {
         jsxImportSource: '@emotion/react',
       }),
       tsconfigPaths(),
-      commonjs(),
-      resolve(),
       svgr({
         svgrOptions: {
           icon: true,
@@ -55,6 +53,7 @@ export default defineConfig(({ mode }) => {
         include: ['/@tiki/ui/', '/@tiki/icon/'],
       },
       rollupOptions: {
+        plugins: [commonjs(), resolve()],
         output: {
           manualChunks: (id) => {
             if (id.includes('date-fns')) return 'date-fns';
