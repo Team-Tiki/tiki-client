@@ -36,6 +36,7 @@
     "@chromatic-com/storybook": "^1.6.1",
     "@eslint/js": "^9.6.0",
     "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@sentry/vite-plugin": "^2.21.1",
     "@storybook/addon-a11y": "^8.2.6",
     "@storybook/addon-essentials": "^8.2.6",

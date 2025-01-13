@@ -1,7 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import { resolve } from 'path';
+import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { PluginOption, defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
@@ -22,6 +23,7 @@ export default defineConfig(({ mode }) => {
       }),
       tsconfigPaths(),
       commonjs(),
+      resolve(),
       svgr({
         svgrOptions: {
           icon: true,
@@ -43,8 +45,8 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@tiki/ui': resolve(__dirname, '../../packages/ui/dist'),
-        '@tiki/icon': resolve(__dirname, '../../packages/icon/dist'),
+        '@tiki/ui': path.resolve(__dirname, '../../packages/ui/dist'),
+        '@tiki/icon': path.resolve(__dirname, '../../packages/icon/dist'),
       },
     },
     build: {
