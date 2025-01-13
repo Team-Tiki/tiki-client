@@ -35,26 +35,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    tags: [
-      { tagId: 0, content: 'meeting', bgColor: '#FFE6E8' },
-      { tagId: 1, content: 'study', bgColor: '#F8E2CB' },
-      { tagId: 2, content: 'meeting', bgColor: '#FFE6E8' },
-      { tagId: 3, content: 'study', bgColor: '#F8E2CB' },
-      { tagId: 4, content: 'meeting', bgColor: '#FFE6E8' },
-      { tagId: 5, content: 'study', bgColor: '#F8E2CB' },
-    ],
-  },
-  argTypes: {},
-};
-
-export const ZeroFile: Story = {
-  args: {},
-  argTypes: {},
-};
-
-export const SomeFile: Story = {
-  args: {
-    tags: [{ tagId: 0, content: 'meeting', bgColor: '#FFE6E8' }],
+    noteId: 1,
   },
   argTypes: {},
 };
