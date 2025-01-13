@@ -1,6 +1,4 @@
 import App from '@/App';
-import { QueryParamProvider } from 'use-query-params';
-import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 
 import { Suspense } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
@@ -36,11 +34,9 @@ const Public = () => {
   const handleReset = () => navigate(-1);
 
   return (
-    <QueryParamProvider adapter={ReactRouter6Adapter}>
-      <ErrorBoundary fallback={ErrorPage} onReset={handleReset}>
-        <Outlet />
-      </ErrorBoundary>
-    </QueryParamProvider>
+    <ErrorBoundary fallback={ErrorPage} onReset={handleReset}>
+      <Outlet />
+    </ErrorBoundary>
   );
 };
 
