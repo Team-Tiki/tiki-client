@@ -14,9 +14,7 @@ export const useUnivForm = () => {
   const { isOpen: isSelectOpen, open: selectOpen, close: selectClose, toggle: selectToggle } = useOverlay();
 
   const [inputs, setInputs] = useState<UnivForm>({} as UnivForm);
-
-  /** TODO: 추후 인증 api 결과값으로 대체 */
-  const [isVerfied, setIsVerified] = useState(false);
+  const [selectedUniv, setSelectedUniv] = useState('');
 
   const navigate = useNavigate();
 
@@ -27,6 +25,12 @@ export const useUnivForm = () => {
     }));
   };
 
+  const select = (value: string) => {
+    setSelectedUniv(value);
+
+    selectClose();
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -35,11 +39,11 @@ export const useUnivForm = () => {
 
   return {
     inputs,
-    isVerfied,
-    setIsVerified, // 추후 삭제
     handleChange,
     handleSubmit,
     isSelectOpen,
+    select,
+    selectedUniv,
     selectClose,
     selectOpen,
     selectToggle,
