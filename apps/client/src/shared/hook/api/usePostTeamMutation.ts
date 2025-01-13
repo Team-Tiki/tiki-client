@@ -1,18 +1,15 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+// import { useQueryClient } from '@tanstack/react-query';
 
-import { postTeam } from '@/shared/api/teams';
-import { CreateTeam } from '@/shared/api/teams/type';
+// import { $api } from '@/shared/api/client';
 
-export const usePostTeamMutation = () => {
-  const queryClient = useQueryClient();
+// export const usePostTeamMutation = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: (data: CreateTeam) => postTeam(data),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['clubInfo'],
-      });
-    },
-  });
-};
+//   return $api.useMutation('post', '/api/v1/teams', {
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({
+//         queryKey: ['get', '/api/v1/members/teams'],
+//       });
+//     },
+//   });
+// };
