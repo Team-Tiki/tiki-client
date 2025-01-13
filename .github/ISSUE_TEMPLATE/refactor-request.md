@@ -16,14 +16,6 @@ assignees: ''
 
 ---
 
----
-name: Refactor request
-about: Refactoring code in project
-title: ''
-labels: ''
-assignees: ''
----
-
 ## Title
 
 이슈의 제목을 입력해주세요!
