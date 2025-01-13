@@ -11,19 +11,22 @@ import {
   tagStyle,
   titleStyle,
 } from '@/page/dashboard/component/Handover/ListItem/ListItem.style';
+import { useNoteDetail } from '@/page/dashboard/component/Handover/hook/useNoteDetail';
 import { ListTag } from '@/page/dashboard/type/listTag';
 import { getVisibleTags } from '@/page/dashboard/util/alignTags';
 
 export interface ListItemProps extends HTMLAttributes<HTMLDivElement> {
+  noteId: number;
   title: string;
-  content: string;
   date: string;
   tags?: ListTag[];
 }
 
-const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) => {
+const ListItem = ({ noteId, title, date, tags = [], ...props }: ListItemProps) => {
   const tagContanierRef = useRef<HTMLDivElement>(null);
-  const visibleTags = getVisibleTags(tags, 210, 4);
+  const { content, timeBlockList } = useNoteDetail(noteId);
+
+  const visibleTags = getVisibleTags(timeBlockList, 210, 4);
 
   return (
     <Flex tag="li" css={containerStyle} {...props}>
@@ -38,8 +41,8 @@ const ListItem = ({ title, content, date, tags = [], ...props }: ListItemProps) 
         <div ref={tagContanierRef} css={[detailStyle, { display: 'flex', overflow: 'hidden' }]}>
           {visibleTags.map((tag) => {
             return (
-              <Tag key={tag.tagId} css={tagStyle(tag.bgColor)} bgColor={tag.bgColor}>
-                {tag.content}
+              <Tag key={tag.id} css={tagStyle(tag.color)} bgColor={tag.color}>
+                {tag.name}
               </Tag>
             );
           })}

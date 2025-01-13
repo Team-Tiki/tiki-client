@@ -10,7 +10,7 @@ export const getVisibleTags = (tags: ListTag[], maxWidth: number, tagGap: number
     tempElement.style.display = 'inline-block';
     tempElement.style.visibility = 'hidden';
     tempElement.style.position = 'absolute';
-    tempElement.innerText = tag.content;
+    tempElement.innerText = tag.name;
 
     //임시 요소 추가 후 너비 측정
     document.body.appendChild(tempElement);
@@ -19,7 +19,7 @@ export const getVisibleTags = (tags: ListTag[], maxWidth: number, tagGap: number
 
     //현재 태그까지 추가 후 너비 초과 검사
     if (totalWidth + tagWidth * 2 + tagGap > maxWidth) {
-      if (tag.tagId == 0) {
+      if (tag.id == 0) {
         visibleTags.push(tag);
       }
       break;
