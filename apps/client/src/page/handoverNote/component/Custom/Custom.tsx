@@ -1,5 +1,7 @@
 import { Button, Label, scrollStyle } from '@tiki/ui';
 
+import { useState } from 'react';
+
 import {
   fileBoxStyle,
   guideStyle,
@@ -11,11 +13,19 @@ import File from '@/page/handoverNote/component/File/File';
 import useFile from '@/page/handoverNote/hooks/useFile';
 import { CustomNoteData } from '@/page/handoverNote/type/note';
 
+import { PLACEHOLDER } from '@/shared/constant/form';
+
 interface CustomProps {
   data?: CustomNoteData;
 }
 
 const Custom = ({ data }: CustomProps) => {
+  const [content, setContent] = useState(() => data?.contents || '');
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value);
+  };
+
   const { handleFileChange } = useFile();
 
   const handleFileUpload = () => {
@@ -26,7 +36,7 @@ const Custom = ({ data }: CustomProps) => {
   return (
     <form css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
-        <textarea css={textareaStyle} placeholder={data?.contents} />
+        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} value={content} onChange={handleChange} />
       </div>
       <div css={layoutStyle}>
         <Label id="file" css={guideStyle}>
