@@ -5,7 +5,7 @@ import { Size } from "@/types";
 import { buttonStyle, sizeStyle, variantStyle } from "./Button.style";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "tertiary" | "fourth" | "outline" | "text";
+  variant?: "primary" | "secondary" | "tertiary" | "fourth" | "outline" | "text" | "delete";
   size?: Extract<Size, "xLarge" | "large" | "medium" | "small" | "xSmall">;
 }
 

@@ -3,7 +3,7 @@ import { Button, Flex } from '@tiki/ui';
 export interface FooterButton {
   text: string;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text' | 'delete';
   disabled?: boolean;
 }
 
@@ -53,7 +53,7 @@ const ModalFooterButtons = (
   const createButton = (
     text: string,
     onClick?: () => void,
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text',
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text' | 'delete',
     disabled?: boolean
   ): FooterButton => ({ text, onClick, variant, disabled });
 
@@ -77,14 +77,13 @@ const ModalFooterButtons = (
       return [createButton('이전', prevStep, 'outline'), createButton('생성', buttonClick, 'primary', !isButtonActive)];
 
     case 'deleted':
-      return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];
+      return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'delete')];
 
     case 'invite':
       return [
         createButton('건너뛰기', buttonClick, 'outline', false),
         createButton('다음으로', buttonClick, 'primary', !isButtonActive),
       ];
-
     case 'member-tag':
     case 'activity-tag':
       return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];

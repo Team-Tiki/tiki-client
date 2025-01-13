@@ -3,10 +3,13 @@ import { useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useEffect, useState } from 'react';
 
+import { components } from '@/shared/__generated__/schema';
 import { Modal } from '@/shared/component/Modal';
 import useCategoryListQuery from '@/shared/hook/api/useCategoryListQuery';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
+
+type Category = components['schemas']['TeamCreateRequest']['category'];
 
 const WorkSpaceCategory = () => {
   const { isOpen, close, toggle } = useOverlay();
@@ -42,7 +45,7 @@ const WorkSpaceCategory = () => {
     };
   }, [isOpen, close, ref]);
 
-  const handleSelect = (id: string) => {
+  const handleSelect = (id: Category) => {
     setSelected(id);
     setFormData({ category: id });
     close?.();
@@ -58,7 +61,7 @@ const WorkSpaceCategory = () => {
     <>
       <Modal.Header step={2} totalSteps={4} />
       <Modal.Body>
-        <div ref={ref} css={{ width: '100%' }}>
+        <div ref={ref} css={{ width: '100%', paddingTop: '2rem' }}>
           <Select
             css={{
               '& ul': {
@@ -69,7 +72,7 @@ const WorkSpaceCategory = () => {
             variant="outline"
             isOpen={isOpen}
             onTrigger={toggle}
-            onSelect={handleSelect}
+            onSelect={(value) => handleSelect(value as Category)}
             options={categoryList.map((str) => ({ value: str }))}
             className="select-container"
           />

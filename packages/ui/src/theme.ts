@@ -23,6 +23,8 @@ const colors = {
   key_100: "#F3F5FF",
 
   sementic_red: "#FE4F60",
+  sementic_red_10: "#FFF6F7",
+  sementic_red_20: "#FFEDEF",
   sementic_success: "#1FC16B",
 
   red_200: "#EB736D",
