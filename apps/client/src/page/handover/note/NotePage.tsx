@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
+import { useNoteDetailData } from '@/page/handover/note/hooks/api/queries';
 import { NoteDetailType } from '@/page/handover/note/type/note';
 import { formattingDateWithBar } from '@/page/handover/note/util/date';
 
@@ -20,14 +21,7 @@ const NotePage = () => {
 
   const teamId = useInitializeTeamId();
 
-  const { data: noteData } = $api.useQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
-    params: {
-      path: {
-        teamId,
-        noteId: 30,
-      },
-    },
-  });
+  const { data: noteData } = useNoteDetailData(30);
 
   const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
     title: noteData?.title || '',
