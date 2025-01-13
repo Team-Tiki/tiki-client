@@ -35,8 +35,14 @@ export default defineConfig(({ mode }) => {
       }),
     ],
 
+    optimizeDeps: {
+      include: ['@tiki/ui'],
+    },
     build: {
       sourcemap: true,
+      commonjsOptions: {
+        include: ['/@tiki/ui/'],
+      },
       rollupOptions: {
         output: {
           manualChunks: (id) => {
