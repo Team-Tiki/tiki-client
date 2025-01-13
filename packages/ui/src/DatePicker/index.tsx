@@ -6,7 +6,7 @@ import { useDatePicker, useOutsideClick, useOverlay } from "@tiki/utils";
 interface DatePickerProps {
   variant: "single" | "range";
   triggerWidth?: string;
-  onChange: (selectedDate: Date | null, endDate: Date | null) => void;
+  onChange: (selectedDate: Date | null, endDate?: Date | null) => void;
   defaultSelectedDate?: Date;
   defaultEndDate?: Date;
 }
@@ -38,7 +38,7 @@ const DatePicker = ({
     toggle();
   };
   return (
-    <div ref={ref} css={containerStyle}>
+    <div ref={ref} css={containerStyle(triggerWidth)}>
       <DatePickerTrigger
         selectedDate={selectedDate || initialSelectedDate}
         endDate={endDate || initialEndDate}
