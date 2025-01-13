@@ -27,12 +27,14 @@ const WorkSpaceName = () => {
     <>
       <Modal.Header step={1} totalSteps={4} />
       <Modal.Body>
-        <Input
-          placeholder="팀, 동아리, 조직 이름 입력"
-          value={inputValue}
-          onChange={handleInputChange}
-          css={inputWrapperStyle}
-        />
+        <div css={{ width: '100%', paddingTop: '2rem' }}>
+          <Input
+            placeholder="팀, 동아리, 조직 이름 입력"
+            value={inputValue}
+            onChange={handleInputChange}
+            css={inputWrapperStyle}
+          />
+        </div>
       </Modal.Body>
       <Modal.Footer step={1} contentType="create-workspace" buttonClick={handleNext} isButtonActive={isButtonActive} />
     </>

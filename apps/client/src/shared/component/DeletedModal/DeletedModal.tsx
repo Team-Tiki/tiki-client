@@ -1,42 +1,31 @@
 import { Flex, Text } from '@tiki/ui';
 
-import { detailStyle, titleStyle } from '@/shared/component/DeletedModal/DeletedModal.style';
+import { contentStyle, titleStyle } from '@/shared/component/DeletedModal/DeletedModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { DELETED_DETAIL, DELETED_TITLE } from '@/shared/constant';
-import { isDeletedModalData, useCloseModal, useModalData } from '@/shared/store/modal';
+import { useCloseModal, useModalData } from '@/shared/store/modal';
 
 const DeletedModal = () => {
-  const closeModal = useCloseModal();
   const modalData = useModalData();
+  const closeModal = useCloseModal();
 
-  if (!isDeletedModalData(modalData)) return null;
+  if (!modalData) return null;
 
-  const itemType = modalData?.itemType;
-  const title = itemType && DELETED_TITLE[itemType.toUpperCase() as keyof typeof DELETED_TITLE];
-
-  const handleDelete = () => {
-    //api 로직 추가하기
-
-    closeModal();
-  };
-
-  if (!itemType) return null;
+  const { title, content, onClick } = modalData;
 
   return (
-    <>
-      <Modal.Header />
+    <Modal isOpen={true} onClose={closeModal} size="small">
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '1.6rem', align: 'center', height: '33.8rem', justify: 'center' }}>
+        <Flex styles={{ width: '100%', direction: 'column', gap: '2rem' }}>
           <Text tag="body4" css={titleStyle}>
             {title}
           </Text>
-          <Text tag="body8" css={detailStyle}>
-            {DELETED_DETAIL}
+          <Text tag="body7" css={contentStyle}>
+            {content}
           </Text>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="deleted" buttonClick={handleDelete} />
-    </>
+      <Modal.Footer contentType="deleted" buttonClick={onClick || closeModal} closeModal={closeModal} />
+    </Modal>
   );
 };
 
