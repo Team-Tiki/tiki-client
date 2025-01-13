@@ -1,36 +1,92 @@
-import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } from '@tiki/ui';
+import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Custom from '@/page/handoverNote/component/Custom/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo/NoteInfo';
 import Template from '@/page/handoverNote/component/Template/Template';
 import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
-import { CustomNoteData, NoteInfoType, TemplateNoteData } from '@/page/handoverNote/type/note';
+import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
 
+import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { hasKeyInObject } from '@/shared/util/typeGuard';
 
 import { noteSectionStyle, tabButtonStyle } from './index.style';
 
-export type Document = {
-  id: number;
-  fileName: string;
-  fileUrl: string;
-  capacity: number;
-};
-
 const NotePage = () => {
+  const [noteDetailData, setNoteDetailData] = useState<CreateNoteInfoType | TemplateNoteData | CustomNoteData | null>(
+    null
+  );
   const [selectedTab, setSelectedTab] = useState(0);
-  const navigate = useNavigate();
 
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
+  const navigate = useNavigate();
 
   const noteData = useNoteDetailData();
+  const { noteId } = useParams();
+  const teamId = useInitializeTeamId();
+
+  const { createToast } = useToastAction();
+
+  useEffect(() => {
+    if (noteData.data?.data) {
+      setNoteDetailData(noteData.data.data);
+      if (hasKeyInObject(noteData.data.data, 'contents')) {
+        setSelectedTab(1);
+      }
+    }
+  }, [noteData.data]);
+
+  const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
+  const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
+
+  const handleSubmit = () => {
+    if (noteDetailData) {
+      if (hasKeyInObject(noteDetailData, 'answerWhatActivity')) {
+        const templateData = noteDetailData as TemplateNoteData;
+
+        templateMutation(
+          {
+            params: { path: { noteId: +noteId! } },
+            body: {
+              ...templateData,
+              timeBlockIds: templateData.timeBlockList.map((block) => block.id) || [],
+              documentIds: templateData.documentList.map((document) => document.id) || [],
+              teamId,
+            },
+          },
+          {
+            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
+            onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
+          }
+        );
+      } else if (hasKeyInObject(noteDetailData, 'contents')) {
+        const customData = noteDetailData as CustomNoteData;
+
+        customMutation(
+          {
+            params: { path: { noteId: +noteId! } },
+            body: {
+              ...customData,
+              timeBlockIds: customData.timeBlockList.map((block) => block.id) || [],
+              documentIds: customData.documentList.map((document) => document.id) || [],
+              teamId,
+            },
+          },
+          {
+            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
+            onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
+          }
+        );
+      }
+    }
+  };
 
   const handleTabClick = (tabId: number) => {
     openModal('caution', {
@@ -39,36 +95,27 @@ const NotePage = () => {
       desc: CAUTION.NOTE.DESC,
       footerType: 'caution-modify',
       onClick: () => {
-        setSelectedTab(+tabId)!;
-        closeModal();
-      },
-      onClose: () => {
-        setSelectedTab(+!tabId)!;
+        setSelectedTab(tabId);
         closeModal();
       },
     });
   };
 
-  // const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
-  // const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
-
-  const handleSubmit = () => {};
-
-  useEffect(() => {
-    if (noteData.data?.data && hasKeyInObject(noteData.data.data, 'contents')) {
-      setSelectedTab(1);
-    }
-  }, [noteData.data]);
-
   return (
     <section css={noteSectionStyle}>
-      <NoteInfo info={noteData.data as unknown as NoteInfoType} setInfo={() => {}} />
+      {noteDetailData && (
+        <NoteInfo
+          info={noteDetailData as CreateNoteInfoType}
+          setInfo={setNoteDetailData as React.Dispatch<React.SetStateAction<CreateNoteInfoType>>}
+        />
+      )}
 
       <TabRoot css={{ flexGrow: '1' }}>
         <TabList selectedTab={selectedTab} onTabClick={handleTabClick}>
           <TabButton css={tabButtonStyle}>템플릿 작성</TabButton>
           <TabButton css={tabButtonStyle}>자유 작성</TabButton>
         </TabList>
+
         <Flex style={{ gap: '0.8rem', justifyContent: 'end', margin: '3rem 0 1.6rem 0' }}>
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
@@ -77,20 +124,25 @@ const NotePage = () => {
             저장
           </CommandButton>
         </Flex>
-        {noteData.data?.data &&
-          (hasKeyInObject(noteData.data.data, 'answerWhatActivity') ? (
+
+        {noteDetailData &&
+          (hasKeyInObject(noteDetailData, 'answerWhatActivity') ? (
             <TabPanel selectedTab={selectedTab}>
-              <Template data={noteData.data.data as TemplateNoteData} />
+              <Template
+                data={noteDetailData as TemplateNoteData}
+                setData={setNoteDetailData as React.Dispatch<React.SetStateAction<TemplateNoteData>>}
+              />
               <Custom />
             </TabPanel>
-          ) : hasKeyInObject(noteData.data.data, 'contents') ? (
+          ) : hasKeyInObject(noteDetailData, 'contents') ? (
             <TabPanel selectedTab={selectedTab}>
               <Template />
-              <Custom data={noteData.data.data as CustomNoteData} />
+              <Custom
+                data={noteDetailData as CustomNoteData}
+                setData={setNoteDetailData as React.Dispatch<React.SetStateAction<CustomNoteData>>}
+              />
             </TabPanel>
-          ) : (
-            <></>
-          ))}
+          ) : null)}
       </TabRoot>
     </section>
   );

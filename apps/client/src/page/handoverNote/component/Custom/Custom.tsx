@@ -1,6 +1,6 @@
 import { Button, Label, scrollStyle } from '@tiki/ui';
 
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 
 import {
   fileBoxStyle,
@@ -17,13 +17,19 @@ import { PLACEHOLDER } from '@/shared/constant/form';
 
 interface CustomProps {
   data?: CustomNoteData;
+  setData?: React.Dispatch<SetStateAction<CustomNoteData>>;
 }
 
-const Custom = ({ data }: CustomProps) => {
+const Custom = ({ data, setData }: CustomProps) => {
   const [content, setContent] = useState(() => data?.contents || '');
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
+
+    setData?.((prev) => ({
+      ...prev!,
+      contents: event.target.value,
+    }));
   };
 
   const { handleFileChange } = useFile();

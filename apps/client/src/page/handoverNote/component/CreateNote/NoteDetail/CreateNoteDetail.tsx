@@ -11,13 +11,11 @@ import {
   plusBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
-import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
+import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-
-type Status = '완료' | '미완료';
 
 interface NoteDetailProp {
   detail: CreateNoteInfoType;

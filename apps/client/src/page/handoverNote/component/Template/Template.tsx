@@ -1,6 +1,6 @@
 import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
-import { useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import {
@@ -15,9 +15,10 @@ import { TemplateNoteData } from '@/page/handoverNote/type/note';
 
 interface TemplateProps {
   data?: TemplateNoteData;
+  setData?: React.Dispatch<SetStateAction<TemplateNoteData>>;
 }
 
-const Template = ({ data }: TemplateProps) => {
+const Template = ({ data, setData }: TemplateProps) => {
   const [values, setValues] = useState<Record<string, string>>({
     answerWhatActivity: data?.answerWhatActivity || '',
     answerHowToPrepare: data?.answerHowToPrepare || '',
@@ -32,6 +33,11 @@ const Template = ({ data }: TemplateProps) => {
       ...prev,
       [id]: event.target.value,
     }));
+
+    setData?.((prev) => ({
+      ...prev!,
+      [id]: event.target.value,
+    }));
   };
 
   const handleFileUpload = () => {
@@ -39,19 +45,8 @@ const Template = ({ data }: TemplateProps) => {
     fileInput?.click();
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const formData = {
-      ...values,
-      files,
-    };
-
-    console.log(formData);
-  };
-
   return (
-    <form css={[noteWrapperStyle, scrollStyle]} onSubmit={handleSubmit}>
+    <form css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
         <div key={item.id} css={layoutStyle}>
           <Label id={item.id}>{item.QUESTION}</Label>

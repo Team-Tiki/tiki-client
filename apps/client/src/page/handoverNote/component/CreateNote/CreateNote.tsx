@@ -7,7 +7,7 @@ import CreateCustomNote from '@/page/handoverNote/component/CreateNote/Custom/Cr
 import CreateNoteDetail from '@/page/handoverNote/component/CreateNote/NoteDetail/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handoverNote/component/CreateNote/Template/CreateTemplateNote';
 import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
-import { CustomNote, NoteInfoType, TemplateNote } from '@/page/handoverNote/type/note';
+import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNote/type/note';
 
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
@@ -17,7 +17,7 @@ import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [noteDetail, setNoteDetail] = useState<NoteInfoType>({
+  const [noteDetail, setNoteDetail] = useState<CreateNoteInfoType>({
     title: '',
     author: '',
     complete: false,

@@ -1,7 +1,7 @@
 import { IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { useCallback } from 'react';
+import { SetStateAction, useCallback } from 'react';
 
 import {
   entireInfoStyle,
@@ -11,11 +11,11 @@ import {
   plusBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
-import { NoteInfoType } from '@/page/handoverNote/type/note';
+import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
 
 interface NoteDetailProp {
-  info: NoteInfoType;
-  setInfo: React.Dispatch<React.SetStateAction<NoteInfoType>>;
+  info: CreateNoteInfoType;
+  setInfo: React.Dispatch<SetStateAction<CreateNoteInfoType>>;
 }
 
 const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
@@ -45,7 +45,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
     <aside css={entireInfoStyle}>
       <input
         css={titleStyle}
-        placeholder={info.data.title}
+        placeholder={info?.title}
         onChange={(e) => setInfo((prev) => ({ ...prev, title: e.target.value }))}
       />
       <ul css={infoContainerStyle}>
@@ -53,7 +53,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
           <Text tag="body6" css={infoStyle}>
             작성자
           </Text>
-          <Text tag="body6">{info.data.author}</Text>
+          <Text tag="body6">{info?.author}</Text>
         </li>
 
         <li css={infoLayoutStyle}>
@@ -66,7 +66,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
               { label: '미완료', value: '미완료', name: 'note' },
             ]}
             onChange={(e) => handleChangeStatus(e.target.value)}
-            value={info.data.complete ? '완료' : '미완료'}
+            value={info?.complete ? '완료' : '미완료'}
           />
         </li>
 
@@ -78,7 +78,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
             <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
               <IcPlusButton width={10} height={10} />
             </Button>
-            {info.data.timeBlockList?.map((tag) => (
+            {info?.timeBlockList?.map((tag) => (
               <Tag key={tag.id} color={tag.color}>
                 {tag.name}
               </Tag>
@@ -92,8 +92,8 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
           </Text>
           <DatePicker
             onChange={handleDateChange}
-            defaultSelectedDate={new Date(info.data.startDate)}
-            defaultEndDate={new Date(info.data.endDate)}
+            defaultSelectedDate={new Date(info?.startDate)}
+            defaultEndDate={new Date(info?.endDate)}
             variant="range"
             triggerWidth="12"
           />

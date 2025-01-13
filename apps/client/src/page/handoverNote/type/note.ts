@@ -1,5 +1,7 @@
 import { components, paths } from '@/shared/__generated__/schema';
 
+export type Status = '완료' | '미완료';
+
 export type NoteInfoType = {
   data: Pick<
     components['schemas']['NoteTemplateDetailGetServiceResponse'],
