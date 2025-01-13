@@ -13,6 +13,7 @@ import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useInterval } from '@/shared/hook/common/useInterval';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { hasKeyInObject } from '@/shared/util/typeGuard';
 
@@ -100,6 +101,8 @@ const NotePage = () => {
       },
     });
   };
+
+  useInterval(handleSubmit, 30000);
 
   return (
     <section css={noteSectionStyle}>
