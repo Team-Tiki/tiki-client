@@ -90,7 +90,13 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>
-          <DatePicker onChange={handleDateChange} variant="range" triggerWidth="12" />
+          <DatePicker
+            onChange={handleDateChange}
+            defaultSelectedDate={new Date(info.data.startDate)}
+            defaultEndDate={new Date(info.data.endDate)}
+            variant="range"
+            triggerWidth="12"
+          />
         </li>
       </ul>
     </aside>
