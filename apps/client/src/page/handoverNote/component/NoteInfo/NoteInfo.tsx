@@ -2,7 +2,6 @@ import { IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { useCallback } from 'react';
-import { useParams } from 'react-router-dom';
 
 import {
   entireInfoStyle,
@@ -11,45 +10,27 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handover/note/component/ModifyNote/NoteInfo/NoteInfo.style';
-import { NoteInfoType } from '@/page/handover/note/type/note';
-
-import { $api } from '@/shared/api/client';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+} from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
+import { NoteInfoType } from '@/page/handoverNote/type/note';
 
 interface NoteDetailProp {
-  detail: NoteInfoType;
-  setDetail: React.Dispatch<React.SetStateAction<NoteInfoType>>;
+  info: NoteInfoType;
+  setInfo: React.Dispatch<React.SetStateAction<NoteInfoType>>;
 }
 
-const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
-  const teamId = useInitializeTeamId();
-
-  const { noteId } = useParams();
-
-  const { data } = $api.useSuspenseQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
-    params: {
-      path: {
-        teamId,
-        noteId: parseInt(noteId!),
-      },
-    },
-  });
-
-  console.log(data);
-
+const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
   const handleChangeStatus = useCallback(
     (value: string) => {
-      setDetail((prev) => ({
+      setInfo((prev) => ({
         ...prev,
         complete: value === '완료',
       }));
     },
-    [setDetail]
+    [setInfo]
   );
 
   const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    setDetail((prev) => ({
+    setInfo((prev) => ({
       ...prev,
       startDate: startDate ? startDate.toISOString() : '',
       endDate: endDate ? endDate.toISOString() : '',
@@ -64,16 +45,15 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     <aside css={entireInfoStyle}>
       <input
         css={titleStyle}
-        placeholder={data?.title || ''}
-        value={data?.title || ''}
-        onChange={(e) => setDetail((prev) => ({ ...prev, title: e.target.value }))}
+        placeholder={info.data.title}
+        onChange={(e) => setInfo((prev) => ({ ...prev, title: e.target.value }))}
       />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>
             작성자
           </Text>
-          <Text tag="body6">{data?.author}</Text>
+          <Text tag="body6">{info.data.author}</Text>
         </li>
 
         <li css={infoLayoutStyle}>
@@ -86,7 +66,7 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
               { label: '미완료', value: '미완료', name: 'note' },
             ]}
             onChange={(e) => handleChangeStatus(e.target.value)}
-            value={data.complete ? '완료' : '미완료'}
+            value={info.data.complete ? '완료' : '미완료'}
           />
         </li>
 
@@ -98,7 +78,7 @@ const NoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
               <IcPlusButton width={10} height={10} />
             </Button>
-            {data.timeBlockList?.map((tag) => (
+            {info.data.timeBlockList?.map((tag) => (
               <Tag key={tag.id} color={tag.color}>
                 {tag.name}
               </Tag>

@@ -10,8 +10,8 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handover/note/component/ModifyNote/NoteInfo/NoteInfo.style';
-import { NoteInfoType } from '@/page/handover/note/type/note';
+} from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
+import { NoteInfoType } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';

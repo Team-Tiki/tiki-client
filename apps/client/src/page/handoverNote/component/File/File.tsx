@@ -1,7 +1,7 @@
 import { IcDeleteFile, IcFileRound } from '@tiki/icon';
 
-import { deleteIcStyle, fileInfoStyle, fileStyle } from '@/page/handover/note/component/File/File.style';
-import { Document } from '@/page/handover/note/component/ModifyNote/NotePage';
+import { Document } from '@/page/handoverNote';
+import { deleteIcStyle, fileInfoStyle, fileStyle } from '@/page/handoverNote/component/File/File.style';
 
 import { getFileVolume } from '@/shared/util/file';
 
