@@ -1,5 +1,8 @@
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { PluginOption, defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
@@ -35,9 +38,22 @@ export default defineConfig(({ mode }) => {
       }),
     ],
 
+    optimizeDeps: {
+      include: ['@tiki/ui'],
+    },
+    resolve: {
+      alias: {
+        '@tiki/ui': path.resolve(__dirname, '../../packages/ui/dist'),
+        '@tiki/icon': path.resolve(__dirname, '../../packages/icon/dist'),
+      },
+    },
     build: {
       sourcemap: true,
+      commonjsOptions: {
+        include: ['/@tiki/ui/', '/@tiki/icon/'],
+      },
       rollupOptions: {
+        plugins: [commonjs(), resolve()],
         output: {
           manualChunks: (id) => {
             if (id.includes('date-fns')) return 'date-fns';
