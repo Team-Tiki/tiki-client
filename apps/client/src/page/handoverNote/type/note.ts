@@ -1,9 +1,17 @@
 import { components, paths } from '@/shared/__generated__/schema';
 
-export type NoteInfoType = Pick<
+export type NoteInfoType = {
+  data: Pick<
+    components['schemas']['NoteTemplateDetailGetServiceResponse'],
+    'title' | 'complete' | 'author' | 'startDate' | 'endDate' | 'timeBlockList'
+  >;
+};
+
+export type CreateNoteInfoType = Pick<
   components['schemas']['NoteTemplateDetailGetServiceResponse'],
   'title' | 'complete' | 'author' | 'startDate' | 'endDate' | 'timeBlockList'
 >;
+
 export type NoteDetailResponse = {
   data: paths['/api/v1/notes/{teamId}/{noteId}']['get']['responses']['200']['content']['application/json'];
 };

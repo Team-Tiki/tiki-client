@@ -1,6 +1,6 @@
 import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } from '@tiki/ui';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Custom from '@/page/handoverNote/component/Custom/Custom';
@@ -9,7 +9,9 @@ import Template from '@/page/handoverNote/component/Template/Template';
 import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
 import { CustomNoteData, NoteInfoType, TemplateNoteData } from '@/page/handoverNote/type/note';
 
+import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { hasKeyInObject } from '@/shared/util/typeGuard';
 
 import { noteSectionStyle, tabButtonStyle } from './index.style';
@@ -25,20 +27,38 @@ const NotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const navigate = useNavigate();
 
-  const noteData = useNoteDetailData();
-  console.log(noteData.data.data);
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
 
-  const handleTabClick = (tabId: number) => setSelectedTab(tabId);
+  const noteData = useNoteDetailData();
+
+  const handleTabClick = (tabId: number) => {
+    openModal('caution', {
+      infoText: CAUTION.NOTE.INFO_TEXT,
+      content: CAUTION.NOTE.CONTENT,
+      desc: CAUTION.NOTE.DESC,
+      footerType: 'caution-modify',
+      onClick: () => {
+        setSelectedTab(+tabId)!;
+        closeModal();
+      },
+      onClose: () => {
+        setSelectedTab(+!tabId)!;
+        closeModal();
+      },
+    });
+  };
 
   // const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
   // const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
 
   const handleSubmit = () => {};
 
-  if (noteData.data?.data) {
-    console.log(hasKeyInObject(noteData.data.data, 'answerWhatActivity'));
-    console.log(hasKeyInObject(noteData.data.data, 'contents'));
-  }
+  useEffect(() => {
+    if (noteData.data?.data && hasKeyInObject(noteData.data.data, 'contents')) {
+      setSelectedTab(1);
+    }
+  }, [noteData.data]);
 
   return (
     <section css={noteSectionStyle}>
@@ -57,19 +77,20 @@ const NotePage = () => {
             저장
           </CommandButton>
         </Flex>
-        {noteData.data.data && hasKeyInObject(noteData.data.data, 'answerWhatActivity') ? (
-          <TabPanel selectedTab={selectedTab}>
-            <Template data={noteData.data.data as TemplateNoteData} />
-            <Custom />
-          </TabPanel>
-        ) : hasKeyInObject(noteData, 'contents') ? (
-          <TabPanel selectedTab={selectedTab}>
-            <Template />
-            <Custom data={noteData.data.data as CustomNoteData} />
-          </TabPanel>
-        ) : (
-          <></>
-        )}
+        {noteData.data?.data &&
+          (hasKeyInObject(noteData.data.data, 'answerWhatActivity') ? (
+            <TabPanel selectedTab={selectedTab}>
+              <Template data={noteData.data.data as TemplateNoteData} />
+              <Custom />
+            </TabPanel>
+          ) : hasKeyInObject(noteData.data.data, 'contents') ? (
+            <TabPanel selectedTab={selectedTab}>
+              <Template />
+              <Custom data={noteData.data.data as CustomNoteData} />
+            </TabPanel>
+          ) : (
+            <></>
+          ))}
       </TabRoot>
     </section>
   );

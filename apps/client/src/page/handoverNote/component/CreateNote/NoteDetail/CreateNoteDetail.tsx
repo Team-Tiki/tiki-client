@@ -11,7 +11,7 @@ import {
   plusBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
-import { NoteInfoType } from '@/page/handoverNote/type/note';
+import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
@@ -20,13 +20,13 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 type Status = '완료' | '미완료';
 
 interface NoteDetailProp {
-  detail: NoteInfoType;
-  setDetail: React.Dispatch<React.SetStateAction<NoteInfoType>>;
+  detail: CreateNoteInfoType;
+  setDetail: React.Dispatch<React.SetStateAction<CreateNoteInfoType>>;
 }
 
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
 
   const teamId = useInitializeTeamId();
   const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
