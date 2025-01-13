@@ -13,6 +13,7 @@ import { timeStyle } from '@/page/signUp/info/UnivFormPage.style';
 import { useUnivForm } from '@/page/signUp/info/hook/common/useUnivForm';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
+import { $api } from '@/shared/api/client';
 import { postEmail } from '@/shared/api/email-verification/signup';
 import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
@@ -30,11 +31,12 @@ const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv, isSelectOpen, selectToggle } = useUnivForm();
 
   const { remainTime, handleTrigger, handleReset } = useTimer(60, () => {
-    alert('유효시간이 지났습니다.');
+    createToast('유효시간이 지났습니다.');
     setIsMailSended(false);
   });
 
   const [isMailSended, setIsMailSended] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const navigate = useNavigate();
 
@@ -61,10 +63,17 @@ const UnivFormPage = () => {
     },
   });
 
+  const { mutate: verify } = $api.useMutation('post', '/api/v1/email/verification/checking', {
+    onSuccess: () => {
+      createToast('인증되었습니다.', 'success');
+      setIsVerified(true);
+    },
+  });
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!selectedUniv || !inputs.email || !isMailSended) return;
+    if (!selectedUniv || !inputs.email || !isVerified) return;
 
     sessionStorage.setItem(
       'step1',
@@ -119,7 +128,18 @@ const UnivFormPage = () => {
                 />
                 <span css={timeStyle}>{formatTime(remainTime)}</span>
               </div>
-              <Button variant="outline" size="large" css={{ minWidth: '10rem' }}>
+              <Button
+                onClick={() =>
+                  verify({
+                    body: {
+                      email: inputs.email,
+                      code: inputs.code,
+                    },
+                  })
+                }
+                variant="outline"
+                size="large"
+                css={{ minWidth: '10rem' }}>
                 인증하기
               </Button>
             </Flex>
