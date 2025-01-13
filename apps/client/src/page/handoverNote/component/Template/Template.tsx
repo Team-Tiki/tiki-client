@@ -18,12 +18,11 @@ interface TemplateProps {
 }
 
 const Template = ({ data }: TemplateProps) => {
-  console.log(data);
   const [values, setValues] = useState<Record<string, string>>({
-    answerWhatActivity: data?.data.answerWhatActivity || '',
-    answerHowToPrepare: data?.data.answerHowToPrepare || '',
-    answerWhatIsDisappointedThing: data?.data.answerWhatIsDisappointedThing || '',
-    answerHowToFix: data?.data.answerHowToFix || '',
+    answerWhatActivity: data?.answerWhatActivity || '',
+    answerHowToPrepare: data?.answerHowToPrepare || '',
+    answerWhatIsDisappointedThing: data?.answerWhatIsDisappointedThing || '',
+    answerHowToFix: data?.answerHowToFix || '',
   });
 
   const { files, handleFileChange } = useFile();
@@ -49,15 +48,12 @@ const Template = ({ data }: TemplateProps) => {
     };
 
     console.log(formData);
-
-    // 서버로 데이터 전송 예시
-    // mutate({ body: formData });
   };
 
   return (
     <form css={[noteWrapperStyle, scrollStyle]} onSubmit={handleSubmit}>
       {TEMPLATE.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} css={layoutStyle}>
           <Label id={item.id}>{item.QUESTION}</Label>
           <Input id={item.id} placeholder={item.PLACEHOLDER} value={values[item.id]} onChange={handleChange(item.id)} />
         </div>
@@ -68,15 +64,11 @@ const Template = ({ data }: TemplateProps) => {
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
         <input id="file" type="file" style={{ display: 'none' }} multiple onChange={handleFileChange} />
-        <div css={fileBoxStyle}>{data?.data.documentList?.map((file) => <File key={file.fileName} file={file} />)}</div>
+        <div css={fileBoxStyle}>{data?.documentList?.map((file) => <File key={file.fileName} file={file} />)}</div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload} type="button">
           파일 연동하기
         </Button>
       </div>
-
-      <Button variant="primary" type="submit" css={{ marginTop: '2rem' }}>
-        제출하기
-      </Button>
     </form>
   );
 };

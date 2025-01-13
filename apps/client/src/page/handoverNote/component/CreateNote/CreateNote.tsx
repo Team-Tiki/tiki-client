@@ -19,6 +19,7 @@ const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [noteDetail, setNoteDetail] = useState<NoteInfoType>({
     title: '',
+    author: '',
     complete: false,
     startDate: '',
     endDate: '',

@@ -26,7 +26,7 @@ const NotePage = () => {
   const navigate = useNavigate();
 
   const noteData = useNoteDetailData();
-  console.log(noteData);
+  console.log(noteData.data.data);
 
   const handleTabClick = (tabId: number) => setSelectedTab(tabId);
 
@@ -35,8 +35,10 @@ const NotePage = () => {
 
   const handleSubmit = () => {};
 
-  console.log(hasKeyInObject(noteData.data, 'answerWhatActivity'));
-  console.log(hasKeyInObject(noteData.data, 'contents'));
+  if (noteData.data?.data) {
+    console.log(hasKeyInObject(noteData.data.data, 'answerWhatActivity'));
+    console.log(hasKeyInObject(noteData.data.data, 'contents'));
+  }
 
   return (
     <section css={noteSectionStyle}>
@@ -55,15 +57,15 @@ const NotePage = () => {
             저장
           </CommandButton>
         </Flex>
-        {hasKeyInObject(noteData, 'answerWhatActivity') ? (
+        {noteData.data.data && hasKeyInObject(noteData.data.data, 'answerWhatActivity') ? (
           <TabPanel selectedTab={selectedTab}>
-            <Template data={noteData.data as unknown as TemplateNoteData} />
+            <Template data={noteData.data.data as TemplateNoteData} />
             <Custom />
           </TabPanel>
         ) : hasKeyInObject(noteData, 'contents') ? (
           <TabPanel selectedTab={selectedTab}>
             <Template />
-            <Custom data={noteData.data as unknown as CustomNoteData} />
+            <Custom data={noteData.data.data as CustomNoteData} />
           </TabPanel>
         ) : (
           <></>
