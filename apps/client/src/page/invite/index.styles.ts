@@ -18,11 +18,11 @@ export const firstSpellStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
 
-  width: '4.8rem',
-  height: '4.8rem',
+  width: '3.6rem',
+  height: '3.6rem',
 
   borderRadius: '12px',
-  backgroundColor: theme.colors.white,
+  backgroundColor: theme.colors.gray_100,
   color: theme.colors.gray_500,
 
   fontSize: '2rem',

@@ -1,11 +1,9 @@
 import { LogoTikiSm } from '@tiki/icon';
 import { Button, Flex, Heading, Text, theme } from '@tiki/ui';
 
-import { useMatch } from 'react-router-dom';
-
 import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
 
-import { PATH } from '@/shared/constant/path';
+import { useIsLoggedIn } from '@/shared/store/auth';
 
 const InviteData = {
   invitor: '김가온',
@@ -14,7 +12,7 @@ const InviteData = {
 };
 
 const InvitedPage = () => {
-  const isLogined = useMatch(PATH.INVITE_IN);
+  const isLogined = useIsLoggedIn();
   const isExpired = false;
 
   return (
@@ -25,9 +23,11 @@ const InvitedPage = () => {
           <Text tag="body4">{InviteData.invitor}님의 초대</Text>
           <Flex styles={{ justify: 'center', align: 'center', gap: '0.4rem' }}>
             {InviteData.teamImg ? (
-              <img src={InviteData.teamImg} alt="팀 프로필 이미지" />
+              <img src={InviteData.teamImg} alt="팀 프로필" css={{ width: '3.6rem' }} />
             ) : (
-              <span css={firstSpellStyle}>{InviteData.teamName[0]}</span>
+              <Text tag="body6" css={firstSpellStyle}>
+                {InviteData.teamName[0]}
+              </Text>
             )}
             <Heading tag="H5" css={{ padding: '1.4rem 1rem' }}>
               {InviteData.teamName} 워크스페이스
@@ -39,7 +39,9 @@ const InvitedPage = () => {
             <Button size="xLarge" variant="secondary">
               초대 수락
             </Button>
-            <Button size="xLarge" css={{ color: theme.colors.sementic_red, backgroundColor: '#FFF6F7' }}>
+            <Button
+              size="xLarge"
+              css={{ color: theme.colors.sementic_red, backgroundColor: theme.colors.sementic_red_10 }}>
               거절하기
             </Button>
           </Flex>
