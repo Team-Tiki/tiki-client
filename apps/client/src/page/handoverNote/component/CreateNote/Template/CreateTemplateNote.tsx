@@ -17,7 +17,7 @@ interface TemplateNoteProps {
 }
 
 const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
-  const { files, handleFileChange } = useFile();
+  const { handleFileChange } = useFile();
 
   const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({

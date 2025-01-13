@@ -19,7 +19,7 @@ interface CustomProps {
 }
 
 const CreateCustomNote = ({ setData }: CustomProps) => {
-  const { files, handleFileChange } = useFile();
+  const { handleFileChange } = useFile();
 
   const handleFileUpload = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;
