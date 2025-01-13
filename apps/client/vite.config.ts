@@ -1,3 +1,4 @@
+import commonjs from '@rollup/plugin-commonjs';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
@@ -20,6 +21,7 @@ export default defineConfig(({ mode }) => {
         jsxImportSource: '@emotion/react',
       }),
       tsconfigPaths(),
+      commonjs(),
       svgr({
         svgrOptions: {
           icon: true,
