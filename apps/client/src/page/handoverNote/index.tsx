@@ -3,18 +3,18 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } fr
 import { Suspense, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Custom from '@/page/handover/note/component/ModifyNote/Custom/Custom';
-import NoteInfo from '@/page/handover/note/component/ModifyNote/NoteInfo/NoteInfo';
-import Template from '@/page/handover/note/component/ModifyNote/Template/Template';
-import { NoteInfoType } from '@/page/handover/note/type/note';
-import { formattingDateWithBar } from '@/page/handover/note/util/date';
+import Custom from '@/page/handoverNote/component/Custom/Custom';
+import NoteInfo from '@/page/handoverNote/component/NoteInfo/NoteInfo';
+import Template from '@/page/handoverNote/component/Template/Template';
+import { NoteInfoType } from '@/page/handoverNote/type/note';
+import { formattingDateWithBar } from '@/page/handoverNote/util/date';
 
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
-import { noteSectionStyle, tabButtonStyle } from './NotePage.style';
+import { noteSectionStyle, tabButtonStyle } from './index.style';
 
 export type TemplateNoteData = components['schemas']['NoteTemplateDetailGetServiceResponse'];
 export type CustomNoteData = components['schemas']['NoteFreeDetailGetServiceResponse'];
