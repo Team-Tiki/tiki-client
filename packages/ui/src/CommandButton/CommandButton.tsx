@@ -1,22 +1,13 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useEffect } from "react";
 
-import { ButtonProps } from '@/Button/Button';
-import { variantStyle } from '@/Button/Button.style';
-import {
-  buttonStyle,
-  childrenStyle,
-  commonStyle,
-  keyStyle,
-  sizeStyle,
-} from '@/CommandButton/CommandButton.style';
-import { IcCommandKey } from '@tiki/icon';
+import { ButtonProps } from "@/Button/Button";
+import { variantStyle } from "@/Button/Button.style";
+import { buttonStyle, childrenStyle, commonStyle, keyStyle, sizeStyle } from "@/CommandButton/CommandButton.style";
+import { IcCommandKey } from "@tiki/icon";
 
 export interface CommandButtonProps extends ButtonProps {
-  variant?: Extract<
-    ButtonProps['variant'],
-    'primary' | 'tertiary' | 'fourth' | 'outline'
-  >;
-  size?: Extract<ButtonProps['size'], 'large' | 'small' | 'xSmall'>;
+  variant?: Extract<ButtonProps["variant"], "primary" | "tertiary" | "fourth" | "outline">;
+  size?: Extract<ButtonProps["size"], "large" | "small" | "xSmall">;
   commandKey: string;
   isCommand?: boolean;
   isFrontIcon?: boolean;
@@ -24,8 +15,8 @@ export interface CommandButtonProps extends ButtonProps {
 }
 
 const CommandButton = ({
-  variant = 'primary',
-  size = 'small',
+  variant = "primary",
+  size = "small",
   commandKey,
   isCommand = true,
   isFrontIcon = false,
@@ -33,13 +24,31 @@ const CommandButton = ({
   onClick,
   ...props
 }: CommandButtonProps) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (isCommand && e.key === commandKey) {
-      e.preventDefault();
+  const isMacOS = /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const isCmdPressed = isMacOS ? e.metaKey : e.ctrlKey;
+
+    if (isCommand && isCmdPressed && e.key.toLowerCase() === commandKey.toLowerCase()) {
+      e.preventDefault();
       onClick?.(e);
     }
   };
+
+  useEffect(() => {
+    const globalKeyDownHandler = (e: KeyboardEvent) => {
+      const isCmdPressed = isMacOS ? e.metaKey : e.ctrlKey;
+
+      if (isCommand && isCmdPressed && e.key.toLowerCase() === commandKey.toLowerCase()) {
+        e.preventDefault();
+        onClick?.(e as unknown as SyntheticEvent);
+      }
+    };
+
+    window.addEventListener("keydown", globalKeyDownHandler);
+
+    return () => window.removeEventListener("keydown", globalKeyDownHandler);
+  }, [commandKey, isCommand, onClick]);
 
   return (
     <button
