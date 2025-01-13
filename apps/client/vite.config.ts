@@ -42,12 +42,13 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@tiki/ui': resolve(__dirname, '../../packages/ui/dist'),
+        '@tiki/icon': resolve(__dirname, '../../packages/icon/dist'),
       },
     },
     build: {
       sourcemap: true,
       commonjsOptions: {
-        include: ['/@tiki/ui/'],
+        include: ['/@tiki/ui/', '/@tiki/icon/'],
       },
       rollupOptions: {
         output: {
