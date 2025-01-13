@@ -26,7 +26,7 @@ const Template = ({ data, setData }: TemplateProps) => {
     answerHowToFix: data?.answerHowToFix || '',
   });
 
-  const { files, handleFileChange } = useFile();
+  const { handleFileChange } = useFile();
 
   const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({

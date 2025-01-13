@@ -33,9 +33,16 @@ const NoteItem = ({
   onSelect,
   onClick,
 }: NoteItemProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      onClick();
+    }
+  };
   return (
     <li>
-      <div css={wrapperStyle} onClick={onClick}>
+      <div css={wrapperStyle} onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
         <Flex styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
           <Flex styles={{ align: 'center' }}>
             {canSelect && (

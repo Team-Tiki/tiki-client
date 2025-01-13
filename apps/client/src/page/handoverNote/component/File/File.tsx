@@ -1,12 +1,16 @@
 import { IcDeleteFile, IcFileRound } from '@tiki/icon';
 
-import { Document } from '@/page/handoverNote';
 import { deleteIcStyle, fileInfoStyle, fileStyle } from '@/page/handoverNote/component/File/File.style';
 
 import { getFileVolume } from '@/shared/util/file';
 
 interface FileProps {
-  file: Document;
+  file: {
+    id: number;
+    fileName: string;
+    fileUrl: string;
+    capacity: number;
+  };
 }
 
 const File = ({ file }: FileProps) => {
