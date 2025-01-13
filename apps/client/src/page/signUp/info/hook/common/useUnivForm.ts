@@ -1,9 +1,6 @@
 import { useOverlay } from '@tiki/utils';
 
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { PATH } from '@/shared/constant/path';
+import { ChangeEvent, useState } from 'react';
 
 type UnivForm = {
   email: string;
@@ -15,8 +12,6 @@ export const useUnivForm = () => {
 
   const [inputs, setInputs] = useState<UnivForm>({} as UnivForm);
   const [selectedUniv, setSelectedUniv] = useState('');
-
-  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, key: keyof UnivForm) => {
     setInputs((prev) => ({
@@ -31,16 +26,9 @@ export const useUnivForm = () => {
     selectClose();
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    navigate(PATH.SIGNUP_INFO);
-  };
-
   return {
     inputs,
     handleChange,
-    handleSubmit,
     isSelectOpen,
     select,
     selectedUniv,

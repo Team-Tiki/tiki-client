@@ -2,15 +2,10 @@ import { useError } from '@tiki/utils';
 
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
-import { getFormatDateString, getFormatNumberString, isValidDate } from '@/page/signUp/info/util/date';
+import { useSignupMutation } from '@/page/signUp/info/hook/api/useSignupMutation';
 
 import { UserInfo } from '@/shared/api/signup/info/type';
-import {
-  DATE_MAXLENGTH,
-  FORMATTED_DATE_MAXLENGTH,
-  PASSWORD_VALID_FORMAT,
-  SUPPORTING_TEXT,
-} from '@/shared/constant/form';
+import { PASSWORD_VALID_FORMAT, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { hasKeyInObject } from '@/shared/util/typeGuard';
 
 export type InfoFormData = Omit<UserInfo, 'univ' | 'email'>;
@@ -23,96 +18,75 @@ const IS_EMPTY_STRING = {
 } as const;
 
 export const useInfoForm = () => {
-  const [info, setInfo] = useState<InfoFormData>({ name: '', birth: '', password: '', passwordChecker: '' });
+  const [info, setInfo] = useState<InfoFormData>({ name: '', birth: new Date(), password: '', passwordChecker: '' });
 
-  const { error, updateFieldError, clearFieldError, setErrors } = useError<InfoFormData>({
+  const { error, updateFieldError, clearFieldError, setErrors } = useError<Omit<InfoFormData, 'birth'>>({
     name: '',
-    birth: '',
     password: '',
     passwordChecker: '',
   });
 
-  /**
-   * TODD: 추후 UnivForm 로직에서 재사용
-   * const { mutate: verityCodeMutate, isSuccess: isVerified } = useVerifyCodeMutation(info.email, info.authCode);
-   */
+  const [validMessage, setValidMessage] = useState({
+    password: '',
+    passwordChecker: '',
+  });
 
-  const handleInfoChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value, name: key } = e.target;
+  const { mutate } = useSignupMutation();
 
-      setInfo((prev) => ({
-        ...prev,
-        [key]: value,
-      }));
-      if (value !== '' && hasKeyInObject(error, key)) {
-        clearFieldError(key);
-      }
-    },
-    [clearFieldError, error]
-  );
+  const handleInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name: key } = e.target;
 
-  const handleBirthChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      let { value } = e.target;
-
-      if (info.birth !== '') {
-        clearFieldError('birth');
-      }
-
-      if (value.length === DATE_MAXLENGTH && info.birth.length === FORMATTED_DATE_MAXLENGTH) {
-        value = info.birth.replace(/-/g, '');
-      } else {
-        value = getFormatDateString(getFormatNumberString(value, DATE_MAXLENGTH));
-      }
-
-      setInfo((prev) => ({
-        ...prev,
-        birth: value,
-      }));
-    },
-    [info.birth, clearFieldError]
-  );
-
-  const validateDate = useCallback(() => {
-    if (info.birth === '' || !isValidDate(info.birth)) {
-      updateFieldError('birth', 'error');
-      return false;
+    setInfo((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+    if (value !== '' && hasKeyInObject(error, key)) {
+      clearFieldError(key);
     }
+  };
 
-    return true;
-  }, [info.birth, updateFieldError]);
+  const handleBirthChange = useCallback((date: Date | null) => {
+    setInfo((prev) => ({
+      ...prev,
+      birth: date ?? new Date(),
+    }));
+  }, []);
 
   const validatePassword = useCallback(() => {
+    let passwordError = false;
+    let passwordCheckerError = false;
+
     if (info.password === '') {
       updateFieldError('password', SUPPORTING_TEXT.PASSWORD);
 
-      return false;
-    }
-
-    if (info.passwordChecker === '') {
-      updateFieldError('passwordChecker', SUPPORTING_TEXT.PASSWORD_CHECKER);
-
-      return false;
-    }
-
-    if (info.password !== info.passwordChecker) {
-      setErrors({
-        ...error,
-        password: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
-        passwordChecker: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
-      });
-
-      return false;
+      passwordError = true;
     }
 
     if (!PASSWORD_VALID_FORMAT.test(info.password)) {
       updateFieldError('password', SUPPORTING_TEXT.PASSWORD_INVALID);
 
-      return false;
+      passwordError = true;
     }
 
-    return true;
+    if (info.passwordChecker === '') {
+      updateFieldError('passwordChecker', SUPPORTING_TEXT.PASSWORD_CHECKER);
+
+      passwordCheckerError = true;
+    }
+
+    if (info.password !== info.passwordChecker) {
+      setErrors({
+        ...error,
+        passwordChecker: SUPPORTING_TEXT.PASSWORD_NO_EQUAL,
+      });
+
+      passwordCheckerError = true;
+    }
+
+    !passwordError && setValidMessage((prev) => ({ ...prev, password: SUPPORTING_TEXT.PASSWORD_VALID }));
+    !passwordCheckerError && setValidMessage((prev) => ({ ...prev, passwordChecker: SUPPORTING_TEXT.PASSWORD_EQUAL }));
+
+    return !passwordError;
   }, [error, info, setErrors, updateFieldError]);
 
   const validateForm = useCallback(() => {
@@ -126,35 +100,64 @@ export const useInfoForm = () => {
         }
       }
 
-      /** 생일 유효성 검사 */
-      if (key === 'birth') {
-        if (!validateDate()) {
-          isFormError = true;
-          return true;
-        }
-      }
       /** 비밀번호 유효성 검사 */
 
       if (!validatePassword()) {
         isFormError = true;
         return true;
       }
+
+      return false;
     });
 
     return !isFormError;
-  }, [info, validateDate, updateFieldError, validatePassword]);
+  }, [info, updateFieldError, validatePassword]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validateForm()) return;
+
+    const prevStepData = JSON.parse(sessionStorage.getItem('step1')!);
+
+    const formData = {
+      ...prevStepData,
+      ...info,
+    };
+
+    mutate(formData);
+  };
+
+  const handlePasswordBlur = () => {
+    if (info.password !== '' && !PASSWORD_VALID_FORMAT.test(info.password)) {
+      updateFieldError('password', SUPPORTING_TEXT.PASSWORD_INVALID);
+    } else if (info.password !== '' && PASSWORD_VALID_FORMAT.test(info.password)) {
+      setValidMessage((prev) => ({
+        ...prev,
+        password: SUPPORTING_TEXT.PASSWORD_VALID,
+      }));
+    }
+  };
+
+  const handlePasswordCheckerBlur = () => {
+    if (info.passwordChecker !== '' && info.password !== info.passwordChecker) {
+      updateFieldError('passwordChecker', SUPPORTING_TEXT.PASSWORD_NO_EQUAL);
+    } else if (info.passwordChecker !== '' && info.password === info.passwordChecker) {
+      setValidMessage((prev) => ({
+        ...prev,
+        passwordChecker: SUPPORTING_TEXT.PASSWORD_EQUAL,
+      }));
+    }
   };
 
   return {
     info,
     handleInfoChange,
     handleBirthChange,
+    handlePasswordBlur,
+    handlePasswordCheckerBlur,
     handleSubmit,
+    validMessage,
     error,
   };
 };

@@ -6,9 +6,16 @@ import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 import { PLACEHOLDER } from '@/shared/constant/form';
 
 const InfoFormPage = () => {
-  const { info, handleInfoChange, handleSubmit } = useInfoForm();
-
-  const handleDateChange = () => {};
+  const {
+    info,
+    error,
+    validMessage,
+    handleInfoChange,
+    handlePasswordBlur,
+    handlePasswordCheckerBlur,
+    handleBirthChange,
+    handleSubmit,
+  } = useInfoForm();
 
   return (
     <Flex tag="main" css={pageStyle}>
@@ -22,20 +29,28 @@ const InfoFormPage = () => {
             label="이름"
             placeholder={PLACEHOLDER.NAME}
           />
-          <DatePicker onChange={handleDateChange} variant="single" triggerWidth="100%" />
+          <DatePicker onChange={handleBirthChange} variant="single" triggerWidth="100%" />
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
               name="password"
               value={info.password}
               onChange={handleInfoChange}
+              onBlur={handlePasswordBlur}
               placeholder={PLACEHOLDER.PASSWORD}
               label="비밀번호 설정"
+              isSuccess={!!validMessage.password}
+              isError={!!error.password}
+              supportingText={error.password || validMessage.password}
             />
             <Input
               name="passwordChecker"
               value={info.passwordChecker}
               onChange={handleInfoChange}
+              onBlur={handlePasswordCheckerBlur}
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
+              isSuccess={!!validMessage.passwordChecker}
+              isError={!!error.passwordChecker}
+              supportingText={error.passwordChecker || validMessage.passwordChecker}
             />
           </Flex>
         </Flex>

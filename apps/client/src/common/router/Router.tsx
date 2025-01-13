@@ -1,4 +1,6 @@
 import App from '@/App';
+import { QueryParamProvider } from 'use-query-params';
+import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 
 import { Suspense } from 'react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
@@ -14,7 +16,6 @@ import {
   ErrorPage,
   HandoverNotePage,
   HandoverPage,
-  InfoFormPage,
   LandingPage,
   LoginPage,
   OnBoardingPage,
@@ -22,9 +23,10 @@ import {
   PasswordResetPage,
   ShowcasePage,
   TermPage,
-  UnivFormPage,
   WorkSpaceSettingPage,
 } from '@/common/router/lazy';
+
+import SignUpPage from '@/page/signUp/info';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -34,9 +36,11 @@ const Public = () => {
   const handleReset = () => navigate(-1);
 
   return (
-    <ErrorBoundary fallback={ErrorPage} onReset={handleReset}>
-      <Outlet />
-    </ErrorBoundary>
+    <QueryParamProvider adapter={ReactRouter6Adapter}>
+      <ErrorBoundary fallback={ErrorPage} onReset={handleReset}>
+        <Outlet />
+      </ErrorBoundary>
+    </QueryParamProvider>
   );
 };
 
@@ -75,18 +79,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_UNIV,
-        element: (
-          <Suspense>
-            <UnivFormPage />
-          </Suspense>
-        ),
-      },
-      {
         path: PATH.SIGNUP_INFO,
         element: (
           <Suspense>
-            <InfoFormPage />
+            <SignUpPage />
           </Suspense>
         ),
       },

@@ -1,26 +1,81 @@
-import { Button, Flex, Heading, Input, Select } from '@tiki/ui';
+import { Button, Flex, Heading, Input, Select, useToastAction } from '@tiki/ui';
+import { useTimer } from '@tiki/utils';
+
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useMutation } from '@tanstack/react-query';
+
+import { isAxiosError } from 'axios';
 
 import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { timeStyle } from '@/page/signUp/info/UnivFormPage.style';
-import { useSendMail } from '@/page/signUp/info/hook/api/useSendMail';
 import { useUnivForm } from '@/page/signUp/info/hook/common/useUnivForm';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
+import { postEmail } from '@/shared/api/email-verification/signup';
 import { PLACEHOLDER } from '@/shared/constant/form';
+import { PATH } from '@/shared/constant/path';
+
+const options = [
+  {
+    value: '건국대학교',
+  },
+  {
+    value: '인하대학교',
+  },
+];
 
 const UnivFormPage = () => {
-  const { inputs, handleChange, handleSubmit, select, isSelectOpen, selectToggle } = useUnivForm();
+  const { inputs, handleChange, select, selectedUniv, isSelectOpen, selectToggle } = useUnivForm();
 
-  const { send, remainTime, isVerified } = useSendMail(inputs.email);
+  const { remainTime, handleTrigger, handleReset } = useTimer(60, () => {
+    alert('유효시간이 지났습니다.');
+    setIsMailSended(false);
+  });
 
-  const options = [
-    {
-      value: '건국대학교',
+  const [isMailSended, setIsMailSended] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { createToast } = useToastAction();
+
+  const { mutate } = useMutation({
+    mutationFn: (email: string) => postEmail(email),
+    onMutate: () => {
+      setIsMailSended(true);
+
+      handleTrigger();
     },
-    {
-      value: '인하대학교',
+    onSuccess: () => {
+      setIsMailSended(true);
     },
-  ];
+    onError: (error) => {
+      setIsMailSended(false);
+
+      handleReset();
+
+      if (isAxiosError<{ message: string }>(error)) {
+        createToast(`${error.response?.data.message}`, 'error');
+      }
+    },
+  });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!selectedUniv || !inputs.email || !isMailSended) return;
+
+    sessionStorage.setItem(
+      'step1',
+      JSON.stringify({
+        email: inputs.email,
+        univ: selectedUniv,
+      })
+    );
+
+    navigate(`${PATH.SIGNUP_INFO}?step=2`);
+  };
 
   return (
     <Flex tag="main" css={pageStyle}>
@@ -45,14 +100,14 @@ const UnivFormPage = () => {
               supportingText="메일함에서 인증 번호를 확인해주세요"
             />
             <Button
-              onClick={() => send()}
+              onClick={() => mutate(inputs.email)}
               variant="outline"
               size="large"
               css={{ minWidth: '10rem', marginBottom: '1.88rem' }}>
               인증 메일 전송
             </Button>
           </Flex>
-          {isVerified ? (
+          {isMailSended ? (
             <Flex styles={{ gap: '0.4rem', width: '100%', align: 'center' }}>
               <div css={{ width: '100%', position: 'relative' }}>
                 <Input
