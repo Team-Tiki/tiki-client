@@ -1,30 +1,42 @@
 import { IcSearch } from '@tiki/icon';
 import { Flex, Input, Text } from '@tiki/ui';
+import { useDebounce } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
+import { $api } from '@/shared/api/client';
 import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
 import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { ACITIVITY_TAG_DATA } from '@/shared/constant';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
+import { formatDateToDots } from '@/shared/util/date';
 
 const ActivityTagModal = () => {
+  const closeModal = useCloseModal();
+  const teamId = useInitializeTeamId();
+
+  const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
+    params: {
+      path: { teamId },
+    },
+  });
+
+  const [activityTags, setActivityTags] = useState(data.data?.tImeBlockTaggingResponses || []);
   const [inputValue, setInputValue] = useState('');
 
-  const [activityTags, setActivityTags] = useState(() => [...ACITIVITY_TAG_DATA]);
-
-  const closeModal = useCloseModal();
-
-  /* 드롭다운 검색 기능 추가할때 버튼활성화 조건 바꾸기! */
-  const isButtonActive = inputValue.trim().length > 0;
+  const filterKeyword = useDebounce(inputValue, 500);
+  const filteredFiles = useMemo(
+    () => activityTags.filter((tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
+    [activityTags, filterKeyword]
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleDeleteActivityTag = (id: number) => {
-    setActivityTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
+  const handleDeleteActivityTag = (e: React.MouseEvent, id: number) => {
+    setActivityTags((prevTags) => prevTags.filter((tag) => tag.timeBlockId !== id));
   };
 
   return (
@@ -40,14 +52,14 @@ const ActivityTagModal = () => {
           />
           <div css={scrollStyle}>
             {activityTags.length > 0 ? (
-              activityTags.map((data) => (
+              filteredFiles?.map((data) => (
                 <ActivityTagItem
-                  key={data.id}
-                  title={data.title}
-                  date={data.date}
-                  tag={data.tag}
+                  key={data.timeBlockId}
+                  title={data.name}
+                  date={formatDateToDots(data.startDate)}
+                  tag={data.type}
                   color={data.color}
-                  onDelete={() => handleDeleteActivityTag(data.id)}
+                  onDelete={(e) => handleDeleteActivityTag(e, data.timeBlockId)}
                 />
               ))
             ) : (
@@ -58,7 +70,7 @@ const ActivityTagModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="activity-tag" buttonClick={closeModal} isButtonActive={!isButtonActive} />
+      <Modal.Footer contentType="activity-tag" buttonClick={closeModal} closeModal={closeModal} />
     </>
   );
 };

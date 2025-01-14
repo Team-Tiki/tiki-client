@@ -118,7 +118,6 @@ const NotePage = () => {
           <TabButton css={tabButtonStyle}>템플릿 작성</TabButton>
           <TabButton css={tabButtonStyle}>자유 작성</TabButton>
         </TabList>
-
         <Flex style={{ gap: '0.8rem', justifyContent: 'end', margin: '3rem 0 1.6rem 0' }}>
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소

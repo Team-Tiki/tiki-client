@@ -17,6 +17,7 @@ import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface NoteDetailProp {
   detail: CreateNoteInfoType;
@@ -39,8 +40,10 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     },
   });
 
+  const openModal = useOpenModal();
+
   const handleAppendTag = () => {
-    /** 태그 모달 호출 로직 */
+    openModal('activity-tag');
   };
 
   const handleChangeStatus = useCallback(
