@@ -24,16 +24,16 @@ const NotePage = () => {
     null
   );
   const [selectedTab, setSelectedTab] = useState(0);
+  const { noteId } = useParams();
+  const navigate = useNavigate();
 
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
-  const navigate = useNavigate();
-
-  const noteData = useNoteDetailData();
-  const { noteId } = useParams();
-  const teamId = useInitializeTeamId();
 
   const { createToast } = useToastAction();
+  const teamId = useInitializeTeamId();
+
+  const noteData = useNoteDetailData();
 
   useEffect(() => {
     if (noteData.data?.data) {
@@ -46,6 +46,19 @@ const NotePage = () => {
 
   const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
   const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
+
+  const handleTabClick = (tabId: number) => {
+    openModal('caution', {
+      infoText: CAUTION.NOTE.INFO_TEXT,
+      content: CAUTION.NOTE.CONTENT,
+      desc: CAUTION.NOTE.DESC,
+      footerType: 'caution-modify',
+      onClick: () => {
+        setSelectedTab(tabId);
+        closeModal();
+      },
+    });
+  };
 
   const handleSubmit = () => {
     if (noteDetailData) {
@@ -63,7 +76,11 @@ const NotePage = () => {
             },
           },
           {
-            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
+            onSuccess: () => {
+              createToast('노트 내용이 저장되었습니다', 'success');
+              noteData.refetch();
+            },
+
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
@@ -81,7 +98,10 @@ const NotePage = () => {
             },
           },
           {
-            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
+            onSuccess: () => {
+              createToast('노트 내용이 저장되었습니다', 'success');
+              noteData.refetch();
+            },
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
@@ -89,19 +109,7 @@ const NotePage = () => {
     }
   };
 
-  const handleTabClick = (tabId: number) => {
-    openModal('caution', {
-      infoText: CAUTION.NOTE.INFO_TEXT,
-      content: CAUTION.NOTE.CONTENT,
-      desc: CAUTION.NOTE.DESC,
-      footerType: 'caution-modify',
-      onClick: () => {
-        setSelectedTab(tabId);
-        closeModal();
-      },
-    });
-  };
-
+  // 30초마다 자동 저장
   useInterval(handleSubmit, 30000);
 
   return (
