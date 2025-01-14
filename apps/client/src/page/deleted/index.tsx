@@ -1,4 +1,4 @@
-import { Button, Flex } from '@tiki/ui';
+import { Button, Flex, useToastAction } from '@tiki/ui';
 import { useMultiSelect } from '@tiki/utils';
 
 import { contentStyle } from '@/page/drive/index.style';
@@ -20,8 +20,9 @@ interface FileData {
 
 const DeletedPage = () => {
   const teamId = useInitializeTeamId();
+  const { createToast } = useToastAction();
 
-  const { data } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
+  const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
       path: {
         teamId,
@@ -29,17 +30,72 @@ const DeletedPage = () => {
     },
   });
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<FileData>(
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect, handleReset } = useMultiSelect<FileData>(
     'documentId',
     data?.data?.deletedDocuments || []
   );
+
+  const deleteMutation = $api.useMutation('delete', '/api/v1/teams/{teamId}/trash', {
+    onSuccess: () => {
+      createToast(`삭제가 완료되었습니다.`, 'success');
+      refetch();
+    },
+    onError: (error) => {
+      createToast(`${error.message}`, 'error');
+    },
+  });
+
+  const restoreMutation = $api.useMutation('post', '/api/v1/teams/{teamId}/trash', {
+    onSuccess: () => {
+      createToast(`복구가 완료되었습니다.`, 'success');
+      refetch();
+    },
+    onError: (error) => {
+      createToast(`${error.message}`, 'error');
+    },
+  });
+
+  const handleDelete = (docs?: number[]) => {
+    deleteMutation.mutate({
+      params: {
+        path: {
+          teamId,
+        },
+        query: {
+          documentId: docs ? docs : ids,
+        },
+      },
+    });
+    handleReset();
+  };
+
+  const handleRestore = () => {
+    restoreMutation.mutate({
+      params: {
+        path: {
+          teamId,
+        },
+        query: {
+          documentId: ids,
+        },
+      },
+    });
+    handleReset();
+  };
 
   return (
     <ContentBox
       variant="deleted"
       title="휴지통"
       description="5.16GB 사용 가능"
-      headerOption={<Button>휴지통 비우기</Button>}
+      headerOption={
+        <Button
+          onClick={() => {
+            data?.data?.deletedDocuments && handleDelete(data?.data?.deletedDocuments.map((item) => item.documentId));
+          }}>
+          휴지통 비우기
+        </Button>
+      }
       contentOption={
         <Flex styles={{ justify: 'space-between', align: 'center' }}>
           {canSelect ? (
@@ -47,8 +103,12 @@ const DeletedPage = () => {
               <Button onClick={handleAllClick} variant="tertiary">
                 전체 선택
               </Button>
-              <Button variant="tertiary">복구</Button>
-              <Button variant="tertiary">영구삭제</Button>
+              <Button variant="tertiary" onClick={handleRestore}>
+                복구
+              </Button>
+              <Button variant="tertiary" onClick={() => handleDelete()}>
+                영구삭제
+              </Button>
             </Flex>
           ) : (
             <Button onClick={handleToggleSelect} variant="tertiary">

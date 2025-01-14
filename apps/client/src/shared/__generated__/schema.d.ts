@@ -1356,12 +1356,6 @@ export interface components {
             documentList: components["schemas"]["DocumentTagGetServiceResponse"][];
             timeBlockList: components["schemas"]["TimeBlockTagServiceResponse"][];
         };
-        TimeBlockTagServiceResponse: {
-            /** Format: int64 */
-            id: number;
-            name: string;
-            color: string;
-        };
         NoteTemplateDetailGetServiceResponse: {
             /** Format: int64 */
             noteId: number;
@@ -1380,6 +1374,18 @@ export interface components {
             answerHowToFix: string;
             documentList: components["schemas"]["DocumentTagGetServiceResponse"][];
             timeBlockList: components["schemas"]["TimeBlockTagServiceResponse"][];
+        };
+        SuccessNoteDetailResponse: {
+            success: boolean;
+            message: string;
+            /** @description 응답 데이터 */
+            data?: components["schemas"]["NoteFreeDetailGetServiceResponse"] | components["schemas"]["NoteTemplateDetailGetServiceResponse"];
+        };
+        TimeBlockTagServiceResponse: {
+            /** Format: int64 */
+            id: number;
+            name: string;
+            color: string;
         };
         BelongTeamGetResponse: {
             /** Format: int64 */
@@ -3805,7 +3811,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["NoteFreeDetailGetServiceResponse"] | components["schemas"]["NoteTemplateDetailGetServiceResponse"];
+                    "application/json": components["schemas"]["SuccessNoteDetailResponse"];
                 };
             };
             /** @description 접근 권한 없음(토큰 에러) */
