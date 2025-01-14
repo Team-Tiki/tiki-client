@@ -1,5 +1,5 @@
+import { useNoteDetailData } from '@/page/dashboard/component/Handover/hook/api/queries';
 import { FreeNoteType, TemplateNoteType } from '@/page/dashboard/component/Handover/type';
-import { useNoteDetailData } from '@/page/handover/note/hooks/api/queries';
 
 export const useNoteDetail = (noteId: number) => {
   const { data } = useNoteDetailData(noteId);

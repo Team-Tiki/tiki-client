@@ -2,19 +2,27 @@ import { Flex, scrollStyle } from '@tiki/ui';
 import { hasKeyInObject } from '@tiki/utils';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
-import { useDriveData } from '@/page/drive/hook/api/queries';
 import { DocumentItem, FolderItem } from '@/page/drive/type';
 
+import { $api } from '@/shared/api/client';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
 const FileSection = () => {
-  const { data: fileData } = useDriveData();
+  const teamId = useInitializeTeamId();
+  const { data: fileData } = $api.useQuery('get', '/api/v1/teams/{teamId}/drive', {
+    params: {
+      path: {
+        teamId,
+      },
+    },
+  });
 
-  const docDataList = fileData.data?.documents || [];
-  const folderDataList = fileData.data?.folders || [];
+  const docDataList = fileData?.data?.documents || [];
+  const folderDataList = fileData?.data?.folders || [];
 
   const allFileData = [...docDataList, ...folderDataList];
 
