@@ -43,7 +43,13 @@ const ActivityTagModal = () => {
     <>
       <Modal.Header />
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '2rem', width: '100%' }}>
+        <Flex
+          styles={{
+            direction: 'column',
+            gap: '2rem',
+            width: '100%',
+            paddingTop: '2rem',
+          }}>
           <Input
             placeholder="search"
             LeftIcon={<IcSearch width={12} height={12} />}

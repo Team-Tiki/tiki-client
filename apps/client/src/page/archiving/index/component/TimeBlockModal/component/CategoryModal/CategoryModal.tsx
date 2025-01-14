@@ -37,7 +37,9 @@ const CategoryModal = () => {
     <>
       <Modal.Header />
       <Modal.Body>
-        <Flex tag="ul" styles={{ width: '36.5rem', wrap: 'wrap', gap: '0.6rem', justify: 'center' }}>
+        <Flex
+          tag="ul"
+          styles={{ width: '36.5rem', wrap: 'wrap', gap: '0.6rem', justify: 'center', paddingTop: '2rem' }}>
           {BLOCK_CATEGORY.map((icon, index) => (
             <CategoryItem
               key={icon.name}
