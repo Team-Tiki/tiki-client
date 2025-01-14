@@ -1,4 +1,4 @@
-import { CommandButton, Flex, Input, Text } from '@tiki/ui';
+import { CommandButton, Flex, Input, Text, useToastAction } from '@tiki/ui';
 
 import { useState } from 'react';
 
@@ -16,6 +16,7 @@ const InviteModal = ({ step }: { step: number }) => {
   const isButtonActive = inputValue.trim().length > 0;
 
   const { nextStep } = useFunnel();
+  const { createToast } = useToastAction();
 
   const teamId = useInitializeTeamId();
   const { mutate } = $api.useMutation('post', '/api/v1/email/invitation/team/{teamId}');
@@ -37,7 +38,18 @@ const InviteModal = ({ step }: { step: number }) => {
 
   const handleNextStep = () => {
     inviteList.forEach((email) => {
-      mutate({ params: { path: { teamId } }, body: { email: email } }, { onSuccess: () => nextStep() });
+      mutate(
+        { params: { path: { teamId } }, body: { email: email } },
+        {
+          onSuccess: () => {
+            createToast('메일 전송에 성공했습니다.', 'success');
+            nextStep();
+          },
+          onError: (error) => {
+            createToast(`${error.message}`, 'error');
+          },
+        }
+      );
     });
   };
 
