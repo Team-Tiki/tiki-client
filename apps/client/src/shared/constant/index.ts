@@ -84,6 +84,11 @@ export const FILE = {
   NO_CONNECTED_FILE: '연동된 파일이 없습니다.',
 };
 
+export const TAG = {
+  NOT_FOUND: '일치하는 항목이 존재하지 않습니다.',
+  NO_CONNECTED_TAG: '태그된 활동이 없습니다.',
+};
+
 export const MEMBER_DATA = [
   {
     name: '이채원',

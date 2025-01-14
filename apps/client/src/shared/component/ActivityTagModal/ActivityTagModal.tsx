@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 
 import { $api } from '@/shared/api/client';
 import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
+import { tagListStyle } from '@/shared/component/ActivityTagModal/ActivityTagModal.style';
 import {
   emptyStyle,
   fileListStyle,
@@ -14,7 +15,7 @@ import {
   overlayStyle,
 } from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { FILE } from '@/shared/constant';
+import { TAG } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 import { formatDateToDots } from '@/shared/util/date';
@@ -36,7 +37,7 @@ const ActivityTagModal = () => {
     },
   });
 
-  const [activityTags, setActivityTags] = useState(data.data?.tImeBlockTaggingResponses || []);
+  const [activityTags] = useState<ActivityTag[]>(data.data?.tImeBlockTaggingResponses || []);
   const [inputValue, setInputValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<ActivityTag[]>([]);
 
@@ -89,7 +90,7 @@ const ActivityTagModal = () => {
           <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
             <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
               {filteredTags?.length === 0 ? (
-                <DropdownItem css={notFoundStyle}>{FILE.NOT_FOUND}</DropdownItem>
+                <DropdownItem css={notFoundStyle}>{TAG.NOT_FOUND}</DropdownItem>
               ) : (
                 filteredTags?.map((tag) => (
                   <DropdownItem key={tag.timeBlockId} css={itemStyle} onSelect={() => handleSelect(tag)}>
@@ -106,9 +107,9 @@ const ActivityTagModal = () => {
               )}
             </DropdownList>
           </DropdownRoot>
-          <div css={{ marginTop: '2rem', width: '100%' }}>
+          <div css={tagListStyle}>
             {selectedTags.length === 0 ? (
-              <div css={emptyStyle}>{FILE.NO_CONNECTED_FILE}</div>
+              <div css={emptyStyle}>{TAG.NO_CONNECTED_TAG}</div>
             ) : (
               selectedTags.map((tag) => (
                 <div css={[scrollStyle, fileListStyle]} key={tag.timeBlockId}>
