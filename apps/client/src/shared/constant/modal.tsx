@@ -11,7 +11,6 @@ import {
 type ModalContentType =
   | 'create-workspace'
   | 'create-block'
-  | 'deleted'
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
@@ -142,16 +141,6 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       ],
     ],
   },
-  deleted: {
-    steps: 1,
-    headers: [{ icon: <IcWarning width={40} height={40} />, title: '삭제 확인', infoText: '정말 삭제하시겠습니까?' }],
-    buttons: [
-      [
-        { text: '취소', variant: 'outline' },
-        { text: '삭제', variant: 'primary' },
-      ],
-    ],
-  },
   invite: {
     steps: 1,
     headers: [
@@ -220,7 +209,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcWarning width={40} height={40} />,
+        icon: <IcWarning width={20} height={20} css={{ margin: '1rem' }} />,
         title: '주의!',
         infoText: '',
       },
