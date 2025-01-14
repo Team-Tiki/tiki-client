@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Text } from '@tiki/ui';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   entireInfoStyle,
@@ -10,21 +11,35 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handoverNote/component/NoteDetail/NoteDetail.style';
-import { NoteDetailType } from '@/page/handoverNote/type/note';
+} from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
+import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
+import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
-type Status = '완료' | '미완료';
-
 interface NoteDetailProp {
-  detail: NoteDetailType;
-  setDetail: React.Dispatch<React.SetStateAction<NoteDetailType>>;
+  detail: CreateNoteInfoType;
+  setDetail: React.Dispatch<React.SetStateAction<CreateNoteInfoType>>;
 }
 
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+
+  const teamId = useInitializeTeamId();
+  const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
+
+  const { data: memberData } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
+    params: {
+      path: { teamId },
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
   const openModal = useOpenModal();
 
   const handleAppendTag = () => {
@@ -38,21 +53,18 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     [setDetail]
   );
 
-  const handleDateChange = () => {};
+  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
 
-  const teamId = useInitializeTeamId();
-  const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
-
-  const { data: memberData } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    params: {
-      path: {
-        teamId,
-      },
-    },
-  });
+  useEffect(() => {
+    setDetail({
+      ...detail,
+      startDate: formatDateToString(startDate)!,
+      endDate: formatDateToString(endDate)!,
+    });
+  }, [startDate, endDate, memberData]);
 
   return (
     <aside css={entireInfoStyle}>

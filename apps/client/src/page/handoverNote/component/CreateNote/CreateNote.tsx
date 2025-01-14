@@ -7,7 +7,7 @@ import CreateCustomNote from '@/page/handoverNote/component/CreateNote/Custom/Cr
 import CreateNoteDetail from '@/page/handoverNote/component/CreateNote/NoteDetail/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handoverNote/component/CreateNote/Template/CreateTemplateNote';
 import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
-import { CustomNote, NoteDetailType, TemplateNote } from '@/page/handoverNote/type/note';
+import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNote/type/note';
 
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
@@ -17,9 +17,27 @@ import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [noteDetail, setNoteDetail] = useState<NoteDetailType>({} as NoteDetailType);
-  const [templateData, setTemplateData] = useState<TemplateNote>({} as TemplateNote);
-  const [customData, setCustomData] = useState<CustomNote>({} as CustomNote);
+  const [noteDetail, setNoteDetail] = useState<CreateNoteInfoType>({
+    title: '',
+    author: '',
+    complete: false,
+    startDate: '',
+    endDate: '',
+    timeBlockList: [],
+  });
+
+  const [templateData, setTemplateData] = useState<TemplateNote>({
+    answerHowToFix: '',
+    answerHowToPrepare: '',
+    answerWhatActivity: '',
+    answerWhatIsDisappointedThing: '',
+    documentList: [],
+  });
+
+  const [customData, setCustomData] = useState<CustomNote>({
+    documentList: [],
+    contents: '',
+  });
 
   const navigate = useNavigate();
   const teamId = useInitializeTeamId();
@@ -28,6 +46,9 @@ const CreateNotePage = () => {
   const closeModal = useCloseModal();
 
   const { createToast } = useToastAction();
+
+  const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
+  const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
 
   const handleTabClick = (tabId: number) => {
     openModal('caution', {
@@ -45,9 +66,6 @@ const CreateNotePage = () => {
       },
     });
   };
-
-  const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
-  const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

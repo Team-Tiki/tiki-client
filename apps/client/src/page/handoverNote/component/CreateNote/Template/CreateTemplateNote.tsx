@@ -2,7 +2,6 @@ import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
 import { Dispatch, SetStateAction } from 'react';
 
-import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
   guideStyle,
@@ -22,7 +21,7 @@ interface TemplateNoteProps {
 const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
-  const { files, handleFileChange } = useFile();
+  const { handleFileChange } = useFile();
 
   const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({
@@ -40,7 +39,7 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
   };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]}>
+    <div css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
         <div css={layoutStyle} key={item.id}>
           <Label id={item.id}>{item.QUESTION}</Label>
@@ -54,15 +53,15 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
         </Label>
         <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
         <div css={fileBoxStyle}>
-          {files.map((file) => (
+          {/* {files.map((file) => (
             <File key={file.name} file={file} />
-          ))}
+          ))} */}
         </div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 

@@ -15,17 +15,17 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { PATH } from '@/shared/constant/path';
 
 const HandoverPage = () => {
-  const createdAt = useRef<string>(new Date().toISOString().slice(0, -1)).current;
-
   const [sortOption, setSortOption] = useState<FILTER_TYPE>('ASC');
-
   const [searchValue, setSearchValue] = useState('');
+
+  const navigate = useNavigate();
+
+  const createdAt = useRef<string>(new Date().toISOString().slice(0, -1)).current;
 
   const filterKeyword = useDebounce(searchValue, 400);
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
-  const navigate = useNavigate();
 
   const { data } = useNoteData(createdAt, sortOption);
 
@@ -103,6 +103,7 @@ const HandoverPage = () => {
               canSelect={canSelect}
               isSelected={ids.includes(+data.noteId)}
               onSelect={() => handleItemClick(+data.noteId)}
+              onClick={() => navigate(`/handover/${+data.noteId}`)}
             />
           ))}
       </ul>
