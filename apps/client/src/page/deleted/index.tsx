@@ -62,9 +62,9 @@ const DeletedPage = () => {
 
   const handleDelete = (docs?: number[]) => {
     openModal('caution', {
-      infoText: CAUTION.DELETE_FILE.INFO_TEXT,
-      content: CAUTION.DELETE_FILE.CONTENT,
-      desc: CAUTION.DELETE_FILE.DESC,
+      infoText: CAUTION.DELETE_FOR_GOOD.INFO_TEXT,
+      content: CAUTION.DELETE_FOR_GOOD.CONTENT,
+      desc: CAUTION.DELETE_FOR_GOOD.DESC,
       onClick: () => {
         try {
           deleteMutation.mutate({
@@ -99,19 +99,35 @@ const DeletedPage = () => {
     });
   };
 
+  const handleDeleteEntireFiles = () => {
+    openModal('caution', {
+      infoText: CAUTION.EMPTY_DELETED.INFO_TEXT,
+      content: CAUTION.EMPTY_DELETED.CONTENT,
+      desc: CAUTION.EMPTY_DELETED.DESC,
+      onClick: () => {
+        try {
+          deleteMutation.mutate({
+            params: {
+              path: { teamId },
+              query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
+            },
+          });
+
+          handleReset();
+          closeModal();
+        } catch (error) {
+          createToast('휴지통 비우기 도중 오류가 발생했습니다.', 'error');
+        }
+      },
+    });
+  };
+
   return (
     <ContentBox
       variant="deleted"
       title="휴지통"
       description="5.16GB 사용 가능"
-      headerOption={
-        <Button
-          onClick={() => {
-            data?.data?.deletedDocuments && handleDelete(data?.data?.deletedDocuments.map((item) => item.documentId));
-          }}>
-          휴지통 비우기
-        </Button>
-      }
+      headerOption={<Button onClick={handleDeleteEntireFiles}>휴지통 비우기</Button>}
       contentOption={
         <Flex styles={{ justify: 'space-between', align: 'center' }}>
           {canSelect ? (
