@@ -1,6 +1,7 @@
 import { Flex, scrollStyle } from '@tiki/ui';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
+import ItemAdder from '@/page/dashboard/component/File/ItemAdder/ItemAdder';
 
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import { File } from '@/shared/type/file';
@@ -11,6 +12,7 @@ import { FileData } from '@/mock/data/drive';
 const FileSection = () => {
   return (
     <Flex css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}>
+      {!FileData[0] && <ItemAdder />}
       {FileData.map((file) => {
         return (
           <FileGrid
