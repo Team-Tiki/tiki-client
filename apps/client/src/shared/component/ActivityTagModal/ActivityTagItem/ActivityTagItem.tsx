@@ -13,7 +13,7 @@ interface ActivityTagItemProps {
   date: string;
   tag: string;
   color: string;
-  onDelete: () => void;
+  onDelete: (e: React.MouseEvent) => void;
 }
 
 const ActivityTagItem = ({ title, date, tag, color, onDelete }: ActivityTagItemProps) => {
@@ -50,7 +50,7 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete }: ActivityTagItemP
         <Text tag="body8" css={tagStyle(color)}>
           {tag.toLowerCase()}
         </Text>
-        <IcInviteDelete width={40} height={40} css={{ cursor: 'pointer' }} onClick={onDelete} />
+        <IcInviteDelete width={40} height={40} css={{ cursor: 'pointer' }} onClick={(e) => onDelete(e)} />
       </Flex>
     </Flex>
   );

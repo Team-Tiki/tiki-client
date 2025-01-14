@@ -15,6 +15,7 @@ import {
   HandoverNotePage,
   HandoverPage,
   InfoFormPage,
+  InvitePage,
   LandingPage,
   LoginPage,
   OnBoardingPage,
@@ -91,6 +92,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: PATH.INVITE,
+        element: (
+          <Suspense>
+            <InvitePage />
+          </Suspense>
+        ),
+      },
+      {
         path: PATH.PASSWORD_AUTH,
         element: (
           <Suspense>
@@ -117,6 +126,14 @@ const router = createBrowserRouter([
       </Suspense>
     ),
     children: [
+      {
+        path: PATH.INVITE_IN,
+        element: (
+          <Suspense>
+            <InvitePage />
+          </Suspense>
+        ),
+      },
       {
         path: PATH.DASHBOARD,
         element: (

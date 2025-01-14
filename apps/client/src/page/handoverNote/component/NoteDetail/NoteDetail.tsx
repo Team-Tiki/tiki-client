@@ -10,8 +10,8 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handover/note/component/NoteDetail/NoteDetail.style';
-import { NoteDetailType } from '@/page/handover/note/type/note';
+} from '@/page/handoverNote/component/NoteDetail/NoteDetail.style';
+import { NoteDetailType } from '@/page/handoverNote/type/note';
 
 // type Status = '완료' | '미완료';
 

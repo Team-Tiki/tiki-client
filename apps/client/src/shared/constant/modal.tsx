@@ -1,7 +1,6 @@
 import {
   IcActivityTag,
   IcBlockCreate,
-  IcError,
   IcFileUpload,
   IcInvite,
   IcMemberTag,
@@ -221,7 +220,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcError width={40} height={40} />,
+        icon: <IcWarning width={40} height={40} />,
         title: '주의!',
         infoText: '',
       },

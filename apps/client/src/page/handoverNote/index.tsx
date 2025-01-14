@@ -3,17 +3,16 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } fr
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
-import { NoteDetailType } from '@/page/handover/note/type/note';
-import { formattingDateWithBar } from '@/page/handover/note/util/date';
+import NoteDetail from '@/page/handoverNote/component/NoteDetail/NoteDetail';
+import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
+import { NoteDetailType } from '@/page/handoverNote/type/note';
+import { formattingDateWithBar } from '@/page/handoverNote/util/date';
 
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
-import { noteSectionStyle, tabButtonStyle } from './NotePage.style';
-
-const NotePage = () => {
+const HandoverNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const navigate = useNavigate();
@@ -30,12 +29,12 @@ const NotePage = () => {
   });
 
   const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
-    title: noteData?.title || '',
-    author: noteData?.author || '',
-    complete: noteData?.complete || false,
-    timeBlockList: noteData?.timeBlockList || [],
-    startDate: noteData?.startDate || formattingDateWithBar(new Date()),
-    endDate: noteData?.endDate || formattingDateWithBar(new Date()),
+    title: noteData?.data?.title || '',
+    author: noteData?.data?.author || '',
+    complete: noteData?.data?.complete || false,
+    timeBlockList: noteData?.data?.timeBlockList || [],
+    startDate: noteData?.data?.startDate || formattingDateWithBar(new Date()),
+    endDate: noteData?.data?.endDate || formattingDateWithBar(new Date()),
   });
 
   const [templateData] = useState({
@@ -43,7 +42,7 @@ const NotePage = () => {
     answerHowToPrepare: '',
     answerWhatIsDisappointedThing: '',
     answerHowToFix: '',
-    documentList: noteData?.documentList || [],
+    documentList: noteData?.data?.documentList || [],
   });
 
   const [customData] = useState({
@@ -61,7 +60,7 @@ const NotePage = () => {
       return;
     }
 
-    if (noteData.noteType === 'TEMPLATE') {
+    if (noteData.data?.noteType === 'TEMPLATE') {
       templateMutation(
         {
           body: {
@@ -73,7 +72,7 @@ const NotePage = () => {
             answerHowToPrepare: templateData.answerHowToPrepare,
             answerWhatIsDisappointedThing: templateData.answerWhatIsDisappointedThing,
             answerHowToFix: templateData.answerHowToFix,
-            timeBlockIds: noteData.timeBlockList?.map((item) => item.id!),
+            timeBlockIds: noteData.data?.timeBlockList?.map((item) => item.id!),
             documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
@@ -85,7 +84,7 @@ const NotePage = () => {
       );
     }
 
-    if (noteData.noteType === 'FREE') {
+    if (noteData.data?.noteType === 'FREE') {
       customMutation(
         {
           body: {
@@ -94,7 +93,7 @@ const NotePage = () => {
             startDate: noteDetail.startDate,
             endDate: noteDetail.endDate,
             contents: customData.contents,
-            timeBlockIds: noteData.timeBlockList?.map((item) => item.id!),
+            timeBlockIds: noteData.data?.timeBlockList?.map((item) => item.id!),
             documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
@@ -132,4 +131,4 @@ const NotePage = () => {
   );
 };
 
-export default NotePage;
+export default HandoverNotePage;
