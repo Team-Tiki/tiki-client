@@ -59,12 +59,6 @@ const FileGrid = ({
     return y + 118 + 20 < document.documentElement.clientHeight - 48;
   };
 
-  const handleDownloadClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    downloadDocument(url, name);
-
-    e.stopPropagation();
-  };
-
   return (
     <article css={cardStyle(variant !== 'primary')}>
       {isSelectable && (
@@ -90,8 +84,8 @@ const FileGrid = ({
                 <MenuItem
                   css={optionTextStyle}
                   LeftIcon={OPTION_ICON.download}
-                  onSelect={(e) => {
-                    handleDownloadClick(e);
+                  onSelect={() => {
+                    downloadDocument(url, name);
                   }}>
                   파일 다운로드
                 </MenuItem>

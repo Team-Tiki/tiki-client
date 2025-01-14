@@ -2,8 +2,6 @@ import { IcThreeDots } from '@tiki/icon';
 import { CheckBox, Flex, MenuItem, MenuList, MenuRoot, Text } from '@tiki/ui';
 import { useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { MouseEvent } from 'react';
-
 import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
 
 import { components } from '@/shared/__generated__/schema';
@@ -45,12 +43,6 @@ const FileListItem = ({
     return y + 118 + 20 < document.documentElement.clientHeight - 48;
   };
 
-  const handleDownloadClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    downloadDocument(url, name);
-
-    e.stopPropagation();
-  };
-
   return (
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
@@ -77,7 +69,12 @@ const FileListItem = ({
             />
           </div>
           <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-            <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={(e) => handleDownloadClick(e)}>
+            <MenuItem
+              css={optionTextStyle}
+              LeftIcon={OPTION_ICON.download}
+              onSelect={() => {
+                downloadDocument(url, name);
+              }}>
               파일 다운로드
             </MenuItem>
             <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => onDelete(documentId)}>
