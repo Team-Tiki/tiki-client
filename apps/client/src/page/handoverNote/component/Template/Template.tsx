@@ -1,14 +1,14 @@
 import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
-import File from '@/page/handover/note/component/File/File';
+import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
   guideStyle,
   layoutStyle,
   noteWrapperStyle,
-} from '@/page/handover/note/component/Template/Template.style';
-import { TEMPLATE } from '@/page/handover/note/constants/template';
-import useFile from '@/page/handover/note/hooks/useFile';
+} from '@/page/handoverNote/component/Template/Template.style';
+import { TEMPLATE } from '@/page/handoverNote/constants/template';
+import useFile from '@/page/handoverNote/hooks/useFile';
 
 const Template = () => {
   // const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
