@@ -19,7 +19,7 @@ export const getVisibleTags = (tags: ListTag[], maxWidth: number, tagGap: number
 
     //현재 태그까지 추가 후 너비 초과 검사
     if (totalWidth + tagWidth * 2 + tagGap > maxWidth) {
-      if (tag.id == 0) {
+      if (tag.id === 0) {
         visibleTags.push(tag);
       }
       break;

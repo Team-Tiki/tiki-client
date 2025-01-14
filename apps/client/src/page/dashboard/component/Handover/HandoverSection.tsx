@@ -2,8 +2,9 @@ import { Flex, Spinner } from '@tiki/ui';
 
 import { listItemStyle } from '@/page/dashboard/component/Handover/HandoverSection.style';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
-import { useCurrentDate } from '@/page/dashboard/component/Handover/hook/useCurrentDate';
 import { useNoteData } from '@/page/handover/hook/api/queries';
+
+import { useCurrentDate } from '@/shared/hook/common/useCurrentDate';
 
 const HandoverSection = () => {
   const createdAt = useCurrentDate();
