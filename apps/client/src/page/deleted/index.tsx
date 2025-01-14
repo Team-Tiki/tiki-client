@@ -45,18 +45,12 @@ const DeletedPage = () => {
       createToast(`삭제가 완료되었습니다.`, 'success');
       refetch();
     },
-    onError: (error) => {
-      createToast(`${error.message}`, 'error');
-    },
   });
 
   const restoreMutation = $api.useMutation('post', '/api/v1/teams/{teamId}/trash', {
     onSuccess: () => {
       createToast(`복구가 완료되었습니다.`, 'success');
       refetch();
-    },
-    onError: (error) => {
-      createToast(`${error.message}`, 'error');
     },
   });
 
@@ -72,6 +66,7 @@ const DeletedPage = () => {
           });
 
           handleReset();
+          closeModal();
         } catch (error) {
           createToast('영구 삭제 도중 오류가 발생했습니다.', 'error');
         }

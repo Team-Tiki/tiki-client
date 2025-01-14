@@ -61,7 +61,7 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
           documents: updatedFiles.map((file) => ({
             fileName: file.name,
             fileUrl: '',
-            fileKey: '',
+            fileKey: file.name,
             capacity: convertToKB(file.size),
           })),
         },
