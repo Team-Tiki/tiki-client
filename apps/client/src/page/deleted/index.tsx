@@ -45,12 +45,18 @@ const DeletedPage = () => {
       createToast(`삭제가 완료되었습니다.`, 'success');
       refetch();
     },
+    onError: (error) => {
+      createToast(`${error.message}`, 'error');
+    },
   });
 
   const restoreMutation = $api.useMutation('post', '/api/v1/teams/{teamId}/trash', {
     onSuccess: () => {
       createToast(`복구가 완료되었습니다.`, 'success');
       refetch();
+    },
+    onError: (error) => {
+      createToast(`${error.message}`, 'error');
     },
   });
 
@@ -68,30 +74,19 @@ const DeletedPage = () => {
           handleReset();
           closeModal();
         } catch (error) {
-          createToast('영구 삭제 도중 오류가 발생했습니다.', 'error');
+          console.error(error);
         }
       },
     });
   };
 
   const handleRestore = () => {
-    openModal('caution', {
-      infoText: CAUTION.RESTORE_FILE.INFO_TEXT,
-      content: CAUTION.RESTORE_FILE.CONTENT,
-      footerType: 'caution-modify',
-      onClick: () => {
-        try {
-          restoreMutation.mutate({
-            params: { path: { teamId }, query: { documentId: ids } },
-          });
-
-          handleReset();
-          closeModal();
-        } catch (error) {
-          createToast('파일 복구 도중 오류가 발생했습니다.', 'error');
-        }
-      },
+    restoreMutation.mutate({
+      params: { path: { teamId }, query: { documentId: ids } },
     });
+
+    handleReset();
+    closeModal();
   };
 
   const handleDeleteEntireFiles = () => {
@@ -111,7 +106,7 @@ const DeletedPage = () => {
           handleReset();
           closeModal();
         } catch (error) {
-          createToast('휴지통 비우기 도중 오류가 발생했습니다.', 'error');
+          console.error(error);
         }
       },
     });
