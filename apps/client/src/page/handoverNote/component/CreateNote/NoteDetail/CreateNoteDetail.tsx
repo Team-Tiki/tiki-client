@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IcPlusButton } from '@tiki/icon';
+import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -87,11 +87,14 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
       />
 
       <ul css={infoContainerStyle}>
-        <li css={infoLayoutStyle}>
+        <li css={[infoLayoutStyle, { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>
             작성자
           </label>
-          <Text tag="body6">{memberData?.data?.name}</Text>
+          <Flex styles={{ align: 'center', gap: '0.4rem' }}>
+            <IcAvatar width={22} height={22} />
+            <Text tag="body6">{memberData?.data?.name}</Text>
+          </Flex>
         </li>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>

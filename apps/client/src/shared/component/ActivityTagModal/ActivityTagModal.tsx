@@ -44,7 +44,7 @@ const ActivityTagModal = () => {
 
   const [activityTags] = useState<ActivityTag[]>(data.data?.tImeBlockTaggingResponses || []);
   const [inputValue, setInputValue] = useState('');
-  const [selectedTags, setSelectedTags] = useState<ActivityTag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<ActivityTag[]>(modalData.selectedTags || []);
 
   const closeModal = useCloseModal();
 

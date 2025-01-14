@@ -24,6 +24,7 @@ interface ModalState {
     // File Modal
     onUpload?: () => void;
     // Tag Modal
+    selectedTags?: ActivityTag[];
     onConfirm?: (tags: ActivityTag[]) => void;
   } | null;
   actions: {

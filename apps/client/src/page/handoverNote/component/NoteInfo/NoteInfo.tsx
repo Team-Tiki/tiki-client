@@ -1,4 +1,4 @@
-import { IcPlusButton } from '@tiki/icon';
+import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { SetStateAction, useCallback } from 'react';
@@ -44,6 +44,13 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
 
   const handleAppendTag = () => {
     openModal('activity-tag', {
+      selectedTags: info.timeBlockList?.map((tag) => ({
+        timeBlockId: tag.id,
+        name: tag.name,
+        color: tag.color,
+        type: 'MEETING',
+        startDate: '',
+      })),
       onConfirm: (tags: ActivityTag[]) => {
         setInfo((prev) => ({
           ...prev,
@@ -51,6 +58,8 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
             id: tag.timeBlockId,
             name: tag.name,
             color: tag.color,
+            type: tag.type,
+            startDate: tag.startDate,
           })),
         }));
       },
@@ -66,10 +75,15 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
       />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle}>
-          <Text tag="body6" css={infoStyle}>
-            작성자
-          </Text>
-          <Text tag="body6">{info?.author}</Text>
+          <Flex styles={{ justify: 'center', align: 'center', gap: '2rem' }}>
+            <Text tag="body6" css={infoStyle}>
+              작성자
+            </Text>
+            <Flex styles={{ align: 'center', gap: '0.4rem' }}>
+              <IcAvatar width={22} height={22} />
+              <Text tag="body6">{info?.author}</Text>
+            </Flex>
+          </Flex>
         </li>
 
         <li css={infoLayoutStyle}>
