@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import BlockInfoModal from '@/page/archiving/index/component/TimeBlockModal/component/BlockInfoModal/BlockInfoModal';
-import CategoryModal from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/CategoryModal';
-import SelectedFileModal from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal';
-import UploadModal from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal';
-
 import { components } from '@/shared/__generated__/schema';
+import BlockInfoModal from '@/shared/component/TimeBlockModal/component/BlockInfoModal/BlockInfoModal';
+import CategoryModal from '@/shared/component/TimeBlockModal/component/CategoryModal/CategoryModal';
+import SelectedFileModal from '@/shared/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal';
+import UploadModal from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { FunnelStep } from '@/shared/util/funnelStep';
 

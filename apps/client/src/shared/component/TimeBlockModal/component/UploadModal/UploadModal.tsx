@@ -2,13 +2,12 @@ import { Flex } from '@tiki/ui';
 
 import { useState } from 'react';
 
-import AppendFile from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile';
-import BrowseFile from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/BrowseFile';
-import { flexStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal.style';
-
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
+import AppendFile from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile';
+import BrowseFile from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/BrowseFile';
+import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';

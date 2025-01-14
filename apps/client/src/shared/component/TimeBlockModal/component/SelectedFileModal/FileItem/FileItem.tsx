@@ -1,7 +1,7 @@
 import { IcFileItem } from '@tiki/icon';
 import { Text } from '@tiki/ui';
 
-import { fileItemWrapperStyle } from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem.style';
+import { fileItemWrapperStyle } from '@/shared/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem.style';
 
 interface FileItemProps {
   fileName: string;

@@ -3,11 +3,11 @@ import { DatePicker, Flex, Input } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
-import BlockBox from '@/page/archiving/index/component/TimeBlockModal/component/Box/BlockBox';
-import { useBlockName } from '@/page/archiving/index/component/TimeBlockModal/hook/common/useBlockName';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { Modal } from '@/shared/component/Modal';
+import BlockBox from '@/shared/component/TimeBlockModal/component/Box/BlockBox';
+import { useBlockName } from '@/shared/component/TimeBlockModal/hook/common/useBlockName';
 import { SUPPORTING_TEXT } from '@/shared/constant/form';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';

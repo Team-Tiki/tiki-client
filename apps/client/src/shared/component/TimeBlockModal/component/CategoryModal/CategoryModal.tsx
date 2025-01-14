@@ -2,12 +2,11 @@ import { Flex } from '@tiki/ui';
 
 import { useState } from 'react';
 
-import CategoryItem from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/Category/Category';
-import { BLOCK_CATEGORY } from '@/page/archiving/index/component/TimeBlockModal/constant/category';
-import { BlockColor } from '@/page/archiving/index/component/TimeBlockModal/type/block';
-import { colorToHex } from '@/page/archiving/index/component/TimeBlockModal/util/color';
-
 import { Modal } from '@/shared/component/Modal';
+import CategoryItem from '@/shared/component/TimeBlockModal/component/CategoryModal/Category/Category';
+import { BLOCK_CATEGORY } from '@/shared/component/TimeBlockModal/constant/category';
+import { BlockColor } from '@/shared/component/TimeBlockModal/type/block';
+import { colorToHex } from '@/shared/component/TimeBlockModal/util/color';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
