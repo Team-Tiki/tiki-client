@@ -1,43 +1,84 @@
 import { LogoTikiSm } from '@tiki/icon';
-import { Button, Flex, Heading, Text, theme } from '@tiki/ui';
+import { Button, Flex, Heading, Text, theme, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { useInvitationInfo } from '@/page/invite/hook/queries';
+import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
+import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
 import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
 import { InvitationType } from '@/page/invite/type';
 
+import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import { useIsLoggedIn } from '@/shared/store/auth';
 
 const InvitedPage = () => {
-  //로그인되었으면(<-이게 확인이 안되긴해) 저걸로 바뀌는겨
-  const isLogined = true;
-  const isExpired = false;
+  const isLogined = !!localStorage.getItem(ACCESS_TOKEN_KEY);
+
+  const { createToast } = useToastAction();
 
   const [invitationInfo, setInvitationInfo] = useState<InvitationType>();
+  const [teamId, setTeamId] = useState<number>(0);
 
   const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams();
-  const invitationId = searchParams.get('invitationId') || '';
-
-  const { data } = useInvitationInfo(+invitationId);
+  const { data, invitationId } = useInvitationInfo();
+  const { mutate: approveMutate } = useApproveInvitation();
+  const { mutate: denyMutate } = useDenyInvitation();
 
   useEffect(() => {
+    if (isLogined && invitationInfo?.teamId) {
+      navigate(`${PATH.INVITE}/${invitationInfo?.teamId}`);
+      setTeamId(invitationInfo?.teamId);
+    }
     if (data) {
       setInvitationInfo(data?.data);
-      localStorage.setItem('INVITATION_ID', invitationId);
     }
-  }, [data, invitationId]);
+  }, [createToast, data, invitationInfo?.teamId, isLogined, navigate]);
 
-  useEffect(() => {
-    if (isLogined) {
-      //로그인이 되었으면 경로이동..
-      navigate(PATH.INVITE_IN); //이상하다
-    }
-  });
+  const handleApproveInvitation = () => {
+    approveMutate(
+      {
+        params: {
+          query: {
+            teamId,
+            teamInvitationId: +invitationId,
+          },
+        },
+      },
+      {
+        onSuccess: () => {
+          localStorage.setItem('teamId', `${teamId}`);
+          navigate(PATH.DASHBOARD);
+        },
+        onError: (error) => {
+          createToast(error, 'error');
+          navigate(PATH.ONBOARDING);
+        },
+      }
+    );
+  };
+
+  const handleDenyInvitation = () => {
+    denyMutate(
+      {
+        params: {
+          query: {
+            invitationId: +invitationId,
+          },
+        },
+      },
+      {
+        onSuccess: () => {
+          navigate(PATH.ONBOARDING);
+        },
+        onError: (error) => {
+          createToast(error, 'error');
+          navigate(PATH.ONBOARDING);
+        },
+      }
+    );
+  };
 
   return (
     <Flex styles={{ justify: 'center', paddingTop: `${isLogined ? '14rem' : '20rem'}` }}>
@@ -60,18 +101,19 @@ const InvitedPage = () => {
         </Flex>
         {isLogined ? (
           <Flex css={{ '&, &>*': { width: '100%' }, gap: '0.4rem' }}>
-            <Button size="xLarge" variant="secondary">
+            <Button size="xLarge" variant="secondary" onClick={handleApproveInvitation}>
               초대 수락
             </Button>
             <Button
               size="xLarge"
-              css={{ color: theme.colors.sementic_red, backgroundColor: theme.colors.sementic_red_10 }}>
+              css={{ color: theme.colors.sementic_red, backgroundColor: theme.colors.sementic_red_10 }}
+              onClick={handleDenyInvitation}>
               거절하기
             </Button>
           </Flex>
         ) : (
-          <Button size="xLarge" disabled={isExpired} css={{ width: '100%' }}>
-            {isExpired ? '초대가 만료되었습니다.' : '로그인하고 초대수락하기'}
+          <Button size="xLarge" css={{ width: '100%' }}>
+            로그인하고 초대수락하기
           </Button>
         )}
       </Flex>
