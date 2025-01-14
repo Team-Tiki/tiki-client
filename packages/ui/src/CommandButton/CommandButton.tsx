@@ -24,30 +24,34 @@ const CommandButton = ({
   onClick,
   ...props
 }: CommandButtonProps) => {
-  const isMacOS = /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // OS 판별
+  const isMacOS = /Mac|iPhone|iPad/i.test(navigator.userAgent);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     const isCmdPressed = isMacOS ? e.metaKey : e.ctrlKey;
 
     if (isCommand && isCmdPressed && e.key.toLowerCase() === commandKey.toLowerCase()) {
       e.preventDefault();
+
       onClick?.(e);
     }
   };
 
+  // 전역으로 이벤트 감지
   useEffect(() => {
-    const globalKeyDownHandler = (e: KeyboardEvent) => {
+    const keyDownHandler = (e: KeyboardEvent) => {
       const isCmdPressed = isMacOS ? e.metaKey : e.ctrlKey;
 
       if (isCommand && isCmdPressed && e.key.toLowerCase() === commandKey.toLowerCase()) {
         e.preventDefault();
+
         onClick?.(e as unknown as SyntheticEvent);
       }
     };
 
-    window.addEventListener("keydown", globalKeyDownHandler);
+    window.addEventListener("keydown", keyDownHandler);
 
-    return () => window.removeEventListener("keydown", globalKeyDownHandler);
+    return () => window.removeEventListener("keydown", keyDownHandler);
   }, [commandKey, isCommand, onClick]);
 
   return (
