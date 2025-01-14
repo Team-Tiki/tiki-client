@@ -9,7 +9,6 @@ import {
   noteWrapperStyle,
   textareaStyle,
 } from '@/page/handoverNote/component/Custom/Custom.style';
-import File from '@/page/handoverNote/component/File/File';
 import useFile from '@/page/handoverNote/hooks/useFile';
 import { CustomNote } from '@/page/handoverNote/type/note';
 
@@ -20,7 +19,7 @@ interface CustomProps {
 }
 
 const CreateCustomNote = ({ setData }: CustomProps) => {
-  const { files, handleFileChange } = useFile();
+  const { handleFileChange } = useFile();
 
   const handleFileUpload = () => {
     const fileInput = document.getElementById('file') as HTMLInputElement;
@@ -35,7 +34,7 @@ const CreateCustomNote = ({ setData }: CustomProps) => {
   };
 
   return (
-    <form css={[noteWrapperStyle, scrollStyle]}>
+    <div css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
         <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} onChange={handleTextareaChange} />
       </div>
@@ -45,15 +44,15 @@ const CreateCustomNote = ({ setData }: CustomProps) => {
         </Label>
         <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
         <div css={fileBoxStyle}>
-          {files.map((file) => (
+          {/* {files.map((file) => (
             <File key={file.name} file={file} />
-          ))}
+          ))} */}
         </div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 
