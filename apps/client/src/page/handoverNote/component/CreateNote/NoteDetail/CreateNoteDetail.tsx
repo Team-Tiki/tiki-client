@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { IcPlusButton } from '@tiki/icon';
-import { Button, DatePicker, Flex, RadioGroup, Text } from '@tiki/ui';
+import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { useCallback, useEffect, useState } from 'react';
 
@@ -16,6 +16,7 @@ import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
+import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
@@ -43,7 +44,18 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const openModal = useOpenModal();
 
   const handleAppendTag = () => {
-    openModal('activity-tag');
+    openModal('activity-tag', {
+      onConfirm: (tags: ActivityTag[]) => {
+        setDetail((prev) => ({
+          ...prev,
+          timeBlockList: tags.map((tag) => ({
+            id: tag.timeBlockId,
+            name: tag.name,
+            color: tag.color,
+          })),
+        }));
+      },
+    });
   };
 
   const handleChangeStatus = useCallback(
@@ -102,6 +114,11 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
               <IcPlusButton width={10} height={10} />
             </Button>
+            {detail?.timeBlockList?.map((tag) => (
+              <Tag key={tag.id} bgColor={tag.color}>
+                {tag.name}
+              </Tag>
+            ))}
           </Flex>
         </li>
         <li css={infoLayoutStyle}>

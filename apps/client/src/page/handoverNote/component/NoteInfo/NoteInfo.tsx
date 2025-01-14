@@ -13,12 +13,17 @@ import {
 } from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
 import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
 
+import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
+import { useOpenModal } from '@/shared/store/modal';
+
 interface NoteDetailProp {
   info: CreateNoteInfoType;
   setInfo: React.Dispatch<SetStateAction<CreateNoteInfoType>>;
 }
 
 const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
+  const openModal = useOpenModal();
+
   const handleChangeStatus = useCallback(
     (value: string) => {
       setInfo((prev) => ({
@@ -38,7 +43,18 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
   };
 
   const handleAppendTag = () => {
-    /** 모달 호출 */
+    openModal('activity-tag', {
+      onConfirm: (tags: ActivityTag[]) => {
+        setInfo((prev) => ({
+          ...prev,
+          timeBlockList: tags.map((tag) => ({
+            id: tag.timeBlockId,
+            name: tag.name,
+            color: tag.color,
+          })),
+        }));
+      },
+    });
   };
 
   return (
@@ -79,7 +95,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
               <IcPlusButton width={10} height={10} />
             </Button>
             {info?.timeBlockList?.map((tag) => (
-              <Tag key={tag.id} color={tag.color}>
+              <Tag key={tag.id} bgColor={tag.color}>
                 {tag.name}
               </Tag>
             ))}

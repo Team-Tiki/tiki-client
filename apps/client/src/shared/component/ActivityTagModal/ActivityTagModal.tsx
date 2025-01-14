@@ -17,10 +17,10 @@ import {
 import { Modal } from '@/shared/component/Modal';
 import { TAG } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useCloseModal } from '@/shared/store/modal';
+import { useCloseModal, useModalData } from '@/shared/store/modal';
 import { formatDateToDots } from '@/shared/util/date';
 
-type ActivityTag = {
+export type ActivityTag = {
   timeBlockId: number;
   name: string;
   type: 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';
@@ -28,13 +28,18 @@ type ActivityTag = {
   startDate: string;
 };
 
+interface ActivityTagModalData {
+  selectedTags?: ActivityTag[];
+  onConfirm?: (tags: ActivityTag[]) => void;
+}
+
 const ActivityTagModal = () => {
+  const modalData = useModalData() as ActivityTagModalData; // ✅ 타입 단언
+
   const teamId = useInitializeTeamId();
 
   const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
-    params: {
-      path: { teamId },
-    },
+    params: { path: { teamId } },
   });
 
   const [activityTags] = useState<ActivityTag[]>(data.data?.tImeBlockTaggingResponses || []);
@@ -68,6 +73,12 @@ const ActivityTagModal = () => {
     }
 
     close();
+  };
+
+  const handleComplete = () => {
+    modalData.onConfirm?.(selectedTags);
+
+    closeModal();
   };
 
   return (
@@ -127,7 +138,7 @@ const ActivityTagModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="activity-tag" buttonClick={closeModal} closeModal={closeModal} />
+      <Modal.Footer contentType="activity-tag" buttonClick={handleComplete} closeModal={closeModal} />
     </>
   );
 };

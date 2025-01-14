@@ -1,5 +1,13 @@
 import { create } from 'zustand';
 
+import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
+
+export type Tag = {
+  id: number;
+  name: string;
+  color: string;
+};
+
 interface ModalState {
   isOpen: boolean;
   contentType: ModalContentType | null;
@@ -15,6 +23,8 @@ interface ModalState {
     onClose?: () => void;
     // File Modal
     onUpload?: () => void;
+    // Tag Modal
+    onConfirm?: (tags: ActivityTag[]) => void;
   } | null;
   actions: {
     openModal: (contentType: ModalContentType, data?: ModalState['modalData']) => void;
@@ -35,7 +45,12 @@ interface FileModalData {
   onUpload: () => void;
 }
 
-type ModalData = CautionModalData | FileModalData;
+interface ActivityTagModalData {
+  selectedTags?: ActivityTag[];
+  onConfirm?: (tags: ActivityTag[]) => void;
+}
+
+type ModalData = CautionModalData | FileModalData | ActivityTagModalData;
 
 type ModalContentType =
   | 'create-workspace'
@@ -46,15 +61,6 @@ type ModalContentType =
   | 'activity-tag'
   | 'file'
   | 'caution';
-
-interface CautionModalData {
-  infoText?: string;
-  content?: string;
-  desc?: string;
-  footerType?: 'caution' | 'caution-modify';
-  onClick?: () => void;
-  onClose?: () => void;
-}
 
 const useModalStore = create<ModalState>((set) => ({
   isOpen: false,
