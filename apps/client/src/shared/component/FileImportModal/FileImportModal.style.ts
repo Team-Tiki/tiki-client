@@ -16,7 +16,7 @@ export const overlayStyle = (isOpen: boolean) =>
     border: `1px solid ${theme.colors.gray_200}`,
     boxShadow: isOpen ? theme.shadow.shadow02 : 'none',
 
-    overflowY: 'auto',
+    overflowY: 'scroll',
     overscrollBehavior: 'contain',
   });
 

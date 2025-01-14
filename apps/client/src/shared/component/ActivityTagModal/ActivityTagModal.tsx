@@ -1,19 +1,33 @@
 import { IcSearch } from '@tiki/icon';
-import { Flex, Input, Text } from '@tiki/ui';
-import { useDebounce } from '@tiki/utils';
+import { DropdownItem, DropdownList, DropdownRoot, Flex, Input, scrollStyle } from '@tiki/ui';
+import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
 import { $api } from '@/shared/api/client';
 import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
-import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import {
+  emptyStyle,
+  fileListStyle,
+  itemStyle,
+  notFoundStyle,
+  overlayStyle,
+} from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
+import { FILE } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 import { formatDateToDots } from '@/shared/util/date';
 
+type ActivityTag = {
+  timeBlockId: number;
+  name: string;
+  type: 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';
+  color: string;
+  startDate: string;
+};
+
 const ActivityTagModal = () => {
-  const closeModal = useCloseModal();
   const teamId = useInitializeTeamId();
 
   const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
@@ -24,9 +38,15 @@ const ActivityTagModal = () => {
 
   const [activityTags, setActivityTags] = useState(data.data?.tImeBlockTaggingResponses || []);
   const [inputValue, setInputValue] = useState('');
+  const [selectedTags, setSelectedTags] = useState<ActivityTag[]>([]);
+
+  const closeModal = useCloseModal();
+
+  const { isOpen, open, close } = useOverlay();
+  const dropdownRef = useOutsideClick<HTMLDivElement>(close);
 
   const filterKeyword = useDebounce(inputValue, 500);
-  const filteredFiles = useMemo(
+  const filteredTags = useMemo(
     () => activityTags.filter((tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
     [activityTags, filterKeyword]
   );
@@ -35,8 +55,18 @@ const ActivityTagModal = () => {
     setInputValue(e.target.value);
   };
 
-  const handleDeleteActivityTag = (e: React.MouseEvent, id: number) => {
-    setActivityTags((prevTags) => prevTags.filter((tag) => tag.timeBlockId !== id));
+  const handleDelete = (timeblockId: number) => {
+    setSelectedTags((prev) => prev.filter((tag) => tag.timeBlockId !== timeblockId));
+  };
+
+  const handleSelect = (item: ActivityTag) => {
+    const isSelected = selectedTags.some((tag) => tag.timeBlockId === item.timeBlockId); // ✅ 올바른 비교
+
+    if (!isSelected) {
+      setSelectedTags((prev) => [...prev, item]);
+    }
+
+    close();
   };
 
   return (
@@ -46,32 +76,52 @@ const ActivityTagModal = () => {
         <Flex
           styles={{
             direction: 'column',
-            gap: '2rem',
             width: '100%',
             paddingTop: '2rem',
           }}>
           <Input
             placeholder="search"
             LeftIcon={<IcSearch width={12} height={12} />}
+            onFocus={open}
             value={inputValue}
             onChange={handleInputChange}
           />
-          <div css={scrollStyle}>
-            {activityTags.length > 0 ? (
-              filteredFiles?.map((data) => (
-                <ActivityTagItem
-                  key={data.timeBlockId}
-                  title={data.name}
-                  date={formatDateToDots(data.startDate)}
-                  tag={data.type}
-                  color={data.color}
-                  onDelete={(e) => handleDeleteActivityTag(e, data.timeBlockId)}
-                />
-              ))
+          <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
+            <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+              {filteredTags?.length === 0 ? (
+                <DropdownItem css={notFoundStyle}>{FILE.NOT_FOUND}</DropdownItem>
+              ) : (
+                filteredTags?.map((tag) => (
+                  <DropdownItem key={tag.timeBlockId} css={itemStyle} onSelect={() => handleSelect(tag)}>
+                    <ActivityTagItem
+                      key={tag.timeBlockId}
+                      title={tag.name}
+                      date={formatDateToDots(tag.startDate)}
+                      tag={tag.type}
+                      color={tag.color}
+                      onDelete={() => handleDelete(tag.timeBlockId)}
+                    />
+                  </DropdownItem>
+                ))
+              )}
+            </DropdownList>
+          </DropdownRoot>
+          <div css={{ marginTop: '2rem', width: '100%' }}>
+            {selectedTags.length === 0 ? (
+              <div css={emptyStyle}>{FILE.NO_CONNECTED_FILE}</div>
             ) : (
-              <Text tag="body8" css={textStyle}>
-                태그된 활동이 없습니다.
-              </Text>
+              selectedTags.map((tag) => (
+                <div css={[scrollStyle, fileListStyle]} key={tag.timeBlockId}>
+                  <ActivityTagItem
+                    key={tag.timeBlockId}
+                    title={tag.name}
+                    date={formatDateToDots(tag.startDate)}
+                    tag={tag.type}
+                    color={tag.color}
+                    onDelete={() => handleDelete(tag.timeBlockId)}
+                  />
+                </div>
+              ))
             )}
           </div>
         </Flex>
