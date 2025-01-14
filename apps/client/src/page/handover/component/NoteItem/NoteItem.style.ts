@@ -1,6 +1,14 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
+export const wrapperStyle = css({
+  display: 'flex',
+
+  alignItems: 'center',
+
+  cursor: 'pointer',
+});
+
 export const containerStyle = css({
   display: 'grid',
   gridTemplateColumns: '25.3% 51.7% 11.6% 11.4%',
