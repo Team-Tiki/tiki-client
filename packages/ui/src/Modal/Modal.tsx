@@ -16,7 +16,7 @@ const ModalWrapper = ({ isOpen, children, size = "medium", onClose }: ModalProps
         onClose?.();
       }
     },
-    [onClose],
+    [onClose]
   );
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const ModalWrapper = ({ isOpen, children, size = "medium", onClose }: ModalProps
           {children}
         </dialog>
       </>,
-      document.body,
+      document.body
     )
   );
 };

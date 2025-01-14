@@ -34,7 +34,7 @@ const InviteModal = ({ step }: { step: number }) => {
     <>
       <Modal.Header step={step} />
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '2rem', width: '100%' }}>
+        <Flex styles={{ direction: 'column', gap: '2rem', width: '100%', paddingTop: '2rem' }}>
           <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem', width: '100%' }}>
             <Input
               placeholder="초대할 팀원의 학교 웹메일"
