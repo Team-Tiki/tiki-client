@@ -4,9 +4,8 @@ import { useDebounce } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
-import ActivityTagItem from '@/page/handoverNote/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
-
 import { $api } from '@/shared/api/client';
+import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
 import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import { Modal } from '@/shared/component/Modal';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
