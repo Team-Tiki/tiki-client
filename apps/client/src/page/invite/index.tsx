@@ -1,36 +1,60 @@
 import { LogoTikiSm } from '@tiki/icon';
 import { Button, Flex, Heading, Text, theme } from '@tiki/ui';
 
-import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { useInvitationInfo } from '@/page/invite/hook/queries';
+import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
+import { InvitationType } from '@/page/invite/type';
+
+import { PATH } from '@/shared/constant/path';
 import { useIsLoggedIn } from '@/shared/store/auth';
 
-const InviteData = {
-  invitor: '김가온',
-  teamImg: '',
-  teamName: 'TIKI',
-};
-
 const InvitedPage = () => {
-  const isLogined = useIsLoggedIn();
+  //로그인되었으면(<-이게 확인이 안되긴해) 저걸로 바뀌는겨
+  const isLogined = true;
   const isExpired = false;
+
+  const [invitationInfo, setInvitationInfo] = useState<InvitationType>();
+
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const invitationId = searchParams.get('invitationId') || '';
+
+  const { data } = useInvitationInfo(+invitationId);
+
+  useEffect(() => {
+    if (data) {
+      setInvitationInfo(data?.data);
+      localStorage.setItem('INVITATION_ID', invitationId);
+    }
+  }, [data, invitationId]);
+
+  useEffect(() => {
+    if (isLogined) {
+      //로그인이 되었으면 경로이동..
+      navigate(PATH.INVITE_IN); //이상하다
+    }
+  });
 
   return (
     <Flex styles={{ justify: 'center', paddingTop: `${isLogined ? '14rem' : '20rem'}` }}>
       <Flex tag="section" styles={{ direction: 'column', gap: '6rem', width: '39rem' }}>
         <LogoTikiSm width={70} />
         <Flex css={inviteStyle}>
-          <Text tag="body4">{InviteData.invitor}님의 초대</Text>
+          <Text tag="body4">{invitationInfo?.sender}님의 초대</Text>
           <Flex styles={{ justify: 'center', align: 'center', gap: '0.4rem' }}>
-            {InviteData.teamImg ? (
-              <img src={InviteData.teamImg} alt="팀 프로필" css={{ width: '3.6rem' }} />
+            {invitationInfo?.teamIconUrl ? (
+              <img src={invitationInfo?.teamIconUrl} alt="팀 프로필" css={{ width: '3.6rem' }} />
             ) : (
               <Text tag="body6" css={firstSpellStyle}>
-                {InviteData.teamName[0]}
+                {invitationInfo?.teamName[0]}
               </Text>
             )}
             <Heading tag="H5" css={{ padding: '1.4rem 1rem' }}>
-              {InviteData.teamName} 워크스페이스
+              {invitationInfo?.teamName} 워크스페이스
             </Heading>
           </Flex>
         </Flex>
