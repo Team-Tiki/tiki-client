@@ -21,22 +21,24 @@ export const itemStyle = (isSelected: boolean) =>
     },
   });
 
-export const textStyle = css({
-  maxWidth: '50rem',
+export const textStyle = (size: 'small' | 'large') =>
+  css({
+    maxWidth: size === 'large' ? '50rem' : '18rem',
 
-  color: theme.colors.black,
+    color: theme.colors.black,
 
-  fontWeight: 400,
+    fontWeight: 400,
 
-  ...ellipsisStyle,
-});
+    ...ellipsisStyle,
+  });
 
 export const capacityStyle = css({
   color: theme.colors.gray_800,
 });
 
-export const borderStyle = css({
-  borderRadius: '8px',
+export const borderStyle = (size: 'small' | 'large') =>
+  css({
+    borderRadius: '8px',
 
-  width: '76.8rem',
-});
+    width: size === 'large' ? '76.8rem' : '33.6rem',
+  });
