@@ -86,7 +86,12 @@ const FileGrid = ({
                 <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>
                   휴지통으로 이동
                 </MenuItem>
-                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
+                <MenuItem
+                  css={optionTextStyle}
+                  LeftIcon={OPTION_ICON.handover}
+                  onSelect={() => {
+                    alert('준비 중인 기능입니다.');
+                  }}>
                   인수인계 노트 보기
                 </MenuItem>
               </MenuList>
