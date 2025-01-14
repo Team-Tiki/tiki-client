@@ -77,6 +77,10 @@ export const CAUTION = {
     CONTENT: '휴지통을 비우시겠습니까?',
     DESC: '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다',
   },
+  RESTORE_FILE: {
+    INFO_TEXT: '파일 복구',
+    CONTENT: '파일을 복구하시겠습니까?',
+  },
 };
 
 export const FILE = {

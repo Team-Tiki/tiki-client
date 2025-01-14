@@ -7,7 +7,9 @@ import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
+import { CAUTION } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
@@ -21,6 +23,9 @@ interface FileData {
 const DeletedPage = () => {
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
+
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
 
   const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
@@ -56,31 +61,42 @@ const DeletedPage = () => {
   });
 
   const handleDelete = (docs?: number[]) => {
-    deleteMutation.mutate({
-      params: {
-        path: {
-          teamId,
-        },
-        query: {
-          documentId: docs ? docs : ids,
-        },
+    openModal('caution', {
+      infoText: CAUTION.DELETE_FILE.INFO_TEXT,
+      content: CAUTION.DELETE_FILE.CONTENT,
+      desc: CAUTION.DELETE_FILE.DESC,
+      onClick: () => {
+        try {
+          deleteMutation.mutate({
+            params: { path: { teamId }, query: { documentId: docs ? docs : ids } },
+          });
+
+          handleReset();
+        } catch (error) {
+          createToast('영구 삭제 도중 오류가 발생했습니다.', 'error');
+        }
       },
     });
-    handleReset();
   };
 
   const handleRestore = () => {
-    restoreMutation.mutate({
-      params: {
-        path: {
-          teamId,
-        },
-        query: {
-          documentId: ids,
-        },
+    openModal('caution', {
+      infoText: CAUTION.RESTORE_FILE.INFO_TEXT,
+      content: CAUTION.RESTORE_FILE.CONTENT,
+      footerType: 'caution-modify',
+      onClick: () => {
+        try {
+          restoreMutation.mutate({
+            params: { path: { teamId }, query: { documentId: ids } },
+          });
+
+          handleReset();
+          closeModal();
+        } catch (error) {
+          createToast('파일 복구 도중 오류가 발생했습니다.', 'error');
+        }
       },
     });
-    handleReset();
   };
 
   return (
