@@ -15,6 +15,7 @@ import {
   textStyle,
 } from '@/shared/component/FileGrid/index.style';
 import { File } from '@/shared/type/file';
+import { downloadDocument } from '@/shared/util/document';
 import { getFileVolume } from '@/shared/util/file';
 
 export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], 'documentId'> & {
@@ -29,7 +30,6 @@ export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], '
 
   /**
    * [TODO]
-   * onDownLoad
    * onShowNote
    */
 };
@@ -38,6 +38,7 @@ const FileGrid = ({
   name,
   capacity,
   type,
+  url,
   variant = 'primary',
   isSelectable = false,
   onSelect,
@@ -56,6 +57,12 @@ const FileGrid = ({
 
     /** y 위치 + 드롭다운 높이 + 드롭다운 transformY > 뷰포트 높이 - 뷰포트 패딩바텀 */
     return y + 118 + 20 < document.documentElement.clientHeight - 48;
+  };
+
+  const handleDownloadClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    downloadDocument(url, name);
+
+    e.stopPropagation();
   };
 
   return (
@@ -80,7 +87,12 @@ const FileGrid = ({
               </div>
 
               <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
+                <MenuItem
+                  css={optionTextStyle}
+                  LeftIcon={OPTION_ICON.download}
+                  onSelect={(e) => {
+                    handleDownloadClick(e);
+                  }}>
                   파일 다운로드
                 </MenuItem>
                 <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>
