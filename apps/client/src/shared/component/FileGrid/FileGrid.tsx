@@ -22,14 +22,14 @@ export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], '
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
   type: File;
   isSelectable?: boolean;
-  onSelect?: () => void;
   isSelected?: boolean;
+  onSelect?: () => void;
+  onDelete?: () => void;
   isDeleted?: boolean;
 
   /**
    * [TODO]
    * onDownLoad
-   * onDelete
    * onShowNote
    */
 };
@@ -43,6 +43,7 @@ const FileGrid = ({
   onSelect,
   isSelected = false,
   isDeleted = false,
+  onDelete = () => {},
 }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
@@ -82,10 +83,15 @@ const FileGrid = ({
                 <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
                   파일 다운로드
                 </MenuItem>
-                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => {}}>
+                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>
                   휴지통으로 이동
                 </MenuItem>
-                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.handover} onSelect={() => {}}>
+                <MenuItem
+                  css={optionTextStyle}
+                  LeftIcon={OPTION_ICON.handover}
+                  onSelect={() => {
+                    alert('준비 중인 기능입니다.');
+                  }}>
                   인수인계 노트 보기
                 </MenuItem>
               </MenuList>

@@ -1,12 +1,4 @@
-import {
-  IcActivityTag,
-  IcBlockCreate,
-  IcError,
-  IcInvite,
-  IcMemberTag,
-  IcWarning,
-  IcWorkspaceSuccess,
-} from '@tiki/icon';
+import { IcActivityTag, IcBlockCreate, IcInvite, IcMemberTag, IcWarning, IcWorkspaceSuccess } from '@tiki/icon';
 
 type ModalContentType =
   | 'create-workspace'
@@ -203,7 +195,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcError width={40} height={40} />,
+        icon: <IcWarning width={40} height={40} />,
         title: '주의!',
         infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
       },

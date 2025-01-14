@@ -3,25 +3,30 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot } fr
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import NoteDetail from '@/page/handover/note/component/NoteDetail/NoteDetail';
-import { useNoteDetailData } from '@/page/handover/note/hooks/api/queries';
-import { NoteDetailType } from '@/page/handover/note/type/note';
-import { formattingDateWithBar } from '@/page/handover/note/util/date';
+import NoteDetail from '@/page/handoverNote/component/NoteDetail/NoteDetail';
+import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
+import { NoteDetailType } from '@/page/handoverNote/type/note';
+import { formattingDateWithBar } from '@/page/handoverNote/util/date';
 
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
-import { noteSectionStyle, tabButtonStyle } from './NotePage.style';
-
-const NotePage = () => {
+const HandoverNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const navigate = useNavigate();
 
   const teamId = useInitializeTeamId();
 
-  const { data: noteData } = useNoteDetailData(30);
+  const { data: noteData } = $api.useQuery('get', '/api/v1/notes/{teamId}/{noteId}', {
+    params: {
+      path: {
+        teamId,
+        noteId: 30,
+      },
+    },
+  });
 
   const [noteDetail, setNoteDetail] = useState<NoteDetailType>({
     title: noteData?.data?.title || '',
@@ -126,4 +131,4 @@ const NotePage = () => {
   );
 };
 
-export default NotePage;
+export default HandoverNotePage;

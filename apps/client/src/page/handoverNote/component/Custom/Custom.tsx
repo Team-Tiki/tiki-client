@@ -6,9 +6,9 @@ import {
   layoutStyle,
   noteWrapperStyle,
   textareaStyle,
-} from '@/page/handover/note/component/Custom/Custom.style';
-import File from '@/page/handover/note/component/File/File';
-import useFile from '@/page/handover/note/hooks/useFile';
+} from '@/page/handoverNote/component/Custom/Custom.style';
+import File from '@/page/handoverNote/component/File/File';
+import useFile from '@/page/handoverNote/hooks/useFile';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
 
