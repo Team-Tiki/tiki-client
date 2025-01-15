@@ -48,7 +48,7 @@ const BlockInfoModal = () => {
     <>
       <Modal.Header />
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '2rem' }}>
+        <Flex styles={{ direction: 'column', gap: '2rem', paddingTop: '2rem' }}>
           <BlockBox title="이름" id="time-block-title">
             <Input
               id="time-block-title"

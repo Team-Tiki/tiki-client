@@ -41,6 +41,7 @@ export { default as IcDown } from "./src/IcDown";
 export { default as IcDownload } from "./src/IcDownload";
 export { default as IcError } from "./src/IcError";
 export { default as IcEtc } from "./src/IcEtc";
+export { default as IcEtcGray } from "./src/IcEtcGray";
 export { default as IcEvent } from "./src/IcEvent";
 export { default as IcEventCircle } from "./src/IcEventCircle";
 export { default as IcEventGray } from "./src/IcEventGray";

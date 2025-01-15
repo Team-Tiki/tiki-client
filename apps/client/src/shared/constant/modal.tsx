@@ -177,7 +177,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcActivityTag width={40} height={40} />,
+        icon: <IcActivityTag width={20} height={20} css={{ margin: '1rem' }} />,
         title: '활동 태그',
         infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
       },

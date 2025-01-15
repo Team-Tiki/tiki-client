@@ -1,15 +1,13 @@
 import { css } from '@emotion/react';
 import { scrollStyle } from '@tiki/ui';
 
-export const fileListWrapperStyle = css({
+export const tagListStyle = css({
   width: '100%',
-  maxHeight: '30rem',
+  maxHeight: '30.4rem',
 
-  paddingTop: '2rem',
+  marginTop: '2rem',
 
   overflowY: 'scroll',
-
-  scrollBehavior: 'smooth',
 
   ...scrollStyle,
 });
