@@ -52,6 +52,8 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             id: tag.timeBlockId,
             name: tag.name,
             color: tag.color,
+            blockType: tag.type,
+            startDate: tag.startDate,
           })),
         }));
       },
