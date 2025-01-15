@@ -11,7 +11,7 @@ export const cardStyle = (isSmall: boolean) =>
     maxWidth: '22rem',
 
     width: isSmall ? '16rem' : '100%',
-    height: isSmall ? '12.2rem' : '16rem',
+    height: isSmall ? '12rem' : '16rem',
 
     padding: isSmall ? '1.2rem' : '2.4rem 2rem',
 
@@ -25,7 +25,7 @@ export const iconWrapperStyle = (isSmall: boolean) =>
   css({
     width: '100%',
 
-    padding: isSmall ? '0 0 2rem' : '1.2rem 0 2rem 0',
+    padding: isSmall ? '0 0 1.8rem' : '1.2rem 0 2rem 0',
   });
 
 export const nameStyle = css({

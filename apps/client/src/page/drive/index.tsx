@@ -53,6 +53,7 @@ const DrivePage = () => {
       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
     },
   });
+
   const { mutate: deleteFolderMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/folders', {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });

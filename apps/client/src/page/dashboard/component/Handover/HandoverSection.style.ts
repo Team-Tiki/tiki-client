@@ -7,7 +7,6 @@ export const listItemStyle = css(
   {
     flexDirection: 'column',
     gap: '0.8rem',
-    padding: '0 0.4rem',
     height: '100%',
 
     overflowY: 'scroll',
