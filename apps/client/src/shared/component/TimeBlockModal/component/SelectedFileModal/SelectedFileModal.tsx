@@ -2,12 +2,11 @@ import { useToastAction } from '@tiki/ui';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
-import FileItem from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem';
-import { fileListWrapperStyle } from '@/page/archiving/index/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal.style';
-
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
+import { DocumentDetail } from '@/shared/component/TimeBlockModal';
+import FileItem from '@/shared/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem';
+import { fileListWrapperStyle } from '@/shared/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal.style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';

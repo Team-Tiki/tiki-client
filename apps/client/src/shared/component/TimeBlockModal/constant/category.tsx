@@ -2,7 +2,7 @@ import { IcEtc, IcEvent, IcMeeting, IcNotice, IcRecruiting, IcStudy } from '@tik
 
 import { ReactNode } from 'react';
 
-import { Category } from '@/page/archiving/index/component/TimeBlockModal/type/blockType';
+import { Category } from '@/shared/component/TimeBlockModal/type/blockType';
 
 type CategoryType = {
   name: string;

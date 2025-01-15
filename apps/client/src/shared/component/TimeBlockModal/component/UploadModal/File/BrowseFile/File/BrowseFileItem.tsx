@@ -3,13 +3,12 @@ import { Flex, Text, theme } from '@tiki/ui';
 
 import { KeyboardEvent } from 'react';
 
+import { components } from '@/shared/__generated__/schema';
 import {
   containerStyle,
   rightSideRowStyle,
   timeStyle,
-} from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem.style';
-
-import { components } from '@/shared/__generated__/schema';
+} from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem.style';
 import { getFormattedDate } from '@/shared/util/date';
 import { extractFileExtension, extractFileName } from '@/shared/util/file';
 

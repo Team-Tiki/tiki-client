@@ -4,11 +4,10 @@ import { useDebounce } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
-import BrowseFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem';
-import BrowseFileHeader from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/BrowseFile/FileHeader/BrowseFileHeader';
-import { scrollContainerStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/UploadModal.style';
-
 import { components } from '@/shared/__generated__/schema';
+import BrowseFileItem from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem';
+import BrowseFileHeader from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/FileHeader/BrowseFileHeader';
+import { scrollContainerStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 
 type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 

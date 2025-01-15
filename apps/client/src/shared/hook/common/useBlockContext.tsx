@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useCallback, useContext, useState } from 'react';
 
-import { TimeBlockData } from '@/page/archiving/index/component/TimeBlockModal/type/blockType';
+import { TimeBlockData } from '@/shared/component/TimeBlockModal/type/blockType';
 
 interface BlockContextType {
   formData: TimeBlockData;

@@ -2,8 +2,8 @@ import { Text } from '@tiki/ui';
 
 import { ButtonHTMLAttributes } from 'react';
 
-import { wrapperStyle } from '@/page/archiving/index/component/TimeBlockModal/component/CategoryModal/Category/Category.style';
-import { BlockColor } from '@/page/archiving/index/component/TimeBlockModal/type/block';
+import { wrapperStyle } from '@/shared/component/TimeBlockModal/component/CategoryModal/Category/Category.style';
+import { BlockColor } from '@/shared/component/TimeBlockModal/type/block';
 
 interface BlockCategoryProp extends ButtonHTMLAttributes<HTMLButtonElement> {
   categoryType: string;
