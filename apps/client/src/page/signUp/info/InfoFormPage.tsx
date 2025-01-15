@@ -1,4 +1,4 @@
-import { Button, DatePicker, Flex, Heading, Input } from '@tiki/ui';
+import { Button, DatePicker, Flex, Heading, Input, Label } from '@tiki/ui';
 
 import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
@@ -29,7 +29,10 @@ const InfoFormPage = () => {
             label="이름"
             placeholder={PLACEHOLDER.NAME}
           />
-          <DatePicker onChange={handleBirthChange} variant="single" triggerWidth="100%" />
+          <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
+            <Label id="">생년월일</Label>
+            <DatePicker onChange={handleBirthChange} variant="single" triggerWidth="100%" />
+          </Flex>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
               name="password"
