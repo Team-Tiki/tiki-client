@@ -1,5 +1,5 @@
 import { IcTeamProfileAdd, IcTeamProfileDelete } from '@tiki/icon';
-import { Label } from '@tiki/ui';
+import { Flex, Label } from '@tiki/ui';
 
 import { Modal } from '@/shared/component/Modal';
 import {
@@ -21,24 +21,26 @@ const WorkSpaceImage = () => {
     <>
       <Modal.Header step={3} totalSteps={4} />
       <Modal.Body>
-        <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
-          {fileURL ? (
-            <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
-          ) : (
-            <Label id="imgUploadInput" css={imageAddStyle}>
-              <IcTeamProfileAdd width={200} height={200} />
-            </Label>
-          )}
-          {fileURL && <IcTeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
-        </div>
-        <input
-          id="imgUploadInput"
-          css={{ display: 'none' }}
-          type="file"
-          accept="image/*"
-          ref={imgUploadInput}
-          onChange={handleImageChange}
-        />
+        <Flex styles={{ width: '100%', paddingTop: '2rem', justify: 'center' }}>
+          <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
+            {fileURL ? (
+              <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
+            ) : (
+              <Label id="imgUploadInput" css={imageAddStyle}>
+                <IcTeamProfileAdd width={200} height={200} />
+              </Label>
+            )}
+            {fileURL && <IcTeamProfileDelete css={imageDeleteStyle} onClick={handleImageRemove} />}
+          </div>
+          <input
+            id="imgUploadInput"
+            css={{ display: 'none' }}
+            type="file"
+            accept="image/*"
+            ref={imgUploadInput}
+            onChange={handleImageChange}
+          />
+        </Flex>
       </Modal.Body>
       <Modal.Footer
         step={3}

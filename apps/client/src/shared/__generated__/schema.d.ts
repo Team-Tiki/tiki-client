@@ -101,7 +101,11 @@ export interface paths {
         delete: operations["deleteTimeBlock"];
         options?: never;
         head?: never;
-        patch?: never;
+        /**
+         * 타임 블록 정보 수정
+         * @description 타임 블록 정보를 수정한다.
+         */
+        patch: operations["updateTimeBlock"];
         trace?: never;
     };
     "/api/v1/teams/{teamId}/folders": {
@@ -492,6 +496,26 @@ export interface paths {
          * @description 타임라인을 조회한다.
          */
         get: operations["getTimeline"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/teams/{teamId}/time-block/all": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 타임 블록 전체 조회
+         * @description 타임 블록을 전체 조회한다.
+         */
+        get: operations["getAllTimeBlock"];
         put?: never;
         post?: never;
         delete?: never;
@@ -993,6 +1017,13 @@ export interface components {
             message: string;
             data?: components["schemas"]["SignInGetResponse"];
         };
+        TimeBlockUpdateRequest: {
+            name: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+        };
         TeamInformUpdateRequest: {
             teamName: string;
             teamUrl: string;
@@ -1101,6 +1132,8 @@ export interface components {
             documentId: number;
             fileName: string;
             fileUrl: string;
+            /** Format: double */
+            capacity: number;
             /** Format: int64 */
             tagId: number;
         };
@@ -1117,6 +1150,24 @@ export interface components {
         TimeBlockDetailGetResponse: {
             documents: components["schemas"]["DocumentDetailGetResponse"][];
             notes: components["schemas"]["NoteNameGetResponse"][];
+        };
+        AllTimeBlockServiceResponse: {
+            tImeBlockTaggingResponses: components["schemas"]["TImeBlockTaggingResponse"][];
+        };
+        SuccessResponseAllTimeBlockServiceResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["AllTimeBlockServiceResponse"];
+        };
+        TImeBlockTaggingResponse: {
+            /** Format: int64 */
+            timeBlockId: number;
+            name: string;
+            /** @enum {string} */
+            type: "MEETING" | "RECRUITING" | "STUDY" | "EVENT" | "NOTICE" | "ETC";
+            color: string;
+            /** Format: date */
+            startDate: string;
         };
         SuccessResponseTeamInformGetResponse: {
             success: boolean;
@@ -1305,12 +1356,6 @@ export interface components {
             documentList: components["schemas"]["DocumentTagGetServiceResponse"][];
             timeBlockList: components["schemas"]["TimeBlockTagServiceResponse"][];
         };
-        TimeBlockTagServiceResponse: {
-            /** Format: int64 */
-            id: number;
-            name: string;
-            color: string;
-        };
         NoteTemplateDetailGetServiceResponse: {
             /** Format: int64 */
             noteId: number;
@@ -1329,6 +1374,22 @@ export interface components {
             answerHowToFix: string;
             documentList: components["schemas"]["DocumentTagGetServiceResponse"][];
             timeBlockList: components["schemas"]["TimeBlockTagServiceResponse"][];
+        };
+        SuccessNoteDetailResponse: {
+            success: boolean;
+            message: string;
+            /** @description 응답 데이터 */
+            data?: components["schemas"]["NoteFreeDetailGetServiceResponse"] | components["schemas"]["NoteTemplateDetailGetServiceResponse"];
+        };
+        TimeBlockTagServiceResponse: {
+            /** Format: int64 */
+            id: number;
+            name: string;
+            color: string;
+            /** @enum {string} */
+            blockType: "MEETING" | "RECRUITING" | "STUDY" | "EVENT" | "NOTICE" | "ETC";
+            /** Format: date */
+            startDate: string;
         };
         BelongTeamGetResponse: {
             /** Format: int64 */
@@ -1851,6 +1912,77 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원, 유효하지 않은 타임 블록 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateTimeBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+                /**
+                 * @description 타임 블록 id
+                 * @example 1
+                 */
+                timeBlockId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TimeBlockUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
             };
             /** @description 접근 권한 없음 */
             403: {
@@ -3175,6 +3307,68 @@ export interface operations {
             };
         };
     };
+    getAllTimeBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 팀 id
+                 * @example 1
+                 */
+                teamId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseAllTimeBlockServiceResponse"];
+                };
+            };
+            /** @description 접근 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 팀에 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     getDrive: {
         parameters: {
             query?: {
@@ -3443,17 +3637,17 @@ export interface operations {
     };
     getNote: {
         parameters: {
-            query: {
+            query?: {
                 /**
                  * @description 생성시간
                  * @example yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn
                  */
-                createdAt: string;
+                createdAt?: string;
                 /**
                  * @description 정렬 순서
                  * @example ASC, DESC
                  */
-                sortOrder: "ASC" | "DESC";
+                sortOrder?: "ASC" | "DESC";
             };
             header?: never;
             path: {
@@ -3621,7 +3815,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["NoteFreeDetailGetServiceResponse"] | components["schemas"]["NoteTemplateDetailGetServiceResponse"];
+                    "application/json": components["schemas"]["SuccessNoteDetailResponse"];
                 };
             };
             /** @description 접근 권한 없음(토큰 에러) */

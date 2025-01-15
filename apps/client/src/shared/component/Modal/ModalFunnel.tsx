@@ -7,6 +7,7 @@ import { BlockFlow } from '@/page/archiving/index/component/TimeBlockModal';
 import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
+import FileImportModal from '@/shared/component/FileImportModal/FileImportModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
@@ -24,11 +25,20 @@ import { FunnelStep } from '@/shared/util/funnelStep';
 
 const ModalFunnel = () => {
   const isOpen = useModalIsOpen();
+  const closeModal = useCloseModal();
 
   const contentType = useModalContentType();
   const modalData = useModalData();
 
-  const closeModal = useCloseModal();
+  if (!isOpen) return null;
+
+  if (contentType === 'deleted') {
+    return (
+      <Suspense>
+        <DeletedModal />
+      </Suspense>
+    );
+  }
 
   const renderContent = () => {
     switch (contentType) {
@@ -44,12 +54,6 @@ const ModalFunnel = () => {
             <BlockFlow />
           </BlockProvider>
         );
-      case 'deleted':
-        return (
-          <FunnelStep step={1}>
-            <DeletedModal />
-          </FunnelStep>
-        );
       case 'invite':
         return (
           <FunnelStep step={1}>
@@ -57,17 +61,11 @@ const ModalFunnel = () => {
           </FunnelStep>
         );
       case 'member-tag':
-        return (
-          <FunnelStep step={1}>
-            <MemberTagModal />
-          </FunnelStep>
-        );
+        return <MemberTagModal />;
       case 'activity-tag':
-        return (
-          <FunnelStep step={1}>
-            <ActivityTagModal />
-          </FunnelStep>
-        );
+        return <ActivityTagModal />;
+      case 'file':
+        return <FileImportModal />;
       case 'caution':
         if (isCautionModalData(modalData)) {
           return (
@@ -86,8 +84,6 @@ const ModalFunnel = () => {
         return null;
     }
   };
-
-  if (!isOpen) return null;
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>

@@ -2,7 +2,18 @@ import { ReactNode, createContext, useCallback, useContext, useState } from 'rea
 
 interface WorkSpaceFormData {
   name: string;
-  category: string;
+  category:
+    | '전체'
+    | '학술연구'
+    | '문화예술'
+    | '스포츠레저'
+    | '사회활동'
+    | '취미활동'
+    | '창업비즈니스'
+    | '과학기술'
+    | '종교'
+    | '국제교류'
+    | '네트워킹';
   fileUrlData: string;
 }
 
@@ -25,7 +36,7 @@ export const useWorkSpaceContext = () => {
 export const WorkSpaceProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormDataState] = useState<WorkSpaceFormData>({
     name: '',
-    category: '',
+    category: '전체',
     fileUrlData: '',
   });
 
@@ -36,7 +47,7 @@ export const WorkSpaceProvider = ({ children }: { children: ReactNode }) => {
   const resetFormData = useCallback(() => {
     setFormDataState({
       name: '',
-      category: '',
+      category: '전체',
       fileUrlData: '',
     });
   }, []);
