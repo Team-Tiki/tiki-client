@@ -8,6 +8,7 @@ export const containerStyle = css({
   alignItems: 'center',
 
   width: '100%',
+  minHeight: '10rem',
   padding: '1.6rem',
 
   backgroundColor: theme.colors.gray_100,
