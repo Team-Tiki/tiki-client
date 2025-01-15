@@ -4,7 +4,10 @@ import { useRef } from 'react';
 
 import { listItemStyle } from '@/page/dashboard/component/Handover/HandoverSection.style';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
+import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { useNoteData } from '@/page/handover/hook/api/queries';
+
+import { PATH } from '@/shared/constant/path';
 
 const HandoverSection = () => {
   const createdAt = useRef<string>(new Date().toISOString().slice(0, -1)).current;
@@ -13,6 +16,7 @@ const HandoverSection = () => {
 
   return (
     <Flex css={listItemStyle}>
+      {!data?.data?.noteGetResponseList[0] && <ItemAdder path={PATH.HANDOVER} />}
       {data?.data?.noteGetResponseList.map((note) => {
         return (
           <ListItem
