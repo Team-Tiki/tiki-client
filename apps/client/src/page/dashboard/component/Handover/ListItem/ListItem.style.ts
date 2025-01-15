@@ -5,6 +5,7 @@ import { alignColor } from '@/page/dashboard/util/color';
 
 export const containerStyle = css({
   flexDirection: 'column',
+  justifyContent: 'space-between',
   alignItems: 'center',
 
   width: '100%',
