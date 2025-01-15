@@ -2,14 +2,14 @@ import { Flex, scrollStyle } from '@tiki/ui';
 import { hasKeyInObject } from '@tiki/utils';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
-import { DocumentItem, FolderItem } from '@/page/drive/type';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
+import { DocumentItem, FolderItem } from '@/page/drive/type';
 
 import { $api } from '@/shared/api/client';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
@@ -30,6 +30,7 @@ const FileSection = () => {
 
   return (
     <Flex css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}>
+      {!allFileData[0] && <ItemAdder path={PATH.DRIVE} />}
       {allFileData.map((item) => {
         if (hasKeyInObject(item, 'documentId')) {
           const file = item as DocumentItem;
@@ -58,22 +59,8 @@ const FileSection = () => {
             />
           );
         }
-      {!FileData[0] && <ItemAdder path={PATH.DRIVE} />}
-      {FileData.map((file) => {
-        return (
-          <FileGrid
-            key={file.documentId}
-            variant="secondary"
-            name={file.name}
-            type={extractFileExtension(file.name) as File}
-            capacity={file.capacity}
-            createdTime={file.createdTime}
-            url={file.url}
-          />
-        );
       })}
     </Flex>
   );
 };
-
 export default FileSection;
