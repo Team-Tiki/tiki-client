@@ -16,7 +16,7 @@ const TermPage = () => {
 
   const navigate = useNavigate();
 
-  const handleNextStep = () => navigate(PATH.SIGNUP_UNIV);
+  const handleNextStep = () => navigate(`${PATH.SIGNUP_INFO}?step=1`);
 
   return (
     <Flex tag="main" css={pageStyle}>

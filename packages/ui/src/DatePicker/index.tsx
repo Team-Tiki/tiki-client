@@ -38,7 +38,7 @@ const DatePicker = ({
     toggle();
   };
   return (
-    <div ref={ref} css={containerStyle}>
+    <div ref={ref} css={containerStyle(triggerWidth)}>
       <DatePickerTrigger
         selectedDate={selectedDate || initialSelectedDate}
         endDate={endDate || initialEndDate}
