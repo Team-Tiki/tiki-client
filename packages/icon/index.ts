@@ -11,6 +11,7 @@ export { default as IcArrowDown } from "./src/IcArrowDown";
 export { default as IcArrowDownGray } from "./src/IcArrowDownGray";
 export { default as IcArrowDropDown } from "./src/IcArrowDropDown";
 export { default as IcArrowForward } from "./src/IcArrowForward";
+export { default as IcMainAdd } from "./src/IcMainAdd";
 
 export { default as IcArrowLeft } from "./src/IcArrowLeft";
 export { default as IcArrowLeftWhite } from "./src/IcArrowLeftWhite";

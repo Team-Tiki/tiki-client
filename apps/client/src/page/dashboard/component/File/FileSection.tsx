@@ -2,11 +2,13 @@ import { Flex, scrollStyle } from '@tiki/ui';
 import { hasKeyInObject } from '@tiki/utils';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
+import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { DocumentItem, FolderItem } from '@/page/drive/type';
 
 import { $api } from '@/shared/api/client';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
 import FolderGrid from '@/shared/component/FileGrid/FolderGrid';
+import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
@@ -28,6 +30,7 @@ const FileSection = () => {
 
   return (
     <Flex css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}>
+      {!allFileData[0] && <ItemAdder path={PATH.DRIVE} />}
       {allFileData.map((item) => {
         if (hasKeyInObject(item, 'documentId')) {
           const file = item as DocumentItem;
@@ -60,5 +63,4 @@ const FileSection = () => {
     </Flex>
   );
 };
-
 export default FileSection;

@@ -2,8 +2,10 @@ import { Flex, Spinner } from '@tiki/ui';
 
 import { listItemStyle } from '@/page/dashboard/component/Handover/HandoverSection.style';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
+import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { useNoteData } from '@/page/handover/hook/api/queries';
 
+import { PATH } from '@/shared/constant/path';
 import { useCurrentDate } from '@/shared/hook/common/useCurrentDate';
 
 const HandoverSection = () => {
@@ -12,6 +14,8 @@ const HandoverSection = () => {
 
   return (
     <Flex css={listItemStyle}>
+      {!data?.data?.noteGetResponseList[0] && <ItemAdder path={PATH.HANDOVER} />}
+
       {isFetching ? (
         <Spinner size={30} />
       ) : (
