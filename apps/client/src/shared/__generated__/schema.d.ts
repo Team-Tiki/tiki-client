@@ -1386,6 +1386,10 @@ export interface components {
             id: number;
             name: string;
             color: string;
+            /** @enum {string} */
+            blockType: "MEETING" | "RECRUITING" | "STUDY" | "EVENT" | "NOTICE" | "ETC";
+            /** Format: date */
+            startDate: string;
         };
         BelongTeamGetResponse: {
             /** Format: int64 */
