@@ -35,6 +35,15 @@ const Custom = ({ data, setData }: CustomProps) => {
     }));
   };
 
+  const handleDeleteFile = (e: React.MouseEvent, fileId: number) => {
+    e.stopPropagation();
+
+    setData?.((prev) => ({
+      ...prev,
+      documentList: prev?.documentList.filter((file) => file.id !== fileId),
+    }));
+  };
+
   const handleFileUpload = () => {
     openModal('file', {
       onUpload: (files: FileType[]) => {
@@ -63,7 +72,9 @@ const Custom = ({ data, setData }: CustomProps) => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <div css={fileBoxStyle}>{data?.documentList?.map((file) => <File key={file.id} file={file} />)}</div>
+        <div css={fileBoxStyle}>
+          {data?.documentList?.map((file) => <File key={file.id} file={file} onDelete={handleDeleteFile} />)}
+        </div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기
         </Button>
