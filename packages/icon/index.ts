@@ -26,6 +26,7 @@ export { default as IcCalendarArrowRight } from "./src/IcCalendarArrowRight";
 export { default as IcCalendarTag } from "./src/IcCalendarTag";
 export { default as IcCalendarVer2 } from "./src/IcCalendarVer2";
 export { default as IcCaution } from "./src/IcCaution";
+export { default as IcCautionToast } from "./src/IcCautionToast";
 export { default as IcCheck } from "./src/IcCheck";
 export { default as IcCheckBlue } from "./src/IcCheckBlue";
 export { default as IcCheckGreen } from "./src/IcCheckGreen";
