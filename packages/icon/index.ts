@@ -73,6 +73,7 @@ export { default as IcMeetingCircle } from './src/IcMeetingCircle';
 export { default as IcMeetingGray } from './src/IcMeetingGray';
 export { default as IcMemberTag } from './src/IcMemberTag';
 export { default as IcMore } from './src/IcMore';
+export { default as IcMainAdd } from './src/IcMainAdd';
 export { default as IcNavTimeline } from './src/IcNavTimeline';
 export { default as IcNote } from './src/IcNote';
 export { default as IcNoteBlack } from './src/IcNoteBlack';
