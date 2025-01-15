@@ -10,8 +10,10 @@ import {
   noteWrapperStyle,
 } from '@/page/handoverNote/component/Template/Template.style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
-import useFile from '@/page/handoverNote/hooks/useFile';
 import { TemplateNoteData } from '@/page/handoverNote/type/note';
+
+import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface TemplateProps {
   data?: TemplateNoteData;
@@ -26,7 +28,7 @@ const Template = ({ data, setData }: TemplateProps) => {
     answerHowToFix: data?.answerHowToFix || '',
   });
 
-  const { handleFileChange } = useFile();
+  const openModal = useOpenModal();
 
   const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({
@@ -41,8 +43,22 @@ const Template = ({ data, setData }: TemplateProps) => {
   };
 
   const handleFileUpload = () => {
-    const fileInput = document.getElementById('file') as HTMLInputElement;
-    fileInput?.click();
+    openModal('file', {
+      onUpload: (files: FileType[]) => {
+        setData?.((prev) => ({
+          ...prev,
+          documentList: [
+            ...(prev?.documentList || []),
+            ...files.map((file) => ({
+              id: file.documentId,
+              fileName: file.name,
+              fileUrl: file.url,
+              capacity: file.capacity,
+            })),
+          ],
+        }));
+      },
+    });
   };
 
   return (
@@ -58,7 +74,6 @@ const Template = ({ data, setData }: TemplateProps) => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={handleFileChange} />
         <div css={fileBoxStyle}>{data?.documentList?.map((file) => <File key={file.fileName} file={file} />)}</div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload} type="button">
           파일 연동하기

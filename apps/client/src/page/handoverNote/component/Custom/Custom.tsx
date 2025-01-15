@@ -10,10 +10,11 @@ import {
   textareaStyle,
 } from '@/page/handoverNote/component/Custom/Custom.style';
 import File from '@/page/handoverNote/component/File/File';
-import useFile from '@/page/handoverNote/hooks/useFile';
 import { CustomNoteData } from '@/page/handoverNote/type/note';
 
+import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
 import { PLACEHOLDER } from '@/shared/constant/form';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface CustomProps {
   data?: CustomNoteData;
@@ -22,6 +23,8 @@ interface CustomProps {
 
 const Custom = ({ data, setData }: CustomProps) => {
   const [content, setContent] = useState(() => data?.contents || '');
+
+  const openModal = useOpenModal();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
@@ -32,11 +35,23 @@ const Custom = ({ data, setData }: CustomProps) => {
     }));
   };
 
-  const { handleFileChange } = useFile();
-
   const handleFileUpload = () => {
-    const fileInput = document.getElementById('file') as HTMLInputElement;
-    fileInput?.click();
+    openModal('file', {
+      onUpload: (files: FileType[]) => {
+        setData?.((prev) => ({
+          ...prev,
+          documentList: [
+            ...(prev?.documentList || []),
+            ...files.map((file) => ({
+              id: file.documentId,
+              fileName: file.name,
+              fileUrl: file.url,
+              capacity: file.capacity,
+            })),
+          ],
+        }));
+      },
+    });
   };
 
   return (
@@ -48,7 +63,6 @@ const Custom = ({ data, setData }: CustomProps) => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={handleFileChange} />
         <div css={fileBoxStyle}>{data?.documentList?.map((file) => <File key={file.id} file={file} />)}</div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기

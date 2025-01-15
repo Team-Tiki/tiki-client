@@ -19,16 +19,16 @@ import { Modal } from '@/shared/component/Modal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { FILE } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { isFileModalData, useCloseModal, useModalData } from '@/shared/store/modal';
+import { FileImportModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
 
-type File = components['schemas']['DocumentInfoGetResponse'];
+export type FileType = components['schemas']['DocumentInfoGetResponse'];
 
 const FileImportModal = () => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<FileType[]>([]);
   const [searchFile, setSearchFile] = useState('');
 
-  const modalData = useModalData();
+  const modalData = useModalData() as FileImportModalData;
   const closeModal = useCloseModal();
 
   const { isOpen, open, close } = useOverlay();
@@ -52,7 +52,7 @@ const FileImportModal = () => {
     [fileData, filterKeyword]
   );
 
-  const handleSelect = (item: File) => {
+  const handleSelect = (item: FileType) => {
     const isSelected = selectedFiles.some((file) => file.documentId === item.documentId);
 
     if (!isSelected) {
@@ -67,9 +67,9 @@ const FileImportModal = () => {
   };
 
   const handleUpload = () => {
-    if (isFileModalData(modalData) && modalData.onUpload) {
-      modalData.onUpload();
-    }
+    modalData.onUpload?.(selectedFiles);
+
+    closeModal();
   };
 
   return (
