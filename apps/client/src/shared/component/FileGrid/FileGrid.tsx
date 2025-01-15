@@ -15,6 +15,7 @@ import {
   textStyle,
 } from '@/shared/component/FileGrid/index.style';
 import { File } from '@/shared/type/file';
+import { downloadDocument } from '@/shared/util/document';
 import { getFileVolume } from '@/shared/util/file';
 
 export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], 'documentId'> & {
@@ -29,7 +30,6 @@ export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], '
 
   /**
    * [TODO]
-   * onDownLoad
    * onShowNote
    */
 };
@@ -38,6 +38,7 @@ const FileGrid = ({
   name,
   capacity,
   type,
+  url,
   variant = 'primary',
   isSelectable = false,
   onSelect,
@@ -80,7 +81,12 @@ const FileGrid = ({
               </div>
 
               <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
+                <MenuItem
+                  css={optionTextStyle}
+                  LeftIcon={OPTION_ICON.download}
+                  onSelect={() => {
+                    downloadDocument(url, name);
+                  }}>
                   파일 다운로드
                 </MenuItem>
                 <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>

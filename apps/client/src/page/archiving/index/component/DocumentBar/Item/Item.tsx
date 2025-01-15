@@ -5,7 +5,8 @@ import { Flex, Text } from '@tiki/ui';
 import { ReactNode } from 'react';
 
 import { containerStyle, fileNameStyle } from '@/page/archiving/index/component/DocumentBar/Item/Item.style';
-import { downloadDocument } from '@/page/archiving/index/util/document';
+
+import { downloadDocument } from '@/shared/util/document';
 
 interface ItemProps {
   documentId: number;
