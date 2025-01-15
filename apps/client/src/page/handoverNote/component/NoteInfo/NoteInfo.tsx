@@ -1,4 +1,4 @@
-import { IcPlusButton } from '@tiki/icon';
+import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { SetStateAction, useCallback } from 'react';
@@ -13,12 +13,17 @@ import {
 } from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
 import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
 
+import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
+import { useOpenModal } from '@/shared/store/modal';
+
 interface NoteDetailProp {
   info: CreateNoteInfoType;
   setInfo: React.Dispatch<SetStateAction<CreateNoteInfoType>>;
 }
 
 const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
+  const openModal = useOpenModal();
+
   const handleChangeStatus = useCallback(
     (value: string) => {
       setInfo((prev) => ({
@@ -38,7 +43,27 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
   };
 
   const handleAppendTag = () => {
-    /** 모달 호출 */
+    openModal('activity-tag', {
+      selectedTags: info.timeBlockList?.map((tag) => ({
+        timeBlockId: tag.id,
+        name: tag.name,
+        color: tag.color,
+        type: 'MEETING',
+        startDate: '',
+      })),
+      onConfirm: (tags: ActivityTag[]) => {
+        setInfo((prev) => ({
+          ...prev,
+          timeBlockList: tags.map((tag) => ({
+            id: tag.timeBlockId,
+            name: tag.name,
+            color: tag.color,
+            blockType: tag.type,
+            startDate: tag.startDate,
+          })),
+        }));
+      },
+    });
   };
 
   return (
@@ -50,10 +75,15 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
       />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle}>
-          <Text tag="body6" css={infoStyle}>
-            작성자
-          </Text>
-          <Text tag="body6">{info?.author}</Text>
+          <Flex styles={{ justify: 'center', align: 'center', gap: '2rem' }}>
+            <Text tag="body6" css={infoStyle}>
+              작성자
+            </Text>
+            <Flex styles={{ align: 'center', gap: '0.4rem' }}>
+              <IcAvatar width={22} height={22} />
+              <Text tag="body6">{info?.author}</Text>
+            </Flex>
+          </Flex>
         </li>
 
         <li css={infoLayoutStyle}>
@@ -79,7 +109,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
               <IcPlusButton width={10} height={10} />
             </Button>
             {info?.timeBlockList?.map((tag) => (
-              <Tag key={tag.id} color={tag.color}>
+              <Tag key={tag.id} bgColor={tag.color}>
                 {tag.name}
               </Tag>
             ))}

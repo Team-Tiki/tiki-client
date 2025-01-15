@@ -118,3 +118,4 @@ export { default as LogoMail } from './src/LogoMail';
 export { default as LogoSymbol } from './src/LogoSymbol';
 export { default as LogoTikiMd } from './src/LogoTikiMd';
 export { default as LogoTikiSm } from './src/LogoTikiSm';
+export { default as IcEtcGray } from './src/IcEtcGray';

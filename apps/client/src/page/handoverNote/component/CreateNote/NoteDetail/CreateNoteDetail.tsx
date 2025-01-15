@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IcPlusButton } from '@tiki/icon';
-import { Button, DatePicker, Flex, RadioGroup, Text } from '@tiki/ui';
+import { IcAvatar, IcPlusButton } from '@tiki/icon';
+import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { useCallback, useEffect, useState } from 'react';
 
@@ -16,6 +16,7 @@ import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
+import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
@@ -43,7 +44,20 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const openModal = useOpenModal();
 
   const handleAppendTag = () => {
-    openModal('activity-tag');
+    openModal('activity-tag', {
+      onConfirm: (tags: ActivityTag[]) => {
+        setDetail((prev) => ({
+          ...prev,
+          timeBlockList: tags.map((tag) => ({
+            id: tag.timeBlockId,
+            name: tag.name,
+            color: tag.color,
+            blockType: tag.type,
+            startDate: tag.startDate,
+          })),
+        }));
+      },
+    });
   };
 
   const handleChangeStatus = useCallback(
@@ -75,11 +89,14 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
       />
 
       <ul css={infoContainerStyle}>
-        <li css={infoLayoutStyle}>
+        <li css={[infoLayoutStyle, { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>
             작성자
           </label>
-          <Text tag="body6">{memberData?.data?.name}</Text>
+          <Flex styles={{ align: 'center', gap: '0.4rem' }}>
+            <IcAvatar width={22} height={22} />
+            <Text tag="body6">{memberData?.data?.name}</Text>
+          </Flex>
         </li>
         <li css={infoLayoutStyle}>
           <Text tag="body6" css={infoStyle}>
@@ -102,6 +119,11 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
               <IcPlusButton width={10} height={10} />
             </Button>
+            {detail?.timeBlockList?.map((tag) => (
+              <Tag key={tag.id} bgColor={tag.color}>
+                {tag.name}
+              </Tag>
+            ))}
           </Flex>
         </li>
         <li css={infoLayoutStyle}>

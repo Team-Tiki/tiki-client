@@ -18,9 +18,14 @@ export const scrollContainerStyle = css({
 });
 
 export const flexStyle = css({
+  width: '100%',
+
+  paddingTop: '2rem',
+
   flexDirection: 'column',
+
   justifyContent: 'space-between',
   alignItems: 'center',
-  width: '100%',
+
   gap: '2rem',
 });
