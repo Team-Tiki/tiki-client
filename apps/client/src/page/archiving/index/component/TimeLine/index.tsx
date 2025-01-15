@@ -6,7 +6,7 @@ import {
   entireDayStyle,
 } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
-import { Block } from '@/page/archiving/index/type/blockType';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 
 import { components } from '@/shared/__generated__/schema';
@@ -18,7 +18,11 @@ export type TimeBlockData = components['schemas']['TimelineGetResponse']['timeBl
 
 interface TimeLineProps {
   selectedBlock?: Block;
-  onBlockClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>, block: Block) => void;
+  onBlockClick: (
+    e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
+    block: Block,
+    blockDetail: BlockDetail
+  ) => void;
 }
 
 const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
@@ -59,13 +63,15 @@ const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
             return (
               <TimeBlock
                 key={block.timeBlockId}
+                block={block}
+                timeBlockId={block.timeBlockId}
                 startDate={blockStartDate}
                 endDate={blockEndDate}
                 color={block.color!}
                 floor={blockFloors[block.timeBlockId ?? 0]}
                 blockType={block.blockType ?? 'MEETING'}
                 isSelected={selectedBlock?.timeBlockId === block.timeBlockId}
-                onBlockClick={(e) => onBlockClick(e, block)}>
+                onBlockClick={onBlockClick}>
                 {block.name}
               </TimeBlock>
             );

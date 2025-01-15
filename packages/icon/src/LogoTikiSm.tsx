@@ -1,7 +1,12 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from 'react';
+import type { SVGProps } from 'react';
 const SvgLogoTikiSm = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 22" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 60 22"
+    {...props}
+  >
     <g fill="#466DEB" clipPath="url(#logo_tiki_sm_svg__a)">
       <path
         fillRule="evenodd"
@@ -10,8 +15,18 @@ const SvgLogoTikiSm = (props: SVGProps<SVGSVGElement>) => (
       />
       <rect width={4.4} height={15.4} x={27.9} y={0.55} rx={2.2} />
       <rect width={4.4} height={4.4} x={27.9} y={17.05} rx={2.2} />
-      <rect width={4.4} height={15.4} rx={2.2} transform="matrix(1 0 0 -1 53.2 21.45)" />
-      <rect width={4.4} height={4.4} rx={2.2} transform="matrix(1 0 0 -1 53.2 4.95)" />
+      <rect
+        width={4.4}
+        height={15.4}
+        rx={2.2}
+        transform="matrix(1 0 0 -1 53.2 21.45)"
+      />
+      <rect
+        width={4.4}
+        height={4.4}
+        rx={2.2}
+        transform="matrix(1 0 0 -1 53.2 4.95)"
+      />
     </g>
     <defs>
       <clipPath id="logo_tiki_sm_svg__a">

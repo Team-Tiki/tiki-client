@@ -1,17 +1,21 @@
 import { useState } from 'react';
 
-import { Block } from '@/page/archiving/index/type/blockType';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useDrawerAction } from '@/shared/store/drawer';
+import { useTimeBlockIdAction } from '@/shared/store/timeBlockId';
 
 export const useInteractTimeline = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const { openDrawer } = useDrawerAction();
 
+  const { setTimeBlockId } = useTimeBlockIdAction();
+
   const handleBlockClick = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
-    block: Block
+    block: Block,
+    blockDetail: BlockDetail
   ) => {
     e.stopPropagation();
 
@@ -21,17 +25,19 @@ export const useInteractTimeline = () => {
       block: 'center',
     });
 
+    setTimeBlockId(block.timeBlockId);
+
     setSelectedBlock(block);
 
     openDrawer({
-      title: block.name,
+      timeBlockId: block.timeBlockId,
+      name: block.name,
       startDate: block.startDate,
       endDate: block.endDate,
       blockType: block.blockType,
       color: block.color,
-      taggedMembers: [],
-      handoverNotes: [],
-      files: [],
+      documents: blockDetail.documents ?? [],
+      notes: blockDetail.notes ?? [],
     });
   };
 

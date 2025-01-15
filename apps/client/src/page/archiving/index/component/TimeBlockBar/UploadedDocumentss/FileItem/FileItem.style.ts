@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
 export const containerStyle = css({
+  display: 'flex',
   gap: '1.2rem',
   alignItems: 'center',
   justifyContent: 'space-between',

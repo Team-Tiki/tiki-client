@@ -59,6 +59,8 @@ const Timeline = () => {
             return (
               <TimeBlock
                 key={block.timeBlockId}
+                block={block}
+                timeBlockId={block.timeBlockId}
                 startDate={blockStartDate}
                 endDate={blockEndDate}
                 color={block.color!}

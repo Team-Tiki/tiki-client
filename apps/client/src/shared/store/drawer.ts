@@ -1,17 +1,8 @@
 import { create } from 'zustand';
 
-import { File } from '@/shared/type/file';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
-export type DrawerContent = {
-  title: string;
-  startDate: string;
-  endDate: string;
-  blockType: string;
-  color: string;
-  taggedMembers: [];
-  handoverNotes: [];
-  files: File[];
-} | null;
+export type DrawerContent = (Block & BlockDetail) | null;
 
 interface DrawerStore {
   isOpen: boolean;

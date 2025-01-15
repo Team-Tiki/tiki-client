@@ -2,20 +2,20 @@ import { IcCloudUpload, IcPaper } from '@tiki/icon';
 import { Button, Flex, Text } from '@tiki/ui';
 
 import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
-import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedFiles/FileItem/FileItem';
+import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem';
+import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
 
-interface UploadedFileProps {
+import { useTimeBlockId } from '@/shared/store/timeBlockId';
+
+interface UploadedDocumentsProps {
   isEditable: boolean;
 }
 
-// TODO: API 추가
-const UPLOADED_FILE_LIST = [
-  { id: 1, title: '세상에서 제일 긴 제목을 지을거에요 나는', capacity: '2.4 MB' },
-  { id: 2, title: 'OT 인수인계', capacity: '2.9 MB' },
-  { id: 3, title: '엄마 나는 토스에 가고 싶어요', capacity: '10.7 MB' },
-];
+const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
+  const timeBlockId = useTimeBlockId();
 
-const UploadedFile = ({ isEditable }: UploadedFileProps) => {
+  const { data } = useBlockDetailInfoQuery(timeBlockId);
+
   return (
     <Flex styles={{ direction: 'column', gap: '1.8rem', width: '100%' }}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
@@ -31,12 +31,19 @@ const UploadedFile = ({ isEditable }: UploadedFileProps) => {
         </Button>
       )}
       <Flex tag="ul" styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
-        {UPLOADED_FILE_LIST.map((data) => (
-          <FileItem key={data.id} title={data.title} capacity={data.capacity} isEditable={isEditable} />
+        {data?.data?.documents?.map((data) => (
+          <FileItem
+            key={data.documentId}
+            fileName={data.fileName}
+            capacity={data.capacity}
+            isEditable={isEditable}
+            tagId={data.tagId}
+            fileUrl={data.fileUrl}
+          />
         ))}
       </Flex>
     </Flex>
   );
 };
 
-export default UploadedFile;
+export default UploadedDocuments;

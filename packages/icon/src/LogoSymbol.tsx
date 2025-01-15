@@ -1,7 +1,12 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from 'react';
+import type { SVGProps } from 'react';
 const SvgLogoSymbol = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 40" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 40 40"
+    {...props}
+  >
     <rect width={40} height={40} fill="#353F9B" rx={10} />
     <g clipPath="url(#logo_symbol_svg__a)">
       <path
