@@ -8,6 +8,7 @@ import { components } from '@/shared/__generated__/schema';
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import { optionListStyle, optionTextStyle } from '@/shared/component/FileGrid/index.style';
 import { getFormattedDate } from '@/shared/util/date';
+import { downloadDocument } from '@/shared/util/document';
 import { getFileVolume } from '@/shared/util/file';
 
 type DocumentItem = components['schemas']['DocumentGetResponse'];
@@ -68,7 +69,12 @@ const FileListItem = ({
             />
           </div>
           <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-            <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
+            <MenuItem
+              css={optionTextStyle}
+              LeftIcon={OPTION_ICON.download}
+              onSelect={() => {
+                downloadDocument(url, name);
+              }}>
               파일 다운로드
             </MenuItem>
             <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => onDelete(documentId)}>

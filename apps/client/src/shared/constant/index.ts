@@ -72,9 +72,14 @@ export const CAUTION = {
     CONTENT: '노트 작성 형식을 변경하시겠습니까?',
     DESC: '변경 시 마지막 저장 후 수정된 내용은 저장되지 않습니다',
   },
-  DELETE_FOR_GOOD: {
+  EMPTY_DELETED: {
     INFO_TEXT: '휴지통 비우기',
     CONTENT: '휴지통을 비우시겠습니까?',
+    DESC: '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다',
+  },
+  DELETE_FOR_GOOD: {
+    INFO_TEXT: '영구 삭제',
+    CONTENT: '선택된 항목을 완전히 삭제하시겠습니까?',
     DESC: '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다',
   },
 };

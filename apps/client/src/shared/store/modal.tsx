@@ -1,7 +1,10 @@
 import { create } from 'zustand';
 
 import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
+<<<<<<< HEAD
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
+=======
+>>>>>>> develop
 
 export type Tag = {
   id: number;
@@ -23,8 +26,12 @@ interface ModalState {
     footerType?: 'caution' | 'caution-modify';
     onClose?: () => void;
     // File Modal
+<<<<<<< HEAD
     selectedFiles?: FileType[];
     onUpload?: (files: FileType[]) => void;
+=======
+    onUpload?: () => void;
+>>>>>>> develop
     // Tag Modal
     selectedTags?: ActivityTag[];
     onConfirm?: (tags: ActivityTag[]) => void;
@@ -48,17 +55,25 @@ interface FileModalData {
   onUpload: () => void;
 }
 
+<<<<<<< HEAD
 export interface ActivityTagModalData {
+=======
+interface ActivityTagModalData {
+>>>>>>> develop
   selectedTags?: ActivityTag[];
   onConfirm?: (tags: ActivityTag[]) => void;
 }
 
+<<<<<<< HEAD
 export interface FileImportModalData {
   selectedTags?: FileType[];
   onUpload?: (files: FileType[]) => void;
 }
 
 type ModalData = CautionModalData | FileModalData | ActivityTagModalData | FileImportModalData;
+=======
+type ModalData = CautionModalData | FileModalData | ActivityTagModalData;
+>>>>>>> develop
 
 type ModalContentType =
   | 'create-workspace'

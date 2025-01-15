@@ -57,7 +57,12 @@ const FolderListItem = ({
             {<IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />}
           </div>
           <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
-            <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => {}}>
+            <MenuItem
+              css={optionTextStyle}
+              LeftIcon={OPTION_ICON.download}
+              onSelect={() => {
+                alert('준비 중인 기능입니다.');
+              }}>
               파일 다운로드
             </MenuItem>
             <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>

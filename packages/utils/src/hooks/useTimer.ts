@@ -3,35 +3,51 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 type Timeout = ReturnType<typeof setTimeout>;
 
-export const useTimer = (initialTime: number, message: string) => {
+export const useTimer = (initialTime: number, onExpire?: () => void) => {
   const [isTriggered, setIsTriggered] = useState(false);
   const [remainTime, setRemainTime] = useState(initialTime);
   const ref = useRef<Timeout>();
 
-  const trigger = useCallback(() => {
+  /** 메일 발송 클릭 시 트리거되면서 인증 번호 입력칸 킴 */
+  const handleTrigger = useCallback(() => {
     setIsTriggered(true);
   }, []);
 
-  const reset = useCallback(() => {
+  /** 인증 메일 발송을 여러 번 클릭 시 시간 초기화 */
+  const handleReset = useCallback(() => {
     setRemainTime(initialTime);
   }, []);
 
+  /** 실패 시 인증 번호 입력칸 끄고, 타이머 초기화 */
+  const handleFail = useCallback(() => {
+    setIsTriggered(false);
+
+    clearInterval(ref.current);
+  }, []);
+
+  /** 실패 시 인증 번호 입력칸 끄고, 타이머 초기화 */
+  const handleStop = useCallback(() => {
+    clearInterval(ref.current);
+  }, []);
+
   useEffect(() => {
-    ref.current = setInterval(() => {
-      if (remainTime > 0) {
-        setRemainTime((prevTime) => prevTime - 1);
-      } else {
-        alert(message);
+    if (isTriggered) {
+      ref.current = setInterval(() => {
+        if (remainTime > 0) {
+          setRemainTime((prevTime) => prevTime - 1);
+        } else {
+          onExpire?.();
 
-        setIsTriggered(false);
-        setRemainTime(initialTime);
+          setIsTriggered(false);
+          setRemainTime(initialTime);
 
-        clearInterval(ref.current);
-      }
-    }, 1000);
+          clearInterval(ref.current);
+        }
+      }, 1000);
+    }
 
     return () => clearInterval(ref.current);
-  }, [remainTime]);
+  }, [remainTime, isTriggered]);
 
-  return { remainTime, isTriggered, trigger, reset };
+  return { remainTime, isTriggered, handleTrigger, handleReset, handleFail, handleStop };
 };

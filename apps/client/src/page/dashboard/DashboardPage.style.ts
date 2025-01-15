@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const contentBoxStyle = css({
-  '& > header': { height: '6.1rem' },
+  '& > header': { height: '6.4rem' },
   '& > div': { marginTop: '0' },
 });
 
@@ -13,10 +13,7 @@ export const dashboradScrollStyle = css({
 });
 
 export const handoverBoxStyle = css({
-  width: '30%',
   height: '64rem',
-
-  paddingRight: '1rem',
 
   '&>div:last-child': {
     height: '85%',

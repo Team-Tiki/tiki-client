@@ -27,9 +27,9 @@ const PasswordAuthPage = () => {
   const {
     remainTime,
     isTriggered: isMailSent,
-    trigger: handleSend,
-    reset: handleResetTimer,
-  } = useTimer(EMAIL_REMAIN_TIME, SUPPORTING_TEXT.EMAIL_EXPIRED);
+    handleTrigger: handleSend,
+    handleReset: handleResetTimer,
+  } = useTimer(EMAIL_REMAIN_TIME, () => alert(SUPPORTING_TEXT.EMAIL_EXPIRED));
 
   const { resendMailMutation } = useResendMailMutation(email);
   const { mutate, isError } = useVerifyCodeMutation(email, authCode);

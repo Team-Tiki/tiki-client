@@ -1,25 +1,11 @@
-import {
-  ComponentPropsWithRef,
-  ForwardedRef,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useState,
-} from 'react';
+import { ComponentPropsWithRef, ForwardedRef, ReactNode, forwardRef, useEffect, useState } from "react";
 
-import { DropdownItem, DropdownList, DropdownRoot } from '@/Dropdown';
-import {
-  iconStyle,
-  itemStyle,
-  overlayStyle,
-  profileStyle,
-  textFieldStyle,
-  triggerStyle,
-} from '@/Select/Select.style';
-import { scrollStyle } from '@/theme';
-import { IcArrowDownGray, IcDown } from '@tiki/icon';
+import { DropdownItem, DropdownList, DropdownRoot } from "@/Dropdown";
+import { iconStyle, itemStyle, overlayStyle, profileStyle, textFieldStyle, triggerStyle } from "@/Select/Select.style";
+import { scrollStyle } from "@/theme";
+import { IcArrowDownGray, IcDown } from "@tiki/icon";
 
-import { hasKeyInObject } from '@tiki/utils';
+import { hasKeyInObject } from "@tiki/utils";
 
 interface OptionType {
   value: string;
@@ -28,15 +14,8 @@ interface OptionType {
   description?: string;
 }
 
-export interface SelectProps
-  extends Omit<ComponentPropsWithRef<'div'>, 'onSelect'> {
-  variant?:
-    | 'default'
-    | 'user'
-    | 'option'
-    | 'outline'
-    | 'underline'
-    | 'disabled';
+export interface SelectProps extends Omit<ComponentPropsWithRef<"div">, "onSelect"> {
+  variant?: "default" | "user" | "option" | "outline" | "underline" | "disabled";
   isOpen?: boolean;
   label?: string;
   placeholder?: string;
@@ -48,7 +27,7 @@ export interface SelectProps
 
 const Select = (
   {
-    variant = 'default',
+    variant = "default",
     isOpen = false,
     defaultValue,
     placeholder,
@@ -71,20 +50,15 @@ const Select = (
   const isSelected = selectedText !== placeholder;
 
   return (
-    <DropdownRoot
-      css={{ width: '100%' }}
-      ref={ref}
-      role="listbox"
-      label={label}
-      {...props}
-    >
+    <DropdownRoot css={{ width: "100%" }} ref={ref} role="listbox" label={label} {...props}>
       <button
+        type="button"
         onClick={onTrigger}
         css={triggerStyle(variant, isSelected)}
-        disabled={variant === 'disabled' ? true : false}
+        disabled={variant === "disabled" ? true : false}
       >
         <span>{selectedText}</span>
-        {variant === 'option' ? (
+        {variant === "option" ? (
           <IcDown css={iconStyle(isOpen)} width={12} height={12} />
         ) : (
           <IcArrowDownGray css={iconStyle(isOpen)} width={20} height={20} />
@@ -101,22 +75,16 @@ const Select = (
               setSelectedText(item.value);
             }}
           >
-            {hasKeyInObject(item, 'profileUrl') && (
-              <img
-                src={item.profileUrl}
-                css={profileStyle}
-                alt={`${item.value} profile`}
-              />
+            {hasKeyInObject(item, "profileUrl") && (
+              <img src={item.profileUrl} css={profileStyle} alt={`${item.value} profile`} />
             )}
 
             <p css={textFieldStyle}>
               {item.value}
-              {hasKeyInObject(item, 'description') && (
-                <span>{item.description}</span>
-              )}
+              {hasKeyInObject(item, "description") && <span>{item.description}</span>}
             </p>
 
-            {hasKeyInObject(item, 'svg') && item.svg}
+            {hasKeyInObject(item, "svg") && item.svg}
           </DropdownItem>
         ))}
       </DropdownList>

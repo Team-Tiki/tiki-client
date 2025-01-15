@@ -11,7 +11,6 @@ import {
 type ModalContentType =
   | 'create-workspace'
   | 'create-block'
-  | 'deleted'
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
@@ -139,16 +138,6 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       [
         { text: '취소', variant: 'outline' },
         { text: '업로드', variant: 'primary' },
-      ],
-    ],
-  },
-  deleted: {
-    steps: 1,
-    headers: [{ icon: <IcWarning width={40} height={40} />, title: '삭제 확인', infoText: '정말 삭제하시겠습니까?' }],
-    buttons: [
-      [
-        { text: '취소', variant: 'outline' },
-        { text: '삭제', variant: 'primary' },
       ],
     ],
   },

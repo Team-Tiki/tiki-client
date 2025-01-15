@@ -7,7 +7,9 @@ import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
+import { CAUTION } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
@@ -21,6 +23,9 @@ interface FileData {
 const DeletedPage = () => {
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
+
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
 
   const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
@@ -56,31 +61,55 @@ const DeletedPage = () => {
   });
 
   const handleDelete = (docs?: number[]) => {
-    deleteMutation.mutate({
-      params: {
-        path: {
-          teamId,
-        },
-        query: {
-          documentId: docs ? docs : ids,
-        },
+    openModal('caution', {
+      infoText: CAUTION.DELETE_FOR_GOOD.INFO_TEXT,
+      content: CAUTION.DELETE_FOR_GOOD.CONTENT,
+      desc: CAUTION.DELETE_FOR_GOOD.DESC,
+      onClick: () => {
+        try {
+          deleteMutation.mutate({
+            params: { path: { teamId }, query: { documentId: docs ? docs : ids } },
+          });
+
+          handleReset();
+          closeModal();
+        } catch (error) {
+          console.error(error);
+        }
       },
     });
-    handleReset();
   };
 
   const handleRestore = () => {
     restoreMutation.mutate({
-      params: {
-        path: {
-          teamId,
-        },
-        query: {
-          documentId: ids,
-        },
+      params: { path: { teamId }, query: { documentId: ids } },
+    });
+
+    handleReset();
+    closeModal();
+  };
+
+  const handleDeleteEntireFiles = () => {
+    openModal('caution', {
+      infoText: CAUTION.EMPTY_DELETED.INFO_TEXT,
+      content: CAUTION.EMPTY_DELETED.CONTENT,
+      desc: CAUTION.EMPTY_DELETED.DESC,
+      onClick: () => {
+        try {
+          deleteMutation.mutate({
+            params: {
+              path: { teamId },
+              query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
+            },
+          });
+
+          handleReset();
+          closeModal();
+        } catch (error) {
+          console.error(error);
+        }
       },
     });
-    handleReset();
   };
 
   return (
@@ -88,14 +117,7 @@ const DeletedPage = () => {
       variant="deleted"
       title="휴지통"
       description="5.16GB 사용 가능"
-      headerOption={
-        <Button
-          onClick={() => {
-            data?.data?.deletedDocuments && handleDelete(data?.data?.deletedDocuments.map((item) => item.documentId));
-          }}>
-          휴지통 비우기
-        </Button>
-      }
+      headerOption={<Button onClick={handleDeleteEntireFiles}>휴지통 비우기</Button>}
       contentOption={
         <Flex styles={{ justify: 'space-between', align: 'center' }}>
           {canSelect ? (

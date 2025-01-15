@@ -58,7 +58,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
             id: tag.timeBlockId,
             name: tag.name,
             color: tag.color,
-            type: tag.type,
+            blockType: tag.type,
             startDate: tag.startDate,
           })),
         }));
