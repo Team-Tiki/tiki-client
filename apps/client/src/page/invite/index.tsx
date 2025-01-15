@@ -9,7 +9,8 @@ import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/quer
 import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
 import { InvitationType } from '@/page/invite/type';
 
-import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
+import { components } from '@/shared/__generated__/schema';
+import { ACCESS_TOKEN_KEY, INVITATION_ID, INVITE_TEAM_ID } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const InvitedPage = () => {
@@ -36,6 +37,11 @@ const InvitedPage = () => {
     }
   }, [createToast, data, invitationInfo?.teamId, isLogined, navigate]);
 
+  const deleteLocalStorageInviteInfo = () => {
+    localStorage.removeItem(INVITATION_ID);
+    localStorage.removeItem(INVITE_TEAM_ID);
+  };
+
   const handleApproveInvitation = () => {
     approveMutate(
       {
@@ -48,11 +54,13 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
+          deleteLocalStorageInviteInfo();
           localStorage.setItem('teamId', `${teamId}`);
           navigate(PATH.DASHBOARD);
         },
-        onError: (error) => {
-          createToast(error, 'error');
+        onError: (error: components['schemas']['ErrorResponse']) => {
+          deleteLocalStorageInviteInfo();
+          createToast(error.message, 'error');
           navigate(PATH.ONBOARDING);
         },
       }
@@ -70,10 +78,12 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
+          deleteLocalStorageInviteInfo();
           navigate(PATH.ONBOARDING);
         },
-        onError: (error) => {
-          createToast(error, 'error');
+        onError: (error: components['schemas']['ErrorResponse']) => {
+          deleteLocalStorageInviteInfo();
+          createToast(error.message, 'error');
           navigate(PATH.ONBOARDING);
         },
       }

@@ -2,6 +2,8 @@ export const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN' as const;
 
 export const INVITATION_ID = 'INVITATION_ID' as const;
 
+export const INVITE_TEAM_ID = 'INVITE_TEAM_ID' as const;
+
 export const HTTP_STATUS_CODE = {
   SUCCESS: 200,
   CREATED: 201,
