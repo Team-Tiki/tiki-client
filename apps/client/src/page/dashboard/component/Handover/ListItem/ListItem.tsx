@@ -11,7 +11,7 @@ import {
   tagStyle,
   titleStyle,
 } from '@/page/dashboard/component/Handover/ListItem/ListItem.style';
-import { useNoteDetail } from '@/page/dashboard/component/Handover/hook/useNoteDetail';
+import { useNoteDetail } from '@/page/dashboard/hook/useNoteDetail';
 import { ListTag } from '@/page/dashboard/type/listTag';
 import { getVisibleTags } from '@/page/dashboard/util/alignTags';
 
