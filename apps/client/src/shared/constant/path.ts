@@ -8,6 +8,9 @@ export const PATH = {
   SIGNUP_INFO: '/signup-info',
   SIGNUP_UNIV: '/signup-univ',
 
+  INVITE: '/invite',
+  INVITE_IN: '/invite/:teamId',
+
   PASSWORD_AUTH: '/password-auth',
   PASSWORD_RESET: '/password-reset',
 
@@ -17,7 +20,7 @@ export const PATH = {
   DRIVE: '/drive',
   DELETED: '/deleted',
   HANDOVER: '/handover',
-  HANDOVER_NOTE: '/handover/note',
+  HANDOVER_NOTE: `/handover/:noteId`,
   CREATE_HANDOVER_NOTE: '/handover/create-note',
   WORKSPACE_SETTING: '/workspace-setting',
   COMING_SOON: '/comingsoon',

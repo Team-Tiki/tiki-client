@@ -4,7 +4,7 @@ interface ModalState {
   isOpen: boolean;
   contentType: ModalContentType | null;
   modalData: {
-    // Deleted Modal
+    // // Deleted Modal
     title?: string;
     content?: string;
     onClick?: () => void;
@@ -13,12 +13,29 @@ interface ModalState {
     desc?: string;
     footerType?: 'caution' | 'caution-modify';
     onClose?: () => void;
+    // File Modal
+    onUpload?: () => void;
   } | null;
   actions: {
     openModal: (contentType: ModalContentType, data?: ModalState['modalData']) => void;
     closeModal: () => void;
   };
 }
+
+interface CautionModalData {
+  infoText?: string;
+  content?: string;
+  desc?: string;
+  footerType?: 'caution' | 'caution-modify';
+  onClick?: () => void;
+  onClose?: () => void;
+}
+
+interface FileModalData {
+  onUpload: () => void;
+}
+
+type ModalData = CautionModalData | FileModalData;
 
 type ModalContentType =
   | 'create-workspace'
@@ -27,6 +44,7 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'file'
   | 'caution';
 
 interface CautionModalData {
@@ -58,4 +76,8 @@ export const useCloseModal = () => useModalStore((state) => state.actions.closeM
 
 export const isCautionModalData = (data: CautionModalData | null): data is CautionModalData => {
   return !!data && ('infoText' in data || 'content' in data || 'desc' in data || 'footerType' in data);
+};
+
+export const isFileModalData = (data: ModalData | null): data is FileModalData => {
+  return !!data && 'onUpload' in data;
 };

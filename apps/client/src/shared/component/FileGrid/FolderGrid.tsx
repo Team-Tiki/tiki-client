@@ -13,15 +13,22 @@ type FolderGridProps = {
   isSelectable?: boolean;
   onSelect?: () => void;
   isSelected?: boolean;
+  onDelete?: () => void;
   /**
    * TODO
    * onChangeName
    * onDownloadAll
-   * onDelete
    */
 };
 
-const FolderGrid = ({ name, variant = 'primary', isSelectable, isSelected = false, onSelect }: FolderGridProps) => {
+const FolderGrid = ({
+  name,
+  variant = 'primary',
+  isSelectable,
+  isSelected = false,
+  onSelect = () => {},
+  onDelete = () => {},
+}: FolderGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
   return (
@@ -42,13 +49,19 @@ const FolderGrid = ({ name, variant = 'primary', isSelectable, isSelected = fals
             <MenuList
               css={{ top: 'calc(100% + 0.4rem)', right: 0, backgroundColor: theme.colors.white }}
               isOpen={isOpen}>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.name} onSelect={() => console.log('select')}>
+              <MenuItem
+                css={optionTextStyle}
+                LeftIcon={OPTION_ICON.name}
+                onSelect={() => alert('준비 중인 기능입니다.')}>
                 이름 변경
               </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.download} onSelect={() => console.log('select')}>
+              <MenuItem
+                css={optionTextStyle}
+                LeftIcon={OPTION_ICON.download}
+                onSelect={() => alert('준비 중인 기능입니다.')}>
                 폴더 전체 다운로드
               </MenuItem>
-              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={() => console.log('select')}>
+              <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>
                 휴지통으로 이동
               </MenuItem>
             </MenuList>

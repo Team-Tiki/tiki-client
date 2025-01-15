@@ -12,3 +12,7 @@ export const getFormattedDate = (dateString: string) => {
 
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${ampm} ${hours}시 ${formattedMinutes}분`;
 };
+
+export const formatDateToDots = (date: string) => {
+  return date.replace(/-/g, '.');
+};
