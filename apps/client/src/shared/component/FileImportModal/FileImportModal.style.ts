@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { theme } from '@tiki/ui';
+import { scrollStyle, theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
@@ -55,8 +55,6 @@ export const textFieldStyle = css({
 
 export const fileListStyle = css({
   maxHeight: '30.4rem',
-
-  overflow: 'scroll',
 });
 
 export const emptyStyle = css({
@@ -79,4 +77,22 @@ export const notFoundStyle = css({
   pointerEvents: 'none',
 
   ...theme.text.body08,
+});
+
+export const listWrapperStyle = css({
+  display: 'flex',
+
+  width: '100%',
+  maxHeight: '30.4rem',
+
+  flexDirection: 'column',
+
+  marginTop: '2rem',
+
+  gap: '2rem',
+
+  overflowX: 'hidden',
+  overflowY: 'scroll',
+
+  ...scrollStyle,
 });

@@ -2,6 +2,7 @@ import { Button, Input, Label, scrollStyle } from '@tiki/ui';
 
 import { Dispatch, SetStateAction } from 'react';
 
+import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
   guideStyle,
@@ -9,19 +10,18 @@ import {
   noteWrapperStyle,
 } from '@/page/handoverNote/component/Template/Template.style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
-import useFile from '@/page/handoverNote/hooks/useFile';
 import { TemplateNote } from '@/page/handoverNote/type/note';
 
-import { useCloseModal, useOpenModal } from '@/shared/store/modal';
+import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface TemplateNoteProps {
+  data: TemplateNote;
   setData: Dispatch<SetStateAction<TemplateNote>>;
 }
 
-const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
+const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
   const openModal = useOpenModal();
-  const closeModal = useCloseModal();
-  const { handleFileChange } = useFile();
 
   const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev) => ({
@@ -30,10 +30,30 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
     }));
   };
 
+  const handleDeleteFile = (e: React.MouseEvent, fileId: number) => {
+    e.stopPropagation();
+
+    setData?.((prev) => ({
+      ...prev,
+      documentList: prev?.documentList.filter((file) => file.id !== fileId),
+    }));
+  };
+
   const handleFileUpload = () => {
     openModal('file', {
-      onUpload: () => {
-        closeModal();
+      onUpload: (files: FileType[]) => {
+        setData((prev) => ({
+          ...prev,
+          documentList: [
+            ...(prev.documentList || []),
+            ...files.map((file) => ({
+              id: file.documentId,
+              fileName: file.name,
+              fileUrl: file.url,
+              capacity: file.capacity,
+            })),
+          ],
+        }));
       },
     });
   };
@@ -51,11 +71,8 @@ const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
         <div css={fileBoxStyle}>
-          {/* {files.map((file) => (
-            <File key={file.name} file={file} />
-          ))} */}
+          {data?.documentList?.map((file) => <File key={file.id} file={file} onDelete={handleDeleteFile} />)}
         </div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기

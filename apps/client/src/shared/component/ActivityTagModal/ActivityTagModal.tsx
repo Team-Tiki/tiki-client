@@ -17,7 +17,7 @@ import {
 import { Modal } from '@/shared/component/Modal';
 import { TAG } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useCloseModal, useModalData } from '@/shared/store/modal';
+import { ActivityTagModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { formatDateToDots } from '@/shared/util/date';
 
 export type ActivityTag = {
@@ -28,13 +28,8 @@ export type ActivityTag = {
   startDate: string;
 };
 
-interface ActivityTagModalData {
-  selectedTags?: ActivityTag[];
-  onConfirm?: (tags: ActivityTag[]) => void;
-}
-
 const ActivityTagModal = () => {
-  const modalData = useModalData() as ActivityTagModalData; // ✅ 타입 단언
+  const modalData = useModalData() as ActivityTagModalData;
 
   const teamId = useInitializeTeamId();
 
@@ -66,7 +61,7 @@ const ActivityTagModal = () => {
   };
 
   const handleSelect = (item: ActivityTag) => {
-    const isSelected = selectedTags.some((tag) => tag.timeBlockId === item.timeBlockId); // ✅ 올바른 비교
+    const isSelected = selectedTags.some((tag) => tag.timeBlockId === item.timeBlockId);
 
     if (!isSelected) {
       setSelectedTags((prev) => [...prev, item]);

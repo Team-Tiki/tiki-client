@@ -143,8 +143,8 @@ const CreateNotePage = () => {
           </CommandButton>
         </Flex>
         <TabPanel selectedTab={selectedTab}>
-          <CreateTemplateNote setData={setTemplateData} />
-          <CreateCustomNote setData={setCustomData} />
+          <CreateTemplateNote data={templateData} setData={setTemplateData} />
+          <CreateCustomNote data={customData} setData={setCustomData} />
         </TabPanel>
       </TabRoot>
     </form>

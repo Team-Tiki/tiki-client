@@ -9,28 +9,54 @@ import {
   noteWrapperStyle,
   textareaStyle,
 } from '@/page/handoverNote/component/Custom/Custom.style';
-import useFile from '@/page/handoverNote/hooks/useFile';
+import File from '@/page/handoverNote/component/File/File';
 import { CustomNote } from '@/page/handoverNote/type/note';
 
+import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
 import { PLACEHOLDER } from '@/shared/constant/form';
+import { useOpenModal } from '@/shared/store/modal';
 
 interface CustomProps {
+  data: CustomNote;
   setData: Dispatch<SetStateAction<CustomNote>>;
 }
 
-const CreateCustomNote = ({ setData }: CustomProps) => {
-  const { handleFileChange } = useFile();
-
-  const handleFileUpload = () => {
-    const fileInput = document.getElementById('file') as HTMLInputElement;
-    fileInput?.click();
-  };
+const CreateCustomNote = ({ data, setData }: CustomProps) => {
+  const openModal = useOpenModal();
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData((prev) => ({
       ...prev,
       contents: e.target.value,
     }));
+  };
+
+  const handleDeleteFile = (e: React.MouseEvent, fileId: number) => {
+    e.stopPropagation();
+
+    setData?.((prev) => ({
+      ...prev,
+      documentList: prev?.documentList.filter((file) => file.id !== fileId),
+    }));
+  };
+
+  const handleFileUpload = () => {
+    openModal('file', {
+      onUpload: (files: FileType[]) => {
+        setData((prev) => ({
+          ...prev,
+          documentList: [
+            ...(prev.documentList || []),
+            ...files.map((file) => ({
+              id: file.documentId,
+              fileName: file.name,
+              fileUrl: file.url,
+              capacity: file.capacity,
+            })),
+          ],
+        }));
+      },
+    });
   };
 
   return (
@@ -42,11 +68,8 @@ const CreateCustomNote = ({ setData }: CustomProps) => {
         <Label id="file" css={guideStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
         <div css={fileBoxStyle}>
-          {/* {files.map((file) => (
-            <File key={file.name} file={file} />
-          ))} */}
+          {data?.documentList?.map((file) => <File key={file.id} file={file} onDelete={handleDeleteFile} />)}
         </div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기

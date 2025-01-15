@@ -11,9 +11,10 @@ interface FileProps {
     fileUrl: string;
     capacity: number;
   };
+  onDelete: (e: React.MouseEvent, id: number) => void;
 }
 
-const File = ({ file }: FileProps) => {
+const File = ({ file, onDelete = () => {} }: FileProps) => {
   const fileVolume = getFileVolume(file.capacity);
 
   return (
@@ -23,7 +24,16 @@ const File = ({ file }: FileProps) => {
         <p>{file.fileName}</p>
         <p>{fileVolume}</p>
       </span>
-      <IcDeleteFile width={10} height={10} css={deleteIcStyle} />
+      <IcDeleteFile
+        role="button"
+        width={10}
+        height={10}
+        css={deleteIcStyle}
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete(e, file.id);
+        }}
+      />
     </article>
   );
 };
