@@ -1,0 +1,68 @@
+import { Button, Input, Label, scrollStyle } from '@tiki/ui';
+
+import { Dispatch, SetStateAction } from 'react';
+
+import {
+  fileBoxStyle,
+  guideStyle,
+  layoutStyle,
+  noteWrapperStyle,
+} from '@/page/handoverNote/component/Template/Template.style';
+import { TEMPLATE } from '@/page/handoverNote/constants/template';
+import useFile from '@/page/handoverNote/hooks/useFile';
+import { TemplateNote } from '@/page/handoverNote/type/note';
+
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
+
+interface TemplateNoteProps {
+  setData: Dispatch<SetStateAction<TemplateNote>>;
+}
+
+const CreateTemplateNote = ({ setData }: TemplateNoteProps) => {
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
+  const { handleFileChange } = useFile();
+
+  const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setData((prev) => ({
+      ...prev,
+      [id]: event.target.value,
+    }));
+  };
+
+  const handleFileUpload = () => {
+    openModal('file', {
+      onUpload: () => {
+        closeModal();
+      },
+    });
+  };
+
+  return (
+    <div css={[noteWrapperStyle, scrollStyle]}>
+      {TEMPLATE.map((item) => (
+        <div css={layoutStyle} key={item.id}>
+          <Label id={item.id}>{item.QUESTION}</Label>
+          <Input id={item.id} placeholder={item.PLACEHOLDER} onChange={handleNoteContents(item.id)} />
+        </div>
+      ))}
+
+      <div css={layoutStyle}>
+        <Label id="file" css={guideStyle}>
+          드라이브에서 연동하고 싶은 파일을 선택해주세요.
+        </Label>
+        <input id="file" type="file" style={{ display: 'none' }} multiple onChange={(e) => handleFileChange(e)} />
+        <div css={fileBoxStyle}>
+          {/* {files.map((file) => (
+            <File key={file.name} file={file} />
+          ))} */}
+        </div>
+        <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
+          파일 연동하기
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default CreateTemplateNote;

@@ -1,5 +1,5 @@
 export type ListTag = {
-  tagId: number;
-  content: string;
-  bgColor: string;
+  id: number;
+  name: string;
+  color: string;
 };

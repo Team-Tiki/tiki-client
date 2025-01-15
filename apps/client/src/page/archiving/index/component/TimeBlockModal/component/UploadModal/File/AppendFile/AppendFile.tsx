@@ -5,10 +5,10 @@ import { useState } from 'react';
 
 import { DocumentDetail } from '@/page/archiving/index/component/TimeBlockModal';
 import { boxStyle } from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
-import UploadedFileItem from '@/page/archiving/index/component/TimeBlockModal/component/UploadModal/File/AppendFile/File/UploadedFileItem';
 import useFile from '@/page/archiving/index/component/TimeBlockModal/hook/common/useFile';
 
 import { $api } from '@/shared/api/client';
+import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { convertToKB, getFileVolume } from '@/shared/util/file';
 
