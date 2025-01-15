@@ -68,6 +68,10 @@ const UnivFormPage = () => {
       createToast('인증되었습니다.', 'success');
       setIsVerified(true);
     },
+    onError: (error) => {
+      createToast(`${error}`, 'success');
+      setIsVerified(false);
+    },
   });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
