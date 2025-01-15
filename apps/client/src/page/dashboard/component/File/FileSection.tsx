@@ -1,9 +1,10 @@
 import { Flex, scrollStyle } from '@tiki/ui';
 
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
-import ItemAdder from '@/page/dashboard/component/File/ItemAdder/ItemAdder';
+import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 
 import FileGrid from '@/shared/component/FileGrid/FileGrid';
+import { PATH } from '@/shared/constant/path';
 import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
@@ -12,7 +13,7 @@ import { FileData } from '@/mock/data/drive';
 const FileSection = () => {
   return (
     <Flex css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}>
-      {!FileData[0] && <ItemAdder />}
+      {!FileData[0] && <ItemAdder path={PATH.DRIVE} />}
       {FileData.map((file) => {
         return (
           <FileGrid

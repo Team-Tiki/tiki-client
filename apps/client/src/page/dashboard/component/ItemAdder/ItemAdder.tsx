@@ -3,18 +3,16 @@ import { theme } from '@tiki/ui';
 
 import { useNavigate } from 'react-router-dom';
 
-import { adderStyle } from '@/page/dashboard/component/File/ItemAdder/ItemAdder.styles';
+import { adderStyle } from '@/page/dashboard/component/ItemAdder/ItemAdder.styles';
 
-import { PATH } from '@/shared/constant/path';
-
-const ItemAdder = () => {
+const ItemAdder = ({ path }: { path: string }) => {
   const navigate = useNavigate();
 
   return (
     <button
-      css={adderStyle}
+      css={adderStyle(path)}
       onClick={() => {
-        navigate(PATH.DRIVE);
+        navigate(path);
       }}>
       <IcMainAdd width={40} fill={theme.colors.gray_400} />
     </button>
