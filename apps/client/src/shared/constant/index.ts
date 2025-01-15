@@ -29,6 +29,16 @@ export const DELETED_TITLE = {
   PERMANENT: '파일을 완전히 삭제하시겠습니까?',
 } as const;
 
+export const DELETE_WORKSPACE = {
+  TITLE: '정말 워크스페이스를 삭제하시겠습니까?',
+  CONTENT: '워크스페이스가 즉시 삭제됩니다.',
+};
+
+export const DELETE_EXECUTIVE = {
+  TITLE: '임원진을 워크스페이스를 삭제하시겠습니까?',
+  CONTENT: '임원진을 워크스페이스에서 내보냅니다.',
+};
+
 export const DELETED_DETAIL = '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다' as const;
 
 export const CAUTION = {
@@ -62,11 +72,21 @@ export const CAUTION = {
     CONTENT: '노트 작성 형식을 변경하시겠습니까?',
     DESC: '변경 시 마지막 저장 후 수정된 내용은 저장되지 않습니다',
   },
-  DELETE_FOR_GOOD: {
+  EMPTY_DELETED: {
     INFO_TEXT: '휴지통 비우기',
     CONTENT: '휴지통을 비우시겠습니까?',
     DESC: '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다',
   },
+  DELETE_FOR_GOOD: {
+    INFO_TEXT: '영구 삭제',
+    CONTENT: '선택된 항목을 완전히 삭제하시겠습니까?',
+    DESC: '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다',
+  },
+};
+
+export const FILE = {
+  NOT_FOUND: '일치하는 항목이 존재하지 않습니다.',
+  NO_CONNECTED_FILE: '연동된 파일이 없습니다.',
 };
 
 export const MEMBER_DATA = [

@@ -1,7 +1,7 @@
 import {
   IcActivityTag,
   IcBlockCreate,
-  IcError,
+  IcFileUpload,
   IcInvite,
   IcMemberTag,
   IcWarning,
@@ -11,10 +11,10 @@ import {
 type ModalContentType =
   | 'create-workspace'
   | 'create-block'
-  | 'deleted'
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'file'
   | 'caution';
 
 interface ModalHeader {
@@ -141,16 +141,6 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       ],
     ],
   },
-  deleted: {
-    steps: 1,
-    headers: [{ icon: <IcWarning width={40} height={40} />, title: '삭제 확인', infoText: '정말 삭제하시겠습니까?' }],
-    buttons: [
-      [
-        { text: '취소', variant: 'outline' },
-        { text: '삭제', variant: 'primary' },
-      ],
-    ],
-  },
   invite: {
     steps: 1,
     headers: [
@@ -199,13 +189,29 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       ],
     ],
   },
+  file: {
+    steps: 1,
+    headers: [
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '파일 연동',
+        infoText: '연동할 파일을 선택하세요',
+      },
+    ],
+    buttons: [
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '연동', variant: 'primary' },
+      ],
+    ],
+  },
   caution: {
     steps: 1,
     headers: [
       {
-        icon: <IcError width={40} height={40} />,
+        icon: <IcWarning width={20} height={20} css={{ margin: '1rem' }} />,
         title: '주의!',
-        infoText: '타임라인에 저장된 활동을 태그할 수 있습니다.',
+        infoText: '',
       },
     ],
     buttons: [

@@ -1,11 +1,13 @@
-import { CommandButton, Flex, Input, Text } from '@tiki/ui';
+import { CommandButton, Flex, Input, Text, useToastAction } from '@tiki/ui';
 
 import { useState } from 'react';
 
+import { $api } from '@/shared/api/client';
 import { inputWrapperStyle, scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 const InviteModal = ({ step }: { step: number }) => {
   const [inputValue, setInputValue] = useState('');
@@ -14,6 +16,10 @@ const InviteModal = ({ step }: { step: number }) => {
   const isButtonActive = inputValue.trim().length > 0;
 
   const { nextStep } = useFunnel();
+  const { createToast } = useToastAction();
+
+  const teamId = useInitializeTeamId();
+  const { mutate } = $api.useMutation('post', '/api/v1/email/invitation/team/{teamId}');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -30,11 +36,28 @@ const InviteModal = ({ step }: { step: number }) => {
     setInviteList(inviteList.filter((item) => item !== email));
   };
 
+  const handleNextStep = () => {
+    inviteList.forEach((email) => {
+      mutate(
+        { params: { path: { teamId } }, body: { email: email } },
+        {
+          onSuccess: () => {
+            createToast('메일 전송에 성공했습니다.', 'success');
+            nextStep();
+          },
+          onError: (error) => {
+            createToast(`${error.message}`, 'error');
+          },
+        }
+      );
+    });
+  };
+
   return (
     <>
       <Modal.Header step={step} />
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '2rem', width: '100%' }}>
+        <Flex styles={{ direction: 'column', gap: '2rem', width: '100%', paddingTop: '2rem' }}>
           <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem', width: '100%' }}>
             <Input
               placeholder="초대할 팀원의 학교 웹메일"
@@ -48,7 +71,7 @@ const InviteModal = ({ step }: { step: number }) => {
               disabled={!isButtonActive}
               isCommand={false}
               onClick={handleAddInvite}
-              css={{ width: '12rem', height: '4rem' }}>
+              css={{ width: '12rem', height: '4rem', padding: '1rem' }}>
               추가
             </CommandButton>
           </Flex>
@@ -66,13 +89,7 @@ const InviteModal = ({ step }: { step: number }) => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        contentType="invite"
-        buttonClick={() => {
-          nextStep();
-        }}
-        isButtonActive={!isButtonActive}
-      />
+      <Modal.Footer contentType="invite" buttonClick={handleNextStep} isButtonActive={!isButtonActive} />
     </>
   );
 };

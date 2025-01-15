@@ -14,7 +14,7 @@ import {
   ErrorPage,
   HandoverNotePage,
   HandoverPage,
-  InfoFormPage,
+  InvitePage,
   LandingPage,
   LoginPage,
   OnBoardingPage,
@@ -22,9 +22,10 @@ import {
   PasswordResetPage,
   ShowcasePage,
   TermPage,
-  UnivFormPage,
   WorkSpaceSettingPage,
 } from '@/common/router/lazy';
+
+import SignUpPage from '@/page/signUp/info';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -75,18 +76,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_UNIV,
+        path: PATH.SIGNUP_INFO,
         element: (
           <Suspense>
-            <UnivFormPage />
+            <SignUpPage />
           </Suspense>
         ),
       },
       {
-        path: PATH.SIGNUP_INFO,
+        path: PATH.INVITE,
         element: (
           <Suspense>
-            <InfoFormPage />
+            <InvitePage />
           </Suspense>
         ),
       },
@@ -117,6 +118,14 @@ const router = createBrowserRouter([
       </Suspense>
     ),
     children: [
+      {
+        path: PATH.INVITE_IN,
+        element: (
+          <Suspense>
+            <InvitePage />
+          </Suspense>
+        ),
+      },
       {
         path: PATH.DASHBOARD,
         element: (

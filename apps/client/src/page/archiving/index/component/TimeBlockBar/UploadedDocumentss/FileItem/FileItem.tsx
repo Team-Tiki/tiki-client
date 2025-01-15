@@ -12,13 +12,13 @@ import {
 } from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem.style';
 import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
 import { Document } from '@/page/archiving/index/type/blockType';
-import { downloadDocument } from '@/page/archiving/index/util/document';
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
+import { downloadDocument } from '@/shared/util/document';
 
 interface FileItemProps extends Omit<Document, 'documentId'> {
   isEditable: boolean;

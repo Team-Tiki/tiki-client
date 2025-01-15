@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { paths } from '@/shared/__generated__/schema';
@@ -17,18 +18,21 @@ export const useInitializeTeamId = () => {
     },
   });
 
-  if (isSuccess && !localStorage.getItem('teamId')) {
-    const teamId = data.data?.belongTeamGetResponses[0].id ?? 0;
+  useEffect(() => {
+    if (isSuccess && !localStorage.getItem('teamId')) {
+      if (data.data?.belongTeamGetResponses.length === 0) {
+        navigate(PATH.ONBOARDING);
 
-    if (data.data?.belongTeamGetResponses.length === 0 || teamId === 0) {
-      navigate(PATH.ONBOARDING);
+        return;
+      }
+      const teamId = data.data?.belongTeamGetResponses[0].id ?? 0;
+
+      localStorage.setItem('teamId', teamId!.toString());
+      setTeamId(teamId);
+    } else if (!isSuccess) {
+      navigate(PATH.LOGIN);
     }
-
-    localStorage.setItem('teamId', teamId!.toString());
-    setTeamId(teamId);
-
-    return teamId;
-  }
+  });
 
   return Number(localStorage.getItem('teamId'));
 };

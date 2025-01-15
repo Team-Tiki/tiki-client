@@ -1,8 +1,7 @@
 import { useRef, useState } from 'react';
 
-import { useDeleteFileMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/useDeleteFileMutation';
-import { usePutUploadMutation } from '@/page/archiving/index/component/TimeBlockModal/hook/api/usePutUploadMutation';
-
+import { useDeleteFileMutation } from '@/shared/component/TimeBlockModal/hook/api/useDeleteFileMutation';
+import { usePutUploadMutation } from '@/shared/component/TimeBlockModal/hook/api/usePutUploadMutation';
 import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
