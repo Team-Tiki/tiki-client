@@ -61,7 +61,7 @@ const ActivityTagModal = () => {
   };
 
   const handleSelect = (item: ActivityTag) => {
-    const isSelected = selectedTags.some((tag) => tag.timeBlockId === item.timeBlockId); // ✅ 올바른 비교
+    const isSelected = selectedTags.some((tag) => tag.timeBlockId === item.timeBlockId);
 
     if (!isSelected) {
       setSelectedTags((prev) => [...prev, item]);
