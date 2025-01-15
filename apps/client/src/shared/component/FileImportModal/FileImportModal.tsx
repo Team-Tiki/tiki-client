@@ -1,5 +1,5 @@
 import { IcFileItem, IcSearch } from '@tiki/icon';
-import { DropdownItem, DropdownList, DropdownRoot, Input, scrollStyle } from '@tiki/ui';
+import { DropdownItem, DropdownList, DropdownRoot, Flex, Input, scrollStyle } from '@tiki/ui';
 import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
@@ -10,6 +10,7 @@ import {
   emptyStyle,
   fileListStyle,
   itemStyle,
+  listWrapperStyle,
   notFoundStyle,
   overlayStyle,
   textFieldStyle,
@@ -75,49 +76,52 @@ const FileImportModal = () => {
     <>
       <Modal.Header />
       <Modal.Body>
-        <Input
-          LeftIcon={<IcSearch width={16} height={16} />}
-          isFilled={false}
-          onFocus={open}
-          placeholder="search"
-          onChange={(e) => setSearchFile(e.target.value)}
-        />
-        <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
-          <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
-            {filteredFiles?.length === 0 ? (
-              <DropdownItem css={notFoundStyle}>{FILE.NOT_FOUND}</DropdownItem>
+        <Flex styles={{ width: '100%', direction: 'column', marginTop: '2rem' }}>
+          <Input
+            LeftIcon={<IcSearch width={16} height={16} />}
+            isFilled={false}
+            onFocus={open}
+            placeholder="search"
+            onChange={(e) => setSearchFile(e.target.value)}
+          />
+          <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
+            <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+              {filteredFiles?.length === 0 ? (
+                <DropdownItem css={notFoundStyle}>{FILE.NOT_FOUND}</DropdownItem>
+              ) : (
+                filteredFiles?.map((file) => (
+                  <DropdownItem key={file.documentId} css={itemStyle} onSelect={() => handleSelect(file)}>
+                    <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
+                    <p css={textFieldStyle}>
+                      {file.name}
+                      {file.url && <span>{file.url}</span>}
+                    </p>
+                  </DropdownItem>
+                ))
+              )}
+            </DropdownList>
+          </DropdownRoot>
+          <div css={listWrapperStyle}>
+            {selectedFiles.length === 0 ? (
+              <div css={emptyStyle}>{FILE.NO_CONNECTED_FILE}</div>
             ) : (
-              filteredFiles?.map((file) => (
-                <DropdownItem key={file.documentId} css={itemStyle} onSelect={() => handleSelect(file)}>
-                  <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
-                  <p css={textFieldStyle}>
-                    {file.name}
-                    {file.url && <span>{file.url}</span>}
-                  </p>
-                </DropdownItem>
+              selectedFiles.map((file) => (
+                <div css={[scrollStyle, fileListStyle]} key={file.documentId}>
+                  <UploadedFileItem
+                    key={file.documentId}
+                    title={file.name}
+                    fileSize={getFileVolume(file.capacity || 0)}
+                    uploadedSize={getFileVolume(file.capacity || 0)}
+                    onDelete={() => handleDelete(file.documentId ?? 0)}
+                    size="small"
+                  />
+                </div>
               ))
             )}
-          </DropdownList>
-        </DropdownRoot>
-        <div css={{ marginTop: '2rem' }}>
-          {selectedFiles.length === 0 ? (
-            <div css={emptyStyle}>{FILE.NO_CONNECTED_FILE}</div>
-          ) : (
-            selectedFiles.map((file) => (
-              <div css={[scrollStyle, fileListStyle]} key={file.documentId}>
-                <UploadedFileItem
-                  key={file.documentId}
-                  title={file.name}
-                  fileSize={getFileVolume(file.capacity || 0)}
-                  uploadedSize={getFileVolume(file.capacity || 0)}
-                  onDelete={() => handleDelete(file.documentId ?? 0)}
-                  size="small"
-                />
-              </div>
-            ))
-          )}
-        </div>
+          </div>
+        </Flex>
       </Modal.Body>
+
       <Modal.Footer
         contentType="file"
         closeModal={closeModal}
