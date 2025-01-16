@@ -11,7 +11,8 @@
     "ui": "pnpm --filter @tiki/ui",
     "utils": "pnpm --filter @tiki/utils",
     "build:ui": "pnpm --filter @tiki/ui build",
-    "build:icon": "pnpm --filter @tiki/icon build"
+    "build:icon": "pnpm --filter @tiki/icon build",
+    "build:client": "pnpm --filter client build"
   },
   "workspaces": [
     "apps/*",
