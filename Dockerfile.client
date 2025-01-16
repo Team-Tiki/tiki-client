@@ -6,6 +6,9 @@ WORKDIR /app
 # Copies package.json & pnpm-lock file
 COPY package.json .
 COPY pnpm-lock.yaml .
+# Install Pnpm
+RUN apk add --no-cache libc6-compat
+RUN wget -qO /bin/pnpm "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" && chmod +x /bin/pnpm
 # Install deps
 RUN pnpm install
 COPY . ./
