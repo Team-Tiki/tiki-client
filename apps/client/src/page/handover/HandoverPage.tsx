@@ -195,6 +195,7 @@ const HandoverPage = () => {
               isSelected={ids.includes(+data.noteId)}
               onSelect={() => handleItemClick(+data.noteId)}
               onNoteCloseClick={handleNoteCloseClick}
+              onClick={() => navigate(`/handover/${+data.noteId}`)}
             />
           ))}
         {isFetching && (
