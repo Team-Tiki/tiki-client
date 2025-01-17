@@ -23,8 +23,8 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Delete nginx default config file
 RUN rm /etc/nginx/conf.d/default.conf
 # Copy custom conf file into nginx container
-COPY client.conf /etc/nginx/conf.d
+COPY /nginx/client.conf /etc/nginx/conf.d
 # Expose 443 port
-EXPOSE 443
+EXPOSE 443 80
 # npm start 스크립트 실행
 CMD ["nginx", "-g", "daemon off;"]
