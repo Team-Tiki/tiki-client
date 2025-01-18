@@ -1,18 +1,17 @@
 # Stage 1
 FROM node:21-alpine AS build
-WORKDIR /app
+
 # 필요한 환경 변수 설정
 ENV NODE_ENV production
 ENV PNPM_HOME /pnpm
 ENV PATH $PNPM_HOME:$PATH
+RUN corepack enable
 # pnpm 설치
-RUN apk add --no-cache libc6-compat
-RUN wget -qO /bin/pnpm "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" && chmod +x /bin/pnpm
-
+WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod
-COPY . ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm build:client
+COPY . ./
 
 # Stage 2
 FROM nginx:stable-alpine
