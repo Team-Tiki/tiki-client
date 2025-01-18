@@ -1,7 +1,7 @@
 FROM node:21-alpine AS build
 
-# pnpm 설치
-RUN wget -qO- https://get.pnpm.io/install.sh | sh -
+# pnpm 설치 (SHELL을 sh로 설정)
+RUN wget -qO- https://get.pnpm.io/install.sh | SHELL="/bin/sh" sh -
 
 # 환경변수 설정 (pnpm 설치 후 경로를 추가)
 ENV PATH="/root/.local/share/pnpm:$PATH"
