@@ -10,7 +10,7 @@ FROM node:21-alpine AS build
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm
-RUN corepack enable && corepack prepare pnpm@9.1.3 --activate
+RUN corepack enable pnpm@9.1.3
 
 RUN pnpm install
 
