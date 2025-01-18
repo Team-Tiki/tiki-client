@@ -8,17 +8,17 @@ FROM node:21-alpine AS build
 
 # corepack으로 pnpm 활성화 및 버전 고정
 RUN corepack enable
+
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN npm install -g pnpm
 
-RUN pnpm install
-
-# package.json과 pnpm-lock.yaml만 복사하여 의존성 설치
-COPY . ./
+RUN pnpm install --frozen-lockfile
 
 # 나머지 프로젝트 파일 복사 및 빌드
 RUN pnpm build:client
+
+# package.json과 pnpm-lock.yaml만 복사하여 의존성 설치
+COPY . ./
 
 # Stage 2: Serve stage
 FROM nginx:stable-alpine
