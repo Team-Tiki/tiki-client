@@ -3,21 +3,23 @@ RUN corepack enable
 COPY . /app
 WORKDIR /app
 
+FROM base AS deps
+WORKDIR /app
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 
-FROM base AS build-icon
+FROM deps AS build-icon
 WORKDIR /app/packages/icon
-COPY --from=base /app/packages/icon /app/packages/icon
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm build
 
-FROM base AS build-ui
+FROM deps AS build-ui
 WORKDIR /app/packages/ui
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
-COPY --from=base /app/packages/ui /app/packages/ui
 RUN pnpm build
 
-FROM base AS build-client
+FROM deps AS build-client
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY --from=build-ui /app/packages/ui/dist /app/packages/ui/dist
