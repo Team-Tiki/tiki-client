@@ -14,10 +14,6 @@
     "build:icon": "pnpm --filter @tiki/icon build",
     "build:client": "pnpm --filter client build"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "root": true,
   "packageManager": "pnpm@9.1.3",
   "engines": {
