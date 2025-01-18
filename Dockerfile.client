@@ -3,19 +3,25 @@ FROM node:21-slim AS base
 FROM base AS deps
  
 RUN corepack enable
+COPY . /app
 WORKDIR /app
 
-COPY patches /app/patches
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 
-FROM base AS build
+FROM base AS build-ui
+WORKDIR /app/packages/ui
+RUN pnpm build
+
+FROM base AS build-icon
+WORKDIR /app/packages/icon
+RUN pnpm build
 
 RUN corepack enable
 WORKDIR /app
-COPY patches /app/patches
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY --from=build-ui /app/packages/ui/dist /app/packages/ui/dist
+COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY . .
