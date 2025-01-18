@@ -11,13 +11,13 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 
 FROM base AS build-icon
 WORKDIR /app/packages/icon
-COPY --from=deps /app /app
+COPY --from=deps /app/packages/icon /app/packages/icon
 RUN pnpm build
 
 FROM base AS build-ui
 WORKDIR /app/packages/ui
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
-COPY --from=deps /app /app
+COPY --from=deps /app/packages/ui /app/packages/ui
 RUN pnpm build
 
 FROM base AS build-client
