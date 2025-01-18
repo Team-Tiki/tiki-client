@@ -1,9 +1,16 @@
 # Stage 1
-FROM node:21-slim AS build
+FROM node:21-alpine AS build
 WORKDIR /app
+# 필요한 환경 변수 설정
+ENV NODE_ENV production
+ENV PNPM_HOME /pnpm
+ENV PATH $PNPM_HOME:$PATH
+# pnpm 설치
+RUN apk add --no-cache libc6-compat
+RUN wget -qO /bin/pnpm "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" && chmod +x /bin/pnpm
+
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --prod
 COPY . ./
 RUN pnpm build:client
 
