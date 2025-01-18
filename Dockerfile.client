@@ -7,10 +7,10 @@ FROM node:21-alpine AS build
 # ENV NODE_ENV=production
 
 # corepack으로 pnpm 활성화 및 버전 고정
+RUN corepack enable
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm
-RUN corepack enable pnpm@9.1.3
 
 RUN pnpm install
 
