@@ -1,37 +1,30 @@
-# Stage 1: Build stage
 FROM node:21-alpine AS build
 
-# 환경 변수 설정
-# ENV PNPM_HOME="/pnpm"
-# ENV PATH="$PNPM_HOME:$PATH"
-# ENV NODE_ENV=production
-
-# corepack으로 pnpm 활성화 및 버전 고정
+# corepack을 통해 pnpm 활성화
 RUN corepack enable
 
+# 작업 디렉토리 설정
 WORKDIR /app
+
+# 의존성 설치 전에 캐시 클리어
+RUN rm -rf /root/.pnpm-store
+
+# package.json과 pnpm-lock.yaml 파일 복사
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
+# 의존성 설치
 RUN pnpm install --frozen-lockfile
 
-# 나머지 프로젝트 파일 복사 및 빌드
-RUN pnpm build:client
+# 빌드 실행
+RUN pnpm build
 
-# package.json과 pnpm-lock.yaml만 복사하여 의존성 설치
+# 나머지 파일 복사
 COPY . ./
 
-# Stage 2: Serve stage
+# Nginx 설정
 FROM nginx:stable-alpine
-
-# 빌드 결과 복사
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Nginx 설정 복사
 RUN rm /etc/nginx/conf.d/default.conf
 COPY /nginx/client.conf /etc/nginx/conf.d
-
-# 포트 노출
 EXPOSE 443 80
-
-# Nginx 실행
 CMD ["nginx", "-g", "daemon off;"]
