@@ -2,6 +2,8 @@
 FROM node:21-alpine AS build
 
 # 환경 변수 설정
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_ENV=production
 
 # corepack으로 pnpm 활성화 및 버전 고정
@@ -11,7 +13,7 @@ WORKDIR /app
 
 # package.json과 pnpm-lock.yaml만 복사하여 의존성 설치
 COPY package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,target=/root/.pnpm-store pnpm install --frozen-lockfile
+RUN --mount=type=cache,target=/pnpm/store pnpm install --frozen-lockfile
 
 # 나머지 프로젝트 파일 복사 및 빌드
 COPY . ./
