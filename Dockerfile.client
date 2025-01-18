@@ -9,14 +9,16 @@ WORKDIR /app
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 
-FROM base AS build-ui
-WORKDIR /app/packages/ui
-RUN pnpm build
-
 FROM base AS build-icon
 WORKDIR /app/packages/icon
 RUN pnpm build
 
+FROM base AS build-ui
+WORKDIR /app/packages/ui
+COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
+RUN pnpm build
+
+FROM base AS build-client
 RUN corepack enable
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -31,7 +33,7 @@ FROM base
 
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist /app/dist
+COPY --from=build-client /app/dist /app/dist
 ENV NODE_ENV production
 EXPOSE 443 80
 CMD [ "nginx", "-g", "daemon off;"]
