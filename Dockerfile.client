@@ -1,13 +1,13 @@
 FROM node:21-alpine AS build
 
-# corepack을 통해 pnpm 활성화
-RUN corepack enable
+# pnpm 설치
+RUN wget -qO- https://get.pnpm.io/install.sh | sh -
+
+# 환경변수 설정 (pnpm 설치 후 경로를 추가)
+ENV PATH="/root/.local/share/pnpm:$PATH"
 
 # 작업 디렉토리 설정
 WORKDIR /app
-
-# 의존성 설치 전에 캐시 클리어
-RUN rm -rf /root/.pnpm-store
 
 # package.json과 pnpm-lock.yaml 파일 복사
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -16,15 +16,25 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # 빌드 실행
-RUN pnpm build
+RUN pnpm build:client
 
 # 나머지 파일 복사
 COPY . ./
 
-# Nginx 설정
+# 두 번째 스테이지: nginx 설정
 FROM nginx:stable-alpine
+
+# build 스테이지에서 생성한 dist 폴더를 nginx html 폴더에 복사
 COPY --from=build /app/dist /usr/share/nginx/html
+
+# 기본 nginx 설정 삭제
 RUN rm /etc/nginx/conf.d/default.conf
+
+# custom nginx 설정 복사
 COPY /nginx/client.conf /etc/nginx/conf.d
+
+# 포트 노출
 EXPOSE 443 80
+
+# nginx 실행
 CMD ["nginx", "-g", "daemon off;"]
