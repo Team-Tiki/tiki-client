@@ -10,13 +10,13 @@ import { useCurrentDate } from '@/shared/hook/common/useCurrentDate';
 
 const HandoverSection = () => {
   const createdAt = useCurrentDate();
-  const { data, isFetching } = useNoteData(createdAt);
+  const { data, isPending } = useNoteData(createdAt);
 
   return (
-    <Flex css={listItemStyle}>
+    <Flex styles={{ direction: 'column', gap: '0.8rem', align: 'center' }} css={listItemStyle}>
       {!data?.data?.noteGetResponseList[0] && <ItemAdder path={PATH.HANDOVER} />}
 
-      {isFetching ? (
+      {isPending ? (
         <Spinner size={30} />
       ) : (
         data?.data?.noteGetResponseList.map((note) => {
