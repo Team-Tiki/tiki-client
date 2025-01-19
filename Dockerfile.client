@@ -5,8 +5,7 @@ WORKDIR /app
 
 FROM base AS deps
 WORKDIR /app
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 
 FROM deps AS build-icon
 WORKDIR /app/packages/icon
@@ -20,17 +19,14 @@ COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
 RUN pnpm build
 
 FROM deps AS build-client
-WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+WORKDIR /app/apps/client
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY --from=build-ui /app/packages/ui/dist /app/packages/ui/dist
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
-COPY --from=base /app /app
-RUN pnpm --filter client build
+RUN pnpm build
 
 FROM base
-
 WORKDIR /app
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY --from=deps /app/node_modules /app/node_modules
 COPY --from=build-client /app/dist /app/dist
 ENV NODE_ENV production
