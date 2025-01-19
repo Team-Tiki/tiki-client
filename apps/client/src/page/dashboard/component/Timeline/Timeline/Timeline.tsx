@@ -10,12 +10,9 @@ import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeli
 
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
-const Timeline = () => {
+const Timeline = ({ teamId }: { teamId: number }) => {
   const navigate = useNavigate();
-
-  const teamId = useInitializeTeamId();
 
   const { currentYear, currentMonth, endDay } = useDateContext();
 

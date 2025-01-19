@@ -15,6 +15,7 @@ import { extractFileExtension } from '@/shared/util/file';
 
 const FileSection = () => {
   const teamId = useInitializeTeamId();
+
   const { data: fileData } = $api.useQuery('get', '/api/v1/teams/{teamId}/drive', {
     params: {
       path: {
