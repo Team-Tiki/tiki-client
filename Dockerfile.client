@@ -30,6 +30,7 @@ RUN pnpm --filter client build
 FROM base
 
 WORKDIR /app
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY --from=deps /app/node_modules /app/node_modules
 COPY --from=build-client /app/dist /app/dist
 ENV NODE_ENV production
