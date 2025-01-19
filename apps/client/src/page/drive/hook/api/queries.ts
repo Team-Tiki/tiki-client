@@ -1,8 +1,8 @@
 import { $api } from '@/shared/api/client';
-import { useTeamId } from '@/shared/store/team';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 
 export const useDriveData = () => {
-  const teamId = useTeamId();
+  const teamId = useInitializeTeamId();
 
   return $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/drive', {
     params: {
