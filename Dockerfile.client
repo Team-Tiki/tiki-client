@@ -1,26 +1,27 @@
-FROM node:21-slim AS base
-RUN corepack enable
+FROM node:21-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable && corepack prepare pnpm@9.1.3 --activate
 COPY . /app
 WORKDIR /app
 
-FROM base AS deps
-WORKDIR /app
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
+COPY pnpm-lock.yaml .
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch
+COPY . .
+# Install Dependencies by recursive option
+RUN pnpm install --recursive --frozen-lockfile
 
-FROM deps AS build-icon
+FROM base AS build-icon
 WORKDIR /app/packages/icon
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm build
 
-FROM deps AS build-ui
+FROM base AS build-ui
 WORKDIR /app/packages/ui
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
 RUN pnpm build
 
-FROM deps AS build-client
+FROM base AS build-client
 WORKDIR /app/apps/client
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 COPY --from=build-ui /app/packages/ui/dist /app/packages/ui/dist
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
 RUN pnpm build
