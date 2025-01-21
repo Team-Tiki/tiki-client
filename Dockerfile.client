@@ -1,6 +1,9 @@
 FROM node:21-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV GENERATE_SOURCEMAP=false
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
 RUN corepack enable && corepack prepare pnpm@9.1.3 --activate
 COPY . /app
 WORKDIR /app
@@ -24,6 +27,7 @@ FROM base AS build-client
 WORKDIR /app/apps/client
 COPY --from=build-ui /app/packages/ui/dist /app/packages/ui/dist
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
+RUN rm -rf /app/apps/client/node_modules/.vite
 RUN pnpm build
 
 FROM nginx:stable-alpine
