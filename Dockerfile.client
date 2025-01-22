@@ -25,7 +25,6 @@ RUN pnpm build
 
 FROM base AS build-client
 WORKDIR /app/apps/client
-COPY /app/apps/client/.env /app/apps/client/.env
 COPY --from=build-ui /app/packages/ui/dist /app/packages/ui/dist
 COPY --from=build-icon /app/packages/icon/dist /app/packages/icon/dist
 RUN rm -rf /app/apps/client/node_modules/.vite
