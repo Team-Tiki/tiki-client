@@ -37,4 +37,4 @@ COPY --from=build-client /app/apps/client/dist /usr/share/nginx/html
 COPY --from=base /app/nginx/client.conf /etc/nginx/conf.d
 ENV NODE_ENV production
 EXPOSE 443 80
-CMD [ "nginx", "-g", "daemon off;"]
+ENTRYPOINT [ "nginx", "-g", "daemon off;"]
