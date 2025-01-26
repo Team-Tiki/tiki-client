@@ -47,7 +47,7 @@ const useFile = ({ files, onFilesChange, setUploadStatus, setFileUrls }: useFile
               fileUrlMap[fileName] = uploadedFileUrl;
               newUploadStatus[fileName] = true;
               setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
-              setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap })); // setFileUrls를 여기서 호출합니다.
+              setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
             }
           }, delay);
         }
