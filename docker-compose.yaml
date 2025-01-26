@@ -8,13 +8,12 @@ services:
       - "443:443"
     volumes:
       - ./nginx/client.conf:/etc/nginx/conf.d/default.conf
-      - /home/ubuntu/certbot/conf:/etc/letsencrypt
-      - /home/ubuntu/certbot/www:/var/www/certbot
+      - /home/ubuntu/tiki-client:/usr/share/nginx/html
     
   certbot:
     image: certbot/certbot
+    command: certonly --webroot -w /usr/share/nginx/html -d ti-kii.com
     volumes:
-      - /home/ubuntu/certbot/conf:/etc/letsencrypt
-      - /home/ubuntu/certbot/www:/var/www/certbot
+      - /home/ubuntu/tiki-client:/usr/share/nginx/html
     depends_on:
       - client
