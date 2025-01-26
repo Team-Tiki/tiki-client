@@ -28,7 +28,7 @@ const WorkSpaceComplete = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ['get', '/api/v1/members/teams', {}],
+            queryKey: ['get', '/api/v1/members/teams'],
           });
 
           closeModal();
