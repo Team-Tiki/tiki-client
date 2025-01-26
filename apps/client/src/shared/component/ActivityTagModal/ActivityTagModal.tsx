@@ -66,7 +66,6 @@ const ActivityTagModal = () => {
     if (!isSelected) {
       setSelectedTags((prev) => [...prev, item]);
     }
-
     close();
   };
 
@@ -107,6 +106,7 @@ const ActivityTagModal = () => {
                       tag={tag.type}
                       color={tag.color}
                       onDelete={() => handleDelete(tag.timeBlockId)}
+                      isSearch
                     />
                   </DropdownItem>
                 ))
