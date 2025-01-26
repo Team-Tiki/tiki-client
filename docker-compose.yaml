@@ -1,7 +1,7 @@
 version: '3'
 services:
   client:
-    image: nginx
+    image: nginx:stable-alpine
     restart: always
     ports:
       - "80:80"
