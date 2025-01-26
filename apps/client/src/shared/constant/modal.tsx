@@ -1,10 +1,10 @@
 import {
   IcActivityTag,
   IcBlockCreate,
+  IcError,
   IcFileUpload,
   IcInvite,
   IcMemberTag,
-  IcWarning,
   IcWorkspaceSuccess,
 } from '@tiki/icon';
 
@@ -209,7 +209,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcWarning width={20} height={20} css={{ margin: '1rem' }} />,
+        icon: <IcError width={40} height={40} css={{ margin: '1rem', flexShrink: '0' }} />,
         title: '주의!',
         infoText: '',
       },

@@ -1,12 +1,7 @@
-import * as React from 'react';
-import type { SVGProps } from 'react';
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgIcWorkspaceSuccess = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 20 20"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" {...props}>
     <path
       fill="#525866"
       d="M9.992 1.667c-4.6 0-8.325 3.733-8.325 8.333s3.725 8.333 8.325 8.333c4.608 0 8.341-3.733 8.341-8.333S14.6 1.667 9.992 1.667m.008 15A6.665 6.665 0 0 1 3.333 10 6.665 6.665 0 0 1 10 3.333 6.665 6.665 0 0 1 16.666 10 6.665 6.665 0 0 1 10 16.666m2.916-7.5c.692 0 1.25-.559 1.25-1.25 0-.692-.558-1.25-1.25-1.25-.691 0-1.25.558-1.25 1.25 0 .691.559 1.25 1.25 1.25m-5.833 0c.692 0 1.25-.559 1.25-1.25 0-.692-.558-1.25-1.25-1.25s-1.25.558-1.25 1.25c0 .691.558 1.25 1.25 1.25M10 14.583a4.58 4.58 0 0 0 4.258-2.917H5.742A4.58 4.58 0 0 0 10 14.583"
