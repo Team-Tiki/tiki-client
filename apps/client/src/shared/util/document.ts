@@ -1,12 +1,22 @@
 export const downloadDocument = (fileUrl: string, name?: string) => {
-  const url = URL.createObjectURL(new Blob([fileUrl]));
-  const a = document.createElement('a');
-  a.href = url;
-  name && (a.download = name);
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    window.URL.revokeObjectURL(fileUrl);
-  }, 1000);
-  a.remove();
+  fetch(fileUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('response network error');
+      }
+      return response.blob();
+    })
+    .then((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name || 'downloaded-file';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    })
+    .catch((error) => {
+      console.error('File download failed:', error);
+    });
 };
