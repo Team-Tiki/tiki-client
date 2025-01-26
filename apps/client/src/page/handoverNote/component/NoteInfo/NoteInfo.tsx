@@ -68,7 +68,7 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
 
   return (
     <aside css={entireInfoStyle}>
-      <input
+      <textarea
         css={titleStyle}
         placeholder={info?.title}
         onChange={(e) => setInfo((prev) => ({ ...prev, title: e.target.value }))}
