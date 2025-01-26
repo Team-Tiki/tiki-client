@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage';
+import InviteModal from '@/shared/component/WorkSpaceModal/invite/InviteModal';
 import WorkSpaceName from '@/shared/component/WorkSpaceModal/name/WorkSpaceName';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { FunnelStep } from '@/shared/util/funnelStep';
