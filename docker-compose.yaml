@@ -11,8 +11,7 @@ services:
       - /home/ubuntu/tiki-client:/usr/share/nginx/html
       - /home/ubuntu/certbot/conf:/etc/letsencrypt
       - /home/ubuntu/certbot/www:/var/www/certbot
-    depends_on:
-      - certbot
+    
   certbot:
     image: certbot/certbot
     command: certonly --webroot -w /usr/share/nginx/html -d ti-kii.com
@@ -20,3 +19,5 @@ services:
       - /home/ubuntu/tiki-client:/usr/share/nginx/html
       - /home/ubuntu/certbot/conf:/etc/letsencrypt
       - /home/ubuntu/certbot/www:/var/www/certbot
+    depends_on:
+      - client
