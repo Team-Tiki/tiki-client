@@ -7,6 +7,9 @@ export const tagListStyle = css({
 
   marginTop: '2rem',
 
+  flexDirection: 'column',
+  gap: '1.6rem',
+
   overflowX: 'hidden',
   overflowY: 'scroll',
 

@@ -24,16 +24,13 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete, isSearch = false }
   return (
     <Flex
       styles={{
-        direction: 'row',
         align: 'center',
-        justify: 'space-between',
-        width: '100%',
         padding: '0.4rem 0rem',
+        width: '100%',
+        justify: 'space-between',
       }}>
       <Flex
         styles={{
-          direction: 'row',
-          align: 'center',
           gap: '0.8rem',
         }}>
         <div css={iconBackStyle}>{icon}</div>
@@ -41,7 +38,7 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete, isSearch = false }
           <Text tag="body8" css={tagNameStyle}>
             {title}
           </Text>
-          <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem' }}>
+          <Flex styles={{ align: 'center', gap: '0.4rem' }}>
             <IcCalendarTag width={12} height={12} />
             <Text tag="body8" css={dateStyle}>
               {date}
@@ -50,7 +47,7 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete, isSearch = false }
         </Flex>
       </Flex>
 
-      <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem' }}>
+      <Flex styles={{ align: 'center', gap: '0.4rem' }}>
         <Text tag="body8" css={tagStyle(color)}>
           {tag.toLowerCase()}
         </Text>

@@ -9,7 +9,6 @@ import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem
 import { tagListStyle } from '@/shared/component/ActivityTagModal/ActivityTagModal.style';
 import {
   emptyStyle,
-  fileListStyle,
   itemStyle,
   notFoundStyle,
   overlayStyle,
@@ -113,12 +112,12 @@ const ActivityTagModal = () => {
               )}
             </DropdownList>
           </DropdownRoot>
-          <div css={tagListStyle}>
+          <Flex css={tagListStyle}>
             {selectedTags.length === 0 ? (
               <div css={emptyStyle}>{TAG.NO_CONNECTED_TAG}</div>
             ) : (
               selectedTags.map((tag) => (
-                <div css={[scrollStyle, fileListStyle]} key={tag.timeBlockId}>
+                <Flex css={[scrollStyle, { width: '100%' }]} key={tag.timeBlockId}>
                   <ActivityTagItem
                     key={tag.timeBlockId}
                     title={tag.name}
@@ -127,10 +126,10 @@ const ActivityTagModal = () => {
                     color={tag.color}
                     onDelete={() => handleDelete(tag.timeBlockId)}
                   />
-                </div>
+                </Flex>
               ))
             )}
-          </div>
+          </Flex>
         </Flex>
       </Modal.Body>
       <Modal.Footer contentType="activity-tag" buttonClick={handleComplete} closeModal={closeModal} />
