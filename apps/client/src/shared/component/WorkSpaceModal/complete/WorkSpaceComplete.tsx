@@ -39,7 +39,7 @@ const WorkSpaceComplete = () => {
 
   return (
     <>
-      <Modal.Header step={5} totalSteps={5} />
+      <Modal.Header step={4} totalSteps={4} />
       <Modal.Body>
         <div css={{ width: '100%', paddingTop: '2rem' }}>
           <picture>

@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import WorkSpaceCategory from '@/shared/component/WorkSpaceModal/category/WorkSpaceCategory';
 import WorkSpaceComplete from '@/shared/component/WorkSpaceModal/complete/WorkSpaceComplete';
 import WorkSpaceImage from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage';
-import InviteModal from '@/shared/component/WorkSpaceModal/invite/InviteModal';
 import WorkSpaceName from '@/shared/component/WorkSpaceModal/name/WorkSpaceName';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { FunnelStep } from '@/shared/util/funnelStep';
@@ -12,7 +11,7 @@ export const WorkSpaceFlow = () => {
   const { setTotalSteps } = useFunnel();
 
   useEffect(() => {
-    setTotalSteps(5);
+    setTotalSteps(4);
   }, [setTotalSteps]);
 
   return (
@@ -27,9 +26,6 @@ export const WorkSpaceFlow = () => {
         <WorkSpaceImage />
       </FunnelStep>
       <FunnelStep step={4}>
-        <InviteModal step={4} />
-      </FunnelStep>
-      <FunnelStep step={5}>
         <WorkSpaceComplete />
       </FunnelStep>
     </>

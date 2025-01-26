@@ -24,6 +24,7 @@ const NotePage = () => {
     null
   );
   const [selectedTab, setSelectedTab] = useState(0);
+
   const { noteId } = useParams();
   const navigate = useNavigate();
 
