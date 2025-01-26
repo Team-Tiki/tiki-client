@@ -1,0 +1,20 @@
+version: '3'
+services:
+  client:
+    image: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/client.conf:/etc/nginx/conf.d/default.conf
+      - /home/ubuntu/tiki-client:/usr/share/nginx/html
+    depends_on:
+      - certbot
+  certbot:
+    image: certbot/certbot
+    command: certonly --webroot -w /usr/share/nginx/html -d ti-kii.com
+    volumes:
+      - /home/ubuntu/frontend:/usr/share/nginx/html
+    depends_on:
+      - client
