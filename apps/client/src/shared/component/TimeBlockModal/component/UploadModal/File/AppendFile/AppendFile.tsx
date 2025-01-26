@@ -1,15 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IcFileUpload } from '@tiki/icon';
 import { Button, Flex, Text, scrollStyle, useToastAction } from '@tiki/ui';
+
 import { useEffect, useState } from 'react';
 
 import { $api } from '@/shared/api/client';
+import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import { boxStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
-
-
-import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { convertToKB, getFileVolume } from '@/shared/util/file';
 
@@ -49,7 +49,6 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
     setFileUrls,
     setUploadStatus,
   });
-
 
   const handleUploadFile = (validFiles: FileWithDocumentId[]) => {
     const documentDetailList: DocumentDetail[] = [];
@@ -141,8 +140,7 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
         }}
         css={boxStyle}
         onDragOver={handleDragOver}
-        onDrop={(event) => handleDrop(event)}
-      >
+        onDrop={(event) => handleDrop(event)}>
         <Flex tag="form" styles={{ direction: 'column', align: 'center', justify: 'center' }}>
           <input type="file" multiple style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
           <IcFileUpload width={32} height={32} css={{ marginBottom: '1.2rem' }} />

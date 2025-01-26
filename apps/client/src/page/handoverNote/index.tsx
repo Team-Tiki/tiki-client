@@ -153,7 +153,9 @@ const NotePage = () => {
                 setData={setNoteDetailData as React.Dispatch<React.SetStateAction<CustomNoteData>>}
               />
             </TabPanel>
-          ) : null)}
+          ) : (
+            <></>
+          ))}
       </TabRoot>
     </section>
   );

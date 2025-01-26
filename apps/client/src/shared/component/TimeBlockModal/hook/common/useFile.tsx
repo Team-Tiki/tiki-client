@@ -57,7 +57,7 @@ const useFile = ({ files, onFilesChange, setUploadStatus, setFileUrls }: useFile
         fileInputRef.current.value = '';
       }
     },
-    [files, onFilesChange, uploadToS3, setUploadStatus]
+    [files, onFilesChange, uploadToS3, setUploadStatus, setFileUrls]
   );
 
   const handleFileChange = useCallback(

@@ -14,11 +14,11 @@ import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import {
-    isCautionModalData,
-    useCloseModal,
-    useModalContentType,
-    useModalData,
-    useModalIsOpen,
+  isCautionModalData,
+  useCloseModal,
+  useModalContentType,
+  useModalData,
+  useModalIsOpen,
 } from '@/shared/store/modal';
 import { FunnelStep } from '@/shared/util/funnelStep';
 
