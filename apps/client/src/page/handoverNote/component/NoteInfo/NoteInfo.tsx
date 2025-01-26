@@ -122,8 +122,8 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
           </Text>
           <DatePicker
             onChange={handleDateChange}
-            defaultSelectedDate={new Date(info?.startDate)}
-            defaultEndDate={new Date(info?.endDate)}
+            defaultSelectedDate={info.startDate ? new Date(info.startDate) : new Date()}
+            defaultEndDate={info.endDate ? new Date(info.endDate) : new Date()}
             variant="range"
             triggerWidth="12"
           />
