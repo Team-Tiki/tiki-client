@@ -1,6 +1,6 @@
 import { CommandButton, Flex, Input, Text, useToastAction } from '@tiki/ui';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
@@ -13,7 +13,7 @@ const InviteModal = ({ step }: { step: number }) => {
   const [inputValue, setInputValue] = useState('');
   const [inviteList, setInviteList] = useState<string[]>([]);
 
-  const isButtonActive = inputValue.trim().length > 0;
+  const isButtonActive = inviteList.length === 0;
 
   const { nextStep } = useFunnel();
   const { createToast } = useToastAction();
@@ -26,32 +26,41 @@ const InviteModal = ({ step }: { step: number }) => {
   };
 
   const handleAddInvite = () => {
-    if (inputValue.trim() && !inviteList.includes(inputValue)) {
-      setInviteList([...inviteList, inputValue.trim()]);
+    if (inputValue.trim() && !inviteList.includes(inputValue.trim())) {
+      setInviteList((prevList) => {
+        const updatedList = [...prevList, inputValue.trim()];
+
+        updatedList.forEach((email) => {
+          mutate(
+            { params: { path: { teamId } }, body: { email: email } },
+            {
+              onSuccess: () => {
+                createToast('메일 전송에 성공했습니다.', 'success');
+              },
+              onError: (error) => {
+                createToast(`${error.message}`, 'error');
+                setInviteList((prevList) => prevList.filter((item) => item !== email));
+              },
+            }
+          );
+        });
+
+        return updatedList;
+      });
       setInputValue('');
     }
   };
-
   const handleDeleteInvite = (email: string) => {
     setInviteList(inviteList.filter((item) => item !== email));
   };
 
   const handleNextStep = () => {
-    inviteList.forEach((email) => {
-      mutate(
-        { params: { path: { teamId } }, body: { email: email } },
-        {
-          onSuccess: () => {
-            createToast('메일 전송에 성공했습니다.', 'success');
-            nextStep();
-          },
-          onError: (error) => {
-            createToast(`${error.message}`, 'error');
-          },
-        }
-      );
-    });
+    nextStep();
   };
+
+  useEffect(() => {
+    console.log('현재 초대 목록:', inviteList);
+  }, [inviteList]);
 
   return (
     <>
@@ -68,7 +77,6 @@ const InviteModal = ({ step }: { step: number }) => {
             <CommandButton
               variant="outline"
               commandKey="Enter"
-              disabled={!isButtonActive}
               isCommand={false}
               onClick={handleAddInvite}
               css={{ width: '12rem', height: '4rem', padding: '1rem' }}>
