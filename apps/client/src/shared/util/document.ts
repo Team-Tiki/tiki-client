@@ -1,11 +1,6 @@
 export const downloadDocument = (fileUrl: string, name?: string) => {
   fetch(fileUrl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('response network error');
-      }
-      return response.blob();
-    })
+    .then((response) => response.blob())
     .then((blob) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -13,10 +8,8 @@ export const downloadDocument = (fileUrl: string, name?: string) => {
       a.download = name || 'downloaded-file';
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     })
-    .catch((error) => {
-      console.error('File download failed:', error);
-    });
+    .catch((error) => console.error('Download failed:', error));
 };
