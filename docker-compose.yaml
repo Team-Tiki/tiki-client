@@ -16,5 +16,3 @@ services:
     command: certonly --webroot -w /usr/share/nginx/html -d ti-kii.com
     volumes:
       - /home/ubuntu/frontend:/usr/share/nginx/html
-    depends_on:
-      - client
