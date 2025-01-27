@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
+import { ellipsisStyle } from '@/common/style/ellipsis';
+
 export const iconBackStyle = css({
   display: 'flex',
   justifyContent: 'center',
@@ -13,7 +15,13 @@ export const iconBackStyle = css({
   backgroundColor: theme.colors.gray_100,
 });
 
-export const textStyle = css({
+export const tagNameStyle = css({
+  width: '15rem',
+
+  ...ellipsisStyle,
+});
+
+export const dateStyle = css({
   color: theme.colors.gray_800,
 });
 

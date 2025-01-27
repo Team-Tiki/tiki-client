@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
+import { ellipsisStyle } from '@/common/style/ellipsis';
+
 export const fileStyle = css({
   display: 'flex',
 
@@ -35,4 +37,12 @@ export const deleteIcStyle = css({
 
   cursor: 'pointer',
   flexShrink: 0,
+});
+
+export const fileNameStyle = css({
+  width: '14rem',
+
+  lineHeight: '1.3rem',
+
+  ...ellipsisStyle,
 });

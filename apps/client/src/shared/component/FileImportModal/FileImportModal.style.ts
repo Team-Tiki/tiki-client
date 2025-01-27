@@ -60,6 +60,7 @@ export const fileListStyle = css({
 export const emptyStyle = css({
   display: 'flex',
 
+  width: '100%',
   height: '30.4rem',
 
   justifyContent: 'center',

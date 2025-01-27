@@ -3,9 +3,9 @@ import { Flex, Input, Text } from '@tiki/ui';
 
 import { useState } from 'react';
 
-import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberTagItem from '@/shared/component/MemberTagModal/MemberTagItem/MemberTagItem';
 import { Modal } from '@/shared/component/Modal';
+import { scrollStyle, textStyle } from '@/shared/component/WorkSpaceModal/invite/InviteModal.style';
 import { MEMBER_DATA } from '@/shared/constant';
 import { useCloseModal } from '@/shared/store/modal';
 

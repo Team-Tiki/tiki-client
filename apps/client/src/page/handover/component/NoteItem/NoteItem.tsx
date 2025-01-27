@@ -13,7 +13,7 @@ interface NoteItemProps extends Omit<NoteType, 'lastUpdatedAt'> {
   canSelect: boolean;
   isSelected: boolean;
   onSelect: () => void;
-  onNoteCloseClick: (ids: number[]) => void;
+  onNoteCloseClick: (e: React.MouseEvent, ids: number[]) => void;
   onClick: () => void;
 }
 
@@ -75,7 +75,7 @@ const NoteItem = ({
                 작성 미완료
               </Tag>
             )}
-            <IcClose width={18} height={18} css={closeButtonStyle} onClick={() => onNoteCloseClick([noteId])} />
+            <IcClose width={18} height={18} css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])} />
           </Flex>
         </Flex>
       </div>
