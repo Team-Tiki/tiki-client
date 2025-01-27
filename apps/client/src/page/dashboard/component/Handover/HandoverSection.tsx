@@ -6,11 +6,9 @@ import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { useNoteData } from '@/page/handover/hook/api/queries';
 
 import { PATH } from '@/shared/constant/path';
-import { useCurrentDate } from '@/shared/hook/common/useCurrentDate';
 
 const HandoverSection = () => {
-  const createdAt = useCurrentDate();
-  const { data, isPending } = useNoteData(createdAt);
+  const { data, isPending } = useNoteData('');
 
   return (
     <Flex styles={{ direction: 'column', gap: '0.8rem', align: 'center' }} css={listItemStyle}>
