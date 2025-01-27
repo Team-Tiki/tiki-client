@@ -1,6 +1,6 @@
 import { IcSearch } from '@tiki/icon';
 import { Button, Divider, Flex, Input, Select, Spinner } from '@tiki/ui';
-import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
+import { useDebounce, useMultiSelect } from '@tiki/utils';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -34,9 +34,6 @@ const HandoverPage = () => {
   const queryClient = useQueryClient();
 
   const filterKeyword = useDebounce(searchValue, 400);
-
-  const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close);
 
   const navigate = useNavigate();
 
@@ -165,9 +162,6 @@ const HandoverPage = () => {
               placeholder="최근 작성된 순"
               variant="option"
               options={FILTER_OPTION}
-              ref={ref}
-              isOpen={isOpen}
-              onTrigger={toggle}
               onSelect={handleSortOption}
             />
           </Flex>
