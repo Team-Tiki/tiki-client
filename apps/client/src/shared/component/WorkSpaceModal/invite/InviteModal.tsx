@@ -1,6 +1,6 @@
 import { CommandButton, Flex, Input, Text, useToastAction } from '@tiki/ui';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
@@ -57,10 +57,6 @@ const InviteModal = ({ step }: { step: number }) => {
   const handleNextStep = () => {
     nextStep();
   };
-
-  useEffect(() => {
-    console.log('현재 초대 목록:', inviteList);
-  }, [inviteList]);
 
   return (
     <>
