@@ -64,8 +64,6 @@ const ActivityTagModal = () => {
     }
   };
 
-  console.log(selectedTags);
-
   const handleComplete = () => {
     modalData.onConfirm?.(selectedTags);
 

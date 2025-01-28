@@ -20,14 +20,9 @@ interface TriggerButtonProps extends HTMLAttributes<HTMLButtonElement> {
   isOpen?: boolean;
 }
 
-const TriggerButton = ({ children, variant, isSelected, isOpen = false, ...props }: TriggerButtonProps) => {
+const TriggerButton = ({ variant, isSelected, isOpen = false, children, ...props }: TriggerButtonProps) => {
   return (
-    <button
-      type="button"
-      css={triggerStyle(variant, isSelected)}
-      disabled={variant === "disabled" ? true : false}
-      {...props}
-    >
+    <button type="button" css={triggerStyle(variant, isSelected)} disabled={variant === "disabled"} {...props}>
       <span>{children}</span>
       {variant === "option" ? (
         <IcDown css={iconStyle(isOpen)} width={12} height={12} />
