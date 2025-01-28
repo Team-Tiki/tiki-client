@@ -1,64 +1,138 @@
 import { IcSearch } from '@tiki/icon';
-import { Flex, Input, Text } from '@tiki/ui';
+import { DropdownItem, DropdownList, DropdownRoot, Flex, Input, scrollStyle } from '@tiki/ui';
+import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
+import { $api } from '@/shared/api/client';
 import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
-import { scrollStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import { tagListStyle } from '@/shared/component/ActivityTagModal/ActivityTagModal.style';
+import {
+  emptyStyle,
+  itemStyle,
+  notFoundStyle,
+  overlayStyle,
+} from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { ACITIVITY_TAG_DATA } from '@/shared/constant';
-import { useCloseModal } from '@/shared/store/modal';
+import { TAG } from '@/shared/constant';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { ActivityTagModalData, useCloseModal, useModalData } from '@/shared/store/modal';
+import { formatDateToDots } from '@/shared/util/date';
+
+export type ActivityTag = {
+  timeBlockId: number;
+  name: string;
+  type: 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';
+  color: string;
+  startDate: string;
+};
 
 const ActivityTagModal = () => {
-  const [inputValue, setInputValue] = useState('');
+  const modalData = useModalData() as ActivityTagModalData;
 
-  const [activityTags, setActivityTags] = useState(() => [...ACITIVITY_TAG_DATA]);
+  const teamId = useInitializeTeamId();
+
+  const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
+    params: { path: { teamId } },
+  });
+
+  const [activityTags] = useState<ActivityTag[]>(data.data?.tImeBlockTaggingResponses || []);
+  const [inputValue, setInputValue] = useState('');
+  const [selectedTags, setSelectedTags] = useState<ActivityTag[]>(modalData.selectedTags || []);
 
   const closeModal = useCloseModal();
 
-  /* 드롭다운 검색 기능 추가할때 버튼활성화 조건 바꾸기! */
-  const isButtonActive = inputValue.trim().length > 0;
+  const { isOpen, open, close } = useOverlay();
+  const dropdownRef = useOutsideClick<HTMLDivElement>(close);
+
+  const filterKeyword = useDebounce(inputValue, 500);
+  const filteredTags = useMemo(
+    () => activityTags.filter((tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
+    [activityTags, filterKeyword]
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleDeleteActivityTag = (id: number) => {
-    setActivityTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
+  const handleDelete = (timeblockId: number) => {
+    setSelectedTags((prev) => prev.filter((tag) => tag.timeBlockId !== timeblockId));
+  };
+
+  const handleSelect = (item: ActivityTag) => {
+    const isSelected = selectedTags.some((tag) => tag.timeBlockId === item.timeBlockId);
+
+    if (!isSelected) {
+      setSelectedTags((prev) => [...prev, item]);
+    }
+    close();
+  };
+
+  const handleComplete = () => {
+    modalData.onConfirm?.(selectedTags);
+
+    closeModal();
   };
 
   return (
     <>
       <Modal.Header />
       <Modal.Body>
-        <Flex styles={{ direction: 'column', gap: '2rem', width: '100%' }}>
+        <Flex
+          styles={{
+            direction: 'column',
+            width: '100%',
+            paddingTop: '2rem',
+          }}>
           <Input
             placeholder="search"
             LeftIcon={<IcSearch width={12} height={12} />}
+            onFocus={open}
             value={inputValue}
             onChange={handleInputChange}
           />
-          <div css={scrollStyle}>
-            {activityTags.length > 0 ? (
-              activityTags.map((data) => (
-                <ActivityTagItem
-                  key={data.id}
-                  title={data.title}
-                  date={data.date}
-                  tag={data.tag}
-                  color={data.color}
-                  onDelete={() => handleDeleteActivityTag(data.id)}
-                />
-              ))
+          <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
+            <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+              {filteredTags?.length === 0 ? (
+                <DropdownItem css={notFoundStyle}>{TAG.NOT_FOUND}</DropdownItem>
+              ) : (
+                filteredTags?.map((tag) => (
+                  <DropdownItem key={tag.timeBlockId} css={itemStyle} onSelect={() => handleSelect(tag)}>
+                    <ActivityTagItem
+                      key={tag.timeBlockId}
+                      title={tag.name}
+                      date={formatDateToDots(tag.startDate)}
+                      tag={tag.type}
+                      color={tag.color}
+                      onDelete={() => handleDelete(tag.timeBlockId)}
+                      isSearch
+                    />
+                  </DropdownItem>
+                ))
+              )}
+            </DropdownList>
+          </DropdownRoot>
+          <Flex css={tagListStyle}>
+            {selectedTags.length === 0 ? (
+              <div css={emptyStyle}>{TAG.NO_CONNECTED_TAG}</div>
             ) : (
-              <Text tag="body8" css={textStyle}>
-                태그된 활동이 없습니다.
-              </Text>
+              selectedTags.map((tag) => (
+                <Flex css={[scrollStyle, { width: '100%' }]} key={tag.timeBlockId}>
+                  <ActivityTagItem
+                    key={tag.timeBlockId}
+                    title={tag.name}
+                    date={formatDateToDots(tag.startDate)}
+                    tag={tag.type}
+                    color={tag.color}
+                    onDelete={() => handleDelete(tag.timeBlockId)}
+                  />
+                </Flex>
+              ))
             )}
-          </div>
+          </Flex>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="activity-tag" buttonClick={closeModal} isButtonActive={!isButtonActive} />
+      <Modal.Footer contentType="activity-tag" buttonClick={handleComplete} closeModal={closeModal} />
     </>
   );
 };

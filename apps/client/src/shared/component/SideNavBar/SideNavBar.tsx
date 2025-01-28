@@ -4,30 +4,33 @@ import { Divider, Flex, ToolTip, theme } from '@tiki/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { $api } from '@/shared/api/client';
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
 import { PATH } from '@/shared/constant/path';
-import { useClubInfoQuery } from '@/shared/hook/api/useClubInfoQuery';
 import { useOpenModal } from '@/shared/store/modal';
+import { useTeamId, useTeamIdAction } from '@/shared/store/team';
 import { Team } from '@/shared/type/team';
 
 const SideNavBar = () => {
-  const { data } = useClubInfoQuery();
+  const [isInShowcase, setIsInShowcase] = useState(false);
 
-  const [selectedId, setSelectedId] = useState('showcase');
-
+  const teamId = useTeamId();
+  const { setTeamId } = useTeamIdAction();
   const navigate = useNavigate();
-
   const openModal = useOpenModal();
 
-  const handleItemClick = (id: string, path: string) => {
-    setSelectedId(id);
+  const { data } = $api.useQuery('get', '/api/v1/members/teams');
 
+  const handleItemClick = (id: string, path: string) => {
     if (id === 'showcase') {
+      setTeamId(null);
+      setIsInShowcase(true);
       navigate(path);
     } else {
-      navigate(path);
+      setTeamId(+id);
       localStorage.setItem('teamId', id);
+      navigate(path);
     }
     close();
   };
@@ -42,15 +45,15 @@ const SideNavBar = () => {
       <Flex tag="ul" styles={{ direction: 'column', align: 'center' }}>
         <Item
           variant={{ type: 'dashboard', hoverMessage: 'showcase' }}
-          isClicked={selectedId === 'showcase'}
+          isClicked={isInShowcase}
           onLogoClick={() => handleItemClick('showcase', PATH.SHOWCASE)}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
-        {data?.belongTeamGetResponses.map((data: Team) => {
+        {data?.data?.belongTeamGetResponses.map((data: Team) => {
           return (
             <Item
               key={data.id}
-              isClicked={selectedId === String(data.id)}
+              isClicked={teamId === data.id}
               variant={{ type: 'team', logoUrl: data.iconImageUrl, hoverMessage: data.name }}
               onLogoClick={() => handleItemClick(String(data.id), `${PATH.DASHBOARD}?teamId=${data.id}`)}
             />

@@ -1,15 +1,22 @@
 import { useState } from 'react';
 
-import { TimeBlockData } from '@/page/archiving/index/component/TimeLine';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useDrawerAction } from '@/shared/store/drawer';
+import { useTimeBlockIdAction } from '@/shared/store/timeBlockId';
 
 export const useInteractTimeline = () => {
-  const [selectedBlock, setSelectedBlock] = useState<TimeBlockData>();
+  const [selectedBlock, setSelectedBlock] = useState<Block>();
 
   const { openDrawer } = useDrawerAction();
 
-  const handleBlockClick = (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+  const { setTimeBlockId } = useTimeBlockIdAction();
+
+  const handleBlockClick = (
+    e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
+    block: Block,
+    blockDetail: BlockDetail
+  ) => {
     e.stopPropagation();
 
     e.currentTarget.scrollIntoView({
@@ -18,16 +25,19 @@ export const useInteractTimeline = () => {
       block: 'center',
     });
 
-    /** TODO: 추후 block id에 따른 API 응답으로 데이터 넣기 */
+    setTimeBlockId(block.timeBlockId);
+
+    setSelectedBlock(block);
+
     openDrawer({
-      title: 'OT 준비',
-      startDate: new Date('2024.09.13'),
-      endDate: new Date('2024.09.15'),
-      blockType: 'MEETING',
-      color: '#FFE6E8',
-      taggedMembers: [],
-      handoverNotes: [],
-      files: [],
+      timeBlockId: block.timeBlockId,
+      name: block.name,
+      startDate: block.startDate,
+      endDate: block.endDate,
+      blockType: block.blockType,
+      color: block.color,
+      documents: blockDetail.documents ?? [],
+      notes: blockDetail.notes ?? [],
     });
   };
 

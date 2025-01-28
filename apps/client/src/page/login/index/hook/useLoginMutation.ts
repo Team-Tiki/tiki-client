@@ -26,7 +26,11 @@ export const useLoginMutation = () => {
 
       axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
-      navigate(PATH.DASHBOARD);
+      const isExistingUser = !!localStorage.getItem('teamId');
+
+      isExistingUser
+        ? navigate(`${PATH.DASHBOARD}?teamId=${localStorage.getItem('teamId')}`)
+        : navigate(PATH.ONBOARDING);
     },
 
     onError: (error: AxiosError) => {

@@ -1,37 +1,141 @@
 import { IcSearch } from '@tiki/icon';
-import { Button, Divider, Flex, Input, Select } from '@tiki/ui';
-import { useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
+import { Button, Divider, Flex, Input, Select, Spinner } from '@tiki/ui';
+import { useDebounce, useMultiSelect, useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
-import { FILTER_OPTION, NOTE_DUMMY } from '@/page/handover/constant/noteList';
+import { FILTER_OPTION, FILTER_ORDER } from '@/page/handover/constant';
+import { useNoteData } from '@/page/handover/hook/api/queries';
+import { FILTER_TYPE, NoteListType, NoteType } from '@/page/handover/type';
 
+import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useIntersect } from '@/shared/hook/common/useIntersect';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const HandoverPage = () => {
-  const [sortOption, setSortOption] = useState('');
+  const [sortOption, setSortOption] = useState<FILTER_TYPE>('DESC');
+
   const [searchValue, setSearchValue] = useState('');
+
+  const [noteList, setNoteList] = useState<NoteListType>([]);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState('');
+
+  const { data, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+
+  const queryClient = useQueryClient();
+
+  const filterKeyword = useDebounce(searchValue, 400);
 
   const { isOpen, close, toggle } = useOverlay();
   const ref = useOutsideClick<HTMLDivElement>(close);
+
   const navigate = useNavigate();
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<
-    (typeof NOTE_DUMMY)[0]
-  >('id', NOTE_DUMMY);
+  const teamId = useInitializeTeamId();
+
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
+
+  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
+    'noteId',
+    noteList ?? []
+  );
+
+  // 스크롤 감지하는 로직
+  const targetRef = useIntersect((entry, observer) => {
+    observer.unobserve(entry.target);
+    if (isFetching) return;
+
+    setLastUpdatedAt(noteList.length > 0 ? noteList[noteList?.length - 1].lastUpdatedAt : '');
+  });
+
+  const { mutate: noteListMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
+    onSuccess: () => {
+      setNoteList([]);
+      setLastUpdatedAt('');
+      queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/notes/{teamId}'],
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (data?.data?.noteGetResponseList) {
+      if (lastUpdatedAt) {
+        setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
+        return;
+      }
+      setNoteList(data.data!.noteGetResponseList);
+    }
+  }, [data, lastUpdatedAt]);
+
+  const handleNoteCloseClick = (e: React.MouseEvent, noteIds: number[]) => {
+    e.stopPropagation();
+
+    openModal('caution', {
+      infoText: CAUTION.DELETE_NOTE.INFO_TEXT,
+      content: CAUTION.DELETE_NOTE.CONTENT,
+      desc: CAUTION.DELETE_NOTE.DESC,
+      footerType: 'caution',
+      onClick: () => {
+        if (!noteIds) {
+          return;
+        }
+        noteListMutate({
+          params: {
+            path: { teamId },
+            query: {
+              noteIds: noteIds,
+            },
+          },
+        });
+
+        if (canSelect) {
+          handleToggleSelect();
+        }
+
+        closeModal();
+      },
+      onClose: () => {
+        closeModal();
+      },
+    });
+  };
 
   const handleSortOption = (id: string) => {
-    setSortOption(id);
+    setSortOption(FILTER_ORDER[id as keyof typeof FILTER_ORDER] as FILTER_TYPE);
+    setLastUpdatedAt('');
 
     close();
   };
 
   const 노트작성페이지로이동 = () => {
     navigate(PATH.CREATE_HANDOVER_NOTE);
+  };
+
+  const handleMultiDeleteButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (canSelect && !ids.length) {
+      handleToggleSelect();
+      return;
+    }
+
+    if (canSelect) {
+      handleNoteCloseClick(e, ids);
+      return;
+    }
+
+    handleToggleSelect();
   };
 
   return (
@@ -53,8 +157,8 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleToggleSelect}>
-              선택
+            <Button variant="tertiary" onClick={handleMultiDeleteButtonClick}>
+              {canSelect ? '삭제' : '선택'}
             </Button>
           </Flex>
 
@@ -74,25 +178,36 @@ const HandoverPage = () => {
         </Flex>
       }>
       <NoteListHeader
-        isSelected={ids.length === NOTE_DUMMY.length}
+        isSelected={ids.length === data?.data?.noteGetResponseList.length}
         canSelect={canSelect}
         handleAllClick={handleAllClick}
       />
       <Divider />
       <ul>
-        {(sortOption === FILTER_OPTION[0].value ? NOTE_DUMMY.slice() : NOTE_DUMMY.slice().reverse()).map((data) => (
-          <NoteItem
-            key={data.id}
-            startDate={data.startDate}
-            endDate={data.endDate}
-            title={data.title}
-            writer={data.writer}
-            isFinished={data.isFinished}
-            canSelect={canSelect}
-            isSelected={ids.includes(+data.id)}
-            onSelect={() => handleItemClick(+data.id)}
-          />
-        ))}
+        {noteList
+          ?.filter((data) => data.title.includes(filterKeyword.trim()))
+          .map((data) => (
+            <NoteItem
+              key={data.noteId}
+              noteId={data.noteId}
+              startDate={data.startDate}
+              endDate={data.endDate}
+              title={data.title}
+              author={data.author}
+              complete={data.complete}
+              canSelect={canSelect}
+              isSelected={ids.includes(+data.noteId)}
+              onSelect={() => handleItemClick(+data.noteId)}
+              onNoteCloseClick={(e) => handleNoteCloseClick(e, [data.noteId])}
+              onClick={() => navigate(`/handover/${+data.noteId}`)}
+            />
+          ))}
+        {isFetching && (
+          <Flex styles={{ justify: 'center', marginTop: '1rem' }}>
+            <Spinner size={20} />
+          </Flex>
+        )}
+        <div style={{ height: '1px' }} ref={targetRef} />
       </ul>
     </ContentBox>
   );

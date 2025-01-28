@@ -1,4 +1,4 @@
-import { Button, DatePicker, Flex, Heading, Input } from '@tiki/ui';
+import { Button, DatePicker, Flex, Heading, Input, Label } from '@tiki/ui';
 
 import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
@@ -6,9 +6,16 @@ import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 import { PLACEHOLDER } from '@/shared/constant/form';
 
 const InfoFormPage = () => {
-  const { info, handleInfoChange, handleSubmit } = useInfoForm();
-
-  const handleDateChange = () => {};
+  const {
+    info,
+    error,
+    validMessage,
+    handleInfoChange,
+    updateCheckerMessage,
+    updatePasswordMessage,
+    handleBirthChange,
+    handleSubmit,
+  } = useInfoForm();
 
   return (
     <Flex tag="main" css={pageStyle}>
@@ -22,21 +29,31 @@ const InfoFormPage = () => {
             label="이름"
             placeholder={PLACEHOLDER.NAME}
           />
-          <DatePicker variant="single" triggerWidth="100%" onChange={handleDateChange} />
-
+          <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
+            <Label id="">생년월일</Label>
+            <DatePicker onChange={handleBirthChange} variant="single" triggerWidth="100%" />
+          </Flex>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
               name="password"
               value={info.password}
               onChange={handleInfoChange}
+              onBlur={updatePasswordMessage}
               placeholder={PLACEHOLDER.PASSWORD}
               label="비밀번호 설정"
+              isSuccess={!!validMessage.password}
+              isError={!!error.password}
+              supportingText={error.password || validMessage.password}
             />
             <Input
               name="passwordChecker"
               value={info.passwordChecker}
               onChange={handleInfoChange}
+              onBlur={updateCheckerMessage}
               placeholder={PLACEHOLDER.PASSWORD_CONFIRM}
+              isSuccess={!!validMessage.passwordChecker}
+              isError={!!error.passwordChecker}
+              supportingText={error.passwordChecker || validMessage.passwordChecker}
             />
           </Flex>
         </Flex>

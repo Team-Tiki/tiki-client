@@ -21,8 +21,7 @@ export const Deleted: Story = {
 
     return (
       <>
-        <button onClick={() => openModal('deleted', { itemType: 'trash' })}>Open Trash Deleted Modal</button>
-        <button onClick={() => openModal('deleted', { itemType: 'permanent' })}>Open Permanent Deleted Modal</button>
+        <button onClick={() => openModal('deleted')}>Open Trash Deleted Modal</button>
         <ModalFunnel />
       </>
     );

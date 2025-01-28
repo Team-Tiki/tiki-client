@@ -1,40 +1,58 @@
-import { IcAvatar, IcMore } from '@tiki/icon';
+import { IcAvatar, IcClose } from '@tiki/icon';
 import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 
-import { formattingDate } from '@/page/archiving/index/util/date';
-import { containerStyle, moreButtonStyle, profileStyle } from '@/page/handover/component/NoteItem/NoteItem.style';
+import {
+  closeButtonStyle,
+  containerStyle,
+  profileStyle,
+  wrapperStyle,
+} from '@/page/handover/component/NoteItem/NoteItem.style';
+import { NoteType } from '@/page/handover/type';
 
-interface NoteItemProps {
-  startDate: Date;
-  endDate: Date;
-  title: string;
-  writer: string;
-  isFinished: boolean;
+interface NoteItemProps extends Omit<NoteType, 'lastUpdatedAt'> {
   canSelect: boolean;
   isSelected: boolean;
   onSelect: () => void;
+  onNoteCloseClick: (e: React.MouseEvent, ids: number[]) => void;
+  onClick: () => void;
 }
 
+const formattingDateToKorean = (date: string) => {
+  const [year, month, day] = date.split('-');
+
+  return `${year}년 ${parseInt(month, 10)}월 ${parseInt(day, 10)}일`;
+};
+
 const NoteItem = ({
+  noteId,
   startDate,
   endDate,
   title,
-  writer,
-  isFinished,
+  author,
+  complete,
   canSelect,
   isSelected,
   onSelect,
+  onNoteCloseClick,
+  onClick,
 }: NoteItemProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      onClick();
+    }
+  };
   return (
     <li>
-      <Flex styles={{ align: 'center' }}>
+      <div css={wrapperStyle} onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
         <Flex styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
           <Flex styles={{ align: 'center' }}>
             {canSelect && (
               <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} style={{ marginRight: '1.6rem' }} />
             )}
             <Text tag="body6" style={{ width: '26rem' }}>
-              {`${formattingDate(startDate)} - ${formattingDate(endDate)}`}
+              {`${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`}
             </Text>
           </Flex>
 
@@ -44,11 +62,11 @@ const NoteItem = ({
           <Flex styles={{ align: 'center', gap: '0.4rem' }}>
             <IcAvatar css={profileStyle} />
             <Text tag="body6" style={{ width: '10.4rem' }}>
-              {writer}
+              {author}
             </Text>
           </Flex>
-          <Flex styles={{ align: 'center', gap: isFinished ? '4.3rem' : '3.3rem' }}>
-            {isFinished ? (
+          <Flex styles={{ align: 'center', gap: complete ? '4.3rem' : '3.3rem' }}>
+            {complete ? (
               <Tag variant="square" bgColor={theme.colors.key_400}>
                 작성 완료
               </Tag>
@@ -57,10 +75,10 @@ const NoteItem = ({
                 작성 미완료
               </Tag>
             )}
-            <IcMore width={18} height={18} css={moreButtonStyle} />
+            <IcClose width={18} height={18} css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])} />
           </Flex>
         </Flex>
-      </Flex>
+      </div>
       <Divider color={theme.colors.gray_300} />
     </li>
   );

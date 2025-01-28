@@ -1,4 +1,4 @@
-import { IcEventGray, IcMeetingGray, IcNoticeGray, IcRecruitingGray, IcStudyGray } from '@tiki/icon';
+import { IcEtcGray, IcEventGray, IcMeetingGray, IcNoticeGray, IcRecruitingGray, IcStudyGray } from '@tiki/icon';
 
 import { ReactNode } from 'react';
 
@@ -27,5 +27,9 @@ export const TAG_ICON: TAGIcon[] = [
   {
     name: 'RECRUITING',
     icon: <IcRecruitingGray width={28} height={28} />,
+  },
+  {
+    name: 'ETC',
+    icon: <IcEtcGray width={28} height={28} />,
   },
 ];

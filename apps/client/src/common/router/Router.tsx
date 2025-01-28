@@ -7,24 +7,25 @@ import ErrorBoundary from '@/common/component/ErrorBoundary/ErrorBoundary';
 import {
   ArchivingPage,
   ComingsoonPage,
+  CreateNotePage,
   DashboardPage,
   DeletedPage,
   DrivePage,
   ErrorPage,
   HandoverNotePage,
-  InfoFormPage,
+  HandoverPage,
+  InvitePage,
   LandingPage,
   LoginPage,
+  OnBoardingPage,
   PasswordAuthPage,
   PasswordResetPage,
   ShowcasePage,
   TermPage,
-  UnivFormPage,
+  WorkSpaceSettingPage,
 } from '@/common/router/lazy';
 
-import HandoverPage from '@/page/handover/HandoverPage';
-import CreateNotePage from '@/page/handover/note/component/CreateNote/CreateNote';
-import WorkspaceSettingPage from '@/page/workspaceSetting';
+import SignUpPage from '@/page/signUp/info';
 
 import { PATH } from '@/shared/constant/path';
 
@@ -75,18 +76,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: PATH.SIGNUP_UNIV,
+        path: PATH.SIGNUP_INFO,
         element: (
           <Suspense>
-            <UnivFormPage />
+            <SignUpPage />
           </Suspense>
         ),
       },
       {
-        path: PATH.SIGNUP_INFO,
+        path: PATH.INVITE,
         element: (
           <Suspense>
-            <InfoFormPage />
+            <InvitePage />
           </Suspense>
         ),
       },
@@ -117,6 +118,14 @@ const router = createBrowserRouter([
       </Suspense>
     ),
     children: [
+      {
+        path: PATH.INVITE_IN,
+        element: (
+          <Suspense>
+            <InvitePage />
+          </Suspense>
+        ),
+      },
       {
         path: PATH.DASHBOARD,
         element: (
@@ -193,7 +202,15 @@ const router = createBrowserRouter([
         path: PATH.WORKSPACE_SETTING,
         element: (
           <Suspense>
-            <WorkspaceSettingPage />
+            <WorkSpaceSettingPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: PATH.ONBOARDING,
+        element: (
+          <Suspense>
+            <OnBoardingPage />
           </Suspense>
         ),
       },

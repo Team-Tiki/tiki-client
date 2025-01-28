@@ -1,16 +1,10 @@
 import { ReactNode, createContext, useCallback, useContext, useState } from 'react';
 
-interface BlockFormData {
-  blockName: string;
-  blockType: string;
-  blockColor: string;
-  startDate: string;
-  endDate: string;
-}
+import { TimeBlockData } from '@/shared/component/TimeBlockModal/type/blockType';
 
 interface BlockContextType {
-  formData: BlockFormData;
-  setFormData: (data: Partial<BlockFormData>) => void;
+  formData: TimeBlockData;
+  setFormData: (data: Partial<TimeBlockData>) => void;
   resetFormData: () => void;
 }
 
@@ -25,25 +19,27 @@ export const useBlockContext = () => {
 };
 
 export const BlockProvider = ({ children }: { children: ReactNode }) => {
-  const [formData, setFormDataState] = useState<BlockFormData>({
-    blockName: '',
-    blockType: '',
-    blockColor: '',
+  const [formData, setFormDataState] = useState<TimeBlockData>({
+    name: '',
+    blockType: 'MEETING',
+    color: '',
     startDate: '',
     endDate: '',
+    documentIds: [],
   });
 
-  const setFormData = useCallback((data: Partial<BlockFormData>) => {
+  const setFormData = useCallback((data: Partial<TimeBlockData>) => {
     setFormDataState((prev) => ({ ...prev, ...data }));
   }, []);
 
   const resetFormData = useCallback(() => {
     setFormDataState({
-      blockName: '',
-      blockType: '',
-      blockColor: '',
+      name: '',
+      blockType: 'MEETING',
+      color: '',
       startDate: '',
       endDate: '',
+      documentIds: [],
     });
   }, []);
 

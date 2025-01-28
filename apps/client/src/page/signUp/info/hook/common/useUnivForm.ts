@@ -1,9 +1,6 @@
 import { useOverlay } from '@tiki/utils';
 
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { PATH } from '@/shared/constant/path';
+import { ChangeEvent, useState } from 'react';
 
 type UnivForm = {
   email: string;
@@ -14,11 +11,7 @@ export const useUnivForm = () => {
   const { isOpen: isSelectOpen, open: selectOpen, close: selectClose, toggle: selectToggle } = useOverlay();
 
   const [inputs, setInputs] = useState<UnivForm>({} as UnivForm);
-
-  /** TODO: 추후 인증 api 결과값으로 대체 */
-  const [isVerfied, setIsVerified] = useState(false);
-
-  const navigate = useNavigate();
+  const [selectedUniv, setSelectedUniv] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, key: keyof UnivForm) => {
     setInputs((prev) => ({
@@ -27,19 +20,18 @@ export const useUnivForm = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const select = (value: string) => {
+    setSelectedUniv(value);
 
-    navigate(PATH.SIGNUP_INFO);
+    selectClose();
   };
 
   return {
     inputs,
-    isVerfied,
-    setIsVerified, // 추후 삭제
     handleChange,
-    handleSubmit,
     isSelectOpen,
+    select,
+    selectedUniv,
     selectClose,
     selectOpen,
     selectToggle,

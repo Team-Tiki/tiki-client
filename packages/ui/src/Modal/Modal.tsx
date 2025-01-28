@@ -1,21 +1,22 @@
-import { backgroundStyle, dialogStyle } from "@/Modal/Modal.style";
+import { backgroundStyle, dialogStyle, sizeStyle } from "@/Modal/Modal.style";
 import { ReactNode, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
   isOpen: boolean;
   children: ReactNode;
+  size?: "small" | "medium" | "large";
   onClose?: () => void;
 }
 
-const ModalWrapper = ({ isOpen, children, onClose }: ModalProps) => {
+const ModalWrapper = ({ isOpen, children, size = "medium", onClose }: ModalProps) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose?.();
       }
     },
-    [onClose],
+    [onClose]
   );
 
   useEffect(() => {
@@ -40,11 +41,11 @@ const ModalWrapper = ({ isOpen, children, onClose }: ModalProps) => {
     createPortal(
       <>
         <div aria-hidden={true} onClick={() => onClose?.()} css={backgroundStyle} />
-        <dialog onClick={(e) => e.stopPropagation()} css={dialogStyle}>
+        <dialog onClick={(e) => e.stopPropagation()} css={[dialogStyle, sizeStyle(size)]}>
           {children}
         </dialog>
       </>,
-      document.body,
+      document.body
     )
   );
 };

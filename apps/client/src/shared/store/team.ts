@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
 type TeamStore = {
-  teamId: number;
+  teamId: number | null;
   actions: {
-    setTeamId: (id: number) => void;
+    setTeamId: (id: number | null) => void;
   };
 };
 
@@ -11,7 +11,7 @@ const useTeamStore = create<TeamStore>((set) => ({
   teamId: Number(localStorage.getItem('teamId')),
 
   actions: {
-    setTeamId: (teamId: number) =>
+    setTeamId: (teamId: number | null) =>
       set({
         teamId,
       }),
