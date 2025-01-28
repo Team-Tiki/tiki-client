@@ -24,6 +24,7 @@ const NotePage = () => {
     null
   );
   const [selectedTab, setSelectedTab] = useState(0);
+
   const { noteId } = useParams();
   const navigate = useNavigate();
 
@@ -152,7 +153,9 @@ const NotePage = () => {
                 setData={setNoteDetailData as React.Dispatch<React.SetStateAction<CustomNoteData>>}
               />
             </TabPanel>
-          ) : null)}
+          ) : (
+            <></>
+          ))}
       </TabRoot>
     </section>
   );

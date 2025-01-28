@@ -21,7 +21,7 @@ interface NoteDetailProp {
   setInfo: React.Dispatch<SetStateAction<CreateNoteInfoType>>;
 }
 
-const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
+const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
   const openModal = useOpenModal();
 
   const handleChangeStatus = useCallback(
@@ -68,9 +68,10 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
 
   return (
     <aside css={entireInfoStyle}>
-      <input
+      <textarea
         css={titleStyle}
-        placeholder={info?.title}
+        placeholder={'제목'}
+        value={info.title || ''}
         onChange={(e) => setInfo((prev) => ({ ...prev, title: e.target.value }))}
       />
       <ul css={infoContainerStyle}>
@@ -122,8 +123,8 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
           </Text>
           <DatePicker
             onChange={handleDateChange}
-            defaultSelectedDate={new Date(info?.startDate)}
-            defaultEndDate={new Date(info?.endDate)}
+            defaultSelectedDate={info.startDate ? new Date(info.startDate) : new Date()}
+            defaultEndDate={info.endDate ? new Date(info.endDate) : new Date()}
             variant="range"
             triggerWidth="12"
           />
@@ -133,4 +134,4 @@ const NoteDetail = ({ info, setInfo }: NoteDetailProp) => {
   );
 };
 
-export default NoteDetail;
+export default NoteInfo;

@@ -8,11 +8,11 @@ import { extractFileExtension } from '@/shared/util/file';
 interface useFileProps {
   files: File[];
   onFilesChange: (files: File[]) => void;
-  // setFileUrls: React.Dispatch<React.SetStateAction<Files>>;
+  setFileUrls: React.Dispatch<React.SetStateAction<Files>>;
   setUploadStatus: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
 }
 
-const useFile = ({ files, onFilesChange, setUploadStatus }: useFileProps) => {
+const useFile = ({ files, onFilesChange, setUploadStatus, setFileUrls }: useFileProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { mutateAsync: uploadToS3 } = usePutUploadMutation();
 
@@ -47,7 +47,7 @@ const useFile = ({ files, onFilesChange, setUploadStatus }: useFileProps) => {
               fileUrlMap[fileName] = uploadedFileUrl;
               newUploadStatus[fileName] = true;
               setUploadStatus((prevStatus) => ({ ...prevStatus, ...newUploadStatus }));
-              // setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap })); // setFileUrls를 여기서 호출합니다.
+              setFileUrls((prevUrls) => ({ ...prevUrls, ...fileUrlMap }));
             }
           }, delay);
         }
@@ -57,7 +57,7 @@ const useFile = ({ files, onFilesChange, setUploadStatus }: useFileProps) => {
         fileInputRef.current.value = '';
       }
     },
-    [files, onFilesChange, uploadToS3, setUploadStatus]
+    [files, onFilesChange, uploadToS3, setUploadStatus, setFileUrls]
   );
 
   const handleFileChange = useCallback(

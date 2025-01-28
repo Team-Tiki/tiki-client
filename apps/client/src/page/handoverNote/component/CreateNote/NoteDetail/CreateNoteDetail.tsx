@@ -82,12 +82,11 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
 
   return (
     <aside css={entireInfoStyle}>
-      <input
+      <textarea
         css={titleStyle}
         placeholder="노트 제목"
         onChange={(e) => setDetail((prev) => ({ ...prev, title: e.target.value }))}
       />
-
       <ul css={infoContainerStyle}>
         <li css={[infoLayoutStyle, { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>

@@ -1,12 +1,7 @@
-import * as React from 'react';
-import type { SVGProps } from 'react';
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgIcInviteProfile = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 40 40"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 40" {...props}>
     <rect width={40} height={40} fill="#D6D5D5" rx={20} />
     <circle cx={20} cy={14.545} r={5.455} fill="#F5F5F8" />
     <path

@@ -1,12 +1,7 @@
-import * as React from 'react';
-import type { SVGProps } from 'react';
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgIcFileRound = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" {...props}>
     <rect width={32} height={32} fill="#fff" rx={16} />
     <path
       fill="#909090"

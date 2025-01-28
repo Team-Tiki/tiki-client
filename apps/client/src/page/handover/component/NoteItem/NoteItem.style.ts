@@ -35,5 +35,7 @@ export const profileStyle = css({
 });
 
 export const closeButtonStyle = css({
+  flexShrink: '0',
+
   cursor: 'pointer',
 });

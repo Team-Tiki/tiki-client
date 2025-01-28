@@ -1,6 +1,6 @@
 import { IcDeleteFile, IcFileRound } from '@tiki/icon';
 
-import { deleteIcStyle, fileInfoStyle, fileStyle } from '@/page/handoverNote/component/File/File.style';
+import { deleteIcStyle, fileInfoStyle, fileNameStyle, fileStyle } from '@/page/handoverNote/component/File/File.style';
 
 import { getFileVolume } from '@/shared/util/file';
 
@@ -21,7 +21,7 @@ const File = ({ file, onDelete = () => {} }: FileProps) => {
     <article css={fileStyle}>
       <IcFileRound width={32} height={32} css={{ flexShrink: 0 }} />
       <span css={fileInfoStyle}>
-        <p>{file.fileName}</p>
+        <p css={fileNameStyle}>{file.fileName}</p>
         <p>{fileVolume}</p>
       </span>
       <IcDeleteFile

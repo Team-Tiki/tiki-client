@@ -1,7 +1,7 @@
 import { IcInviteDelete, IcInviteProfile } from '@tiki/icon';
 import { Flex, Text } from '@tiki/ui';
 
-import { textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import { textStyle } from '@/shared/component/WorkSpaceModal/invite/InviteModal.style';
 
 interface MemberItemProps {
   title: string;
