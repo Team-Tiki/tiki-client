@@ -2,7 +2,7 @@ import { IcSearch } from '@tiki/icon';
 import { DropdownItem, DropdownList, DropdownRoot, DropdownTrigger, Flex, Input, scrollStyle } from '@tiki/ui';
 import { useDebounce } from '@tiki/utils';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { $api } from '@/shared/api/client';
 import ActivityTagItem from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem';
@@ -42,10 +42,10 @@ const ActivityTagModal = () => {
 
   const closeModal = useCloseModal();
 
-  const filterKeyword = useDebounce(inputValue, 500);
-  const filteredTags = useMemo(
-    () => activityTags.filter((tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
-    [activityTags, filterKeyword]
+  const filterKeyword = useDebounce(inputValue, 300);
+
+  const filteredTags = activityTags.filter(
+    (tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC')) && filterKeyword !== ''
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,8 +62,9 @@ const ActivityTagModal = () => {
     if (!isSelected) {
       setSelectedTags((prev) => [...prev, item]);
     }
-    close();
   };
+
+  console.log(selectedTags);
 
   const handleComplete = () => {
     modalData.onConfirm?.(selectedTags);

@@ -10,6 +10,7 @@ export const overlayStyle = css({
   right: 0,
 
   gap: '0.4rem',
+  padding: '0.8rem 0 0.8rem 0.8rem',
 
   borderRadius: '8px',
   border: `1px solid ${theme.colors.gray_200}`,
@@ -25,7 +26,6 @@ export const itemStyle = () =>
     gap: '0.8rem',
 
     padding: '0.4rem',
-    margin: '0.8rem 0.8rem 0 0.8rem',
     borderRadius: '8px',
 
     '&:hover, &:focus': {
