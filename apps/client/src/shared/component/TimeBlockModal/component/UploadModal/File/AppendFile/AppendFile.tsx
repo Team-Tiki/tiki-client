@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IcFileUpload } from '@tiki/icon';
 import { Button, Flex, Text, scrollStyle, useToastAction } from '@tiki/ui';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { $api } from '@/shared/api/client';
+import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import { boxStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
@@ -23,6 +25,7 @@ interface FileWithDocumentId extends File {
 const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
+  const [fileUrls, setFileUrls] = useState<Files>({});
 
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
@@ -39,15 +42,15 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
         );
 
         const updatedFiles = [...prevFiles, ...uniqueFiles];
-        handleUploadFile(updatedFiles);
 
         return updatedFiles;
       });
     },
+    setFileUrls,
     setUploadStatus,
   });
 
-  const handleUploadFile = (updatedFiles: FileWithDocumentId[]) => {
+  const handleUploadFile = (validFiles: FileWithDocumentId[]) => {
     const documentDetailList: DocumentDetail[] = [];
 
     postDocumentMutation(
@@ -58,9 +61,9 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
           },
         },
         body: {
-          documents: updatedFiles.map((file) => ({
+          documents: validFiles.map((file) => ({
             fileName: file.name,
-            fileUrl: '',
+            fileUrl: fileUrls[file.name] || '',
             fileKey: file.name,
             capacity: convertToKB(file.size),
           })),
@@ -71,17 +74,18 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
           data?.data?.response?.forEach((document, index) => {
             documentDetailList.push({
               documentId: document.documentId,
-              name: updatedFiles[index].name,
-              url: '',
-              capacity: convertToKB(updatedFiles[index].size),
+              name: validFiles[index].name,
+              url: fileUrls[validFiles[index].name] || '',
+              capacity: convertToKB(validFiles[index].size),
               createdTime: new Date().toISOString(),
             });
           });
 
           onUploadFile(documentDetailList);
+          createToast('파일이 성공적으로 업로드되었습니다.', 'success');
         },
         onError: (error) => {
-          createToast(`${error.message}`, 'error');
+          createToast(`업로드 실패: ${error.message}`, 'error');
         },
       }
     );
@@ -93,6 +97,12 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
 
     const updatedSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
     onUploadFile(updatedSelectedFiles);
+
+    setFileUrls((prevUrls) => {
+      const updatedUrls = { ...prevUrls };
+      delete updatedUrls[fileName];
+      return updatedUrls;
+    });
 
     setUploadStatus((prevStatus) => {
       const newStatus = { ...prevStatus };
@@ -111,6 +121,12 @@ const AppendFile = ({ selectedFiles, onUploadFile }: AppendFileProps) => {
       },
     });
   };
+
+  useEffect(() => {
+    if (Object.keys(fileUrls).length > 0) {
+      handleUploadFile(files);
+    }
+  }, [fileUrls]);
 
   return (
     <Flex styles={{ direction: 'column', width: '100%' }}>

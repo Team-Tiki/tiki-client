@@ -13,7 +13,7 @@ const TimelineSection = () => {
     <DateProvider teamId={teamId}>
       <TimeLineHeader />
       <Suspense>
-        <Timeline />
+        <Timeline teamId={teamId} />
       </Suspense>
     </DateProvider>
   );

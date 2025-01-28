@@ -75,7 +75,9 @@ const HandoverPage = () => {
     }
   }, [data, lastUpdatedAt]);
 
-  const handleNoteCloseClick = (noteIds: number[]) => {
+  const handleNoteCloseClick = (e: React.MouseEvent, noteIds: number[]) => {
+    e.stopPropagation();
+
     openModal('caution', {
       infoText: CAUTION.DELETE_NOTE.INFO_TEXT,
       content: CAUTION.DELETE_NOTE.CONTENT,
@@ -117,14 +119,16 @@ const HandoverPage = () => {
     navigate(PATH.CREATE_HANDOVER_NOTE);
   };
 
-  const handleMultiDeleteButtonClick = () => {
+  const handleMultiDeleteButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
     if (canSelect && !ids.length) {
       handleToggleSelect();
       return;
     }
 
     if (canSelect) {
-      handleNoteCloseClick(ids);
+      handleNoteCloseClick(e, ids);
       return;
     }
 
@@ -188,7 +192,7 @@ const HandoverPage = () => {
               canSelect={canSelect}
               isSelected={ids.includes(+data.noteId)}
               onSelect={() => handleItemClick(+data.noteId)}
-              onNoteCloseClick={handleNoteCloseClick}
+              onNoteCloseClick={(e) => handleNoteCloseClick(e, [data.noteId])}
               onClick={() => navigate(`/handover/${+data.noteId}`)}
             />
           ))}

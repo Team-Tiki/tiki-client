@@ -1,12 +1,7 @@
-import * as React from 'react';
-import type { SVGProps } from 'react';
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgIcFolder = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 40 40"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 40" {...props}>
     <mask id="ic_folder_svg__a" fill="#fff">
       <path d="M24.382 26.769h-8.764c-1.077 0-1.616 0-2.045-.166a2.46 2.46 0 0 1-1.407-1.408C12 24.768 12 24.229 12 23.152v-6.302c0-1.078 0-1.617.166-2.045a2.46 2.46 0 0 1 1.407-1.408c.429-.166.968-.166 2.045-.166h.95c.112 0 .168 0 .22.01q.121.024.223.092c.045.031.084.07.163.15l1.96 1.96c.079.078.118.117.163.148a.6.6 0 0 0 .222.092c.053.01.109.01.22.01h4.643c1.077 0 1.616 0 2.045.166.646.25 1.157.76 1.407 1.407.166.429.166.968.166 2.045v3.84c0 1.078 0 1.617-.166 2.046a2.46 2.46 0 0 1-1.407 1.407c-.429.166-.968.166-2.046.166" />
     </mask>

@@ -1,12 +1,15 @@
 export const downloadDocument = (fileUrl: string, name?: string) => {
-  const url = URL.createObjectURL(new Blob([fileUrl]));
-  const a = document.createElement('a');
-  a.href = url;
-  name && (a.download = name);
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    window.URL.revokeObjectURL(fileUrl);
-  }, 1000);
-  a.remove();
+  fetch(fileUrl)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name || 'downloaded-file';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    })
+    .catch((error) => console.error('Download failed:', error));
 };

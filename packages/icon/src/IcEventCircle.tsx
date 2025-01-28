@@ -1,22 +1,9 @@
-import * as React from 'react';
-import type { SVGProps } from 'react';
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgIcEventCircle = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 46 46"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 46 46" {...props}>
     <rect width={43} height={43} x={1.5} y={1.5} fill="#fff" rx={21.5} />
-    <rect
-      width={43}
-      height={43}
-      x={1.5}
-      y={1.5}
-      stroke="#FAFAFA"
-      strokeWidth={3}
-      rx={21.5}
-    />
+    <rect width={43} height={43} x={1.5} y={1.5} stroke="#FAFAFA" strokeWidth={3} rx={21.5} />
     <path
       fill="#353F9B"
       fillRule="evenodd"
@@ -33,10 +20,7 @@ const SvgIcEventCircle = (props: SVGProps<SVGSVGElement>) => (
       d="m31.62 14 .324 1.132c.216.793-.216 1.472-.972 1.698l-.54.113c-.109 0-.217.227-.217.34.216.68-.432 1.358-1.08 1.019l-.541-.226a.58.58 0 0 0-.757.566v.113c0 .679-.54 1.245-1.189 1.245H26v-.453h.757c.324 0 .648-.226.648-.68v-.112c0-.793.757-1.359 1.513-1.02l.54.227c.217.114.433-.113.325-.34-.108-.452.108-.905.54-1.131l.54-.114c.433-.113.649-.566.541-1.018l-.324-1.133zM18.456 14c2.582 1.09 2.735 3.03 2.43 4l-.759-.121c.152-.728.152-2.425-2.127-3.273zM29.68 21.572c-1.02.107-1.914.321-2.425.428L27 21.465c.51-.214 1.532-.428 2.553-.428 1.021-.107 2.298 0 3.447.535l-.255.428c-1.022-.32-2.043-.428-3.064-.428"
       clipRule="evenodd"
     />
-    <path
-      fill="#D9D9D9"
-      d="M28 14.571 29.538 14 30 15.429 28.615 16zM23 16.615 25.077 16 26 17.385 23.923 18z"
-    />
+    <path fill="#D9D9D9" d="M28 14.571 29.538 14 30 15.429 28.615 16zM23 16.615 25.077 16 26 17.385 23.923 18z" />
     <path fill="#353F9B" d="M21 14.857 23.154 14 25 15.143 22.538 16z" />
   </svg>
 );

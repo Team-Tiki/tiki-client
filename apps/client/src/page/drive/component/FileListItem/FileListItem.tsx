@@ -47,12 +47,18 @@ const FileListItem = ({
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
-        <Text tag="body6">{name}</Text>
+        <Text tag="body6" css={{ lineHeight: '1.6rem' }}>
+          {name}
+        </Text>
       </Flex>
 
       <div css={rightSideRowStyle}>
-        <Text tag="body6">{getFileVolume(capacity ?? 0)}</Text>
-        <Text tag="body6">{url?.split('.').at(-1)}</Text>
+        <Text tag="body6" css={{ lineHeight: '1.6rem' }}>
+          {getFileVolume(capacity ?? 0)}
+        </Text>
+        <Text tag="body6" css={{ lineHeight: '1.6rem' }}>
+          {url?.split('.').at(-1)}
+        </Text>
         <time css={timeStyle} dateTime={createdTime}>
           {getFormattedDate(createdTime ?? new Date().toISOString())}
         </time>

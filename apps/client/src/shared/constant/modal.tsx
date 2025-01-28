@@ -1,10 +1,10 @@
 import {
   IcActivityTag,
   IcBlockCreate,
+  IcError,
   IcFileUpload,
   IcInvite,
   IcMemberTag,
-  IcWarning,
   IcWorkspaceSuccess,
 } from '@tiki/icon';
 
@@ -41,7 +41,7 @@ export const isModalContentType = (type: string | null): type is ModalContentTyp
 
 export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
   'create-workspace': {
-    steps: 5,
+    steps: 4,
     headers: [
       {
         icon: (step: number, totalSteps: number) =>
@@ -80,12 +80,6 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
           ) : (
             <span>{`${step}/${totalSteps}`}</span>
           ),
-        title: '팀원 초대',
-        infoText: '워크스페이스에 팀원을 초대할 수 있습니다.',
-      },
-      {
-        icon: (step: number, totalSteps: number) =>
-          step === totalSteps ? <IcWorkspaceSuccess width={40} height={40} /> : <span>{`${step}/${totalSteps}`}</span>,
         title: '완료',
         infoText: '워크스페이스 생성이 완료되었습니다.',
       },
@@ -209,7 +203,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcWarning width={20} height={20} css={{ margin: '1rem' }} />,
+        icon: <IcError width={40} height={40} css={{ margin: '1rem', flexShrink: '0' }} />,
         title: '주의!',
         infoText: '',
       },

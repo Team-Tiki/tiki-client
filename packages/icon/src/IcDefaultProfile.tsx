@@ -1,12 +1,7 @@
-import * as React from 'react';
-import type { SVGProps } from 'react';
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgIcDefaultProfile = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 244 140"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 244 140" {...props}>
     <path fill="#EDF0FD" d="M0 0h243.5v140H0z" />
     <g fill="#fff" clipPath="url(#ic_default_profile_svg__a)">
       <path
@@ -16,18 +11,8 @@ const SvgIcDefaultProfile = (props: SVGProps<SVGSVGElement>) => (
       />
       <rect width={6.619} height={23.166} x={118.97} y={53.995} rx={3.309} />
       <rect width={6.619} height={6.619} x={118.97} y={78.815} rx={3.309} />
-      <rect
-        width={6.619}
-        height={23.166}
-        rx={3.309}
-        transform="matrix(1 0 0 -1 157.028 85.434)"
-      />
-      <rect
-        width={6.619}
-        height={6.619}
-        rx={3.309}
-        transform="matrix(1 0 0 -1 157.028 60.613)"
-      />
+      <rect width={6.619} height={23.166} rx={3.309} transform="matrix(1 0 0 -1 157.028 85.434)" />
+      <rect width={6.619} height={6.619} rx={3.309} transform="matrix(1 0 0 -1 157.028 60.613)" />
     </g>
     <defs>
       <clipPath id="ic_default_profile_svg__a">

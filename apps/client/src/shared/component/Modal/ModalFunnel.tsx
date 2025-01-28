@@ -6,10 +6,10 @@ import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagMod
 import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import FileImportModal from '@/shared/component/FileImportModal/FileImportModal';
-import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
+import InviteModal from '@/shared/component/WorkSpaceModal/invite/InviteModal';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';

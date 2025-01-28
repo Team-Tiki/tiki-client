@@ -12,7 +12,7 @@ export const useInitializeTeamId = () => {
   const { setTeamId } = useTeamIdAction();
   const navigate = useNavigate();
 
-  const { data, isSuccess } = $api.useQuery('get', '/api/v1/members/teams', {
+  const { data, isSuccess } = $api.useSuspenseQuery('get', '/api/v1/members/teams', {
     select: (response: TeamResponse) => {
       return response.data;
     },

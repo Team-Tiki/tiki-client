@@ -14,17 +14,20 @@ export const entireInfoStyle = css({
 });
 
 export const titleStyle = css({
+  width: '25rem',
+  height: '6.5rem',
+
   color: theme.colors.gray_800,
 
   outline: 'none',
   border: 'none',
 
-  whiteSpace: 'nowrap',
-
   backgroundColor: theme.colors.gray_100,
 
-  marginBottom: '3.6rem',
   ...theme.heading.heading03,
+
+  wordBreak: 'break-all',
+  resize: 'none',
 
   '::placeholder': {
     color: theme.colors.gray_800,
