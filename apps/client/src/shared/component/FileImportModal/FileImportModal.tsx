@@ -1,6 +1,6 @@
 import { IcFileItem, IcSearch } from '@tiki/icon';
-import { DropdownItem, DropdownList, DropdownRoot, Flex, Input, scrollStyle } from '@tiki/ui';
-import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
+import { DropdownItem, DropdownList, DropdownRoot, DropdownTrigger, Flex, Input, scrollStyle } from '@tiki/ui';
+import { useDebounce } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
@@ -31,9 +31,6 @@ const FileImportModal = () => {
   const modalData = useModalData() as FileImportModalData;
   const closeModal = useCloseModal();
 
-  const { isOpen, open, close } = useOverlay();
-  const dropdownRef = useOutsideClick<HTMLDivElement>(close);
-
   const teamId = useInitializeTeamId();
   const filterKeyword = useDebounce(searchFile, 500);
 
@@ -48,7 +45,9 @@ const FileImportModal = () => {
 
   const filteredFiles = useMemo(
     () =>
-      fileData?.data?.documents.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
+      fileData?.data?.documents.filter(
+        (file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC')) && filterKeyword !== ''
+      ),
     [fileData, filterKeyword]
   );
 
@@ -77,15 +76,16 @@ const FileImportModal = () => {
       <Modal.Header />
       <Modal.Body>
         <Flex styles={{ width: '100%', direction: 'column', marginTop: '2rem' }}>
-          <Input
-            LeftIcon={<IcSearch width={16} height={16} />}
-            isFilled={false}
-            onFocus={open}
-            placeholder="search"
-            onChange={(e) => setSearchFile(e.target.value)}
-          />
-          <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
-            <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+          <DropdownRoot css={{ width: '100%' }} role="listbox">
+            <DropdownTrigger variant="input">
+              <Input
+                LeftIcon={<IcSearch width={16} height={16} />}
+                isFilled={false}
+                placeholder="search"
+                onChange={(e) => setSearchFile(e.target.value)}
+              />
+            </DropdownTrigger>
+            <DropdownList css={[overlayStyle, scrollStyle]}>
               {filteredFiles?.length === 0 ? (
                 <DropdownItem css={notFoundStyle}>{FILE.NOT_FOUND}</DropdownItem>
               ) : (

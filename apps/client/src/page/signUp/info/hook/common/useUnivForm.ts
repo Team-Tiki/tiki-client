@@ -1,5 +1,3 @@
-import { useOverlay } from '@tiki/utils';
-
 import { ChangeEvent, useState } from 'react';
 
 type UnivForm = {
@@ -8,8 +6,6 @@ type UnivForm = {
 };
 
 export const useUnivForm = () => {
-  const { isOpen: isSelectOpen, open: selectOpen, close: selectClose, toggle: selectToggle } = useOverlay();
-
   const [inputs, setInputs] = useState<UnivForm>({} as UnivForm);
   const [selectedUniv, setSelectedUniv] = useState('');
 
@@ -22,18 +18,12 @@ export const useUnivForm = () => {
 
   const select = (value: string) => {
     setSelectedUniv(value);
-
-    selectClose();
   };
 
   return {
     inputs,
     handleChange,
-    isSelectOpen,
     select,
     selectedUniv,
-    selectClose,
-    selectOpen,
-    selectToggle,
   };
 };
