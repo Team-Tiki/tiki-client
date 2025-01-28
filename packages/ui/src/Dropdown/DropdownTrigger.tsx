@@ -23,7 +23,7 @@ const DropdownTrigger = ({ variant = "button", children }: DropdownTriggerProps)
               return cloneElement(child as ReactElement, {
                 isOpen,
                 onFocus: open,
-                onBlur: () => setTimeout(close, 0),
+                onBlur: close,
               });
             }
           }
