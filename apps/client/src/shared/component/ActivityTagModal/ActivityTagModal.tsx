@@ -1,6 +1,6 @@
 import { IcSearch } from '@tiki/icon';
-import { DropdownItem, DropdownList, DropdownRoot, Flex, Input, scrollStyle } from '@tiki/ui';
-import { useDebounce, useOutsideClick, useOverlay } from '@tiki/utils';
+import { DropdownItem, DropdownList, DropdownRoot, DropdownTrigger, Flex, Input, scrollStyle } from '@tiki/ui';
+import { useDebounce } from '@tiki/utils';
 
 import { useMemo, useState } from 'react';
 
@@ -43,9 +43,6 @@ const ActivityTagModal = () => {
 
   const closeModal = useCloseModal();
 
-  const { isOpen, open, close } = useOverlay();
-  const dropdownRef = useOutsideClick<HTMLDivElement>(close);
-
   const filterKeyword = useDebounce(inputValue, 500);
   const filteredTags = useMemo(
     () => activityTags.filter((tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
@@ -86,15 +83,16 @@ const ActivityTagModal = () => {
             width: '100%',
             paddingTop: '2rem',
           }}>
-          <Input
-            placeholder="search"
-            LeftIcon={<IcSearch width={12} height={12} />}
-            onFocus={open}
-            value={inputValue}
-            onChange={handleInputChange}
-          />
-          <DropdownRoot css={{ width: '100%' }} ref={dropdownRef} role="listbox">
-            <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+          <DropdownRoot css={{ width: '100%' }}>
+            <DropdownTrigger variant="input">
+              <Input
+                placeholder="search"
+                LeftIcon={<IcSearch width={12} height={12} />}
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+            </DropdownTrigger>
+            <DropdownList css={[overlayStyle, scrollStyle]}>
               {filteredTags?.length === 0 ? (
                 <DropdownItem css={notFoundStyle}>{TAG.NOT_FOUND}</DropdownItem>
               ) : (

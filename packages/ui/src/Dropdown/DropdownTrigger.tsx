@@ -1,19 +1,32 @@
 import { useDropdownContext } from "@/Dropdown/context";
 import { Children, cloneElement, isValidElement, PropsWithChildren, ReactElement } from "react";
 
-type DropdownTriggerProps = PropsWithChildren;
+type DropdownTriggerProps = PropsWithChildren & {
+  variant?: "button" | "input";
+};
 
-const DropdownTrigger = ({ children }: DropdownTriggerProps) => {
-  const { isOpen, toggle } = useDropdownContext();
+const DropdownTrigger = ({ variant = "button", children }: DropdownTriggerProps) => {
+  const { isOpen, toggle, open, close } = useDropdownContext();
 
   return (
     <>
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
-          return cloneElement(child as ReactElement, {
-            isOpen,
-            onClick: toggle,
-          });
+          switch (variant) {
+            case "button": {
+              return cloneElement(child as ReactElement, {
+                isOpen,
+                onClick: toggle,
+              });
+            }
+            case "input": {
+              return cloneElement(child as ReactElement, {
+                isOpen,
+                onFocus: open,
+                onBlur: close,
+              });
+            }
+          }
         }
       })}
     </>
