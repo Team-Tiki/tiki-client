@@ -25,7 +25,7 @@ const DropdownItem = ({ onSelect, children, ...props }: DropdownItemProps) => {
       role="button"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onClick={() => {
+      onMouseDown={() => {
         onSelect?.();
         close();
       }}
