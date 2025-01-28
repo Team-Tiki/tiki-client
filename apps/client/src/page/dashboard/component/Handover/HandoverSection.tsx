@@ -1,5 +1,7 @@
 import { Flex, Spinner } from '@tiki/ui';
 
+import { useNavigate } from 'react-router-dom';
+
 import { listItemStyle } from '@/page/dashboard/component/Handover/HandoverSection.style';
 import ListItem from '@/page/dashboard/component/Handover/ListItem/ListItem';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
@@ -8,6 +10,7 @@ import { useNoteData } from '@/page/handover/hook/api/queries';
 import { PATH } from '@/shared/constant/path';
 
 const HandoverSection = () => {
+  const navigate = useNavigate();
   const { data, isPending } = useNoteData('');
 
   return (
@@ -18,7 +21,17 @@ const HandoverSection = () => {
         <Spinner size={30} />
       ) : (
         data?.data?.noteGetResponseList.map((note) => {
-          return <ListItem key={note.noteId} noteId={note.noteId} title={note.title} date={note.startDate} />;
+          return (
+            <ListItem
+              key={note.noteId}
+              noteId={note.noteId}
+              title={note.title}
+              date={note.startDate}
+              onClick={() => {
+                navigate(`${PATH.HANDOVER}/${note.noteId}`);
+              }}
+            />
+          );
         })
       )}
     </Flex>
