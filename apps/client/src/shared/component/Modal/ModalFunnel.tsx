@@ -6,8 +6,8 @@ import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagMod
 import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import FileImportModal from '@/shared/component/FileImportModal/FileImportModal';
+import ImageImportModal from '@/shared/component/ImageImportModal/ImageImportModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
-import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
 import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
@@ -68,12 +68,12 @@ const ModalFunnel = () => {
             <InviteModal step={1} />
           </FunnelStep>
         );
-      case 'member-tag':
-        return <MemberTagModal />;
       case 'activity-tag':
         return <ActivityTagModal />;
       case 'file':
         return <FileImportModal />;
+      case 'image':
+        return <ImageImportModal />;
       case 'caution':
         if (isCautionModalData(modalData)) {
           return (

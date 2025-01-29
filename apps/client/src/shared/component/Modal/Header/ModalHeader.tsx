@@ -7,16 +7,17 @@ import { useModalContentType } from '@/shared/store/modal';
 interface ModalHeaderProps {
   step?: number;
   totalSteps?: number;
+  title?: string;
   infoText?: string;
 }
 
-const ModalHeader = ({ step = 1, totalSteps = 4, infoText }: ModalHeaderProps) => {
+const ModalHeader = ({ step = 1, totalSteps = 4, title, infoText }: ModalHeaderProps) => {
   const contentType = useModalContentType();
 
   if (!isModalContentType(contentType)) return null;
 
   const modalContent = MODAL_CONTENTS[contentType];
-  const { icon, title, infoText: defaultInfoText } = modalContent.headers[step - 1];
+  const { icon, title: defaultTitle, infoText: defaultInfoText } = modalContent.headers[step - 1];
 
   const displayIcon = typeof icon === 'function' ? icon(step, totalSteps) : icon;
 
@@ -29,7 +30,7 @@ const ModalHeader = ({ step = 1, totalSteps = 4, infoText }: ModalHeaderProps) =
       )}
       <Flex styles={{ direction: 'column', justify: 'flex-start', gap: '0.6rem' }}>
         <Text tag="body6" css={{ fontWeight: 500 }}>
-          {title}
+          {defaultTitle}
         </Text>
         {(infoText || defaultInfoText) && (
           <Text tag="body8" css={infoTextStyle}>
