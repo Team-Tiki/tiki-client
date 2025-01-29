@@ -28,7 +28,7 @@ const UploadedFileItem = ({
         direction: 'row',
         align: 'center',
         justify: 'space-between',
-        padding: size === 'large' ? '1.5rem 1.2rem' : '',
+        padding: size === 'large' ? '0rem 1.2rem' : '',
       }}
       css={borderStyle(size)}>
       <Flex styles={{ justify: 'center', align: 'center' }}>

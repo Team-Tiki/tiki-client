@@ -6,7 +6,7 @@ import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
 import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
-import BrowseFile from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/BrowseFile';
+import BrowseFile from '@/shared/component/TimeBlockModal/component/UploadModal/BrowseFile/BrowseFile';
 import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';

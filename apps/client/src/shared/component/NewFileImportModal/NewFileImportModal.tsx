@@ -9,9 +9,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
-import { scrollBoxStyle, uploadBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import {
+  boxStyle,
+  scrollBoxStyle,
+  uploadBoxStyle,
+} from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
-import { boxStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
@@ -185,7 +188,9 @@ const NewFileImportModal = ({
                   <Text tag="body6" css={{ marginBottom: '0.8rem' }}>
                     업로드할 파일을 끌어다 놓으세요.
                   </Text>
-                  <Text tag="body8">JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.</Text>
+                  <Text tag="body8" css={{ whiteSpace: 'nowrap' }}>
+                    JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.
+                  </Text>
                   <Text tag="body8" css={{ marginBottom: '2rem' }}>
                     최대 파일 크기는 50MB입니다.
                   </Text>
