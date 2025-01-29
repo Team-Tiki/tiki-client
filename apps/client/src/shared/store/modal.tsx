@@ -17,6 +17,7 @@ interface ModalState {
     title?: string;
     content?: string;
     onClick?: () => void;
+    isTitleOnly?: boolean;
     // Caution Modal
     infoText?: string;
     desc?: string;
