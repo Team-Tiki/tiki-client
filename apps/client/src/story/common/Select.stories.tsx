@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Select } from '@tiki/ui';
-import { useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { useState } from 'react';
 
@@ -27,14 +26,10 @@ export const Default: Story = {
     ),
   ],
   render: (args) => {
-    const { isOpen, close, toggle } = useOverlay();
-    const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
     const handleSelect = (id: string) => {
       setSelected(id);
-
-      close();
     };
 
     return (
@@ -42,10 +37,7 @@ export const Default: Story = {
         aria-label={`선택된 아이템: ${selected}`}
         variant="default"
         {...args}
-        ref={ref}
-        isOpen={isOpen}
         placeholder="Primary Select"
-        onTrigger={toggle}
         onSelect={handleSelect}
       />
     );
@@ -61,14 +53,10 @@ export const UserList: Story = {
     ),
   ],
   render: (args) => {
-    const { isOpen, close, toggle } = useOverlay();
-    const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
     const handleSelect = (id: string) => {
       setSelected(id);
-
-      close();
     };
 
     const options = [
@@ -92,10 +80,7 @@ export const UserList: Story = {
         label="아웃라인 셀렉트"
         variant="user"
         {...args}
-        ref={ref}
-        isOpen={isOpen}
         placeholder="Outline Select"
-        onTrigger={toggle}
         onSelect={handleSelect}
         options={options}
       />
@@ -105,14 +90,10 @@ export const UserList: Story = {
 
 export const Outline: Story = {
   render: (args) => {
-    const { isOpen, close, toggle } = useOverlay();
-    const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
     const handleSelect = (id: string) => {
       setSelected(id);
-
-      close();
     };
 
     return (
@@ -120,10 +101,7 @@ export const Outline: Story = {
         aria-label={`선택된 아이템: ${selected}`}
         variant="outline"
         {...args}
-        ref={ref}
-        isOpen={isOpen}
         placeholder="Scroll Select"
-        onTrigger={toggle}
         onSelect={handleSelect}
       />
     );
@@ -139,14 +117,10 @@ export const ScrollOption: Story = {
     ),
   ],
   render: () => {
-    const { isOpen, close, toggle } = useOverlay();
     const [selected, setSelected] = useState('');
-    const ref = useOutsideClick<HTMLDivElement>(close);
 
     const handleSelect = (id: string) => {
       setSelected(id);
-
-      close();
     };
 
     const options = [
@@ -166,10 +140,7 @@ export const ScrollOption: Story = {
         aria-label={`선택된 아이템: ${selected}`}
         variant="outline"
         options={options}
-        ref={ref}
         placeholder="최근 업로드 순"
-        isOpen={isOpen}
-        onTrigger={() => toggle()}
         onSelect={handleSelect}
       />
     );
@@ -185,14 +156,10 @@ export const OptionList: Story = {
     ),
   ],
   render: () => {
-    const { isOpen, close, toggle } = useOverlay();
     const [selected, setSelected] = useState('');
-    const ref = useOutsideClick<HTMLDivElement>(close);
 
     const handleSelect = (id: string) => {
       setSelected(id);
-
-      close();
     };
 
     const options = [{ value: '최근 정렬 순' }, { value: '과거 정렬 순대를 먹을래 말래' }];
@@ -202,10 +169,7 @@ export const OptionList: Story = {
         aria-label={`선택된 아이템: ${selected}`}
         variant="option"
         options={options}
-        ref={ref}
         placeholder="최근 업로드 순"
-        isOpen={isOpen}
-        onTrigger={() => toggle()}
         onSelect={handleSelect}
       />
     );
@@ -214,14 +178,10 @@ export const OptionList: Story = {
 
 export const Disabled: Story = {
   render: (args) => {
-    const { isOpen, close, toggle } = useOverlay();
-    const ref = useOutsideClick<HTMLDivElement>(close);
     const [selected, setSelected] = useState('');
 
     const handleSelect = (id: string) => {
       setSelected(id);
-
-      close();
     };
 
     return (
@@ -229,10 +189,7 @@ export const Disabled: Story = {
         aria-label={`선택된 아이템: ${selected}`}
         variant="disabled"
         {...args}
-        ref={ref}
-        isOpen={isOpen}
         placeholder="Scroll Select"
-        onTrigger={toggle}
         onSelect={handleSelect}
       />
     );

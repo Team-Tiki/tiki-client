@@ -3,22 +3,21 @@ import { scrollStyle, theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
-export const overlayStyle = (isOpen: boolean) =>
-  css({
-    maxHeight: '18rem',
+export const overlayStyle = css({
+  maxHeight: '18rem',
 
-    top: 'calc(100% + 0.2rem)',
-    right: 0,
+  top: 'calc(100% + 0.2rem)',
+  right: 0,
 
-    gap: '0.4rem',
+  gap: '0.4rem',
+  padding: '0.8rem 0 0.8rem 0.8rem',
 
-    borderRadius: '8px',
-    border: `1px solid ${theme.colors.gray_200}`,
-    boxShadow: isOpen ? theme.shadow.shadow02 : 'none',
+  borderRadius: '8px',
+  border: `1px solid ${theme.colors.gray_200}`,
 
-    overflowY: 'scroll',
-    overscrollBehavior: 'contain',
-  });
+  overflowY: 'scroll',
+  overscrollBehavior: 'contain',
+});
 
 export const itemStyle = () =>
   css({
@@ -27,7 +26,6 @@ export const itemStyle = () =>
     gap: '0.8rem',
 
     padding: '0.4rem',
-    margin: '0.8rem 0.8rem 0 0.8rem',
     borderRadius: '8px',
 
     '&:hover, &:focus': {

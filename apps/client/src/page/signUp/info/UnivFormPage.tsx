@@ -28,7 +28,7 @@ const options = [
 ];
 
 const UnivFormPage = () => {
-  const { inputs, handleChange, select, selectedUniv, isSelectOpen, selectToggle } = useUnivForm();
+  const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
   const { remainTime, handleTrigger, handleReset } = useTimer(60, () => {
     createToast('유효시간이 지났습니다.');
@@ -95,15 +95,7 @@ const UnivFormPage = () => {
       <form onSubmit={handleSubmit} css={formStyle}>
         <Heading tag="H4">회원가입</Heading>
         <Flex styles={{ direction: 'column', gap: '1.6rem' }}>
-          <Select
-            isOpen={isSelectOpen}
-            onTrigger={selectToggle}
-            variant="outline"
-            label="학교"
-            placeholder={PLACEHOLDER.SCHOOL}
-            options={options}
-            onSelect={select}
-          />
+          <Select variant="outline" label="학교" placeholder={PLACEHOLDER.SCHOOL} options={options} onSelect={select} />
           <Flex styles={{ gap: '0.4rem', width: '100%', align: 'end', marginTop: '0.4rem' }}>
             <Input
               value={inputs.email}
