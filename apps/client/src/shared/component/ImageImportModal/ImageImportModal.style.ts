@@ -1,18 +1,21 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
-export const uploadBoxStyle = css({
-  display: 'flex',
+export const uploadBoxStyle = (isDragover: boolean) =>
+  css({
+    display: 'flex',
 
-  width: '100%',
+    width: '100%',
 
-  padding: '3.2rem',
-  marginBottom: '2rem',
+    padding: '3.2rem',
+    marginBottom: '2rem',
 
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    backgroundColor: isDragover ? theme.colors.gray_100 : 'transparent',
+  });
 
 export const scrollBoxStyle = css({
   display: 'flex',
