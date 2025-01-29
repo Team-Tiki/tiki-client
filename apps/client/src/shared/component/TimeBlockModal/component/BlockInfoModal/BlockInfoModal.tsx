@@ -61,7 +61,7 @@ const BlockInfoModal = () => {
             />
           </BlockBox>
           <BlockBox title="기간">
-            <DatePicker variant="range" triggerWidth="13.5rem" onChange={handleDateChange} />
+            <DatePicker variant="range" triggerWidth="100%" onChange={handleDateChange} />
           </BlockBox>
         </Flex>
       </Modal.Body>
