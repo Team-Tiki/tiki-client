@@ -1,11 +1,11 @@
 import { Flex } from '@tiki/ui';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
-import AppendFile from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile';
+import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
 import BrowseFile from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/BrowseFile';
 import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
@@ -21,13 +21,13 @@ interface UploadModalProps {
 
 const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   const [selectedFiles, setSelectedFiles] = useState<DocumentDetail[]>([]);
+  const selectedFilesRef = useRef<DocumentDetail[]>(selectedFiles);
+
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
   const { prevStep, nextStep } = useFunnel();
-
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
-
   const { setFormData } = useBlockContext();
 
   const teamId = useInitializeTeamId();
@@ -44,27 +44,29 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   });
 
   const handleFileSelect = (selected: DocumentDetail[]) => {
-    setSelectedFiles((prev) => {
-      const combinedFiles = prev.concat(selected);
+    const combinedFiles = [...selectedFilesRef.current, ...selected].filter(
+      (file, index, self) => index === self.findIndex((f) => f.documentId === file.documentId)
+    );
 
-      return combinedFiles.filter(
-        (file, index) => index === combinedFiles.findIndex((f) => f.documentId === file.documentId)
-      );
-    });
+    setSelectedFiles(combinedFiles);
+    selectedFilesRef.current = combinedFiles;
+
+    onConfirmFile(combinedFiles);
   };
 
   const handleSelectedFilesChange = (updatedFiles: DocumentDetail[]) => {
     setSelectedFiles(updatedFiles);
+    selectedFilesRef.current = updatedFiles;
   };
 
   const handleNext = () => {
-    const documentIds = selectedFiles.map((file) => file.documentId);
+    const documentIds = selectedFilesRef.current.map((file) => file.documentId);
 
     setFormData({
       documentIds,
     });
 
-    onConfirmFile(selectedFiles);
+    onConfirmFile(selectedFilesRef.current);
     nextStep();
   };
 
@@ -74,7 +76,12 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
       <Modal.Body>
         <Flex css={flexStyle}>
           {fileData?.data?.documents.length === 0 || isAddingFiles ? (
-            <AppendFile onUploadFile={handleFileSelect} selectedFiles={selectedFiles} />
+            <NewFileImportModal
+              onUploadFile={handleFileSelect}
+              selectedFiles={selectedFiles}
+              onNext={handleNext}
+              size="large"
+            />
           ) : (
             <BrowseFile
               files={fileData?.data?.documents || []}

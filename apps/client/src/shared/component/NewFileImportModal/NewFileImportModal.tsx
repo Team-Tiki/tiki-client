@@ -10,6 +10,7 @@ import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
 import { scrollBoxStyle, uploadBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import { boxStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
@@ -20,20 +21,29 @@ import { convertToKB, getFileKey, getFileVolume } from '@/shared/util/file';
 
 interface NewFileImportModalProps {
   size?: 'medium' | 'large';
+  selectedFiles?: DocumentDetail[];
+  onUploadFile?: (files: DocumentDetail[]) => void;
+  onNext?: () => void;
 }
 
 interface FileWithDocumentId extends File {
   documentId?: number;
 }
 
-const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
+const NewFileImportModal = ({
+  onNext,
+  selectedFiles = [],
+  onUploadFile = () => {},
+  size = 'medium',
+}: NewFileImportModalProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
-
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
   const [fileUrls, setFileUrls] = useState<Files>({});
 
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
+
+  const isButtonActive = files.length === 0;
 
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
@@ -50,9 +60,7 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
           (newFile) => !prevFiles.some((file) => file.name === newFile.name && file.size === newFile.size)
         );
 
-        const updatedFiles = [...prevFiles, ...uniqueFiles];
-
-        return updatedFiles;
+        return [...prevFiles, ...uniqueFiles];
       });
     },
     setFileUrls,
@@ -76,25 +84,26 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
         onSuccess: (data) => {
           createToast('파일이 성공적으로 업로드되었습니다.', 'success');
 
-          setFiles((prevFiles) => {
-            const updatedFiles = prevFiles.map((file) => {
-              const matchedIndex = validFiles.findIndex((f) => f.name === file.name && f.size === file.size);
+          const uploadedFiles = validFiles.map((file, index) => ({
+            ...file,
+            documentId: data?.data?.response?.[index]?.documentId ?? 0,
+            name: file?.name,
+            url: fileUrls[file?.name] || '',
+            fileKey: getFileKey(fileUrls[file?.name]),
+            size: convertToKB(file?.size),
+          }));
 
-              if (matchedIndex !== -1) {
-                return {
-                  ...file,
-                  documentId: data?.data?.response?.[matchedIndex]?.documentId ?? 0,
-                  name: file?.name,
-                  url: fileUrls[file?.name] || '',
-                  fileKey: getFileKey(fileUrls[file?.name]),
-                  size: convertToKB(file?.size),
-                };
-              }
-              return file;
-            });
+          setFiles(uploadedFiles);
 
-            return updatedFiles;
-          });
+          const documentDetailList: DocumentDetail[] = uploadedFiles.map((file) => ({
+            documentId: file.documentId,
+            name: file.name,
+            url: file.url,
+            capacity: convertToKB(file.size),
+            createdTime: new Date().toISOString(),
+          }));
+
+          onUploadFile?.(documentDetailList);
         },
         onError: (error) => {
           createToast(`파일 업로드 실패: ${error.message}`, 'error');
@@ -104,6 +113,12 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
   };
 
   const handleDelete = (fileName: string, documentId: number) => {
+    const updatedFiles = files.filter((file) => file.name !== fileName);
+    setFiles(updatedFiles);
+
+    const updatedSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
+    onUploadFile(updatedSelectedFiles);
+
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
 
     setFileUrls((prevUrls) => {
@@ -138,7 +153,6 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
 
   const handleClose = () => {
     closeModal();
-
     queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
   };
 
@@ -171,14 +185,11 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
                   <Text tag="body6" css={{ marginBottom: '0.8rem' }}>
                     업로드할 파일을 끌어다 놓으세요.
                   </Text>
-                  <Text tag="body8" css={{ whiteSpace: 'nowrap' }}>
-                    JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.
-                  </Text>
+                  <Text tag="body8">JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.</Text>
                   <Text tag="body8" css={{ marginBottom: '2rem' }}>
                     최대 파일 크기는 50MB입니다.
                   </Text>
                 </Flex>
-
                 <Button variant="outline" css={{ width: '16rem' }} onClick={() => fileInputRef.current?.click()}>
                   파일 브라우저
                 </Button>
@@ -200,7 +211,12 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
           </Flex>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="new-file" buttonClick={handleClose} closeModal={() => closeModal()} />
+      <Modal.Footer
+        contentType="new-file"
+        buttonClick={onNext ?? handleClose}
+        closeModal={closeModal}
+        isButtonActive={!isButtonActive}
+      />
     </Modal>
   );
 };
