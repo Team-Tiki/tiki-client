@@ -10,9 +10,6 @@ export const tagListStyle = css({
   flexDirection: 'column',
   gap: '1.6rem',
 
-  flexDirection: 'column',
-  gap: '1.6rem',
-
   overflowX: 'hidden',
   overflowY: 'scroll',
 

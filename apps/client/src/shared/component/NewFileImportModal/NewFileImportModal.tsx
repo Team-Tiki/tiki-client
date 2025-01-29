@@ -4,30 +4,29 @@ import { Button, Flex, Text, scrollStyle, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
 import { scrollBoxStyle, uploadBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
-import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import { boxStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/File/AppendFile/AppendFile.style';
 import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
-import { convertToKB, getFileVolume } from '@/shared/util/file';
+import { convertToKB, getFileKey, getFileVolume } from '@/shared/util/file';
 
 interface NewFileImportModalProps {
   size?: 'medium' | 'large';
-  selectedFiles?: DocumentDetail[];
-  onUpload?: (files: DocumentDetail[]) => void;
 }
 
 interface FileWithDocumentId extends File {
   documentId?: number;
 }
 
-const NewFileImportModal = ({ size = 'medium', selectedFiles, onUpload }: NewFileImportModalProps) => {
+const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
 
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
@@ -41,6 +40,7 @@ const NewFileImportModal = ({ size = 'medium', selectedFiles, onUpload }: NewFil
 
   const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
   const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
+  const queryClient = useQueryClient();
 
   const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
     files,
@@ -60,48 +60,52 @@ const NewFileImportModal = ({ size = 'medium', selectedFiles, onUpload }: NewFil
   });
 
   const handleUploadFile = (validFiles: FileWithDocumentId[]) => {
-    const documentDetailList: DocumentDetail[] = [];
-
     postDocumentMutation(
       {
-        params: {
-          path: {
-            teamId,
-          },
-        },
+        params: { path: { teamId } },
         body: {
           documents: validFiles.map((file) => ({
             fileName: file.name,
             fileUrl: fileUrls[file.name] || '',
-            fileKey: file.name,
+            fileKey: getFileKey(fileUrls[file.name]),
             capacity: convertToKB(file.size),
           })),
         },
       },
       {
         onSuccess: (data) => {
-          data?.data?.response?.forEach((document, index) => {
-            documentDetailList.push({
-              documentId: document.documentId,
-              name: validFiles[index].name,
-              url: fileUrls[validFiles[index].name] || '',
-              capacity: convertToKB(validFiles[index].size),
-              createdTime: new Date().toISOString(),
-            });
-          });
-
           createToast('파일이 성공적으로 업로드되었습니다.', 'success');
+
+          setFiles((prevFiles) => {
+            const updatedFiles = prevFiles.map((file) => {
+              console.log('file', file);
+              const matchedIndex = validFiles.findIndex((f) => f.name === file.name && f.size === file.size);
+
+              if (matchedIndex !== -1) {
+                return {
+                  ...file,
+                  documentId: data?.data?.response?.[matchedIndex]?.documentId ?? 0,
+                  name: file.name,
+                  url: fileUrls[file.name] || '',
+                  fileKey: getFileKey(fileUrls[file.name]),
+                  size: convertToKB(file.size),
+                };
+              }
+              return file;
+            });
+
+            return updatedFiles;
+          });
         },
         onError: (error) => {
-          createToast(`업로드 실패: ${error.message}`, 'error');
+          createToast(`파일 업로드 실패: ${error.message}`, 'error');
         },
       }
     );
   };
 
   const handleDelete = (fileName: string, documentId: number) => {
-    const updatedFiles = files.filter((file) => file.name !== fileName);
-    setFiles(updatedFiles);
+    setFiles((prev) => prev.filter((file) => file.name !== fileName));
 
     setFileUrls((prevUrls) => {
       const updatedUrls = { ...prevUrls };
@@ -115,16 +119,28 @@ const NewFileImportModal = ({ size = 'medium', selectedFiles, onUpload }: NewFil
       return newStatus;
     });
 
-    deleteDocumentMutation({
-      params: {
-        query: {
-          documentId: [documentId],
-        },
-        path: {
-          teamId,
+    deleteDocumentMutation(
+      {
+        params: {
+          query: { documentId: [documentId] },
+          path: { teamId },
         },
       },
-    });
+      {
+        onSuccess: () => {
+          createToast('파일이 삭제되었습니다.', 'success');
+        },
+        onError: (error) => {
+          createToast(`파일 삭제 실패: ${error.message}`, 'error');
+        },
+      }
+    );
+  };
+
+  const handleClose = () => {
+    closeModal();
+
+    queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/drive'] });
   };
 
   useEffect(() => {
@@ -185,7 +201,7 @@ const NewFileImportModal = ({ size = 'medium', selectedFiles, onUpload }: NewFil
           </Flex>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="new-file" buttonClick={() => closeModal()} />
+      <Modal.Footer contentType="new-file" buttonClick={handleClose} closeModal={() => closeModal()} />
     </Modal>
   );
 };
