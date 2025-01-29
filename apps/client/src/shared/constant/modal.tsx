@@ -14,6 +14,7 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'new-file'
   | 'file'
   | 'caution';
 
@@ -180,6 +181,22 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       [
         { text: '취소', variant: 'outline' },
         { text: '완료', variant: 'primary' },
+      ],
+    ],
+  },
+  'new-file': {
+    steps: 1,
+    headers: [
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '파일 업로드',
+        infoText: '업로드할 파일을 선택하세요',
+      },
+    ],
+    buttons: [
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '업로드', variant: 'primary' },
       ],
     ],
   },

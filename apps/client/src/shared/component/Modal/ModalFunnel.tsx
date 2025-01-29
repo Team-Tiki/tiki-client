@@ -7,6 +7,7 @@ import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import FileImportModal from '@/shared/component/FileImportModal/FileImportModal';
 import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
+import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import InviteModal from '@/shared/component/WorkSpaceModal/invite/InviteModal';
@@ -35,6 +36,14 @@ const ModalFunnel = () => {
     return (
       <Suspense>
         <DeletedModal />
+      </Suspense>
+    );
+  }
+
+  if (contentType === 'new-file') {
+    return (
+      <Suspense>
+        <NewFileImportModal />
       </Suspense>
     );
   }

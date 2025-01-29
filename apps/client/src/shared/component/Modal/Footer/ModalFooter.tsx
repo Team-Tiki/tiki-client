@@ -87,6 +87,11 @@ const ModalFooterButtons = (
     case 'member-tag':
     case 'activity-tag':
       return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];
+    case 'new-file':
+      return [
+        createButton('취소', closeModal, 'outline'),
+        createButton('업로드', buttonClick, 'primary', !isButtonActive),
+      ];
     case 'file':
       return [
         createButton('취소', closeModal, 'outline'),

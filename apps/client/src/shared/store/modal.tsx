@@ -67,6 +67,7 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'new-file'
   | 'file'
   | 'caution';
 

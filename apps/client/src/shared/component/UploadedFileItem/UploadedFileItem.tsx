@@ -9,7 +9,7 @@ interface BlockItemProps {
   fileSize: string;
   uploadedSize: string;
   onDelete: () => void;
-  size?: 'small' | 'large';
+  size?: 'medium' | 'large';
 }
 
 const UploadedFileItem = ({
@@ -43,7 +43,7 @@ const UploadedFileItem = ({
         </Flex>
       </Flex>
       <Flex styles={{ justify: 'center', align: 'center', gap: '1.2rem' }}>
-        {isUploading ? <Spinner size={20} /> : <IcCheckGreen width={16} height={16} />}
+        {isUploading ? <Spinner size={20} /> : <IcCheckGreen width={12} height={12} />}
         <IcClose width={16} height={16} css={{ margin: '1.2rem', cursor: 'pointer' }} onClick={onDelete} />
       </Flex>
     </Flex>
