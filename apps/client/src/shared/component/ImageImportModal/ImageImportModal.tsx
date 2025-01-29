@@ -47,7 +47,17 @@ const ImageImportModal = () => {
             <Flex styles={{ direction: 'column', align: 'center', justify: 'center' }}>
               <img src={uploadedFileUrl} alt="팀 대표" css={imageStyle} />
             </Flex>
-          ) : !file ? (
+          ) : file ? (
+            <UploadedFileItem
+              key={file.name}
+              title={file.name}
+              fileSize={getFileVolume(file.size || 0)}
+              uploadedSize={getFileVolume(file.size || 0)}
+              onDelete={() => setFile(null)}
+              isUploading={!uploadStatus[file.name]}
+              size="medium"
+            />
+          ) : (
             <Flex
               css={[boxStyle, uploadBoxStyle(isDragover)]}
               onDragOver={handleDragOver}
@@ -77,16 +87,6 @@ const ImageImportModal = () => {
                 </Button>
               </Flex>
             </Flex>
-          ) : (
-            <UploadedFileItem
-              key={file.name}
-              title={file.name}
-              fileSize={getFileVolume(file.size || 0)}
-              uploadedSize={getFileVolume(file.size || 0)}
-              onDelete={() => setFile(null)}
-              isUploading={!uploadStatus[file.name]}
-              size="medium"
-            />
           )}
         </Flex>
       </Modal.Body>
