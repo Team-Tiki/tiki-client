@@ -78,17 +78,16 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
 
           setFiles((prevFiles) => {
             const updatedFiles = prevFiles.map((file) => {
-              console.log('file', file);
               const matchedIndex = validFiles.findIndex((f) => f.name === file.name && f.size === file.size);
 
               if (matchedIndex !== -1) {
                 return {
                   ...file,
                   documentId: data?.data?.response?.[matchedIndex]?.documentId ?? 0,
-                  name: file.name,
-                  url: fileUrls[file.name] || '',
-                  fileKey: getFileKey(fileUrls[file.name]),
-                  size: convertToKB(file.size),
+                  name: file?.name,
+                  url: fileUrls[file?.name] || '',
+                  fileKey: getFileKey(fileUrls[file?.name]),
+                  size: convertToKB(file?.size),
                 };
               }
               return file;
@@ -144,7 +143,7 @@ const NewFileImportModal = ({ size = 'medium' }: NewFileImportModalProps) => {
   };
 
   useEffect(() => {
-    if (Object.keys(fileUrls).length > 0) {
+    if (Object.keys(fileUrls).length > 0 && files.every((file) => fileUrls[file.name])) {
       handleUploadFile(files);
     }
   }, [fileUrls]);
