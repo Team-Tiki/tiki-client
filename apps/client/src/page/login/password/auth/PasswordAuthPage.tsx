@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Flex, Heading, Input, useToastAction } from '@tiki/ui';
 import { useInput, useTimer } from '@tiki/utils';
 

@@ -11,7 +11,7 @@ interface ModalHeaderProps {
   infoText?: string;
 }
 
-const ModalHeader = ({ step = 1, totalSteps = 4, title, infoText }: ModalHeaderProps) => {
+const ModalHeader = ({ step = 1, totalSteps = 4, infoText }: ModalHeaderProps) => {
   const contentType = useModalContentType();
 
   if (!isModalContentType(contentType)) return null;
