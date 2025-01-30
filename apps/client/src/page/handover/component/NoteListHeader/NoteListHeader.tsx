@@ -18,8 +18,8 @@ const NoteListHeader = ({ canSelect }: NoteListHeaderProps) => {
         </Text>
       </Flex>
 
-      <Flex styles={{ marginRight: '8.1rem' }}>
-        <Text tag="body8" style={{ width: '13rem' }}>
+      <Flex styles={{ marginRight: '7.7rem' }}>
+        <Text tag="body8" style={{ width: '13.8rem' }}>
           작성자
         </Text>
         <Text tag="body8" style={{ width: '6.1rem' }}>

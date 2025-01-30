@@ -61,7 +61,7 @@ const NoteItem = ({
             </Text>
           </Flex>
 
-          <Flex>
+          <Flex styles={{ gap: '0.8rem' }}>
             <Flex styles={{ align: 'center', gap: '0.4rem' }}>
               <IcAvatar css={profileStyle} />
               <Text tag="body6" style={{ width: '10.4rem' }}>
