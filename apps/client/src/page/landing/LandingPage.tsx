@@ -21,7 +21,7 @@ import Indicator from '@/page/landing/component/Indicator/Indicator';
 import LandingOverview from '@/page/landing/component/Overview/Overview';
 import { TEXT } from '@/page/landing/constant';
 
-import { ACCESS_TOKEN_KEY } from '@/shared/constant/api';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const LandingPage = () => {
@@ -53,7 +53,7 @@ const LandingPage = () => {
   };
 
   const 다음페이지로 = () => {
-    const isAuth = !!localStorage.getItem(ACCESS_TOKEN_KEY);
+    const isAuth = !!localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
     window.location.href = isAuth ? PATH.DASHBOARD : PATH.LOGIN;
   };

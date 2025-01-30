@@ -8,6 +8,7 @@ import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useOpenModal } from '@/shared/store/modal';
 import { useTeamId, useTeamIdAction } from '@/shared/store/team';
@@ -31,8 +32,8 @@ const SideNavBar = () => {
     } else {
       setTeamId(info.id);
 
-      localStorage.setItem('teamId', String(info.id));
-      localStorage.setItem('teamName', info.name);
+      localStorage.setItem(STORAGE_KEY.TEAM_ID, String(info.id));
+      localStorage.setItem(STORAGE_KEY.TEAM_NAME, info.name);
 
       navigate(path);
     }

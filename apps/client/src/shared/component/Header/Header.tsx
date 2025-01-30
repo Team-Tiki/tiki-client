@@ -7,10 +7,11 @@ import { headerStyle } from '@/shared/component/Header/Header.style';
 import InviteButton from '@/shared/component/Header/InviteButton';
 import SettingButton from '@/shared/component/Header/SettingButton';
 import RouteNav from '@/shared/component/RouteNav/RouteNav';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const Header = () => {
-  const title = localStorage.getItem('teamName');
+  const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME);
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
   const isWorkspaceSettingPage = useMatch(PATH.WORKSPACE_SETTING);
