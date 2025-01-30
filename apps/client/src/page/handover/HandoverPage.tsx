@@ -15,6 +15,7 @@ import { FILTER_TYPE, NoteListType, NoteType } from '@/page/handover/type';
 
 import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -181,34 +182,40 @@ const HandoverPage = () => {
           </Flex>
         </Flex>
       }>
-      <NoteListHeader canSelect={canSelect} />
-      <Divider />
-      <ul>
-        {noteList
-          ?.filter((data) => data.title.includes(filterKeyword.trim()))
-          .map((data) => (
-            <NoteItem
-              key={data.noteId}
-              noteId={data.noteId}
-              startDate={data.startDate}
-              endDate={data.endDate}
-              title={data.title}
-              author={data.author}
-              complete={data.complete}
-              canSelect={canSelect}
-              isSelected={ids.includes(+data.noteId)}
-              onSelect={() => handleItemClick(+data.noteId)}
-              onNoteCloseClick={(e) => handleNoteCloseClick(e, [data.noteId])}
-              onClick={() => navigate(`/handover/${+data.noteId}`)}
-            />
-          ))}
-        {isFetching && (
-          <Flex styles={{ justify: 'center', marginTop: '1rem' }}>
-            <Spinner size={20} />
-          </Flex>
-        )}
-        <div style={{ height: '1px' }} ref={targetRef} />
-      </ul>
+      {!!noteList.length && (
+        <section>
+          <NoteListHeader canSelect={canSelect} />
+          <Divider />
+          <ul>
+            {noteList
+              ?.filter((data) => data.title.includes(filterKeyword.trim()))
+              .map((data) => (
+                <NoteItem
+                  key={data.noteId}
+                  noteId={data.noteId}
+                  startDate={data.startDate}
+                  endDate={data.endDate}
+                  title={data.title}
+                  author={data.author}
+                  complete={data.complete}
+                  canSelect={canSelect}
+                  isSelected={ids.includes(+data.noteId)}
+                  onSelect={() => handleItemClick(+data.noteId)}
+                  onNoteCloseClick={(e) => handleNoteCloseClick(e, [data.noteId])}
+                  onClick={() => navigate(`/handover/${+data.noteId}`)}
+                />
+              ))}
+            {isFetching && (
+              <Flex styles={{ justify: 'center', marginTop: '1rem' }}>
+                <Spinner size={20} />
+              </Flex>
+            )}
+            <div style={{ height: '1px' }} ref={targetRef} />
+          </ul>
+        </section>
+      )}
+
+      <EmptySection domain="handover" isVisible={noteList.length === 0} />
     </ContentBox>
   );
 };
