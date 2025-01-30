@@ -8,6 +8,7 @@ import {
   firstSpellStyle,
   indicatorStyle,
   itemStyle,
+  pageIndicatorHoverStyle,
   pageIndicatorStyle,
 } from '@/shared/component/SideNavBar/Item/Item.style';
 
@@ -67,9 +68,8 @@ const Item = ({ variant, isClicked, onLogoClick, ...props }: ItemProps) => {
 
   return (
     <Flex tag="li" styles={{ align: 'center', justify: 'center', padding: '2rem' }} {...props}>
-      {isClicked && (
-        <motion.div layoutId="snb_indicator" css={[pageIndicatorStyle(isClicked, isHover), indicatorStyle]} />
-      )}
+      {isClicked && <motion.div layoutId="snb_indicator" css={[pageIndicatorStyle, indicatorStyle]} />}
+      <motion.div layoutId="snb_indicator" css={[pageIndicatorHoverStyle, indicatorStyle]} />
       <ToolTip message={variant.hoverMessage} position="right" gap={0.8}>
         <div
           role="button"

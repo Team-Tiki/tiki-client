@@ -17,7 +17,9 @@ export const itemStyle = (isClicked: boolean) =>
     border: isClicked ? `1px solid ${theme.colors.key_500}` : 'transparent',
 
     '&:hover': {
-      border: `1px solid ${theme.colors.key_500}`,
+      // border: `1px solid ${theme.colors.key_500}`,
+      backgroundColor: theme.colors.key_100,
+      border: 'none',
     },
 
     '& > img': {
@@ -42,11 +44,18 @@ export const firstSpellStyle = css({
   color: theme.colors.gray_500,
 });
 
-export const pageIndicatorStyle = (isClicked: boolean, isHover: boolean) =>
+export const pageIndicatorStyle = () =>
   css({
     width: '0.4rem',
-    height: isClicked ? '2.4rem' : isHover ? '1.6rem' : 0,
+    height: '2.4rem',
 
     borderRadius: '0 100px 100px 0',
-    backgroundColor: isClicked ? theme.colors.key_500 : isHover ? theme.colors.key_300 : theme.colors.white,
+    backgroundColor: theme.colors.key_500,
+  });
+
+export const pageIndicatorHoverStyle = () =>
+  css({
+    height: '1.6rem',
+
+    backgroundColor: theme.colors.key_300,
   });
