@@ -121,8 +121,6 @@ const HandoverPage = () => {
   };
 
   const handleMultiDeleteButtonClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-
     if (canSelect && !ids.length) {
       handleToggleSelect();
       return;
@@ -155,18 +153,18 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            {canSelect && (
-              <Button variant="tertiary" onClick={handleAllClick}>
-                전체선택
-              </Button>
-            )}
-            <Button variant="tertiary" onClick={handleMultiDeleteButtonClick}>
-              {canSelect ? '삭제' : '선택'}
+            <Button variant="tertiary" onClick={canSelect ? handleAllClick : handleToggleSelect}>
+              {canSelect ? '전체선택' : '선택'}
             </Button>
             {canSelect && (
-              <Button variant="tertiary" onClick={handleToggleSelect}>
-                취소
-              </Button>
+              <>
+                <Button variant="tertiary" onClick={(e) => handleNoteCloseClick(e, ids)}>
+                  삭제
+                </Button>
+                <Button variant="tertiary" onClick={handleToggleSelect}>
+                  취소
+                </Button>
+              </>
             )}
           </Flex>
 
