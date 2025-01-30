@@ -2,6 +2,7 @@ import { IcAvatar, IcClose } from '@tiki/icon';
 import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 
 import {
+  checkBoxStyle,
   closeButtonStyle,
   containerStyle,
   profileStyle,
@@ -49,9 +50,7 @@ const NoteItem = ({
         <Flex styles={{ align: 'center', justify: 'space-between' }} css={containerStyle}>
           <Flex>
             <Flex styles={{ align: 'center' }}>
-              {canSelect && (
-                <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} style={{ marginRight: '1.6rem' }} />
-              )}
+              {canSelect && <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} css={checkBoxStyle} />}
               <Text tag="body6" style={{ width: '29.4rem' }}>
                 {`${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`}
               </Text>

@@ -10,7 +10,6 @@ export const wrapperStyle = css({
 
 export const containerStyle = css({
   display: 'flex',
-  // gridTemplateColumns: '25.3% 51.7% 11.6% 11.4%',
 
   width: '100%',
   margin: '1.6rem 0',
@@ -38,4 +37,8 @@ export const closeButtonStyle = css({
   flexShrink: '0',
 
   cursor: 'pointer',
+});
+
+export const checkBoxStyle = css({
+  marginRight: '1.6rem',
 });
