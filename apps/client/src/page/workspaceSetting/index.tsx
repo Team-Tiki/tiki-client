@@ -1,22 +1,18 @@
-import { Button, CommandButton, useToastAction } from '@tiki/ui';
+import { CommandButton } from '@tiki/ui';
 
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { useQueryClient } from '@tanstack/react-query';
 
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
 import TeamProfileSetting from '@/page/workspaceSetting/component/TeamProfileSetting';
+import WorkspaceDelete from '@/page/workspaceSetting/component/WorkspaceDelete';
 import { ERROR_NAME, POSITION } from '@/page/workspaceSetting/constant';
 import { usePositionData, useTeamData } from '@/page/workspaceSetting/hook/api/queries';
-import { containerStyle, saveButtonStyle, workspaceDeleteButton } from '@/page/workspaceSetting/styles';
+import { containerStyle, saveButtonStyle } from '@/page/workspaceSetting/styles';
 import { MemberType, TeamType } from '@/page/workspaceSetting/type';
 
 import { $api } from '@/shared/api/client';
-import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 import { Validate } from '@/shared/util/validate';
 
 const WorkspaceSettingPage = () => {
@@ -37,17 +33,11 @@ const WorkspaceSettingPage = () => {
 
   const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
   const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
-  const { mutate: deleteTeam } = $api.useMutation('delete', '/api/v1/teams/{teamId}');
 
   const { data } = usePositionData();
   const { data: teamData } = useTeamData();
 
   const teamId = useInitializeTeamId();
-  const navigate = useNavigate();
-  const { createToast } = useToastAction();
-  const openModal = useOpenModal();
-  const closeModal = useCloseModal();
-  const queryClient = useQueryClient();
 
   if (data?.success && teamData?.success) {
     initialData.current = {
@@ -81,8 +71,6 @@ const WorkspaceSettingPage = () => {
 
   // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
   const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(workspaceData);
-
-  const position = data?.data?.position;
 
   const handleWorkspaceDataChange = (key: string, value: string) => {
     setWorkspaceData((prev) => ({ ...prev, [key]: value }));
@@ -128,74 +116,38 @@ const WorkspaceSettingPage = () => {
     }
   };
 
-  const handleDelete = () => {
-    if (position === 'ADMIN') {
-      deleteTeam(
-        { params: { path: { teamId } } },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ['get', '/api/v1/members/teams'],
-            });
-
-            closeModal();
-
-            localStorage.removeItem('teamId');
-
-            navigate(PATH.DASHBOARD);
-            window.location.reload();
-          },
-          onError: (error) => {
-            createToast('워크스페이스 삭제 과정에서 오류가 발생했습니다', 'error');
-            console.error(error);
-          },
-        }
-      );
-    }
-  };
-
-  const handleDeleteClick = () => {
-    openModal('deleted', {
-      title: '워크스페이스 삭제',
-      content: '정말로 이 워크스페이스를 삭제하시겠습니까?',
-      onClick: () => {
-        handleDelete();
-      },
-    });
-  };
-
   return (
-    <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
-      <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle} disabled={!canSubmit}>
-        저장
-      </CommandButton>
+    <>
+      <form css={containerStyle} onSubmit={handleWorkspaceInfoSubmit}>
+        <CommandButton type="submit" commandKey="S" variant="outline" css={saveButtonStyle} disabled={!canSubmit}>
+          저장
+        </CommandButton>
 
-      <ProfileSetting
-        name={workspaceData.name}
-        position={workspaceData.position}
-        onWorkspaceDataChange={handleWorkspaceDataChange}
-        error={error.nameError}
-        onErrorChange={handleErrorChange}
-      />
+        <ProfileSetting
+          name={workspaceData.name}
+          position={workspaceData.position}
+          onWorkspaceDataChange={handleWorkspaceDataChange}
+          error={error.nameError}
+          onErrorChange={handleErrorChange}
+        />
 
-      {workspaceData.position === POSITION.ADMIN && (
-        <>
-          <InfoSetting
-            teamName={workspaceData.teamName}
-            namingUpdatedAt={teamData?.data?.namingUpdatedAt ?? ''}
-            onWorkspaceDataChange={handleWorkspaceDataChange}
-            error={error.teamNameError}
-            onErrorChange={handleErrorChange}
-          />
+        {workspaceData.position === POSITION.ADMIN && (
+          <>
+            <InfoSetting
+              teamName={workspaceData.teamName}
+              namingUpdatedAt={teamData?.data?.namingUpdatedAt ?? ''}
+              onWorkspaceDataChange={handleWorkspaceDataChange}
+              error={error.teamNameError}
+              onErrorChange={handleErrorChange}
+            />
 
-          <TeamProfileSetting teamIconUrl={workspaceData.teamIconUrl} teamName={workspaceData.teamName} />
-        </>
-      )}
+            <TeamProfileSetting teamIconUrl={workspaceData.teamIconUrl} teamName={workspaceData.teamName} />
+          </>
+        )}
+      </form>
 
-      <Button variant="outline" size="small" css={workspaceDeleteButton} onClick={handleDeleteClick}>
-        {workspaceData.position === POSITION.ADMIN ? '워크스페이스 삭제' : '워크스페이스 탈퇴'}
-      </Button>
-    </form>
+      <WorkspaceDelete position={workspaceData.position} />
+    </>
   );
 };
 

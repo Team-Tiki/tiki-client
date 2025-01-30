@@ -8,7 +8,7 @@ export const POSITION = {
   ADMIN: 'ADMIN',
   EXECUTIVE: 'EXECUTIVE',
   MEMBER: 'MEMBER',
-};
+} as const;
 
 export const POSITION_VALUE = {
   ADMIN: '관리자',
