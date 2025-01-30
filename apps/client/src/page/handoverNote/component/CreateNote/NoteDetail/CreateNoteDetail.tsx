@@ -17,6 +17,7 @@ import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
@@ -30,7 +31,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
   const teamId = useInitializeTeamId();
-  const accessToken = localStorage.getItem('ACCESS_TOKEN_KEY');
+  const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
   const { data: memberData } = $api.useQuery('get', '/api/v1/team-member/teams/{teamId}/members/position', {
     params: {

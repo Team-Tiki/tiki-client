@@ -9,7 +9,7 @@ import HandoverSection from '@/page/dashboard/component/Handover/HandoverSection
 import TimelineSection from '@/page/dashboard/component/Timeline';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
-import { INVITATION_ID, INVITE_TEAM_ID } from '@/shared/constant/api';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const DashboardPage = () => {
@@ -20,8 +20,8 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem(INVITATION_ID)) {
-      navigate(`${PATH.INVITE}/${localStorage.getItem(INVITE_TEAM_ID)}`);
+    if (localStorage.getItem(STORAGE_KEY.INVITATION_ID)) {
+      navigate(`${PATH.INVITE}/${localStorage.getItem(STORAGE_KEY.INVITE_TEAM_ID)}`);
     }
   });
 

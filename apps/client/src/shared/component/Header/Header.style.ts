@@ -6,13 +6,13 @@ export const headerStyle = css({
   flexDirection: 'column',
   gap: '2rem',
 
-  width: 'fit-content',
+  width: '100%',
 
   paddingBottom: '2rem',
 
   backgroundColor: theme.colors.white,
 
-  '& > h1': {
+  '& h1': {
     padding: '1rem',
 
     ...theme.heading.heading05,
