@@ -17,7 +17,7 @@ const TaggedNoteItem = ({ noteId, title, isEditable }: TaggedNoteItemProps) => {
   const navigate = useNavigate();
 
   const handleTagClick = () => {
-    navigate(PATH.HANDOVER_NOTE(noteId));
+    navigate(`${PATH.HANDOVER}/${noteId}`);
   };
 
   return (

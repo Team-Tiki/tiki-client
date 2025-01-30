@@ -45,7 +45,8 @@ const FileItem = ({ fileName, capacity, isEditable, tagId, fileUrl }: FileItemPr
 
   const fileType = fileName.split('.')[fileName.split('.').length - 1];
 
-  const handleFileDeleteButtonClick = () => {
+  const handleFileDeleteButtonClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
     mutate(
       {
         params: {
@@ -96,7 +97,9 @@ const FileItem = ({ fileName, capacity, isEditable, tagId, fileUrl }: FileItemPr
         </Flex>
       </Flex>
 
-      {isEditable && <IcClose width={16} height={16} css={closeBtnStyle} onClick={handleFileDeleteButtonClick} />}
+      {isEditable && (
+        <IcClose width={16} height={16} css={closeBtnStyle} onClick={(e) => handleFileDeleteButtonClick(e)} />
+      )}
     </li>
   );
 };

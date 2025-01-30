@@ -20,7 +20,7 @@ export const PATH = {
   DRIVE: '/drive',
   DELETED: '/deleted',
   HANDOVER: '/handover',
-  HANDOVER_NOTE: (noteId: number) => `/handover/${noteId}`,
+  HANDOVER_NOTE: '/handover/:id',
   CREATE_HANDOVER_NOTE: '/handover/create-note',
   WORKSPACE_SETTING: '/workspace-setting',
   COMING_SOON: '/comingsoon',
