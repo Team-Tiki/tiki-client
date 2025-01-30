@@ -18,6 +18,7 @@ import {
 import { MemberType } from '@/page/workspaceSetting/type';
 
 import { $api } from '@/shared/api/client';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -89,7 +90,7 @@ const WorkspaceSettingPage = () => {
 
             closeModal();
 
-            localStorage.removeItem('teamId');
+            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
 
             navigate(PATH.DASHBOARD);
             window.location.reload();

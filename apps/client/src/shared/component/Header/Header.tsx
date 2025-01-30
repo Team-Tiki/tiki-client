@@ -1,26 +1,42 @@
-import { Heading } from '@tiki/ui';
+import { IcAlertYes } from '@tiki/icon';
+import { Flex, Heading } from '@tiki/ui';
 
 import { useMatch } from 'react-router-dom';
 
 import { headerStyle } from '@/shared/component/Header/Header.style';
+import InviteButton from '@/shared/component/Header/InviteButton';
+import SettingButton from '@/shared/component/Header/SettingButton';
 import RouteNav from '@/shared/component/RouteNav/RouteNav';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const Header = () => {
-  /** TODO: 추후 global State 혹은 localStorage에 저장 */
-  const title = 'TIKI 워크스페이스';
+  const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME);
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
   const isWorkspaceSettingPage = useMatch(PATH.WORKSPACE_SETTING);
   const isInvitedPage = useMatch(PATH.INVITE_IN);
+  const isOnboardingPage = useMatch(PATH.ONBOARDING);
 
-  const isVisible = !isDashboardPage && !isWorkspaceSettingPage && !isInvitedPage;
+  const isRouteNavVisble = !isDashboardPage && !isWorkspaceSettingPage && !isInvitedPage && !isOnboardingPage;
+  const isTitleVisible = !isInvitedPage && !isOnboardingPage;
+  const isRightSideVisible = !isWorkspaceSettingPage && !isOnboardingPage && !isInvitedPage;
 
   return (
     <header css={headerStyle}>
-      <Heading tag="H1">{!isInvitedPage && title}</Heading>
+      <Flex styles={{ justify: 'space-between' }}>
+        {isTitleVisible && <Heading tag="H1">{title}</Heading>}
 
-      {isVisible && <RouteNav />}
+        {isRightSideVisible && (
+          <div css={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
+            <InviteButton />
+            <IcAlertYes css={{ cursor: 'pointer' }} width={16} height={16} />
+            <SettingButton />
+          </div>
+        )}
+      </Flex>
+
+      {isRouteNavVisble && <RouteNav />}
     </header>
   );
 };
