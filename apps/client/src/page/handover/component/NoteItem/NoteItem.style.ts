@@ -37,9 +37,21 @@ export const profileStyle = css({
 });
 
 export const closeButtonStyle = css({
-  flexShrink: '0',
+  display: 'flex',
+  justifyContent: 'center',
+  alignContent: 'center',
+
+  padding: '0.5rem',
+
+  border: 'none',
+  borderRadius: '6px',
+  backgroundColor: 'inherit',
 
   cursor: 'pointer',
+
+  '&:hover': {
+    backgroundColor: theme.colors.gray_200,
+  },
 });
 
 export const checkBoxStyle = css({

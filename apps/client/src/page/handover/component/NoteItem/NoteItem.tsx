@@ -86,7 +86,9 @@ const NoteItem = ({
                   작성 미완료
                 </Tag>
               )}
-              <IcClose width={18} height={18} css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])} />
+              <button css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])}>
+                <IcClose width={11} height={11} />
+              </button>
             </Flex>
           </Flex>
         </Flex>
