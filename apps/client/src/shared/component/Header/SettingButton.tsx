@@ -11,8 +11,8 @@ const SettingButton = () => {
   const 워크스페이스설정페이지로 = () => navigate(PATH.WORKSPACE_SETTING);
 
   return (
-    <Button onClick={워크스페이스설정페이지로} size="small" variant="outline">
-      <IcSettingGray width={16} height={16} />
+    <Button onClick={워크스페이스설정페이지로} size="small" variant="outline" css={{ padding: '0.8rem' }}>
+      <IcSettingGray width={20} height={20} />
     </Button>
   );
 };

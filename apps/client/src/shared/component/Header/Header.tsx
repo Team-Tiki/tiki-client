@@ -1,8 +1,8 @@
-import { IcAlertYes } from '@tiki/icon';
 import { Flex, Heading } from '@tiki/ui';
 
-import { useMatch } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
 
+import AlarmButton from '@/shared/component/Header/AlarmButton';
 import { headerStyle } from '@/shared/component/Header/Header.style';
 import InviteButton from '@/shared/component/Header/InviteButton';
 import SettingButton from '@/shared/component/Header/SettingButton';
@@ -11,6 +11,7 @@ import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const Header = () => {
+  const navigate = useNavigate();
   const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME);
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
@@ -25,12 +26,21 @@ const Header = () => {
   return (
     <header css={headerStyle}>
       <Flex styles={{ justify: 'space-between' }}>
-        {isTitleVisible && <Heading tag="H1">{title}</Heading>}
+        {isTitleVisible && (
+          <Heading
+            tag="H1"
+            css={{ cursor: 'pointer' }}
+            onClick={() => {
+              navigate(PATH.DASHBOARD);
+            }}>
+            {`${title} 워크스페이스`}
+          </Heading>
+        )}
 
         {isRightSideVisible && (
           <div css={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
             <InviteButton />
-            <IcAlertYes css={{ cursor: 'pointer' }} width={16} height={16} />
+            <AlarmButton />
             <SettingButton />
           </div>
         )}
