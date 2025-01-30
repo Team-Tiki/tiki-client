@@ -23,7 +23,7 @@ const TaggedNotes = ({ isEditable }: TaggedNotesProps) => {
       </Flex>
       <Flex tag="ul" styles={{ direction: 'column', gap: '0.8rem' }}>
         {content?.notes?.map((data) => (
-          <TaggedNoteItem key={data.noteId} title={data.noteName} isEditable={isEditable} />
+          <TaggedNoteItem key={data.noteId} noteId={data.noteId} title={data.noteName} isEditable={isEditable} />
         ))}
       </Flex>
     </Flex>
