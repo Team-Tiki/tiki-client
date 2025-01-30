@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
-export const itemStyle = (isClicked: boolean) =>
+export const itemStyle = (isClicked: boolean, isAddButton: boolean) =>
   css({
     display: 'flex',
     alignItems: 'center',
@@ -11,13 +11,13 @@ export const itemStyle = (isClicked: boolean) =>
     height: '3.6rem',
     padding: '0.1rem',
 
-    backgroundColor: theme.colors.gray_100,
+    backgroundColor: isAddButton ? 'inherit' : theme.colors.gray_100,
 
     borderRadius: '10px',
     border: isClicked ? `1px solid ${theme.colors.key_500}` : 'transparent',
 
     '&:hover': {
-      border: `1px solid ${theme.colors.key_500}`,
+      border: isAddButton ? 'none' : `1px solid ${theme.colors.key_500}`,
     },
 
     '& > img': {
@@ -57,3 +57,7 @@ export const pageIndicatorHoverStyle = () =>
 
     backgroundColor: theme.colors.key_300,
   });
+
+export const profileImgStyle = css({
+  objectFit: 'cover',
+});
