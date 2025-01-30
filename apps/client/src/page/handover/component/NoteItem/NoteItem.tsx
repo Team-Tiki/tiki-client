@@ -37,6 +37,8 @@ const NoteItem = ({
   onNoteCloseClick,
   onClick,
 }: NoteItemProps) => {
+  const activityPeriod = `${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`;
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -46,13 +48,19 @@ const NoteItem = ({
   };
   return (
     <li>
-      <div css={wrapperStyle} onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
+      <Flex
+        tag={canSelect ? 'label' : 'div'}
+        css={wrapperStyle}
+        onClick={canSelect ? () => {} : onClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => handleKeyDown(e)}>
         <Flex styles={{ align: 'center', justify: 'space-between' }} css={containerStyle}>
           <Flex>
             <Flex styles={{ align: 'center' }}>
-              {canSelect && <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} css={checkBoxStyle} />}
+              {canSelect && <CheckBox isChecked={isSelected} onChange={onSelect} css={checkBoxStyle} />}
               <Text tag="body6" style={{ width: '29.4rem' }}>
-                {`${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`}
+                {activityPeriod}
               </Text>
             </Flex>
 
@@ -82,7 +90,7 @@ const NoteItem = ({
             </Flex>
           </Flex>
         </Flex>
-      </div>
+      </Flex>
       <Divider color={theme.colors.gray_300} />
     </li>
   );

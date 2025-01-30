@@ -12,9 +12,8 @@ export const containerStyle = css({
   display: 'flex',
 
   width: '100%',
-  margin: '1.6rem 0',
-  padding: '0 1.6rem',
-  minHeight: '1.8rem',
+  padding: '1.3rem 1.6rem',
+  // minHeight: '1.8rem',
 
   cursor: 'potiner',
 
@@ -22,6 +21,10 @@ export const containerStyle = css({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+
+  '&:hover': {
+    backgroundColor: theme.colors.key_100,
   },
 });
 
