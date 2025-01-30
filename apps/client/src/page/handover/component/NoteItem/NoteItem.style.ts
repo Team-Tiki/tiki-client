@@ -3,18 +3,18 @@ import { theme } from '@tiki/ui';
 
 export const wrapperStyle = css({
   display: 'flex',
-
   alignItems: 'center',
 
   cursor: 'pointer',
 });
 
 export const containerStyle = css({
-  display: 'grid',
-  gridTemplateColumns: '25.3% 51.7% 11.6% 11.4%',
+  display: 'flex',
+  // gridTemplateColumns: '25.3% 51.7% 11.6% 11.4%',
 
   width: '100%',
-  margin: '1.6rem 0 ',
+  margin: '1.6rem 0',
+  padding: '0 1.6rem',
   minHeight: '1.8rem',
 
   cursor: 'potiner',

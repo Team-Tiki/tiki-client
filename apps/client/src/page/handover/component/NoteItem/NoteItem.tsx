@@ -46,36 +46,41 @@ const NoteItem = ({
   return (
     <li>
       <div css={wrapperStyle} onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
-        <Flex styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
-          <Flex styles={{ align: 'center' }}>
-            {canSelect && (
-              <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} style={{ marginRight: '1.6rem' }} />
-            )}
-            <Text tag="body6" style={{ width: '26rem' }}>
-              {`${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`}
+        <Flex styles={{ align: 'center', justify: 'space-between' }} css={containerStyle}>
+          <Flex>
+            <Flex styles={{ align: 'center' }}>
+              {canSelect && (
+                <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} style={{ marginRight: '1.6rem' }} />
+              )}
+              <Text tag="body6" style={{ width: '29.4rem' }}>
+                {`${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`}
+              </Text>
+            </Flex>
+
+            <Text tag="body6" style={{ width: '34rem' }}>
+              {title}
             </Text>
           </Flex>
 
-          <Text tag="body6" style={{ width: '34rem' }}>
-            {title}
-          </Text>
-          <Flex styles={{ align: 'center', gap: '0.4rem' }}>
-            <IcAvatar css={profileStyle} />
-            <Text tag="body6" style={{ width: '10.4rem' }}>
-              {author}
-            </Text>
-          </Flex>
-          <Flex styles={{ align: 'center', gap: complete ? '4.3rem' : '3.3rem' }}>
-            {complete ? (
-              <Tag variant="square" bgColor={theme.colors.key_400}>
-                작성 완료
-              </Tag>
-            ) : (
-              <Tag variant="square" bgColor={theme.colors.gray_300}>
-                작성 미완료
-              </Tag>
-            )}
-            <IcClose width={18} height={18} css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])} />
+          <Flex>
+            <Flex styles={{ align: 'center', gap: '0.4rem' }}>
+              <IcAvatar css={profileStyle} />
+              <Text tag="body6" style={{ width: '10.4rem' }}>
+                {author}
+              </Text>
+            </Flex>
+            <Flex styles={{ align: 'center', gap: complete ? '4.3rem' : '3.3rem' }}>
+              {complete ? (
+                <Tag variant="square" bgColor={theme.colors.key_400}>
+                  작성 완료
+                </Tag>
+              ) : (
+                <Tag variant="square" bgColor={theme.colors.gray_300}>
+                  작성 미완료
+                </Tag>
+              )}
+              <IcClose width={18} height={18} css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])} />
+            </Flex>
           </Flex>
         </Flex>
       </div>
