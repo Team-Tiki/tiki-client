@@ -2,13 +2,12 @@ import { IcAdd, IcGlobal } from '@tiki/icon';
 import { Flex, ToolTip } from '@tiki/ui';
 import { motion } from 'framer-motion';
 
-import { HTMLAttributes, useState } from 'react';
+import { HTMLAttributes } from 'react';
 
 import {
   firstSpellStyle,
   indicatorStyle,
   itemStyle,
-  pageIndicatorHoverStyle,
   pageIndicatorStyle,
 } from '@/shared/component/SideNavBar/Item/Item.style';
 
@@ -50,16 +49,6 @@ const getItemsInfo = (variant: Required<ItemProps['variant']>) => {
 };
 
 const Item = ({ variant, isClicked, onLogoClick, ...props }: ItemProps) => {
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
-
   const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       onLogoClick();
@@ -69,16 +58,8 @@ const Item = ({ variant, isClicked, onLogoClick, ...props }: ItemProps) => {
   return (
     <Flex tag="li" styles={{ align: 'center', justify: 'center', padding: '2rem' }} {...props}>
       {isClicked && <motion.div layoutId="snb_indicator" css={[pageIndicatorStyle, indicatorStyle]} />}
-      <motion.div layoutId="snb_indicator" css={[pageIndicatorHoverStyle, indicatorStyle]} />
       <ToolTip message={variant.hoverMessage} position="right" gap={0.8}>
-        <div
-          role="button"
-          tabIndex={0}
-          css={itemStyle(isClicked)}
-          onClick={onLogoClick}
-          onKeyDown={handleEnterKeyDown}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}>
+        <div role="button" tabIndex={0} css={itemStyle(isClicked)} onClick={onLogoClick} onKeyDown={handleEnterKeyDown}>
           {getItemsInfo(variant)}
         </div>
       </ToolTip>

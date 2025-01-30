@@ -17,9 +17,7 @@ export const itemStyle = (isClicked: boolean) =>
     border: isClicked ? `1px solid ${theme.colors.key_500}` : 'transparent',
 
     '&:hover': {
-      // border: `1px solid ${theme.colors.key_500}`,
-      backgroundColor: theme.colors.key_100,
-      border: 'none',
+      border: `1px solid ${theme.colors.key_500}`,
     },
 
     '& > img': {

@@ -1,5 +1,5 @@
 import { IcAvatar, IcTikiLogo } from '@tiki/icon';
-import { Divider, Flex, ToolTip, theme } from '@tiki/ui';
+import { Divider, Flex, ToolTip, theme, useToastAction } from '@tiki/ui';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ const SideNavBar = () => {
   const { setTeamId } = useTeamIdAction();
   const navigate = useNavigate();
   const openModal = useOpenModal();
+  const { createToast } = useToastAction();
 
   const { data } = $api.useQuery('get', '/api/v1/members/teams');
 
@@ -51,7 +52,7 @@ const SideNavBar = () => {
         <Item
           variant={{ type: 'dashboard', hoverMessage: 'showcase' }}
           isClicked={isInShowcase}
-          onLogoClick={() => handleItemClick(null, PATH.SHOWCASE)}
+          onLogoClick={() => createToast('현재 준비중인 기능입니다.', 'default')}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
         {data?.data?.belongTeamGetResponses.map((data) => {
@@ -74,12 +75,8 @@ const SideNavBar = () => {
             <div
               role="button"
               tabIndex={0}
-              onClick={() => {
-                alert('현재 준비중인 기능입니다.');
-              }}
-              onKeyDown={() => {
-                alert('현재 준비중인 기능입니다.');
-              }}>
+              onClick={() => createToast('현재 준비중인 기능입니다.', 'default')}
+              onKeyDown={() => createToast('현재 준비중인 기능입니다.', 'default')}>
               <IcAvatar width={32} height={32} />
             </div>
           </ToolTip>
