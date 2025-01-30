@@ -17,6 +17,7 @@ import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerContent } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
+import { Validate } from '@/shared/util/validate';
 
 type BlockInfoProps = {
   isEditable: boolean;
@@ -62,6 +63,12 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
     setBlockInfo((prev) => (prev = { ...prev, [key]: value }));
   };
 
+  const handleBlockNameChange = (blockName: string) => {
+    if (!Validate.validateLength(blockName, 25)) return;
+
+    handleblockInfoChange('name', blockName);
+  };
+
   const handleSubmit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
 
@@ -82,7 +89,7 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
 
   return (
     <form css={containerStyle}>
-      <Flex styles={{ justify: 'space-between', marginTop: '7.4rem' }}>
+      <Flex styles={{ justify: 'space-between', align: 'center', marginTop: '7.4rem' }}>
         <Flex css={circleStyle(color ?? '')}>
           {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color ?? '')}
         </Flex>
@@ -101,7 +108,7 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
           <Input
             css={titleInputStyle}
             value={blockInfo.name}
-            onChange={(event) => handleblockInfoChange('name', event.target.value)}
+            onChange={(event) => handleBlockNameChange(event.target.value)}
           />
         ) : (
           <Heading tag="H6">{blockInfo.name}</Heading>
