@@ -4,7 +4,7 @@ import { inputStyle } from '@/CheckBox/CheckBox.style';
 
 interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
   isChecked: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: () => void;
 }
 
 const CheckBox = ({ isChecked, onChange, ...props }: CheckBoxProps) => {
@@ -13,7 +13,7 @@ const CheckBox = ({ isChecked, onChange, ...props }: CheckBoxProps) => {
       aria-checked={isChecked}
       type="checkbox"
       css={inputStyle}
-      onChange={(e) => onChange(e)}
+      onChange={onChange}
       checked={isChecked}
       {...props}
     />

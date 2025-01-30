@@ -120,20 +120,6 @@ const HandoverPage = () => {
     navigate(PATH.CREATE_HANDOVER_NOTE);
   };
 
-  const handleMultiDeleteButtonClick = (e: React.MouseEvent) => {
-    if (canSelect && !ids.length) {
-      handleToggleSelect();
-      return;
-    }
-
-    if (canSelect) {
-      handleNoteCloseClick(e, ids);
-      return;
-    }
-
-    handleToggleSelect();
-  };
-
   return (
     <ContentBox
       variant="handover"
