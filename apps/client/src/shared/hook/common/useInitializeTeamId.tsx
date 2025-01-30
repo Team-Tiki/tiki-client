@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { paths } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useTeamIdAction } from '@/shared/store/team';
 
@@ -19,7 +20,7 @@ export const useInitializeTeamId = () => {
   });
 
   useEffect(() => {
-    if (isSuccess && !localStorage.getItem('teamId')) {
+    if (isSuccess && !localStorage.getItem(STORAGE_KEY.TEAM_ID)) {
       if (data.data?.belongTeamGetResponses.length === 0) {
         navigate(PATH.ONBOARDING);
 
@@ -27,12 +28,12 @@ export const useInitializeTeamId = () => {
       }
       const teamId = data.data?.belongTeamGetResponses[0].id ?? 0;
 
-      localStorage.setItem('teamId', teamId!.toString());
+      localStorage.setItem(STORAGE_KEY.TEAM_ID, teamId!.toString());
       setTeamId(teamId);
     } else if (!isSuccess) {
       navigate(PATH.LOGIN);
     }
   });
 
-  return Number(localStorage.getItem('teamId'));
+  return Number(localStorage.getItem(STORAGE_KEY.TEAM_ID));
 };

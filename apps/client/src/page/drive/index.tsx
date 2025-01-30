@@ -1,6 +1,6 @@
 import { IcGrid, IcList, IcSearch } from '@tiki/icon';
 import { Button, Flex, Input, Select, Switch, useToastAction } from '@tiki/ui';
-import { hasKeyInObject, useDeferredSearchFilter, useOutsideClick, useOverlay } from '@tiki/utils';
+import { hasKeyInObject, useDeferredSearchFilter } from '@tiki/utils';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -37,8 +37,6 @@ const DrivePage = () => {
 
   const navigate = useNavigate();
 
-  const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close);
   const teamId = useInitializeTeamId();
 
   const { createToast } = useToastAction();
@@ -181,13 +179,10 @@ const DrivePage = () => {
               onSwitchChange={() => handleChangeAlignOption(alignOption === 'grid' ? 'list' : 'grid')}
             />
             <Select
-              isOpen={isOpen}
-              ref={ref}
               css={{ width: '13rem' }}
               placeholder="최근 업로드 순"
               variant="option"
               options={filterOptions}
-              onTrigger={toggle}
               onSelect={handleSelect}
             />
           </Flex>

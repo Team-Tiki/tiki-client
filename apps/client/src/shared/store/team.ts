@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { STORAGE_KEY } from '@/shared/constant/api';
+
 type TeamStore = {
   teamId: number | null;
   actions: {
@@ -8,7 +10,7 @@ type TeamStore = {
 };
 
 const useTeamStore = create<TeamStore>((set) => ({
-  teamId: Number(localStorage.getItem('teamId')),
+  teamId: Number(localStorage.getItem(STORAGE_KEY.TEAM_ID)),
 
   actions: {
     setTeamId: (teamId: number | null) =>

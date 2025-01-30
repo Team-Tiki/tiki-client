@@ -3,20 +3,18 @@ import { css } from "@emotion/react";
 import { SelectProps } from "@/Select/Select";
 import { theme } from "@/theme";
 
-export const overlayStyle = (isOpen: boolean) =>
-  css({
-    maxHeight: "30rem",
+export const overlayStyle = css({
+  maxHeight: "30rem",
 
-    top: "calc(100% + 0.2rem)",
-    right: 0,
+  top: "calc(100% + 0.2rem)",
+  right: 0,
 
-    borderRadius: "8px",
-    border: `1px solid ${theme.colors.gray_200}`,
-    boxShadow: isOpen ? theme.shadow.shadow02 : "none",
+  borderRadius: "8px",
+  border: `1px solid ${theme.colors.gray_200}`,
 
-    overflowY: "auto",
-    overscrollBehavior: "contain",
-  });
+  overflowY: "auto",
+  overscrollBehavior: "contain",
+});
 
 export const itemStyle = (variant: Required<SelectProps["variant"]>) =>
   css(

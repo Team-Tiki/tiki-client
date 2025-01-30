@@ -1,6 +1,6 @@
-import { ComponentPropsWithRef, ForwardedRef, ReactNode, forwardRef, useEffect, useState } from "react";
+import { ComponentPropsWithRef, HTMLAttributes, ReactNode, useEffect, useState } from "react";
 
-import { DropdownItem, DropdownList, DropdownRoot } from "@/Dropdown";
+import { DropdownItem, DropdownList, DropdownRoot, DropdownTrigger } from "@/Dropdown";
 import { iconStyle, itemStyle, overlayStyle, profileStyle, textFieldStyle, triggerStyle } from "@/Select/Select.style";
 import { scrollStyle } from "@/theme";
 import { IcArrowDownGray, IcDown } from "@tiki/icon";
@@ -14,31 +14,43 @@ interface OptionType {
   description?: string;
 }
 
+interface TriggerButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  variant: SelectProps["variant"];
+  isSelected: boolean;
+  isOpen?: boolean;
+}
+
+const TriggerButton = ({ variant, isSelected, isOpen = false, children, ...props }: TriggerButtonProps) => {
+  return (
+    <button type="button" css={triggerStyle(variant, isSelected)} disabled={variant === "disabled"} {...props}>
+      <span>{children}</span>
+      {variant === "option" ? (
+        <IcDown css={iconStyle(isOpen)} width={12} height={12} />
+      ) : (
+        <IcArrowDownGray css={iconStyle(isOpen)} width={20} height={20} />
+      )}
+    </button>
+  );
+};
+
 export interface SelectProps extends Omit<ComponentPropsWithRef<"div">, "onSelect"> {
   variant?: "default" | "user" | "option" | "outline" | "underline" | "disabled";
-  isOpen?: boolean;
   label?: string;
   placeholder?: string;
   defaultValue?: string;
-  onTrigger?: () => void;
   onSelect?: (value: string) => void;
   options: OptionType[];
 }
 
-const Select = (
-  {
-    variant = "default",
-    isOpen = false,
-    defaultValue,
-    placeholder,
-    label,
-    onTrigger,
-    onSelect,
-    options,
-    ...props
-  }: SelectProps,
-  ref: ForwardedRef<HTMLDivElement>,
-) => {
+const Select = ({
+  variant = "default",
+  defaultValue,
+  placeholder,
+  label,
+  onSelect,
+  options,
+  ...props
+}: SelectProps) => {
   const [selectedText, setSelectedText] = useState(defaultValue || placeholder);
 
   useEffect(() => {
@@ -50,22 +62,14 @@ const Select = (
   const isSelected = selectedText !== placeholder;
 
   return (
-    <DropdownRoot css={{ width: "100%" }} ref={ref} role="listbox" label={label} {...props}>
-      <button
-        type="button"
-        onClick={onTrigger}
-        css={triggerStyle(variant, isSelected)}
-        disabled={variant === "disabled" ? true : false}
-      >
-        <span>{selectedText}</span>
-        {variant === "option" ? (
-          <IcDown css={iconStyle(isOpen)} width={12} height={12} />
-        ) : (
-          <IcArrowDownGray css={iconStyle(isOpen)} width={20} height={20} />
-        )}
-      </button>
+    <DropdownRoot css={{ width: "100%" }} role="listbox" label={label} {...props}>
+      <DropdownTrigger>
+        <TriggerButton variant={variant} isSelected={isSelected}>
+          {selectedText}
+        </TriggerButton>
+      </DropdownTrigger>
 
-      <DropdownList css={[overlayStyle(isOpen), scrollStyle]} isOpen={isOpen}>
+      <DropdownList css={[overlayStyle, scrollStyle]}>
         {options.map((item) => (
           <DropdownItem
             key={item.value}
@@ -92,4 +96,4 @@ const Select = (
   );
 };
 
-export default forwardRef(Select);
+export default Select;
