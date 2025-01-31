@@ -152,6 +152,7 @@ const WorkspaceSettingPage = () => {
               <Text tag="body9" css={teamImageTextStyle}>
                 최소 360x360px 크기의 PNG 혹은 JPG 파일만 업로드 가능합니다.
               </Text>
+              <Button onClick={() => openModal('image')}>이미지 업로드</Button>
             </Flex>
           </Flex>
         </>

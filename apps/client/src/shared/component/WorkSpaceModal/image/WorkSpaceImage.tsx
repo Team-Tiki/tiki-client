@@ -2,12 +2,12 @@ import { IcTeamProfileAdd, IcTeamProfileDelete } from '@tiki/icon';
 import { Flex, Label } from '@tiki/ui';
 
 import { Modal } from '@/shared/component/Modal';
+import useImageUpload from '@/shared/component/WorkSpaceModal/hook/common/useImageUpload';
 import {
   imageAddStyle,
   imageBoxStyle,
   imageDeleteStyle,
 } from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
-import useImageUpload from '@/shared/component/WorkSpaceModal/image/hook/useImageUpload';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
 const WorkSpaceImage = () => {

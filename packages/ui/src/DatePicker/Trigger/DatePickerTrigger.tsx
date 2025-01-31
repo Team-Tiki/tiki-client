@@ -27,11 +27,11 @@ const DatePickerTrigger = ({
         readOnly
         onClick={onClick}
         css={{
-          textAlign: 'center',
           cursor: 'pointer',
           width: '100%',
           ...theme.text.body06,
-          '::placeholder': { ...theme.text.body06 },
+          textAlign: 'center',
+          '::placeholder': { ...theme.text.body06, textAlign: 'center' },
         }}
       />
       {variant === 'range' && (
@@ -48,8 +48,9 @@ const DatePickerTrigger = ({
               cursor: 'pointer',
               width: '100%',
               ...theme.text.body06,
+
               textAlign: 'center',
-              '::placeholder': { ...theme.text.body06 },
+              '::placeholder': { ...theme.text.body06, textAlign: 'center' },
             }}
           />
         </>

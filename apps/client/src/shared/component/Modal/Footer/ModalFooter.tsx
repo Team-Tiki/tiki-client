@@ -84,9 +84,13 @@ const ModalFooterButtons = (
         createButton('건너뛰기', buttonClick, 'outline', false),
         createButton('다음으로', buttonClick, 'primary', !isButtonActive),
       ];
-    case 'member-tag':
     case 'activity-tag':
       return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];
+    case 'new-file':
+      return [
+        createButton('취소', closeModal, 'outline'),
+        createButton('업로드', buttonClick, 'primary', !isButtonActive),
+      ];
     case 'file':
       return [
         createButton('취소', closeModal, 'outline'),
@@ -96,6 +100,8 @@ const ModalFooterButtons = (
       return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];
     case 'caution-modify':
       return [createButton('취소', closeModal, 'outline'), createButton('확인', buttonClick, 'primary')];
+    case 'image':
+      return [createButton('취소', closeModal, 'outline'), createButton('업로드', buttonClick, 'primary')];
     default:
       return [];
   }
