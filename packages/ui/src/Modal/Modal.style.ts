@@ -41,14 +41,16 @@ export const dialogStyle = css({
   transform: "translate(-50%, -50%)",
 });
 
-export const sizeStyle = (size: "small" | "medium" | "large") => {
+export const sizeStyle = (size: "xSmall" | "small" | "medium" | "large") => {
   const widthList = {
+    xSmall: "37.6rem",
     small: "37.6rem",
     medium: "37.6rem",
     large: "80.8rem",
   };
 
   const heightList = {
+    xSmall: "15rem",
     small: "19rem",
     medium: "55.4rem",
     large: "64rem",

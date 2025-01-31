@@ -21,7 +21,7 @@ export const itemStyle = (isSelected: boolean) =>
     },
   });
 
-export const textStyle = (size: 'small' | 'large') =>
+export const textStyle = (size: 'medium' | 'large') =>
   css({
     maxWidth: size === 'large' ? '50rem' : '18rem',
 
@@ -36,7 +36,7 @@ export const capacityStyle = css({
   color: theme.colors.gray_800,
 });
 
-export const borderStyle = (size: 'small' | 'large') =>
+export const borderStyle = (size: 'medium' | 'large') =>
   css({
     borderRadius: '8px',
 
