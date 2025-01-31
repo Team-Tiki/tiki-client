@@ -20,6 +20,7 @@ export const listStyle = css({
   zIndex: theme.zIndex.overlayHigh,
 
   backgroundColor: theme.colors.white,
+  boxShadow: theme.shadow.shadow02,
 });
 
 export const itemStyle = css({

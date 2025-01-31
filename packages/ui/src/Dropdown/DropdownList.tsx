@@ -1,12 +1,13 @@
 import { ComponentPropsWithoutRef } from "react";
 
 import { listStyle } from "@/Dropdown/Dropdown.style";
+import { useDropdownContext } from "@/Dropdown/context";
 
-interface DropdownListProps extends ComponentPropsWithoutRef<"ul"> {
-  isOpen?: boolean;
-}
+type DropdownListProps = ComponentPropsWithoutRef<"ul">;
 
-const DropdownList = ({ isOpen = false, children, ...props }: DropdownListProps) => {
+const DropdownList = ({ children, ...props }: DropdownListProps) => {
+  const { isOpen } = useDropdownContext();
+
   return (
     isOpen && (
       <ul css={listStyle} {...props}>

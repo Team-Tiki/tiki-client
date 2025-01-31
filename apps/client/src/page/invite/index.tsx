@@ -10,11 +10,11 @@ import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
 import { InvitationType } from '@/page/invite/type';
 
 import { components } from '@/shared/__generated__/schema';
-import { ACCESS_TOKEN_KEY, INVITATION_ID, INVITE_TEAM_ID } from '@/shared/constant/api';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 const InvitedPage = () => {
-  const isLogined = !!localStorage.getItem(ACCESS_TOKEN_KEY);
+  const isLogined = !!localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
   const { createToast } = useToastAction();
 
@@ -38,8 +38,8 @@ const InvitedPage = () => {
   }, [createToast, data, invitationInfo?.teamId, isLogined, navigate]);
 
   const deleteLocalStorageInviteInfo = () => {
-    localStorage.removeItem(INVITATION_ID);
-    localStorage.removeItem(INVITE_TEAM_ID);
+    localStorage.removeItem(STORAGE_KEY.INVITATION_ID);
+    localStorage.removeItem(STORAGE_KEY.INVITE_TEAM_ID);
   };
 
   const handleApproveInvitation = () => {
@@ -55,7 +55,7 @@ const InvitedPage = () => {
       {
         onSuccess: () => {
           deleteLocalStorageInviteInfo();
-          localStorage.setItem('teamId', `${teamId}`);
+          localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
           navigate(PATH.DASHBOARD);
         },
         onError: (error: components['schemas']['ErrorResponse']) => {

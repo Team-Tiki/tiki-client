@@ -1,5 +1,4 @@
 import { Flex, Input, Select, Text } from '@tiki/ui';
-import { useOutsideClick, useOverlay } from '@tiki/utils';
 
 import { containerStyle } from '@/page/workspaceSetting/component/styles';
 import { ERROR_NAME } from '@/page/workspaceSetting/constant';
@@ -18,9 +17,6 @@ interface InfoSettingProps {
 const select_options = [{ value: '건국대학교' }];
 
 const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, onErrorChange }: InfoSettingProps) => {
-  const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close);
-
   const canChangeTeamName = hasRecentUpdates(namingUpdatedAt ?? '');
 
   const handleNameChange = (value: string) => {
@@ -64,10 +60,7 @@ const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, 
         <Select
           aria-label={`선택된 아이템: ${teamName}`}
           variant="disabled"
-          ref={ref}
-          isOpen={isOpen}
           placeholder={select_options[0].value}
-          onTrigger={toggle}
           options={select_options}
         />
       </Flex>

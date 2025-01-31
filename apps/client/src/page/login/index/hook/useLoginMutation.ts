@@ -10,7 +10,7 @@ import { ERROR_MESSAGE } from '@/page/login/index/constant';
 
 import { postSignIn } from '@/shared/api/auth/signin';
 import { axiosInstance } from '@/shared/api/instance';
-import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { HTTP_STATUS_CODE, STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 export const useLoginMutation = () => {
@@ -22,14 +22,14 @@ export const useLoginMutation = () => {
     mutationFn: postSignIn,
 
     onSuccess: ({ data: { accessToken } }) => {
-      localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, accessToken);
 
       axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
-      const isExistingUser = !!localStorage.getItem('teamId');
+      const isExistingUser = !!localStorage.getItem(STORAGE_KEY.TEAM_ID);
 
       isExistingUser
-        ? navigate(`${PATH.DASHBOARD}?teamId=${localStorage.getItem('teamId')}`)
+        ? navigate(`${PATH.DASHBOARD}?teamId=${localStorage.getItem(STORAGE_KEY.TEAM_ID)}`)
         : navigate(PATH.ONBOARDING);
     },
 

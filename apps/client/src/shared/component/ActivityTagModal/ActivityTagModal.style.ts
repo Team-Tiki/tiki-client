@@ -5,7 +5,7 @@ export const tagListStyle = css({
   width: '100%',
   maxHeight: '30.4rem',
 
-  marginTop: '2rem',
+  margin: '2rem 0',
 
   flexDirection: 'column',
   gap: '1.6rem',
