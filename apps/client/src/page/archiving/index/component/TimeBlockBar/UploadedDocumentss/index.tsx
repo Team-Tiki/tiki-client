@@ -5,6 +5,7 @@ import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/T
 import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem';
 import { useBlockDetailInfoQuery } from '@/page/archiving/index/hook/api/quries';
 
+import { useOpenModal } from '@/shared/store/modal';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
 interface UploadedDocumentsProps {
@@ -13,6 +14,7 @@ interface UploadedDocumentsProps {
 
 const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
   const timeBlockId = useTimeBlockId();
+  const openModal = useOpenModal();
 
   const { data } = useBlockDetailInfoQuery(timeBlockId);
 
@@ -25,7 +27,7 @@ const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
         </Text>
       </Flex>
       {isEditable && (
-        <Button variant="outline" size="medium" style={{ width: '100%' }}>
+        <Button variant="outline" size="medium" style={{ width: '100%' }} onClick={() => openModal('new-file')}>
           <IcCloudUpload width={16} height={16} />
           파일 업로드
         </Button>
