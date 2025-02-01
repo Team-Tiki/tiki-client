@@ -8,6 +8,7 @@ import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
+import { MAX_TEAM_COUNT } from '@/shared/constant';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useOpenModal } from '@/shared/store/modal';
@@ -42,6 +43,10 @@ const SideNavBar = () => {
   };
 
   const handleWorkspaceClick = () => {
+    if (data && data?.data && data?.data?.belongTeamGetResponses.length >= MAX_TEAM_COUNT) {
+      createToast(`워크스페이스는 최대 ${MAX_TEAM_COUNT}개까지 생성 가능합니다.`, 'error');
+      return;
+    }
     openModal('create-workspace');
   };
 
