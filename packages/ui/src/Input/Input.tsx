@@ -16,7 +16,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isError?: boolean;
   isSuccess?: boolean;
   supportingText?: string;
-  isDisabled?: boolean;
 }
 
 const Input = (
@@ -27,7 +26,6 @@ const Input = (
     isError = false,
     isSuccess = false,
     supportingText,
-    isDisabled = false,
     ...props
   }: InputProps,
   ref: ForwardedRef<HTMLInputElement>,
@@ -35,14 +33,9 @@ const Input = (
   return (
     <div css={containerStyle}>
       {label && <Label id={label}>{label}</Label>}
-      <div css={contentStyle(isFilled, isDisabled)}>
+      <div css={contentStyle(isFilled)}>
         {LeftIcon}
-        <input
-          ref={ref}
-          css={inputStyle(isDisabled)}
-          disabled={isDisabled}
-          {...props}
-        />
+        <input ref={ref} css={inputStyle} {...props} />
       </div>
       {supportingText && (
         <SupportingText isError={isError} isSuccess={isSuccess}>

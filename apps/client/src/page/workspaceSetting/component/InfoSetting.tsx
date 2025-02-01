@@ -50,7 +50,7 @@ const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, 
       <Flex styles={{ gap: '1.6rem', marginTop: '1.2rem', maxWidth: '68.8rem' }}>
         <Input
           value={teamName}
-          isDisabled={!canChangeTeamName}
+          disabled={!canChangeTeamName}
           supportingText={defineSupportigtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
           onClick={() => handleNameChange('')}

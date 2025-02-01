@@ -14,26 +14,29 @@ export const containerStyle = css({
   },
 });
 
-export const inputStyle = (isDisabled: boolean) =>
-  css({
-    width: '100%',
+export const inputStyle = css({
+  width: '100%',
 
-    border: 'none',
+  border: 'none',
+  backgroundColor: 'Inherit',
 
-    backgroundColor: isDisabled ? theme.colors.gray_100 : 'none',
-    color: isDisabled ? theme.colors.gray_500 : 'inherit',
-    fontWeight: 400,
+  fontWeight: 400,
+  ...theme.text.body06,
+
+  outline: 'none',
+
+  '::placeholder': {
+    color: theme.colors.gray_500,
     ...theme.text.body06,
+  },
 
-    outline: 'none',
+  ':disabled': {
+    backgroundColor: theme.colors.gray_100,
+    color: theme.colors.gray_500,
+  },
+});
 
-    '::placeholder': {
-      color: theme.colors.gray_500,
-      ...theme.text.body06,
-    },
-  });
-
-export const contentStyle = (isFilled: boolean, isDisabled: boolean) =>
+export const contentStyle = (isFilled: boolean) =>
   css({
     display: 'flex',
     alignItems: 'center',
@@ -45,11 +48,15 @@ export const contentStyle = (isFilled: boolean, isDisabled: boolean) =>
 
     padding: '1.3rem 1.2rem',
 
-    backgroundColor: isFilled || isDisabled ? theme.colors.gray_100 : 'none',
+    backgroundColor: isFilled ? theme.colors.gray_100 : 'none',
     boxShadow: theme.shadow.inset,
     borderRadius: '8px',
 
     '&:focus-within': {
       boxShadow: theme.shadow.inset_focus,
+    },
+
+    '&:has(> input:disabled) ': {
+      backgroundColor: theme.colors.gray_100,
     },
   });

@@ -103,6 +103,20 @@ const WorkspaceSettingPage = () => {
         },
       },
     });
+
+    if (workspaceData.position === POSITION.ADMIN) {
+      infoMutation({
+        body: {
+          teamName: workspaceData.teamName,
+          teamUrl: workspaceData.teamIconUrl,
+        },
+        params: {
+          path: {
+            teamId,
+          },
+        },
+      });
+    }
   };
 
   return (
