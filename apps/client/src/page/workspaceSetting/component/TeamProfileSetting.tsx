@@ -48,7 +48,6 @@ const TeamProfileSetting = ({ teamIconUrl, teamName, onWorkspaceDataChange }: Te
             onClick={() =>
               openModal('deleted', {
                 title: '대표 이미지를 삭제할까요?',
-                content: '',
                 isTitleOnly: true,
                 onClick: handleTeamIconDelete,
               })
