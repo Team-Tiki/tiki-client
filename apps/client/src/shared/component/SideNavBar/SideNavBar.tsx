@@ -1,20 +1,14 @@
-import { IcAdd, IcGlobal, IcTikiLogo } from '@tiki/icon';
+import { IcGlobal, IcTikiLogo } from '@tiki/icon';
 import { Divider, Flex, theme } from '@tiki/ui';
 
+import AddWorkspaceButton from '@/shared/component/SideNavBar/AddWorkspace';
 import Logo from '@/shared/component/SideNavBar/Logo';
 import TeamList from '@/shared/component/SideNavBar/TeamList';
 import UserMenu from '@/shared/component/SideNavBar/UserMenu';
 import { containerStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/index.style';
 import { PATH } from '@/shared/constant/path';
-import { useOpenModal } from '@/shared/store/modal';
 
 const SideNavBar = () => {
-  const openModal = useOpenModal();
-
-  const handleWorkspaceClick = () => {
-    openModal('create-workspace');
-  };
-
   return (
     <nav css={containerStyle}>
       <IcTikiLogo css={tikiLogoStyle} />
@@ -32,12 +26,7 @@ const SideNavBar = () => {
 
         <TeamList />
 
-        <Logo
-          to={`${location.pathname}${location.search}`}
-          onClick={handleWorkspaceClick}
-          name="새로운 워크스페이스 생성">
-          <IcAdd width={16} height={16} />
-        </Logo>
+        <AddWorkspaceButton />
       </Flex>
 
       <UserMenu />
