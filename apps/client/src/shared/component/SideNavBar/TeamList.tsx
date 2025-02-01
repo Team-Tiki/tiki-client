@@ -3,6 +3,7 @@ import { Flex } from '@tiki/ui';
 import { $api } from '@/shared/api/client';
 import Logo from '@/shared/component/SideNavBar/Logo';
 import { firstSpellStyle } from '@/shared/component/SideNavBar/index.style';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useTeamIdAction } from '@/shared/store/team';
 
@@ -20,7 +21,11 @@ const TeamList = () => {
           <Logo
             to={`${PATH.DASHBOARD}?teamId=${data.id}`}
             name={data.name}
-            onClick={() => setTeamId(data.id)}
+            onClick={() => {
+              setTeamId(data.id);
+              localStorage.setItem(STORAGE_KEY.TEAM_ID, String(data.id));
+              localStorage.setItem(STORAGE_KEY.TEAM_NAME, data.name);
+            }}
             isActive={getIsCurrentTeam(data.id)}>
             {data.iconImageUrl ? <img alt={`${data.name} 로고`} /> : <span css={firstSpellStyle}>{data.name[0]}</span>}
           </Logo>
