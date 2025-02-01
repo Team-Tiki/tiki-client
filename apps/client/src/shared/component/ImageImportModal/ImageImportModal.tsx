@@ -9,7 +9,7 @@ import { Modal } from '@/shared/component/Modal';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { IMAGE_MODAL } from '@/shared/constant';
-import { FileImportModalData, useCloseModal, useModalData } from '@/shared/store/modal';
+import { useCloseModal, useModalData } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
 
 const ImageImportModal = () => {
