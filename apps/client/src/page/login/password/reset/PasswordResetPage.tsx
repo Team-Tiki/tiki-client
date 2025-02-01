@@ -1,18 +1,20 @@
-import { Button, Flex, Heading, Input } from '@tiki/ui';
+import { Button, Flex, Heading, Input, useToastAction } from '@tiki/ui';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { formStyle, pageStyle } from '@/page/login/password/reset/PasswordResetPage.style';
-import { useResetPasswordMutation } from '@/page/login/password/reset/hook/api/useResetPasswordMutation';
 import { usePasswordForm } from '@/page/login/password/reset/hook/common/usePasswordForm';
 
+import { $api } from '@/shared/api/client';
 import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
 
 const PasswordResetPage = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { mutate } = useResetPasswordMutation();
+  const { mutate } = $api.useMutation('patch', '/api/v1/members/password');
+
+  const { createToast } = useToastAction();
 
   const { form, handlePasswordChange, handlePasswordValidate, passwordSupportingText, passwordCheckerSupportingText } =
     usePasswordForm();
@@ -22,13 +24,19 @@ const PasswordResetPage = () => {
 
     mutate(
       {
-        email: state,
-        password: form.updatedPassword,
-        passwordChecker: form.updatedPasswordChecker,
+        body: {
+          email: state,
+          password: form.updatedPassword,
+          passwordChecker: form.updatedPasswordChecker,
+        },
       },
       {
         onSuccess: () => {
+          createToast('비밀번호 재설정에 성공했습니다.', 'success');
           navigate(PATH.LOGIN);
+        },
+        onError: (error) => {
+          createToast(`${error}`, 'error');
         },
       }
     );

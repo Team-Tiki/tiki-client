@@ -13,10 +13,11 @@ interface ModalState {
   isOpen: boolean;
   contentType: ModalContentType | null;
   modalData: {
-    // // Deleted Modal
+    // Deleted Modal
     title?: string;
     content?: string;
     onClick?: () => void;
+    isTitleOnly?: boolean;
     // Caution Modal
     infoText?: string;
     desc?: string;
@@ -67,8 +68,10 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'new-file'
   | 'file'
-  | 'caution';
+  | 'caution'
+  | 'image';
 
 const useModalStore = create<ModalState>((set) => ({
   isOpen: false,

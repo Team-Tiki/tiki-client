@@ -21,7 +21,13 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePick
         placeholder="YYYY.MM.DD"
         readOnly
         onClick={onClick}
-        css={{ cursor: "pointer", width: "100%", ...theme.text.body06, "::placeholder": { ...theme.text.body06 } }}
+        css={{
+          cursor: "pointer",
+          width: "100%",
+          ...theme.text.body06,
+          textAlign: "center",
+          "::placeholder": { ...theme.text.body06, textAlign: "center" },
+        }}
       />
       {variant === "range" && (
         <>
@@ -38,7 +44,7 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePick
               width: "100%",
               ...theme.text.body06,
               textAlign: "center",
-              "::placeholder": { ...theme.text.body06 },
+              "::placeholder": { ...theme.text.body06, textAlign: "center" },
             }}
           />
         </>

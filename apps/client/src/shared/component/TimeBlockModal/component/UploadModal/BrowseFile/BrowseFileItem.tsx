@@ -8,7 +8,7 @@ import {
   containerStyle,
   rightSideRowStyle,
   timeStyle,
-} from '@/shared/component/TimeBlockModal/component/UploadModal/File/BrowseFile/File/BrowseFileItem.style';
+} from '@/shared/component/TimeBlockModal/component/UploadModal/BrowseFile/BrowseFileItem.style';
 import { getFormattedDate } from '@/shared/util/date';
 import { extractFileExtension, extractFileName } from '@/shared/util/file';
 
