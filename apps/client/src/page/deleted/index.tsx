@@ -60,7 +60,7 @@ const DeletedPage = () => {
     },
   });
 
-  const handleDelete = (docs?: number[]) => {
+  const handleDelete = () => {
     openModal('caution', {
       infoText: CAUTION.DELETE_FOR_GOOD.INFO_TEXT,
       content: CAUTION.DELETE_FOR_GOOD.CONTENT,
@@ -68,13 +68,13 @@ const DeletedPage = () => {
       onClick: () => {
         try {
           deleteMutation.mutate({
-            params: { path: { teamId }, query: { documentId: docs ? docs : ids } },
+            params: { path: { teamId }, query: { documentId: ids } },
           });
 
           handleReset();
           closeModal();
         } catch (error) {
-          console.error(error);
+          createToast(`삭제에 실패하였습니다:${error}`, 'error');
         }
       },
     });
@@ -106,7 +106,7 @@ const DeletedPage = () => {
           handleReset();
           closeModal();
         } catch (error) {
-          console.error(error);
+          createToast(`휴지통 비우기에 실패하였습니다:${error}`, 'error');
         }
       },
     });
@@ -117,7 +117,11 @@ const DeletedPage = () => {
       variant="deleted"
       title="휴지통"
       description="5.16GB 사용 가능"
-      headerOption={<Button onClick={handleDeleteEntireFiles}>휴지통 비우기</Button>}
+      headerOption={
+        <Button onClick={handleDeleteEntireFiles} disabled={data?.data?.deletedDocuments.length === 0}>
+          휴지통 비우기
+        </Button>
+      }
       contentOption={
         <Flex styles={{ justify: 'space-between', align: 'center' }}>
           {canSelect ? (
@@ -125,10 +129,10 @@ const DeletedPage = () => {
               <Button onClick={handleAllClick} variant="tertiary">
                 전체 선택
               </Button>
-              <Button variant="tertiary" onClick={handleRestore}>
+              <Button variant="tertiary" onClick={handleRestore} disabled={!ids[0]}>
                 복구
               </Button>
-              <Button variant="tertiary" onClick={() => handleDelete()}>
+              <Button variant="tertiary" onClick={handleDelete} disabled={!ids[0]}>
                 영구삭제
               </Button>
             </Flex>
