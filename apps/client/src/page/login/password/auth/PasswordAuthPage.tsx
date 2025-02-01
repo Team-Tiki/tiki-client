@@ -1,17 +1,17 @@
-import { Button, Flex, Heading, Input } from '@tiki/ui';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Button, Flex, Heading, Input, useToastAction } from '@tiki/ui';
 import { useInput, useTimer } from '@tiki/utils';
 
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { formStyle, pageStyle, timestyle } from '@/page/login/password/auth/PasswordAuthPage.style';
-import { useResendMailMutation } from '@/page/login/password/auth/hook/api/useResendMailMutation';
 import { useSupportingText } from '@/page/login/password/auth/hook/common/useSupportingText';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
+import { $api } from '@/shared/api/client';
 import { EMAIL_REMAIN_TIME, PLACEHOLDER, SUPPORTING_TEXT } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
-import { useVerifyCodeMutation } from '@/shared/hook/api/useVerifyCodeMutation';
 import { validateCode, validateEmail } from '@/shared/util/validate';
 
 const PasswordAuthPage = () => {
@@ -24,6 +24,8 @@ const PasswordAuthPage = () => {
   const { emailSupportingText, setEmailSupportingText, codeSupportingText, setCodeSupportingText } =
     useSupportingText();
 
+  const { createToast } = useToastAction();
+
   const {
     remainTime,
     isTriggered: isMailSent,
@@ -31,15 +33,26 @@ const PasswordAuthPage = () => {
     handleReset: handleResetTimer,
   } = useTimer(EMAIL_REMAIN_TIME, () => alert(SUPPORTING_TEXT.EMAIL_EXPIRED));
 
-  const { resendMailMutation } = useResendMailMutation(email);
-  const { mutate, isError } = useVerifyCodeMutation(email, authCode);
+  const { mutate: resendMailMutation, isError: isResendMailError } = $api.useMutation(
+    'post',
+    '/api/v1/email/verification/password'
+  );
+  const { mutate, isError } = $api.useMutation('post', '/api/v1/email/verification/checking');
 
   const handleMailSend = () => {
-    resendMailMutation.mutate(undefined, {
-      onError: () => {
-        setEmailSupportingText({ text: SUPPORTING_TEXT.EMAIL_INVALID, type: 'error' });
-      },
-    });
+    resendMailMutation(
+      { body: { email } },
+      {
+        onSuccess: () => {
+          createToast('메일을 성공적으로 전송했습니다.', 'success');
+        },
+        onError: (error) => {
+          setEmailSupportingText({ text: SUPPORTING_TEXT.EMAIL_INVALID, type: 'error' });
+
+          createToast(`${error.message}`, 'error');
+        },
+      }
+    );
 
     handleSend();
     handleResetTimer();
@@ -50,15 +63,18 @@ const PasswordAuthPage = () => {
 
   const handleVerifyCode = useCallback(() => {
     if (validateCode(authCode)) {
-      mutate(undefined, {
-        onSuccess: () => {
-          setIsVerifyCode(true);
-          setCodeSupportingText({ text: SUPPORTING_TEXT.AUTHCODE_SUCCESS, type: 'success' });
-        },
-        onError: () => {
-          setCodeSupportingText({ text: SUPPORTING_TEXT.AUTHCODE_NO_EQUAL, type: 'error' });
-        },
-      });
+      mutate(
+        { body: { email, code: authCode } },
+        {
+          onSuccess: () => {
+            setIsVerifyCode(true);
+            setCodeSupportingText({ text: SUPPORTING_TEXT.AUTHCODE_SUCCESS, type: 'success' });
+          },
+          onError: () => {
+            setCodeSupportingText({ text: SUPPORTING_TEXT.AUTHCODE_NO_EQUAL, type: 'error' });
+          },
+        }
+      );
       setIsVerifyCode(false);
     }
   }, [authCode, mutate, setCodeSupportingText]);
@@ -94,7 +110,7 @@ const PasswordAuthPage = () => {
                 {buttonText}
               </Button>
             </Flex>
-            {isMailSent && !resendMailMutation.isError && (
+            {isMailSent && !isResendMailError && (
               <Flex
                 styles={{
                   align: 'baseline',

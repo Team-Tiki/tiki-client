@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 
 import { HTTPError } from '@/shared/api/HTTPError';
 import { getReissuedToken } from '@/shared/api/auth/reissue';
-import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { HTTP_STATUS_CODE, STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 interface ErrorResponse {
@@ -17,7 +17,7 @@ interface ErrorResponse {
 /* 토큰 여부 확인 */
 export const authMiddleware: Middleware = {
   async onRequest({ request }) {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
     if (!accessToken) {
       window.location.replace(PATH.LOGIN);
@@ -45,7 +45,7 @@ export const tokenMiddleware: Middleware = {
     if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
       try {
         const { data } = await getReissuedToken();
-        localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+        localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, data.accessToken);
 
         /* 기존의 Authorization 헤더를 갱신 후 재요청 */
         const newHeaders = {
@@ -62,7 +62,7 @@ export const tokenMiddleware: Middleware = {
 
         return newResponse;
       } catch (error) {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
         window.location.replace(PATH.LOGIN);
 
         throw new Error('토큰 갱신에 실패하였습니다.');

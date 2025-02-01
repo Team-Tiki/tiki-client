@@ -137,7 +137,7 @@ const DrivePage = () => {
           <Button variant="secondary" onClick={() => navigate(PATH.DELETED)}>
             삭제된 항목
           </Button>
-          <Button>파일 업로드</Button>
+          <Button onClick={() => openModal('new-file')}>파일 업로드</Button>
         </Flex>
       }
       contentOption={

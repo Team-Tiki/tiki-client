@@ -1,21 +1,14 @@
-import {
-  IcActivityTag,
-  IcBlockCreate,
-  IcError,
-  IcFileUpload,
-  IcInvite,
-  IcMemberTag,
-  IcWorkspaceSuccess,
-} from '@tiki/icon';
+import { IcActivityTag, IcBlockCreate, IcError, IcFileUpload, IcInvite, IcWorkspaceSuccess } from '@tiki/icon';
 
 type ModalContentType =
   | 'create-workspace'
   | 'create-block'
   | 'invite'
-  | 'member-tag'
   | 'activity-tag'
+  | 'new-file'
   | 'file'
-  | 'caution';
+  | 'caution'
+  | 'image';
 
 interface ModalHeader {
   icon: React.ReactNode | ((step: number, totalSteps: number) => React.ReactNode);
@@ -151,22 +144,6 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       ],
     ],
   },
-  'member-tag': {
-    steps: 1,
-    headers: [
-      {
-        icon: <IcMemberTag width={40} height={40} />,
-        title: '팀원 태그',
-        infoText: '관련된 팀원을 태그할 수 있습니다.',
-      },
-    ],
-    buttons: [
-      [
-        { text: '취소', variant: 'outline' },
-        { text: '완료', variant: 'primary' },
-      ],
-    ],
-  },
   'activity-tag': {
     steps: 1,
     headers: [
@@ -180,6 +157,22 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       [
         { text: '취소', variant: 'outline' },
         { text: '완료', variant: 'primary' },
+      ],
+    ],
+  },
+  'new-file': {
+    steps: 1,
+    headers: [
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '파일 업로드',
+        infoText: '업로드할 파일을 선택하세요',
+      },
+    ],
+    buttons: [
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '업로드', variant: 'primary' },
       ],
     ],
   },
@@ -212,6 +205,40 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       [
         { text: '취소', variant: 'outline' },
         { text: '완료', variant: 'primary' },
+      ],
+    ],
+  },
+  image: {
+    steps: 3,
+    headers: [
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '대표 이미지 업로드',
+        infoText: '업로드할 파일을 선택하세요',
+      },
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '대표 이미지 업로드',
+        infoText: '파일을 업로드 중입니다',
+      },
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '대표 이미지 업로드',
+        infoText: '',
+      },
+    ],
+    buttons: [
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '업로드', variant: 'primary' },
+      ],
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '업로드', variant: 'primary' },
+      ],
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '업로드', variant: 'primary' },
       ],
     ],
   },

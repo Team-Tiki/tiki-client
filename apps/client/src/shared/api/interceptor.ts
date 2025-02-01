@@ -5,7 +5,7 @@ import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { HTTPError } from '@/shared/api/HTTPError';
 import { getReissuedToken } from '@/shared/api/auth/reissue';
 import { axiosInstance } from '@/shared/api/instance';
-import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@/shared/constant/api';
+import { HTTP_STATUS_CODE, STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
 interface ErrorResponse {
@@ -17,7 +17,7 @@ interface ErrorResponse {
 export const handleCheckAndSetToken = (config: InternalAxiosRequestConfig) => {
   if (!config || !config.headers || config.headers.Authorization) return config;
 
-  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
   if (!accessToken) {
     window.location.replace(PATH.LOGIN);
@@ -40,12 +40,12 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
     try {
       const { data } = await getReissuedToken();
 
-      localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, data.accessToken);
       originRequest.data.headers.Authorization = `Bearer ${data.accessToken}`;
 
       return axiosInstance(originRequest);
     } catch (error) {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      localStorage.removeItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
       window.location.replace(PATH.LOGIN);
 
       throw new Error('토큰 갱신에 실패하였습니다.');

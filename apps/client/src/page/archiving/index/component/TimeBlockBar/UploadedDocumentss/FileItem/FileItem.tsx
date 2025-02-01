@@ -78,10 +78,10 @@ const FileItem = ({ fileName, capacity, isEditable, tagId, fileUrl }: FileItemPr
       tabIndex={0}
       aria-label={`Download ${fileUrl}`}
       css={containerStyle}
-      onClick={() => downloadDocument(fileUrl)}
+      onClick={() => downloadDocument(fileUrl, fileName)}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
-          downloadDocument(fileUrl);
+          downloadDocument(fileUrl, fileName);
         }
       }}>
       <Flex styles={{ gap: '1.2rem' }}>

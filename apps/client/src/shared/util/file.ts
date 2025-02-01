@@ -33,3 +33,9 @@ export const convertToKB = (size: number) => {
 
   return +convertedSize;
 };
+
+export const getFileKey = (url: string): string => {
+  const index = url.indexOf('file/');
+
+  return url.substring(index);
+};
