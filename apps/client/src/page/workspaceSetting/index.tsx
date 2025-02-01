@@ -96,16 +96,23 @@ const WorkspaceSettingPage = () => {
       return;
     }
 
-    nameMutation({
-      body: {
-        newName: workspaceData.name,
-      },
-      params: {
-        path: {
-          teamId,
+    nameMutation(
+      {
+        body: {
+          newName: workspaceData.name,
+        },
+        params: {
+          path: {
+            teamId,
+          },
         },
       },
-    });
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/team-member/teams/{teamId}/members/position'] });
+        },
+      }
+    );
 
     if (workspaceData.position === POSITION.ADMIN) {
       infoMutation(
@@ -124,6 +131,9 @@ const WorkspaceSettingPage = () => {
           onSuccess: () => {
             queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/members/teams'],
+            });
+            queryClient.invalidateQueries({
+              queryKey: ['get', '/api/v1/teams/{teamId}/inform'],
             });
           },
         }
