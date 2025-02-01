@@ -10,18 +10,19 @@ const DeletedModal = () => {
 
   if (!modalData) return null;
 
-  const { title, content, onClick } = modalData;
-
+  const { title, content, onClick, isTitleOnly } = modalData;
   return (
-    <Modal isOpen={true} onClose={closeModal} size="small">
+    <Modal isOpen={true} onClose={closeModal} size={isTitleOnly ? 'xSmall' : 'small'}>
       <Modal.Body>
         <Flex styles={{ width: '100%', direction: 'column', gap: '2rem' }}>
           <Text tag="body4" css={titleStyle}>
             {title}
           </Text>
-          <Text tag="body7" css={contentStyle}>
-            {content}
-          </Text>
+          {content && (
+            <Text tag="body7" css={contentStyle}>
+              {content}
+            </Text>
+          )}
         </Flex>
       </Modal.Body>
       <Modal.Footer contentType="deleted" buttonClick={onClick || closeModal} closeModal={closeModal} />

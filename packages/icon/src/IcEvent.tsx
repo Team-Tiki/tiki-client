@@ -1,7 +1,12 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from 'react';
+import type { SVGProps } from 'react';
 const SvgIcEvent = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 32 32"
+    {...props}
+  >
     <path
       fill="#CCD1DD"
       d="m1.64 29.693 18.667-6.666-12-12zm13.8-7.76-9.4 3.36 3.36-9.4zM18.347 17.067l7.454-7.454a1.666 1.666 0 0 1 2.36 0l.786.787 1.414-1.413-.787-.787a3.68 3.68 0 0 0-5.187 0l-7.453 7.453zM12.387 9.533l-.786.787 1.413 1.413.787-.786a3.68 3.68 0 0 0 0-5.187l-.787-.787L11.601 6.4l.786.787c.64.64.64 1.706 0 2.346M21.72 16.2l-2.12 2.12 1.414 1.413 2.12-2.12a1.666 1.666 0 0 1 2.36 0l2.147 2.147 1.413-1.413-2.147-2.147a3.68 3.68 0 0 0-5.186 0M19.054 8.2l-4.787 4.787 1.414 1.413 4.786-4.787a3.68 3.68 0 0 0 0-5.186l-2.12-2.12-1.413 1.413 2.12 2.12c.64.653.64 1.72 0 2.36"

@@ -1,11 +1,11 @@
-import { CommandButton, Flex, Input, Text, useToastAction } from '@tiki/ui';
+import { CommandButton, Flex, Input, Text, scrollStyle, useToastAction } from '@tiki/ui';
 
 import { useState } from 'react';
 
 import { $api } from '@/shared/api/client';
+import { inputWrapperStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
-import { inputWrapperStyle, scrollStyle, textStyle } from '@/shared/component/WorkSpaceModal/invite/InviteModal.style';
-import MemberItem from '@/shared/component/WorkSpaceModal/invite/Member/MemberItem';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 

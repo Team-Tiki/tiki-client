@@ -1,11 +1,12 @@
 import { backgroundStyle, dialogStyle, sizeStyle } from "@/Modal/Modal.style";
+import { ModalSize } from "@/types";
 import { ReactNode, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
   isOpen: boolean;
   children: ReactNode;
-  size?: "small" | "medium" | "large";
+  size?: ModalSize;
   onClose?: () => void;
 }
 
@@ -16,7 +17,7 @@ const ModalWrapper = ({ isOpen, children, size = "medium", onClose }: ModalProps
         onClose?.();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const ModalWrapper = ({ isOpen, children, size = "medium", onClose }: ModalProps
           {children}
         </dialog>
       </>,
-      document.body
+      document.body,
     )
   );
 };
