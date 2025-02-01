@@ -1,7 +1,12 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from 'react';
+import type { SVGProps } from 'react';
 const SvgIcStudy = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 32 32"
+    {...props}
+  >
     <path
       fill="#CCD1DD"
       d="M28 5.333c-1.48-.466-3.107-.666-4.667-.666-2.6 0-5.4.533-7.333 2-1.933-1.467-4.733-2-7.333-2s-5.4.533-7.334 2V26.2c0 .333.334.667.667.667.133 0 .2-.067.333-.067 1.8-.867 4.4-1.467 6.334-1.467 2.6 0 5.4.534 7.333 2 1.8-1.133 5.067-2 7.333-2 2.2 0 4.467.4 6.334 1.4.133.067.2.067.333.067.333 0 .667-.333.667-.667V6.667c-.8-.6-1.667-1-2.667-1.334m0 18c-1.467-.466-3.067-.666-4.667-.666-2.266 0-5.533.866-7.333 2V9.333c1.8-1.133 5.067-2 7.333-2 1.6 0 3.2.2 4.667.667z"
