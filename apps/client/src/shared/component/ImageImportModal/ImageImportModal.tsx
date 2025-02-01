@@ -9,7 +9,7 @@ import { Modal } from '@/shared/component/Modal';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { IMAGE_MODAL } from '@/shared/constant';
-import { useCloseModal } from '@/shared/store/modal';
+import { FileImportModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
 
 const ImageImportModal = () => {
@@ -37,6 +37,12 @@ const ImageImportModal = () => {
   if (file) {
     infoText = isUploadComplete ? `${file.name}` : IMAGE_MODAL.LOADING.INFO_TEXT;
   }
+
+  const modalData = useModalData();
+
+  const handleUpload = (teamIconUrl: string) => {
+    modalData?.onImageUpload?.(teamIconUrl);
+  };
 
   return (
     <>
@@ -90,7 +96,7 @@ const ImageImportModal = () => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="image" buttonClick={() => closeModal()} closeModal={closeModal} />
+      <Modal.Footer contentType="image" buttonClick={() => handleUpload(uploadedFileUrl)} closeModal={closeModal} />
     </>
   );
 };

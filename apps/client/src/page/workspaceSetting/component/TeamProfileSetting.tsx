@@ -2,12 +2,28 @@ import { Button, Flex, Text } from '@tiki/ui';
 
 import { teamImageStyle, teamImageTextStyle } from '@/page/workspaceSetting/styles';
 
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
+
 interface TeamProfileSettingProps {
   teamIconUrl: string;
   teamName: string;
+  onWorkspaceDataChange: (key: string, value: string) => void;
 }
 
-const TeamProfileSetting = ({ teamIconUrl, teamName }: TeamProfileSettingProps) => {
+const TeamProfileSetting = ({ teamIconUrl, teamName, onWorkspaceDataChange }: TeamProfileSettingProps) => {
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
+
+  const handleTeamIconDelete = () => {
+    onWorkspaceDataChange('teamIconUrl', '');
+    closeModal();
+  };
+
+  const handleTeamIconUpload = (teamIconUrl: string) => {
+    onWorkspaceDataChange('teamIconUrl', teamIconUrl);
+    closeModal();
+  };
+
   return (
     <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
       <Flex styles={{ direction: 'column', gap: '0.4rem' }}>
@@ -26,10 +42,23 @@ const TeamProfileSetting = ({ teamIconUrl, teamName }: TeamProfileSettingProps) 
           </Flex>
         )}
         <Flex styles={{ gap: '0.4rem' }}>
-          <Button variant="outline" size="small">
+          <Button
+            variant="outline"
+            size="small"
+            onClick={() =>
+              openModal('deleted', {
+                title: '대표 이미지를 삭제할까요?',
+                content: '',
+                isTitleOnly: true,
+                onClick: handleTeamIconDelete,
+              })
+            }>
             삭제
           </Button>
-          <Button variant="outline" size="small">
+          <Button
+            variant="outline"
+            size="small"
+            onClick={() => openModal('image', { onImageUpload: handleTeamIconUpload })}>
             업로드
           </Button>
         </Flex>

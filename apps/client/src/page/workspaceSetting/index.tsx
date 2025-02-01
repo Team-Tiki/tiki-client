@@ -2,6 +2,8 @@ import { CommandButton } from '@tiki/ui';
 
 import { useEffect, useRef, useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import InfoSetting from '@/page/workspaceSetting/component/InfoSetting';
 import ProfileSetting from '@/page/workspaceSetting/component/ProfileSetting';
 import TeamProfileSetting from '@/page/workspaceSetting/component/TeamProfileSetting';
@@ -37,6 +39,7 @@ const WorkspaceSettingPage = () => {
   const { data } = usePositionData();
   const { data: teamData } = useTeamData();
 
+  const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
 
   if (data?.success && teamData?.success) {
@@ -105,17 +108,26 @@ const WorkspaceSettingPage = () => {
     });
 
     if (workspaceData.position === POSITION.ADMIN) {
-      infoMutation({
-        body: {
-          teamName: workspaceData.teamName,
-          teamUrl: workspaceData.teamIconUrl,
-        },
-        params: {
-          path: {
-            teamId,
+      infoMutation(
+        {
+          body: {
+            teamName: workspaceData.teamName,
+            teamUrl: workspaceData.teamIconUrl,
+          },
+          params: {
+            path: {
+              teamId,
+            },
           },
         },
-      });
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ['get', '/api/v1/members/teams'],
+            });
+          },
+        }
+      );
     }
   };
 
@@ -144,7 +156,11 @@ const WorkspaceSettingPage = () => {
               onErrorChange={handleErrorChange}
             />
 
-            <TeamProfileSetting teamIconUrl={workspaceData.teamIconUrl} teamName={workspaceData.teamName} />
+            <TeamProfileSetting
+              teamIconUrl={workspaceData.teamIconUrl}
+              teamName={workspaceData.teamName}
+              onWorkspaceDataChange={handleWorkspaceDataChange}
+            />
           </>
         )}
       </form>

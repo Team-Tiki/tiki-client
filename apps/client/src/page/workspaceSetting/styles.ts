@@ -17,6 +17,8 @@ export const teamImageStyle = css({
   height: '6rem',
 
   borderRadius: '10px',
+
+  objectFit: 'cover',
 });
 
 export const teamImageTextStyle = css({

@@ -3,5 +3,6 @@ export const hasRecentUpdates = (updateDate: string) => {
   const date = new Date(updateDate);
   const now = new Date();
   date.setDate(date.getDate() + 30);
+
   return now > date;
 };
