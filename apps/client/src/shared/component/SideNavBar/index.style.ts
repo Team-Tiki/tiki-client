@@ -50,3 +50,30 @@ export const pageIndicatorStyle = (isClicked: boolean, isHover: boolean) =>
     borderRadius: '0 100px 100px 0',
     backgroundColor: isClicked ? theme.colors.key_500 : isHover ? theme.colors.key_300 : theme.colors.white,
   });
+
+export const containerStyle = css({
+  position: 'fixed',
+
+  height: '100vh',
+
+  borderRight: `1px solid ${theme.colors.gray_300}`,
+
+  zIndex: theme.zIndex.overlayMiddle,
+});
+
+export const tikiLogoStyle = css({
+  width: '2.8rem',
+  height: '2.8rem',
+
+  margin: '2.4rem',
+});
+
+export const settingStyle = css({
+  position: 'fixed',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  padding: '2rem',
+  bottom: 0,
+});

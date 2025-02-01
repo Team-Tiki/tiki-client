@@ -1,0 +1,33 @@
+import { Flex } from '@tiki/ui';
+
+import { $api } from '@/shared/api/client';
+import Logo from '@/shared/component/SideNavBar/Logo';
+import { firstSpellStyle } from '@/shared/component/SideNavBar/index.style';
+import { PATH } from '@/shared/constant/path';
+import { useTeamIdAction } from '@/shared/store/team';
+
+const TeamList = () => {
+  const { data } = $api.useQuery('get', '/api/v1/members/teams');
+
+  const { setTeamId } = useTeamIdAction();
+
+  const getIsCurrentTeam = (id: number) => new URLSearchParams(location.search).get('teamId') === String(id);
+
+  return (
+    <Flex tag="ul" styles={{ direction: 'column', gap: '4rem', padding: '2rem 0' }}>
+      {data?.data?.belongTeamGetResponses.map((data) => {
+        return (
+          <Logo
+            to={`${PATH.DASHBOARD}?teamId=${data.id}`}
+            name={data.name}
+            onClick={() => setTeamId(data.id)}
+            isActive={getIsCurrentTeam(data.id)}>
+            {data.iconImageUrl ? <img alt={`${data.name} 로고`} /> : <span css={firstSpellStyle}>{data.name[0]}</span>}
+          </Logo>
+        );
+      })}
+    </Flex>
+  );
+};
+
+export default TeamList;
