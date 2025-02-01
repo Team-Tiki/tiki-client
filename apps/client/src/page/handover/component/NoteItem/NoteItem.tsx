@@ -14,7 +14,7 @@ interface NoteItemProps extends Omit<NoteType, 'lastUpdatedAt'> {
   canSelect: boolean;
   isSelected: boolean;
   onSelect: () => void;
-  onNoteCloseClick: (e: React.MouseEvent, ids: number[]) => void;
+  onNoteDelete: (e: React.MouseEvent, ids: number[]) => void;
   onClick: () => void;
 }
 
@@ -34,7 +34,7 @@ const NoteItem = ({
   canSelect,
   isSelected,
   onSelect,
-  onNoteCloseClick,
+  onNoteDelete,
   onClick,
 }: NoteItemProps) => {
   const activityPeriod = `${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`;
@@ -54,7 +54,7 @@ const NoteItem = ({
         onClick={canSelect ? () => {} : onClick}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => handleKeyDown(e)}>
+        onKeyDown={handleKeyDown}>
         <Flex styles={{ align: 'center', justify: 'space-between' }} css={containerStyle}>
           <Flex>
             <Flex styles={{ align: 'center' }}>
@@ -86,8 +86,8 @@ const NoteItem = ({
                   작성 미완료
                 </Tag>
               )}
-              <button css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])}>
-                <IcClose width={11} height={11} />
+              <button css={closeButtonStyle} onClick={(e) => onNoteDelete(e, [noteId])}>
+                <IcClose width={22} height={22} />
               </button>
             </Flex>
           </Flex>

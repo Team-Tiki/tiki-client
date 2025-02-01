@@ -30,7 +30,7 @@ const HandoverPage = () => {
   const [noteList, setNoteList] = useState<NoteListType>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState('');
 
-  const { data, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+  const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
 
   const queryClient = useQueryClient();
 
@@ -67,16 +67,16 @@ const HandoverPage = () => {
   });
 
   useEffect(() => {
-    if (data?.data?.noteGetResponseList) {
+    if (noteData?.data?.noteGetResponseList) {
       if (lastUpdatedAt) {
-        setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
+        setNoteList((prev) => [...prev, ...noteData.data!.noteGetResponseList]);
         return;
       }
-      setNoteList(data.data!.noteGetResponseList);
+      setNoteList(noteData.data!.noteGetResponseList);
     }
-  }, [data, lastUpdatedAt]);
+  }, [noteData, lastUpdatedAt]);
 
-  const handleNoteCloseClick = (e: React.MouseEvent, noteIds: number[]) => {
+  const handleNoteDelete = (e: React.MouseEvent, noteIds: number[]) => {
     e.stopPropagation();
 
     openModal('caution', {
@@ -144,7 +144,7 @@ const HandoverPage = () => {
             </Button>
             {canSelect && (
               <>
-                <Button variant="tertiary" onClick={(e) => handleNoteCloseClick(e, ids)}>
+                <Button variant="tertiary" onClick={(e) => handleNoteDelete(e, ids)}>
                   삭제
                 </Button>
                 <Button variant="tertiary" onClick={handleToggleSelect}>
@@ -176,17 +176,12 @@ const HandoverPage = () => {
               .map((data) => (
                 <NoteItem
                   key={data.noteId}
-                  noteId={data.noteId}
-                  startDate={data.startDate}
-                  endDate={data.endDate}
-                  title={data.title}
-                  author={data.author}
-                  complete={data.complete}
                   canSelect={canSelect}
                   isSelected={ids.includes(+data.noteId)}
                   onSelect={() => handleItemClick(+data.noteId)}
-                  onNoteCloseClick={(e) => handleNoteCloseClick(e, [data.noteId])}
+                  onNoteDelete={(e) => handleNoteDelete(e, [data.noteId])}
                   onClick={() => navigate(`/handover/${+data.noteId}`)}
+                  {...data}
                 />
               ))}
             {isFetching && (

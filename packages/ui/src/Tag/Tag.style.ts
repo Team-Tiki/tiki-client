@@ -32,7 +32,7 @@ export const tagStyle = ({
       backgroundColor: bgColor,
     }),
     square: css({
-      padding: '0.4rem 0.8rem',
+      padding: '0.5rem 0.8rem',
       borderRadius: '0.4rem',
       color: bgColorToTextColorMap[bgColor] || color,
       backgroundColor: bgColor,

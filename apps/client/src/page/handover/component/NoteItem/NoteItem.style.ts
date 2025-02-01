@@ -13,7 +13,6 @@ export const containerStyle = css({
 
   width: '100%',
   padding: '1.3rem 1.6rem',
-  // minHeight: '1.8rem',
 
   cursor: 'potiner',
 
@@ -40,8 +39,6 @@ export const closeButtonStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignContent: 'center',
-
-  padding: '0.5rem',
 
   border: 'none',
   borderRadius: '6px',
