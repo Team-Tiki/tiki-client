@@ -6,11 +6,12 @@ import { KeyboardEvent } from 'react';
 import { components } from '@/shared/__generated__/schema';
 import {
   containerStyle,
+  iconStyle,
   rightSideRowStyle,
   timeStyle,
-} from '@/shared/component/TimeBlockModal/component/UploadModal/BrowseFile/BrowseFileItem.style';
+} from '@/shared/component/BrowseFileItem/BrowseFileItem.style';
 import { getFormattedDate } from '@/shared/util/date';
-import { extractFileExtension, extractFileName } from '@/shared/util/file';
+import { extractFileName } from '@/shared/util/file';
 
 type DocumentItem = components['schemas']['DocumentGetResponse'];
 
@@ -33,17 +34,10 @@ const BrowseFileItem = ({ documentId, name, createdTime, url, isSelected, onSele
           <Text tag="body6">{extractFileName(name)}</Text>
         </Flex>
         <div css={rightSideRowStyle}>
-          <Text tag="body6">{extractFileExtension(name)}</Text>
           <Text tag="body6">{url?.split('.').at(-1)}</Text>
           <time css={timeStyle} dateTime={createdTime}>
             {getFormattedDate(createdTime ?? new Date().toISOString())}
-            {
-              <IcCheckBlue
-                width={16}
-                height={16}
-                css={{ flexShrink: '0', visibility: isSelected ? 'visible' : 'hidden' }}
-              />
-            }
+            {<IcCheckBlue width={16} height={16} css={iconStyle(isSelected)} />}
           </time>
         </div>
       </div>
