@@ -6,6 +6,7 @@ import { KeyboardEvent } from 'react';
 import { components } from '@/shared/__generated__/schema';
 import {
   containerStyle,
+  fileNameStyle,
   rightSideRowStyle,
   timeStyle,
 } from '@/shared/component/TimeBlockModal/component/UploadModal/BrowseFile/BrowseFileItem.style';
@@ -30,11 +31,12 @@ const BrowseFileItem = ({ documentId, name, createdTime, url, isSelected, onSele
     <div key={documentId} css={{ margin: '0.4rem', borderBottom: `1px solid ${theme.colors.gray_300}` }}>
       <div css={containerStyle(isSelected)} onClick={onSelect} onKeyDown={handleKeyPress} role="button" tabIndex={0}>
         <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
-          <Text tag="body6">{extractFileName(name)}</Text>
+          <Text tag="body6" css={fileNameStyle}>
+            {extractFileName(name)}
+          </Text>
         </Flex>
         <div css={rightSideRowStyle}>
           <Text tag="body6">{extractFileExtension(name)}</Text>
-          <Text tag="body6">{url?.split('.').at(-1)}</Text>
           <time css={timeStyle} dateTime={createdTime}>
             {getFormattedDate(createdTime ?? new Date().toISOString())}
             {

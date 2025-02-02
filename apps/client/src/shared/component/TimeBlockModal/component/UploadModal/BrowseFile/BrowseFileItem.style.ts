@@ -52,3 +52,9 @@ export const rightSideRowStyle = css({
   alignItems: 'center',
   gap: '0.2rem',
 });
+
+export const fileNameStyle = css({
+  maxWidth: '35.6rem',
+
+  ...ellipsisStyle,
+});
