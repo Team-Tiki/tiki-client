@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DatePicker, Flex, Input } from '@tiki/ui';
+import { parseISO } from 'date-fns';
 
 import { useEffect, useState } from 'react';
 
@@ -13,11 +14,12 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
 const BlockInfoModal = () => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-
   const { formData, setFormData } = useBlockContext();
-  const { prevStep, nextStep } = useFunnel();
+
+  const { nextStep, prevStep } = useFunnel();
+
+  const [startDate, setStartDate] = useState<Date | null>(formData.startDate ? parseISO(formData.startDate) : null);
+  const [endDate, setEndDate] = useState<Date | null>(formData.endDate ? parseISO(formData.endDate) : null);
 
   const { blockName, isNameError, handleBlockNameChange } = useBlockName({
     onChange: (name) => setFormData({ ...formData, name }),
@@ -39,14 +41,14 @@ const BlockInfoModal = () => {
   useEffect(() => {
     setFormData({
       ...formData,
-      startDate: formatDateToString(startDate),
-      endDate: formatDateToString(endDate),
+      startDate: startDate ? formatDateToString(startDate) : '',
+      endDate: endDate ? formatDateToString(endDate) : '',
     });
   }, [startDate, endDate]);
 
   return (
     <>
-      <Modal.Header />
+      <Modal.Header step={2} />
       <Modal.Body>
         <Flex styles={{ direction: 'column', gap: '2rem', paddingTop: '2rem' }}>
           <BlockBox title="이름" id="time-block-title">
@@ -61,7 +63,13 @@ const BlockInfoModal = () => {
             />
           </BlockBox>
           <BlockBox title="기간">
-            <DatePicker variant="range" triggerWidth="100%" onChange={handleDateChange} />
+            <DatePicker
+              variant="range"
+              triggerWidth="100%"
+              onChange={handleDateChange}
+              defaultSelectedDate={formData.startDate ? new Date(formData.startDate) : undefined}
+              defaultEndDate={formData.endDate ? new Date(formData.endDate) : undefined}
+            />
           </BlockBox>
         </Flex>
       </Modal.Body>

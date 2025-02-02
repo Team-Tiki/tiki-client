@@ -72,15 +72,17 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
 
   return (
     <Modal size="large" isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header step={2} />
+      <Modal.Header step={3} />
       <Modal.Body>
         <Flex css={flexStyle}>
           {fileData?.data?.documents.length === 0 || isAddingFiles ? (
             <NewFileImportModal
               onUploadFile={handleFileSelect}
               selectedFiles={selectedFiles}
-              onNext={handleNext}
               size="large"
+              contentType="create-block"
+              onNext={handleNext}
+              onPrev={() => setIsAddingFiles(false)}
             />
           ) : (
             <BrowseFile
@@ -92,7 +94,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={3} contentType="create-block" buttonClick={handleNext} prevStep={() => prevStep()} />
+      <Modal.Footer step={2} contentType="create-block" buttonClick={handleNext} prevStep={() => prevStep()} />
     </Modal>
   );
 };
