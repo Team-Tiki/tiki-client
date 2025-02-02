@@ -1,6 +1,8 @@
 import { IcFileItem } from '@tiki/icon';
 import { Text } from '@tiki/ui';
 
+import { ellipsisStyle } from '@/common/style/ellipsis';
+
 import { fileItemWrapperStyle } from '@/shared/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem.style';
 
 interface FileItemProps {
@@ -10,8 +12,10 @@ interface FileItemProps {
 const FileItem = ({ fileName }: FileItemProps) => {
   return (
     <li css={fileItemWrapperStyle}>
-      <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
-      <Text tag="body8">{fileName}</Text>
+      <IcFileItem width={20} height={20} css={{ margin: '1.2rem', flexShrink: '0' }} />
+      <Text tag="body8" css={{ ...ellipsisStyle, maxWidth: '27rem' }}>
+        {fileName}
+      </Text>
     </li>
   );
 };
