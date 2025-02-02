@@ -27,6 +27,8 @@ interface NewFileImportModalProps {
   selectedFiles?: DocumentDetail[];
   onUploadFile?: (files: DocumentDetail[]) => void;
   onNext?: () => void;
+  onPrev?: () => void;
+  contentType?: 'create-block' | 'file' | 'timeblock-file';
 }
 
 interface FileWithDocumentId extends File {
@@ -35,9 +37,11 @@ interface FileWithDocumentId extends File {
 
 const NewFileImportModal = ({
   onNext,
+  onPrev,
   selectedFiles = [],
   onUploadFile = () => {},
   size = 'medium',
+  contentType = 'file',
 }: NewFileImportModalProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
@@ -167,7 +171,7 @@ const NewFileImportModal = ({
 
   return (
     <Modal size={size} isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header />
+      <Modal.Header step={3} />
       <Modal.Body>
         <Flex css={flexStyle}>
           <Flex styles={{ direction: 'column', width: '100%' }}>
@@ -217,9 +221,11 @@ const NewFileImportModal = ({
         </Flex>
       </Modal.Body>
       <Modal.Footer
-        contentType="new-file"
+        step={3}
+        contentType={contentType}
         buttonClick={onNext ?? handleClose}
         closeModal={closeModal}
+        prevStep={onPrev}
         isButtonActive={!isButtonActive}
       />
     </Modal>
