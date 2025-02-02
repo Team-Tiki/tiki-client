@@ -99,22 +99,22 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
       {
         icon: <IcBlockCreate width={40} height={40} />,
         title: '타임 블록 생성',
-        infoText: '블록 카테고리를 선택하세요.',
+        infoText: '블록 카테고리를 선택하세요',
       },
       {
         icon: <IcBlockCreate width={40} height={40} />,
         title: '타임 블록 생성',
-        infoText: '블록 정보를 입력해주세요.',
+        infoText: '타임라인에 생성할 블록 정보를 입력해주세요',
       },
       {
         icon: <IcBlockCreate width={40} height={40} />,
         title: '타임 블록 생성',
-        infoText: '타임라인에 추가할 파일을 선택해주세요.',
+        infoText: '타임라인에 추가할 파일을 선택해주세요',
       },
       {
         icon: <IcBlockCreate width={40} height={40} />,
         title: '타임 블록 생성',
-        infoText: '추가한 파일을 확인해주세요.',
+        infoText: '추가한 파일을 확인해주세요',
       },
     ],
     buttons: [
