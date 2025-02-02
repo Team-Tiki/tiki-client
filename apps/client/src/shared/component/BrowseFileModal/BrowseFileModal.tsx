@@ -30,7 +30,6 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
   const { nextStep } = useFunnel();
 
   const isButtonActive = selectedFiles.length !== 0;
-
   const filterKeyword = useDebounce(searchFile, 500);
 
   const filteredFiles = files.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC')));
@@ -38,12 +37,14 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
   const handleFileSelect = (file: DocumentDetail) => {
     setSelectedFiles((prevSelectedFiles) => {
       const isSelected = prevSelectedFiles.some((selectedFile) => selectedFile.documentId === file.documentId);
-      return isSelected
+
+      const updatedFiles = isSelected
         ? prevSelectedFiles.filter((selectedFile) => selectedFile.documentId !== file.documentId)
         : [...prevSelectedFiles, file];
-    });
 
-    onConfirmFile(selectedFiles);
+      onConfirmFile(updatedFiles);
+      return updatedFiles;
+    });
   };
 
   const handleNext = () => {
