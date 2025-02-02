@@ -71,6 +71,7 @@ type ModalContentType =
   | 'new-file'
   | 'file'
   | 'caution'
+  | 'timeblock-file'
   | 'image';
 
 const useModalStore = create<ModalState>((set) => ({

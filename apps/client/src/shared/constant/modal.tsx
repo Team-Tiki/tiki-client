@@ -7,6 +7,7 @@ type ModalContentType =
   | 'activity-tag'
   | 'new-file'
   | 'file'
+  | 'timeblock-file'
   | 'caution'
   | 'image';
 
@@ -199,6 +200,27 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
         icon: <IcError width={40} height={40} css={{ margin: '1rem', flexShrink: '0' }} />,
         title: '주의!',
         infoText: '',
+      },
+    ],
+    buttons: [
+      [
+        { text: '취소', variant: 'outline' },
+        { text: '완료', variant: 'primary' },
+      ],
+    ],
+  },
+  'timeblock-file': {
+    steps: 2,
+    headers: [
+      {
+        icon: <IcFileUpload width={20} height={20} css={{ margin: '1rem' }} />,
+        title: '파일 업로드',
+        infoText: '타임블록에 추가할 파일을 선택해주세요',
+      },
+      {
+        icon: <IcBlockCreate width={40} height={40} />,
+        title: '타임 블록 생성',
+        infoText: '추가한 파일을 확인해주세요',
       },
     ],
     buttons: [

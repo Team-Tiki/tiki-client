@@ -96,6 +96,11 @@ const ModalFooterButtons = (
         createButton('취소', closeModal, 'outline'),
         createButton('연동', buttonClick, 'primary', !isButtonActive),
       ];
+    case 'timeblock-file':
+      return [
+        createButton('취소', closeModal, 'outline'),
+        createButton('업로드', buttonClick, 'primary', !isButtonActive),
+      ];
     case 'caution':
       return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];
     case 'caution-modify':
