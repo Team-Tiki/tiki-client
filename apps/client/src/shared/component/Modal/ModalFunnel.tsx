@@ -10,10 +10,10 @@ import ImageImportModal from '@/shared/component/ImageImportModal/ImageImportMod
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
-import { TimeBlockFileUploadFlow } from '@/shared/component/TimeblockFileUploadModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
+import { TimeBlockFileUploadFlow } from '@/shared/hook/common/useTimeBlockUploadFlow';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import {
   isCautionModalData,
