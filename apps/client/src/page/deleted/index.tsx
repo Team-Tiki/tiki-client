@@ -1,6 +1,7 @@
 import { Button, Flex, useToastAction } from '@tiki/ui';
 import { useMultiSelect } from '@tiki/utils';
 
+import { useTeamUsage } from '@/page/drive/hook/common/useTeamUsage';
 import { contentStyle } from '@/page/drive/index.style';
 
 import { $api } from '@/shared/api/client';
@@ -26,6 +27,8 @@ const DeletedPage = () => {
 
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
+
+  const { modifiedAvailableUsage, modifiedCapacity, refetch: usageRefetch } = useTeamUsage();
 
   const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
@@ -67,9 +70,12 @@ const DeletedPage = () => {
       desc: CAUTION.DELETE_FOR_GOOD.DESC,
       onClick: () => {
         try {
-          deleteMutation.mutate({
-            params: { path: { teamId }, query: { documentId: ids } },
-          });
+          deleteMutation.mutate(
+            {
+              params: { path: { teamId }, query: { documentId: ids } },
+            },
+            { onSuccess: () => usageRefetch() }
+          );
 
           handleReset();
           closeModal();
@@ -96,12 +102,15 @@ const DeletedPage = () => {
       desc: CAUTION.EMPTY_DELETED.DESC,
       onClick: () => {
         try {
-          deleteMutation.mutate({
-            params: {
-              path: { teamId },
-              query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
+          deleteMutation.mutate(
+            {
+              params: {
+                path: { teamId },
+                query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
+              },
             },
-          });
+            { onSuccess: () => usageRefetch() }
+          );
 
           handleReset();
           closeModal();
@@ -116,7 +125,7 @@ const DeletedPage = () => {
     <ContentBox
       variant="deleted"
       title="휴지통"
-      description="5.16GB 사용 가능"
+      description={`${modifiedAvailableUsage}MB 사용 가능 (총 ${modifiedCapacity}MB)`}
       headerOption={
         <Button onClick={handleDeleteEntireFiles} disabled={data?.data?.deletedDocuments.length === 0}>
           휴지통 비우기
@@ -124,7 +133,7 @@ const DeletedPage = () => {
       }
       contentOption={
         <Flex styles={{ justify: 'space-between', align: 'center' }}>
-          {canSelect ? (
+          {canSelect && data?.data?.deletedDocuments.length !== 0 ? (
             <Flex styles={{ gap: '0.8rem' }}>
               <Button onClick={handleAllClick} variant="tertiary">
                 전체 선택

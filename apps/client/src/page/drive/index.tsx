@@ -2,7 +2,7 @@ import { IcGrid, IcList, IcSearch } from '@tiki/icon';
 import { Button, Flex, Input, Select, Switch, useToastAction } from '@tiki/ui';
 import { hasKeyInObject, useDeferredSearchFilter } from '@tiki/utils';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -12,6 +12,7 @@ import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
 import { useDriveData } from '@/page/drive/hook/api/queries';
 import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments';
+import { useTeamUsage } from '@/page/drive/hook/common/useTeamUsage';
 import { contentStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
 
@@ -44,6 +45,8 @@ const DrivePage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
+  const { modifiedAvailableUsage, modifiedCapacity, refetch: usageRefetch } = useTeamUsage();
+
   const queryClient = useQueryClient();
 
   const { mutate: deleteFileMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents', {
@@ -74,6 +77,10 @@ const DrivePage = () => {
       ? new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
       : new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime()
   );
+
+  useEffect(() => {
+    usageRefetch();
+  }, [filteredResult, usageRefetch]);
 
   const {
     selectAll,
@@ -124,7 +131,7 @@ const DrivePage = () => {
     <ContentBox
       variant="file"
       title="파일"
-      description="5.16GB 사용가능(총 245.11GB)"
+      description={`${modifiedAvailableUsage}MB 사용 가능 (총 ${modifiedCapacity}MB)`}
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input
