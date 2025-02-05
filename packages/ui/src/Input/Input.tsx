@@ -1,8 +1,13 @@
-import { ForwardedRef, InputHTMLAttributes, ReactNode, forwardRef } from "react";
+import {
+  ForwardedRef,
+  InputHTMLAttributes,
+  ReactNode,
+  forwardRef,
+} from 'react';
 
-import { containerStyle, contentStyle, inputStyle } from "@/Input/Input.style";
-import Label from "@/Label/Label";
-import SupportingText from "@/SupportingText/SupportingText";
+import { containerStyle, contentStyle, inputStyle } from '@/Input/Input.style';
+import Label from '@/Label/Label';
+import SupportingText from '@/SupportingText/SupportingText';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -14,7 +19,15 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = (
-  { label, isFilled = false, LeftIcon, isError = false, isSuccess = false, supportingText, ...props }: InputProps,
+  {
+    label,
+    isFilled = false,
+    LeftIcon,
+    isError = false,
+    isSuccess = false,
+    supportingText,
+    ...props
+  }: InputProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   return (
