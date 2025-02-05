@@ -11,7 +11,7 @@ import { PATH } from '@/shared/constant/path';
 
 const HandoverSection = () => {
   const navigate = useNavigate();
-  const { data, isPending } = useNoteData('');
+  const { data, isPending } = useNoteData('', 'DESC');
 
   return (
     <Flex styles={{ direction: 'column', gap: '0.8rem', align: 'center' }} css={listItemStyle}>

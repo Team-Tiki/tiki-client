@@ -1,9 +1,8 @@
-import { Flex, scrollStyle } from '@tiki/ui';
+import { Flex } from '@tiki/ui';
 import { hasKeyInObject } from '@tiki/utils';
 
 import { useNavigate } from 'react-router-dom';
 
-import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
 import { containerStyle } from '@/page/dashboard/component/File/FileSection.style';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { DocumentItem, FolderItem } from '@/page/drive/type';
