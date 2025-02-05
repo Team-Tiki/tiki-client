@@ -51,8 +51,8 @@ export const dayBodyStyle = (dayCount: number) =>
     gridTemplateColumns: `repeat(${dayCount}, 1fr)`,
     gridAutoRows: '3rem',
 
-    rowGap: '2rem',
-    gap: '1.5rem',
+    rowGap: '1.5rem',
+    columnGap: '0rem',
 
     minHeight: 'calc(100vh - 40rem)',
     maxHeight: 'calc(100vh - 2rem)',
