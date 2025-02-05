@@ -12,13 +12,13 @@ export const useTeamUsage = () => {
     },
   });
 
-  const convertUnit = 1024 * 1024 * 1024;
+  const convertUnit = 1024 * 1024;
 
-  const capacity = (data?.data?.capacity || 0) / convertUnit;
+  const capacity = (data?.data?.capacity || 0) / convertUnit / convertUnit;
   const availableUsage = capacity - (data?.data?.usage || 0) / convertUnit;
-  console.log(capacity, availableUsage);
-  const modifiedCapacity = Math.floor(capacity * 100) / 100;
-  const modifiedAvailableUsage = Math.floor(availableUsage * 100) / 100;
+
+  const modifiedCapacity = Math.floor(capacity * 1000) / 1000;
+  const modifiedAvailableUsage = Math.ceil(availableUsage * 1000) / 1000;
 
   return { modifiedAvailableUsage, modifiedCapacity, refetch };
 };

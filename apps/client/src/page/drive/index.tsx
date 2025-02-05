@@ -131,7 +131,7 @@ const DrivePage = () => {
     <ContentBox
       variant="file"
       title="파일"
-      description={`${modifiedAvailableUsage}MB 사용 가능 (총 ${modifiedCapacity}MB)`}
+      description={`${modifiedAvailableUsage}GB 사용 가능 (총 ${modifiedCapacity}GB)`}
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input

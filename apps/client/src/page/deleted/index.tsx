@@ -125,7 +125,7 @@ const DeletedPage = () => {
     <ContentBox
       variant="deleted"
       title="휴지통"
-      description={`${modifiedAvailableUsage}MB 사용 가능 (총 ${modifiedCapacity}MB)`}
+      description={`${modifiedAvailableUsage}GB 사용 가능 (총 ${modifiedCapacity}GB)`}
       headerOption={
         <Button onClick={handleDeleteEntireFiles} disabled={data?.data?.deletedDocuments.length === 0}>
           휴지통 비우기
