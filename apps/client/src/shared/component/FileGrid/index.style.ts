@@ -29,6 +29,8 @@ export const iconWrapperStyle = (isSmall: boolean) =>
   });
 
 export const nameStyle = css({
+  height: '1.6rem',
+
   ...theme.text.body06,
   fontWeight: 500,
 
