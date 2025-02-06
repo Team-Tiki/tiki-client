@@ -10,8 +10,9 @@ export const saveButtonStyle = css({
   position: 'absolute',
 
   top: '2rem',
-  right: '3.4rem',
+  right: '4.4rem',
 });
+
 export const teamImageStyle = css({
   width: '6rem',
   height: '6rem',
@@ -28,5 +29,5 @@ export const teamImageTextStyle = css({
 export const workspaceDeleteButton = css({
   width: '11.4rem',
 
-  marginTop: '4rem',
+  margin: '4rem 0 0 1rem',
 });
