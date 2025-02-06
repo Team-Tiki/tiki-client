@@ -3,19 +3,16 @@ import { theme } from '@tiki/ui';
 
 export const wrapperStyle = css({
   display: 'flex',
-
   alignItems: 'center',
 
   cursor: 'pointer',
 });
 
 export const containerStyle = css({
-  display: 'grid',
-  gridTemplateColumns: '25.3% 51.7% 11.6% 11.4%',
+  display: 'flex',
 
   width: '100%',
-  margin: '1.6rem 0 ',
-  minHeight: '1.8rem',
+  padding: '1.3rem 1.6rem',
 
   cursor: 'potiner',
 
@@ -23,6 +20,10 @@ export const containerStyle = css({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+
+  '&:hover': {
+    backgroundColor: theme.colors.key_100,
   },
 });
 
@@ -35,7 +36,21 @@ export const profileStyle = css({
 });
 
 export const closeButtonStyle = css({
-  flexShrink: '0',
+  display: 'flex',
+  justifyContent: 'center',
+  alignContent: 'center',
+
+  border: 'none',
+  borderRadius: '6px',
+  backgroundColor: 'inherit',
 
   cursor: 'pointer',
+
+  '&:hover': {
+    backgroundColor: theme.colors.gray_200,
+  },
+});
+
+export const checkBoxStyle = css({
+  marginRight: '1.6rem',
 });
