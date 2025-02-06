@@ -81,8 +81,8 @@ const ModalFooterButtons = (
 
     case 'invite':
       return [
-        createButton('건너뛰기', buttonClick, 'outline', false),
-        createButton('다음으로', buttonClick, 'primary', !isButtonActive),
+        createButton('취소', closeModal, 'outline'),
+        createButton('완료', buttonClick, 'primary', !isButtonActive),
       ];
     case 'activity-tag':
       return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];

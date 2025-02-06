@@ -76,7 +76,7 @@ const ModalFunnel = () => {
       case 'invite':
         return (
           <FunnelStep step={1}>
-            <InviteModal step={1} />
+            <InviteModal />
           </FunnelStep>
         );
       case 'activity-tag':

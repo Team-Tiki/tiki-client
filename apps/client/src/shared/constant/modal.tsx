@@ -133,7 +133,7 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
     steps: 1,
     headers: [
       {
-        icon: <IcInvite width={40} height={40} />,
+        icon: <IcInvite width={20} height={20} />,
         title: '팀원 초대',
         infoText: '워크스페이스에 팀원을 초대할 수 있습니다.',
       },
