@@ -13,6 +13,7 @@ import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
+import { TimeBlockFileUploadFlow } from '@/shared/hook/common/useTimeBlockUploadFlow';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import {
   isCautionModalData,
@@ -44,6 +45,16 @@ const ModalFunnel = () => {
     return (
       <Suspense>
         <NewFileImportModal />
+      </Suspense>
+    );
+  }
+
+  if (contentType === 'timeblock-file') {
+    return (
+      <Suspense>
+        <FunnelProvider>
+          <TimeBlockFileUploadFlow />
+        </FunnelProvider>
       </Suspense>
     );
   }

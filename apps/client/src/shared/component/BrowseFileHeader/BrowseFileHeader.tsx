@@ -1,9 +1,6 @@
 import { Text } from '@tiki/ui';
 
-import {
-  headerStyle,
-  rightSideRowStyle,
-} from '@/shared/component/TimeBlockModal/component/UploadModal/BrowseFile/FileHeader/BrowseFileHeader.style';
+import { headerStyle, rightSideRowStyle } from '@/shared/component/BrowseFileHeader/BrowseFileHeader.style';
 
 const BrowseFileHeader = () => {
   return (
