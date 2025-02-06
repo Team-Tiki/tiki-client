@@ -1,7 +1,7 @@
 import { Button, Flex, useToastAction } from '@tiki/ui';
 import { useMultiSelect } from '@tiki/utils';
 
-import { useTeamUsage } from '@/page/drive/hook/common/useTeamUsage';
+import { useTeamUsage } from '@/page/drive/hook/api/useTeamUsage';
 import { contentStyle } from '@/page/drive/index.style';
 
 import { $api } from '@/shared/api/client';
@@ -47,6 +47,7 @@ const DeletedPage = () => {
     onSuccess: () => {
       createToast(`삭제가 완료되었습니다.`, 'success');
       refetch();
+      usageRefetch();
     },
     onError: (error) => {
       createToast(`${error.message}`, 'error');
@@ -70,12 +71,9 @@ const DeletedPage = () => {
       desc: CAUTION.DELETE_FOR_GOOD.DESC,
       onClick: () => {
         try {
-          deleteMutation.mutate(
-            {
-              params: { path: { teamId }, query: { documentId: ids } },
-            },
-            { onSuccess: () => usageRefetch() }
-          );
+          deleteMutation.mutate({
+            params: { path: { teamId }, query: { documentId: ids } },
+          });
 
           handleReset();
           closeModal();
@@ -102,15 +100,12 @@ const DeletedPage = () => {
       desc: CAUTION.EMPTY_DELETED.DESC,
       onClick: () => {
         try {
-          deleteMutation.mutate(
-            {
-              params: {
-                path: { teamId },
-                query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
-              },
+          deleteMutation.mutate({
+            params: {
+              path: { teamId },
+              query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
             },
-            { onSuccess: () => usageRefetch() }
-          );
+          });
 
           handleReset();
           closeModal();

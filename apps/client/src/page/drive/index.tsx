@@ -11,8 +11,8 @@ import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
 import { useDriveData } from '@/page/drive/hook/api/queries';
+import { useTeamUsage } from '@/page/drive/hook/api/useTeamUsage';
 import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments';
-import { useTeamUsage } from '@/page/drive/hook/common/useTeamUsage';
 import { contentStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
 
