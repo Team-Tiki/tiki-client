@@ -20,7 +20,7 @@ type FileListItemProps = Omit<DocumentItem, 'type'> & {
   onSelect: () => void;
 };
 
-const BrowseFileItem = ({ documentId, name, createdTime, url, isSelected, onSelect }: FileListItemProps) => {
+const BrowseFileItem = ({ documentId, name, createdTime, isSelected, onSelect }: FileListItemProps) => {
   const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') {
       onSelect();
