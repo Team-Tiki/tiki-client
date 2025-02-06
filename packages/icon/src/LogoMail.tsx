@@ -1,7 +1,12 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from 'react';
+import type { SVGProps } from 'react';
 const SvgLogoMail = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 230 83" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 230 83"
+    {...props}
+  >
     <g fill="#353F9B" clipPath="url(#logo_mail_svg__a)">
       <path
         fillRule="evenodd"
@@ -10,8 +15,18 @@ const SvgLogoMail = (props: SVGProps<SVGSVGElement>) => (
       />
       <rect width={10.296} height={36.036} x={65.286} y={1.547} rx={5.148} />
       <rect width={10.296} height={10.296} x={65.286} y={40.157} rx={5.148} />
-      <rect width={10.296} height={36.036} rx={5.148} transform="matrix(1 0 0 -1 124.488 50.453)" />
-      <rect width={10.296} height={10.296} rx={5.148} transform="matrix(1 0 0 -1 124.488 11.843)" />
+      <rect
+        width={10.296}
+        height={36.036}
+        rx={5.148}
+        transform="matrix(1 0 0 -1 124.488 50.453)"
+      />
+      <rect
+        width={10.296}
+        height={10.296}
+        rx={5.148}
+        transform="matrix(1 0 0 -1 124.488 11.843)"
+      />
     </g>
     <path
       fill="#353F9B"

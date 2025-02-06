@@ -27,7 +27,7 @@ const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
         </Text>
       </Flex>
       {isEditable && (
-        <Button variant="outline" size="medium" style={{ width: '100%' }} onClick={() => openModal('new-file')}>
+        <Button variant="outline" size="medium" style={{ width: '100%' }} onClick={() => openModal('timeblock-file')}>
           <IcCloudUpload width={16} height={16} />
           파일 업로드
         </Button>
