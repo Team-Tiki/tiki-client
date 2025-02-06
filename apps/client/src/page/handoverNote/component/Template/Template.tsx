@@ -5,7 +5,7 @@ import React, { SetStateAction, useState } from 'react';
 import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
-  guideStyle,
+  labelStyle,
   layoutStyle,
   noteWrapperStyle,
 } from '@/page/handoverNote/component/Template/Template.style';
@@ -74,7 +74,9 @@ const Template = ({ data, setData }: TemplateProps) => {
     <form css={[noteWrapperStyle, scrollStyle]}>
       {TEMPLATE.map((item) => (
         <div key={item.id} css={layoutStyle}>
-          <Label id={item.id}>{item.QUESTION}</Label>
+          <Label id={item.id} css={labelStyle}>
+            {item.QUESTION}
+          </Label>
           <Textarea
             id={item.id}
             placeholder={item.PLACEHOLDER}
@@ -85,7 +87,7 @@ const Template = ({ data, setData }: TemplateProps) => {
       ))}
 
       <div css={layoutStyle}>
-        <Label id="file" css={guideStyle}>
+        <Label id="file" css={labelStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
         <div css={fileBoxStyle}>

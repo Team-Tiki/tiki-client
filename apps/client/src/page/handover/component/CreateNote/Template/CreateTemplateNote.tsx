@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useRef } from 'react';
 import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
-  guideStyle,
+  labelStyle,
   layoutStyle,
   noteWrapperStyle,
 } from '@/page/handoverNote/component/Template/Template.style';
@@ -78,7 +78,7 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
       ))}
 
       <div css={layoutStyle}>
-        <Label id="file" css={guideStyle}>
+        <Label id="file" css={labelStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
         <div css={fileBoxStyle}>

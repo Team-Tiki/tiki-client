@@ -41,9 +41,14 @@ export const textareaStyle = css({
 
     outline: 'none',
   },
+  '::placeholder': {
+    color: theme.colors.gray_500,
+
+    ...theme.text.body07,
+  },
 });
 
-export const guideStyle = css({
+export const labelStyle = css({
   color: theme.colors.gray_800,
 });
 

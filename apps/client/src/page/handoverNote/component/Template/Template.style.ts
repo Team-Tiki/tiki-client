@@ -27,10 +27,8 @@ export const layoutStyle = css({
   },
 });
 
-export const guideStyle = css({
+export const labelStyle = css({
   color: theme.colors.gray_800,
-
-  ...theme.text.body04,
 });
 
 export const fileBoxStyle = css({
@@ -39,8 +37,4 @@ export const fileBoxStyle = css({
   flexWrap: 'wrap',
 
   gap: '1.6rem',
-});
-
-export const labelStyle = css({
-  color: theme.colors.gray_800,
 });
