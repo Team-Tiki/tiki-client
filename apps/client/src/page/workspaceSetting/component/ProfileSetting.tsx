@@ -13,11 +13,7 @@ interface ProfileSettingProps extends MemberType {
   onErrorChange: (key: string, value: string) => void;
 }
 
-const select_options = [
-  { value: POSITION_VALUE.ADMIN },
-  { value: POSITION_VALUE.EXECUTIVE },
-  { value: POSITION_VALUE.MEMBER },
-];
+const select_options = [{ value: POSITION_VALUE.ADMIN }, { value: POSITION_VALUE.EXECUTIVE }];
 
 const ProfileSetting = ({ name, position, onWorkspaceDataChange, error, onErrorChange }: ProfileSettingProps) => {
   const ref = useOutsideClick<HTMLDivElement>(close);

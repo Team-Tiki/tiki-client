@@ -1,57 +1,56 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import { ButtonProps } from "@/Button/Button";
-import { CommandButtonProps } from "@/CommandButton/CommandButton";
-import { theme } from "@/theme";
+import { ButtonProps } from '@/Button/Button';
+import { CommandButtonProps } from '@/CommandButton/CommandButton';
+import { theme } from '@/theme';
 
 export const buttonStyle = (isFrontIcon: boolean) =>
   css({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
 
-    padding: isFrontIcon ? "1rem" : "1.1rem 1rem 1.1rem 1.4rem",
+    padding: isFrontIcon ? '1rem' : '1.1rem 1rem 1.1rem 1.4rem',
 
-    border: "none",
-    borderRadius: "0.8rem",
+    border: 'none',
+    borderRadius: '0.8rem',
 
-    gap: "0.4rem",
+    gap: '0.4rem',
 
-    cursor: "pointer",
+    cursor: 'pointer',
 
-    transition: "all .2s ease-in",
+    transition: 'all .2s ease-in',
 
-
-    "&:disabled:not(:focus)": {
+    '&:disabled:not(:focus)': {
       backgroundColor: theme.colors.gray_100,
       color: theme.colors.gray_500,
+      pointerEvents: 'none',
     },
   });
 
 export const commonStyle = css({
-  display: "flex",
+  display: 'flex',
 
-  padding: "0.4rem 0.6rem",
+  padding: '0.4rem 0.6rem',
 
-  borderRadius: "0.4rem",
+  borderRadius: '0.4rem',
 
   color: theme.colors.gray_800,
 
   ...theme.text.body10,
-
 });
 
 export const keyStyle = (
   variant: Extract<
-    "primary" | "tertiary" | "fourth" | "outline",
-    Omit<ButtonProps, "underline" | "secondary">["variant"]
+    'primary' | 'tertiary' | 'fourth' | 'outline',
+    Omit<ButtonProps, 'underline' | 'secondary'>['variant']
   >,
 ) => {
   const style = {
     primary: css({
       backgroundColor: theme.colors.white,
 
-      "&:disabled:not(:focus)": {
+      '&:disabled:not(:focus)': {
         backgroundColor: theme.colors.gray_100,
         color: theme.colors.gray_500,
       },
@@ -59,7 +58,7 @@ export const keyStyle = (
     tertiary: css({
       backgroundColor: theme.colors.gray_100,
 
-      "&:disabled:not(:focus)": {
+      '&:disabled:not(:focus)': {
         backgroundColor: theme.colors.gray_100,
         color: theme.colors.gray_500,
       },
@@ -67,7 +66,7 @@ export const keyStyle = (
     fourth: css({
       backgroundColor: theme.colors.gray_100,
 
-      "&:disabled:not(:focus)": {
+      '&:disabled:not(:focus)': {
         backgroundColor: theme.colors.gray_100,
         color: theme.colors.gray_500,
       },
@@ -75,7 +74,7 @@ export const keyStyle = (
     outline: css({
       backgroundColor: theme.colors.gray_100,
 
-      "&:disabled:not(:focus)": {
+      '&:disabled:not(:focus)': {
         backgroundColor: theme.colors.gray_100,
         color: theme.colors.gray_500,
       },
@@ -85,33 +84,33 @@ export const keyStyle = (
 };
 
 export const childrenStyle = css({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
 
-  padding: "0.4rem",
+  padding: '0.4rem',
 
-  gap: "0.4rem",
+  gap: '0.4rem',
 
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
 });
 
-export const sizeStyle = (size: Required<CommandButtonProps>["size"]) => {
+export const sizeStyle = (size: Required<CommandButtonProps>['size']) => {
   const style = {
     /** Button_40 */
     large: css({
-      padding: "1.1rem 1.0rem 1.1rem 1.4rem",
+      padding: '1.1rem 1.0rem 1.1rem 1.4rem',
 
       ...theme.text.body08,
     }),
     /** Button_32 */
     small: css({
-      padding: "0.7rem 1rem 0.7rem 1.4rem",
+      padding: '0.7rem 1rem 0.7rem 1.4rem',
 
       ...theme.text.body08,
     }),
     /** Button_24 */
     xSmall: css({
-      padding: "0.6rem 1rem",
+      padding: '0.6rem 1rem',
 
       ...theme.text.body08,
     }),
