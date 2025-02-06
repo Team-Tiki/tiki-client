@@ -8,8 +8,6 @@ export const entireInfoStyle = css({
   flexBasis: '34rem',
   padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
-  gap: '3.6rem',
-
   borderRadius: '1.6rem 0 0 1.6rem',
 
   backgroundColor: theme.colors.gray_100,
@@ -18,11 +16,12 @@ export const entireInfoStyle = css({
 export const titleStyle = css({
   width: '25rem',
 
-  color: theme.colors.gray_800,
+  marginBottom: '3.6rem',
 
   outline: 'none',
   border: 'none',
 
+  color: theme.colors.gray_800,
   backgroundColor: theme.colors.gray_100,
 
   fontWeight: 500,
@@ -44,15 +43,25 @@ export const infoContainerStyle = css({
   gap: '0.4rem',
 });
 
-export const infoLayoutStyle = css({
-  display: 'flex',
+export const infoLayoutStyle = (isTag?: boolean) =>
+  css({
+    display: 'flex',
 
-  height: '4rem',
+    minHeight: '4rem',
 
-  gap: '2rem',
+    gap: '2rem',
+    alignItems: 'center',
 
-  alignItems: 'center',
-});
+    ...(isTag && {
+      ':nth-child(3)': {
+        '& p': {
+          display: 'flex',
+          height: '100%',
+          alignSelf: 'baseline',
+        },
+      },
+    }),
+  });
 
 export const infoStyle = css({
   width: '5.2rem',
