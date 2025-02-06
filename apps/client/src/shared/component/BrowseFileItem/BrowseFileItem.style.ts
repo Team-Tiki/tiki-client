@@ -6,7 +6,7 @@ import { ellipsisStyle } from '@/common/style/ellipsis';
 export const containerStyle = (isSelected: boolean) =>
   css({
     display: 'grid',
-    gridTemplateColumns: '0.55fr 0.45fr',
+    gridTemplateColumns: '0.55fr 0.46fr',
     alignItems: 'center',
 
     width: '100%',
@@ -39,7 +39,6 @@ export const timeStyle = css({
   display: 'flex',
 
   alignItems: 'center',
-  justifyContent: 'center',
 
   gap: '2rem',
 
@@ -48,7 +47,22 @@ export const timeStyle = css({
 
 export const rightSideRowStyle = css({
   display: 'grid',
-  gridTemplateColumns: '3fr 2fr 10fr',
+
+  width: '100%',
+
+  gridTemplateColumns: '10fr 22fr',
   alignItems: 'center',
+
   gap: '0.2rem',
 });
+
+export const iconStyle = (isSelected: boolean) =>
+  css({
+    display: 'flex',
+
+    marginLeft: 'auto',
+
+    flexShrink: '0',
+
+    visibility: isSelected ? 'visible' : 'hidden',
+  });
