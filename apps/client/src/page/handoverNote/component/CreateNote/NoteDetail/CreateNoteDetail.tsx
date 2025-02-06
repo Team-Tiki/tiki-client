@@ -2,7 +2,7 @@
 import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   entireInfoStyle,
@@ -13,6 +13,7 @@ import {
   titleStyle,
 } from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
 import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
+import { resizeTextarea } from '@/page/handoverNote/util/resize';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
@@ -29,6 +30,8 @@ interface NoteDetailProp {
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const teamId = useInitializeTeamId();
   const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
@@ -61,6 +64,12 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     });
   };
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDetail((prev) => ({ ...prev, title: e.target.value }));
+
+    resizeTextarea(textareaRef);
+  };
+
   const handleChangeStatus = useCallback(
     (value: Status) => {
       setDetail((prev) => ({ ...prev, complete: value === '완료' }));
@@ -83,11 +92,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
 
   return (
     <aside css={entireInfoStyle}>
-      <textarea
-        css={titleStyle}
-        placeholder="노트 제목"
-        onChange={(e) => setDetail((prev) => ({ ...prev, title: e.target.value }))}
-      />
+      <textarea css={titleStyle} rows={1} ref={textareaRef} placeholder="노트 제목" onChange={handleTitleChange} />
       <ul css={infoContainerStyle}>
         <li css={[infoLayoutStyle, { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>

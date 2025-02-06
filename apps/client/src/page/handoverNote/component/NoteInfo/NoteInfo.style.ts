@@ -8,6 +8,8 @@ export const entireInfoStyle = css({
   flexBasis: '34rem',
   padding: '3.2rem 1.7rem 3.2rem 3.2rem',
 
+  gap: '3.6rem',
+
   borderRadius: '1.6rem 0 0 1.6rem',
 
   backgroundColor: theme.colors.gray_100,
@@ -15,7 +17,6 @@ export const entireInfoStyle = css({
 
 export const titleStyle = css({
   width: '25rem',
-  height: '6.5rem',
 
   color: theme.colors.gray_800,
 
@@ -24,14 +25,15 @@ export const titleStyle = css({
 
   backgroundColor: theme.colors.gray_100,
 
+  fontWeight: 500,
   ...theme.heading.heading03,
+  lineHeight: '3.6rem',
 
   wordBreak: 'break-all',
   resize: 'none',
 
   '::placeholder': {
-    color: theme.colors.gray_800,
-    ...theme.heading.heading03,
+    color: theme.colors.gray_500,
   },
 });
 
