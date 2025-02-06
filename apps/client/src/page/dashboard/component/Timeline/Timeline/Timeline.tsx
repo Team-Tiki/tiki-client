@@ -4,6 +4,7 @@ import { useDateContext } from '@/page/archiving/index/DateProvider';
 import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import { dayBodyStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
+import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/Timeline.style';
@@ -15,6 +16,7 @@ const Timeline = ({ teamId }: { teamId: number }) => {
   const navigate = useNavigate();
 
   const { currentYear, currentMonth, endDay } = useDateContext();
+  const { handleBlockClick } = useInteractTimeline();
 
   const { data } = $api.useQuery(
     'get',
@@ -63,8 +65,9 @@ const Timeline = ({ teamId }: { teamId: number }) => {
                 color={block.color!}
                 floor={blockFloors[block.timeBlockId ?? 0]}
                 blockType={block.blockType ?? 'MEETING'}
-                onBlockClick={() => {
-                  navigate(PATH.ARCHIVING, { state: { selectedBlock: block } });
+                onBlockClick={(e, clickedBlock, blockDetail) => {
+                  handleBlockClick(e, clickedBlock, blockDetail);
+                  navigate(PATH.ARCHIVING, { state: { selectedBlock: clickedBlock, blockDetail } });
                 }}>
                 {block.name}
               </TimeBlock>
