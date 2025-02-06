@@ -1,29 +1,10 @@
 import { Button, Flex, Heading, Text } from '@tiki/ui';
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 import { pageStyle, textStyle } from '@/page/onboarding/index.style';
 
-import { $api } from '@/shared/api/client';
-import { STORAGE_KEY } from '@/shared/constant/api';
-import { PATH } from '@/shared/constant/path';
 import { useOpenModal } from '@/shared/store/modal';
 
 const OnBoardingPage = () => {
-  const navigate = useNavigate();
-
-  const { data, isFetched } = $api.useQuery('get', '/api/v1/members/teams');
-
-  useEffect(() => {
-    if (data?.data?.belongTeamGetResponses[0]) {
-      localStorage.setItem(STORAGE_KEY.TEAM_ID, String(data?.data?.belongTeamGetResponses[0].id));
-      localStorage.setItem(STORAGE_KEY.TEAM_NAME, data?.data?.belongTeamGetResponses[0].name);
-
-      navigate(PATH.DASHBOARD);
-    }
-  }, [data?.data?.belongTeamGetResponses, isFetched, navigate]);
-
   const openModal = useOpenModal();
 
   const handleCreateWorkSpace = () => {
