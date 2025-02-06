@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IcFileUpload } from '@tiki/icon';
-import { Button, Flex, Text, scrollStyle, useToastAction } from '@tiki/ui';
+import { Flex, scrollStyle, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
@@ -9,14 +8,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
-import {
-  boxStyle,
-  scrollBoxStyle,
-  uploadBoxStyle,
-} from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import FileUploadContainer from '@/shared/component/NewFileImportModal/FileUploadContainer/FileUploadContainer';
+import { scrollBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
-import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
@@ -28,10 +23,10 @@ interface NewFileImportModalProps {
   onUploadFile?: (files: DocumentDetail[]) => void;
   onNext?: () => void;
   onPrev?: () => void;
-  contentType?: 'create-block' | 'file' | 'timeblock-file';
+  contentType?: 'create-block' | 'new-file' | 'timeblock-file';
 }
 
-interface FileWithDocumentId extends File {
+export interface FileWithDocumentId extends File {
   documentId?: number;
 }
 
@@ -41,7 +36,7 @@ const NewFileImportModal = ({
   selectedFiles = [],
   onUploadFile = () => {},
   size = 'medium',
-  contentType = 'file',
+  contentType = 'new-file',
 }: NewFileImportModalProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
@@ -58,21 +53,6 @@ const NewFileImportModal = ({
   const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
   const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
   const queryClient = useQueryClient();
-
-  const { fileInputRef, handleFileChange, handleDragOver, handleDrop } = useFile({
-    files,
-    onFilesChange: (newFiles) => {
-      setFiles((prevFiles) => {
-        const uniqueFiles = newFiles.filter(
-          (newFile) => !prevFiles.some((file) => file.name === newFile.name && file.size === newFile.size)
-        );
-
-        return [...prevFiles, ...uniqueFiles];
-      });
-    },
-    setFileUrls,
-    setUploadStatus,
-  });
 
   const handleUploadFile = (validFiles: FileWithDocumentId[]) => {
     postDocumentMutation(
@@ -175,35 +155,13 @@ const NewFileImportModal = ({
       <Modal.Body>
         <Flex css={flexStyle}>
           <Flex styles={{ direction: 'column', width: '100%' }}>
-            <Flex
-              css={[boxStyle, uploadBoxStyle(size)]}
-              onDragOver={handleDragOver}
-              onDrop={(event) => handleDrop(event)}>
-              <Flex tag="form" styles={{ direction: 'column', align: 'center', justify: 'center' }}>
-                <input
-                  type="file"
-                  multiple
-                  style={{ display: 'none' }}
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                />
-                <IcFileUpload width={32} height={32} css={{ marginBottom: '1.2rem' }} />
-                <Flex styles={{ direction: 'column', gap: '0.8rem', align: 'center', justify: 'center' }}>
-                  <Text tag="body6" css={{ marginBottom: '0.8rem' }}>
-                    업로드할 파일을 끌어다 놓으세요.
-                  </Text>
-                  <Text tag="body8" css={{ whiteSpace: 'nowrap' }}>
-                    JPEG, PNG, PDF, Word 형식의 파일을 업로드할 수 있습니다.
-                  </Text>
-                  <Text tag="body8" css={{ marginBottom: '2rem' }}>
-                    최대 파일 크기는 50MB입니다.
-                  </Text>
-                </Flex>
-                <Button variant="outline" css={{ width: '16rem' }} onClick={() => fileInputRef.current?.click()}>
-                  파일 브라우저
-                </Button>
-              </Flex>
-            </Flex>
+            <FileUploadContainer
+              size={size}
+              files={files}
+              setFiles={setFiles}
+              setFileUrls={setFileUrls}
+              setUploadStatus={setUploadStatus}
+            />
             <div css={[scrollStyle, scrollBoxStyle(size)]}>
               {files.map((file) => (
                 <UploadedFileItem
@@ -224,8 +182,8 @@ const NewFileImportModal = ({
         step={3}
         contentType={contentType}
         buttonClick={onNext ?? handleClose}
-        closeModal={closeModal}
-        prevStep={onPrev}
+        closeModal={onPrev ?? closeModal}
+        prevStep={onPrev ?? closeModal}
         isButtonActive={!isButtonActive}
       />
     </Modal>

@@ -87,8 +87,8 @@ const ModalFooterButtons = (
 
     case 'invite':
       return [
-        createButton('건너뛰기', buttonClick, 'outline', false),
-        createButton('다음으로', buttonClick, 'primary', !isButtonActive),
+        createButton('취소', closeModal, 'outline'),
+        createButton('완료', buttonClick, 'primary', !isButtonActive),
       ];
     case 'activity-tag':
       return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];
@@ -101,6 +101,11 @@ const ModalFooterButtons = (
       return [
         createButton('취소', closeModal, 'outline'),
         createButton('연동', buttonClick, 'primary', !isButtonActive),
+      ];
+    case 'timeblock-file':
+      return [
+        createButton('취소', closeModal, 'outline'),
+        createButton('업로드', buttonClick, 'primary', !isButtonActive),
       ];
     case 'caution':
       return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];

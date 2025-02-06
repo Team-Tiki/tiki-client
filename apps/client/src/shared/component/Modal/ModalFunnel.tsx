@@ -13,6 +13,7 @@ import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
+import { TimeBlockFileUploadFlow } from '@/shared/hook/common/useTimeBlockUploadFlow';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import {
   isCautionModalData,
@@ -48,6 +49,16 @@ const ModalFunnel = () => {
     );
   }
 
+  if (contentType === 'timeblock-file') {
+    return (
+      <Suspense>
+        <FunnelProvider>
+          <TimeBlockFileUploadFlow />
+        </FunnelProvider>
+      </Suspense>
+    );
+  }
+
   const renderContent = () => {
     switch (contentType) {
       case 'create-workspace':
@@ -65,7 +76,7 @@ const ModalFunnel = () => {
       case 'invite':
         return (
           <FunnelStep step={1}>
-            <InviteModal step={1} />
+            <InviteModal />
           </FunnelStep>
         );
       case 'activity-tag':

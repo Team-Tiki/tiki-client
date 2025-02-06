@@ -19,6 +19,17 @@ export const textStyle = css({
   textAlign: 'center',
 });
 
+export const emptyStyle = css({
+  position: 'absolute',
+
+  top: '50%',
+  left: '50%',
+
+  color: theme.colors.gray_800,
+
+  transform: 'translate(-50%, -50%)',
+});
+
 export const scrollStyle = css({
   display: 'flex',
   flexDirection: 'column',
