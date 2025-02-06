@@ -41,15 +41,17 @@ export const infoContainerStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  gap: '1.6rem',
+  gap: '0.4rem',
 });
 
 export const infoLayoutStyle = css({
   display: 'flex',
 
+  height: '4rem',
+
   gap: '2rem',
 
-  alignItems: 'baseline',
+  alignItems: 'center',
 });
 
 export const infoStyle = css({
