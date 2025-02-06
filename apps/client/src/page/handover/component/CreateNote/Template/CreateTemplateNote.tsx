@@ -1,6 +1,6 @@
-import { Button, Input, Label, scrollStyle } from '@tiki/ui';
+import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@/page/handoverNote/component/Template/Template.style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
 import { TemplateNote } from '@/page/handoverNote/type/note';
+import { resizeTextarea } from '@/page/handoverNote/util/resize';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
 import { useOpenModal } from '@/shared/store/modal';
@@ -21,13 +22,17 @@ interface TemplateNoteProps {
 }
 
 const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const openModal = useOpenModal();
 
-  const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData((prev) => ({
       ...prev,
       [id]: event.target.value,
     }));
+
+    resizeTextarea(textareaRef);
   };
 
   const handleDeleteFile = (e: React.MouseEvent, fileId: number) => {
@@ -63,7 +68,12 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
       {TEMPLATE.map((item) => (
         <div css={layoutStyle} key={item.id}>
           <Label id={item.id}>{item.QUESTION}</Label>
-          <Input id={item.id} placeholder={item.PLACEHOLDER} onChange={handleNoteContents(item.id)} />
+          <Textarea
+            id={item.id}
+            ref={textareaRef}
+            placeholder={item.PLACEHOLDER}
+            onChange={handleNoteContents(item.id)}
+          />
         </div>
       ))}
 
