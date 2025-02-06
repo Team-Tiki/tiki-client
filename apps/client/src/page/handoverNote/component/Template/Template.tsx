@@ -1,4 +1,4 @@
-import { Button, Input, Label, scrollStyle } from '@tiki/ui';
+import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 
 import React, { SetStateAction, useState } from 'react';
 
@@ -30,7 +30,7 @@ const Template = ({ data, setData }: TemplateProps) => {
 
   const openModal = useOpenModal();
 
-  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValues((prev) => ({
       ...prev,
       [id]: event.target.value,
@@ -75,7 +75,12 @@ const Template = ({ data, setData }: TemplateProps) => {
       {TEMPLATE.map((item) => (
         <div key={item.id} css={layoutStyle}>
           <Label id={item.id}>{item.QUESTION}</Label>
-          <Input id={item.id} placeholder={item.PLACEHOLDER} value={values[item.id]} onChange={handleChange(item.id)} />
+          <Textarea
+            id={item.id}
+            placeholder={item.PLACEHOLDER}
+            value={values[item.id]}
+            onChange={handleChange(item.id)}
+          />
         </div>
       ))}
 
