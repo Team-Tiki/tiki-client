@@ -37,13 +37,18 @@ export const itemStyle = () =>
 
 export const textFieldStyle = css({
   display: 'flex',
+
+  maxWidth: '25rem',
+
   flexDirection: 'column',
   alignItems: 'start',
   gap: '0.6rem',
 
   fontWeight: 500,
+  ...ellipsisStyle,
 
   '& > span': {
+    maxWidth: '25rem',
     fontWeight: 400,
     color: theme.colors.gray_800,
 

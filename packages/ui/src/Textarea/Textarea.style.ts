@@ -30,7 +30,8 @@ export const textareaStyle = css({
 
   "::placeholder": {
     color: theme.colors.gray_500,
-    ...theme.text.body06,
+
+    ...theme.text.body07,
   },
 
   ":disabled": {
