@@ -98,7 +98,7 @@ const FileItem = ({ fileName, capacity, isEditable, tagId, fileUrl }: FileItemPr
       </Flex>
 
       {isEditable && (
-        <IcClose width={16} height={16} css={closeBtnStyle} onClick={(e) => handleFileDeleteButtonClick(e)} />
+        <IcClose width={32} height={32} css={closeBtnStyle} onClick={(e) => handleFileDeleteButtonClick(e)} />
       )}
     </li>
   );

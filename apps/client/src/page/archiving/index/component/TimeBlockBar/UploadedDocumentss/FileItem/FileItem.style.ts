@@ -43,5 +43,6 @@ export const fileCapacityStyle = css({
 });
 
 export const closeBtnStyle = css({
+  padding: '0.8rem',
   cursor: 'pointer',
 });
