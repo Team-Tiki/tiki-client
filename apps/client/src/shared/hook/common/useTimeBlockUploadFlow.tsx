@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import BrowseFileModal from '@/shared/component/BrowseFileModal/BrowseFileModal';
@@ -8,6 +10,7 @@ import SelectedFilesModal from '@/shared/component/SelectedFilesModal/SelectedFi
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
+import { useTimeBlockId } from '@/shared/store/timeBlockId';
 import { FunnelStep } from '@/shared/util/funnelStep';
 
 export type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
@@ -16,15 +19,26 @@ export const TimeBlockFileUploadFlow = () => {
   const [files, setFiles] = useState<DocumentDetail[]>([]);
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
+  const timeBlockId = useTimeBlockId();
   const teamId = useInitializeTeamId();
 
   const { setTotalSteps, nextStep } = useFunnel();
   const closeModal = useCloseModal();
 
+  const queryClient = useQueryClient();
+
   const { data: fileData } = $api.useQuery('get', '/api/v1/documents/team/{teamId}/timeline', {
     params: {
       query: { type: 'executive' },
       path: { teamId },
+    },
+  });
+
+  const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
+      });
     },
   });
 
@@ -36,6 +50,12 @@ export const TimeBlockFileUploadFlow = () => {
   };
 
   const handleComplete = () => {
+    fileMutate({
+      params: {
+        path: { teamId, timeBlockId },
+        query: { documentId: files.map((file) => file.documentId) },
+      },
+    });
     closeModal();
   };
 

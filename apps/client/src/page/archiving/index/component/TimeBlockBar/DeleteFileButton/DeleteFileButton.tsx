@@ -31,7 +31,7 @@ const DeleteFileButton = ({ tagId }: DeleteFileButtonProps) => {
     },
   });
 
-  const handleFileDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleFileDeleteButtonClick = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     e.stopPropagation();
     mutate(
       {
@@ -58,11 +58,7 @@ const DeleteFileButton = ({ tagId }: DeleteFileButtonProps) => {
     );
   };
 
-  return (
-    <button onClick={handleFileDeleteButtonClick}>
-      <IcClose width={32} height={32} css={deleteBtnStyle} />;
-    </button>
-  );
+  return <IcClose width={32} height={32} css={deleteBtnStyle} onClick={handleFileDeleteButtonClick} />;
 };
 
 export default DeleteFileButton;

@@ -44,7 +44,6 @@ const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
                 key={data.documentId}
                 fileName={data.fileName}
                 capacity={data.capacity}
-                isEditable={isEditable}
                 tagId={data.tagId}
                 fileUrl={data.fileUrl}
               />
