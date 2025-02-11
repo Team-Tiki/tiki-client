@@ -35,7 +35,7 @@ const TimeBlockBar = () => {
   const content = useDrawerContent();
 
   const initialData = useRef<Block & BlockDetail>(content);
-
+  console.log(content);
   // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
   const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(content);
 
@@ -54,13 +54,13 @@ const TimeBlockBar = () => {
     }
   );
 
-  // const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({
-  //         queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
-  //       });
-  //     },
-  //   });
+  const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
+      });
+    },
+  });
 
   const { mutate: tagMutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
     onSuccess: () => {
@@ -104,6 +104,17 @@ const TimeBlockBar = () => {
         },
       });
     }
+
+    const initialDocumentIds = initialData.current?.documents.map((data) => data.documentId);
+    const documentIds = content?.documents.map((data) => data.documentId);
+    const addDocumentIds = documentIds?.filter((id) => !initialDocumentIds?.includes(id));
+
+    fileMutate({
+      params: {
+        path: { teamId, timeBlockId },
+        query: { documentId: addDocumentIds ?? [] },
+      },
+    });
     // if(isBlockInfoPatchSuccess && ){
     //   initialData.current = {...blockInfo , documents: documentList};
     // }

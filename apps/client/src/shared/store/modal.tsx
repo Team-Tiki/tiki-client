@@ -31,6 +31,8 @@ interface ModalState {
     onConfirm?: (tags: ActivityTag[]) => void;
     // Image Modal
     onImageUpload?: (url: string) => void;
+    // New File Modal
+    onUploadFile: () => void;
   } | null;
   actions: {
     openModal: (contentType: ModalContentType, data?: ModalState['modalData']) => void;
