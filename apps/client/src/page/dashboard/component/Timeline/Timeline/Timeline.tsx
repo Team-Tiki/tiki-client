@@ -5,10 +5,12 @@ import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import { dayBodyStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/Timeline.style';
 
+import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
 
@@ -41,6 +43,15 @@ const Timeline = ({ teamId }: { teamId: number }) => {
 
   const blockFloors = alignBlocks(timeBlocks, endDay, currentMonth, currentYear);
 
+  const handleBlockClicks = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>,
+    clickedBlock: Block,
+    blockDetail: BlockDetail
+  ) => {
+    handleBlockClick(e, clickedBlock, blockDetail);
+    navigate(PATH.ARCHIVING, { state: { selectedBlock: clickedBlock, blockDetail } });
+  };
+
   return (
     <>
       <Day /> {!timeBlocks[0] && <ItemAdder path={PATH.ARCHIVING} />}
@@ -65,10 +76,7 @@ const Timeline = ({ teamId }: { teamId: number }) => {
                 color={block.color!}
                 floor={blockFloors[block.timeBlockId ?? 0]}
                 blockType={block.blockType ?? 'MEETING'}
-                onBlockClick={(e, clickedBlock, blockDetail) => {
-                  handleBlockClick(e, clickedBlock, blockDetail);
-                  navigate(PATH.ARCHIVING, { state: { selectedBlock: clickedBlock, blockDetail } });
-                }}>
+                onBlockClick={(e, clickedBlock, blockDetail) => handleBlockClicks(e, clickedBlock, blockDetail)}>
                 {block.name}
               </TimeBlock>
             );

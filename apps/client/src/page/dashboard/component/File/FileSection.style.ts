@@ -8,12 +8,10 @@ export const containerStyle = css(
     gap: '1.4rem',
     padding: '0 0 0.7rem',
     overflowX: 'scroll',
-    '&>*': {
-      ':hover': {
-        backgroundColor: theme.colors.gray_100,
+    '&>*:hover': {
+      backgroundColor: theme.colors.gray_100,
 
-        transition: 'all ease 0.5s',
-      },
+      transition: 'all ease 0.5s',
     },
   },
   scrollStyle,
