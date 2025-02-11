@@ -103,3 +103,5 @@ export const IMAGE_MODAL = {
     INFO_TEXT: '파일을 업로드 중입니다',
   },
 };
+
+export const MAX_TEAM_COUNT = 8;

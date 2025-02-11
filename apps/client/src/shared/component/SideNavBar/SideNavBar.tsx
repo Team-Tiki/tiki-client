@@ -1,5 +1,5 @@
 import { IcAvatar, IcTikiLogo } from '@tiki/icon';
-import { Divider, Flex, ToolTip, theme } from '@tiki/ui';
+import { Divider, Flex, ToolTip, theme, useToastAction } from '@tiki/ui';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import Item from '@/shared/component/SideNavBar/Item/Item';
 import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
+import { MAX_TEAM_COUNT } from '@/shared/constant';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useOpenModal } from '@/shared/store/modal';
@@ -20,6 +21,7 @@ const SideNavBar = () => {
   const { setTeamId } = useTeamIdAction();
   const navigate = useNavigate();
   const openModal = useOpenModal();
+  const { createToast } = useToastAction();
 
   const { data } = $api.useQuery('get', '/api/v1/members/teams');
 
@@ -41,6 +43,10 @@ const SideNavBar = () => {
   };
 
   const handleWorkspaceClick = () => {
+    if (data && data?.data && data?.data?.belongTeamGetResponses.length >= MAX_TEAM_COUNT) {
+      createToast(`워크스페이스는 최대 ${MAX_TEAM_COUNT}개까지 생성 가능합니다.`, 'error');
+      return;
+    }
     openModal('create-workspace');
   };
 
@@ -51,7 +57,7 @@ const SideNavBar = () => {
         <Item
           variant={{ type: 'dashboard', hoverMessage: 'showcase' }}
           isClicked={isInShowcase}
-          onLogoClick={() => handleItemClick(null, PATH.SHOWCASE)}
+          onLogoClick={() => createToast('현재 준비중인 기능입니다.', 'default')}
         />
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
         {data?.data?.belongTeamGetResponses.map((data) => {
@@ -74,12 +80,8 @@ const SideNavBar = () => {
             <div
               role="button"
               tabIndex={0}
-              onClick={() => {
-                alert('현재 준비중인 기능입니다.');
-              }}
-              onKeyDown={() => {
-                alert('현재 준비중인 기능입니다.');
-              }}>
+              onClick={() => createToast('현재 준비중인 기능입니다.', 'default')}
+              onKeyDown={() => createToast('현재 준비중인 기능입니다.', 'default')}>
               <IcAvatar width={32} height={32} />
             </div>
           </ToolTip>
