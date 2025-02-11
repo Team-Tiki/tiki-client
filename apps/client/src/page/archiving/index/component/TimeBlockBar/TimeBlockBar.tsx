@@ -9,16 +9,18 @@ import BlockInfo from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/B
 import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNotes';
 import { closeBtnStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss';
+import { Block, BlockDetail, Documents } from '@/page/archiving/index/type/blockType';
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
+import { DrawerContent, useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
 export type BlockInfoType = {
   name: string;
   startDate: string;
   endDate: string;
+  documents: Documents;
 };
 
 const TimeBlockBar = () => {
@@ -30,32 +32,41 @@ const TimeBlockBar = () => {
   const teamId = useInitializeTeamId();
 
   const queryClient = useQueryClient();
-  const { name, startDate, endDate } = { ...useDrawerContent() };
+  const content = useDrawerContent();
 
-  const initialData = useRef({ name, startDate, endDate });
-
-  const [blockInfo, setBlockInfo] = useState({} as BlockInfoType);
+  const initialData = useRef<Block & BlockDetail>(content);
 
   // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
-  const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(blockInfo);
-
-  useEffect(() => {
-    setBlockInfo({
-      name: name ?? '',
-      startDate: startDate ?? '',
-      endDate: endDate ?? '',
-    });
-  }, [name, startDate, endDate]);
+  const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(content);
 
   const handleEditClick = () => {
     setIsEditable((prevState) => !prevState);
   };
 
-  const { mutate } = $api.useMutation('patch', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
+  const { mutate, isSuccess: isBlockInfoPatchSuccess } = $api.useMutation(
+    'patch',
+    '/api/v1/teams/{teamId}/time-block/{timeBlockId}',
+    {
+      onSuccess: () => {
+        handleEditClick();
+        queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
+      },
+    }
+  );
+
+  // const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries({
+  //         queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
+  //       });
+  //     },
+  //   });
+
+  const { mutate: tagMutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
     onSuccess: () => {
-      handleEditClick();
-      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
-      initialData.current = blockInfo;
+      queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
+      });
     },
   });
 
@@ -70,11 +81,38 @@ const TimeBlockBar = () => {
         },
       },
       body: {
-        name: blockInfo.name,
-        startDate: blockInfo.startDate,
-        endDate: blockInfo.endDate,
+        name: content?.name ?? '',
+        startDate: content?.startDate ?? '',
+        endDate: content?.endDate ?? '',
       },
     });
+
+    // tagMutate(
+    //   {
+    //     params: {
+    //       path: {
+    //         teamId,
+    //         timeBlockId,
+    //       },
+    //       query: {
+    //         tagId: [tagId],
+    //       },
+    //     },
+    //   },
+    //   {
+    //     onSuccess: () => {
+    //       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'] });
+    //       content &&
+    //         openDrawer({
+    //           ...content,
+    //           documents: data?.data?.documents ?? [],
+    //         });
+    //     },
+    //   }
+    // );
+    // if(isBlockInfoPatchSuccess && ){
+    //   initialData.current = {...blockInfo , documents: documentList};
+    // }
   };
 
   return (
@@ -82,13 +120,7 @@ const TimeBlockBar = () => {
       <IcClose width={16} height={16} css={closeBtnStyle} onClick={closeDrawer} />
 
       <Flex tag="form" styles={{ direction: 'column', gap: '3.6rem' }} onSubmit={handleSubmit}>
-        <BlockInfo
-          isEditable={isEditable}
-          onEditClick={handleEditClick}
-          canSubmit={canSubmit}
-          setBlockInfo={setBlockInfo}
-          {...blockInfo}
-        />
+        <BlockInfo isEditable={isEditable} onEditClick={handleEditClick} canSubmit={canSubmit} />
         <TaggedNotes isEditable={isEditable} />
         <UploadedDocuments isEditable={isEditable} />
       </Flex>

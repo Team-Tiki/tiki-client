@@ -13,7 +13,11 @@ import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
 import { downloadDocument } from '@/shared/util/document';
 
-const FileItem = ({ fileName, capacity, tagId, fileUrl }: Omit<Document, 'documentId'>) => {
+interface FileItemProps extends Omit<Document, 'documentId'> {
+  isEditable: boolean;
+}
+
+const FileItem = ({ fileName, capacity, tagId, fileUrl, isEditable }: FileItemProps) => {
   const fileType = fileName.split('.')[fileName.split('.').length - 1];
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -40,7 +44,7 @@ const FileItem = ({ fileName, capacity, tagId, fileUrl }: Omit<Document, 'docume
             </Text>
           </Flex>
         </Flex>
-        <DeleteFileButton tagId={tagId} />
+        {isEditable && <DeleteFileButton tagId={tagId} />}
       </button>
     </li>
   );

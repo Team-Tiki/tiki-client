@@ -9,26 +9,28 @@ import {
 import { BlockInfoType } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar';
 import { circleStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
-import { useDrawerContent } from '@/shared/store/drawer';
+import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { Validate } from '@/shared/util/validate';
 
-interface BlockInfoProps extends BlockInfoType {
+interface BlockInfoProps {
   isEditable: boolean;
   onEditClick: () => void;
   canSubmit: boolean;
-  setBlockInfo: React.Dispatch<React.SetStateAction<BlockInfoType>>;
 }
 
-const BlockInfo = ({ isEditable, onEditClick, canSubmit, setBlockInfo, name, startDate, endDate }: BlockInfoProps) => {
-  const { color, blockType } = { ...useDrawerContent() };
+const BlockInfo = ({ isEditable, onEditClick, canSubmit }: BlockInfoProps) => {
+  const { name, startDate, endDate, color, blockType } = useDrawerContent() as Block & BlockDetail;
+  const { setContent } = useDrawerAction();
+
   const handleDateChange = (start: Date | null, end: Date | null) => {
-    handleblockInfoChange('startDate', format(start ?? startDate, 'yyyy-MM-dd'));
-    handleblockInfoChange('endDate', format(end ?? endDate, 'yyyy-MM-dd'));
+    handleblockInfoChange('startDate', format(start ?? startDate ?? '', 'yyyy-MM-dd'));
+    handleblockInfoChange('endDate', format(end ?? endDate ?? '', 'yyyy-MM-dd'));
   };
 
-  const handleblockInfoChange = (key: string, value: string) => {
-    setBlockInfo((prev) => (prev = { ...prev, [key]: value }));
+  const handleblockInfoChange = (key: keyof Omit<BlockInfoType, 'documents'>, value: string) => {
+    setContent(key, value);
   };
 
   const handleBlockNameChange = (blockName: string) => {
@@ -83,8 +85,8 @@ const BlockInfo = ({ isEditable, onEditClick, canSubmit, setBlockInfo, name, sta
             onChange={handleDateChange}
             variant="range"
             triggerWidth="100%"
-            defaultSelectedDate={new Date(startDate)}
-            defaultEndDate={new Date(endDate)}
+            defaultSelectedDate={new Date(startDate ?? '')}
+            defaultEndDate={new Date(endDate ?? '')}
           />
         ) : (
           <Text tag="body6" css={periodStyle}>
