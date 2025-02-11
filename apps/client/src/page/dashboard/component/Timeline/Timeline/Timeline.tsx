@@ -10,7 +10,6 @@ import { alignBlocks, createTimeBlock } from '@/page/archiving/index/util/block'
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { timelineContentStyle } from '@/page/dashboard/component/Timeline/Timeline/Timeline.style';
 
-import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { PATH } from '@/shared/constant/path';
 
