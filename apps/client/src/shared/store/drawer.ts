@@ -11,6 +11,7 @@ interface DrawerStore {
   actions: {
     openDrawer: (content: DrawerContent) => void;
     closeDrawer: () => void;
+    setContent: (key: keyof (Block & BlockDetail), value: Block[keyof Block] | BlockDetail[keyof BlockDetail]) => void;
   };
 }
 
@@ -29,6 +30,10 @@ const useStore = create<DrawerStore>((set) => ({
         isOpen: false,
         content: null,
       }),
+    setContent: (key: keyof (Block & BlockDetail), value: Block[keyof Block] | BlockDetail[keyof BlockDetail]) =>
+      set((prev) => ({
+        content: { ...prev.content, [key]: value } as DrawerContent,
+      })),
   },
 }));
 
