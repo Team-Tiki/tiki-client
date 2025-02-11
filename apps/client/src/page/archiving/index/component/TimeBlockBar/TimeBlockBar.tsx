@@ -8,12 +8,12 @@ import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNot
 import { closeBtnStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss';
 
-interface TimeBlockBarProps {
-  onCloseDrawer: () => void;
-}
+import { useDrawerAction } from '@/shared/store/drawer';
 
-const TimeBlockBar = ({ onCloseDrawer }: TimeBlockBarProps) => {
+const TimeBlockBar = () => {
   const [isEditable, setIsEditable] = useState(false);
+
+  const { closeDrawer } = useDrawerAction();
 
   const handleEditClick = () => {
     setIsEditable((prevState) => !prevState);
@@ -21,7 +21,7 @@ const TimeBlockBar = ({ onCloseDrawer }: TimeBlockBarProps) => {
 
   return (
     <section>
-      <IcClose width={16} height={16} css={closeBtnStyle} onClick={onCloseDrawer} />
+      <IcClose width={16} height={16} css={closeBtnStyle} onClick={closeDrawer} />
 
       <Flex styles={{ direction: 'column', gap: '3.6rem' }}>
         <BlockInfo isEditable={isEditable} onEditClick={handleEditClick} />
