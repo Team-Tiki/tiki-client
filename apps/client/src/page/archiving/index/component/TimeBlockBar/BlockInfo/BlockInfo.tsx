@@ -1,7 +1,7 @@
-import { CommandButton, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
+import { Button, CommandButton, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 import { format } from 'date-fns';
 
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -26,18 +26,21 @@ type BlockInfoProps = {
 
 const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
   const { name, startDate, endDate, color, blockType } = { ...useDrawerContent() };
-
   const timeBlockId = useTimeBlockId();
-
   const teamId = useInitializeTeamId();
 
   const queryClient = useQueryClient();
+
+  const initialData = useRef({ name, startDate, endDate });
 
   const [blockInfo, setBlockInfo] = useState<{ name: string; startDate: string; endDate: string }>({
     name: name ?? '',
     startDate: startDate ?? '',
     endDate: endDate ?? '',
   });
+
+  // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
+  const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(blockInfo);
 
   useEffect(() => {
     setBlockInfo({
@@ -51,6 +54,7 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
     onSuccess: () => {
       onEditClick();
       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
+      initialData.current = blockInfo;
     },
   });
 
@@ -93,14 +97,33 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
         <Flex css={circleStyle(color ?? '')}>
           {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color ?? '')}
         </Flex>
-        <CommandButton
-          type={isEditable ? 'button' : 'submit'}
-          variant="fourth"
-          commandKey={isEditable ? 'S' : 'E'}
-          size="xSmall"
-          onClick={isEditable ? (e) => handleSubmit(e) : onEditClick}>
-          {isEditable ? '저장' : '수정하기'}
-        </CommandButton>
+
+        {isEditable ? (
+          <CommandButton
+            type={'submit'}
+            variant="fourth"
+            commandKey={isEditable ? 'S' : 'E'}
+            size="xSmall"
+            onClick={handleSubmit}
+            disabled={!canSubmit}>
+            저장
+          </CommandButton>
+        ) : (
+          <Flex styles={{ gap: '0.8rem' }}>
+            <Button
+              variant="tertiary"
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditClick();
+              }}>
+              수정
+            </Button>
+            <Button variant="tertiary" size="small">
+              삭제
+            </Button>
+          </Flex>
+        )}
       </Flex>
 
       <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem' }}>
