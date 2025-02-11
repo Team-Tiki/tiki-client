@@ -2,8 +2,12 @@ import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
 export const containerStyle = css({
+  width: '100%',
+});
+
+export const wrapperStyle = css({
   display: 'flex',
-  gap: '1.2rem',
+
   alignItems: 'center',
   justifyContent: 'space-between',
 
@@ -40,9 +44,4 @@ export const fileTitleStyle = css({
 
 export const fileCapacityStyle = css({
   color: theme.colors.gray_800,
-});
-
-export const closeBtnStyle = css({
-  padding: '0.8rem',
-  cursor: 'pointer',
 });
