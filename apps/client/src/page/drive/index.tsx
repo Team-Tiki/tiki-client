@@ -2,10 +2,10 @@ import { IcGrid, IcList, IcSearch } from '@tiki/icon';
 import { Button, Flex, Input, Select, Switch, useToastAction } from '@tiki/ui';
 import { hasKeyInObject, useDeferredSearchFilter } from '@tiki/utils';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
