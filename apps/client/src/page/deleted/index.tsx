@@ -1,6 +1,8 @@
 import { Button, Flex, useToastAction } from '@tiki/ui';
 import { useMultiSelect } from '@tiki/utils';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useTeamUsage } from '@/page/drive/hook/api/useTeamUsage';
 import { contentStyle } from '@/page/drive/index.style';
 
@@ -28,7 +30,9 @@ const DeletedPage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
-  const { modifiedAvailableUsage, modifiedCapacity, refetch: usageRefetch } = useTeamUsage();
+  const { modifiedAvailableUsage, modifiedCapacity } = useTeamUsage();
+
+  const queryClient = useQueryClient();
 
   const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
@@ -47,7 +51,7 @@ const DeletedPage = () => {
     onSuccess: () => {
       createToast(`삭제가 완료되었습니다.`, 'success');
       refetch();
-      usageRefetch();
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/capacity'] });
     },
     onError: (error) => {
       createToast(`${error.message}`, 'error');
@@ -70,16 +74,12 @@ const DeletedPage = () => {
       content: CAUTION.DELETE_FOR_GOOD.CONTENT,
       desc: CAUTION.DELETE_FOR_GOOD.DESC,
       onClick: () => {
-        try {
-          deleteMutation.mutate({
-            params: { path: { teamId }, query: { documentId: ids } },
-          });
+        deleteMutation.mutate({
+          params: { path: { teamId }, query: { documentId: ids } },
+        });
 
-          handleReset();
-          closeModal();
-        } catch (error) {
-          createToast(`삭제에 실패하였습니다:${error}`, 'error');
-        }
+        handleReset();
+        closeModal();
       },
     });
   };
@@ -99,19 +99,15 @@ const DeletedPage = () => {
       content: CAUTION.EMPTY_DELETED.CONTENT,
       desc: CAUTION.EMPTY_DELETED.DESC,
       onClick: () => {
-        try {
-          deleteMutation.mutate({
-            params: {
-              path: { teamId },
-              query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
-            },
-          });
+        deleteMutation.mutate({
+          params: {
+            path: { teamId },
+            query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
+          },
+        });
 
-          handleReset();
-          closeModal();
-        } catch (error) {
-          createToast(`휴지통 비우기에 실패하였습니다:${error}`, 'error');
-        }
+        handleReset();
+        closeModal();
       },
     });
   };

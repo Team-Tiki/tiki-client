@@ -5,7 +5,7 @@ import { hasKeyInObject, useDeferredSearchFilter } from '@tiki/utils';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
@@ -45,8 +45,6 @@ const DrivePage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
-  const { modifiedAvailableUsage, modifiedCapacity, refetch: usageRefetch } = useTeamUsage();
-
   const queryClient = useQueryClient();
 
   const { mutate: deleteFileMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents', {
@@ -78,9 +76,7 @@ const DrivePage = () => {
       : new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime()
   );
 
-  useEffect(() => {
-    usageRefetch();
-  }, [filteredResult, usageRefetch]);
+  const { modifiedAvailableUsage, modifiedCapacity } = useTeamUsage(filteredResult);
 
   const {
     selectAll,
