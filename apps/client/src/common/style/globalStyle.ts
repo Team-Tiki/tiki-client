@@ -5,6 +5,7 @@ export const GlobalStyle = css`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    border: 0;
     font-family:
       'Pretendard Variable',
       Pretendard,
