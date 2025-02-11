@@ -8,7 +8,7 @@ export const containerStyle = (isOpen: boolean) =>
     right: 0,
     zIndex: theme.zIndex.overlayMiddle,
 
-    width: isOpen ? '27rem' : 0,
+    width: isOpen ? '27.1rem' : 0,
     height: 'calc(100vh)',
     padding: '0 1.6rem',
 
