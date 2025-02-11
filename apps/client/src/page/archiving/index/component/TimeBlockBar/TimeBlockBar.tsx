@@ -1,7 +1,7 @@
 import { IcClose } from '@tiki/icon';
 import { Flex } from '@tiki/ui';
 
-import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -13,7 +13,7 @@ import { Block, BlockDetail, Documents } from '@/page/archiving/index/type/block
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { DrawerContent, useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
+import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
 export type BlockInfoType = {
@@ -43,7 +43,7 @@ const TimeBlockBar = () => {
     setIsEditable((prevState) => !prevState);
   };
 
-  const { mutate, isSuccess: isBlockInfoPatchSuccess } = $api.useMutation(
+  const { mutate: blockMutate, isSuccess: isBlockInfoPatchSuccess } = $api.useMutation(
     'patch',
     '/api/v1/teams/{teamId}/time-block/{timeBlockId}',
     {
@@ -73,7 +73,7 @@ const TimeBlockBar = () => {
   const handleSubmit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
 
-    mutate({
+    blockMutate({
       params: {
         path: {
           teamId,
@@ -87,29 +87,23 @@ const TimeBlockBar = () => {
       },
     });
 
-    // tagMutate(
-    //   {
-    //     params: {
-    //       path: {
-    //         teamId,
-    //         timeBlockId,
-    //       },
-    //       query: {
-    //         tagId: [tagId],
-    //       },
-    //     },
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'] });
-    //       content &&
-    //         openDrawer({
-    //           ...content,
-    //           documents: data?.data?.documents ?? [],
-    //         });
-    //     },
-    //   }
-    // );
+    const initialTagIds = initialData.current?.documents.map((data) => data.tagId);
+    const finalTagIds = content?.documents.map((data) => data.tagId);
+    const deletedTagIds = initialTagIds?.filter((id) => !finalTagIds?.includes(id));
+
+    if (deletedTagIds) {
+      tagMutate({
+        params: {
+          path: {
+            teamId,
+            timeBlockId,
+          },
+          query: {
+            tagId: deletedTagIds,
+          },
+        },
+      });
+    }
     // if(isBlockInfoPatchSuccess && ){
     //   initialData.current = {...blockInfo , documents: documentList};
     // }
