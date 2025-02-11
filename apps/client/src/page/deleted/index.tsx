@@ -54,7 +54,7 @@ const DeletedPage = () => {
       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/capacity'] });
     },
     onError: (error) => {
-      createToast(`${error.message}`, 'error');
+      createToast(`삭제에 실패했습니다: ${error.message}`, 'error');
     },
   });
 
@@ -64,7 +64,7 @@ const DeletedPage = () => {
       refetch();
     },
     onError: (error) => {
-      createToast(`${error.message}`, 'error');
+      createToast(`삭제에 실패했습니다: ${error.message}`, 'error');
     },
   });
 
