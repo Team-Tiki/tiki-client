@@ -1,7 +1,7 @@
 import { Flex, ToolTip } from '@tiki/ui';
 import { motion } from 'framer-motion';
 
-import { PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { indicatorStyle, itemStyle, pageIndicatorStyle } from '@/shared/component/SideNavBar/index.style';
