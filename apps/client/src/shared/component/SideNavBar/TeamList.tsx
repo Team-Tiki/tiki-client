@@ -27,7 +27,11 @@ const TeamList = () => {
               localStorage.setItem(STORAGE_KEY.TEAM_NAME, data.name);
             }}
             isActive={getIsCurrentTeam(data.id)}>
-            {data.iconImageUrl ? <img alt={`${data.name} 로고`} /> : <span css={firstSpellStyle}>{data.name[0]}</span>}
+            {data.iconImageUrl ? (
+              <img src={data.iconImageUrl} alt={`${data.name} 로고`} />
+            ) : (
+              <span css={firstSpellStyle}>{data.name[0]}</span>
+            )}
           </Logo>
         );
       })}
