@@ -3,5 +3,5 @@ export const hasKeyInObject = <T extends object>(object: T, key: string | number
 };
 
 export const isNil = <T>(value: T | undefined | null): value is null | undefined => {
-  return value === null || value === undefined;
+  return value == null;
 };
