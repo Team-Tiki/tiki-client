@@ -62,23 +62,23 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
 
       <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem' }}>
         {isEditable ? (
-          <Input css={titleInputStyle} value={name} onChange={(event) => handleBlockNameChange(event.target.value)} />
+          <>
+            <Input css={titleInputStyle} value={name} onChange={(event) => handleBlockNameChange(event.target.value)} />
+            <DatePicker
+              onChange={handleDateChange}
+              variant="range"
+              triggerWidth="100%"
+              defaultSelectedDate={new Date(startDate)}
+              defaultEndDate={new Date(endDate)}
+            />
+          </>
         ) : (
-          <Heading tag="H6">{name}</Heading>
-        )}
-
-        {isEditable ? (
-          <DatePicker
-            onChange={handleDateChange}
-            variant="range"
-            triggerWidth="100%"
-            defaultSelectedDate={new Date(startDate)}
-            defaultEndDate={new Date(endDate)}
-          />
-        ) : (
-          <Text tag="body6" css={periodStyle}>
-            {startDate} ~ {endDate}
-          </Text>
+          <>
+            <Heading tag="H6">{name}</Heading>{' '}
+            <Text tag="body6" css={periodStyle}>
+              {startDate} ~ {endDate}
+            </Text>
+          </>
         )}
       </Flex>
     </div>
