@@ -369,6 +369,10 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
+        /**
+         * 관리자 권한 변경
+         * @description 팀 관리자의 권한을 변경한다.
+         */
         patch: operations["alterAdmin"];
         trace?: never;
     };
@@ -379,12 +383,20 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /**
+         * 팀 정보 조회
+         * @description 특정 팀의 정보를 조회한다.
+         */
         get: operations["getTeamName"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
+        /**
+         * 팀 정보 수정
+         * @description 팀 정보를 수정한다.
+         */
         patch: operations["updateTeamInform"];
         trace?: never;
     };
@@ -692,6 +704,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/members/withdrawal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 회원 탈퇴
+         * @description 회원 탈퇴를 진행합니다.
+         */
+        get: operations["withdrawal"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/members/teams": {
         parameters: {
             query?: never;
@@ -704,6 +736,26 @@ export interface paths {
          * @description 왼쪽 사이드바의 소속된 팀 정보를 가져옵니다.
          */
         get: operations["getBelongTeam"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/members/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 회원 정보 가져오기
+         * @description 회원 정보를 가져옵니다.
+         */
+        get: operations["getMemberInfo"];
         put?: never;
         post?: never;
         delete?: never;
@@ -848,10 +900,6 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        ErrorResponse: {
-            success: boolean;
-            message: string;
-        };
         TeamCreateRequest: {
             name: string;
             /** @enum {string} */
@@ -866,6 +914,10 @@ export interface components {
         TeamCreateResponse: {
             /** Format: int64 */
             teamId: number;
+        };
+        ErrorResponse: {
+            success: boolean;
+            message: string;
         };
         TimeBlockCreateRequest: {
             name: string;
@@ -925,9 +977,9 @@ export interface components {
              */
             fileKey: string;
             /**
-             * Format: double
-             * @description 파일 용량
-             * @example 1.23
+             * Format: int64
+             * @description 파일 용량 (단위 : byte)
+             * @example 123
              */
             capacity: number;
         };
@@ -1096,7 +1148,7 @@ export interface components {
             documentId: number;
             name: string;
             url: string;
-            /** Format: double */
+            /** Format: int64 */
             capacity: number;
         };
         DeletedDocumentsGetResponse: {
@@ -1132,7 +1184,7 @@ export interface components {
             documentId: number;
             fileName: string;
             fileUrl: string;
-            /** Format: double */
+            /** Format: int64 */
             capacity: number;
             /** Format: int64 */
             tagId: number;
@@ -1203,7 +1255,7 @@ export interface components {
             documentId: number;
             name: string;
             url: string;
-            /** Format: double */
+            /** Format: int64 */
             capacity: number;
             /** Format: date-time */
             createdTime: string;
@@ -1232,7 +1284,7 @@ export interface components {
             documentId: number;
             name: string;
             url: string;
-            /** Format: double */
+            /** Format: int64 */
             capacity: number;
             /** Format: date-time */
             createdTime: string;
@@ -1251,9 +1303,9 @@ export interface components {
             data?: components["schemas"]["UsageGetResponse"];
         };
         UsageGetResponse: {
-            /** Format: double */
+            /** Format: int64 */
             capacity: number;
-            /** Format: double */
+            /** Format: int64 */
             usage: number;
         };
         CategoriesGetResponse: {
@@ -1337,7 +1389,7 @@ export interface components {
             id: number;
             fileName: string;
             fileUrl: string;
-            /** Format: double */
+            /** Format: int64 */
             capacity: number;
         };
         NoteFreeDetailGetServiceResponse: {
@@ -1405,6 +1457,18 @@ export interface components {
             message: string;
             data?: components["schemas"]["BelongTeamsGetResponse"];
         };
+        MemberInfoGetResponse: {
+            Email: string;
+            name: string;
+            /** Format: date */
+            birth: string;
+            University: string;
+        };
+        SuccessResponseMemberInfoGetResponse: {
+            success: boolean;
+            message: string;
+            data?: components["schemas"]["MemberInfoGetResponse"];
+        };
         PreSignedUrlResponse: {
             fileName: string;
             url: string;
@@ -1460,7 +1524,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
+                    "*/*": components["schemas"]["SuccessResponseTeamsGetResponse"];
                 };
             };
             /** @description 서버 내부 오류 */
@@ -1469,16 +1533,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 클라이언트(요청) 오류 */
-            "4xx": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
+                    "*/*": components["schemas"]["SuccessResponseTeamsGetResponse"];
                 };
             };
         };
@@ -1511,7 +1566,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
+                    "*/*": components["schemas"]["SuccessResponseTeamCreateResponse"];
                 };
             };
             /** @description 서버 내부 오류 */
@@ -1520,16 +1575,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 클라이언트(요청) 오류 */
-            "4xx": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
+                    "*/*": components["schemas"]["SuccessResponseTeamCreateResponse"];
                 };
             };
         };
@@ -2870,15 +2916,35 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
+                /** @description 팀 ID */
                 teamId: number;
+                /** @description 권한 변경 대상 ID */
                 targetId: number;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description 성공 */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2893,14 +2959,33 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
+                /** @description 팀 ID */
                 teamId: number;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description 성공 */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamInformGetResponse"];
+                };
+            };
+            /** @description 존재하지 않는 팀 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseTeamInformGetResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2915,6 +3000,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
+                /** @description 팀 ID */
                 teamId: number;
             };
             cookie?: never;
@@ -2925,8 +3011,26 @@ export interface operations {
             };
         };
         responses: {
-            /** @description OK */
+            /** @description 성공 */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -3424,10 +3528,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                /**
-                 * @description 팀 id
-                 * @example 1
-                 */
+                /** @description 팀 ID */
                 teamId: number;
             };
             cookie?: never;
@@ -3449,16 +3550,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 클라이언트(요청) 오류 */
-            "4xx": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
+                    "*/*": components["schemas"]["SuccessResponseUsageGetResponse"];
                 };
             };
         };
@@ -3487,16 +3579,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 클라이언트(요청) 오류 */
-            "4xx": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
+                    "*/*": components["schemas"]["SuccessResponseCategoriesGetResponse"];
                 };
             };
         };
@@ -3856,6 +3939,53 @@ export interface operations {
             };
         };
     };
+    withdrawal: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseObject"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     getBelongTeam: {
         parameters: {
             query?: never;
@@ -3872,6 +4002,53 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["SuccessResponseBelongTeamsGetResponse"];
+                };
+            };
+            /** @description 유효하지 않은 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 서버 내부 오류 */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description 클라이언트(요청) 오류 */
+            "4xx": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    getMemberInfo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["SuccessResponseMemberInfoGetResponse"];
                 };
             };
             /** @description 유효하지 않은 회원 */
@@ -4076,10 +4253,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                /**
-                 * @description 팀 id
-                 * @example 1
-                 */
+                /** @description 팀 ID */
                 teamId: number;
             };
             cookie?: never;
@@ -4098,27 +4272,14 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
+                content?: never;
             };
             /** @description 서버 내부 오류 */
             500: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description 클라이언트(요청) 오류 */
-            "4xx": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
+                content?: never;
             };
         };
     };

@@ -1,30 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Item from '@/shared/component/SideNavBar/Item/Item';
+import Logo from '@/shared/component/SideNavBar/Logo';
 
 const meta = {
-  title: 'Shared/SideNavBarItem',
-  component: Item,
+  title: 'Shared/SideNavBarLogo',
+  component: Logo,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
-    isClicked: {
+    isActive: {
       control: { type: 'boolean' },
     },
   },
 
   args: {
-    variant: {
-      type: 'team',
-      logoUrl: '',
-      hoverMessage: '팀 프로필',
-    },
-    isClicked: false,
-    onLogoClick: () => {},
+    to: '#',
+    name: '티키',
+    isActive: false,
   },
-} satisfies Meta<typeof Item>;
+} satisfies Meta<typeof Logo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -32,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 export const DefaultItem: Story = {
   render: (args) => (
     <div css={{ position: 'relative' }}>
-      <Item {...args} />
+      <Logo {...args} />
     </div>
   ),
 };

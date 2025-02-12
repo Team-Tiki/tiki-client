@@ -42,13 +42,13 @@ export const firstSpellStyle = css({
   color: theme.colors.gray_500,
 });
 
-export const pageIndicatorStyle = () =>
+export const pageIndicatorStyle = (isClicked: boolean, isHover: boolean) =>
   css({
     width: '0.4rem',
     height: '2.4rem',
 
     borderRadius: '0 100px 100px 0',
-    backgroundColor: theme.colors.key_500,
+    backgroundColor: isClicked ? theme.colors.key_500 : isHover ? theme.colors.key_300 : theme.colors.white,
   });
 
 export const pageIndicatorHoverStyle = () =>
@@ -60,4 +60,31 @@ export const pageIndicatorHoverStyle = () =>
 
 export const profileImgStyle = css({
   objectFit: 'cover',
+});
+
+export const containerStyle = css({
+  position: 'fixed',
+
+  height: '100vh',
+
+  borderRight: `1px solid ${theme.colors.gray_300}`,
+
+  zIndex: theme.zIndex.overlayMiddle,
+});
+
+export const tikiLogoStyle = css({
+  width: '2.8rem',
+  height: '2.8rem',
+
+  margin: '2.4rem',
+});
+
+export const settingStyle = css({
+  position: 'fixed',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  padding: '2rem',
+  bottom: 0,
 });

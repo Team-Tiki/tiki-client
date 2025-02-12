@@ -1,92 +1,41 @@
-import { IcAvatar, IcTikiLogo } from '@tiki/icon';
-import { Divider, Flex, ToolTip, theme, useToastAction } from '@tiki/ui';
+import { IcGlobal, IcTikiLogo } from '@tiki/icon';
+import { Divider, Flex, theme } from '@tiki/ui';
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
-import Item from '@/shared/component/SideNavBar/Item/Item';
-import { containerStyle, settingStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/SideNavBar.style';
+import AddWorkspaceButton from '@/shared/component/SideNavBar/AddWorkspaceButton';
+import Logo from '@/shared/component/SideNavBar/Logo';
+import TeamList from '@/shared/component/SideNavBar/TeamList';
+import UserMenu from '@/shared/component/SideNavBar/UserMenu';
+import { containerStyle, tikiLogoStyle } from '@/shared/component/SideNavBar/index.style';
 import { MAX_TEAM_COUNT } from '@/shared/constant';
-import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import { useOpenModal } from '@/shared/store/modal';
-import { useTeamId, useTeamIdAction } from '@/shared/store/team';
 
 const SideNavBar = () => {
-  const [isInShowcase, setIsInShowcase] = useState(false);
-
-  const teamId = useTeamId();
-  const { setTeamId } = useTeamIdAction();
-  const navigate = useNavigate();
-  const openModal = useOpenModal();
-  const { createToast } = useToastAction();
-
   const { data } = $api.useQuery('get', '/api/v1/members/teams');
 
-  const handleItemClick = (info: components['schemas']['BelongTeamGetResponse'] | null, path: string) => {
-    if (info === null) {
-      setTeamId(null);
-      setIsInShowcase(true);
-
-      navigate(path);
-    } else {
-      setTeamId(info.id);
-
-      localStorage.setItem(STORAGE_KEY.TEAM_ID, String(info.id));
-      localStorage.setItem(STORAGE_KEY.TEAM_NAME, info.name);
-
-      navigate(path);
-    }
-    close();
-  };
-
-  const handleWorkspaceClick = () => {
-    if (data && data?.data && data?.data?.belongTeamGetResponses.length >= MAX_TEAM_COUNT) {
-      createToast(`워크스페이스는 최대 ${MAX_TEAM_COUNT}개까지 생성 가능합니다.`, 'error');
-      return;
-    }
-    openModal('create-workspace');
-  };
+  const isFullTeam = data?.data?.belongTeamGetResponses && data?.data?.belongTeamGetResponses.length >= MAX_TEAM_COUNT;
 
   return (
     <nav css={containerStyle}>
       <IcTikiLogo css={tikiLogoStyle} />
-      <Flex tag="ul" styles={{ direction: 'column', align: 'center' }}>
-        <Item
-          variant={{ type: 'dashboard', hoverMessage: 'showcase' }}
-          isClicked={isInShowcase}
-          onLogoClick={() => createToast('현재 준비중인 기능입니다.', 'default')}
-        />
+      <Flex styles={{ direction: 'column', align: 'center', gap: '2rem' }}>
+        <div css={{ padding: '2rem' }}>
+          <Logo
+            to={`${location.pathname}${location.search}`}
+            name="showcase"
+            onClick={() => alert('준비 중인 기능입니다.')}
+            isActive={location.pathname === PATH.SHOWCASE}>
+            <IcGlobal width={20} height={20} />
+          </Logo>
+        </div>
         <Divider type="horizontal" size={56.78} color={theme.colors.gray_300} />
-        {data?.data?.belongTeamGetResponses.map((data) => {
-          return (
-            <Item
-              key={data.id}
-              isClicked={teamId === data.id}
-              variant={{ type: 'team', logoUrl: data.iconImageUrl, hoverMessage: data.name }}
-              onLogoClick={() => handleItemClick(data, `${PATH.DASHBOARD}?teamId=${data.id}`)}
-            />
-          );
-        })}
-        <Item
-          variant={{ type: 'add', hoverMessage: '새로운 워크스페이스 생성' }}
-          isClicked={false}
-          onLogoClick={handleWorkspaceClick}
-        />
-        <Flex css={settingStyle}>
-          <ToolTip message={'내 정보 수정하기'} position="right" gap={0.8}>
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={() => createToast('현재 준비중인 기능입니다.', 'default')}
-              onKeyDown={() => createToast('현재 준비중인 기능입니다.', 'default')}>
-              <IcAvatar width={32} height={32} />
-            </div>
-          </ToolTip>
-        </Flex>
+
+        <TeamList list={data?.data} />
+
+        <AddWorkspaceButton disabled={isFullTeam} />
       </Flex>
+
+      <UserMenu />
     </nav>
   );
 };
