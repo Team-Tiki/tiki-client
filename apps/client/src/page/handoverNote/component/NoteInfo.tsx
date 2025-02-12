@@ -84,6 +84,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
         placeholder={'노트제목'}
         value={info.title || ''}
         onChange={handleTitleChange}
+        autoFocus
       />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle(isTag)}>
