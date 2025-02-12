@@ -43,7 +43,7 @@ const TimeBlock = ({
     if (e.key === 'Enter') {
       e.preventDefault();
       if (data?.data) {
-        onBlockClick(e, block, data?.data ?? { documents: [], notes: [] });
+        onBlockClick(e, block, data?.data);
       }
     }
   };

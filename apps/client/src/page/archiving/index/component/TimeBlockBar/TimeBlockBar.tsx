@@ -1,7 +1,7 @@
 import { IcClose } from '@tiki/icon';
 import { Flex } from '@tiki/ui';
 
-import { SyntheticEvent, useRef, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -13,7 +13,7 @@ import { Block, BlockDetail, Documents } from '@/page/archiving/index/type/block
 
 import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
+import { useDrawerAction, useDrawerContent, useDrawerInitialContent, useDrawerIsChanged } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
 
 export type BlockInfoType = {
@@ -26,33 +26,25 @@ export type BlockInfoType = {
 const TimeBlockBar = () => {
   const [isEditable, setIsEditable] = useState(false);
 
-  const { closeDrawer } = useDrawerAction();
+  const { closeDrawer, setInitialContent } = useDrawerAction();
 
   const timeBlockId = useTimeBlockId();
   const teamId = useInitializeTeamId();
 
   const queryClient = useQueryClient();
   const content = useDrawerContent();
-
-  const initialData = useRef<Block & BlockDetail>(content);
-
-  // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
-  const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(content);
+  const initialContent = useDrawerInitialContent();
 
   const handleEditClick = () => {
     setIsEditable((prevState) => !prevState);
   };
 
-  const { mutate: blockMutate, isSuccess: isBlockInfoPatchSuccess } = $api.useMutation(
-    'patch',
-    '/api/v1/teams/{teamId}/time-block/{timeBlockId}',
-    {
-      onSuccess: () => {
-        handleEditClick();
-        queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
-      },
-    }
-  );
+  const { mutate: blockMutate } = $api.useMutation('patch', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
+    onSuccess: () => {
+      handleEditClick();
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
+    },
+  });
 
   const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
     onSuccess: () => {
@@ -87,7 +79,7 @@ const TimeBlockBar = () => {
       },
     });
 
-    const initialTagIds = initialData.current?.documents.map((data) => data.tagId);
+    const initialTagIds = initialContent?.documents.map((data) => data.tagId);
     const finalTagIds = content?.documents.map((data) => data.tagId);
     const deletedTagIds = initialTagIds?.filter((id) => !finalTagIds?.includes(id));
 
@@ -105,16 +97,20 @@ const TimeBlockBar = () => {
       });
     }
 
-    const initialDocumentIds = initialData.current?.documents.map((data) => data.documentId);
+    const initialDocumentIds = initialContent?.documents.map((data) => data.documentId);
     const documentIds = content?.documents.map((data) => data.documentId);
     const addDocumentIds = documentIds?.filter((id) => !initialDocumentIds?.includes(id));
 
-    fileMutate({
-      params: {
-        path: { teamId, timeBlockId },
-        query: { documentId: addDocumentIds ?? [] },
-      },
-    });
+    if (addDocumentIds) {
+      fileMutate({
+        params: {
+          path: { teamId, timeBlockId },
+          query: { documentId: addDocumentIds ?? [] },
+        },
+      });
+    }
+
+    setInitialContent(content);
     // if(isBlockInfoPatchSuccess && ){
     //   initialData.current = {...blockInfo , documents: documentList};
     // }
@@ -125,7 +121,7 @@ const TimeBlockBar = () => {
       <IcClose width={16} height={16} css={closeBtnStyle} onClick={closeDrawer} />
 
       <Flex tag="form" styles={{ direction: 'column', gap: '3.6rem' }} onSubmit={handleSubmit}>
-        <BlockInfo isEditable={isEditable} onEditClick={handleEditClick} canSubmit={canSubmit} />
+        <BlockInfo isEditable={isEditable} onEditClick={handleEditClick} />
         <TaggedNotes isEditable={isEditable} />
         <UploadedDocuments isEditable={isEditable} />
       </Flex>
