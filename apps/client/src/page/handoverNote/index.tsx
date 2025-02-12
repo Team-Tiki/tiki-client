@@ -3,9 +3,9 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Custom from '@/page/handoverNote/component/Custom/Custom';
-import NoteInfo from '@/page/handoverNote/component/NoteInfo/NoteInfo';
-import Template from '@/page/handoverNote/component/Template/Template';
+import Custom from '@/page/handoverNote/component/Custom';
+import NoteInfo from '@/page/handoverNote/component/NoteInfo';
+import Template from '@/page/handoverNote/component/Template';
 import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
 import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
 
