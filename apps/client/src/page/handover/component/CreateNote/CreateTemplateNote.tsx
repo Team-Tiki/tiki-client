@@ -27,7 +27,13 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
       [id]: event.target.value,
     }));
 
-    resizeTextarea({ current: textareaRefs.current[id] });
+    const textarea = textareaRefs.current[id];
+    resizeTextarea({ current: textarea });
+
+    const parent = textarea?.parentElement;
+    if (parent) {
+      parent.style.height = `${textarea.scrollHeight + 25}px`;
+    }
   };
 
   const handleDeleteFile = (e: React.MouseEvent, fileId: number) => {
