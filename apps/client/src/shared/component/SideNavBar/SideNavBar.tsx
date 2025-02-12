@@ -2,7 +2,7 @@ import { IcGlobal, IcTikiLogo } from '@tiki/icon';
 import { Divider, Flex, theme } from '@tiki/ui';
 
 import { $api } from '@/shared/api/client';
-import AddWorkspaceButton from '@/shared/component/SideNavBar/AddWorkspace';
+import AddWorkspaceButton from '@/shared/component/SideNavBar/AddWorkspaceButton';
 import Logo from '@/shared/component/SideNavBar/Logo';
 import TeamList from '@/shared/component/SideNavBar/TeamList';
 import UserMenu from '@/shared/component/SideNavBar/UserMenu';
