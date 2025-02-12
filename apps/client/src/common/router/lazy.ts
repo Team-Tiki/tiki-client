@@ -16,7 +16,7 @@ export const HandoverPage = lazy(() => import('@/page/handover/HandoverPage'));
 export const HandoverNotePage = lazy(() => import('@/page/handoverNote/index'));
 export const DashboardPage = lazy(() => import('@/page/dashboard/DashboardPage'));
 export const UnivFormPage = lazy(() => import('@/page/signUp/info/UnivFormPage'));
-export const CreateNotePage = lazy(() => import('@/page/handover/component/CreateNote/CreateNote'));
+export const CreateNotePage = lazy(() => import('@/page/handover/component/CreateNote/index'));
 export const WorkSpaceSettingPage = lazy(() => import('@/page/workspaceSetting/index'));
 export const OnBoardingPage = lazy(() => import('@/page/onboarding/index'));
 export const InvitePage = lazy(() => import('@/page/invite/index'));
