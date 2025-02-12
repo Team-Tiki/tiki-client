@@ -6,12 +6,11 @@ import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
 import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
-import BrowseFileModal from '@/shared/component/TimeBlockModal/component/UploadModal/BrowseFile/BrowseFileModal';
-import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
+import BrowseFileModal from '@/shared/component/TimeBlockModal/component/BrowseFile/BrowseFileModal';
+import { flexStyle } from '@/shared/component/TimeBlockModal/style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
 type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 
@@ -26,8 +25,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
   const { prevStep, nextStep } = useFunnel();
-  const isOpen = useModalIsOpen();
-  const closeModal = useCloseModal();
+
   const { setFormData } = useBlockContext();
 
   const teamId = useInitializeTeamId();
@@ -71,16 +69,18 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
   };
 
   return (
-    <Modal size="large" isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header step={2} />
+    <>
+      <Modal.Header step={3} />
       <Modal.Body>
         <Flex css={flexStyle}>
           {fileData?.data?.documents.length === 0 || isAddingFiles ? (
             <NewFileImportModal
               onUploadFile={handleFileSelect}
               selectedFiles={selectedFiles}
-              onNext={handleNext}
               size="large"
+              contentType="create-block"
+              onNext={handleNext}
+              onPrev={() => setIsAddingFiles(false)}
             />
           ) : (
             <BrowseFileModal
@@ -92,8 +92,8 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={3} contentType="create-block" buttonClick={handleNext} prevStep={() => prevStep()} />
-    </Modal>
+      <Modal.Footer step={2} contentType="create-block" buttonClick={handleNext} prevStep={() => prevStep()} />
+    </>
   );
 };
 

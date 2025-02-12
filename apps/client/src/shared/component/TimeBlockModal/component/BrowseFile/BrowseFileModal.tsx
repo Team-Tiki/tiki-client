@@ -8,7 +8,8 @@ import { components } from '@/shared/__generated__/schema';
 import BrowseFileHeader from '@/shared/component/BrowseFileHeader/BrowseFileHeader';
 import BrowseFileItem from '@/shared/component/BrowseFileItem/BrowseFileItem';
 import { Modal } from '@/shared/component/Modal';
-import { scrollContainerStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
+import { scrollContainerStyle } from '@/shared/component/TimeBlockModal/style';
+import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
 type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
@@ -25,6 +26,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
 
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
+  const { prevStep, nextStep } = useFunnel();
 
   const isButtonActive = files.length !== 0;
 
@@ -49,7 +51,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
     <Modal size="large" isOpen={isOpen} onClose={closeModal}>
       <Modal.Header />
       <Modal.Body>
-        <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%' }}>
+        <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%', paddingTop: '2rem' }}>
           <Flex css={{ flexDirection: 'row', alignItems: 'center', gap: '0.4rem', width: '100%' }}>
             <Input
               placeholder="문서를 검색해보세요"
@@ -81,7 +83,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="new-file" isButtonActive={isButtonActive} />
+      <Modal.Footer contentType="new-file" isButtonActive={isButtonActive} prevStep={prevStep} buttonClick={nextStep} />
     </Modal>
   );
 };

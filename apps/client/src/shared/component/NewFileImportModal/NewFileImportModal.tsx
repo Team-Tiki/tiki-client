@@ -9,9 +9,8 @@ import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
 import FileUploadContainer from '@/shared/component/NewFileImportModal/FileUploadContainer/FileUploadContainer';
-import { scrollBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
-import { flexStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
@@ -22,8 +21,8 @@ interface NewFileImportModalProps {
   selectedFiles?: DocumentDetail[];
   onUploadFile?: (files: DocumentDetail[]) => void;
   onNext?: () => void;
-  contentType?: 'new-file' | 'timeblock-file';
   onPrev?: () => void;
+  contentType?: 'create-block' | 'new-file' | 'timeblock-file';
 }
 
 export interface FileWithDocumentId extends File {
@@ -32,11 +31,11 @@ export interface FileWithDocumentId extends File {
 
 const NewFileImportModal = ({
   onNext,
+  onPrev,
   selectedFiles = [],
   onUploadFile = () => {},
   size = 'medium',
   contentType = 'new-file',
-  onPrev,
 }: NewFileImportModalProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
@@ -151,7 +150,7 @@ const NewFileImportModal = ({
 
   return (
     <Modal size={size} isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header />
+      <Modal.Header step={3} />
       <Modal.Body>
         <Flex css={flexStyle}>
           <Flex styles={{ direction: 'column', width: '100%' }}>
@@ -179,9 +178,11 @@ const NewFileImportModal = ({
         </Flex>
       </Modal.Body>
       <Modal.Footer
+        step={3}
         contentType={contentType}
         buttonClick={onNext ?? handleClose}
         closeModal={onPrev ?? closeModal}
+        prevStep={onPrev ?? closeModal}
         isButtonActive={!isButtonActive}
       />
     </Modal>

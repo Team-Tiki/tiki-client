@@ -3,7 +3,7 @@ import { Flex } from '@tiki/ui';
 import { useState } from 'react';
 
 import { Modal } from '@/shared/component/Modal';
-import CategoryItem from '@/shared/component/TimeBlockModal/component/CategoryModal/Category/Category';
+import CategoryItem from '@/shared/component/TimeBlockModal/component/Category/Category';
 import { BLOCK_CATEGORY } from '@/shared/component/TimeBlockModal/constant/category';
 import { BlockColor } from '@/shared/component/TimeBlockModal/type/block';
 import { colorToHex } from '@/shared/component/TimeBlockModal/util/color';
@@ -11,9 +11,11 @@ import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
 const CategoryModal = () => {
-  const [selectedIcon, setSelectedIcon] = useState<number>(-1);
+  const { formData, setFormData } = useBlockContext();
 
-  const { setFormData } = useBlockContext();
+  const initialCategory = BLOCK_CATEGORY.findIndex((icon) => icon.type === formData.blockType);
+  const [selectedIcon, setSelectedIcon] = useState<number>(initialCategory ?? -1);
+
   const { nextStep } = useFunnel();
 
   const isButtonActive = selectedIcon !== -1;
