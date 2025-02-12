@@ -14,7 +14,7 @@ const CategoryModal = () => {
   const { formData, setFormData } = useBlockContext();
 
   const initialCategory = BLOCK_CATEGORY.findIndex((icon) => icon.type === formData.blockType);
-  const [selectedIcon, setSelectedIcon] = useState<number>(initialCategory !== -1 ? initialCategory : -1);
+  const [selectedIcon, setSelectedIcon] = useState<number>(initialCategory ?? -1);
 
   const { nextStep } = useFunnel();
 
