@@ -5,8 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
-import FileItem from '@/shared/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem';
-import { fileListWrapperStyle } from '@/shared/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal.style';
+import FileItem from '@/shared/component/TimeBlockModal/component/FileItem/FileItem';
+import { fileListWrapperStyle } from '@/shared/component/TimeBlockModal/style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -38,6 +38,7 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
         },
         body: {
           ...formData,
+          blockType: formData.blockType as 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC',
         },
       },
       {

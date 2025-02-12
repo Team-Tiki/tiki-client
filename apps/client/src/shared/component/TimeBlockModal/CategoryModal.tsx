@@ -3,7 +3,7 @@ import { Flex } from '@tiki/ui';
 import { useState } from 'react';
 
 import { Modal } from '@/shared/component/Modal';
-import CategoryItem from '@/shared/component/TimeBlockModal/component/CategoryModal/Category/Category';
+import CategoryItem from '@/shared/component/TimeBlockModal/component/Category/Category';
 import { BLOCK_CATEGORY } from '@/shared/component/TimeBlockModal/constant/category';
 import { BlockColor } from '@/shared/component/TimeBlockModal/type/block';
 import { colorToHex } from '@/shared/component/TimeBlockModal/util/color';

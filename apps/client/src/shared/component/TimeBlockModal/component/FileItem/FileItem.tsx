@@ -3,7 +3,7 @@ import { Text } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
-import { fileItemWrapperStyle } from '@/shared/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem.style';
+import { fileItemWrapperStyle } from '@/shared/component/TimeBlockModal/component/FileItem/FileItem.style';
 
 interface FileItemProps {
   fileName: string;

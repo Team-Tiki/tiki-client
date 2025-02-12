@@ -8,7 +8,7 @@ import { components } from '@/shared/__generated__/schema';
 import BrowseFileHeader from '@/shared/component/BrowseFileHeader/BrowseFileHeader';
 import BrowseFileItem from '@/shared/component/BrowseFileItem/BrowseFileItem';
 import { Modal } from '@/shared/component/Modal';
-import { scrollContainerStyle } from '@/shared/component/TimeBlockModal/component/UploadModal/UploadModal.style';
+import { scrollContainerStyle } from '@/shared/component/TimeBlockModal/style';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
