@@ -38,8 +38,6 @@ export const itemStyle = () =>
 export const textFieldStyle = css({
   display: 'flex',
 
-  maxWidth: '25rem',
-
   flexDirection: 'column',
   alignItems: 'start',
   gap: '0.6rem',
