@@ -32,5 +32,6 @@ export const rightSideRowStyle = css({
 });
 
 export const nameFieldStyle = css({
+  padding: '0 1rem 0 0',
   lineHeight: '1.6rem',
 });
