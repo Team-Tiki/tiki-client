@@ -1,32 +1,33 @@
-import { Button, Input, Label, scrollStyle } from '@tiki/ui';
+import { Button, Label, scrollStyle } from '@tiki/ui';
 
 import { Dispatch, SetStateAction } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
-  guideStyle,
+  labelStyle,
   layoutStyle,
   noteWrapperStyle,
-} from '@/page/handoverNote/component/Template/Template.style';
-import { TEMPLATE } from '@/page/handoverNote/constants/template';
-import { TemplateNote } from '@/page/handoverNote/type/note';
+  textareaStyle,
+} from '@/page/handoverNote/component/style';
+import { CustomNote } from '@/page/handoverNote/type/note';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
+import { PLACEHOLDER } from '@/shared/constant/form';
 import { useOpenModal } from '@/shared/store/modal';
 
-interface TemplateNoteProps {
-  data: TemplateNote;
-  setData: Dispatch<SetStateAction<TemplateNote>>;
+interface CustomProps {
+  data: CustomNote;
+  setData: Dispatch<SetStateAction<CustomNote>>;
 }
 
-const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
+const CreateCustomNote = ({ data, setData }: CustomProps) => {
   const openModal = useOpenModal();
 
-  const handleNoteContents = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData((prev) => ({
       ...prev,
-      [id]: event.target.value,
+      contents: e.target.value,
     }));
   };
 
@@ -60,15 +61,11 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
 
   return (
     <div css={[noteWrapperStyle, scrollStyle]}>
-      {TEMPLATE.map((item) => (
-        <div css={layoutStyle} key={item.id}>
-          <Label id={item.id}>{item.QUESTION}</Label>
-          <Input id={item.id} placeholder={item.PLACEHOLDER} onChange={handleNoteContents(item.id)} />
-        </div>
-      ))}
-
       <div css={layoutStyle}>
-        <Label id="file" css={guideStyle}>
+        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} onChange={handleTextareaChange} />
+      </div>
+      <div css={layoutStyle}>
+        <Label id="file" css={labelStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
         <div css={fileBoxStyle}>
@@ -82,4 +79,4 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
   );
 };
 
-export default CreateTemplateNote;
+export default CreateCustomNote;

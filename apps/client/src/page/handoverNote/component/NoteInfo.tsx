@@ -1,7 +1,7 @@
 import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { SetStateAction, useCallback } from 'react';
+import { SetStateAction, useCallback, useRef } from 'react';
 
 import {
   entireInfoStyle,
@@ -10,8 +10,9 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
+} from '@/page/handoverNote/component/style';
 import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
+import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
 import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useOpenModal } from '@/shared/store/modal';
@@ -22,7 +23,16 @@ interface NoteDetailProp {
 }
 
 const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const openModal = useOpenModal();
+
+  const isTag = info?.timeBlockList?.length !== 0;
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInfo((prev) => ({ ...prev, title: e.target.value }));
+
+    resizeTextarea(textareaRef);
+  };
 
   const handleChangeStatus = useCallback(
     (value: string) => {
@@ -69,13 +79,15 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
   return (
     <aside css={entireInfoStyle}>
       <textarea
+        ref={textareaRef}
         css={titleStyle}
-        placeholder={'제목'}
+        placeholder={'노트제목'}
         value={info.title || ''}
-        onChange={(e) => setInfo((prev) => ({ ...prev, title: e.target.value }))}
+        onChange={handleTitleChange}
+        autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(isTag)}>
           <Flex styles={{ justify: 'center', align: 'center', gap: '2rem' }}>
             <Text tag="body6" css={infoStyle}>
               작성자
@@ -87,7 +99,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           </Flex>
         </li>
 
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(isTag)}>
           <Text tag="body6" css={infoStyle}>
             작성 여부
           </Text>
@@ -101,7 +113,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           />
         </li>
 
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(info?.timeBlockList?.length !== 0)}>
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
@@ -117,7 +129,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           </Flex>
         </li>
 
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(isTag)}>
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>

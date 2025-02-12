@@ -2,14 +2,14 @@ import { Button, Label, scrollStyle } from '@tiki/ui';
 
 import { SetStateAction, useState } from 'react';
 
+import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
-  guideStyle,
+  labelStyle,
   layoutStyle,
   noteWrapperStyle,
   textareaStyle,
-} from '@/page/handoverNote/component/Custom/Custom.style';
-import File from '@/page/handoverNote/component/File/File';
+} from '@/page/handoverNote/component/style';
 import { CustomNoteData } from '@/page/handoverNote/type/note';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
@@ -69,7 +69,7 @@ const Custom = ({ data, setData }: CustomProps) => {
         <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} value={content} onChange={handleChange} />
       </div>
       <div css={layoutStyle}>
-        <Label id="file" css={guideStyle}>
+        <Label id="file" css={labelStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
         <div css={fileBoxStyle}>

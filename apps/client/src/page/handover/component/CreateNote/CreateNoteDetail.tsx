@@ -2,7 +2,7 @@
 import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   entireInfoStyle,
@@ -11,8 +11,9 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
+} from '@/page/handoverNote/component/style';
 import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
+import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
@@ -29,6 +30,10 @@ interface NoteDetailProp {
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const isTag = detail.timeBlockList?.length !== 0;
 
   const teamId = useInitializeTeamId();
   const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
@@ -61,6 +66,12 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     });
   };
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDetail((prev) => ({ ...prev, title: e.target.value }));
+
+    resizeTextarea(textareaRef);
+  };
+
   const handleChangeStatus = useCallback(
     (value: Status) => {
       setDetail((prev) => ({ ...prev, complete: value === '완료' }));
@@ -85,11 +96,14 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
     <aside css={entireInfoStyle}>
       <textarea
         css={titleStyle}
+        rows={1}
+        ref={textareaRef}
         placeholder="노트 제목"
-        onChange={(e) => setDetail((prev) => ({ ...prev, title: e.target.value }))}
+        onChange={handleTitleChange}
+        autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
-        <li css={[infoLayoutStyle, { alignItems: 'center' }]}>
+        <li css={[infoLayoutStyle(isTag), { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>
             작성자
           </label>
@@ -98,7 +112,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             <Text tag="body6">{memberData?.data?.name}</Text>
           </Flex>
         </li>
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(isTag)}>
           <Text tag="body6" css={infoStyle}>
             작성 여부
           </Text>
@@ -111,7 +125,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             value={detail.complete ? '완료' : '미완료'}
           />
         </li>
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(isTag)}>
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
@@ -126,7 +140,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             ))}
           </Flex>
         </li>
-        <li css={infoLayoutStyle}>
+        <li css={infoLayoutStyle(isTag)}>
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>

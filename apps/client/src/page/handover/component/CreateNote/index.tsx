@@ -3,9 +3,9 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import CreateCustomNote from '@/page/handoverNote/component/CreateNote/Custom/CreateCustomNote';
-import CreateNoteDetail from '@/page/handoverNote/component/CreateNote/NoteDetail/CreateNoteDetail';
-import CreateTemplateNote from '@/page/handoverNote/component/CreateNote/Template/CreateTemplateNote';
+import CreateCustomNote from '@/page/handover/component/CreateNote/CreateCustomNote';
+import CreateNoteDetail from '@/page/handover/component/CreateNote/CreateNoteDetail';
+import CreateTemplateNote from '@/page/handover/component/CreateNote/CreateTemplateNote';
 import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
 import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNote/type/note';
 
@@ -138,7 +138,12 @@ const CreateNotePage = () => {
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
-          <CommandButton commandKey="S" isCommand={true} size="small" type="submit">
+          <CommandButton
+            commandKey="S"
+            isCommand={true}
+            size="small"
+            type="submit"
+            onClick={() => navigate(PATH.HANDOVER)}>
             저장
           </CommandButton>
         </Flex>

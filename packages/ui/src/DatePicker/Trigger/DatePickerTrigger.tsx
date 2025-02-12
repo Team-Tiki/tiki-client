@@ -24,14 +24,14 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePick
         css={{
           cursor: "pointer",
           width: "100%",
-          ...theme.text.body06,
+          ...theme.text.body08,
           textAlign: "center",
-          "::placeholder": { ...theme.text.body06, textAlign: "center" },
+          "::placeholder": { ...theme.text.body08, textAlign: "center" },
         }}
       />
       {variant === "range" && (
         <>
-          <Text tag="body6" css={textStyle}>
+          <Text tag="body8" css={textStyle}>
             ~
           </Text>
           <Input
@@ -42,9 +42,9 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePick
             css={{
               cursor: "pointer",
               width: "100%",
-              ...theme.text.body06,
+              ...theme.text.body08,
               textAlign: "center",
-              "::placeholder": { ...theme.text.body06, textAlign: "center" },
+              "::placeholder": { ...theme.text.body08, textAlign: "center" },
             }}
           />
         </>
