@@ -1,23 +1,18 @@
-import { Button, CommandButton, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
+import { Button, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 import { format } from 'date-fns';
-
-import { useQueryClient } from '@tanstack/react-query';
 
 import {
   containerStyle,
   periodStyle,
   titleInputStyle,
 } from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo.style';
-import { BlockInfoType } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar';
+import DeleteTimeBlockButton from '@/page/archiving/index/component/TimeBlockBar/DeleteTimeBlockButton/DeleteTimeBlockButton';
+import SubmitButton from '@/page/archiving/index/component/TimeBlockBar/SubmitButton/SubmitButton';
 import { circleStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
-import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
+import { Block, BlockDetail, BlockInfoType } from '@/page/archiving/index/type/blockType';
 
-import { $api } from '@/shared/api/client';
-import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
-import { useDrawerAction, useDrawerContent, useDrawerIsChanged } from '@/shared/store/drawer';
-import { useCloseModal, useOpenModal } from '@/shared/store/modal';
-import { useTimeBlockId } from '@/shared/store/timeBlockId';
+import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { Validate } from '@/shared/util/validate';
 
 interface BlockInfoProps {
@@ -27,43 +22,11 @@ interface BlockInfoProps {
 
 const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
   const { name, startDate, endDate, color, blockType } = useDrawerContent() as Block & BlockDetail;
-  const { setContent, closeDrawer } = useDrawerAction();
+  const { setContent } = useDrawerAction();
 
-  const closeModal = useCloseModal();
-  const openModal = useOpenModal();
-  const timeBlockId = useTimeBlockId();
-  const teamId = useInitializeTeamId();
-  const isChanged = useDrawerIsChanged();
-  const queryClient = useQueryClient();
-
-  console.log(isChanged);
-  const { mutate: deleteBlockMutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}');
-
-  const handleBlockDelete = () => {
-    openModal('deleted', {
-      title: '타임블록을 삭제할까요?',
-      content: '업로드한 파일은 드라이브에 유지됩니다.',
-      onClick: () => {
-        deleteBlockMutate(
-          {
-            params: {
-              path: {
-                teamId,
-                timeBlockId,
-              },
-            },
-          },
-          {
-            onSuccess: () => {
-              closeDrawer();
-              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
-            },
-          }
-        );
-
-        closeModal();
-      },
-    });
+  const handleEditButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onEditClick();
   };
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
@@ -84,33 +47,15 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
   return (
     <div css={containerStyle}>
       <Flex styles={{ justify: 'space-between', align: 'center', marginTop: '7.4rem' }}>
-        <Flex css={circleStyle(color ?? '')}>
-          {BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color ?? '')}
-        </Flex>
-
+        <Flex css={circleStyle(color)}>{BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}</Flex>
         {isEditable ? (
-          <CommandButton
-            type={'submit'}
-            variant="fourth"
-            commandKey={isEditable ? 'S' : 'E'}
-            size="xSmall"
-            disabled={!isChanged}>
-            저장
-          </CommandButton>
+          <SubmitButton onEditClick={onEditClick} />
         ) : (
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button
-              variant="tertiary"
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditClick();
-              }}>
+            <Button variant="tertiary" size="small" onClick={handleEditButtonClick}>
               수정
             </Button>
-            <Button variant="tertiary" size="small" onClick={handleBlockDelete}>
-              삭제
-            </Button>
+            <DeleteTimeBlockButton />
           </Flex>
         )}
       </Flex>
@@ -127,8 +72,8 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
             onChange={handleDateChange}
             variant="range"
             triggerWidth="100%"
-            defaultSelectedDate={new Date(startDate ?? '')}
-            defaultEndDate={new Date(endDate ?? '')}
+            defaultSelectedDate={new Date(startDate)}
+            defaultEndDate={new Date(endDate)}
           />
         ) : (
           <Text tag="body6" css={periodStyle}>
