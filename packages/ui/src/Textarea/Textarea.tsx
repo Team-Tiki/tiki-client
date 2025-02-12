@@ -1,8 +1,8 @@
 import { ForwardedRef, TextareaHTMLAttributes, forwardRef, useRef } from "react";
 
-import { contentStyle } from "@/Input/Input.style";
+
 import Label from "@/Label/Label";
-import { containerStyle, textareaStyle } from "@/Textarea/Textarea.style";
+import { containerStyle, contentStyle, textareaStyle } from "@/Textarea/Textarea.style";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -21,6 +21,7 @@ const Textarea = (
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      textareaRef.current.parentElement!.style.height = `${textareaRef.current.scrollHeight + 26}px`;
     }
   };
 
