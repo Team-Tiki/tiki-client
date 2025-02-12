@@ -4,7 +4,12 @@ import { useOverlay } from '@tiki/utils';
 
 import { useRef } from 'react';
 
-import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
+import {
+  containerStyle,
+  nameFieldStyle,
+  rightSideRowStyle,
+  timeStyle,
+} from '@/page/drive/component/FileListItem/FileListItem.style';
 
 import { components } from '@/shared/__generated__/schema';
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
@@ -43,7 +48,9 @@ const FolderListItem = ({
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
-        <Text tag="body6">{name}</Text>
+        <Text tag="body6" css={nameFieldStyle}>
+          {name}
+        </Text>
       </Flex>
 
       <div css={rightSideRowStyle}>

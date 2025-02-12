@@ -2,7 +2,12 @@ import { IcThreeDots } from '@tiki/icon';
 import { CheckBox, Flex, MenuItem, MenuList, MenuRoot, Text } from '@tiki/ui';
 import { useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
+import {
+  containerStyle,
+  nameFieldStyle,
+  rightSideRowStyle,
+  timeStyle,
+} from '@/page/drive/component/FileListItem/FileListItem.style';
 
 import { components } from '@/shared/__generated__/schema';
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
@@ -47,7 +52,7 @@ const FileListItem = ({
     <div css={containerStyle}>
       <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
         {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
-        <Text tag="body6" css={{ lineHeight: '1.6rem' }}>
+        <Text tag="body6" css={nameFieldStyle}>
           {name}
         </Text>
       </Flex>

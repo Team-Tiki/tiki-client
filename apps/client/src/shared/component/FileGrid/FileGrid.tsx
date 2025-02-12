@@ -19,7 +19,7 @@ import { File } from '@/shared/type/file';
 import { downloadDocument } from '@/shared/util/document';
 import { getFileVolume } from '@/shared/util/file';
 
-export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], 'documentId'> & {
+export type FileGridProps = components['schemas']['DocumentGetResponse'] & {
   variant?: 'primary' | 'secondary';
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
   type: File;

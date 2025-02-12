@@ -30,3 +30,7 @@ export const rightSideRowStyle = css({
   alignItems: 'center',
   gap: '0.2rem',
 });
+
+export const nameFieldStyle = css({
+  lineHeight: '1.6rem',
+});
