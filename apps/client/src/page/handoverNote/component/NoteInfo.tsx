@@ -12,8 +12,8 @@ import {
   titleStyle,
 } from '@/page/handoverNote/component/style';
 import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
-
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
+
 import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useOpenModal } from '@/shared/store/modal';
 
@@ -23,7 +23,7 @@ interface NoteDetailProp {
 }
 
 const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const openModal = useOpenModal();
 
   const isTag = info?.timeBlockList?.length !== 0;
@@ -31,7 +31,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInfo((prev) => ({ ...prev, title: e.target.value }));
 
-    resizeTextarea(textareaRef)
+    resizeTextarea(textareaRef);
   };
 
   const handleChangeStatus = useCallback(
@@ -78,7 +78,13 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
 
   return (
     <aside css={entireInfoStyle}>
-      <textarea ref={textareaRef} css={titleStyle} placeholder={'노트제목'} value={info.title || ''} onChange={handleTitleChange} />
+      <textarea
+        ref={textareaRef}
+        css={titleStyle}
+        placeholder={'노트제목'}
+        value={info.title || ''}
+        onChange={handleTitleChange}
+      />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle(isTag)}>
           <Flex styles={{ justify: 'center', align: 'center', gap: '2rem' }}>

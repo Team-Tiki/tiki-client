@@ -3,12 +3,7 @@ import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 import React, { SetStateAction, useState } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
-import {
-  fileBoxStyle,
-  labelStyle,
-  layoutStyle,
-  noteWrapperStyle,
-} from '@/page/handoverNote/component/style';
+import { fileBoxStyle, labelStyle, layoutStyle, noteWrapperStyle } from '@/page/handoverNote/component/style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
 import { TemplateNoteData } from '@/page/handoverNote/type/note';
 

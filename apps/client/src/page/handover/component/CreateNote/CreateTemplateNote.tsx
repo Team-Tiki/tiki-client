@@ -3,12 +3,7 @@ import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 import { Dispatch, SetStateAction } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
-import {
-  fileBoxStyle,
-  labelStyle,
-  layoutStyle,
-  noteWrapperStyle,
-} from '@/page/handoverNote/component/style';
+import { fileBoxStyle, labelStyle, layoutStyle, noteWrapperStyle } from '@/page/handoverNote/component/style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
 import { TemplateNote } from '@/page/handoverNote/type/note';
 
@@ -63,11 +58,7 @@ const CreateTemplateNote = ({ data, setData }: TemplateNoteProps) => {
       {TEMPLATE.map((item) => (
         <div css={layoutStyle} key={item.id}>
           <Label id={item.id}>{item.QUESTION}</Label>
-          <Textarea
-            id={item.id}
-            placeholder={item.PLACEHOLDER}
-            onChange={handleNoteContents(item.id)}
-          />
+          <Textarea id={item.id} placeholder={item.PLACEHOLDER} onChange={handleNoteContents(item.id)} />
         </div>
       ))}
 

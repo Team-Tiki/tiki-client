@@ -1,4 +1,3 @@
-
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
@@ -14,8 +13,6 @@ export const noteWrapperStyle = css({
 
   overflowY: 'scroll',
 });
-
-
 
 export const textareaStyle = css({
   width: '100%',
@@ -42,8 +39,6 @@ export const textareaStyle = css({
   },
 });
 
-
-
 export const layoutStyle = css({
   display: 'flex',
   flexDirection: 'column',
@@ -68,7 +63,6 @@ export const fileBoxStyle = css({
 
   gap: '1.6rem',
 });
-
 
 export const entireInfoStyle = css({
   display: 'flex',
