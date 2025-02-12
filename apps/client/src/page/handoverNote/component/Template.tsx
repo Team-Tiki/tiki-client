@@ -1,11 +1,12 @@
 import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useRef, useState } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import { fileBoxStyle, labelStyle, layoutStyle, noteWrapperStyle } from '@/page/handoverNote/component/style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
 import { TemplateNoteData } from '@/page/handoverNote/type/note';
+import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
 import { useOpenModal } from '@/shared/store/modal';
@@ -22,6 +23,7 @@ const Template = ({ data, setData }: TemplateProps) => {
     answerWhatIsDisappointedThing: data?.answerWhatIsDisappointedThing || '',
     answerHowToFix: data?.answerHowToFix || '',
   });
+  const textareaRefs = useRef<Record<string, HTMLTextAreaElement | null>>({});
 
   const openModal = useOpenModal();
 
@@ -35,6 +37,8 @@ const Template = ({ data, setData }: TemplateProps) => {
       ...prev!,
       [id]: event.target.value,
     }));
+
+    resizeTextarea({ current: textareaRefs.current[id] });
   };
 
   const handleDeleteFile = (e: React.MouseEvent, fileId: number) => {
@@ -74,6 +78,8 @@ const Template = ({ data, setData }: TemplateProps) => {
           </Label>
           <Textarea
             id={item.id}
+            rows={1}
+            ref={(el) => (textareaRefs.current[item.id] = el)}
             placeholder={item.PLACEHOLDER}
             value={values[item.id]}
             onChange={handleChange(item.id)}
