@@ -4,7 +4,7 @@ import { Middleware } from 'openapi-fetch';
 import { AxiosError } from 'axios';
 
 import { HTTPError } from '@/shared/api/HTTPError';
-import { getReissuedToken } from '@/shared/api/auth/reissue';
+import { axiosPublicInstance } from '@/shared/api/instance';
 import { HTTP_STATUS_CODE, STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
@@ -13,6 +13,13 @@ interface ErrorResponse {
   message?: string;
   code?: number;
 }
+type ReissueResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+};
 
 /* 토큰 여부 확인 */
 export const authMiddleware: Middleware = {
@@ -32,44 +39,38 @@ export const authMiddleware: Middleware = {
 
 /* 토큰 갱신 */
 export const tokenMiddleware: Middleware = {
-  async onError({ error, request }) {
-    const axiosError = error as AxiosError<ErrorResponse>;
-    const originRequest = axiosError.config;
+  async onResponse({ request, response }) {
+    const { body, ...rest } = response;
 
-    if (!axiosError.response || !originRequest) {
-      throw new Error('에러가 발생했습니다.');
-    }
+    if (!response.ok) {
+      const statusCode = response.status;
 
-    const { status } = axiosError.response;
+      if (statusCode === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        try {
+          const { data } = await axiosPublicInstance.get<ReissueResponse>('/auth/reissue', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem(STORAGE_KEY.REFRESH_TOKEN_KEY)}`,
+            },
+          });
 
-    if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-      try {
-        const { data } = await getReissuedToken();
-        localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, data.accessToken);
+          localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, data.data.accessToken);
 
-        /* 기존의 Authorization 헤더를 갱신 후 재요청 */
-        const newHeaders = {
-          ...Object.fromEntries(request.headers.entries()),
-          Authorization: `Bearer ${data.accessToken}`,
-        };
+          const newHeaders = {
+            ...Object.fromEntries(request.headers.entries()),
+            Authorization: `Bearer ${data.data.accessToken}`,
+          };
 
-        const newRequest = new Request(request, { headers: newHeaders });
-        const newResponse = await fetch(newRequest);
+          const newRequest = new Request(request, { headers: newHeaders });
+          return fetch(newRequest);
+        } catch {
+          localStorage.removeItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
+          window.location.replace(PATH.LOGIN);
 
-        if (!newResponse.ok) {
-          throw new HTTPError(newResponse.status);
+          throw new Error('토큰 갱신에 실패하였습니다.');
         }
-
-        return newResponse;
-      } catch (error) {
-        localStorage.removeItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
-        window.location.replace(PATH.LOGIN);
-
-        throw new Error('토큰 갱신에 실패하였습니다.');
       }
     }
-
-    return Promise.reject(axiosError);
+    return new Response(body, { ...rest });
   },
 };
 

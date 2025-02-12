@@ -3,10 +3,17 @@ import * as Sentry from '@sentry/react';
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import { HTTPError } from '@/shared/api/HTTPError';
-import { getReissuedToken } from '@/shared/api/auth/reissue';
-import { axiosInstance } from '@/shared/api/instance';
+import { axiosInstance, axiosPublicInstance } from '@/shared/api/instance';
 import { HTTP_STATUS_CODE, STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
+
+type ReissueResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+};
 
 interface ErrorResponse {
   success?: boolean;
@@ -38,13 +45,18 @@ export const handleTokenError = async (error: AxiosError<ErrorResponse>) => {
 
   if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
     try {
-      const { data } = await getReissuedToken();
+      const { data } = await axiosPublicInstance.get<ReissueResponse>('/auth/reissue', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(STORAGE_KEY.REFRESH_TOKEN_KEY)}`,
+        },
+      });
 
-      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, data.accessToken);
-      originRequest.data.headers.Authorization = `Bearer ${data.accessToken}`;
+      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN_KEY, data.data.accessToken);
+      originRequest.data.headers.Authorization = `Bearer ${data.data.accessToken}`;
 
       return axiosInstance(originRequest);
     } catch (error) {
+      console.log(error);
       localStorage.removeItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
       window.location.replace(PATH.LOGIN);
 
