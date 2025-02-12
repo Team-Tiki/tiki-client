@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DatePicker, Flex, Input } from '@tiki/ui';
+import { DatePicker, Flex, Input, theme } from '@tiki/ui';
 import { parseISO } from 'date-fns';
 
 import { useEffect, useState } from 'react';
@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { Modal } from '@/shared/component/Modal';
-import BlockBox from '@/shared/component/TimeBlockModal/component/Box/BlockBox';
 import { useBlockName } from '@/shared/component/TimeBlockModal/hook/common/useBlockName';
 import { SUPPORTING_TEXT } from '@/shared/constant/form';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
@@ -51,7 +50,10 @@ const BlockInfoModal = () => {
       <Modal.Header step={2} />
       <Modal.Body>
         <Flex styles={{ direction: 'column', gap: '2rem', paddingTop: '2rem' }}>
-          <BlockBox title="이름" id="time-block-title">
+          <Flex tag={'div'} styles={{ direction: 'column', align: 'flex-start', gap: '1.2rem', width: '33.6rem' }}>
+            <label css={{ fontWeight: 500, ...theme.text.body06 }} htmlFor={'time-block-title'}>
+              이름
+            </label>
             <Input
               id="time-block-title"
               placeholder="ex. 활동명"
@@ -61,8 +63,11 @@ const BlockInfoModal = () => {
               isError={isNameError}
               supportingText={isNameError ? SUPPORTING_TEXT.TIMEBLOCK_NAME_LENGTH : ''}
             />
-          </BlockBox>
-          <BlockBox title="기간">
+          </Flex>
+          <Flex tag={'div'} styles={{ direction: 'column', align: 'flex-start', gap: '1.2rem', width: '33.6rem' }}>
+            <label css={{ fontWeight: 500, ...theme.text.body06 }} htmlFor={'time-block-title'}>
+              기간
+            </label>
             <DatePicker
               variant="range"
               triggerWidth="100%"
@@ -70,7 +75,7 @@ const BlockInfoModal = () => {
               defaultSelectedDate={formData.startDate ? new Date(formData.startDate) : undefined}
               defaultEndDate={formData.endDate ? new Date(formData.endDate) : undefined}
             />
-          </BlockBox>
+          </Flex>
         </Flex>
       </Modal.Body>
       <Modal.Footer
