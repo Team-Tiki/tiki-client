@@ -22,7 +22,7 @@ const FileItem = ({ fileName, capacity, tagId, fileUrl, isEditable }: FileItemPr
 
   const handleDownloadInteraction = () => {
     if (isEditable) return;
-    console.log('실행됨?');
+
     downloadDocument(fileUrl, fileName);
   };
 
