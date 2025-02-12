@@ -84,7 +84,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
         placeholder={'노트제목'}
         value={info.title || ''}
         onChange={handleTitleChange}
-        autoFocus
+        autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
         <li css={infoLayoutStyle(isTag)}>

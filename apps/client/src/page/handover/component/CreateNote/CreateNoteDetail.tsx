@@ -100,7 +100,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
         ref={textareaRef}
         placeholder="노트 제목"
         onChange={handleTitleChange}
-        autoFocus
+        autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
         <li css={[infoLayoutStyle(isTag), { alignItems: 'center' }]}>
