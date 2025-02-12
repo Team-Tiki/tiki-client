@@ -20,9 +20,15 @@ interface FileItemProps extends Omit<Document, 'documentId'> {
 const FileItem = ({ fileName, capacity, tagId, fileUrl, isEditable }: FileItemProps) => {
   const fileType = fileName.split('.')[fileName.split('.').length - 1];
 
+  const handleDownloadInteraction = () => {
+    if (isEditable) return;
+    console.log('실행됨?');
+    downloadDocument(fileUrl, fileName);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter') {
-      downloadDocument(fileUrl, fileName);
+      handleDownloadInteraction();
     }
   };
 
@@ -31,7 +37,7 @@ const FileItem = ({ fileName, capacity, tagId, fileUrl, isEditable }: FileItemPr
       <button
         aria-label={`Download ${fileUrl}`}
         css={wrapperStyle}
-        onClick={() => downloadDocument(fileUrl, fileName)}
+        onClick={handleDownloadInteraction}
         onKeyDown={handleKeyDown}>
         <Flex styles={{ gap: '1.2rem' }}>
           <Flex css={circleStyle}>{selectFileIc(fileType)}</Flex>

@@ -32,7 +32,7 @@ interface ModalState {
     // Image Modal
     onImageUpload?: (url: string) => void;
     // New File Modal
-    onUploadFile: () => void;
+    onUploadFile?: () => void;
   } | null;
   actions: {
     openModal: (contentType: ModalContentType, data?: ModalState['modalData']) => void;

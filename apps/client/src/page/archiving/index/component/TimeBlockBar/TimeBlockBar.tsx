@@ -35,7 +35,7 @@ const TimeBlockBar = () => {
   const content = useDrawerContent();
 
   const initialData = useRef<Block & BlockDetail>(content);
-  console.log(content);
+
   // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
   const canSubmit = JSON.stringify(initialData.current) !== JSON.stringify(content);
 

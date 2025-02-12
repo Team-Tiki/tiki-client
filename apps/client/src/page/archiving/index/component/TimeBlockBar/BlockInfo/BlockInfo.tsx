@@ -1,6 +1,8 @@
 import { Button, CommandButton, DatePicker, Flex, Heading, Input, Text } from '@tiki/ui';
 import { format } from 'date-fns';
 
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
+
 import {
   containerStyle,
   periodStyle,
@@ -11,7 +13,12 @@ import { circleStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeB
 import { BLOCK_ICON } from '@/page/archiving/index/constant/icon';
 import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
+import { $api } from '@/shared/api/client';
+import { CAUTION } from '@/shared/constant';
+import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
+import { useCloseModal, useOpenModal } from '@/shared/store/modal';
+import { useTimeBlockId } from '@/shared/store/timeBlockId';
 import { Validate } from '@/shared/util/validate';
 
 interface BlockInfoProps {
@@ -23,6 +30,45 @@ interface BlockInfoProps {
 const BlockInfo = ({ isEditable, onEditClick, canSubmit }: BlockInfoProps) => {
   const { name, startDate, endDate, color, blockType } = useDrawerContent() as Block & BlockDetail;
   const { setContent } = useDrawerAction();
+
+  const closeModal = useCloseModal();
+  const openModal = useOpenModal();
+
+  const timeBlockId = useTimeBlockId();
+  const teamId = useInitializeTeamId();
+  const { closeDrawer } = useDrawerAction();
+
+  const { mutate: deleteBlockMutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}');
+
+  const queryClient = useQueryClient();
+
+  const handleBlockDelete = () => {
+    openModal('deleted', {
+      title: '타임블록을 삭제할까요?',
+      content: '업로드한 파일은 드라이브에 유지됩니다.',
+
+      onClick: () => {
+        deleteBlockMutate(
+          {
+            params: {
+              path: {
+                teamId,
+                timeBlockId,
+              },
+            },
+          },
+          {
+            onSuccess: () => {
+              closeDrawer();
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
+            },
+          }
+        );
+
+        closeModal();
+      },
+    });
+  };
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
     handleblockInfoChange('startDate', format(start ?? startDate ?? '', 'yyyy-MM-dd'));
@@ -66,7 +112,7 @@ const BlockInfo = ({ isEditable, onEditClick, canSubmit }: BlockInfoProps) => {
               }}>
               수정
             </Button>
-            <Button variant="tertiary" size="small">
+            <Button variant="tertiary" size="small" onClick={handleBlockDelete}>
               삭제
             </Button>
           </Flex>
