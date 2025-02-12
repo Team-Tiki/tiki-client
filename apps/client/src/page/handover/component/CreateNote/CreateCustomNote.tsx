@@ -2,14 +2,14 @@ import { Button, Label, scrollStyle } from '@tiki/ui';
 
 import { Dispatch, SetStateAction } from 'react';
 
+import File from '@/page/handoverNote/component/File/File';
 import {
   fileBoxStyle,
   labelStyle,
   layoutStyle,
   noteWrapperStyle,
   textareaStyle,
-} from '@/page/handoverNote/component/Custom/Custom.style';
-import File from '@/page/handoverNote/component/File/File';
+} from '@/page/handoverNote/component/style';
 import { CustomNote } from '@/page/handoverNote/type/note';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';

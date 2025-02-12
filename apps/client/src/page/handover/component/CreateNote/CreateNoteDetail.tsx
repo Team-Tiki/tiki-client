@@ -11,7 +11,7 @@ import {
   infoStyle,
   plusBtnStyle,
   titleStyle,
-} from '@/page/handoverNote/component/NoteInfo/NoteInfo.style';
+} from '@/page/handoverNote/component/style';
 import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 import { formatDateToString } from '@/page/signUp/info/util/date';

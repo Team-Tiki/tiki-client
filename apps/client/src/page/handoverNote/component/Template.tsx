@@ -8,7 +8,7 @@ import {
   labelStyle,
   layoutStyle,
   noteWrapperStyle,
-} from '@/page/handoverNote/component/Template/Template.style';
+} from '@/page/handoverNote/component/style';
 import { TEMPLATE } from '@/page/handoverNote/constants/template';
 import { TemplateNoteData } from '@/page/handoverNote/type/note';
 
