@@ -131,7 +131,15 @@ const NotePage = () => {
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
-          <CommandButton commandKey="S" isCommand={true} size="small" type="submit" onClick={handleSubmit}>
+          <CommandButton
+            commandKey="S"
+            isCommand={true}
+            size="small"
+            type="submit"
+            onClick={() => {
+              handleSubmit;
+              navigate(PATH.HANDOVER);
+            }}>
             저장
           </CommandButton>
         </Flex>
