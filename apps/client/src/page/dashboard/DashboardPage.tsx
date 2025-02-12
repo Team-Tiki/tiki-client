@@ -48,7 +48,7 @@ const DashboardPage = () => {
               전체보기
             </Button>
           }
-          css={[{ height: '40rem' }, contentBoxStyle]}>
+          css={[{ height: 'calc(100vh - 36.8rem)', maxHeight: '65vh' }, contentBoxStyle]}>
           <TimelineSection />
         </ContentBox>
       </Flex>
@@ -61,7 +61,7 @@ const DashboardPage = () => {
             전체보기
           </Button>
         }
-        css={[handoverBoxStyle, contentBoxStyle]}>
+        css={[{ height: 'calc(100vh - 12.8rem)' }, handoverBoxStyle, contentBoxStyle]}>
         <HandoverSection />
       </ContentBox>
     </Flex>

@@ -11,6 +11,7 @@ import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
 import { useDriveData } from '@/page/drive/hook/api/queries';
+import { useTeamUsage } from '@/page/drive/hook/api/useTeamUsage';
 import { useSelectDocuments } from '@/page/drive/hook/common/useSelectDocuments';
 import { contentStyle } from '@/page/drive/index.style';
 import { DocumentItem, FilterOption, FolderItem } from '@/page/drive/type';
@@ -75,6 +76,8 @@ const DrivePage = () => {
       : new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime()
   );
 
+  const { modifiedAvailableUsage, modifiedCapacity } = useTeamUsage(filteredResult);
+
   const {
     selectAll,
     selectDocument,
@@ -126,7 +129,7 @@ const DrivePage = () => {
     <ContentBox
       variant="file"
       title="파일"
-      description="5.16GB 사용가능(총 245.11GB)"
+      description={`${modifiedAvailableUsage}GB 사용 가능 (총 ${modifiedCapacity}GB)`}
       headerOption={
         <Flex styles={{ align: 'center', gap: '0.8rem' }}>
           <Input
