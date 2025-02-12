@@ -13,10 +13,11 @@ interface ModalState {
   isOpen: boolean;
   contentType: ModalContentType | null;
   modalData: {
-    // // Deleted Modal
+    // Deleted Modal
     title?: string;
     content?: string;
     onClick?: () => void;
+    isTitleOnly?: boolean;
     // Caution Modal
     infoText?: string;
     desc?: string;
@@ -28,6 +29,8 @@ interface ModalState {
     // Tag Modal
     selectedTags?: ActivityTag[];
     onConfirm?: (tags: ActivityTag[]) => void;
+    // Image Modal
+    onImageUpload?: (url: string) => void;
   } | null;
   actions: {
     openModal: (contentType: ModalContentType, data?: ModalState['modalData']) => void;
@@ -67,8 +70,11 @@ type ModalContentType =
   | 'invite'
   | 'member-tag'
   | 'activity-tag'
+  | 'new-file'
   | 'file'
-  | 'caution';
+  | 'caution'
+  | 'timeblock-file'
+  | 'image';
 
 const useModalStore = create<ModalState>((set) => ({
   isOpen: false,

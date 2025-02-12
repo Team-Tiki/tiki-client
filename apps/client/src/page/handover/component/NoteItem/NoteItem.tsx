@@ -2,6 +2,7 @@ import { IcAvatar, IcClose } from '@tiki/icon';
 import { CheckBox, Divider, Flex, Tag, Text, theme } from '@tiki/ui';
 
 import {
+  checkBoxStyle,
   closeButtonStyle,
   containerStyle,
   profileStyle,
@@ -13,7 +14,7 @@ interface NoteItemProps extends Omit<NoteType, 'lastUpdatedAt'> {
   canSelect: boolean;
   isSelected: boolean;
   onSelect: () => void;
-  onNoteCloseClick: (e: React.MouseEvent, ids: number[]) => void;
+  onNoteDelete: (e: React.MouseEvent, ids: number[]) => void;
   onClick: () => void;
 }
 
@@ -33,9 +34,11 @@ const NoteItem = ({
   canSelect,
   isSelected,
   onSelect,
-  onNoteCloseClick,
+  onNoteDelete,
   onClick,
 }: NoteItemProps) => {
+  const activityPeriod = `${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`;
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -45,40 +48,51 @@ const NoteItem = ({
   };
   return (
     <li>
-      <div css={wrapperStyle} onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
-        <Flex styles={{ align: 'center', justify: 'left' }} css={containerStyle}>
-          <Flex styles={{ align: 'center' }}>
-            {canSelect && (
-              <CheckBox isChecked={isSelected} onChange={() => onSelect?.()} style={{ marginRight: '1.6rem' }} />
-            )}
-            <Text tag="body6" style={{ width: '26rem' }}>
-              {`${formattingDateToKorean(startDate)} - ${formattingDateToKorean(endDate)}`}
+      <Flex
+        tag={canSelect ? 'label' : 'div'}
+        css={wrapperStyle}
+        onClick={canSelect ? () => {} : onClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={handleKeyDown}>
+        <Flex styles={{ align: 'center', justify: 'space-between' }} css={containerStyle}>
+          <Flex>
+            <Flex styles={{ align: 'center' }}>
+              {canSelect && <CheckBox isChecked={isSelected} onChange={onSelect} css={checkBoxStyle} />}
+              <Text tag="body6" style={{ width: '29.4rem' }}>
+                {activityPeriod}
+              </Text>
+            </Flex>
+
+            <Text tag="body6" style={{ width: '34rem' }}>
+              {title}
             </Text>
           </Flex>
 
-          <Text tag="body6" style={{ width: '34rem' }}>
-            {title}
-          </Text>
-          <Flex styles={{ align: 'center', gap: '0.4rem' }}>
-            <IcAvatar css={profileStyle} />
-            <Text tag="body6" style={{ width: '10.4rem' }}>
-              {author}
-            </Text>
-          </Flex>
-          <Flex styles={{ align: 'center', gap: complete ? '4.3rem' : '3.3rem' }}>
-            {complete ? (
-              <Tag variant="square" bgColor={theme.colors.key_400}>
-                작성 완료
-              </Tag>
-            ) : (
-              <Tag variant="square" bgColor={theme.colors.gray_300}>
-                작성 미완료
-              </Tag>
-            )}
-            <IcClose width={18} height={18} css={closeButtonStyle} onClick={(e) => onNoteCloseClick(e, [noteId])} />
+          <Flex styles={{ gap: '0.8rem' }}>
+            <Flex styles={{ align: 'center', gap: '0.4rem' }}>
+              <IcAvatar css={profileStyle} />
+              <Text tag="body6" style={{ width: '10.4rem' }}>
+                {author}
+              </Text>
+            </Flex>
+            <Flex styles={{ align: 'center', gap: complete ? '4.3rem' : '3.3rem' }}>
+              {complete ? (
+                <Tag variant="square" bgColor={theme.colors.key_400}>
+                  작성 완료
+                </Tag>
+              ) : (
+                <Tag variant="square" bgColor={theme.colors.gray_300}>
+                  작성 미완료
+                </Tag>
+              )}
+              <button css={closeButtonStyle} onClick={(e) => onNoteDelete(e, [noteId])}>
+                <IcClose width={22} height={22} />
+              </button>
+            </Flex>
           </Flex>
         </Flex>
-      </div>
+      </Flex>
       <Divider color={theme.colors.gray_300} />
     </li>
   );

@@ -6,12 +6,14 @@ import ActivityTagModal from '@/shared/component/ActivityTagModal/ActivityTagMod
 import CautionModal from '@/shared/component/CautionModal/CautionModal';
 import DeletedModal from '@/shared/component/DeletedModal/DeletedModal';
 import FileImportModal from '@/shared/component/FileImportModal/FileImportModal';
-import MemberTagModal from '@/shared/component/MemberTagModal/MemberTagModal';
+import ImageImportModal from '@/shared/component/ImageImportModal/ImageImportModal';
+import InviteModal from '@/shared/component/InviteModal/InviteModal';
+import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
-import InviteModal from '@/shared/component/WorkSpaceModal/invite/InviteModal';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
 import { FunnelProvider } from '@/shared/hook/common/useFunnel';
+import { TimeBlockFileUploadFlow } from '@/shared/hook/common/useTimeBlockUploadFlow';
 import { WorkSpaceProvider } from '@/shared/hook/common/useWorkSpaceContext';
 import {
   isCautionModalData,
@@ -39,6 +41,24 @@ const ModalFunnel = () => {
     );
   }
 
+  if (contentType === 'new-file') {
+    return (
+      <Suspense>
+        <NewFileImportModal />
+      </Suspense>
+    );
+  }
+
+  if (contentType === 'timeblock-file') {
+    return (
+      <Suspense>
+        <FunnelProvider>
+          <TimeBlockFileUploadFlow />
+        </FunnelProvider>
+      </Suspense>
+    );
+  }
+
   const renderContent = () => {
     switch (contentType) {
       case 'create-workspace':
@@ -56,15 +76,15 @@ const ModalFunnel = () => {
       case 'invite':
         return (
           <FunnelStep step={1}>
-            <InviteModal step={1} />
+            <InviteModal />
           </FunnelStep>
         );
-      case 'member-tag':
-        return <MemberTagModal />;
       case 'activity-tag':
         return <ActivityTagModal />;
       case 'file':
         return <FileImportModal />;
+      case 'image':
+        return <ImageImportModal />;
       case 'caution':
         if (isCautionModalData(modalData)) {
           return (

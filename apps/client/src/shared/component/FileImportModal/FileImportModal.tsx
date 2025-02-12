@@ -113,7 +113,7 @@ const FileImportModal = () => {
                     fileSize={getFileVolume(file.capacity || 0)}
                     uploadedSize={getFileVolume(file.capacity || 0)}
                     onDelete={() => handleDelete(file.documentId ?? 0)}
-                    size="small"
+                    size="medium"
                   />
                 </div>
               ))

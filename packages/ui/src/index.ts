@@ -21,6 +21,7 @@ export { default as Switch } from "./Switch/Switch";
 export { TabButton, TabList, TabPanel, TabRoot } from "./Tab";
 export { default as Tag } from "./Tag/Tag";
 export { default as Text } from "./Text/Text";
+export { default as Textarea } from "./Textarea/Textarea";
 export { Toast, useToastAction, useToastList } from "./Toast";
 export { default as ToastContainer } from "./ToastContainer/ToastContainer";
 export { default as ToastProvider } from "./ToastContainer/ToastProvider";

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { getFile } from '@/shared/api/file/upload';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
@@ -13,6 +13,8 @@ interface useFileProps {
 }
 
 const useFile = ({ files, onFilesChange, setUploadStatus, setFileUrls }: useFileProps) => {
+  const [isDragover, setIsDragover] = useState<boolean>(false);
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { mutateAsync: uploadToS3 } = usePutUploadMutation();
 
@@ -69,12 +71,20 @@ const useFile = ({ files, onFilesChange, setUploadStatus, setFileUrls }: useFile
 
   const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+
+    setIsDragover(true);
   }, []);
+
+  const handleDragLeave = () => {
+    setIsDragover(false);
+  };
 
   const handleDrop = useCallback(
     (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
       handleFiles(event.dataTransfer.files);
+
+      setIsDragover(false);
     },
     [handleFiles]
   );
@@ -84,6 +94,9 @@ const useFile = ({ files, onFilesChange, setUploadStatus, setFileUrls }: useFile
     handleFileChange,
     handleDragOver,
     handleDrop,
+    handleFiles,
+    handleDragLeave,
+    isDragover,
   };
 };
 

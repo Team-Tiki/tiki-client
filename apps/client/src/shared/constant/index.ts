@@ -94,39 +94,14 @@ export const TAG = {
   NO_CONNECTED_TAG: '태그된 활동이 없습니다.',
 };
 
-export const MEMBER_DATA = [
-  {
-    name: '이채원',
-    email: 'cindy1769@daum.net',
-    profileUrl: 'https://github.com/user-attachments/assets/a9c876cd-9d07-49db-94f1-353e5c4a5ee3',
+export const IMAGE_MODAL = {
+  TITLE: '대표 이미지 업로드',
+  SELECT: {
+    INFO_TEXT: '업로드할 파일을 선택하세요',
   },
-  {
-    name: '이채원2',
-    email: 'cindy1769@naver.com',
-    profileUrl: 'https://github.com/user-attachments/assets/a9c876cd-9d07-49db-94f1-353e5c4a5ee3',
+  LOADING: {
+    INFO_TEXT: '파일을 업로드 중입니다',
   },
-] as const;
+};
 
-export const ACITIVITY_TAG_DATA = [
-  {
-    id: 1,
-    tag: 'MEETING',
-    title: 'UX 스터디',
-    date: '2024.09.25',
-    color: '#D3EFFA',
-  },
-  {
-    id: 2,
-    tag: 'STUDY',
-    title: 'UX 스터디',
-    date: '2024.09.25',
-    color: '#F8E1F5',
-  },
-  {
-    id: 3,
-    tag: 'NOTICE',
-    title: 'UX 스터디',
-    date: '2024.09.25',
-    color: '#C4F2E5',
-  },
-] as const;
+export const MAX_TEAM_COUNT = 8;

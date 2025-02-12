@@ -1,6 +1,8 @@
 import { Flex, scrollStyle } from '@tiki/ui';
 import { hasKeyInObject } from '@tiki/utils';
 
+import { useNavigate } from 'react-router-dom';
+
 import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { DocumentItem, FolderItem } from '@/page/drive/type';
@@ -14,6 +16,7 @@ import { File } from '@/shared/type/file';
 import { extractFileExtension } from '@/shared/util/file';
 
 const FileSection = () => {
+  const navigate = useNavigate();
   const teamId = useInitializeTeamId();
 
   const { data: fileData } = $api.useQuery('get', '/api/v1/teams/{teamId}/drive', {
@@ -30,7 +33,11 @@ const FileSection = () => {
   const allFileData = [...docDataList, ...folderDataList];
 
   return (
-    <Flex css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}>
+    <Flex
+      css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}
+      onClick={() => {
+        navigate(PATH.DRIVE);
+      }}>
       {!allFileData[0] && <ItemAdder path={PATH.DRIVE} />}
       {allFileData.map((item) => {
         if (hasKeyInObject(item, 'documentId')) {

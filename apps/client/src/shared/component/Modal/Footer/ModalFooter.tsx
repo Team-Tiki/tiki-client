@@ -68,10 +68,16 @@ const ModalFooterButtons = (
       if (step === 1) {
         return [createButton('다음', buttonClick, 'primary', !isButtonActive)];
       }
-      if (step === 2 || step === 3) {
+      if (step === 2) {
         return [
           createButton('이전', prevStep, 'outline'),
           createButton('다음', buttonClick, 'primary', !isButtonActive),
+        ];
+      }
+      if (step === 3) {
+        return [
+          createButton('이전', prevStep, 'outline'),
+          createButton('업로드', buttonClick, 'primary', !isButtonActive),
         ];
       }
       return [createButton('이전', prevStep, 'outline'), createButton('생성', buttonClick, 'primary', !isButtonActive)];
@@ -81,21 +87,32 @@ const ModalFooterButtons = (
 
     case 'invite':
       return [
-        createButton('건너뛰기', buttonClick, 'outline', false),
-        createButton('다음으로', buttonClick, 'primary', !isButtonActive),
+        createButton('취소', closeModal, 'outline'),
+        createButton('완료', buttonClick, 'primary', !isButtonActive),
       ];
-    case 'member-tag':
     case 'activity-tag':
       return [createButton('취소', closeModal, 'outline'), createButton('완료', buttonClick, 'primary')];
+    case 'new-file':
+      return [
+        createButton('취소', closeModal, 'outline'),
+        createButton('업로드', buttonClick, 'primary', !isButtonActive),
+      ];
     case 'file':
       return [
         createButton('취소', closeModal, 'outline'),
         createButton('연동', buttonClick, 'primary', !isButtonActive),
       ];
+    case 'timeblock-file':
+      return [
+        createButton('취소', closeModal, 'outline'),
+        createButton('업로드', buttonClick, 'primary', !isButtonActive),
+      ];
     case 'caution':
       return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'primary')];
     case 'caution-modify':
       return [createButton('취소', closeModal, 'outline'), createButton('확인', buttonClick, 'primary')];
+    case 'image':
+      return [createButton('취소', closeModal, 'outline'), createButton('업로드', buttonClick, 'primary')];
     default:
       return [];
   }

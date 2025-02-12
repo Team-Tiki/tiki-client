@@ -22,7 +22,7 @@ const Input = (
       {label && <Label id={label}>{label}</Label>}
       <div css={contentStyle(isFilled)}>
         {LeftIcon}
-        <input ref={ref} css={inputStyle} {...props} />
+        <input ref={ref} css={inputStyle} autoComplete="off" {...props} />
       </div>
       {supportingText && (
         <SupportingText isError={isError} isSuccess={isSuccess}>
