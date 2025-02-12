@@ -27,7 +27,7 @@ const Logo = ({ to, name = '', onClick, isActive = false, children }: LogoProps)
           onClick={onClick}
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
-          css={itemStyle(isActive)}>
+          css={itemStyle(isActive, false)}>
           {children}
         </Link>
       </ToolTip>

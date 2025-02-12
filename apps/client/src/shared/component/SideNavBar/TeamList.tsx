@@ -1,22 +1,24 @@
 import { Flex } from '@tiki/ui';
 
-import { $api } from '@/shared/api/client';
+import { components } from '@/shared/__generated__/schema';
 import Logo from '@/shared/component/SideNavBar/Logo';
 import { firstSpellStyle } from '@/shared/component/SideNavBar/index.style';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useTeamIdAction } from '@/shared/store/team';
 
-const TeamList = () => {
-  const { data } = $api.useQuery('get', '/api/v1/members/teams');
+type TeamListProps = {
+  list?: components['schemas']['BelongTeamsGetResponse'];
+};
 
+const TeamList = ({ list }: TeamListProps) => {
   const { setTeamId } = useTeamIdAction();
 
   const getIsCurrentTeam = (id: number) => new URLSearchParams(location.search).get('teamId') === String(id);
 
   return (
     <Flex tag="ul" styles={{ direction: 'column', gap: '4rem', padding: '2rem 0' }}>
-      {data?.data?.belongTeamGetResponses.map((data) => {
+      {list?.belongTeamGetResponses.map((data) => {
         return (
           <Logo
             to={`${PATH.DASHBOARD}?teamId=${data.id}`}

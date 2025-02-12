@@ -1,5 +1,5 @@
 import { IcAvatar, IcEditProfile, IcExit } from '@tiki/icon';
-import { Divider, Flex, MenuItem, MenuList, MenuRoot, Text, theme } from '@tiki/ui';
+import { Divider, Flex, MenuItem, MenuList, MenuRoot, Text, theme, useToastAction } from '@tiki/ui';
 import { useOverlay } from '@tiki/utils';
 
 import { settingStyle } from '@/shared/component/SideNavBar/index.style';
@@ -9,6 +9,7 @@ const UserMenu = () => {
   const { isOpen, close, toggle } = useOverlay();
 
   const { logout } = useLogout();
+  const { createToast } = useToastAction();
 
   return (
     <MenuRoot onClose={close} css={settingStyle}>
@@ -21,7 +22,7 @@ const UserMenu = () => {
         <IcAvatar width={32} height={32} />
       </div>
       <MenuList isOpen={isOpen} css={{ left: 'calc(100%)', bottom: 20 }}>
-        <MenuItem onSelect={() => alert('준비 중인 기능입니다.')}>
+        <MenuItem onSelect={() => createToast('준비 중인 기능입니다.')}>
           <Flex styles={{ align: 'center', gap: '0.8rem' }}>
             <IcEditProfile width={16} height={16} />
             <Text tag="body8">내 정보 수정</Text>
