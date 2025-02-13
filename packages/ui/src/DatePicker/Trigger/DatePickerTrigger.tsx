@@ -1,6 +1,9 @@
 import { format } from 'date-fns';
 
-import { textStyle } from '@/DatePicker/Trigger/DatePickerTrigger.style';
+import {
+  dateInputStyle,
+  textStyle,
+} from '@/DatePicker/Trigger/DatePickerTrigger.style';
 import Flex from '@/Flex/Flex';
 import Input from '@/Input/Input';
 import Text from '@/Text/Text';
@@ -26,13 +29,7 @@ const DatePickerTrigger = ({
         placeholder="YYYY.MM.DD"
         readOnly
         onClick={onClick}
-        css={{
-          cursor: 'pointer',
-          width: '100%',
-          ...theme.text.body06,
-          textAlign: 'center',
-          '::placeholder': { ...theme.text.body06, textAlign: 'center' },
-        }}
+        css={dateInputStyle}
       />
       {variant === 'range' && (
         <>
@@ -44,14 +41,7 @@ const DatePickerTrigger = ({
             placeholder="YYYY.MM.DD"
             readOnly
             onClick={onClick}
-            css={{
-              cursor: 'pointer',
-              width: '100%',
-              ...theme.text.body06,
-
-              textAlign: 'center',
-              '::placeholder': { ...theme.text.body06, textAlign: 'center' },
-            }}
+            css={dateInputStyle}
           />
         </>
       )}
