@@ -6,7 +6,6 @@ import { $api } from '@/shared/api/client';
 import { emptyStyle, inputWrapperStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
-import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
@@ -16,7 +15,6 @@ const InviteModal = () => {
 
   const isButtonActive = inviteList.length === 0;
 
-  const { nextStep } = useFunnel();
   const { createToast } = useToastAction();
 
   const closeModal = useCloseModal();
@@ -55,10 +53,6 @@ const InviteModal = () => {
   };
   const handleDeleteInvite = (email: string) => {
     setInviteList(inviteList.filter((item) => item !== email));
-  };
-
-  const handleNextStep = () => {
-    nextStep();
   };
 
   return (
@@ -100,7 +94,7 @@ const InviteModal = () => {
       <Modal.Footer
         step={1}
         contentType="invite"
-        buttonClick={handleNextStep}
+        buttonClick={() => closeModal()}
         isButtonActive={!isButtonActive}
         closeModal={closeModal}
       />
