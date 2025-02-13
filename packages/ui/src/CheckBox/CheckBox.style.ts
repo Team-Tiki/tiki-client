@@ -14,6 +14,8 @@ export const inputStyle = css({
   borderRadius: "2px",
   backgroundColor: theme.colors.gray_300,
 
+  flexShrink: 0,
+
   "&:checked": {
     backgroundColor: theme.colors.key_500,
   },

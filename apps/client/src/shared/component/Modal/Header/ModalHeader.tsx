@@ -1,4 +1,5 @@
 import { Flex, Text } from '@tiki/ui';
+import { isNil } from '@tiki/utils';
 
 import { iconTextStyle, infoTextStyle } from '@/shared/component/Modal/Header/ModalHeader.style';
 import { MODAL_CONTENTS, isModalContentType } from '@/shared/constant/modal';
@@ -19,7 +20,7 @@ const ModalHeader = ({ step = 1, totalSteps = 4, infoText }: ModalHeaderProps) =
   const modalContent = MODAL_CONTENTS[contentType];
   const headerContent = modalContent.headers.at(step - 1);
 
-  if (!headerContent) return null;
+  if (isNil(headerContent)) return null;
 
   const { icon, title: defaultTitle, infoText: defaultInfoText } = headerContent;
 
