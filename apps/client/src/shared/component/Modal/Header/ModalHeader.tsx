@@ -17,7 +17,11 @@ const ModalHeader = ({ step = 1, totalSteps = 4, infoText }: ModalHeaderProps) =
   if (!isModalContentType(contentType)) return null;
 
   const modalContent = MODAL_CONTENTS[contentType];
-  const { icon, title: defaultTitle, infoText: defaultInfoText } = modalContent.headers[step - 1];
+  const headerContent = modalContent.headers.at(step - 1);
+
+  if (!headerContent) return null;
+
+  const { icon, title: defaultTitle, infoText: defaultInfoText } = headerContent;
 
   const displayIcon = typeof icon === 'function' ? icon(step, totalSteps) : icon;
 
