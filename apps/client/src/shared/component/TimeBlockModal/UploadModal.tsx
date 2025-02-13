@@ -23,7 +23,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
 
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
-  const { prevStep, nextStep } = useFunnel();
+  const { nextStep } = useFunnel();
 
   const { setFormData } = useBlockContext();
 
