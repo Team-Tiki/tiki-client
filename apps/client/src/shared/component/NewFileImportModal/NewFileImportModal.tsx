@@ -38,7 +38,7 @@ const NewFileImportModal = ({
   contentType = 'new-file',
 }: NewFileImportModalProps) => {
   const [files, setFiles] = useState<FileWithDocumentId[]>([]);
-  const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
+  const [uploadStatus, setUploadStatus] = useState<Record<string, boolean>>({});
   const [fileUrls, setFileUrls] = useState<Files>({});
 
   const isOpen = useModalIsOpen();
@@ -49,109 +49,81 @@ const NewFileImportModal = ({
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
 
-  const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
-  const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
   const queryClient = useQueryClient();
 
-  const handleUploadFile = async () => {
-    if (files.length === 0) {
-      createToast('업로드할 파일이 없습니다.', 'error');
-      return;
-    }
+  const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
+  const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
 
-    const uploadFiles = files.map((file) => {
-      return new Promise<void>((resolve) => {
-        postDocumentMutation(
-          {
-            params: { path: { teamId } },
-            body: {
-              documents: [
-                {
-                  fileName: file.name,
-                  fileUrl: fileUrls[file.name] || '',
-                  fileKey: getFileKey(fileUrls[file.name]),
-                  capacity: convertToKB(file.size),
-                },
-              ],
-            },
-          },
-          {
-            onSuccess: (data) => {
-              createToast('파일이 성공적으로 업로드 되었습니다.', 'success');
-
-              const uploadedFile = {
-                ...file,
-                documentId: data?.data?.response?.[0]?.documentId ?? 0,
-                name: file.name,
-                url: fileUrls[file.name] || '',
+  const handleUploadFile = async (file: FileWithDocumentId) => {
+    return new Promise<void>((resolve) => {
+      postDocumentMutation(
+        {
+          params: { path: { teamId } },
+          body: {
+            documents: [
+              {
+                fileName: file.name,
+                fileUrl: fileUrls[file.name] || '',
                 fileKey: getFileKey(fileUrls[file.name]),
-                size: convertToKB(file.size),
-              };
+                capacity: convertToKB(file.size),
+              },
+            ],
+          },
+        },
+        {
+          onSuccess: (data) => {
+            createToast('파일을 성공적으로 업로드했습니다.', 'success');
 
-              setFiles((prevFiles) => prevFiles.map((f) => (f.name === uploadedFile.name ? uploadedFile : f)));
+            const uploadedFile = {
+              ...file,
+              documentId: data?.data?.response?.[0]?.documentId ?? 0,
+              url: fileUrls[file.name] || '',
+              fileKey: getFileKey(fileUrls[file.name]),
+              size: convertToKB(file.size),
+            };
 
-              onUploadFile?.([
-                ...selectedFiles,
-                {
-                  documentId: uploadedFile.documentId,
-                  name: uploadedFile.name,
-                  url: uploadedFile.url,
-                  capacity: convertToKB(uploadedFile.size),
-                  createdTime: new Date().toISOString(),
-                },
-              ]);
+            setFiles((prevFiles) => prevFiles.map((f) => (f.name === uploadedFile.name ? uploadedFile : f)));
 
-              resolve();
-            },
-            onError: (error) => {
-              createToast(`파일 업로드 실패: ${error.message}`, 'error');
+            onUploadFile([
+              ...selectedFiles,
+              {
+                documentId: uploadedFile.documentId,
+                name: uploadedFile.name,
+                url: uploadedFile.url,
+                capacity: uploadedFile.size,
+                createdTime: new Date().toISOString(),
+              },
+            ]);
 
-              setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+            resolve();
+          },
+          onError: (error) => {
+            createToast(`파일 업로드 실패: ${error.message}`, 'error');
 
-              resolve();
-            },
-          }
-        );
-      });
+            setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+
+            resolve();
+          },
+        }
+      );
     });
-
-    await Promise.all(uploadFiles);
   };
+
+  const handleUploadAllFiles = async () => {
+    await Promise.all(files.map((file) => handleUploadFile(file)));
+  };
+
   const handleDelete = (fileName: string, documentId: number) => {
-    const updatedFiles = files.filter((file) => file.name !== fileName);
-    setFiles(updatedFiles);
-
-    const updatedSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
-    onUploadFile(updatedSelectedFiles);
-
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
-
-    setFileUrls((prevUrls) => {
-      const updatedUrls = { ...prevUrls };
-      delete updatedUrls[fileName];
-      return updatedUrls;
-    });
-
-    setUploadStatus((prevStatus) => {
-      const newStatus = { ...prevStatus };
-      delete newStatus[fileName];
-      return newStatus;
-    });
+    onUploadFile(selectedFiles.filter((file) => file.name !== fileName));
 
     deleteDocumentMutation(
       {
-        params: {
-          query: { documentId: [documentId] },
-          path: { teamId },
-        },
+        params: { query: { documentId: [documentId] }, path: { teamId } },
       },
       {
-        onSuccess: () => {
-          createToast('파일이 삭제되었습니다.', 'success');
-        },
-        onError: (error) => {
-          createToast(`파일 삭제 실패: ${error.message}`, 'error');
-        },
+        onSuccess: () => createToast('파일이 삭제되었습니다.', 'success'),
+        onError: (error) => createToast(`파일 삭제 실패: ${error.message}`, 'error'),
       }
     );
   };
@@ -163,7 +135,7 @@ const NewFileImportModal = ({
 
   useEffect(() => {
     if (Object.keys(fileUrls).length > 0 && files.every((file) => fileUrls[file.name])) {
-      handleUploadFile();
+      handleUploadAllFiles();
     }
   }, [fileUrls]);
 
