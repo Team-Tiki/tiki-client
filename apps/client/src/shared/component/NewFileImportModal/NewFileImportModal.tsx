@@ -53,51 +53,70 @@ const NewFileImportModal = ({
   const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
   const queryClient = useQueryClient();
 
-  const handleUploadFile = (validFiles: FileWithDocumentId[]) => {
-    postDocumentMutation(
-      {
-        params: { path: { teamId } },
-        body: {
-          documents: validFiles.map((file) => ({
-            fileName: file.name,
-            fileUrl: fileUrls[file.name] || '',
-            fileKey: getFileKey(fileUrls[file.name]),
-            capacity: convertToKB(file.size),
-          })),
-        },
-      },
-      {
-        onSuccess: (data) => {
-          createToast('파일이 성공적으로 업로드되었습니다.', 'success');
+  const handleUploadFile = async () => {
+    if (files.length === 0) {
+      createToast('업로드할 파일이 없습니다.', 'error');
+      return;
+    }
 
-          const uploadedFiles = validFiles.map((file, index) => ({
-            ...file,
-            documentId: data?.data?.response?.[index]?.documentId ?? 0,
-            name: file?.name,
-            url: fileUrls[file?.name] || '',
-            fileKey: getFileKey(fileUrls[file?.name]),
-            size: convertToKB(file?.size),
-          }));
+    const uploadFiles = files.map((file) => {
+      return new Promise<void>((resolve) => {
+        postDocumentMutation(
+          {
+            params: { path: { teamId } },
+            body: {
+              documents: [
+                {
+                  fileName: file.name,
+                  fileUrl: fileUrls[file.name] || '',
+                  fileKey: getFileKey(fileUrls[file.name]),
+                  capacity: convertToKB(file.size),
+                },
+              ],
+            },
+          },
+          {
+            onSuccess: (data) => {
+              createToast('파일이 성공적으로 업로드 되었습니다.', 'success');
 
-          setFiles(uploadedFiles);
+              const uploadedFile = {
+                ...file,
+                documentId: data?.data?.response?.[0]?.documentId ?? 0,
+                name: file.name,
+                url: fileUrls[file.name] || '',
+                fileKey: getFileKey(fileUrls[file.name]),
+                size: convertToKB(file.size),
+              };
 
-          const documentDetailList: DocumentDetail[] = uploadedFiles.map((file) => ({
-            documentId: file.documentId,
-            name: file.name,
-            url: file.url,
-            capacity: convertToKB(file.size),
-            createdTime: new Date().toISOString(),
-          }));
+              setFiles((prevFiles) => prevFiles.map((f) => (f.name === uploadedFile.name ? uploadedFile : f)));
 
-          onUploadFile?.(documentDetailList);
-        },
-        onError: (error) => {
-          createToast(`파일 업로드 실패: ${error.message}`, 'error');
-        },
-      }
-    );
+              onUploadFile?.([
+                ...selectedFiles,
+                {
+                  documentId: uploadedFile.documentId,
+                  name: uploadedFile.name,
+                  url: uploadedFile.url,
+                  capacity: convertToKB(uploadedFile.size),
+                  createdTime: new Date().toISOString(),
+                },
+              ]);
+
+              resolve();
+            },
+            onError: (error) => {
+              createToast(`파일 업로드 실패: ${error.message}`, 'error');
+
+              setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+
+              resolve();
+            },
+          }
+        );
+      });
+    });
+
+    await Promise.all(uploadFiles);
   };
-
   const handleDelete = (fileName: string, documentId: number) => {
     const updatedFiles = files.filter((file) => file.name !== fileName);
     setFiles(updatedFiles);
@@ -144,13 +163,13 @@ const NewFileImportModal = ({
 
   useEffect(() => {
     if (Object.keys(fileUrls).length > 0 && files.every((file) => fileUrls[file.name])) {
-      handleUploadFile(files);
+      handleUploadFile();
     }
   }, [fileUrls]);
 
   return (
     <Modal size={size} isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header step={3} />
+      <Modal.Header />
       <Modal.Body>
         <Flex css={flexStyle}>
           <Flex styles={{ direction: 'column', width: '100%' }}>
