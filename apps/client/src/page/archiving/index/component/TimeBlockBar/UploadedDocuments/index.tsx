@@ -2,7 +2,7 @@ import { IcCloudUpload, IcPaper } from '@tiki/icon';
 import { Button, Flex, Text } from '@tiki/ui';
 
 import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
-import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem';
+import FileItem from '@/page/archiving/index/component/TimeBlockBar/UploadedDocuments/FileItem/FileItem';
 import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useDrawerContent } from '@/shared/store/drawer';

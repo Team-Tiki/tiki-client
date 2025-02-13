@@ -5,7 +5,7 @@ import { useState } from 'react';
 import BlockInfo from '@/page/archiving/index/component/TimeBlockBar/BlockInfo/BlockInfo';
 import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNotes';
 import { closeBtnStyle, formStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
-import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss';
+import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocuments';
 
 import { useDrawerAction } from '@/shared/store/drawer';
 

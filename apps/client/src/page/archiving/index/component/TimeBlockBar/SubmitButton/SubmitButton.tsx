@@ -1,10 +1,8 @@
 import { CommandButton } from '@tiki/ui';
 
-import { useQueryClient } from '@tanstack/react-query';
-
+import { useSubmitMutates } from '@/page/archiving/index/component/TimeBlockBar/SubmitButton/quries';
 import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
-import { $api } from '@/shared/api/client';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerAction, useDrawerContent, useDrawerInitialContent, useDrawerIsChanged } from '@/shared/store/drawer';
 import { useTimeBlockId } from '@/shared/store/timeBlockId';
@@ -18,36 +16,11 @@ const SubmitButton = ({ onEditClick }: SubmitButtonProps) => {
   const initialContent = useDrawerInitialContent();
   const content = useDrawerContent() as Block & BlockDetail;
   const { setInitialContent } = useDrawerAction();
-
   const timeBlockId = useTimeBlockId();
   const teamId = useInitializeTeamId();
-
-  const queryClient = useQueryClient();
+  const { blockMutate, fileMutate, tagMutate } = useSubmitMutates(onEditClick);
 
   const { name, startDate, endDate, documents } = content;
-
-  const { mutate: blockMutate } = $api.useMutation('patch', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
-    onSuccess: () => {
-      onEditClick();
-      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
-    },
-  });
-
-  const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
-      });
-    },
-  });
-
-  const { mutate: tagMutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['get', '/api/v1/teams/{teamId}/time-block/{timeBlockId}'],
-      });
-    },
-  });
 
   const handleSubmit = (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault();

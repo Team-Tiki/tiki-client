@@ -16,7 +16,7 @@ const DeleteFileButton = ({ tagId }: DeleteFileButtonProps) => {
   const handleFileDeleteButtonClick = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     e.stopPropagation();
 
-    const filteredDocuments = documents.filter((data) => data.tagId !== tagId);
+    const filteredDocuments = documents.filter((document) => document.tagId !== tagId);
     setContent('documents', filteredDocuments);
   };
 

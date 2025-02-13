@@ -40,24 +40,21 @@ export const TimeBlockFileUploadFlow = () => {
     });
   };
 
-  // 여기임 ㅅㅂ
   const handleComplete = () => {
     const convertedFiles = files
-      .map((data) => {
-        return {
-          documentId: data.documentId,
-          capacity: data.capacity,
-          fileName: data.name,
-          fileUrl: data.url,
-          tagId: 0,
-        };
-      })
-      .filter((data) => !documents.map((documentData) => documentData.documentId).includes(data.documentId));
+      .map((data) => ({
+        documentId: data.documentId,
+        capacity: data.capacity,
+        fileName: data.name,
+        fileUrl: data.url,
+        tagId: 0,
+      }))
+      .filter((data) => !documents.every((document) => document.documentId === data.documentId));
 
     const combinedDocuments = [...documents, ...convertedFiles];
 
     setContent('documents', combinedDocuments);
-    console.log(files);
+
     closeModal();
   };
 

@@ -7,7 +7,7 @@ import {
   fileCapacityStyle,
   fileTitleStyle,
   wrapperStyle,
-} from '@/page/archiving/index/component/TimeBlockBar/UploadedDocumentss/FileItem/FileItem.style';
+} from '@/page/archiving/index/component/TimeBlockBar/UploadedDocuments/FileItem/FileItem.style';
 import { Document } from '@/page/archiving/index/type/blockType';
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
@@ -18,7 +18,7 @@ interface FileItemProps extends Omit<Document, 'documentId'> {
 }
 
 const FileItem = ({ fileName, capacity, tagId, fileUrl, isEditable }: FileItemProps) => {
-  const fileType = fileName.split('.')[fileName.split('.').length - 1];
+  const fileType = fileName.split('.').at(-1) ?? '';
 
   const handleDownloadInteraction = () => {
     if (isEditable) return;

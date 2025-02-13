@@ -30,11 +30,14 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
   };
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
-    handleblockInfoChange('startDate', format(start ?? startDate ?? '', 'yyyy-MM-dd'));
-    handleblockInfoChange('endDate', format(end ?? endDate ?? '', 'yyyy-MM-dd'));
+    handleblockInfoChange('startDate', format(start ?? startDate, 'yyyy-MM-dd'));
+    handleblockInfoChange('endDate', format(end ?? endDate, 'yyyy-MM-dd'));
   };
 
-  const handleblockInfoChange = (key: keyof Omit<BlockInfoType, 'documents'>, value: string) => {
+  const handleblockInfoChange = (
+    key: keyof Omit<BlockInfoType, 'documents'>,
+    value: string = format(new Date(), 'yyyy-MM-dd')
+  ) => {
     setContent(key, value);
   };
 
@@ -81,7 +84,7 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
           </>
         ) : (
           <>
-            <Heading tag="H6">{name}</Heading>{' '}
+            <Heading tag="H6">{name}</Heading>
             <Text tag="body6" css={periodStyle}>
               {startDate} ~ {endDate}
             </Text>

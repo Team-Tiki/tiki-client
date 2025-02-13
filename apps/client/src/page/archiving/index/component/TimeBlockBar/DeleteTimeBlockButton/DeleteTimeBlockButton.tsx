@@ -3,6 +3,7 @@ import { Button } from '@tiki/ui';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { $api } from '@/shared/api/client';
+import { DELETE_TIMEBLOCK } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useDrawerAction } from '@/shared/store/drawer';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -20,8 +21,8 @@ const DeleteTimeBlockButton = () => {
 
   const handleBlockDelete = () => {
     openModal('deleted', {
-      title: '타임블록을 삭제할까요?',
-      content: '업로드한 파일은 드라이브에 유지됩니다.',
+      title: DELETE_TIMEBLOCK.TITLE,
+      content: DELETE_TIMEBLOCK.CONTENT,
       onClick: () => {
         deleteBlockMutate(
           {
