@@ -14,11 +14,12 @@ import {
   optionTextStyle,
   textStyle,
 } from '@/shared/component/FileGrid/index.style';
+import { checkDropdownPosition } from '@/shared/component/FileGrid/util';
 import { File } from '@/shared/type/file';
 import { downloadDocument } from '@/shared/util/document';
 import { getFileVolume } from '@/shared/util/file';
 
-export type FileGridProps = Omit<components['schemas']['DocumentGetResponse'], 'documentId'> & {
+export type FileGridProps = components['schemas']['DocumentGetResponse'] & {
   variant?: 'primary' | 'secondary';
   /** API 명세에 따라 달라질 수 있음 + 추후 삭제 */
   type: File;
@@ -50,13 +51,12 @@ const FileGrid = ({
 
   const optionRef = useRef<HTMLDivElement | null>(null);
 
-  const checkDropdownPosition = () => {
-    if (!optionRef.current) return false;
+  const getRenderedSection = () => {
+    if (!optionRef.current) return null;
 
-    const { y } = optionRef.current.getBoundingClientRect();
+    const { x, y } = optionRef.current.getBoundingClientRect();
 
-    /** y 위치 + 드롭다운 높이 + 드롭다운 transformY > 뷰포트 높이 - 뷰포트 패딩바텀 */
-    return y + 118 + 20 < document.documentElement.clientHeight - 48;
+    return checkDropdownPosition(x, y);
   };
 
   return (
@@ -80,7 +80,7 @@ const FileGrid = ({
                 {!isDeleted && <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />}
               </div>
 
-              <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
+              <MenuList css={optionListStyle(getRenderedSection())} isOpen={isOpen}>
                 <MenuItem
                   css={optionTextStyle}
                   LeftIcon={OPTION_ICON.download}
