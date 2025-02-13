@@ -59,6 +59,10 @@ const DatePicker = ({
         } else if (openStatus === "end") {
           setOpenStatus(null);
         }
+        break;
+      }
+      default: {
+        throw new Error("multirange datepicker only has start, endDate name field");
       }
     }
 
