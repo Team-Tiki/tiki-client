@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { Modal } from '@/shared/component/Modal';
+import { MAX_TIMEBLOCK_LENGTH } from '@/shared/component/TimeBlockModal/constant/error';
 import { useBlockName } from '@/shared/component/TimeBlockModal/hook/common/useBlockName';
 import { SUPPORTING_TEXT } from '@/shared/constant/form';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
@@ -20,7 +21,7 @@ const BlockInfoModal = () => {
   const [startDate, setStartDate] = useState<Date | null>(formData.startDate ? parseISO(formData.startDate) : null);
   const [endDate, setEndDate] = useState<Date | null>(formData.endDate ? parseISO(formData.endDate) : null);
 
-  const { blockName, isNameError, handleBlockNameChange } = useBlockName({
+  const { blockName, isNameError, handleBlockNameChange, handleBlockNameBlur } = useBlockName({
     onChange: (name) => setFormData({ ...formData, name }),
   });
 
@@ -60,6 +61,8 @@ const BlockInfoModal = () => {
               css={{ width: '100%' }}
               value={blockName}
               onChange={handleBlockNameChange}
+              onBlur={handleBlockNameBlur}
+              maxLength={MAX_TIMEBLOCK_LENGTH}
               isError={isNameError}
               supportingText={isNameError ? SUPPORTING_TEXT.TIMEBLOCK_NAME_LENGTH : ''}
             />
