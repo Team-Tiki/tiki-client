@@ -48,16 +48,23 @@ const BlockInfo = ({ isEditable, onEditClick }: BlockInfoProps) => {
     <div css={containerStyle}>
       <Flex styles={{ justify: 'space-between', align: 'center', marginTop: '7.4rem' }}>
         <Flex css={circleStyle(color)}>{BLOCK_ICON.find((icon) => icon.name === blockType)?.icon(color)}</Flex>
-        {isEditable ? (
-          <SubmitButton onEditClick={onEditClick} />
-        ) : (
-          <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" size="small" onClick={handleEditButtonClick}>
-              수정
-            </Button>
-            <DeleteTimeBlockButton />
-          </Flex>
-        )}
+        <Flex styles={{ gap: '0.8rem' }}>
+          {isEditable ? (
+            <>
+              <Button variant="tertiary" size="small" onClick={handleEditButtonClick}>
+                취소
+              </Button>
+              <SubmitButton onEditClick={onEditClick} />
+            </>
+          ) : (
+            <>
+              <Button variant="tertiary" size="small" onClick={handleEditButtonClick}>
+                수정
+              </Button>
+              <DeleteTimeBlockButton />
+            </>
+          )}
+        </Flex>
       </Flex>
 
       <Flex styles={{ direction: 'column', gap: '1rem', marginTop: '1.8rem' }}>
