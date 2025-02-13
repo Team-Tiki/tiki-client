@@ -1,6 +1,6 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes } from 'react';
 
-import { inputStyle } from "@/CheckBox/CheckBox.style";
+import { inputStyle } from '@/CheckBox/CheckBox.style';
 
 interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
   isChecked: boolean;

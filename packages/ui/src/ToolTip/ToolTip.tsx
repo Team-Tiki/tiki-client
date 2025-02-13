@@ -1,15 +1,24 @@
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes, useState } from 'react';
 
-import { arrowPositionStyle, arrowStyle, containerStyle, messageStyle, positionStyle } from "@/ToolTip/ToolTip.style";
-import { IcTooltipArrow } from "@tiki/icon";
+import {
+  containerStyle,
+  messageStyle,
+  positionStyle,
+} from '@/ToolTip/ToolTip.style';
 
 export interface ToolTipProps extends HTMLAttributes<HTMLSpanElement> {
-  position?: "top" | "right" | "bottom" | "left";
+  position?: 'top' | 'right' | 'bottom' | 'left';
   message: string;
   gap?: number;
 }
 
-const ToolTip = ({ position = "right", message, gap = 0, children, ...props }: ToolTipProps) => {
+const ToolTip = ({
+  position = 'right',
+  message,
+  gap = 0,
+  children,
+  ...props
+}: ToolTipProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleToolTipVisible = () => {
@@ -19,7 +28,7 @@ const ToolTip = ({ position = "right", message, gap = 0, children, ...props }: T
     setIsVisible(false);
   };
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       handleToolTipHidden();
     }
   };
@@ -37,8 +46,11 @@ const ToolTip = ({ position = "right", message, gap = 0, children, ...props }: T
       onBlur={handleToolTipHidden}
     >
       {children}
-      <span role="tooltip" css={[messageStyle(isVisible), positionStyle(position, gap)]} {...props}>
-        <IcTooltipArrow css={[arrowStyle, arrowPositionStyle(position)]} />
+      <span
+        role="tooltip"
+        css={[messageStyle(isVisible), positionStyle(position, gap)]}
+        {...props}
+      >
         {message}
       </span>
     </div>

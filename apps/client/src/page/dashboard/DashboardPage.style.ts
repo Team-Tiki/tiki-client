@@ -13,8 +13,6 @@ export const dashboradScrollStyle = css({
 });
 
 export const handoverBoxStyle = css({
-  height: '64rem',
-
   '&>div:last-child': {
     height: '85%',
   },

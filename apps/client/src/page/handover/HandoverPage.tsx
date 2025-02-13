@@ -15,6 +15,7 @@ import { FILTER_TYPE, NoteListType, NoteType } from '@/page/handover/type';
 
 import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
+import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -29,7 +30,7 @@ const HandoverPage = () => {
   const [noteList, setNoteList] = useState<NoteListType>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState('');
 
-  const { data, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+  const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
 
   const queryClient = useQueryClient();
 
@@ -66,16 +67,16 @@ const HandoverPage = () => {
   });
 
   useEffect(() => {
-    if (data?.data?.noteGetResponseList) {
+    if (noteData?.data?.noteGetResponseList) {
       if (lastUpdatedAt) {
-        setNoteList((prev) => [...prev, ...data.data!.noteGetResponseList]);
+        setNoteList((prev) => [...prev, ...noteData.data!.noteGetResponseList]);
         return;
       }
-      setNoteList(data.data!.noteGetResponseList);
+      setNoteList(noteData.data!.noteGetResponseList);
     }
-  }, [data, lastUpdatedAt]);
+  }, [noteData, lastUpdatedAt]);
 
-  const handleNoteCloseClick = (e: React.MouseEvent, noteIds: number[]) => {
+  const handleNoteDelete = (e: React.MouseEvent, noteIds: number[]) => {
     e.stopPropagation();
 
     openModal('caution', {
@@ -119,22 +120,6 @@ const HandoverPage = () => {
     navigate(PATH.CREATE_HANDOVER_NOTE);
   };
 
-  const handleMultiDeleteButtonClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-
-    if (canSelect && !ids.length) {
-      handleToggleSelect();
-      return;
-    }
-
-    if (canSelect) {
-      handleNoteCloseClick(e, ids);
-      return;
-    }
-
-    handleToggleSelect();
-  };
-
   return (
     <ContentBox
       variant="handover"
@@ -154,9 +139,19 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={handleMultiDeleteButtonClick}>
-              {canSelect ? '삭제' : '선택'}
+            <Button variant="tertiary" onClick={canSelect ? handleAllClick : handleToggleSelect}>
+              {canSelect ? '전체선택' : '선택'}
             </Button>
+            {canSelect && (
+              <>
+                <Button variant="tertiary" onClick={(e) => handleNoteDelete(e, ids)}>
+                  삭제
+                </Button>
+                <Button variant="tertiary" onClick={handleToggleSelect}>
+                  취소
+                </Button>
+              </>
+            )}
           </Flex>
 
           <Flex styles={{ align: 'center' }}>
@@ -171,38 +166,35 @@ const HandoverPage = () => {
           </Flex>
         </Flex>
       }>
-      <NoteListHeader
-        isSelected={ids.length === data?.data?.noteGetResponseList.length}
-        canSelect={canSelect}
-        handleAllClick={handleAllClick}
-      />
-      <Divider />
-      <ul>
-        {noteList
-          ?.filter((data) => data.title.includes(filterKeyword.trim()))
-          .map((data) => (
-            <NoteItem
-              key={data.noteId}
-              noteId={data.noteId}
-              startDate={data.startDate}
-              endDate={data.endDate}
-              title={data.title}
-              author={data.author}
-              complete={data.complete}
-              canSelect={canSelect}
-              isSelected={ids.includes(+data.noteId)}
-              onSelect={() => handleItemClick(+data.noteId)}
-              onNoteCloseClick={(e) => handleNoteCloseClick(e, [data.noteId])}
-              onClick={() => navigate(`/handover/${+data.noteId}`)}
-            />
-          ))}
-        {isFetching && (
-          <Flex styles={{ justify: 'center', marginTop: '1rem' }}>
-            <Spinner size={20} />
-          </Flex>
-        )}
-        <div style={{ height: '1px' }} ref={targetRef} />
-      </ul>
+      {!!noteList.length && (
+        <section>
+          <NoteListHeader canSelect={canSelect} />
+          <Divider />
+          <ul>
+            {noteList
+              ?.filter((data) => data.title.includes(filterKeyword.trim()))
+              .map((data) => (
+                <NoteItem
+                  key={data.noteId}
+                  canSelect={canSelect}
+                  isSelected={ids.includes(+data.noteId)}
+                  onSelect={() => handleItemClick(+data.noteId)}
+                  onNoteDelete={(e) => handleNoteDelete(e, [data.noteId])}
+                  onClick={() => navigate(`/handover/${+data.noteId}`)}
+                  {...data}
+                />
+              ))}
+            {isFetching && (
+              <Flex styles={{ justify: 'center', marginTop: '1rem' }}>
+                <Spinner size={20} />
+              </Flex>
+            )}
+            <div style={{ height: '1px' }} ref={targetRef} />
+          </ul>
+        </section>
+      )}
+
+      <EmptySection domain="handover" isVisible={noteList.length === 0} />
     </ContentBox>
   );
 };

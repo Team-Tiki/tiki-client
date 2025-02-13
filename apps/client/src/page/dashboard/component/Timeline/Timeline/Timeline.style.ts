@@ -5,8 +5,8 @@ import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
 
 export const timelineContentStyle = css(
   {
-    minHeight: '23.6rem',
-    height: '23.6rem',
+    minHeight: 'calc(100vh - 53rem)',
+    height: 'calc(100vh - 53rem)',
 
     padding: '0.6rem 0',
 

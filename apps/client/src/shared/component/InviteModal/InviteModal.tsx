@@ -3,13 +3,14 @@ import { CommandButton, Flex, Input, Text, scrollStyle, useToastAction } from '@
 import { useState } from 'react';
 
 import { $api } from '@/shared/api/client';
-import { inputWrapperStyle, textStyle } from '@/shared/component/InviteModal/InviteModal.style';
+import { emptyStyle, inputWrapperStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useCloseModal } from '@/shared/store/modal';
 
-const InviteModal = ({ step }: { step: number }) => {
+const InviteModal = () => {
   const [inputValue, setInputValue] = useState('');
   const [inviteList, setInviteList] = useState<string[]>([]);
 
@@ -17,6 +18,8 @@ const InviteModal = ({ step }: { step: number }) => {
 
   const { nextStep } = useFunnel();
   const { createToast } = useToastAction();
+
+  const closeModal = useCloseModal();
 
   const teamId = useInitializeTeamId();
   const { mutate } = $api.useMutation('post', '/api/v1/email/invitation/team/{teamId}');
@@ -60,7 +63,7 @@ const InviteModal = ({ step }: { step: number }) => {
 
   return (
     <>
-      <Modal.Header step={step} />
+      <Modal.Header step={1} />
       <Modal.Body>
         <Flex styles={{ direction: 'column', gap: '2rem', width: '100%', paddingTop: '2rem' }}>
           <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem', width: '100%' }}>
@@ -75,25 +78,32 @@ const InviteModal = ({ step }: { step: number }) => {
               commandKey="Enter"
               isCommand={false}
               onClick={handleAddInvite}
+              disabled={!inputValue}
               css={{ width: '12rem', height: '4rem', padding: '1rem' }}>
               추가
             </CommandButton>
           </Flex>
 
-          <div css={scrollStyle}>
+          <div css={{ scrollStyle, width: '100%' }}>
             {inviteList.length > 0 ? (
               inviteList.map((email) => (
                 <MemberItem key={email} title={email} onDelete={() => handleDeleteInvite(email)} />
               ))
             ) : (
-              <Text tag="body8" css={textStyle}>
+              <Text tag="body8" css={emptyStyle}>
                 초대된 팀원이 없습니다.
               </Text>
             )}
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="invite" buttonClick={handleNextStep} isButtonActive={!isButtonActive} />
+      <Modal.Footer
+        step={1}
+        contentType="invite"
+        buttonClick={handleNextStep}
+        isButtonActive={!isButtonActive}
+        closeModal={closeModal}
+      />
     </>
   );
 };

@@ -43,3 +43,16 @@ export const buttonStyle = css({
 
   color: theme.colors.gray_800,
 });
+
+export const flexStyle = css({
+  width: '100%',
+
+  paddingTop: '2rem',
+
+  flexDirection: 'column',
+
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  gap: '2rem',
+});
