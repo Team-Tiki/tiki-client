@@ -96,7 +96,7 @@ const ImageImportModal = () => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="image" buttonClick={() => handleUpload(uploadedFileUrl)} closeModal={closeModal} />
+      <Modal.Footer contentType="image" onClick={() => handleUpload(uploadedFileUrl)} onClose={closeModal} />
     </>
   );
 };

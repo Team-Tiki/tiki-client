@@ -15,7 +15,7 @@ const WorkSpaceImage = () => {
 
   const { nextStep } = useFunnel();
 
-  const isButtonActive = !!fileURL;
+  const isDisabled = !fileURL;
 
   return (
     <>
@@ -42,12 +42,7 @@ const WorkSpaceImage = () => {
           />
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={3}
-        contentType="create-workspace"
-        buttonClick={() => nextStep()}
-        isButtonActive={isButtonActive}
-      />
+      <Modal.Footer step={3} contentType="create-workspace" onClick={() => nextStep()} disabled={isDisabled} />
     </>
   );
 };

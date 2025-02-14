@@ -13,7 +13,7 @@ const InviteModal = () => {
   const [inputValue, setInputValue] = useState('');
   const [inviteList, setInviteList] = useState<string[]>([]);
 
-  const isButtonActive = inviteList.length === 0;
+  const isDisabled = inviteList.length !== 0;
 
   const { createToast } = useToastAction();
 
@@ -91,13 +91,7 @@ const InviteModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={1}
-        contentType="invite"
-        buttonClick={closeModal}
-        isButtonActive={!isButtonActive}
-        closeModal={closeModal}
-      />
+      <Modal.Footer step={1} contentType="invite" onClick={closeModal} disabled={isDisabled} onClose={closeModal} />
     </>
   );
 };

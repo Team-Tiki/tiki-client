@@ -28,7 +28,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
   const closeModal = useCloseModal();
   const { prevStep, nextStep } = useFunnel();
 
-  const isButtonActive = files.length !== 0;
+  const isDisabled = files.length === 0;
 
   const filterKeyword = useDebounce(searchFile, 500);
 
@@ -83,13 +83,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={3}
-        contentType="create-block"
-        isButtonActive={isButtonActive}
-        prevStep={prevStep}
-        buttonClick={nextStep}
-      />
+      <Modal.Footer step={3} contentType="create-block" disabled={isDisabled} onPrev={prevStep} onClick={nextStep} />
     </Modal>
   );
 };

@@ -31,11 +31,9 @@ export const useBlockName = ({ maxLength = MAX_TIMEBLOCK_LENGTH, onChange }: Use
   );
 
   const handleBlockNameBlur = useCallback(() => {
-    if (blockName.length > maxLength) {
-      setIsNameError(true);
-      return;
-    }
-    setIsNameError(false);
+    const isNameMaxLengthError = blockName.length > maxLength;
+
+    setIsNameError(isNameMaxLengthError);
   }, [blockName, maxLength]);
 
   return {

@@ -25,17 +25,11 @@ const BlockInfoModal = () => {
     onChange: (name) => setFormData({ ...formData, name }),
   });
 
-  const isButtonActive = blockName.trim() !== '' && !!startDate && !!endDate;
+  const isDisabled = !(blockName.trim() !== '' && !!startDate && !!endDate);
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
     setStartDate(start);
     setEndDate(end);
-  };
-
-  const handleNext = () => {
-    if (isButtonActive) {
-      nextStep();
-    }
   };
 
   useEffect(() => {
@@ -81,13 +75,7 @@ const BlockInfoModal = () => {
           </Flex>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={2}
-        contentType="create-block"
-        buttonClick={handleNext}
-        prevStep={() => prevStep()}
-        isButtonActive={isButtonActive}
-      />
+      <Modal.Footer step={2} contentType="create-block" onClick={nextStep} onPrev={prevStep} disabled={isDisabled} />
     </>
   );
 };

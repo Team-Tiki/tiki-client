@@ -28,7 +28,7 @@ const WorkSpaceCategory = () => {
     nextStep();
   };
 
-  const isButtonActive = selected.trim().length > 0;
+  const isDisabled = selected.trim().length === 0;
 
   return (
     <>
@@ -49,7 +49,7 @@ const WorkSpaceCategory = () => {
           className="select-container"
         />
       </Modal.Body>
-      <Modal.Footer step={2} contentType="create-workspace" buttonClick={handleNext} isButtonActive={isButtonActive} />
+      <Modal.Footer step={2} contentType="create-workspace" onClick={handleNext} disabled={isDisabled} />
     </>
   );
 };

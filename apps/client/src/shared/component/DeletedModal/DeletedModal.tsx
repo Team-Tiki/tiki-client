@@ -25,7 +25,7 @@ const DeletedModal = () => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="deleted" buttonClick={onClick || closeModal} closeModal={closeModal} />
+      <Modal.Footer contentType="deleted" onClick={onClick || closeModal} onClose={closeModal} />
     </Modal>
   );
 };

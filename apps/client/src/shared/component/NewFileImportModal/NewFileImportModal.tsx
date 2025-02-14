@@ -44,7 +44,7 @@ const NewFileImportModal = ({
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
 
-  const isButtonActive = files.length === 0;
+  const isDisabled = files.length !== 0;
 
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
@@ -171,10 +171,10 @@ const NewFileImportModal = ({
       <Modal.Footer
         step={3}
         contentType={contentType}
-        buttonClick={onNext ?? handleClose}
-        closeModal={onPrev ?? closeModal}
-        prevStep={onPrev ?? closeModal}
-        isButtonActive={!isButtonActive}
+        onClick={onNext ?? handleClose}
+        onClose={onPrev ?? closeModal}
+        onPrev={onPrev ?? closeModal}
+        disabled={isDisabled}
       />
     </Modal>
   );
