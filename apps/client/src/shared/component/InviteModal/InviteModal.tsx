@@ -94,7 +94,7 @@ const InviteModal = () => {
       <Modal.Footer
         step={1}
         contentType="invite"
-        buttonClick={() => closeModal()}
+        buttonClick={closeModal}
         isButtonActive={!isButtonActive}
         closeModal={closeModal}
       />
