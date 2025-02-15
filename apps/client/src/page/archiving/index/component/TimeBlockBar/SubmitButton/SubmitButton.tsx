@@ -1,6 +1,10 @@
 import { CommandButton } from '@tiki/ui';
 
-import { useSubmitMutates } from '@/page/archiving/index/component/TimeBlockBar/SubmitButton/quries';
+import {
+  useBlockMutate,
+  useFileMutate,
+  useTagMutate,
+} from '@/page/archiving/index/component/TimeBlockBar/SubmitButton/quries';
 import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -18,7 +22,10 @@ const SubmitButton = ({ onEditClick }: SubmitButtonProps) => {
   const { setInitialContent } = useDrawerAction();
   const timeBlockId = useTimeBlockId();
   const teamId = useInitializeTeamId();
-  const { blockMutate, fileMutate, tagMutate } = useSubmitMutates(onEditClick);
+
+  const blockMutate = useBlockMutate(onEditClick);
+  const fileMutate = useFileMutate();
+  const tagMutate = useTagMutate();
 
   const { name, startDate, endDate, documents } = content;
 

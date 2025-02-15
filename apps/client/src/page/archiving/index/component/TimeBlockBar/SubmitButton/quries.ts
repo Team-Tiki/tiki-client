@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { $api } from '@/shared/api/client';
 
-export const useSubmitMutates = (onEditClick: () => void) => {
+export const useBlockMutate = (onEditClick: () => void) => {
   const queryClient = useQueryClient();
 
   const { mutate: blockMutate } = $api.useMutation('patch', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
@@ -12,6 +12,12 @@ export const useSubmitMutates = (onEditClick: () => void) => {
     },
   });
 
+  return blockMutate;
+};
+
+export const useFileMutate = () => {
+  const queryClient = useQueryClient();
+
   const { mutate: fileMutate } = $api.useMutation('post', '/api/v1/teams/{teamId}/time-block/{timeBlockId}', {
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -19,6 +25,12 @@ export const useSubmitMutates = (onEditClick: () => void) => {
       });
     },
   });
+
+  return fileMutate;
+};
+
+export const useTagMutate = () => {
+  const queryClient = useQueryClient();
 
   const { mutate: tagMutate } = $api.useMutation('delete', '/api/v1/teams/{teamId}/time-block/{timeBlockId}/tags', {
     onSuccess: () => {
@@ -28,5 +40,5 @@ export const useSubmitMutates = (onEditClick: () => void) => {
     },
   });
 
-  return { blockMutate, fileMutate, tagMutate };
+  return tagMutate;
 };
