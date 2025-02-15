@@ -29,7 +29,7 @@ const CautionModal = ({ infoText, content, desc = '', footerType, onClick, onClo
           </Text>
         </div>
       </Modal.Body>
-      <Modal.Footer contentType={footerType!} onClick={onClick} onClose={onClose ?? modalClose} />
+      <Modal.Footer type={footerType!} onClick={onClick} onClose={onClose ?? modalClose} />
     </>
   );
 };

@@ -49,7 +49,7 @@ const WorkSpaceCategory = () => {
           className="select-container"
         />
       </Modal.Body>
-      <Modal.Footer step={2} contentType="create-workspace" onClick={handleNext} disabled={isDisabled} />
+      <Modal.Footer step={2} type="create-workspace" onClick={handleNext} disabled={isDisabled} />
     </>
   );
 };

@@ -42,7 +42,7 @@ const WorkSpaceImage = () => {
           />
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={3} contentType="create-workspace" onClick={() => nextStep()} disabled={isDisabled} />
+      <Modal.Footer step={3} type="create-workspace" onClick={() => nextStep()} disabled={isDisabled} />
     </>
   );
 };

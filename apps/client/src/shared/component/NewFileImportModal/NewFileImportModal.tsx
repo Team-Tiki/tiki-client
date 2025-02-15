@@ -170,7 +170,7 @@ const NewFileImportModal = ({
       </Modal.Body>
       <Modal.Footer
         step={3}
-        contentType={contentType}
+        type={contentType}
         onClick={onNext ?? handleClose}
         onClose={onPrev ?? closeModal}
         onPrev={onPrev ?? closeModal}

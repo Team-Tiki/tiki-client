@@ -91,7 +91,7 @@ const InviteModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={1} contentType="invite" onClick={closeModal} disabled={isDisabled} onClose={closeModal} />
+      <Modal.Footer step={1} type="invite" onClick={closeModal} disabled={isDisabled} onClose={closeModal} />
     </>
   );
 };

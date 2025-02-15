@@ -53,7 +53,7 @@ const CategoryModal = () => {
           ))}
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={1} contentType="create-block" onClick={handleNext} disabled={isDisabled} />
+      <Modal.Footer step={1} type="create-block" onClick={handleNext} disabled={isDisabled} />
     </>
   );
 };

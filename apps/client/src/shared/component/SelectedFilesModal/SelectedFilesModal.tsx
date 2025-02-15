@@ -26,7 +26,7 @@ const SelectedFilesModal = ({ selectedFiles, onComplete }: SelectedFileModalProp
           ))}
         </ul>
       </Modal.Body>
-      <Modal.Footer step={2} contentType="timeblock-file" onClick={onComplete} onClose={prevStep} />
+      <Modal.Footer step={2} type="timeblock-file" onClick={onComplete} onClose={prevStep} />
     </Modal>
   );
 };

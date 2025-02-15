@@ -75,7 +75,7 @@ const BlockInfoModal = () => {
           </Flex>
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={2} contentType="create-block" onClick={nextStep} onPrev={prevStep} disabled={isDisabled} />
+      <Modal.Footer step={2} type="create-block" onClick={nextStep} onPrev={prevStep} disabled={isDisabled} />
     </>
   );
 };

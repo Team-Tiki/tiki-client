@@ -122,7 +122,7 @@ const FileImportModal = () => {
         </Flex>
       </Modal.Body>
 
-      <Modal.Footer contentType="file" onClose={closeModal} onClick={handleUpload} disabled={isDisabled} />
+      <Modal.Footer type="file" onClose={closeModal} onClick={handleUpload} disabled={isDisabled} />
     </>
   );
 };

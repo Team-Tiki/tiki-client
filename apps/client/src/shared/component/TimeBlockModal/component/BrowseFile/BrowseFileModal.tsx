@@ -83,7 +83,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={3} contentType="create-block" disabled={isDisabled} onPrev={prevStep} onClick={nextStep} />
+      <Modal.Footer step={3} type="create-block" disabled={isDisabled} onPrev={prevStep} onClick={nextStep} />
     </Modal>
   );
 };

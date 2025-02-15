@@ -87,13 +87,7 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={1}
-        contentType="timeblock-file"
-        onClick={handleNext}
-        onClose={closeModal}
-        disabled={isDisabled}
-      />
+      <Modal.Footer step={1} type="timeblock-file" onClick={handleNext} onClose={closeModal} disabled={isDisabled} />
     </Modal>
   );
 };
