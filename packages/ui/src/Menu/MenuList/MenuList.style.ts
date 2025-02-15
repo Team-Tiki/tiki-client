@@ -14,6 +14,7 @@ export const containerStyle = css({
 
   borderRadius: "8px",
   border: `1px solid ${theme.colors.gray_300}`,
+  backgroundColor: theme.colors.white,
 
   boxShadow: "0.4rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.1)",
 

@@ -1,9 +1,9 @@
-import { Flex, scrollStyle } from '@tiki/ui';
+import { Flex } from '@tiki/ui';
 import { hasKeyInObject } from '@tiki/utils';
 
 import { useNavigate } from 'react-router-dom';
 
-import { dashboradScrollStyle } from '@/page/dashboard/DashboardPage.style';
+import { containerStyle } from '@/page/dashboard/component/File/FileSection.style';
 import ItemAdder from '@/page/dashboard/component/ItemAdder/ItemAdder';
 import { DocumentItem, FolderItem } from '@/page/drive/type';
 
@@ -34,7 +34,7 @@ const FileSection = () => {
 
   return (
     <Flex
-      css={[{ gap: '1.4rem', padding: '0 0 0.7rem', overflowX: 'scroll' }, scrollStyle, dashboradScrollStyle]}
+      css={containerStyle}
       onClick={() => {
         navigate(PATH.DRIVE);
       }}>
@@ -47,11 +47,8 @@ const FileSection = () => {
             <FileGrid
               key={file.documentId}
               variant="secondary"
-              name={file.name}
+              {...file}
               type={extractFileExtension(file.name) as File}
-              capacity={file.capacity}
-              createdTime={file.createdTime}
-              url={file.url}
             />
           );
         } else if (hasKeyInObject(item, 'folderId')) {

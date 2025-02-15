@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const contentStyle = (length: number) =>
   css({
     display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridTemplateColumns: 'repeat(5, 1fr)',
     gap: '2.3rem',
 
     padding: length === 0 ? '' : '2.4rem 0 3.2rem 0',

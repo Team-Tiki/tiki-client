@@ -33,7 +33,7 @@ const DatePickerTrigger = ({
       />
       {variant === 'range' && (
         <>
-          <Text tag="body6" css={textStyle}>
+          <Text tag="body8" css={textStyle}>
             ~
           </Text>
           <Input

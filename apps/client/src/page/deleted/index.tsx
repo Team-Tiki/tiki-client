@@ -1,6 +1,9 @@
 import { Button, Flex, useToastAction } from '@tiki/ui';
 import { useMultiSelect } from '@tiki/utils';
 
+import { useQueryClient } from '@tanstack/react-query';
+
+import { useTeamUsage } from '@/page/drive/hook/api/useTeamUsage';
 import { contentStyle } from '@/page/drive/index.style';
 
 import { $api } from '@/shared/api/client';
@@ -27,6 +30,10 @@ const DeletedPage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
+  const { modifiedAvailableUsage, modifiedCapacity } = useTeamUsage();
+
+  const queryClient = useQueryClient();
+
   const { data, refetch } = $api.useQuery('get', '/api/v1/teams/{teamId}/trash', {
     params: {
       path: {
@@ -44,9 +51,10 @@ const DeletedPage = () => {
     onSuccess: () => {
       createToast(`삭제가 완료되었습니다.`, 'success');
       refetch();
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/capacity'] });
     },
     onError: (error) => {
-      createToast(`${error.message}`, 'error');
+      createToast(`삭제에 실패했습니다: ${error.message}`, 'error');
     },
   });
 
@@ -56,26 +64,22 @@ const DeletedPage = () => {
       refetch();
     },
     onError: (error) => {
-      createToast(`${error.message}`, 'error');
+      createToast(`삭제에 실패했습니다: ${error.message}`, 'error');
     },
   });
 
-  const handleDelete = (docs?: number[]) => {
+  const handleDelete = () => {
     openModal('caution', {
       infoText: CAUTION.DELETE_FOR_GOOD.INFO_TEXT,
       content: CAUTION.DELETE_FOR_GOOD.CONTENT,
       desc: CAUTION.DELETE_FOR_GOOD.DESC,
       onClick: () => {
-        try {
-          deleteMutation.mutate({
-            params: { path: { teamId }, query: { documentId: docs ? docs : ids } },
-          });
+        deleteMutation.mutate({
+          params: { path: { teamId }, query: { documentId: ids } },
+        });
 
-          handleReset();
-          closeModal();
-        } catch (error) {
-          console.error(error);
-        }
+        handleReset();
+        closeModal();
       },
     });
   };
@@ -95,19 +99,15 @@ const DeletedPage = () => {
       content: CAUTION.EMPTY_DELETED.CONTENT,
       desc: CAUTION.EMPTY_DELETED.DESC,
       onClick: () => {
-        try {
-          deleteMutation.mutate({
-            params: {
-              path: { teamId },
-              query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
-            },
-          });
+        deleteMutation.mutate({
+          params: {
+            path: { teamId },
+            query: { documentId: data?.data?.deletedDocuments.map((item) => item.documentId) ?? [] },
+          },
+        });
 
-          handleReset();
-          closeModal();
-        } catch (error) {
-          console.error(error);
-        }
+        handleReset();
+        closeModal();
       },
     });
   };
@@ -116,19 +116,23 @@ const DeletedPage = () => {
     <ContentBox
       variant="deleted"
       title="휴지통"
-      description="5.16GB 사용 가능"
-      headerOption={<Button onClick={handleDeleteEntireFiles}>휴지통 비우기</Button>}
+      description={`${modifiedAvailableUsage}GB 사용 가능 (총 ${modifiedCapacity}GB)`}
+      headerOption={
+        <Button onClick={handleDeleteEntireFiles} disabled={data?.data?.deletedDocuments.length === 0}>
+          휴지통 비우기
+        </Button>
+      }
       contentOption={
         <Flex styles={{ justify: 'space-between', align: 'center' }}>
-          {canSelect ? (
+          {canSelect && data?.data?.deletedDocuments.length !== 0 ? (
             <Flex styles={{ gap: '0.8rem' }}>
               <Button onClick={handleAllClick} variant="tertiary">
                 전체 선택
               </Button>
-              <Button variant="tertiary" onClick={handleRestore}>
+              <Button variant="tertiary" onClick={handleRestore} disabled={!ids[0]}>
                 복구
               </Button>
-              <Button variant="tertiary" onClick={() => handleDelete()}>
+              <Button variant="tertiary" onClick={handleDelete} disabled={!ids[0]}>
                 영구삭제
               </Button>
             </Flex>
@@ -144,12 +148,10 @@ const DeletedPage = () => {
           {data?.data?.deletedDocuments.map((item) => (
             <FileGrid
               key={item.documentId}
-              isDeleted={true}
-              name={item.name}
-              type={extractFileExtension(item.name) as File}
-              url={item.url}
-              capacity={item.capacity}
+              {...item}
               createdTime={''}
+              isDeleted={true}
+              type={extractFileExtension(item.name) as File}
               isSelectable={canSelect}
               isSelected={ids.includes(+item.documentId)}
               onSelect={() => handleItemClick(+item.documentId)}

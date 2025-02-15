@@ -29,6 +29,8 @@ export const iconWrapperStyle = (isSmall: boolean) =>
   });
 
 export const nameStyle = css({
+  height: '1.6rem',
+
   ...theme.text.body06,
   fontWeight: 500,
 
@@ -39,7 +41,7 @@ export const textStyle = css({
   color: theme.colors.gray_500,
 });
 
-export const optionListStyle = (canRenderBelow: boolean) =>
+export const optionListStyle = (value: 1 | 2 | 3 | 4 | null) =>
   css(
     {
       backgroundColor: theme.colors.white,
@@ -47,15 +49,30 @@ export const optionListStyle = (canRenderBelow: boolean) =>
         flexShrink: 0,
       },
     },
-    canRenderBelow
-      ? {
-          top: 'calc(100% + 1rem)',
-          right: 0,
-        }
-      : {
-          bottom: 'calc(100% + 1rem)',
-          right: 0,
-        }
+    (() => {
+      switch (value) {
+        case 1:
+          return {
+            left: 0,
+            bottom: 'calc(100% + 1rem)',
+          };
+        case 2:
+          return {
+            bottom: 'calc(100% + 1rem)',
+            right: 0,
+          };
+        case 3:
+          return {
+            top: 'calc(100% + 1rem)',
+            right: 0,
+          };
+        case 4:
+          return {
+            left: 0,
+            top: 'calc(100% + 1rem)',
+          };
+      }
+    })()
   );
 
 export const optionTextStyle = css({

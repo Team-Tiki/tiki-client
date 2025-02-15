@@ -1,7 +1,7 @@
 import { Modal } from '@/shared/component/Modal';
+import { fileListWrapperStyle } from '@/shared/component/SelectedFilesModal/SelectedFilesModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
-import FileItem from '@/shared/component/TimeBlockModal/component/SelectedFileModal/FileItem/FileItem';
-import { fileListWrapperStyle } from '@/shared/component/TimeBlockModal/component/SelectedFileModal/SelectedFileModal.style';
+import FileItem from '@/shared/component/TimeBlockModal/component/FileItem/FileItem';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 

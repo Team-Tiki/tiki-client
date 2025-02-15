@@ -1,6 +1,6 @@
 import { Button, Flex } from '@tiki/ui';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { contentStyle, pageStyle, timelineStyle } from '@/page/archiving/index/ArchivingPage.style';
@@ -8,22 +8,25 @@ import DateProvider from '@/page/archiving/index/DateProvider';
 import TimeLine from '@/page/archiving/index/component/TimeLine';
 import TimeLineHeader from '@/page/archiving/index/component/TimeLine/TimeLineHeader/TimeLineHeader';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
-import { Block } from '@/page/archiving/index/type/blockType';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
 
 const ArchivingPage = () => {
-  const { selectedBlock, handleBlockClick } = useInteractTimeline();
+  const { selectedBlock, setSelectedBlock, handleBlockClick } = useInteractTimeline();
 
   const openModal = useOpenModal();
 
   const teamId = useInitializeTeamId();
 
   const location = useLocation();
-  const selectedBlockFromDashboard: Block = location.state?.selectedBlock;
-  const finalSelectedBlock = selectedBlockFromDashboard || selectedBlock;
+
+  useEffect(() => {
+    if (location.state?.selectedBlock && location.state?.blockDetail) {
+      setSelectedBlock(location.state.selectedBlock);
+    }
+  }, [location.state, setSelectedBlock]);
 
   const handleOpenBlockModal = () => {
     openModal('create-block');
@@ -44,7 +47,7 @@ const ArchivingPage = () => {
             <TimeLineHeader />
             <Flex css={contentStyle}>
               <Suspense>
-                <TimeLine selectedBlock={finalSelectedBlock} onBlockClick={handleBlockClick} />
+                <TimeLine selectedBlock={selectedBlock} onBlockClick={handleBlockClick} />
               </Suspense>
             </Flex>
           </section>

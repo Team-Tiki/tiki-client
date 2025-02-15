@@ -56,6 +56,12 @@ export const rightSideRowStyle = css({
   gap: '0.2rem',
 });
 
+export const fileNameStyle = css({
+  maxWidth: '35.6rem',
+
+  ...ellipsisStyle,
+});
+
 export const iconStyle = (isSelected: boolean) =>
   css({
     display: 'flex',

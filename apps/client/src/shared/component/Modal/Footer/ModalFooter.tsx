@@ -68,10 +68,16 @@ const ModalFooterButtons = (
       if (step === 1) {
         return [createButton('다음', buttonClick, 'primary', !isButtonActive)];
       }
-      if (step === 2 || step === 3) {
+      if (step === 2) {
         return [
           createButton('이전', prevStep, 'outline'),
           createButton('다음', buttonClick, 'primary', !isButtonActive),
+        ];
+      }
+      if (step === 3) {
+        return [
+          createButton('이전', prevStep, 'outline'),
+          createButton('업로드', buttonClick, 'primary', !isButtonActive),
         ];
       }
       return [createButton('이전', prevStep, 'outline'), createButton('생성', buttonClick, 'primary', !isButtonActive)];
