@@ -12,13 +12,14 @@ interface FileProps {
     capacity: number;
   };
   onDelete: (e: React.MouseEvent, id: number) => void;
+  onClick: () => void;
 }
 
-const File = ({ file, onDelete = () => {} }: FileProps) => {
+const File = ({ file, onDelete, onClick }: FileProps) => {
   const fileVolume = getFileVolume(file.capacity);
 
   return (
-    <article css={fileStyle}>
+    <article css={fileStyle} onClick={onClick}>
       <IcFileRound width={32} height={32} css={{ flexShrink: 0 }} />
       <span css={fileInfoStyle}>
         <p css={fileNameStyle}>{file.fileName}</p>

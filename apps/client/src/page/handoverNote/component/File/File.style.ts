@@ -16,6 +16,8 @@ export const fileStyle = css({
   borderRadius: '0.8rem',
 
   backgroundColor: theme.colors.gray_100,
+
+  cursor: 'pointer',
 });
 
 export const fileInfoStyle = css({

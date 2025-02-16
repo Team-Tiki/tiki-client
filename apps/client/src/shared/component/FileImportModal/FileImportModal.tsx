@@ -94,7 +94,7 @@ const FileImportModal = () => {
                     <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
                     <p css={textFieldStyle}>
                       {file.name}
-                      {file.url && <span>{file.url}</span>}
+                      {file.capacity && <span>{getFileVolume(file.capacity)}</span>}
                     </p>
                   </DropdownItem>
                 ))

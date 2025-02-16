@@ -10,6 +10,7 @@ import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
 import { useOpenModal } from '@/shared/store/modal';
+import { downloadDocument } from '@/shared/util/document';
 
 interface TemplateProps {
   data?: TemplateNoteData;
@@ -98,7 +99,14 @@ const Template = ({ data, setData }: TemplateProps) => {
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
         <div css={fileBoxStyle}>
-          {data?.documentList?.map((file) => <File key={file.fileName} file={file} onDelete={handleDeleteFile} />)}
+          {data?.documentList?.map((file) => (
+            <File
+              key={file.fileName}
+              file={file}
+              onDelete={handleDeleteFile}
+              onClick={() => downloadDocument(file.fileUrl, file.fileName)}
+            />
+          ))}
         </div>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload} type="button">
           파일 연동하기
