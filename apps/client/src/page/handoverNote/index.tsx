@@ -77,7 +77,10 @@ const NotePage = () => {
             },
           },
           {
-            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
+            onSuccess: () => {
+              createToast('노트 내용이 저장되었습니다', 'success');
+              noteData.refetch();
+            },
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
@@ -95,7 +98,10 @@ const NotePage = () => {
             },
           },
           {
-            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
+            onSuccess: () => {
+              createToast('노트 내용이 저장되었습니다', 'success');
+              noteData.refetch();
+            },
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
