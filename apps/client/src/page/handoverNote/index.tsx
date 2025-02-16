@@ -3,8 +3,6 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
-
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
@@ -38,8 +36,6 @@ const NotePage = () => {
 
   const noteData = useNoteDetailData();
 
-  const queryClient = useQueryClient();
-
   useEffect(() => {
     if (noteData.data?.data) {
       setNoteDetailData(noteData.data.data);
@@ -68,7 +64,6 @@ const NotePage = () => {
   const handleSubmit = () => {
     if (noteDetailData) {
       if (hasKeyInObject(noteDetailData, 'answerWhatActivity')) {
-        console.log('템플릿');
         const templateData = noteDetailData as TemplateNoteData;
 
         templateMutation(
@@ -88,7 +83,6 @@ const NotePage = () => {
         );
       } else if (hasKeyInObject(noteDetailData, 'contents')) {
         const customData = noteDetailData as CustomNoteData;
-        console.log('커스텀');
 
         customMutation(
           {
