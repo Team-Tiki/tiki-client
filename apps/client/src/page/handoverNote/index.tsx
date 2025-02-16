@@ -3,6 +3,8 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
@@ -36,6 +38,8 @@ const NotePage = () => {
 
   const noteData = useNoteDetailData();
 
+  const queryClient = useQueryClient();
+
   useEffect(() => {
     if (noteData.data?.data) {
       setNoteDetailData(noteData.data.data);
@@ -64,6 +68,7 @@ const NotePage = () => {
   const handleSubmit = () => {
     if (noteDetailData) {
       if (hasKeyInObject(noteDetailData, 'answerWhatActivity')) {
+        console.log('템플릿');
         const templateData = noteDetailData as TemplateNoteData;
 
         templateMutation(
@@ -77,15 +82,13 @@ const NotePage = () => {
             },
           },
           {
-            onSuccess: () => {
-              createToast('노트 내용이 저장되었습니다', 'success');
-              noteData.refetch();
-            },
+            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
       } else if (hasKeyInObject(noteDetailData, 'contents')) {
         const customData = noteDetailData as CustomNoteData;
+        console.log('커스텀');
 
         customMutation(
           {
@@ -98,10 +101,7 @@ const NotePage = () => {
             },
           },
           {
-            onSuccess: () => {
-              createToast('노트 내용이 저장되었습니다', 'success');
-              noteData.refetch();
-            },
+            onSuccess: () => createToast('노트 내용이 저장되었습니다', 'success'),
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
@@ -110,7 +110,7 @@ const NotePage = () => {
   };
 
   // 30초마다 자동 저장
-  useInterval(handleSubmit, 5000);
+  useInterval(handleSubmit, 10000);
 
   return (
     <section css={noteSectionStyle}>
