@@ -81,7 +81,6 @@ const NotePage = () => {
               createToast('노트 내용이 저장되었습니다', 'success');
               noteData.refetch();
             },
-
             onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
           }
         );
@@ -111,7 +110,7 @@ const NotePage = () => {
   };
 
   // 30초마다 자동 저장
-  useInterval(handleSubmit, 30000);
+  useInterval(handleSubmit, 5000);
 
   return (
     <section css={noteSectionStyle}>
@@ -131,15 +130,7 @@ const NotePage = () => {
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
-          <CommandButton
-            commandKey="S"
-            isCommand={true}
-            size="small"
-            type="submit"
-            onClick={() => {
-              handleSubmit;
-              navigate(PATH.HANDOVER);
-            }}>
+          <CommandButton commandKey="S" isCommand={true} size="small" type="submit">
             저장
           </CommandButton>
         </Flex>
