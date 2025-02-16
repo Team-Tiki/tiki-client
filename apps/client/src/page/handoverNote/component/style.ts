@@ -100,8 +100,6 @@ export const titleStyle = css({
 export const infoContainerStyle = css({
   display: 'flex',
 
-  marginTop: '3.6rem',
-
   flexDirection: 'column',
   gap: '0.4rem',
 });

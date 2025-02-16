@@ -102,7 +102,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
         onChange={handleTitleChange}
         autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
-      <ul css={infoContainerStyle}>
+      <ul css={[infoContainerStyle, { marginTop: '3.6rem' }]}>
         <li css={[infoLayoutStyle(isTag), { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>
             작성자
