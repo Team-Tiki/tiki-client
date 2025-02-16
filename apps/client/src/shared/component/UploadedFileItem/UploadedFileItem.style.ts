@@ -3,6 +3,16 @@ import { theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
+export const wrapperStyle = (size: 'medium' | 'large') =>
+  css({
+    padding: size === 'large' ? '0rem 1.2rem' : '',
+
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+    cursor: 'pointer',
+  });
+
 export const itemStyle = (isSelected: boolean) =>
   css({
     padding: '1rem',

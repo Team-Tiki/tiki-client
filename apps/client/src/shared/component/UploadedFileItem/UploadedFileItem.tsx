@@ -1,7 +1,7 @@
 import { IcCheckGreen, IcClose, IcFileItem } from '@tiki/icon';
 import { Flex, Spinner, Text } from '@tiki/ui';
 
-import { borderStyle, textStyle } from '@/shared/component/UploadedFileItem/UploadedFileItem.style';
+import { borderStyle, textStyle, wrapperStyle } from '@/shared/component/UploadedFileItem/UploadedFileItem.style';
 
 interface BlockItemProps {
   title: string;
@@ -23,14 +23,7 @@ const UploadedFileItem = ({
   /* 추가해야 할 것 : 프로그래스바  ==> 서버로직 짤때 컴포넌트로 따로 빼서 적용할 것!*/
 
   return (
-    <Flex
-      styles={{
-        direction: 'row',
-        align: 'center',
-        justify: 'space-between',
-        padding: size === 'large' ? '0rem 1.2rem' : '',
-      }}
-      css={borderStyle(size)}>
+    <Flex css={[wrapperStyle(size), borderStyle(size)]}>
       <Flex styles={{ justify: 'center', align: 'center' }}>
         <IcFileItem width={20} height={20} css={{ margin: '1.2rem', flexShrink: '0' }} />
         <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
