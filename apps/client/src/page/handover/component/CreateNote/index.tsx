@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import CreateCustomNote from '@/page/handover/component/CreateNote/CreateCustomNote';
 import CreateNoteDetail from '@/page/handover/component/CreateNote/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handover/component/CreateNote/CreateTemplateNote';
+import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
 import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNote/type/note';
 
@@ -74,7 +75,7 @@ const CreateNotePage = () => {
       templateMutation(
         {
           body: {
-            title: noteDetail.title,
+            title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
             complete: noteDetail.complete,
             startDate: noteDetail.startDate,
             endDate: noteDetail.endDate,
@@ -103,7 +104,7 @@ const CreateNotePage = () => {
       customMutation(
         {
           body: {
-            title: noteDetail.title,
+            title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
             complete: noteDetail.complete,
             startDate: noteDetail.startDate,
             endDate: noteDetail.endDate,
