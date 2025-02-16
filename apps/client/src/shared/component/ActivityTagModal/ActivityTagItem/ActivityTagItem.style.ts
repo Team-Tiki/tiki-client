@@ -37,6 +37,10 @@ export const tagNameStyle = css({
 });
 
 export const dateStyle = css({
+  display: 'flex',
+
+  gap: '0.4rem',
+
   color: theme.colors.gray_800,
 });
 
@@ -59,7 +63,7 @@ export const tagStyle = (backgroundColor: string) =>
         case '#C4F2E5':
           return theme.colors.green_100;
         default:
-          return theme.colors.gray_100;
+          return theme.colors.red_100;
       }
     })(),
     color: (() => {
@@ -75,7 +79,7 @@ export const tagStyle = (backgroundColor: string) =>
         case '#C4F2E5':
           return theme.colors.green_200;
         default:
-          return theme.colors.gray_200;
+          return theme.colors.red_200;
       }
     })(),
   });

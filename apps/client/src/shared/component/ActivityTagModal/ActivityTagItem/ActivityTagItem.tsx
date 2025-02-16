@@ -25,13 +25,13 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete, isSearch = false }
 
   return (
     <Flex tag="li" css={wrapperStyle}>
-      <Flex styles={{ gap: '0.8rem' }}>
+      <Flex styles={{ gap: '0.8rem', align: 'center' }}>
         <div css={iconBackStyle}>{icon}</div>
         <Flex css={layoutStyle}>
           <Text tag="body8" css={tagNameStyle}>
             {title}
           </Text>
-          <Flex styles={{ align: 'center', gap: '0.4rem', justify: 'center' }}>
+          <Flex styles={{ align: 'center', gap: '0.4rem' }}>
             <IcCalendarTag width={12} height={12} />
             <Text tag="body8" css={dateStyle}>
               {date}
