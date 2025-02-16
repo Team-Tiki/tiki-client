@@ -109,7 +109,7 @@ const ActivityTagModal = () => {
               )}
             </DropdownList>
           </DropdownRoot>
-          <Flex css={tagListStyle}>
+          <Flex tag="ul" css={tagListStyle}>
             {selectedTags.length === 0 ? (
               <div css={emptyStyle}>{TAG.NO_CONNECTED_TAG}</div>
             ) : (

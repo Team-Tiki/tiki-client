@@ -3,6 +3,15 @@ import { theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
+export const wrapperStyle = css({
+  width: '100%',
+
+  padding: '0.4rem 0rem',
+
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
 export const iconBackStyle = css({
   display: 'flex',
   justifyContent: 'center',
@@ -13,6 +22,12 @@ export const iconBackStyle = css({
 
   borderRadius: '50%',
   backgroundColor: theme.colors.gray_100,
+});
+
+export const layoutStyle = css({
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: '0.6rem',
 });
 
 export const tagNameStyle = css({
