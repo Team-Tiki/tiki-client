@@ -71,8 +71,8 @@ const HandoverPage = () => {
       if (lastUpdatedAt) {
         setNoteList((prev) => [
           ...prev,
-          ...noteData.data!.noteGetResponseList.filter((note) =>
-            prev.some((prevNote) => prevNote.noteId !== note.noteId)
+          ...noteData.data!.noteGetResponseList.filter(
+            (note) => !prev.some((prevNote) => prevNote.noteId === note.noteId)
           ),
         ]);
         return;
