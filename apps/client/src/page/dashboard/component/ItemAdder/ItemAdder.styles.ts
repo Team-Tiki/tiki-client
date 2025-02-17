@@ -9,8 +9,9 @@ export const adderStyle = (path: string) =>
     justifyContent: 'center',
     alignItems: 'center',
 
-    padding: path === PATH.DRIVE ? '4rem 6rem' : path === PATH.HANDOVER ? '3rem' : '9.8rem',
+    padding: path === PATH.DRIVE ? '4rem 6rem' : '3rem',
 
+    minHeight: path === PATH.ARCHIVING ? 'calc(100vh - 53rem)' : '',
     width: path !== PATH.DRIVE ? '100%' : '',
 
     border: 'none',
