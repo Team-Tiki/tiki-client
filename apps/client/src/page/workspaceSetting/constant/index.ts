@@ -18,4 +18,6 @@ export const POSITION_VALUE = {
   MEMBER: '멤버',
 };
 
-export const SELECT_OPTIONS = [{ value: POSITION_VALUE.ADMIN }, { value: POSITION_VALUE.EXECUTIVE }];
+export const POSITION_SELECT_OPTIONS = [{ value: POSITION_VALUE.ADMIN }, { value: POSITION_VALUE.EXECUTIVE }];
+
+export const UNIVERCITY_SELECT_OPTIONS = [{ value: '건국대학교' }];

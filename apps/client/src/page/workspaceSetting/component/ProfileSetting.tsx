@@ -1,7 +1,7 @@
 import { Flex, Input, Select, Text } from '@tiki/ui';
 import { useOutsideClick } from '@tiki/utils';
 
-import { ERROR_NAME, MAX_NAME_LENGTH, POSITION_VALUE, SELECT_OPTIONS } from '@/page/workspaceSetting/constant';
+import { ERROR_NAME, MAX_NAME_LENGTH, POSITION_SELECT_OPTIONS, POSITION_VALUE } from '@/page/workspaceSetting/constant';
 import { MemberType } from '@/page/workspaceSetting/type';
 import { defineSupportigtext } from '@/page/workspaceSetting/util';
 
@@ -41,12 +41,12 @@ const ProfileSetting = ({ name, position, onWorkspaceDataChange, error, onErrorC
           isError={error !== ERROR_NAME.VALIDATE}
         />
         <Select
-          aria-label={`선택된 직책: ${SELECT_OPTIONS[0].value}`}
+          aria-label={`선택된 직책: ${POSITION_SELECT_OPTIONS[0].value}`}
           variant={'disabled'}
           ref={ref}
           placeholder={POSITION_VALUE[position]}
           defaultValue={POSITION_VALUE[position]}
-          options={SELECT_OPTIONS}
+          options={POSITION_SELECT_OPTIONS}
         />
       </Flex>
     </>

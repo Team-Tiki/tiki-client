@@ -1,7 +1,7 @@
 import { Flex, Input, Select, Text } from '@tiki/ui';
 
 import { containerStyle } from '@/page/workspaceSetting/component/styles';
-import { ERROR_NAME } from '@/page/workspaceSetting/constant';
+import { ERROR_NAME, UNIVERCITY_SELECT_OPTIONS } from '@/page/workspaceSetting/constant';
 import { hasRecentUpdates } from '@/page/workspaceSetting/util';
 
 import { SUPPORTING_TEXT } from '@/shared/constant/form';
@@ -14,7 +14,6 @@ interface InfoSettingProps {
   error: string;
   onErrorChange: (key: string, value: string) => void;
 }
-const select_options = [{ value: '건국대학교' }];
 
 const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, onErrorChange }: InfoSettingProps) => {
   const canChangeTeamName = hasRecentUpdates(namingUpdatedAt ?? '');
@@ -60,8 +59,8 @@ const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, 
         <Select
           aria-label={`선택된 아이템: ${teamName}`}
           variant="disabled"
-          placeholder={select_options[0].value}
-          options={select_options}
+          placeholder={UNIVERCITY_SELECT_OPTIONS[0].value}
+          options={UNIVERCITY_SELECT_OPTIONS}
         />
       </Flex>
     </section>
