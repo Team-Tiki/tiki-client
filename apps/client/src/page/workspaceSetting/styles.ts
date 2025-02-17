@@ -6,13 +6,6 @@ export const containerStyle = css({
   marginTop: '4rem',
 });
 
-export const saveButtonStyle = css({
-  position: 'absolute',
-
-  top: '2rem',
-  right: '4.4rem',
-});
-
 export const teamImageStyle = css({
   width: '6rem',
   height: '6rem',
