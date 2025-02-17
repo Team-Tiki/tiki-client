@@ -1,12 +1,12 @@
 import { LogoTikiSm } from '@tiki/icon';
-import { Button, Flex, Heading, Text, theme, useToastAction } from '@tiki/ui';
+import { Button, Flex, Heading, Text, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
-import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
+import { firstSpellStyle, inviteStyle, redButtonStyle } from '@/page/invite/index.styles';
 import { InvitationType } from '@/page/invite/type';
 
 import { components } from '@/shared/__generated__/schema';
@@ -54,17 +54,18 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
-          deleteLocalStorageInviteInfo();
+          createToast('초대 승인에 성공하셨습니다.', 'success');
           localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
+          localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
           navigate(PATH.DASHBOARD);
         },
         onError: (error: components['schemas']['ErrorResponse']) => {
-          deleteLocalStorageInviteInfo();
-          createToast(error.message, 'error');
+          createToast(`초대 승인에 실패하셨습니다: ${error.message}`, 'error');
           navigate(PATH.ONBOARDING);
         },
       }
     );
+    deleteLocalStorageInviteInfo();
   };
 
   const handleDenyInvitation = () => {
@@ -78,16 +79,15 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
-          deleteLocalStorageInviteInfo();
-          navigate(PATH.ONBOARDING);
+          createToast('초대 거절에 성공하셨습니다.', 'success');
         },
         onError: (error: components['schemas']['ErrorResponse']) => {
-          deleteLocalStorageInviteInfo();
-          createToast(error.message, 'error');
-          navigate(PATH.ONBOARDING);
+          createToast(`초대 거절에 실패하셨습니다: ${error.message}`, 'error');
         },
       }
     );
+    deleteLocalStorageInviteInfo();
+    navigate(PATH.ONBOARDING);
   };
 
   return (
@@ -114,10 +114,7 @@ const InvitedPage = () => {
             <Button size="xLarge" variant="secondary" onClick={handleApproveInvitation}>
               초대 수락
             </Button>
-            <Button
-              size="xLarge"
-              css={{ color: theme.colors.sementic_red, backgroundColor: theme.colors.sementic_red_10 }}
-              onClick={handleDenyInvitation}>
+            <Button size="xLarge" css={redButtonStyle} onClick={handleDenyInvitation}>
               거절하기
             </Button>
           </Flex>
