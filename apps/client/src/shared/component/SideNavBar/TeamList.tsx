@@ -21,6 +21,7 @@ const TeamList = ({ list }: TeamListProps) => {
       {list?.belongTeamGetResponses.map((data) => {
         return (
           <Logo
+            key={data.id}
             to={`${PATH.DASHBOARD}?teamId=${data.id}`}
             name={data.name}
             onClick={() => {
