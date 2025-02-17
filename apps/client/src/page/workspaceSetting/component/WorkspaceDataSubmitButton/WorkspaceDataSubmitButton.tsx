@@ -24,7 +24,6 @@ const WorkspaceDataSubmitButton = ({
   const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
 
-  // 초기값과 수정된 데이터 비교해서 폼 제출여부 가능 여부 확인
   const canSubmit = JSON.stringify(initialWorkspaceData) !== JSON.stringify(workspaceData);
 
   const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
@@ -32,7 +31,7 @@ const WorkspaceDataSubmitButton = ({
 
   const handleWorkspaceInfoSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log('실행?');
+
     if (Validate.isEmpty(workspaceData.name)) {
       onErrorChange('nameError', ERROR_NAME.EMPTY);
       return;

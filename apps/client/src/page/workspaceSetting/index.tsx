@@ -13,7 +13,7 @@ import { MemberType, TeamType } from '@/page/workspaceSetting/type';
 const WorkspaceSettingPage = () => {
   const [workspaceData, setWorkspaceData] = useState({
     name: '',
-    position: 'MEMBER',
+    position: 'EXECUTIVE',
     teamName: '',
     university: '건국대학교',
     teamIconUrl: '',
@@ -35,7 +35,7 @@ const WorkspaceSettingPage = () => {
     if (positionData?.success && teamData?.success && !initialWorkspaceData) {
       setInitialWorkspaceData({
         name: positionData.data?.name ?? '',
-        position: positionData.data?.position ?? 'MEMBER',
+        position: positionData.data?.position ?? 'EXECUTIVE',
         teamName: teamData.data?.teamName ?? '',
         university: teamData.data?.university ?? '건국대학교',
         teamIconUrl: teamData.data?.teamIconUrl ?? '',
