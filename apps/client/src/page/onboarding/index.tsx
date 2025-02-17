@@ -1,15 +1,32 @@
 import { Button, Flex, Heading, Text } from '@tiki/ui';
 
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { pageStyle, textStyle } from '@/page/onboarding/index.style';
 
+import { $api } from '@/shared/api/client';
+import { STORAGE_KEY } from '@/shared/constant/api';
+import { PATH } from '@/shared/constant/path';
 import { useOpenModal } from '@/shared/store/modal';
 
 const OnBoardingPage = () => {
+  const navigate = useNavigate();
   const openModal = useOpenModal();
 
   const handleCreateWorkSpace = () => {
     openModal('create-workspace');
   };
+
+  const { data } = $api.useQuery('get', '/api/v1/members/teams');
+  const firstTeam = data?.data?.belongTeamGetResponses[0];
+  useEffect(() => {
+    if (firstTeam) {
+      localStorage.setItem(STORAGE_KEY.TEAM_ID, String(firstTeam.id));
+      localStorage.setItem(STORAGE_KEY.TEAM_NAME, firstTeam.name);
+      navigate(PATH.DASHBOARD);
+    }
+  }, [firstTeam, navigate]);
 
   return (
     <Flex css={pageStyle}>
