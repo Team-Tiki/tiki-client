@@ -1,3 +1,5 @@
+export const MAX_NAME_LENGTH = 32;
+
 export const ERROR_NAME = {
   VALIDATE: 'VALIDATE',
   EMPTY: 'EMPTY',
@@ -15,3 +17,5 @@ export const POSITION_VALUE = {
   EXECUTIVE: '임원진',
   MEMBER: '멤버',
 };
+
+export const SELECT_OPTIONS = [{ value: POSITION_VALUE.ADMIN }, { value: POSITION_VALUE.EXECUTIVE }];
