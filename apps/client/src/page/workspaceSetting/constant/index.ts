@@ -1,5 +1,7 @@
 export const MAX_NAME_LENGTH = 32;
 
+export const MAX_WORKSPACE_NAME_LENGTH = 30;
+
 export const ERROR_NAME = {
   VALIDATE: 'VALIDATE',
   EMPTY: 'EMPTY',

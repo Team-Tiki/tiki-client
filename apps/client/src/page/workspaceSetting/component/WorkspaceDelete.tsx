@@ -26,16 +26,6 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
   const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
 
-  const handleDeleteClick = () => {
-    openModal('deleted', {
-      title: '워크스페이스 삭제',
-      content: '정말로 이 워크스페이스를 삭제하시겠습니까?',
-      onClick: () => {
-        handleDelete();
-      },
-    });
-  };
-
   const handleDelete = () => {
     if (position === 'ADMIN') {
       deleteTeam(
@@ -60,6 +50,16 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
         }
       );
     }
+  };
+
+  const handleDeleteClick = () => {
+    openModal('deleted', {
+      title: '워크스페이스 삭제',
+      content: '정말로 이 워크스페이스를 삭제하시겠습니까?',
+      onClick: () => {
+        handleDelete();
+      },
+    });
   };
 
   return (

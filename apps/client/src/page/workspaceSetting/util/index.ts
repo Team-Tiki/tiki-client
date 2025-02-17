@@ -11,7 +11,7 @@ export const hasRecentUpdates = (updateDate: string) => {
   return now > date;
 };
 
-export const defineSupportigtext = (errorName: string) => {
+export const defineNameSupportigtext = (errorName: string) => {
   if (errorName === ERROR_NAME.VALIDATE) {
     return SUPPORTING_TEXT.NICKNAME_NOTICE;
   }
@@ -20,5 +20,18 @@ export const defineSupportigtext = (errorName: string) => {
   }
   if (errorName === ERROR_NAME.OVER_LENGTH) {
     return SUPPORTING_TEXT.NICKNAME_OVER_LENGTH;
+  }
+};
+
+export const defineWorkspaceNameSupportigtext = (errorName: string) => {
+  switch (errorName) {
+    case ERROR_NAME.VALIDATE:
+      return SUPPORTING_TEXT.WORKSPACE_NAME_NOTICE;
+
+    case ERROR_NAME.EMPTY:
+      return SUPPORTING_TEXT.WORKSPACE_NAME_EMPTY;
+
+    case ERROR_NAME.OVER_LENGTH:
+      return SUPPORTING_TEXT.WORKSPACE_NAME_INVALID_LENGTH;
   }
 };
