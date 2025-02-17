@@ -114,6 +114,8 @@ const DrivePage = () => {
             folders.length > 0 && deleteFolderMutation({ params: { path: { teamId }, query: { folderId: folders } } }),
             closeModal();
 
+          toggleSelection();
+
           createToast('성공적으로 삭제했습니다.', 'success');
           reset();
         } catch (error) {
@@ -203,9 +205,7 @@ const DrivePage = () => {
                   <div>
                     <FolderListItem
                       key={String(folder.folderId + folder.type)}
-                      name={folder.name}
-                      path={folder.path}
-                      createdTime={folder.createdTime}
+                      {...folder}
                       isSelectable={isSelectable}
                       isSelected={getFolderIsSelected(folder.folderId)}
                       onSelect={() => selectFolder(folder.folderId)}
@@ -220,11 +220,7 @@ const DrivePage = () => {
                   <div>
                     <FileListItem
                       key={String(file.documentId + file.type)}
-                      documentId={file.documentId}
-                      name={file.name}
-                      capacity={file.capacity}
-                      url={file.url}
-                      createdTime={file.createdTime}
+                      {...file}
                       isSelectable={isSelectable}
                       isSelected={getDocumentIsSelected(file.documentId)}
                       onSelect={() => selectDocument(file.documentId)}
@@ -244,11 +240,8 @@ const DrivePage = () => {
               return (
                 <FileGrid
                   key={file.documentId}
-                  name={file.name}
-                  capacity={file.capacity}
+                  {...file}
                   type={file.url?.split('.').at(-1) as File}
-                  url={file.url}
-                  createdTime={file.createdTime}
                   isSelectable={isSelectable}
                   isSelected={getDocumentIsSelected(file.documentId)}
                   onSelect={() => selectDocument(file.documentId!)}
@@ -260,9 +253,7 @@ const DrivePage = () => {
               return (
                 <FolderGrid
                   key={folder.folderId}
-                  name={folder.name}
-                  createdTime={folder.createdTime}
-                  path={folder.path}
+                  {...folder}
                   isSelectable={isSelectable}
                   isSelected={getFolderIsSelected(folder.folderId)}
                   onSelect={() => selectFolder(folder.folderId)}

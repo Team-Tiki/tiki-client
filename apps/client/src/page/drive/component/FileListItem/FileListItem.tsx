@@ -2,11 +2,17 @@ import { IcThreeDots } from '@tiki/icon';
 import { CheckBox, Flex, MenuItem, MenuList, MenuRoot, Text } from '@tiki/ui';
 import { useOutsideClick, useOverlay } from '@tiki/utils';
 
-import { containerStyle, rightSideRowStyle, timeStyle } from '@/page/drive/component/FileListItem/FileListItem.style';
+import {
+  containerStyle,
+  nameFieldStyle,
+  rightSideRowStyle,
+  timeStyle,
+} from '@/page/drive/component/FileListItem/FileListItem.style';
 
 import { components } from '@/shared/__generated__/schema';
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
 import { optionListStyle, optionTextStyle } from '@/shared/component/FileGrid/index.style';
+import { checkDropdownPosition } from '@/shared/component/FileGrid/util';
 import { getFormattedDate } from '@/shared/util/date';
 import { downloadDocument } from '@/shared/util/document';
 import { getFileVolume } from '@/shared/util/file';
@@ -34,20 +40,19 @@ const FileListItem = ({
   const { isOpen, toggle, close } = useOverlay();
   const ref = useOutsideClick(close);
 
-  const checkDropdownPosition = () => {
-    if (!ref.current) return false;
+  const getRenderedSection = () => {
+    if (!ref.current) return null;
 
-    const { y } = ref.current.getBoundingClientRect();
+    const { x, y } = ref.current.getBoundingClientRect();
 
-    /** y 위치 + 드롭다운 높이 + 드롭다운 transformY > 뷰포트 높이 - 뷰포트 패딩바텀 */
-    return y + 118 + 20 < document.documentElement.clientHeight - 48;
+    return checkDropdownPosition(x, y);
   };
 
   return (
     <div css={containerStyle}>
-      <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }}>
+      <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }} css={{ overflow: 'hidden' }}>
         {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
-        <Text tag="body6" css={{ lineHeight: '1.6rem' }}>
+        <Text tag="body6" css={nameFieldStyle}>
           {name}
         </Text>
       </Flex>
@@ -74,7 +79,7 @@ const FileListItem = ({
               height={20}
             />
           </div>
-          <MenuList css={optionListStyle(checkDropdownPosition())} isOpen={isOpen}>
+          <MenuList css={optionListStyle(getRenderedSection())} isOpen={isOpen}>
             <MenuItem
               css={optionTextStyle}
               LeftIcon={OPTION_ICON.download}

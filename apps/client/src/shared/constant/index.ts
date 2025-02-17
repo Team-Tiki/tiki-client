@@ -39,6 +39,11 @@ export const DELETE_EXECUTIVE = {
   CONTENT: '임원진을 워크스페이스에서 내보냅니다.',
 };
 
+export const DELETE_TIMEBLOCK = {
+  TITLE: '타임블록을 삭제할까요?',
+  CONTENT: '업로드한 파일은 드라이브에 유지됩니다.',
+};
+
 export const DELETED_DETAIL = '휴지통에서 지워진 파일은 영구삭제되며 되돌릴 수 없습니다' as const;
 
 export const CAUTION = {

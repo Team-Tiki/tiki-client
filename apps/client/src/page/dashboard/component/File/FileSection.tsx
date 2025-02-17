@@ -47,11 +47,8 @@ const FileSection = () => {
             <FileGrid
               key={file.documentId}
               variant="secondary"
-              name={file.name}
+              {...file}
               type={extractFileExtension(file.name) as File}
-              capacity={file.capacity}
-              createdTime={file.createdTime}
-              url={file.url}
             />
           );
         } else if (hasKeyInObject(item, 'folderId')) {

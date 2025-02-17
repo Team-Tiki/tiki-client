@@ -148,12 +148,10 @@ const DeletedPage = () => {
           {data?.data?.deletedDocuments.map((item) => (
             <FileGrid
               key={item.documentId}
-              isDeleted={true}
-              name={item.name}
-              type={extractFileExtension(item.name) as File}
-              url={item.url}
-              capacity={item.capacity}
+              {...item}
               createdTime={''}
+              isDeleted={true}
+              type={extractFileExtension(item.name) as File}
               isSelectable={canSelect}
               isSelected={ids.includes(+item.documentId)}
               onSelect={() => handleItemClick(+item.documentId)}
