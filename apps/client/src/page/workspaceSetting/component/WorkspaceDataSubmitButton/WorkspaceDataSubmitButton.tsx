@@ -1,4 +1,4 @@
-import { CommandButton } from '@tiki/ui';
+import { CommandButton, useToastAction } from '@tiki/ui';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -24,9 +24,12 @@ const WorkspaceDataSubmitButton = ({
   const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
 
+  const { createToast } = useToastAction();
+
   const canSubmit = JSON.stringify(initialWorkspaceData) !== JSON.stringify(workspaceData);
 
   const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
+
   const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
 
   const handleWorkspaceInfoSubmit = (e: React.SyntheticEvent) => {
@@ -56,6 +59,9 @@ const WorkspaceDataSubmitButton = ({
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/team-member/teams/{teamId}/members/position'] });
+          if (workspaceData.position === POSITION.EXECUTIVE) {
+            createToast('저장되었습니다.', 'success');
+          }
         },
       }
     );
@@ -81,6 +87,7 @@ const WorkspaceDataSubmitButton = ({
             queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/teams/{teamId}/inform'],
             });
+            createToast('저장되었습니다.', 'success');
           },
         }
       );
