@@ -18,7 +18,7 @@ const WorkSpaceName = () => {
     nextStep();
   };
 
-  const isButtonActive = inputValue.trim().length > 0;
+  const isDisabled = inputValue.trim().length !== 0;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -36,7 +36,7 @@ const WorkSpaceName = () => {
           />
         </div>
       </Modal.Body>
-      <Modal.Footer step={1} contentType="create-workspace" buttonClick={handleNext} isButtonActive={isButtonActive} />
+      <Modal.Footer step={1} type="create-workspace" onClick={handleNext} disabled={isDisabled} />
     </>
   );
 };

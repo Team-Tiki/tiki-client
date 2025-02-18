@@ -68,7 +68,7 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
           ))}
         </ul>
       </Modal.Body>
-      <Modal.Footer step={4} contentType="create-block" buttonClick={handleCreateBlock} prevStep={prevStep} />
+      <Modal.Footer step={4} type="create-block" onClick={handleCreateBlock} onPrev={prevStep} />
     </>
   );
 };
