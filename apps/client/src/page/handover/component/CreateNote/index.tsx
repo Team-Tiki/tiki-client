@@ -106,7 +106,7 @@ const CreateNotePage = () => {
           body: {
             title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
             complete: noteDetail.complete,
-            startDate: noteDetail.startDate,
+            startDate: noteDetail.startDate === '' ? new Date().toISOString() : noteDetail.startDate,
             endDate: noteDetail.endDate,
             contents: customData.contents,
             timeBlockIds: noteDetail.timeBlockList?.map((item) => item.id!),

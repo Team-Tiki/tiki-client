@@ -3,11 +3,13 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
 import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
 import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
+import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
@@ -56,61 +58,100 @@ const NotePage = () => {
       footerType: 'caution-modify',
       onClick: () => {
         setSelectedTab(tabId);
+
+        setNoteDetailData(() => {
+          if (tabId === 0) {
+            return {
+              noteId: +noteId!,
+              noteType: 'TEMPLATE',
+              title: '',
+              author: noteDetailData?.author,
+              startDate: '',
+              endDate: '',
+              complete: false,
+              answerWhatActivity: '',
+              answerHowToPrepare: '',
+              answerWhatIsDisappointedThing: '',
+              answerHowToFix: '',
+              timeBlockList: [],
+              documentList: [],
+            } as TemplateNoteData;
+          } else {
+            return {
+              noteId: +noteId!,
+              noteType: 'FREE',
+              title: '',
+              author: noteDetailData?.author,
+              startDate: '',
+              endDate: '',
+              complete: false,
+              contents: '',
+              documentList: [],
+              timeBlockList: [],
+            } as CustomNoteData;
+          }
+        });
+
         closeModal();
       },
     });
   };
 
   const handleSubmit = () => {
-    if (noteDetailData) {
-      if (hasKeyInObject(noteDetailData, 'answerWhatActivity')) {
-        const templateData = noteDetailData as TemplateNoteData;
+    if (!noteDetailData) return;
 
-        templateMutation(
-          {
-            params: { path: { noteId: +noteId! } },
-            body: {
-              ...templateData,
-              timeBlockIds: templateData.timeBlockList.map((block) => block.id) || [],
-              documentIds: templateData.documentList.map((document) => document.id) || [],
-              teamId,
-            },
+    if (selectedTab === 0) {
+      const templateData = noteDetailData as TemplateNoteData;
+      templateMutation(
+        {
+          params: { path: { noteId: +noteId! } },
+          body: {
+            ...templateData,
+            title: templateData.title === '' ? EMPTY_NOTE_TITLE : templateData.title,
+            startDate: templateData.startDate === '' ? formatDateToString(new Date())! : templateData.startDate,
+            endDate: templateData.endDate === '' ? formatDateToString(new Date())! : templateData.endDate,
+            timeBlockIds: templateData.timeBlockList.map((block) => block.id),
+            documentIds: templateData.documentList.map((document) => document.id),
+            teamId,
           },
-          {
-            onSuccess: () => {
-              createToast('노트 내용이 저장되었습니다', 'success');
-              noteData.refetch();
-            },
-            onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
-          }
-        );
-      } else if (hasKeyInObject(noteDetailData, 'contents')) {
-        const customData = noteDetailData as CustomNoteData;
-
-        customMutation(
-          {
-            params: { path: { noteId: +noteId! } },
-            body: {
-              ...customData,
-              timeBlockIds: customData.timeBlockList.map((block) => block.id) || [],
-              documentIds: customData.documentList.map((document) => document.id) || [],
-              teamId,
-            },
+        },
+        {
+          onSuccess: () => {
+            createToast('노트 내용이 저장되었습니다', 'success');
+            noteData.refetch();
           },
-          {
-            onSuccess: () => {
-              createToast('노트 내용이 저장되었습니다', 'success');
-              noteData.refetch();
-            },
-            onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
-          }
-        );
-      }
+          onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
+        }
+      );
+    } else {
+      const customData = noteDetailData as CustomNoteData;
+      customMutation(
+        {
+          params: { path: { noteId: +noteId! } },
+          body: {
+            ...customData,
+            title: customData.title === '' ? EMPTY_NOTE_TITLE : customData.title,
+            startDate: customData.startDate === '' ? formatDateToString(new Date())! : customData.startDate,
+            endDate: customData.endDate === '' ? formatDateToString(new Date())! : customData.endDate,
+            contents: customData.contents,
+            documentIds: customData.documentList.map((document) => document.id) || [],
+            timeBlockIds: noteDetailData.timeBlockList.map((block) => block.id) || [],
+            teamId,
+          },
+        },
+        {
+          onSuccess: () => {
+            createToast('노트 내용이 저장되었습니다', 'success');
+            noteData.refetch();
+          },
+          onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
+        }
+      );
     }
   };
 
   // 30초마다 자동 저장
-  useInterval(handleSubmit, 10000);
+  useInterval(handleSubmit, 30000);
 
   return (
     <section css={noteSectionStyle}>
