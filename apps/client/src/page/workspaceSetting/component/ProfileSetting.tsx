@@ -36,7 +36,6 @@ const ProfileSetting = ({ name, position, onWorkspaceDataChange, error, onErrorC
           value={name}
           supportingText={defineNameSupportigtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
-          onClick={() => handleNameChange('')}
           placeholder="닉네임"
           isError={error !== ERROR_NAME.VALIDATE}
         />

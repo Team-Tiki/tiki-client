@@ -38,7 +38,6 @@ const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, 
           disabled={!canChangeTeamName}
           supportingText={defineWorkspaceNameSupportigtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
-          onClick={() => handleNameChange('')}
           placeholder="ex. 동아리명"
           isError={error !== ERROR_NAME.VALIDATE}
         />
