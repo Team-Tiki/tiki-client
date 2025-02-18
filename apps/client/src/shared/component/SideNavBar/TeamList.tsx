@@ -1,4 +1,4 @@
-import { Flex } from '@tiki/ui';
+import { Flex, Text } from '@tiki/ui';
 
 import { components } from '@/shared/__generated__/schema';
 import Logo from '@/shared/component/SideNavBar/Logo';
@@ -33,7 +33,9 @@ const TeamList = ({ list }: TeamListProps) => {
             {data.iconImageUrl ? (
               <img src={data.iconImageUrl} alt={`${data.name} 로고`} />
             ) : (
-              <span css={firstSpellStyle}>{data.name[0]}</span>
+              <Text tag="body6" css={firstSpellStyle}>
+                {data.name[0]}
+              </Text>
             )}
           </Logo>
         );
