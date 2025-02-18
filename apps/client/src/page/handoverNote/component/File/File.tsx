@@ -12,7 +12,7 @@ interface FileProps {
     capacity: number;
   };
   onDelete: (e: React.MouseEvent, id: number) => void;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const File = ({ file, onDelete, onClick }: FileProps) => {
@@ -20,7 +20,7 @@ const File = ({ file, onDelete, onClick }: FileProps) => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onClick();
+      onClick?.();
     }
   };
 
