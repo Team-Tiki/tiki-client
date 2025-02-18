@@ -44,7 +44,7 @@ const NewFileImportModal = ({
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
 
-  const isDisabled = files.length !== 0;
+  const isDisabled = files.length === 0;
 
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
