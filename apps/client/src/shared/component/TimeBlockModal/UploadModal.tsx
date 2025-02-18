@@ -4,7 +4,6 @@ import { useRef, useState } from 'react';
 
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
-import { Modal } from '@/shared/component/Modal';
 import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
 import BrowseFileModal from '@/shared/component/TimeBlockModal/component/BrowseFile/BrowseFileModal';
 import { flexStyle } from '@/shared/component/TimeBlockModal/style';
@@ -24,7 +23,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
 
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
-  const { prevStep, nextStep } = useFunnel();
+  const { nextStep } = useFunnel();
 
   const { setFormData } = useBlockContext();
 
@@ -70,29 +69,25 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
 
   return (
     <>
-      <Modal.Header step={3} />
-      <Modal.Body>
-        <Flex css={flexStyle}>
-          {fileData?.data?.documents.length === 0 || isAddingFiles ? (
-            <NewFileImportModal
-              onUploadFile={handleFileSelect}
-              selectedFiles={selectedFiles}
-              size="large"
-              contentType="create-block"
-              onNext={handleNext}
-              onPrev={() => setIsAddingFiles(false)}
-            />
-          ) : (
-            <BrowseFileModal
-              files={fileData?.data?.documents || []}
-              selectedFiles={selectedFiles}
-              onShowBlockAdd={() => setIsAddingFiles(true)}
-              onUpdateSelection={handleSelectedFilesChange}
-            />
-          )}
-        </Flex>
-      </Modal.Body>
-      <Modal.Footer step={2} contentType="create-block" buttonClick={handleNext} prevStep={() => prevStep()} />
+      <Flex css={flexStyle}>
+        {fileData?.data?.documents.length === 0 || isAddingFiles ? (
+          <NewFileImportModal
+            onUploadFile={handleFileSelect}
+            selectedFiles={selectedFiles}
+            size="large"
+            contentType="create-block"
+            onNext={handleNext}
+            onPrev={() => setIsAddingFiles(false)}
+          />
+        ) : (
+          <BrowseFileModal
+            files={fileData?.data?.documents || []}
+            selectedFiles={selectedFiles}
+            onShowBlockAdd={() => setIsAddingFiles(true)}
+            onUpdateSelection={handleSelectedFilesChange}
+          />
+        )}
+      </Flex>
     </>
   );
 };

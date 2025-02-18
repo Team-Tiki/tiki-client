@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+import { MAX_TIMEBLOCK_LENGTH } from '@/shared/component/TimeBlockModal/constant/error';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
 
 interface UseBlockNameProps {
@@ -7,7 +8,7 @@ interface UseBlockNameProps {
   onChange?: (name: string) => void;
 }
 
-export const useBlockName = ({ maxLength = 25, onChange }: UseBlockNameProps) => {
+export const useBlockName = ({ maxLength = MAX_TIMEBLOCK_LENGTH, onChange }: UseBlockNameProps) => {
   const { formData } = useBlockContext();
 
   const [blockName, setBlockName] = useState(formData.name ?? '');
@@ -15,21 +16,30 @@ export const useBlockName = ({ maxLength = 25, onChange }: UseBlockNameProps) =>
 
   const handleBlockNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.value.length > maxLength) {
+      const name = e.target.value;
+
+      if (name.length > maxLength) {
         setIsNameError(true);
         return;
       }
 
-      setBlockName(e.target.value);
+      setBlockName(name);
       setIsNameError(false);
-      onChange?.(e.target.value);
+      onChange?.(name);
     },
     [maxLength, onChange]
   );
+
+  const handleBlockNameBlur = useCallback(() => {
+    const isNameMaxLengthError = blockName.length > maxLength;
+
+    setIsNameError(isNameMaxLengthError);
+  }, [blockName, maxLength]);
 
   return {
     blockName,
     isNameError,
     handleBlockNameChange,
+    handleBlockNameBlur,
   };
 };

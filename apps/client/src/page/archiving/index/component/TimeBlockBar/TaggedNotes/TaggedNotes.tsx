@@ -3,6 +3,7 @@ import { Flex, Text } from '@tiki/ui';
 
 import TaggedNoteItem from '@/page/archiving/index/component/TimeBlockBar/TaggedNotes/TaggedNoteItem/TaggedNoteItem';
 import { listHeaderStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 
 import { useDrawerContent } from '@/shared/store/drawer';
 
@@ -11,7 +12,7 @@ interface TaggedNotesProps {
 }
 
 const TaggedNotes = ({ isEditable }: TaggedNotesProps) => {
-  const content = useDrawerContent();
+  const { notes } = useDrawerContent() as Block & BlockDetail;
 
   return (
     <Flex styles={{ direction: 'column', gap: '1.8rem' }}>
@@ -22,8 +23,8 @@ const TaggedNotes = ({ isEditable }: TaggedNotesProps) => {
         </Text>
       </Flex>
       <Flex tag="ul" styles={{ direction: 'column', gap: '0.8rem' }}>
-        {content?.notes?.map((data) => (
-          <TaggedNoteItem key={data.noteId} title={data.noteName} isEditable={isEditable} />
+        {notes.map((data) => (
+          <TaggedNoteItem key={data.noteId} noteId={data.noteId} title={data.noteName} isEditable={isEditable} />
         ))}
       </Flex>
     </Flex>

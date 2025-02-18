@@ -29,7 +29,7 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
   const closeModal = useCloseModal();
   const { nextStep } = useFunnel();
 
-  const isButtonActive = selectedFiles.length !== 0;
+  const isDisabled = selectedFiles.length === 0;
   const filterKeyword = useDebounce(searchFile, 500);
 
   const filteredFiles = files.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC')));
@@ -87,13 +87,7 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={1}
-        contentType="timeblock-file"
-        buttonClick={handleNext}
-        closeModal={closeModal}
-        isButtonActive={isButtonActive}
-      />
+      <Modal.Footer step={1} type="timeblock-file" onClick={handleNext} onClose={closeModal} disabled={isDisabled} />
     </Modal>
   );
 };

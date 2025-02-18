@@ -1,6 +1,12 @@
 import { css } from '@emotion/react';
 import { theme } from '@tiki/ui';
 
+export const formStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '3.6rem',
+});
+
 export const closeBtnStyle = css({
   position: 'absolute',
 
