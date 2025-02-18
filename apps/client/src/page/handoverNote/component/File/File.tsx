@@ -18,8 +18,15 @@ interface FileProps {
 const File = ({ file, onDelete, onClick }: FileProps) => {
   const fileVolume = getFileVolume(file.capacity);
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      onClick();
+    }
+  };
+
   return (
-    <article css={fileStyle} onClick={onClick}>
+    /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+    <li css={fileStyle} onClick={onClick} onKeyDown={handleKeyDown}>
       <IcFileRound width={32} height={32} css={{ flexShrink: 0 }} />
       <span css={fileInfoStyle}>
         <p css={fileNameStyle}>{file.fileName}</p>
@@ -35,7 +42,7 @@ const File = ({ file, onDelete, onClick }: FileProps) => {
           onDelete(e, file.id);
         }}
       />
-    </article>
+    </li>
   );
 };
 

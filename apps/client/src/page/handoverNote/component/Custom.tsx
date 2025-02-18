@@ -69,7 +69,7 @@ const Custom = ({ data, setData }: CustomProps) => {
         <Label id="file" css={labelStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <div css={fileBoxStyle}>
+        <ul css={fileBoxStyle}>
           {data?.documentList?.map((file) => (
             <File
               key={file.id}
@@ -78,7 +78,7 @@ const Custom = ({ data, setData }: CustomProps) => {
               onClick={() => downloadDocument(file.fileUrl, file.fileName)}
             />
           ))}
-        </div>
+        </ul>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload}>
           파일 연동하기
         </Button>
