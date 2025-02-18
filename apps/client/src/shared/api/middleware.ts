@@ -20,8 +20,10 @@ export const authMiddleware: Middleware = {
     const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
     if (!accessToken) {
-      window.location.replace(PATH.LOGIN);
-      throw new Error('토큰이 존재하지 않습니다.');
+      if (!localStorage.getItem(STORAGE_KEY.INVITATION_ID)) {
+        window.location.replace(PATH.LOGIN);
+        throw new Error('토큰이 존재하지 않습니다.');
+      }
     }
 
     request.headers.set('Authorization', `Bearer ${accessToken}`);

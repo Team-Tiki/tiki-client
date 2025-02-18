@@ -55,9 +55,9 @@ const InvitedPage = () => {
       {
         onSuccess: () => {
           createToast('초대 승인에 성공하셨습니다.', 'success');
+          window.location.replace(PATH.DASHBOARD);
           localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
           localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
-          navigate(PATH.DASHBOARD);
         },
         onError: (error: components['schemas']['ErrorResponse']) => {
           createToast(`초대 승인에 실패하셨습니다: ${error.message}`, 'error');
