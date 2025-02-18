@@ -60,7 +60,7 @@ const WorkspaceDataSubmitButton = ({
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/team-member/teams/{teamId}/members/position'] });
           if (workspaceData.position === POSITION.EXECUTIVE) {
-            createToast('저장되었습니다.', 'success');
+            createToast('변경사항이 저장되었습니다.', 'success');
           }
         },
       }
@@ -87,7 +87,7 @@ const WorkspaceDataSubmitButton = ({
             queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/teams/{teamId}/inform'],
             });
-            createToast('저장되었습니다.', 'success');
+            createToast('변경사항이 저장되었습니다.', 'success');
           },
         }
       );
