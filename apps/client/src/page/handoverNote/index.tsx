@@ -22,9 +22,7 @@ import { hasKeyInObject } from '@/shared/util/typeGuard';
 import { noteSectionStyle, tabButtonStyle } from './index.style';
 
 const NotePage = () => {
-  const [noteDetailData, setNoteDetailData] = useState<CreateNoteInfoType | TemplateNoteData | CustomNoteData | null>(
-    null
-  );
+  const [noteDetail, setNoteDetail] = useState<CreateNoteInfoType | TemplateNoteData | CustomNoteData | null>(null);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const { noteId } = useParams();
@@ -36,12 +34,14 @@ const NotePage = () => {
   const { createToast } = useToastAction();
   const teamId = useInitializeTeamId();
 
-  const noteData = useNoteDetailData();
+  const today = formatDateToString(new Date()) as string;
+
+  const { data: noteData, refetch } = useNoteDetailData();
 
   useEffect(() => {
-    if (noteData.data?.data) {
-      setNoteDetailData(noteData.data.data);
-      if (hasKeyInObject(noteData.data.data, 'contents')) {
+    if (noteData?.data) {
+      setNoteDetail({ ...noteData.data });
+      if (hasKeyInObject(noteData.data, 'contents')) {
         setSelectedTab(1);
       }
     }
@@ -59,13 +59,13 @@ const NotePage = () => {
       onClick: () => {
         setSelectedTab(tabId);
 
-        setNoteDetailData(() => {
+        setNoteDetail(() => {
           if (tabId === 0) {
             return {
               noteId: +noteId!,
               noteType: 'TEMPLATE',
               title: '',
-              author: noteDetailData?.author,
+              author: noteDetail?.author,
               startDate: '',
               endDate: '',
               complete: false,
@@ -81,7 +81,7 @@ const NotePage = () => {
               noteId: +noteId!,
               noteType: 'FREE',
               title: '',
-              author: noteDetailData?.author,
+              author: noteDetail?.author,
               startDate: '',
               endDate: '',
               complete: false,
@@ -98,18 +98,18 @@ const NotePage = () => {
   };
 
   const handleSubmit = () => {
-    if (!noteDetailData) return;
+    if (!noteDetail) return;
 
     if (selectedTab === 0) {
-      const templateData = noteDetailData as TemplateNoteData;
+      const templateData = noteDetail as TemplateNoteData;
       templateMutation(
         {
           params: { path: { noteId: +noteId! } },
           body: {
             ...templateData,
             title: templateData.title === '' ? EMPTY_NOTE_TITLE : templateData.title,
-            startDate: templateData.startDate === '' ? formatDateToString(new Date())! : templateData.startDate,
-            endDate: templateData.endDate === '' ? formatDateToString(new Date())! : templateData.endDate,
+            startDate: templateData.startDate === '' ? today : templateData.startDate,
+            endDate: templateData.endDate === '' ? today : templateData.endDate,
             timeBlockIds: templateData.timeBlockList.map((block) => block.id),
             documentIds: templateData.documentList.map((document) => document.id),
             teamId,
@@ -118,13 +118,14 @@ const NotePage = () => {
         {
           onSuccess: () => {
             createToast('노트 내용이 저장되었습니다', 'success');
-            noteData.refetch();
+
+            refetch();
           },
           onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
         }
       );
     } else {
-      const customData = noteDetailData as CustomNoteData;
+      const customData = noteDetail as CustomNoteData;
       customMutation(
         {
           params: { path: { noteId: +noteId! } },
@@ -135,18 +136,32 @@ const NotePage = () => {
             endDate: customData.endDate === '' ? formatDateToString(new Date())! : customData.endDate,
             contents: customData.contents,
             documentIds: customData.documentList.map((document) => document.id) || [],
-            timeBlockIds: noteDetailData.timeBlockList.map((block) => block.id) || [],
+            timeBlockIds: noteDetail.timeBlockList.map((block) => block.id) || [],
             teamId,
           },
         },
         {
           onSuccess: () => {
             createToast('노트 내용이 저장되었습니다', 'success');
-            noteData.refetch();
+
+            refetch();
           },
           onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
         }
       );
+    }
+  };
+
+  const handleSubmitBtnClick = () => {
+    try {
+      handleSubmit();
+
+      createToast('노트 내용이 저장되었습니다', 'success');
+      refetch();
+
+      navigate(PATH.HANDOVER);
+    } catch (error) {
+      createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error');
     }
   };
 
@@ -155,10 +170,10 @@ const NotePage = () => {
 
   return (
     <section css={noteSectionStyle}>
-      {noteDetailData && (
+      {noteDetail && (
         <NoteInfo
-          info={noteDetailData as CreateNoteInfoType}
-          setInfo={setNoteDetailData as React.Dispatch<React.SetStateAction<CreateNoteInfoType>>}
+          info={noteDetail as CreateNoteInfoType}
+          setInfo={setNoteDetail as React.Dispatch<React.SetStateAction<CreateNoteInfoType>>}
         />
       )}
 
@@ -171,26 +186,26 @@ const NotePage = () => {
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
-          <CommandButton commandKey="S" isCommand={true} size="small" type="submit">
+          <CommandButton commandKey="S" isCommand={true} size="small" onClick={handleSubmitBtnClick}>
             저장
           </CommandButton>
         </Flex>
 
-        {noteDetailData &&
-          (hasKeyInObject(noteDetailData, 'answerWhatActivity') ? (
+        {noteDetail &&
+          (hasKeyInObject(noteDetail, 'answerWhatActivity') ? (
             <TabPanel selectedTab={selectedTab}>
               <Template
-                data={noteDetailData as TemplateNoteData}
-                setData={setNoteDetailData as React.Dispatch<React.SetStateAction<TemplateNoteData>>}
+                data={noteDetail as TemplateNoteData}
+                setData={setNoteDetail as React.Dispatch<React.SetStateAction<TemplateNoteData>>}
               />
               <Custom />
             </TabPanel>
-          ) : hasKeyInObject(noteDetailData, 'contents') ? (
+          ) : hasKeyInObject(noteDetail, 'contents') ? (
             <TabPanel selectedTab={selectedTab}>
               <Template />
               <Custom
-                data={noteDetailData as CustomNoteData}
-                setData={setNoteDetailData as React.Dispatch<React.SetStateAction<CustomNoteData>>}
+                data={noteDetail as CustomNoteData}
+                setData={setNoteDetail as React.Dispatch<React.SetStateAction<CustomNoteData>>}
               />
             </TabPanel>
           ) : (
