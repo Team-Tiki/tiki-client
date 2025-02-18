@@ -1,6 +1,6 @@
 import { Button, Label, scrollStyle } from '@tiki/ui';
 
-import { SetStateAction, useState } from 'react';
+import { SetStateAction } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import {
@@ -23,13 +23,9 @@ interface CustomProps {
 }
 
 const Custom = ({ data, setData }: CustomProps) => {
-  const [content, setContent] = useState(() => data?.contents || '');
-
   const openModal = useOpenModal();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
-
     setData?.((prev) => ({
       ...prev!,
       contents: event.target.value,
@@ -67,7 +63,7 @@ const Custom = ({ data, setData }: CustomProps) => {
   return (
     <form css={[noteWrapperStyle, scrollStyle]}>
       <div css={layoutStyle}>
-        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} value={content} onChange={handleChange} />
+        <textarea css={textareaStyle} placeholder={PLACEHOLDER.CUSTOM} value={data?.contents} onChange={handleChange} />
       </div>
       <div css={layoutStyle}>
         <Label id="file" css={labelStyle}>

@@ -1,6 +1,6 @@
 import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 
-import React, { SetStateAction, useRef, useState } from 'react';
+import React, { SetStateAction, useRef } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import { fileBoxStyle, labelStyle, layoutStyle, noteWrapperStyle } from '@/page/handoverNote/component/style';
@@ -18,22 +18,18 @@ interface TemplateProps {
 }
 
 const Template = ({ data, setData }: TemplateProps) => {
-  const [values, setValues] = useState<Record<string, string>>({
-    answerWhatActivity: data?.answerWhatActivity || '',
-    answerHowToPrepare: data?.answerHowToPrepare || '',
-    answerWhatIsDisappointedThing: data?.answerWhatIsDisappointedThing || '',
-    answerHowToFix: data?.answerHowToFix || '',
-  });
   const textareaRefs = useRef<Record<string, HTMLTextAreaElement | null>>({});
 
   const openModal = useOpenModal();
 
-  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValues((prev) => ({
-      ...prev,
-      [id]: event.target.value,
-    }));
+  const templateContent = [
+    data?.answerWhatActivity,
+    data?.answerHowToPrepare,
+    data?.answerWhatIsDisappointedThing,
+    data?.answerHowToFix,
+  ];
 
+  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData?.((prev) => ({
       ...prev!,
       [id]: event.target.value,
@@ -78,7 +74,7 @@ const Template = ({ data, setData }: TemplateProps) => {
 
   return (
     <form css={[noteWrapperStyle, scrollStyle]}>
-      {TEMPLATE.map((item) => (
+      {TEMPLATE.map((item, index) => (
         <div key={item.id} css={layoutStyle}>
           <Label id={item.id} css={labelStyle}>
             {item.QUESTION}
@@ -88,7 +84,7 @@ const Template = ({ data, setData }: TemplateProps) => {
             rows={1}
             ref={(el) => (textareaRefs.current[item.id] = el)}
             placeholder={item.PLACEHOLDER}
-            value={values[item.id]}
+            value={templateContent[index]}
             onChange={handleChange(item.id)}
           />
         </div>
