@@ -69,6 +69,7 @@ type ModalContentType =
   | 'create-workspace'
   | 'create-block'
   | 'deleted'
+  | 'leave'
   | 'invite'
   | 'member-tag'
   | 'activity-tag'

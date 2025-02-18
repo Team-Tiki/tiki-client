@@ -85,6 +85,9 @@ const ModalFooterButtons = (
     case 'deleted':
       return [createButton('취소', closeModal, 'outline'), createButton('삭제', buttonClick, 'delete')];
 
+    case 'leave':
+      return [createButton('취소', closeModal, 'outline'), createButton('탈퇴', buttonClick, 'delete')];
+
     case 'invite':
       return [
         createButton('취소', closeModal, 'outline'),
