@@ -89,7 +89,7 @@ export const titleStyle = css({
   ...theme.heading.heading03,
   lineHeight: '3.6rem',
 
-  wordBreak: 'break-all',
+  wordBreak: 'keep-all',
   resize: 'none',
 
   '::placeholder': {
