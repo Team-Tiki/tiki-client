@@ -1,5 +1,3 @@
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -42,7 +40,7 @@ export default defineConfig(({ mode }) => {
         include: ['/@tiki/ui/', '/@tiki/icon/'],
       },
       rollupOptions: {
-        plugins: [commonjs(), resolve()],
+        // plugins: [commonjs(), resolve()],
         output: {
           manualChunks: (id) => {
             if (id.includes('date-fns')) return 'date-fns';
