@@ -15,6 +15,7 @@ const WorkspaceSettingPage = () => {
     namingUpdatedAt,
     workspaceDataError,
     handleWorkspaceDataErrorChange,
+    handleInitialWorkspaceDataChange,
   } = useWorkspaceData();
 
   return (
@@ -24,6 +25,7 @@ const WorkspaceSettingPage = () => {
           workspaceData={workspaceData}
           onErrorChange={handleWorkspaceDataErrorChange}
           initialWorkspaceData={initialWorkspaceData}
+          onInitialWorkspaceDataChange={handleInitialWorkspaceDataChange}
         />
         <ProfileSetting
           name={workspaceData.name}

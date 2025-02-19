@@ -14,22 +14,22 @@ interface WorkspaceDataSubmitButtonProps {
   workspaceData: MemberType & Omit<TeamType, 'namingUpdatedAt'>;
   onErrorChange: (key: string, value: string) => void;
   initialWorkspaceData: (MemberType & Omit<TeamType, 'namingUpdatedAt'>) | null;
+  onInitialWorkspaceDataChange: (data: (MemberType & Omit<TeamType, 'namingUpdatedAt'>) | null) => void;
 }
 
 const WorkspaceDataSubmitButton = ({
   workspaceData,
   onErrorChange,
   initialWorkspaceData,
+  onInitialWorkspaceDataChange,
 }: WorkspaceDataSubmitButtonProps) => {
   const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
-
   const { createToast } = useToastAction();
 
   const canSubmit = JSON.stringify(initialWorkspaceData) !== JSON.stringify(workspaceData);
 
   const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
-
   const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
 
   const handleWorkspaceInfoSubmit = (e: React.SyntheticEvent) => {
@@ -58,10 +58,11 @@ const WorkspaceDataSubmitButton = ({
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/team-member/teams/{teamId}/members/position'] });
           if (workspaceData.position === POSITION.EXECUTIVE) {
             createToast('변경사항이 저장되었습니다.', 'success');
+            onInitialWorkspaceDataChange({ ...workspaceData });
           }
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/team-member/teams/{teamId}/members/position'] });
         },
       }
     );
@@ -81,6 +82,7 @@ const WorkspaceDataSubmitButton = ({
         },
         {
           onSuccess: () => {
+            onInitialWorkspaceDataChange({ ...workspaceData });
             queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/members/teams'],
             });

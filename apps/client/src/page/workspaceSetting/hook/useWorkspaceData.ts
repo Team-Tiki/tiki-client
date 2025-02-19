@@ -25,6 +25,10 @@ export const useWorkspaceData = () => {
     teamNameError: ERROR_NAME.VALIDATE,
   });
 
+  const handleInitialWorkspaceDataChange = (data: (MemberType & Omit<TeamType, 'namingUpdatedAt'>) | null) => {
+    setInitialWorkspaceData(data);
+  };
+
   const handleWorkspaceDataErrorChange = (key: string, value: string) => {
     setWorkspaceDataError((prev) => ({ ...prev, [key]: value }));
   };
@@ -72,5 +76,6 @@ export const useWorkspaceData = () => {
     namingUpdatedAt: teamData?.data?.namingUpdatedAt,
     workspaceDataError,
     handleWorkspaceDataErrorChange,
+    handleInitialWorkspaceDataChange,
   };
 };
