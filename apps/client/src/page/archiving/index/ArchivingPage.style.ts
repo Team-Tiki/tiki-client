@@ -14,11 +14,13 @@ export const timelineStyle = () =>
     flexDirection: 'column',
 
     width: '100%',
-    height: '49.2rem',
+    height: '100%',
 
     borderRadius: '16px',
 
     gap: '1.6rem',
+
+    overflowY: 'auto',
   });
 
 export const contentStyle = css({
