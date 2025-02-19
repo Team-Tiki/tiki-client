@@ -2,8 +2,6 @@ import { Flex, Heading } from '@tiki/ui';
 
 import { useMatch, useNavigate } from 'react-router-dom';
 
-import { useTeamData } from '@/page/workspaceSetting/hook/api/queries';
-
 import AlarmButton from '@/shared/component/Header/AlarmButton';
 import { headerStyle } from '@/shared/component/Header/Header.style';
 import InviteButton from '@/shared/component/Header/InviteButton';
@@ -15,8 +13,7 @@ import { PATH } from '@/shared/constant/path';
 const Header = () => {
   const navigate = useNavigate();
 
-  const { data } = useTeamData();
-  const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME) || data?.data?.teamName;
+  const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME);
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
   const isWorkspaceSettingPage = useMatch(PATH.WORKSPACE_SETTING);

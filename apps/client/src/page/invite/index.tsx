@@ -126,7 +126,7 @@ const InvitedPage = () => {
             </Button>
           </Flex>
         ) : (
-          <Button size="xLarge" css={{ width: '100%' }}>
+          <Button size="xLarge" css={{ width: '100%' }} onClick={() => navigate(PATH.LOGIN)}>
             로그인하고 초대수락하기
           </Button>
         )}
