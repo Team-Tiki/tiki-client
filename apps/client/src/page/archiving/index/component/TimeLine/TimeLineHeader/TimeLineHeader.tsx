@@ -9,7 +9,7 @@ const TimeLineHeader = () => {
 
   return (
     <header css={headerStyle}>
-      <Button variant="outline" css={{ padding: '0.6rem'}} onClick={handlePrevMonth} tabIndex={0}>
+      <Button variant="outline" css={{ padding: '0.6rem' }} onClick={handlePrevMonth} tabIndex={0}>
         <IcArrowBack width={20} height={20} />
       </Button>
       <span css={dateStyle}>
