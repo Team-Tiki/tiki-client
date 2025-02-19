@@ -12,6 +12,8 @@ export const headerStyle = css({
   alignItems: 'center',
   gap: '1.2rem',
 
+  zIndex: theme.zIndex.overlayMiddle,
+
   backgroundColor: theme.colors.white,
 });
 
