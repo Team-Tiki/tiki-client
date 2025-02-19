@@ -4,12 +4,12 @@ import { Button, Flex, Heading, Text, useToastAction } from '@tiki/ui';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { MESSAGE } from '@/page/invite/constant';
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
 import { firstSpellStyle, inviteStyle, redButtonStyle } from '@/page/invite/index.styles';
 import { InvitationType } from '@/page/invite/type';
 
-import { components } from '@/shared/__generated__/schema';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
@@ -37,7 +37,7 @@ const InvitedPage = () => {
     }
   }, [createToast, data, invitationInfo?.teamId, isLogined, navigate]);
 
-  const deleteLocalStorageInviteInfo = () => {
+  const clearInvitation = () => {
     localStorage.removeItem(STORAGE_KEY.INVITATION_ID);
     localStorage.removeItem(STORAGE_KEY.INVITE_TEAM_ID);
   };
@@ -54,18 +54,18 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
-          createToast('초대 승인에 성공하셨습니다.', 'success');
+          createToast(MESSAGE.INVITE_SUCCESS, 'success');
           window.location.replace(PATH.DASHBOARD);
           localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
           localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
         },
-        onError: (error: components['schemas']['ErrorResponse']) => {
-          createToast(`초대 승인에 실패하셨습니다: ${error.message}`, 'error');
+        onError: () => {
+          createToast(MESSAGE.INVITE_FAILED, 'error');
           navigate(PATH.ONBOARDING);
         },
       }
     );
-    deleteLocalStorageInviteInfo();
+    clearInvitation();
   };
 
   const handleDenyInvitation = () => {
@@ -79,14 +79,14 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
-          createToast('초대 거절에 성공하셨습니다.', 'success');
+          createToast(MESSAGE.DENY_SUCCESS, 'success');
         },
-        onError: (error: components['schemas']['ErrorResponse']) => {
-          createToast(`초대 거절에 실패하셨습니다: ${error.message}`, 'error');
+        onError: () => {
+          createToast(MESSAGE.DENY_FAILED, 'error');
         },
       }
     );
-    deleteLocalStorageInviteInfo();
+    clearInvitation();
     navigate(PATH.ONBOARDING);
   };
 
