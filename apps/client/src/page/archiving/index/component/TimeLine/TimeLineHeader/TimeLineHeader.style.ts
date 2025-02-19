@@ -8,6 +8,7 @@ export const headerStyle = css({
   top: '0',
 
   paddingBottom: '1rem',
+  marginLeft: '0.6rem',
 
   alignItems: 'center',
   gap: '1.2rem',
