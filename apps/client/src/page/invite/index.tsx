@@ -4,6 +4,8 @@ import { Button, Flex, Heading, Text, useToastAction } from '@tiki/ui';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { MESSAGE } from '@/page/invite/constant';
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
@@ -17,6 +19,8 @@ const InvitedPage = () => {
   const isLogined = !!localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
   const { createToast } = useToastAction();
+
+  const queryClient = useQueryClient();
 
   const [invitationInfo, setInvitationInfo] = useState<InvitationType>();
   const [teamId, setTeamId] = useState<number>(0);
@@ -55,7 +59,10 @@ const InvitedPage = () => {
       {
         onSuccess: () => {
           createToast(MESSAGE.INVITE_SUCCESS, 'success');
-          window.location.replace(PATH.DASHBOARD);
+
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
+          navigate(PATH.DASHBOARD);
+
           localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
           localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
         },
