@@ -96,6 +96,7 @@ const CreateNotePage = () => {
           onSuccess: () => {
             createToast('템플릿 노트가 저장되었습니다.', 'success');
 
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
@@ -124,6 +125,7 @@ const CreateNotePage = () => {
           onSuccess: () => {
             createToast('자유 노트가 저장되었습니다.', 'success');
 
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
