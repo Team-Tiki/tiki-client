@@ -78,6 +78,7 @@ export const entireInfoStyle = css({
 
 export const titleStyle = css({
   width: '25rem',
+  height: '3.6rem',
 
   outline: 'none',
   border: 'none',
@@ -102,6 +103,8 @@ export const infoContainerStyle = css({
 
   flexDirection: 'column',
   gap: '0.4rem',
+
+  marginTop: '3.6rem',
 });
 
 export const infoLayoutStyle = (isTag?: boolean) =>
