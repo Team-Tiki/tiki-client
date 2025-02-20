@@ -38,7 +38,6 @@ export const indicatorStyle = css({
 });
 
 export const firstSpellStyle = css({
-  font: `${theme.text.body06}`,
   color: theme.colors.gray_500,
 });
 

@@ -1,3 +1,5 @@
+import { MAX_WORKSPACE_NAME_LENGTH } from '@/page/workspaceSetting/constant';
+
 export const PLACEHOLDER = {
   NAME: '주민등록상 실명 입력',
   BIRTHDAY: 'YYYY-MM-DD',
@@ -43,7 +45,7 @@ export const SUPPORTING_TEXT = {
   TIMEBLOCK_NAME_LENGTH: '타임블록명은 25자까지 작성 가능해요',
 
   WORKSPACE_NAME_NOTICE: '워크스페이스명은 변경일로부터 30일 이후에 변경할 수 있습니다. \n 신중하게 결정해주세요.',
-  WORKSPACE_NAME_INVALID_LENGTH: '워크스페이스명은 40자 이하로 설정해주세요.',
+  WORKSPACE_NAME_INVALID_LENGTH: `워크스페이스명은 ${MAX_WORKSPACE_NAME_LENGTH}자 이하로 설정해주세요.`,
   WORKSPACE_NAME_EMPTY: '워크스페이스명을 입력해주세요.',
 } as const;
 

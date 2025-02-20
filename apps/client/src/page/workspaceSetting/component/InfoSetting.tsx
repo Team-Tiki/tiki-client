@@ -1,10 +1,9 @@
 import { Flex, Input, Select, Text } from '@tiki/ui';
 
 import { containerStyle } from '@/page/workspaceSetting/component/styles';
-import { ERROR_NAME } from '@/page/workspaceSetting/constant';
-import { hasRecentUpdates } from '@/page/workspaceSetting/util';
+import { ERROR_NAME, MAX_WORKSPACE_NAME_LENGTH, UNIVERCITY_SELECT_OPTIONS } from '@/page/workspaceSetting/constant';
+import { defineWorkspaceNameSupportingtext, hasRecentUpdates } from '@/page/workspaceSetting/util';
 
-import { SUPPORTING_TEXT } from '@/shared/constant/form';
 import { Validate } from '@/shared/util/validate';
 
 interface InfoSettingProps {
@@ -14,34 +13,20 @@ interface InfoSettingProps {
   error: string;
   onErrorChange: (key: string, value: string) => void;
 }
-const select_options = [{ value: '건국대학교' }];
 
 const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, onErrorChange }: InfoSettingProps) => {
   const canChangeTeamName = hasRecentUpdates(namingUpdatedAt ?? '');
 
   const handleNameChange = (value: string) => {
-    if (Validate.validateLength(value, 30) || Validate.isEmpty(value)) {
+    if (Validate.validateLength(value, MAX_WORKSPACE_NAME_LENGTH) || Validate.isEmpty(value)) {
       onErrorChange('workspaceNameError', ERROR_NAME.VALIDATE);
     }
 
-    if (!Validate.validateLength(value, 30)) {
+    if (!Validate.validateLength(value, MAX_WORKSPACE_NAME_LENGTH)) {
       onErrorChange('workspaceNameError', ERROR_NAME.OVER_LENGTH);
     }
 
     onWorkspaceDataChange('teamName', value);
-  };
-
-  const defineSupportigtext = (errorName: string) => {
-    switch (errorName) {
-      case ERROR_NAME.VALIDATE:
-        return SUPPORTING_TEXT.WORKSPACE_NAME_NOTICE;
-
-      case ERROR_NAME.EMPTY:
-        return SUPPORTING_TEXT.WORKSPACE_NAME_EMPTY;
-
-      case ERROR_NAME.OVER_LENGTH:
-        return SUPPORTING_TEXT.WORKSPACE_NAME_INVALID_LENGTH;
-    }
   };
 
   return (
@@ -51,17 +36,16 @@ const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, 
         <Input
           value={teamName}
           disabled={!canChangeTeamName}
-          supportingText={defineSupportigtext(error)}
+          supportingText={defineWorkspaceNameSupportingtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
-          onClick={() => handleNameChange('')}
           placeholder="ex. 동아리명"
           isError={error !== ERROR_NAME.VALIDATE}
         />
         <Select
           aria-label={`선택된 아이템: ${teamName}`}
           variant="disabled"
-          placeholder={select_options[0].value}
-          options={select_options}
+          placeholder={UNIVERCITY_SELECT_OPTIONS[0].value}
+          options={UNIVERCITY_SELECT_OPTIONS}
         />
       </Flex>
     </section>
