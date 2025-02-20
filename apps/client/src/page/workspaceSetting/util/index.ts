@@ -12,14 +12,15 @@ export const hasRecentUpdates = (updateDate: string) => {
 };
 
 export const defineNameSupportigtext = (errorName: string) => {
-  if (errorName === ERROR_NAME.VALIDATE) {
-    return SUPPORTING_TEXT.NICKNAME_NOTICE;
-  }
-  if (errorName === ERROR_NAME.EMPTY) {
-    return SUPPORTING_TEXT.NICKNAME_NOTICE;
-  }
-  if (errorName === ERROR_NAME.OVER_LENGTH) {
-    return SUPPORTING_TEXT.NICKNAME_OVER_LENGTH;
+  switch (errorName) {
+    case ERROR_NAME.VALIDATE:
+      return SUPPORTING_TEXT.NICKNAME_NOTICE;
+
+    case ERROR_NAME.EMPTY:
+      return SUPPORTING_TEXT.NICKNAME_NOTICE;
+
+    case ERROR_NAME.OVER_LENGTH:
+      return SUPPORTING_TEXT.NICKNAME_OVER_LENGTH;
   }
 };
 
