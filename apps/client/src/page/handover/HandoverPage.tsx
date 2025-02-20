@@ -24,20 +24,17 @@ import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const HandoverPage = () => {
   const [sortOption, setSortOption] = useState<FILTER_TYPE>('DESC');
-
   const [searchValue, setSearchValue] = useState('');
-
   const [noteList, setNoteList] = useState<NoteListType>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState('');
 
-  const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
+  const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+
   const filterKeyword = useDebounce(searchValue, 400);
-
-  const navigate = useNavigate();
-
   const teamId = useInitializeTeamId();
 
   const openModal = useOpenModal();
