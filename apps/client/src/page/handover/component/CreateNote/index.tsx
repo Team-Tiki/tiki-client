@@ -3,6 +3,8 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import CreateCustomNote from '@/page/handover/component/CreateNote/CreateCustomNote';
 import CreateNoteDetail from '@/page/handover/component/CreateNote/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handover/component/CreateNote/CreateTemplateNote';
@@ -51,6 +53,8 @@ const CreateNotePage = () => {
   const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
   const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
 
+  const queryClient = useQueryClient();
+
   const handleTabClick = (tabId: number) => {
     openModal('caution', {
       infoText: CAUTION.NOTE.INFO_TEXT,
@@ -91,6 +95,8 @@ const CreateNotePage = () => {
         {
           onSuccess: () => {
             createToast('템플릿 노트가 저장되었습니다.', 'success');
+
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
           onError: () => {
@@ -117,6 +123,8 @@ const CreateNotePage = () => {
         {
           onSuccess: () => {
             createToast('자유 노트가 저장되었습니다.', 'success');
+
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
           onError: () => {

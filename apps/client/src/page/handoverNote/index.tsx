@@ -3,6 +3,8 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
@@ -37,7 +39,8 @@ const NotePage = () => {
 
   const today = formatDateToString(new Date()) as string;
 
-  const { data: noteData, refetch } = useNoteDetailData();
+  const { data: noteData } = useNoteDetailData();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (noteData?.data) {
@@ -120,7 +123,8 @@ const NotePage = () => {
           onSuccess: () => {
             createToast('노트 내용이 저장되었습니다', 'success');
 
-            refetch();
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
           },
           onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
         }
@@ -145,7 +149,8 @@ const NotePage = () => {
           onSuccess: () => {
             createToast('노트 내용이 저장되었습니다', 'success');
 
-            refetch();
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
           },
           onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
         }
@@ -158,7 +163,8 @@ const NotePage = () => {
       handleSubmit();
 
       createToast('노트 내용이 저장되었습니다', 'success');
-      refetch();
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
 
       navigate(PATH.HANDOVER);
     } catch (error) {
