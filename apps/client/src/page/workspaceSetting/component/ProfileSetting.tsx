@@ -3,7 +3,7 @@ import { useOutsideClick } from '@tiki/utils';
 
 import { ERROR_NAME, MAX_NAME_LENGTH, POSITION_SELECT_OPTIONS, POSITION_VALUE } from '@/page/workspaceSetting/constant';
 import { MemberType } from '@/page/workspaceSetting/type';
-import { defineNameSupportigtext } from '@/page/workspaceSetting/util';
+import { defineNameSupportingtext } from '@/page/workspaceSetting/util';
 
 import { Validate } from '@/shared/util/validate';
 
@@ -34,7 +34,7 @@ const ProfileSetting = ({ name, position, onWorkspaceDataChange, error, onErrorC
       <Flex styles={{ gap: '1.6rem', marginTop: '1.2rem', maxWidth: '68.8rem' }}>
         <Input
           value={name}
-          supportingText={defineNameSupportigtext(error)}
+          supportingText={defineNameSupportingtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
           placeholder="닉네임"
           isError={error !== ERROR_NAME.VALIDATE}

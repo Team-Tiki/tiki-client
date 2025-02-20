@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { saveButtonStyle } from '@/page/workspaceSetting/component/WorkspaceDataSubmitButton/WorkspaceDataSubmitButton.style';
 import { ERROR_NAME, POSITION } from '@/page/workspaceSetting/constant';
+import { useInfoMutate, useNameMutate } from '@/page/workspaceSetting/queries';
 import type { MemberType, TeamType } from '@/page/workspaceSetting/type';
 
 import { $api } from '@/shared/api/client';
@@ -23,14 +24,12 @@ const WorkspaceDataSubmitButton = ({
   initialWorkspaceData,
   onInitialWorkspaceDataChange,
 }: WorkspaceDataSubmitButtonProps) => {
-  const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
-  const { createToast } = useToastAction();
 
   const canSubmit = JSON.stringify(initialWorkspaceData) !== JSON.stringify(workspaceData);
 
-  const { mutate: nameMutation } = $api.useMutation('patch', '/api/v1/team-member/teams/{teamId}/members/name');
-  const { mutate: infoMutation } = $api.useMutation('patch', '/api/v1/teams/{teamId}/inform');
+  const nameMutation = useNameMutate(workspaceData, onInitialWorkspaceDataChange);
+  const infoMutation = useInfoMutate(workspaceData, onInitialWorkspaceDataChange);
 
   const handleWorkspaceInfoSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -45,54 +44,29 @@ const WorkspaceDataSubmitButton = ({
       return;
     }
 
-    nameMutation(
-      {
+    nameMutation({
+      body: {
+        newName: workspaceData.name,
+      },
+      params: {
+        path: {
+          teamId,
+        },
+      },
+    });
+
+    if (workspaceData.position === POSITION.ADMIN) {
+      infoMutation({
         body: {
-          newName: workspaceData.name,
+          teamName: workspaceData.teamName,
+          teamUrl: workspaceData.teamIconUrl,
         },
         params: {
           path: {
             teamId,
           },
         },
-      },
-      {
-        onSuccess: () => {
-          if (workspaceData.position === POSITION.EXECUTIVE) {
-            createToast('변경사항이 저장되었습니다.', 'success');
-            onInitialWorkspaceDataChange({ ...workspaceData });
-          }
-          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/team-member/teams/{teamId}/members/position'] });
-        },
-      }
-    );
-
-    if (workspaceData.position === POSITION.ADMIN) {
-      infoMutation(
-        {
-          body: {
-            teamName: workspaceData.teamName,
-            teamUrl: workspaceData.teamIconUrl,
-          },
-          params: {
-            path: {
-              teamId,
-            },
-          },
-        },
-        {
-          onSuccess: () => {
-            onInitialWorkspaceDataChange({ ...workspaceData });
-            queryClient.invalidateQueries({
-              queryKey: ['get', '/api/v1/members/teams'],
-            });
-            queryClient.invalidateQueries({
-              queryKey: ['get', '/api/v1/teams/{teamId}/inform'],
-            });
-            createToast('변경사항이 저장되었습니다.', 'success');
-          },
-        }
-      );
+      });
     }
   };
 

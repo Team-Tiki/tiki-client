@@ -11,7 +11,7 @@ export const hasRecentUpdates = (updateDate: string) => {
   return now > date;
 };
 
-export const defineNameSupportigtext = (errorName: string) => {
+export const defineNameSupportingtext = (errorName: string) => {
   switch (errorName) {
     case ERROR_NAME.VALIDATE:
       return SUPPORTING_TEXT.NICKNAME_NOTICE;
@@ -24,7 +24,7 @@ export const defineNameSupportigtext = (errorName: string) => {
   }
 };
 
-export const defineWorkspaceNameSupportigtext = (errorName: string) => {
+export const defineWorkspaceNameSupportingtext = (errorName: string) => {
   switch (errorName) {
     case ERROR_NAME.VALIDATE:
       return SUPPORTING_TEXT.WORKSPACE_NAME_NOTICE;

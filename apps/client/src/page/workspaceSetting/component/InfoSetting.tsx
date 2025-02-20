@@ -2,7 +2,7 @@ import { Flex, Input, Select, Text } from '@tiki/ui';
 
 import { containerStyle } from '@/page/workspaceSetting/component/styles';
 import { ERROR_NAME, MAX_WORKSPACE_NAME_LENGTH, UNIVERCITY_SELECT_OPTIONS } from '@/page/workspaceSetting/constant';
-import { defineWorkspaceNameSupportigtext, hasRecentUpdates } from '@/page/workspaceSetting/util';
+import { defineWorkspaceNameSupportingtext, hasRecentUpdates } from '@/page/workspaceSetting/util';
 
 import { Validate } from '@/shared/util/validate';
 
@@ -36,7 +36,7 @@ const InfoSetting = ({ teamName, namingUpdatedAt, onWorkspaceDataChange, error, 
         <Input
           value={teamName}
           disabled={!canChangeTeamName}
-          supportingText={defineWorkspaceNameSupportigtext(error)}
+          supportingText={defineWorkspaceNameSupportingtext(error)}
           onChange={(event) => handleNameChange(event.target.value)}
           placeholder="ex. 동아리명"
           isError={error !== ERROR_NAME.VALIDATE}

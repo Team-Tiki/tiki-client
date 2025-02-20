@@ -44,11 +44,9 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
             localStorage.removeItem('teamId');
 
             navigate(PATH.DASHBOARD);
-            window.location.reload();
           },
-          onError: (error) => {
+          onError: () => {
             createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
-            console.error(error);
           },
         }
       );
@@ -68,11 +66,9 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
             localStorage.removeItem('teamId');
 
             navigate(PATH.DASHBOARD);
-            window.location.reload();
           },
-          onError: (error) => {
+          onError: () => {
             createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
-            console.error(error);
           },
         }
       );

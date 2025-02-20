@@ -11,6 +11,7 @@ const LeaveModal = () => {
   if (!modalData) return null;
 
   const { title, content, onClick, isTitleOnly } = modalData;
+
   return (
     <Modal isOpen={true} onClose={closeModal} size={isTitleOnly ? 'xSmall' : 'small'}>
       <Modal.Body>
