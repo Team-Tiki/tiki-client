@@ -17,6 +17,7 @@ import { formatDateToString } from '@/page/signUp/info/util/date';
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useInterval } from '@/shared/hook/common/useInterval';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -137,12 +138,12 @@ const NotePage = () => {
         },
         {
           onSuccess: () => {
-            createToast('노트 내용이 저장되었습니다', 'success');
+            createToast(NOTE.SUCCESS.SAVE, 'success');
 
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
           },
-          onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
+          onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
         }
       );
     } else {
@@ -163,12 +164,12 @@ const NotePage = () => {
         },
         {
           onSuccess: () => {
-            createToast('노트 내용이 저장되었습니다', 'success');
+            createToast(NOTE.SUCCESS.SAVE, 'success');
 
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
           },
-          onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
+          onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
         }
       );
     }
@@ -178,13 +179,13 @@ const NotePage = () => {
     try {
       handleSubmit();
 
-      createToast('노트 내용이 저장되었습니다', 'success');
+      createToast(NOTE.SUCCESS.SAVE, 'success');
       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
       queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
 
       navigate(PATH.HANDOVER);
     } catch (error) {
-      createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error');
+      createToast(NOTE.ERROR.SAVE, 'error');
     }
   };
 

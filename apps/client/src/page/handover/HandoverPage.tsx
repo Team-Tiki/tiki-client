@@ -1,5 +1,5 @@
 import { IcSearch } from '@tiki/icon';
-import { Button, Divider, Flex, Input, Select, Spinner } from '@tiki/ui';
+import { Button, Divider, Flex, Input, Select, Spinner, useToastAction } from '@tiki/ui';
 import { useDebounce, useMultiSelect } from '@tiki/utils';
 
 import { useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useIntersect } from '@/shared/hook/common/useIntersect';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -40,6 +41,8 @@ const HandoverPage = () => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
+  const { createToast } = useToastAction();
+
   const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
     'noteId',
     noteList ?? []
@@ -57,10 +60,13 @@ const HandoverPage = () => {
     onSuccess: () => {
       setNoteList([]);
       setLastUpdatedAt('');
-      queryClient.invalidateQueries({
-        queryKey: ['get', '/api/v1/notes/{teamId}'],
-      });
+
+      createToast(NOTE.SUCCESS.DELETE, 'error'),
+        queryClient.invalidateQueries({
+          queryKey: ['get', '/api/v1/notes/{teamId}'],
+        });
     },
+    onError: () => createToast(NOTE.ERROR.DELETE, 'error'),
   });
 
   useEffect(() => {
@@ -95,9 +101,7 @@ const HandoverPage = () => {
         noteListMutate({
           params: {
             path: { teamId },
-            query: {
-              noteIds: noteIds,
-            },
+            query: { noteIds: noteIds },
           },
         });
 

@@ -15,6 +15,7 @@ import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNot
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
@@ -94,14 +95,14 @@ const CreateNotePage = () => {
         },
         {
           onSuccess: () => {
-            createToast('템플릿 노트가 저장되었습니다.', 'success');
+            createToast(NOTE.SUCCESS.SAVE, 'success');
 
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
           onError: () => {
-            createToast('노트 저장에 실패했습니다', 'error');
+            createToast(NOTE.ERROR.SAVE, 'error');
           },
         }
       );
@@ -123,14 +124,14 @@ const CreateNotePage = () => {
         },
         {
           onSuccess: () => {
-            createToast('자유 노트가 저장되었습니다.', 'success');
+            createToast(NOTE.SUCCESS.SAVE, 'success');
 
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
             queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
           onError: () => {
-            createToast('노트 저장에 실패했습니다', 'error');
+            createToast(NOTE.ERROR.SAVE, 'error');
           },
         }
       );
