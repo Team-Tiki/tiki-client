@@ -11,7 +11,8 @@ export const useInvitationInfo = () => {
   localStorage.setItem(STORAGE_KEY.INVITATION_ID, invitationId);
   localStorage.setItem(STORAGE_KEY.INVITE_TEAM_ID, inviteTeamId);
 
-  const { data } = useGetInvitationInfo(+invitationId);
+  const { data, ...rest } = useGetInvitationInfo(+invitationId);
+  console.log(rest);
 
   return { data, invitationId };
 };
