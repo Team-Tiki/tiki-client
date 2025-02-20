@@ -42,6 +42,42 @@ const NotePage = () => {
   const { data: noteData } = useNoteDetailData();
   const queryClient = useQueryClient();
 
+  const noteConfig = {
+    title: noteDetail?.title === '' ? EMPTY_NOTE_TITLE : noteDetail?.title,
+    startDate: noteDetail?.startDate === '' ? today : noteDetail?.startDate,
+    endDate: noteDetail?.endDate === '' ? today : noteDetail?.endDate,
+    timeBlockIds: noteDetail?.timeBlockList.map((block) => block.id) || [],
+  };
+
+  const initalizeTemplate = {
+    noteId: Number(noteId),
+    noteType: 'TEMPLATE',
+    title: '',
+    author: noteDetail?.author,
+    startDate: '',
+    endDate: '',
+    complete: false,
+    answerWhatActivity: '',
+    answerHowToPrepare: '',
+    answerWhatIsDisappointedThing: '',
+    answerHowToFix: '',
+    timeBlockList: [],
+    documentList: [],
+  };
+
+  const initialzeCustom = {
+    noteId: Number(noteId),
+    noteType: 'FREE',
+    title: '',
+    author: noteDetail?.author,
+    startDate: '',
+    endDate: '',
+    complete: false,
+    contents: '',
+    documentList: [],
+    timeBlockList: [],
+  };
+
   useEffect(() => {
     if (noteData?.data) {
       setNoteDetail({ ...noteData.data });
@@ -66,32 +102,11 @@ const NotePage = () => {
         setNoteDetail(() => {
           if (tabId === 0) {
             return {
-              noteId: +noteId!,
-              noteType: 'TEMPLATE',
-              title: '',
-              author: noteDetail?.author,
-              startDate: '',
-              endDate: '',
-              complete: false,
-              answerWhatActivity: '',
-              answerHowToPrepare: '',
-              answerWhatIsDisappointedThing: '',
-              answerHowToFix: '',
-              timeBlockList: [],
-              documentList: [],
+              ...initalizeTemplate,
             } as TemplateNoteData;
           } else {
             return {
-              noteId: +noteId!,
-              noteType: 'FREE',
-              title: '',
-              author: noteDetail?.author,
-              startDate: '',
-              endDate: '',
-              complete: false,
-              contents: '',
-              documentList: [],
-              timeBlockList: [],
+              ...initialzeCustom,
             } as CustomNoteData;
           }
         });
@@ -106,16 +121,17 @@ const NotePage = () => {
 
     if (selectedTab === 0) {
       const templateData = noteDetail as TemplateNoteData;
+
+      const request = Object.assign(noteConfig, {
+        ...templateData,
+        documentIds: templateData.documentList.map((document) => document.id),
+      });
+
       templateMutation(
         {
           params: { path: { noteId: +noteId! } },
           body: {
-            ...templateData,
-            title: templateData.title === '' ? EMPTY_NOTE_TITLE : templateData.title,
-            startDate: templateData.startDate === '' ? today : templateData.startDate,
-            endDate: templateData.endDate === '' ? today : templateData.endDate,
-            timeBlockIds: templateData.timeBlockList.map((block) => block.id),
-            documentIds: templateData.documentList.map((document) => document.id),
+            ...request,
             teamId,
           },
         },
@@ -131,17 +147,17 @@ const NotePage = () => {
       );
     } else {
       const customData = noteDetail as CustomNoteData;
+
+      const request = Object.assign(noteConfig, {
+        ...customData,
+        documentIds: customData.documentList.map((document) => document.id),
+      });
+
       customMutation(
         {
           params: { path: { noteId: +noteId! } },
           body: {
-            ...customData,
-            title: customData.title === '' ? EMPTY_NOTE_TITLE : customData.title,
-            startDate: customData.startDate === '' ? formatDateToString(new Date())! : customData.startDate,
-            endDate: customData.endDate === '' ? formatDateToString(new Date())! : customData.endDate,
-            contents: customData.contents,
-            documentIds: customData.documentList.map((document) => document.id) || [],
-            timeBlockIds: noteDetail.timeBlockList.map((block) => block.id) || [],
+            ...request,
             teamId,
           },
         },
