@@ -26,7 +26,7 @@ const LeaveModal = () => {
           )}
         </Flex>
       </Modal.Body>
-      <Modal.Footer contentType="leave" buttonClick={onClick || closeModal} closeModal={closeModal} />
+      <Modal.Footer type="deleted" onClick={onClick || closeModal} onClose={closeModal} />
     </Modal>
   );
 };
