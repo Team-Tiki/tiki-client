@@ -1,3 +1,9 @@
+export const AUTO_SAVE_TIME = 30000;
+
+export const TAG_NAME = {
+  data: ['event', 'notice', 'study', 'notice'],
+};
+
 export const TEMPLATE = [
   {
     id: 'answerWhatActivity',
