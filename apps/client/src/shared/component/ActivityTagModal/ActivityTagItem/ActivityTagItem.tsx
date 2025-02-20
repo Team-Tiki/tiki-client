@@ -24,7 +24,7 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete, isSearch = false }
   const icon = TAG_ICON.find((iconItem) => iconItem.name === tag)?.icon;
 
   return (
-    <Flex tag="li" css={wrapperStyle}>
+    <Flex css={wrapperStyle}>
       <Flex styles={{ gap: '0.8rem', align: 'center' }}>
         <div css={iconBackStyle}>{icon}</div>
         <Flex css={layoutStyle}>
