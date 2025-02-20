@@ -4,7 +4,7 @@ import React, { SetStateAction, useRef } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import { fileBoxStyle, labelStyle, layoutStyle, noteWrapperStyle } from '@/page/handoverNote/component/style';
-import { TEMPLATE } from '@/page/handoverNote/constants/template';
+import { TEMPLATE } from '@/page/handoverNote/constants';
 import { TemplateNoteData } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 

@@ -7,6 +7,7 @@ import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
+import { AUTO_SAVE_TIME } from '@/page/handoverNote/constants';
 import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
 import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
@@ -166,7 +167,7 @@ const NotePage = () => {
   };
 
   // 30초마다 자동 저장
-  useInterval(handleSubmit, 30000);
+  useInterval(handleSubmit, AUTO_SAVE_TIME);
 
   return (
     <section css={noteSectionStyle}>
