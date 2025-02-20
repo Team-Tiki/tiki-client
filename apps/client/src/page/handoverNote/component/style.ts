@@ -78,7 +78,6 @@ export const entireInfoStyle = css({
 
 export const titleStyle = css({
   width: '25rem',
-  height: '3.6rem',
 
   outline: 'none',
   border: 'none',
