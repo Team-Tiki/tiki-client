@@ -1,7 +1,7 @@
 import { LogoTikiMd } from '@tiki/icon';
 import { Button, Flex, Input } from '@tiki/ui';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { findPasswordButtonStyle, formStyle, pageStyle } from '@/page/login/index/LoginPage.style';
@@ -12,6 +12,7 @@ import { PATH } from '@/shared/constant/path';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const ref = useRef<HTMLInputElement | null>(null);
 
   const navigate = useNavigate();
 
@@ -36,7 +37,15 @@ const LoginPage = () => {
       <LogoTikiMd css={{ flexShrink: 0 }} width={108} height={40} />
       <form onSubmit={handleLogin} css={formStyle}>
         <Flex styles={{ direction: 'column', gap: '0.8rem', width: '100%' }}>
-          <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="아이디" />
+          <Input
+            ref={useCallback((node: HTMLInputElement | null) => {
+              ref.current = node;
+              ref.current?.focus();
+            }, [])}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="아이디"
+          />
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
