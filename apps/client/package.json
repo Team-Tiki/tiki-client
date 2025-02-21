@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_f4088febbfb82b7",
+    "chromatic": "npx chromatic --force-rebuild",
     "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
