@@ -7,6 +7,7 @@ import { contentBoxStyle, handoverBoxStyle } from '@/page/dashboard/DashboardPag
 import FileSection from '@/page/dashboard/component/File/FileSection';
 import HandoverSection from '@/page/dashboard/component/Handover/HandoverSection';
 import TimelineSection from '@/page/dashboard/component/Timeline';
+import { useTeamData } from '@/page/workspaceSetting/hook/api/queries';
 
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { STORAGE_KEY } from '@/shared/constant/api';
@@ -18,6 +19,12 @@ const DashboardPage = () => {
   const handleNav = (path: string) => {
     navigate(path);
   };
+
+  const { data } = useTeamData();
+
+  if (!localStorage.getItem(STORAGE_KEY.TEAM_NAME)) {
+    localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${data?.data?.teamName}`);
+  }
 
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY.INVITATION_ID)) {

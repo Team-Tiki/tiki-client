@@ -17,16 +17,18 @@ interface ErrorResponse {
 /* 토큰 여부 확인 */
 export const authMiddleware: Middleware = {
   async onRequest({ request }) {
-    const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
+    if (localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY) && !localStorage.getItem(STORAGE_KEY.INVITATION_ID)) {
+      const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
-    if (!accessToken) {
-      window.location.replace(PATH.LOGIN);
-      throw new Error('토큰이 존재하지 않습니다.');
+      if (!accessToken) {
+        window.location.replace(PATH.LOGIN);
+        throw new Error('토큰이 존재하지 않습니다.');
+      }
+
+      request.headers.set('Authorization', `Bearer ${accessToken}`);
+
+      return request;
     }
-
-    request.headers.set('Authorization', `Bearer ${accessToken}`);
-
-    return request;
   },
 };
 
