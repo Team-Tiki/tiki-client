@@ -1,15 +1,17 @@
 import { LogoTikiSm } from '@tiki/icon';
-import { Button, Flex, Heading, Text, theme, useToastAction } from '@tiki/ui';
+import { Button, Flex, Heading, Text, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
+import { MESSAGE } from '@/page/invite/constant';
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
-import { firstSpellStyle, inviteStyle } from '@/page/invite/index.styles';
+import { firstSpellStyle, inviteStyle, redButtonStyle } from '@/page/invite/index.styles';
 import { InvitationType } from '@/page/invite/type';
 
-import { components } from '@/shared/__generated__/schema';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 
@@ -17,6 +19,8 @@ const InvitedPage = () => {
   const isLogined = !!localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
 
   const { createToast } = useToastAction();
+
+  const queryClient = useQueryClient();
 
   const [invitationInfo, setInvitationInfo] = useState<InvitationType>();
   const [teamId, setTeamId] = useState<number>(0);
@@ -37,7 +41,7 @@ const InvitedPage = () => {
     }
   }, [createToast, data, invitationInfo?.teamId, isLogined, navigate]);
 
-  const deleteLocalStorageInviteInfo = () => {
+  const clearInvitation = () => {
     localStorage.removeItem(STORAGE_KEY.INVITATION_ID);
     localStorage.removeItem(STORAGE_KEY.INVITE_TEAM_ID);
   };
@@ -54,17 +58,20 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
-          deleteLocalStorageInviteInfo();
-          localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
+          createToast(MESSAGE.INVITE_SUCCESS, 'success');
+
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
           navigate(PATH.DASHBOARD);
+          localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
+          localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
         },
-        onError: (error: components['schemas']['ErrorResponse']) => {
-          deleteLocalStorageInviteInfo();
-          createToast(error.message, 'error');
+        onError: () => {
+          createToast(MESSAGE.INVITE_FAILED, 'error');
           navigate(PATH.ONBOARDING);
         },
       }
     );
+    clearInvitation();
   };
 
   const handleDenyInvitation = () => {
@@ -78,16 +85,15 @@ const InvitedPage = () => {
       },
       {
         onSuccess: () => {
-          deleteLocalStorageInviteInfo();
-          navigate(PATH.ONBOARDING);
+          createToast(MESSAGE.DENY_SUCCESS, 'success');
         },
-        onError: (error: components['schemas']['ErrorResponse']) => {
-          deleteLocalStorageInviteInfo();
-          createToast(error.message, 'error');
-          navigate(PATH.ONBOARDING);
+        onError: () => {
+          createToast(MESSAGE.DENY_FAILED, 'error');
         },
       }
     );
+    clearInvitation();
+    navigate(PATH.ONBOARDING);
   };
 
   return (
@@ -114,15 +120,12 @@ const InvitedPage = () => {
             <Button size="xLarge" variant="secondary" onClick={handleApproveInvitation}>
               초대 수락
             </Button>
-            <Button
-              size="xLarge"
-              css={{ color: theme.colors.sementic_red, backgroundColor: theme.colors.sementic_red_10 }}
-              onClick={handleDenyInvitation}>
+            <Button size="xLarge" css={redButtonStyle} onClick={handleDenyInvitation}>
               거절하기
             </Button>
           </Flex>
         ) : (
-          <Button size="xLarge" css={{ width: '100%' }}>
+          <Button size="xLarge" css={{ width: '100%' }} onClick={() => navigate(PATH.LOGIN)}>
             로그인하고 초대수락하기
           </Button>
         )}

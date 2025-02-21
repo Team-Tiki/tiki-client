@@ -8,6 +8,7 @@ import { POSITION } from '@/page/workspaceSetting/constant';
 import { workspaceDeleteButton } from '@/page/workspaceSetting/styles';
 
 import { $api } from '@/shared/api/client';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -41,7 +42,8 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
 
             closeModal();
 
-            localStorage.removeItem('teamId');
+            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
+            localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
 
             navigate(PATH.DASHBOARD);
           },
