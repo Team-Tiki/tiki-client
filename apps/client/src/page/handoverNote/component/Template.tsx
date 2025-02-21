@@ -1,15 +1,16 @@
 import { Button, Label, Textarea, scrollStyle } from '@tiki/ui';
 
-import React, { SetStateAction, useRef, useState } from 'react';
+import React, { SetStateAction, useRef } from 'react';
 
 import File from '@/page/handoverNote/component/File/File';
 import { fileBoxStyle, labelStyle, layoutStyle, noteWrapperStyle } from '@/page/handoverNote/component/style';
-import { TEMPLATE } from '@/page/handoverNote/constants/template';
+import { TEMPLATE } from '@/page/handoverNote/constants';
 import { TemplateNoteData } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
 import { useOpenModal } from '@/shared/store/modal';
+import { downloadDocument } from '@/shared/util/document';
 
 interface TemplateProps {
   data?: TemplateNoteData;
@@ -17,22 +18,18 @@ interface TemplateProps {
 }
 
 const Template = ({ data, setData }: TemplateProps) => {
-  const [values, setValues] = useState<Record<string, string>>({
-    answerWhatActivity: data?.answerWhatActivity || '',
-    answerHowToPrepare: data?.answerHowToPrepare || '',
-    answerWhatIsDisappointedThing: data?.answerWhatIsDisappointedThing || '',
-    answerHowToFix: data?.answerHowToFix || '',
-  });
   const textareaRefs = useRef<Record<string, HTMLTextAreaElement | null>>({});
 
   const openModal = useOpenModal();
 
-  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValues((prev) => ({
-      ...prev,
-      [id]: event.target.value,
-    }));
+  const templateContent = [
+    data?.answerWhatActivity,
+    data?.answerHowToPrepare,
+    data?.answerWhatIsDisappointedThing,
+    data?.answerHowToFix,
+  ];
 
+  const handleChange = (id: string) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData?.((prev) => ({
       ...prev!,
       [id]: event.target.value,
@@ -77,7 +74,7 @@ const Template = ({ data, setData }: TemplateProps) => {
 
   return (
     <form css={[noteWrapperStyle, scrollStyle]}>
-      {TEMPLATE.map((item) => (
+      {TEMPLATE.map((item, index) => (
         <div key={item.id} css={layoutStyle}>
           <Label id={item.id} css={labelStyle}>
             {item.QUESTION}
@@ -87,7 +84,7 @@ const Template = ({ data, setData }: TemplateProps) => {
             rows={1}
             ref={(el) => (textareaRefs.current[item.id] = el)}
             placeholder={item.PLACEHOLDER}
-            value={values[item.id]}
+            value={templateContent[index]}
             onChange={handleChange(item.id)}
           />
         </div>
@@ -97,9 +94,16 @@ const Template = ({ data, setData }: TemplateProps) => {
         <Label id="file" css={labelStyle}>
           드라이브에서 연동하고 싶은 파일을 선택해주세요.
         </Label>
-        <div css={fileBoxStyle}>
-          {data?.documentList?.map((file) => <File key={file.fileName} file={file} onDelete={handleDeleteFile} />)}
-        </div>
+        <ul css={fileBoxStyle}>
+          {data?.documentList?.map((file) => (
+            <File
+              key={file.fileName}
+              file={file}
+              onDelete={handleDeleteFile}
+              onClick={() => downloadDocument(file.fileUrl, file.fileName)}
+            />
+          ))}
+        </ul>
         <Button variant="tertiary" css={{ width: '16rem' }} onClick={handleFileUpload} type="button">
           파일 연동하기
         </Button>

@@ -18,7 +18,7 @@ const WorkSpaceName = () => {
     nextStep();
   };
 
-  const isDisabled = inputValue.trim().length !== 0;
+  const isDisabled = inputValue.trim().length === 0;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

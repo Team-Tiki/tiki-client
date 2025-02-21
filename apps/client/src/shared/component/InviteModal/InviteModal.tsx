@@ -13,7 +13,7 @@ const InviteModal = () => {
   const [inputValue, setInputValue] = useState('');
   const [inviteList, setInviteList] = useState<string[]>([]);
 
-  const isDisabled = inviteList.length !== 0;
+  const isDisabled = inviteList.length === 0;
 
   const { createToast } = useToastAction();
 

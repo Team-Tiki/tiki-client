@@ -109,12 +109,12 @@ const ActivityTagModal = () => {
               )}
             </DropdownList>
           </DropdownRoot>
-          <Flex css={tagListStyle}>
+          <Flex tag="ul" css={tagListStyle}>
             {selectedTags.length === 0 ? (
-              <div css={emptyStyle}>{TAG.NO_CONNECTED_TAG}</div>
+              <li css={emptyStyle}>{TAG.NO_CONNECTED_TAG}</li>
             ) : (
               selectedTags.map((tag) => (
-                <Flex css={[scrollStyle, { width: '100%' }]} key={tag.timeBlockId}>
+                <Flex tag="li" css={[scrollStyle, { width: '100%' }]} key={tag.timeBlockId}>
                   <ActivityTagItem
                     key={tag.timeBlockId}
                     title={tag.name}

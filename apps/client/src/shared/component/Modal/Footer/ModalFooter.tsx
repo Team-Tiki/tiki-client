@@ -54,7 +54,7 @@ const ModalFooterButtons = (
     case 'create-workspace':
       return [
         step >= 3 ? createButton('건너뛰기', onClick, 'outline') : null,
-        createButton(step === 5 ? '확인' : '다음으로', onClick, 'primary'),
+        createButton(step === 5 ? '확인' : '다음으로', onClick, 'primary', disabled),
       ].filter(Boolean) as FooterButton[];
 
     case 'create-block':

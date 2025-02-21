@@ -2,7 +2,7 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Flex, Input } from '@tiki/ui';
 import { useDebounce } from '@tiki/utils';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { components } from '@/shared/__generated__/schema';
 import BrowseFileHeader from '@/shared/component/BrowseFileHeader/BrowseFileHeader';
@@ -28,9 +28,11 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
   const closeModal = useCloseModal();
   const { prevStep, nextStep } = useFunnel();
 
-  const isDisabled = files.length === 0;
-
   const filterKeyword = useDebounce(searchFile, 500);
+
+  useEffect(() => {
+    console.log(selectedFiles);
+  }, [selectedFiles]);
 
   const filteredFiles = useMemo(
     () => files.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC'))),
@@ -43,6 +45,8 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
     const updatedSelection = isSelected
       ? selectedFiles.filter((selectedFile) => selectedFile.documentId !== file.documentId)
       : [...selectedFiles, file];
+
+    console.log(updatedSelection);
 
     onUpdateSelection(updatedSelection);
   };
@@ -83,7 +87,7 @@ const BrowseFileModal = ({ files, selectedFiles, onUpdateSelection, onShowBlockA
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={3} type="create-block" disabled={isDisabled} onPrev={prevStep} onClick={nextStep} />
+      <Modal.Footer step={3} type="create-block" onPrev={prevStep} onClick={nextStep} disabled={false} />
     </Modal>
   );
 };

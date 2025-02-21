@@ -44,7 +44,7 @@ const NewFileImportModal = ({
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
 
-  const isDisabled = files.length !== 0;
+  const isDisabled = files.length === 0;
 
   const teamId = useInitializeTeamId();
   const { createToast } = useToastAction();
@@ -74,9 +74,11 @@ const NewFileImportModal = ({
           onSuccess: (data) => {
             createToast('파일을 성공적으로 업로드했습니다.', 'success');
 
+            console.log(data);
             const uploadedFile = {
               ...file,
               documentId: data?.data?.response?.[0]?.documentId ?? 0,
+              name: file.name,
               url: fileUrls[file.name] || '',
               fileKey: getFileKey(fileUrls[file.name]),
               size: convertToKB(file.size),

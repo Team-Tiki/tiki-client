@@ -3,15 +3,21 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
+import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
+import { AUTO_SAVE_TIME } from '@/page/handoverNote/constants';
 import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
 import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
+import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useInterval } from '@/shared/hook/common/useInterval';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -20,9 +26,7 @@ import { hasKeyInObject } from '@/shared/util/typeGuard';
 import { noteSectionStyle, tabButtonStyle } from './index.style';
 
 const NotePage = () => {
-  const [noteDetailData, setNoteDetailData] = useState<CreateNoteInfoType | TemplateNoteData | CustomNoteData | null>(
-    null
-  );
+  const [noteDetail, setNoteDetail] = useState<CreateNoteInfoType | TemplateNoteData | CustomNoteData | null>(null);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const { noteId } = useParams();
@@ -34,12 +38,51 @@ const NotePage = () => {
   const { createToast } = useToastAction();
   const teamId = useInitializeTeamId();
 
-  const noteData = useNoteDetailData();
+  const today = formatDateToString(new Date()) as string;
+
+  const { data: noteData } = useNoteDetailData();
+  const queryClient = useQueryClient();
+
+  const noteConfig = {
+    title: noteDetail?.title === '' ? EMPTY_NOTE_TITLE : noteDetail?.title,
+    startDate: noteDetail?.startDate === '' ? today : noteDetail?.startDate,
+    endDate: noteDetail?.endDate === '' ? today : noteDetail?.endDate,
+    timeBlockIds: noteDetail?.timeBlockList.map((block) => block.id) || [],
+  };
+
+  const initalizeTemplate = {
+    noteId: Number(noteId),
+    noteType: 'TEMPLATE',
+    title: '',
+    author: noteDetail?.author,
+    startDate: '',
+    endDate: '',
+    complete: false,
+    answerWhatActivity: '',
+    answerHowToPrepare: '',
+    answerWhatIsDisappointedThing: '',
+    answerHowToFix: '',
+    timeBlockList: [],
+    documentList: [],
+  };
+
+  const initialzeCustom = {
+    noteId: Number(noteId),
+    noteType: 'FREE',
+    title: '',
+    author: noteDetail?.author,
+    startDate: '',
+    endDate: '',
+    complete: false,
+    contents: '',
+    documentList: [],
+    timeBlockList: [],
+  };
 
   useEffect(() => {
-    if (noteData.data?.data) {
-      setNoteDetailData(noteData.data.data);
-      if (hasKeyInObject(noteData.data.data, 'contents')) {
+    if (noteData?.data) {
+      setNoteDetail({ ...noteData.data });
+      if (hasKeyInObject(noteData.data, 'contents')) {
         setSelectedTab(1);
       }
     }
@@ -56,69 +99,105 @@ const NotePage = () => {
       footerType: 'caution-modify',
       onClick: () => {
         setSelectedTab(tabId);
+
+        setNoteDetail(() => {
+          if (tabId === 0) {
+            return {
+              ...initalizeTemplate,
+            } as TemplateNoteData;
+          } else {
+            return {
+              ...initialzeCustom,
+            } as CustomNoteData;
+          }
+        });
+
         closeModal();
       },
     });
   };
 
   const handleSubmit = () => {
-    if (noteDetailData) {
-      if (hasKeyInObject(noteDetailData, 'answerWhatActivity')) {
-        const templateData = noteDetailData as TemplateNoteData;
+    if (!noteDetail) return;
 
-        templateMutation(
-          {
-            params: { path: { noteId: +noteId! } },
-            body: {
-              ...templateData,
-              timeBlockIds: templateData.timeBlockList.map((block) => block.id) || [],
-              documentIds: templateData.documentList.map((document) => document.id) || [],
-              teamId,
-            },
+    if (selectedTab === 0) {
+      const templateData = noteDetail as TemplateNoteData;
+
+      const request = Object.assign(noteConfig, {
+        ...templateData,
+        documentIds: templateData.documentList.map((document) => document.id),
+      });
+
+      templateMutation(
+        {
+          params: { path: { noteId: +noteId! } },
+          body: {
+            ...request,
+            teamId,
           },
-          {
-            onSuccess: () => {
-              createToast('노트 내용이 저장되었습니다', 'success');
-              noteData.refetch();
-            },
+        },
+        {
+          onSuccess: () => {
+            createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
-          }
-        );
-      } else if (hasKeyInObject(noteDetailData, 'contents')) {
-        const customData = noteDetailData as CustomNoteData;
-
-        customMutation(
-          {
-            params: { path: { noteId: +noteId! } },
-            body: {
-              ...customData,
-              timeBlockIds: customData.timeBlockList.map((block) => block.id) || [],
-              documentIds: customData.documentList.map((document) => document.id) || [],
-              teamId,
-            },
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
           },
-          {
-            onSuccess: () => {
-              createToast('노트 내용이 저장되었습니다', 'success');
-              noteData.refetch();
-            },
-            onError: () => createToast('노트를 저장하던 도중 에러가 발생했습니다.', 'error'),
-          }
-        );
-      }
+          onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
+        }
+      );
+    } else {
+      const customData = noteDetail as CustomNoteData;
+
+      const request = Object.assign(noteConfig, {
+        ...customData,
+        documentIds: customData.documentList.map((document) => document.id),
+      });
+
+      customMutation(
+        {
+          params: { path: { noteId: +noteId! } },
+          body: {
+            ...request,
+            teamId,
+          },
+        },
+        {
+          onSuccess: () => {
+            createToast(NOTE.SUCCESS.SAVE, 'success');
+
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+          },
+          onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
+        }
+      );
+    }
+  };
+
+  const handleSubmitBtnClick = () => {
+    try {
+      handleSubmit();
+
+      createToast(NOTE.SUCCESS.SAVE, 'success');
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+
+      navigate(PATH.HANDOVER);
+    } catch (error) {
+      createToast(NOTE.ERROR.SAVE, 'error');
     }
   };
 
   // 30초마다 자동 저장
-  useInterval(handleSubmit, 30000);
+  useInterval(handleSubmit, AUTO_SAVE_TIME);
 
   return (
     <section css={noteSectionStyle}>
-      {noteDetailData && (
+      {noteDetail && (
         <NoteInfo
-          info={noteDetailData as CreateNoteInfoType}
-          setInfo={setNoteDetailData as React.Dispatch<React.SetStateAction<CreateNoteInfoType>>}
+          info={noteDetail as CreateNoteInfoType}
+          setInfo={setNoteDetail as React.Dispatch<React.SetStateAction<CreateNoteInfoType>>}
         />
       )}
 
@@ -131,34 +210,26 @@ const NotePage = () => {
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
-          <CommandButton
-            commandKey="S"
-            isCommand={true}
-            size="small"
-            type="submit"
-            onClick={() => {
-              handleSubmit;
-              navigate(PATH.HANDOVER);
-            }}>
+          <CommandButton commandKey="S" isCommand={true} size="small" onClick={handleSubmitBtnClick}>
             저장
           </CommandButton>
         </Flex>
 
-        {noteDetailData &&
-          (hasKeyInObject(noteDetailData, 'answerWhatActivity') ? (
+        {noteDetail &&
+          (hasKeyInObject(noteDetail, 'answerWhatActivity') ? (
             <TabPanel selectedTab={selectedTab}>
               <Template
-                data={noteDetailData as TemplateNoteData}
-                setData={setNoteDetailData as React.Dispatch<React.SetStateAction<TemplateNoteData>>}
+                data={noteDetail as TemplateNoteData}
+                setData={setNoteDetail as React.Dispatch<React.SetStateAction<TemplateNoteData>>}
               />
               <Custom />
             </TabPanel>
-          ) : hasKeyInObject(noteDetailData, 'contents') ? (
+          ) : hasKeyInObject(noteDetail, 'contents') ? (
             <TabPanel selectedTab={selectedTab}>
               <Template />
               <Custom
-                data={noteDetailData as CustomNoteData}
-                setData={setNoteDetailData as React.Dispatch<React.SetStateAction<CustomNoteData>>}
+                data={noteDetail as CustomNoteData}
+                setData={setNoteDetail as React.Dispatch<React.SetStateAction<CustomNoteData>>}
               />
             </TabPanel>
           ) : (

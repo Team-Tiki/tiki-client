@@ -3,6 +3,15 @@ import { theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
+export const wrapperStyle = css({
+  width: '100%',
+
+  padding: '0.4rem 0rem',
+
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
 export const iconBackStyle = css({
   display: 'flex',
   justifyContent: 'center',
@@ -15,6 +24,12 @@ export const iconBackStyle = css({
   backgroundColor: theme.colors.gray_100,
 });
 
+export const layoutStyle = css({
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: '0.6rem',
+});
+
 export const tagNameStyle = css({
   width: '15rem',
 
@@ -22,6 +37,10 @@ export const tagNameStyle = css({
 });
 
 export const dateStyle = css({
+  display: 'flex',
+
+  gap: '0.4rem',
+
   color: theme.colors.gray_800,
 });
 
@@ -44,7 +63,7 @@ export const tagStyle = (backgroundColor: string) =>
         case '#C4F2E5':
           return theme.colors.green_100;
         default:
-          return theme.colors.gray_100;
+          return theme.colors.red_100;
       }
     })(),
     color: (() => {
@@ -60,7 +79,7 @@ export const tagStyle = (backgroundColor: string) =>
         case '#C4F2E5':
           return theme.colors.green_200;
         default:
-          return theme.colors.gray_200;
+          return theme.colors.red_200;
       }
     })(),
   });

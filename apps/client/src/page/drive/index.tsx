@@ -202,7 +202,7 @@ const DrivePage = () => {
                 const folder = item as FolderItem;
 
                 return (
-                  <div>
+                  <div key={String(folder.folderId + folder.type)}>
                     <FolderListItem
                       key={String(folder.folderId + folder.type)}
                       {...folder}
@@ -217,7 +217,7 @@ const DrivePage = () => {
                 const file = item as DocumentItem;
 
                 return (
-                  <div>
+                  <div key={String(file.documentId + file.type)}>
                     <FileListItem
                       key={String(file.documentId + file.type)}
                       {...file}
