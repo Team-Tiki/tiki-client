@@ -11,8 +11,12 @@ export const adderStyle = (path: string) =>
 
     padding: path === PATH.DRIVE ? '4rem 6rem' : '3rem',
 
-    minHeight: path === PATH.ARCHIVING ? 'calc(100vh - 53rem)' : '',
-    width: path !== PATH.DRIVE ? '100%' : '',
+    ...(path !== PATH.DRIVE && {
+      width: '100%',
+    }),
+    ...(path === PATH.ARCHIVING && {
+      minHeight: 'calc(100vh - 53rem)',
+    }),
 
     border: 'none',
     borderRadius: '8px',
