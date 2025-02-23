@@ -39,7 +39,6 @@ export const useTimer = (initialTime: number, onExpire?: () => void) => {
           onExpire?.();
 
           setIsTriggered(false);
-          setRemainTime(initialTime);
 
           clearInterval(ref.current);
         }

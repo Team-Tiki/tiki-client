@@ -28,6 +28,7 @@ const options = [
 
 const DEFAULT_VERITY_STATUS = {
   trigger: false,
+  sendBtnText: '인증 메일 전송',
   text: '학교 웹메일을 입력해주세요',
   error: false,
 };
@@ -36,8 +37,7 @@ const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
   const { remainTime, handleTrigger, handleReset } = useTimer(60 * 3, () => {
-    createToast('유효시간이 지났습니다.');
-    setVerifyStatus(DEFAULT_VERITY_STATUS);
+    setVerifyStatus((prev) => ({ ...prev, sendBtnText: '재전송' }));
   });
 
   const ref = useRef<ReturnType<typeof setTimeout>>();
@@ -49,11 +49,19 @@ const UnivFormPage = () => {
 
   const { createToast } = useToastAction();
 
+  const submitDisabled = !(isVerified && selectedUniv);
+  const verifyBtnDisabled = remainTime === 0 || !inputs.code;
+
   const { mutate } = useMutation({
     mutationFn: (email: string) => postEmail(email),
     onMutate: () => {
       ref.current = setTimeout(() => {
-        setVerifyStatus({ trigger: true, text: '메일함에서 인증번호를 확인해주세요.', error: false });
+        setVerifyStatus((prev) => ({
+          ...prev,
+          trigger: true,
+          text: '메일함에서 인증번호를 확인해주세요.',
+          error: false,
+        }));
         handleTrigger();
       }, 200);
     },
@@ -110,12 +118,16 @@ const UnivFormPage = () => {
             />
             <Button
               onClick={() => {
+                if (verifyStatus.sendBtnText === '재전송') {
+                  handleReset();
+                }
                 mutate(inputs.email);
               }}
+              disabled={!inputs.email}
               variant="outline"
               size="large"
               css={{ minWidth: '10rem', marginBottom: '1.88rem' }}>
-              인증 메일 전송
+              {verifyStatus.sendBtnText}
             </Button>
           </Flex>
           {verifyStatus.trigger ? (
@@ -139,6 +151,7 @@ const UnivFormPage = () => {
                     },
                   })
                 }
+                disabled={isVerified || verifyBtnDisabled}
                 variant="outline"
                 size="large"
                 css={{ minWidth: '10rem' }}>
@@ -149,7 +162,7 @@ const UnivFormPage = () => {
             <div css={{ height: '4rem' }} />
           )}
         </Flex>
-        <Button type="submit" size="xLarge" css={{ width: '100%' }}>
+        <Button disabled={submitDisabled} type="submit" size="xLarge" css={{ width: '100%' }}>
           다음
         </Button>
       </form>
