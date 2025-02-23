@@ -37,7 +37,7 @@ const DEFAULT_VERITY_STATUS = {
 const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
-  const { remainTime, handleTrigger, handleReset, handleStop } = useTimer(20, () => {
+  const { remainTime, handleTrigger, handleReset, handleStop } = useTimer(60 * 3, () => {
     setVerifyStatus((prev) => ({ ...prev, sendBtnText: '재전송' }));
   });
 

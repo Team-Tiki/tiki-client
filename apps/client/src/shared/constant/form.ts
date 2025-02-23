@@ -26,8 +26,8 @@ export const SUPPORTING_TEXT = {
   UNIV: '대학교를 선택해주세요.',
 
   PASSWORD: '비밀번호를 입력해주세요',
-  PASSWORD_NOTICE: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
-  PASSWORD_INVALID: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_NOTICE: '영대소문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_INVALID: '영대소문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
   PASSWORD_VALID: '사용가능한 비밀번호입니다.',
   PASSWORD_CHECKER: '비밀번호 확인을 위해 새로운 비밀번호를 재입력해주세요.',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
@@ -55,4 +55,4 @@ export const AUTHCODE_MAXLENGTH = 6 as const;
 
 export const UNIV_EMAIL_FORMAT = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(ac\.kr|edu)$/;
 
-export const PASSWORD_VALID_FORMAT = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+export const PASSWORD_VALID_FORMAT = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
