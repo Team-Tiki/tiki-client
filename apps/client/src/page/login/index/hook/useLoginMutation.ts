@@ -33,19 +33,22 @@ export const useLoginMutation = () => {
         : navigate(PATH.ONBOARDING);
     },
 
-    onError: (error: AxiosError) => {
+    onError: (
+      error: AxiosError<{
+        success: boolean;
+        message: string;
+      }>
+    ) => {
       if (!error.response) return;
 
-      const { status } = error.response;
+      const { message } = error.response.data;
 
-      if (status === HTTP_STATUS_CODE.BAD_REQUEST) {
-        createToast(ERROR_MESSAGE[HTTP_STATUS_CODE.BAD_REQUEST], 'error');
-        return;
+      if (message) {
+        return createToast(error.response.data.message, 'error');
+      } else if (error.response.status === HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR) {
+        return createToast('일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요', 'error');
       }
-      if (status === HTTP_STATUS_CODE.NOT_FOUND) {
-        createToast(ERROR_MESSAGE[HTTP_STATUS_CODE.NOT_FOUND], 'error');
-        return;
-      }
+
       createToast(ERROR_MESSAGE.OTHER, 'error');
     },
   });

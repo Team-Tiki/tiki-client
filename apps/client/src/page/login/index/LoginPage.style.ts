@@ -29,7 +29,4 @@ export const findPasswordButtonStyle = css({
   marginTop: '4.8rem',
 
   color: theme.colors.gray_800,
-
-  textDecoration: 'underline',
-  textUnderlineOffset: '0.4rem',
 });

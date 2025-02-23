@@ -1,5 +1,5 @@
 import { LogoTikiMd } from '@tiki/icon';
-import { Button, Flex, Input } from '@tiki/ui';
+import { Button, Flex, Input, useToastAction } from '@tiki/ui';
 
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +17,18 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const { mutate } = useLoginMutation();
+  const { createToast } = useToastAction();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!email) {
+      createToast('이메일을 입력해주세요', 'error');
+      return;
+    } else if (!password) {
+      createToast('비밀번호를 입력해주세요', 'error');
+      return;
+    }
 
     mutate({ email, password });
   };
