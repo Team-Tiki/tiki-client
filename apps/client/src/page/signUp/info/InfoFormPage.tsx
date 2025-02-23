@@ -1,6 +1,6 @@
 import { Button, DatePicker, Flex, Heading, Input, Label } from '@tiki/ui';
 
-import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { formUnivStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
@@ -19,7 +19,7 @@ const InfoFormPage = () => {
 
   return (
     <Flex tag="main" css={pageStyle}>
-      <form onSubmit={handleSubmit} css={formStyle}>
+      <form onSubmit={handleSubmit} css={formUnivStyle}>
         <Heading tag="H4">회원가입</Heading>
         <Flex styles={{ direction: 'column', gap: '2rem' }}>
           <Input
