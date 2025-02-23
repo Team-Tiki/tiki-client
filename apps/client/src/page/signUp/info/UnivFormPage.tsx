@@ -13,7 +13,8 @@ import { timeStyle } from '@/page/signUp/info/UnivFormPage.style';
 import { useUnivForm } from '@/page/signUp/info/hook/common/useUnivForm';
 import { formatTime } from '@/page/signUp/info/util/formatTime';
 
-import { $api } from '@/shared/api/client';
+import { HTTPError } from '@/shared/api/HTTPError';
+import { $api_public } from '@/shared/api/client';
 import { postEmail } from '@/shared/api/email-verification/signup';
 import { PLACEHOLDER } from '@/shared/constant/form';
 import { PATH } from '@/shared/constant/path';
@@ -30,7 +31,7 @@ const options = [
 const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
-  const { remainTime, handleTrigger, handleReset } = useTimer(60, () => {
+  const { remainTime, handleTrigger, handleReset } = useTimer(60 * 3, () => {
     createToast('유효시간이 지났습니다.');
     setIsMailSended(false);
   });
@@ -63,13 +64,13 @@ const UnivFormPage = () => {
     },
   });
 
-  const { mutate: verify } = $api.useMutation('post', '/api/v1/email/verification/checking', {
+  const { mutate: verify } = $api_public.useMutation('post', '/api/v1/email/verification/checking', {
     onSuccess: () => {
       createToast('인증되었습니다.', 'success');
       setIsVerified(true);
     },
-    onError: (error) => {
-      createToast(`${error}`, 'success');
+    onError: (error: HTTPError) => {
+      createToast(`${error.message}`, 'error');
       setIsVerified(false);
     },
   });
