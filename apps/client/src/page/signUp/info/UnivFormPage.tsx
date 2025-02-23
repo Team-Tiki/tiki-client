@@ -1,12 +1,10 @@
 import { Button, Flex, Heading, Input, Select, useToastAction } from '@tiki/ui';
 import { useTimer } from '@tiki/utils';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
-
-import { isAxiosError } from 'axios';
 
 import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { timeStyle } from '@/page/signUp/info/UnivFormPage.style';
@@ -28,16 +26,24 @@ const options = [
   },
 ];
 
+const DEFAULT_VERITY_STATUS = {
+  trigger: false,
+  text: '학교 웹메일을 입력해주세요',
+  error: false,
+};
+
 const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
   const { remainTime, handleTrigger, handleReset } = useTimer(60 * 3, () => {
     createToast('유효시간이 지났습니다.');
-    setIsMailSended(false);
+    setVerifyStatus(DEFAULT_VERITY_STATUS);
   });
 
-  const [isMailSended, setIsMailSended] = useState(false);
+  const ref = useRef<ReturnType<typeof setTimeout>>();
+
   const [isVerified, setIsVerified] = useState(false);
+  const [verifyStatus, setVerifyStatus] = useState(DEFAULT_VERITY_STATUS);
 
   const navigate = useNavigate();
 
@@ -46,22 +52,17 @@ const UnivFormPage = () => {
   const { mutate } = useMutation({
     mutationFn: (email: string) => postEmail(email),
     onMutate: () => {
-      setIsMailSended(true);
-
-      handleTrigger();
+      ref.current = setTimeout(() => {
+        setVerifyStatus({ trigger: true, text: '메일함에서 인증번호를 확인해주세요.', error: false });
+        handleTrigger();
+      }, 200);
     },
-    onSuccess: () => {
-      setIsMailSended(true);
-    },
-    onError: (error) => {
-      setIsMailSended(false);
-
+    onError: () => {
       handleReset();
 
-      if (isAxiosError<{ message: string }>(error)) {
-        createToast(`${error.response?.data.message}`, 'error');
-      }
+      setVerifyStatus((prev) => ({ ...prev, text: '잘못된 형식의 메일주소입니다.', error: true }));
     },
+    onSettled: () => clearTimeout(ref.current),
   });
 
   const { mutate: verify } = $api_public.useMutation('post', '/api/v1/email/verification/checking', {
@@ -103,17 +104,21 @@ const UnivFormPage = () => {
               onChange={(e) => handleChange(e, 'email')}
               label="학교 인증"
               placeholder={PLACEHOLDER.SCHOOL_EMAIL}
-              supportingText="메일함에서 인증 번호를 확인해주세요"
+              supportingText={verifyStatus.text}
+              isSuccess={verifyStatus.trigger}
+              isError={verifyStatus.error}
             />
             <Button
-              onClick={() => mutate(inputs.email)}
+              onClick={() => {
+                mutate(inputs.email);
+              }}
               variant="outline"
               size="large"
               css={{ minWidth: '10rem', marginBottom: '1.88rem' }}>
               인증 메일 전송
             </Button>
           </Flex>
-          {isMailSended ? (
+          {verifyStatus.trigger ? (
             <Flex styles={{ gap: '0.4rem', width: '100%', align: 'center' }}>
               <div css={{ width: '100%', position: 'relative' }}>
                 <Input
