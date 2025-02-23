@@ -17,8 +17,7 @@ interface ErrorResponse {
 /* 토큰 여부 확인 */
 export const authMiddleware: Middleware = {
   async onRequest({ request }) {
-    const isInvitationIdNone =
-      !localStorage.getItem(STORAGE_KEY.INVITATION_ID) || localStorage.getItem(STORAGE_KEY.INVITATION_ID) === '';
+    const isInvitationIdNone = !localStorage.getItem(STORAGE_KEY.INVITATION_ID);
 
     if (isInvitationIdNone) {
       const accessToken = localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN_KEY);
