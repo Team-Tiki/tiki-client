@@ -30,26 +30,25 @@ const DEFAULT_VERITY_STATUS = {
   trigger: false,
   sendBtnText: '인증 메일 전송',
   text: '학교 웹메일을 입력해주세요',
+  isVerified: false,
   error: false,
 };
 
 const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
-  const { remainTime, handleTrigger, handleReset } = useTimer(60 * 3, () => {
+  const { remainTime, handleTrigger, handleReset, handleStop } = useTimer(20, () => {
     setVerifyStatus((prev) => ({ ...prev, sendBtnText: '재전송' }));
   });
 
-  const ref = useRef<ReturnType<typeof setTimeout>>();
-
-  const [isVerified, setIsVerified] = useState(false);
   const [verifyStatus, setVerifyStatus] = useState(DEFAULT_VERITY_STATUS);
+  const ref = useRef<ReturnType<typeof setTimeout>>();
 
   const navigate = useNavigate();
 
   const { createToast } = useToastAction();
 
-  const submitDisabled = !(isVerified && selectedUniv);
+  const submitDisabled = !(verifyStatus.isVerified && selectedUniv);
   const verifyBtnDisabled = remainTime === 0 || !inputs.code;
 
   const { mutate } = useMutation({
@@ -76,18 +75,20 @@ const UnivFormPage = () => {
   const { mutate: verify } = $api_public.useMutation('post', '/api/v1/email/verification/checking', {
     onSuccess: () => {
       createToast('인증되었습니다.', 'success');
-      setIsVerified(true);
+
+      handleStop();
+      setVerifyStatus((prev) => ({ ...prev, isVerified: true }));
     },
     onError: (error: HTTPError) => {
       createToast(`${error.message}`, 'error');
-      setIsVerified(false);
+      setVerifyStatus((prev) => ({ ...prev, isVerified: false }));
     },
   });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!selectedUniv || !inputs.email || !isVerified) return;
+    if (!selectedUniv || !inputs.email || !verifyStatus.isVerified) return;
 
     sessionStorage.setItem(
       'step1',
@@ -151,7 +152,7 @@ const UnivFormPage = () => {
                     },
                   })
                 }
-                disabled={isVerified || verifyBtnDisabled}
+                disabled={verifyStatus.isVerified || verifyBtnDisabled}
                 variant="outline"
                 size="large"
                 css={{ minWidth: '10rem' }}>
