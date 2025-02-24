@@ -14,7 +14,7 @@ export const formStyle = css({
   justifyContent: 'space-between',
 
   width: '60rem',
-  height: '60rem',
+  height: '51.8rem',
 
   padding: '6rem 10.5rem',
 
@@ -22,3 +22,10 @@ export const formStyle = css({
     width: '100%',
   },
 });
+
+export const formUnivStyle = css([
+  formStyle,
+  {
+    height: '60rem',
+  },
+]);

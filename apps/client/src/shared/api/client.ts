@@ -26,6 +26,8 @@ export const publicClient = createFetchClient<paths>({
 
 export const $api = createClient(client);
 
+export const $api_public = createClient(publicClient);
+
 client.use(tokenMiddleware);
 client.use(authMiddleware);
 client.use(apiMiddleware);
