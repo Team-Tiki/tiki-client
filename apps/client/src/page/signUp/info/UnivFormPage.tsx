@@ -26,6 +26,8 @@ const options = [
   },
 ];
 
+const VERITY_MAX_TIME = 60 * 3;
+
 const DEFAULT_VERITY_STATUS = {
   trigger: false,
   sendBtnText: '인증 메일 전송',
@@ -37,7 +39,7 @@ const DEFAULT_VERITY_STATUS = {
 const UnivFormPage = () => {
   const { inputs, handleChange, select, selectedUniv } = useUnivForm();
 
-  const { remainTime, handleTrigger, handleReset, handleStop } = useTimer(60 * 3, () => {
+  const { remainTime, handleTrigger, handleReset, handleStop } = useTimer(VERITY_MAX_TIME, () => {
     setVerifyStatus((prev) => ({ ...prev, sendBtnText: '재전송' }));
   });
 
