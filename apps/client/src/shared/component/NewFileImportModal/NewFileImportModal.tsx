@@ -12,9 +12,11 @@ import FileUploadContainer from '@/shared/component/NewFileImportModal/FileUploa
 import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
+import { FILE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 import { convertToKB, getFileKey, getFileVolume } from '@/shared/util/file';
+
 
 interface NewFileImportModalProps {
   size?: 'medium' | 'large';
@@ -72,9 +74,8 @@ const NewFileImportModal = ({
         },
         {
           onSuccess: (data) => {
-            createToast('파일을 성공적으로 업로드했습니다.', 'success');
+            createToast(FILE.SUCCESS.NEW_FILE, 'success');
 
-            console.log(data);
             const uploadedFile = {
               ...file,
               documentId: data?.data?.response?.[0]?.documentId ?? 0,
@@ -100,7 +101,7 @@ const NewFileImportModal = ({
             resolve();
           },
           onError: (error) => {
-            createToast(`파일 업로드 실패: ${error.message}`, 'error');
+            createToast(FILE.ERROR.NEW_FILE + ` ${error.message}`, 'error');
 
             setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
 
@@ -124,8 +125,8 @@ const NewFileImportModal = ({
         params: { query: { documentId: [documentId] }, path: { teamId } },
       },
       {
-        onSuccess: () => createToast('파일이 삭제되었습니다.', 'success'),
-        onError: (error) => createToast(`파일 삭제 실패: ${error.message}`, 'error'),
+        onSuccess: () => createToast(FILE.SUCCESS.DELETE, 'success'),
+        onError: (error) => createToast(FILE.ERROR.DELETE + ` ${error.message}`, 'error'),
       }
     );
   };
