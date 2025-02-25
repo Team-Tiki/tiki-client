@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { AxiosError } from 'axios';
+
 import { MESSAGE } from '@/page/invite/constant';
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
@@ -27,7 +29,7 @@ const InvitedPage = () => {
 
   const navigate = useNavigate();
 
-  const { data, invitationId } = useInvitationInfo();
+  const { data, invitationId, failureCount } = useInvitationInfo();
   const { mutate: approveMutate } = useApproveInvitation();
   const { mutate: denyMutate } = useDenyInvitation();
 
@@ -38,8 +40,12 @@ const InvitedPage = () => {
     }
     if (data) {
       setInvitationInfo(data?.data);
+    } else if (failureCount && invitationId) {
+      clearInvitation();
+      navigate(PATH.DASHBOARD);
+      createToast('존재하지 않거나 만료된 초대정보입니다.', 'error');
     }
-  }, [createToast, data, invitationInfo?.teamId, isLogined, navigate]);
+  }, [createToast, data, failureCount, invitationId, invitationInfo?.teamId, isLogined, navigate]);
 
   const clearInvitation = () => {
     localStorage.removeItem(STORAGE_KEY.INVITATION_ID);
@@ -65,8 +71,8 @@ const InvitedPage = () => {
           localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
           localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
         },
-        onError: () => {
-          createToast(MESSAGE.INVITE_FAILED, 'error');
+        onError: (error: AxiosError) => {
+          createToast(error.message, 'error');
           navigate(PATH.ONBOARDING);
         },
       }
@@ -87,8 +93,8 @@ const InvitedPage = () => {
         onSuccess: () => {
           createToast(MESSAGE.DENY_SUCCESS, 'success');
         },
-        onError: () => {
-          createToast(MESSAGE.DENY_FAILED, 'error');
+        onError: (error: AxiosError) => {
+          createToast(error.message, 'error');
         },
       }
     );
