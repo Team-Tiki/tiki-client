@@ -57,6 +57,7 @@ export const dayBodyStyle = (dayCount: number) =>
     maxHeight: 'calc(100vh - 2rem)',
 
     overflowY: 'auto',
+    overflow: 'visible',
 
     backgroundColor: theme.colors.gray_100,
   });
