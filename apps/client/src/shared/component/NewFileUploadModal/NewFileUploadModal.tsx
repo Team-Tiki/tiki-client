@@ -9,13 +9,13 @@ import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
 import FileUploadContainer from '@/shared/component/NewFileUploadModal/FileUploadContainer/FileUploadContainer';
-import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileUploadModal/NewFileUploadModal.style';
+import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileUploadModal/NewFileImportModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { FILE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
-import { convertToKB, getFileKey, getFileVolume } from '@/shared/util/file';
+import { getFileKey, getFileVolume } from '@/shared/util/file';
 
 interface NewFileImportModalProps {
   size?: 'medium' | 'large';
@@ -66,7 +66,7 @@ const NewFileUploadModal = ({
                 fileName: file.name,
                 fileUrl: fileUrls[file.name] || '',
                 fileKey: getFileKey(fileUrls[file.name]),
-                capacity: convertToKB(file.size),
+                capacity: file.size,
               },
             ],
           },
@@ -81,7 +81,7 @@ const NewFileUploadModal = ({
               name: file.name,
               url: fileUrls[file.name] || '',
               fileKey: getFileKey(fileUrls[file.name]),
-              size: convertToKB(file.size),
+              size: file.size,
             };
 
             setFiles((prevFiles) => prevFiles.map((f) => (f.name === uploadedFile.name ? uploadedFile : f)));
@@ -92,7 +92,7 @@ const NewFileUploadModal = ({
                 documentId: uploadedFile.documentId,
                 name: uploadedFile.name,
                 url: uploadedFile.url,
-                capacity: uploadedFile.size,
+                capacity: file.size,
                 createdTime: new Date().toISOString(),
               },
             ]);
