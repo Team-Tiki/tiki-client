@@ -6,7 +6,6 @@ import { $api } from '@/shared/api/client';
 import { emptyStyle, inputWrapperStyle } from '@/shared/component/InviteModal/InviteModal.style';
 import MemberItem from '@/shared/component/InviteModal/Member/MemberItem';
 import { Modal } from '@/shared/component/Modal';
-import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal } from '@/shared/store/modal';
 
@@ -14,9 +13,8 @@ const InviteModal = () => {
   const [inputValue, setInputValue] = useState('');
   const [inviteList, setInviteList] = useState<string[]>([]);
 
-  const isButtonActive = inviteList.length === 0;
+  const isDisabled = inviteList.length === 0;
 
-  const { nextStep } = useFunnel();
   const { createToast } = useToastAction();
 
   const closeModal = useCloseModal();
@@ -57,10 +55,6 @@ const InviteModal = () => {
     setInviteList(inviteList.filter((item) => item !== email));
   };
 
-  const handleNextStep = () => {
-    nextStep();
-  };
-
   return (
     <>
       <Modal.Header step={1} />
@@ -97,13 +91,7 @@ const InviteModal = () => {
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer
-        step={1}
-        contentType="invite"
-        buttonClick={handleNextStep}
-        isButtonActive={!isButtonActive}
-        closeModal={closeModal}
-      />
+      <Modal.Footer step={1} type="invite" onClick={closeModal} disabled={isDisabled} onClose={closeModal} />
     </>
   );
 };

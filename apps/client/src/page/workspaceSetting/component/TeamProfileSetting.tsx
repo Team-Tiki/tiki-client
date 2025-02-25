@@ -37,8 +37,10 @@ const TeamProfileSetting = ({ teamIconUrl, teamName, onWorkspaceDataChange }: Te
         {teamIconUrl ? (
           <img src={teamIconUrl} alt="팀 대표" css={teamImageStyle} />
         ) : (
-          <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle, teamImageTextStyle]}>
-            {teamName[0]}
+          <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle]}>
+            <Text tag="body3" css={teamImageTextStyle}>
+              {teamName[0]}
+            </Text>
           </Flex>
         )}
         <Flex styles={{ gap: '0.4rem' }}>

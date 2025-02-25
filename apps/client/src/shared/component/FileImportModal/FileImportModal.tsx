@@ -34,7 +34,7 @@ const FileImportModal = () => {
   const teamId = useInitializeTeamId();
   const filterKeyword = useDebounce(searchFile, 500);
 
-  const isButtonActive = selectedFiles.length !== 0;
+  const isDisabled = selectedFiles.length === 0;
 
   const { data: fileData } = $api.useQuery('get', '/api/v1/documents/team/{teamId}/timeline', {
     params: {
@@ -94,7 +94,7 @@ const FileImportModal = () => {
                     <IcFileItem width={20} height={20} css={{ margin: '1.2rem' }} />
                     <p css={textFieldStyle}>
                       {file.name}
-                      {file.url && <span>{file.url}</span>}
+                      {file.capacity && <span>{getFileVolume(file.capacity)}</span>}
                     </p>
                   </DropdownItem>
                 ))
@@ -122,12 +122,7 @@ const FileImportModal = () => {
         </Flex>
       </Modal.Body>
 
-      <Modal.Footer
-        contentType="file"
-        closeModal={closeModal}
-        buttonClick={handleUpload}
-        isButtonActive={isButtonActive}
-      />
+      <Modal.Footer type="file" onClose={closeModal} onClick={handleUpload} disabled={isDisabled} />
     </>
   );
 };

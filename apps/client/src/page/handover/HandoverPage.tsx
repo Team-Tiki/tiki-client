@@ -1,5 +1,5 @@
 import { IcSearch } from '@tiki/icon';
-import { Button, Divider, Flex, Input, Select, Spinner } from '@tiki/ui';
+import { Button, Divider, Flex, Input, Select, Spinner, useToastAction } from '@tiki/ui';
 import { useDebounce, useMultiSelect } from '@tiki/utils';
 
 import { useEffect, useState } from 'react';
@@ -18,30 +18,30 @@ import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useIntersect } from '@/shared/hook/common/useIntersect';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const HandoverPage = () => {
   const [sortOption, setSortOption] = useState<FILTER_TYPE>('DESC');
-
   const [searchValue, setSearchValue] = useState('');
-
   const [noteList, setNoteList] = useState<NoteListType>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState('');
 
-  const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
+  const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
+
   const filterKeyword = useDebounce(searchValue, 400);
-
-  const navigate = useNavigate();
-
   const teamId = useInitializeTeamId();
 
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
+
+  const { createToast } = useToastAction();
 
   const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
     'noteId',
@@ -60,16 +60,26 @@ const HandoverPage = () => {
     onSuccess: () => {
       setNoteList([]);
       setLastUpdatedAt('');
-      queryClient.invalidateQueries({
-        queryKey: ['get', '/api/v1/notes/{teamId}'],
-      });
+
+      createToast(NOTE.SUCCESS.DELETE, 'error'),
+        queryClient.invalidateQueries({
+          queryKey: ['get', '/api/v1/notes/{teamId}'],
+        });
     },
+    onError: () => createToast(NOTE.ERROR.DELETE, 'error'),
   });
 
   useEffect(() => {
     if (noteData?.data?.noteGetResponseList) {
       if (lastUpdatedAt) {
-        setNoteList((prev) => [...prev, ...noteData.data!.noteGetResponseList]);
+        setNoteList((prev) => [
+          ...prev,
+          ...noteData.data!.noteGetResponseList.filter((note) => {
+            const duplicatedNote = prev.some((prevNote) => prevNote.noteId === note.noteId);
+
+            return !duplicatedNote;
+          }),
+        ]);
         return;
       }
       setNoteList(noteData.data!.noteGetResponseList);
@@ -91,9 +101,7 @@ const HandoverPage = () => {
         noteListMutate({
           params: {
             path: { teamId },
-            query: {
-              noteIds: noteIds,
-            },
+            query: { noteIds: noteIds },
           },
         });
 

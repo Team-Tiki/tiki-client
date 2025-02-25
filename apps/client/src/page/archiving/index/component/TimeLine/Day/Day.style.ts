@@ -51,13 +51,12 @@ export const dayBodyStyle = (dayCount: number) =>
     gridTemplateColumns: `repeat(${dayCount}, 1fr)`,
     gridAutoRows: '3rem',
 
-    rowGap: '2rem',
-    gap: '1.5rem',
+    rowGap: '1.5rem',
 
     minHeight: 'calc(100vh - 40rem)',
     maxHeight: 'calc(100vh - 2rem)',
 
-    overflowY: 'scroll',
+    overflowY: 'auto',
 
     backgroundColor: theme.colors.gray_100,
   });
@@ -71,4 +70,7 @@ export const dayBodyWrapperStyle = (isOpen: boolean) =>
     backgroundColor: theme.colors.gray_100,
 
     transition: '0.2s ease-in-out',
+
+    height: 'inherit',
+    overflowY: 'hidden',
   });

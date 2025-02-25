@@ -52,7 +52,7 @@ const WorkSpaceComplete = () => {
           </picture>
         </div>
       </Modal.Body>
-      <Modal.Footer step={1} contentType="create-workspace" buttonClick={handleSave} />
+      <Modal.Footer step={1} type="create-workspace" onClick={handleSave} disabled={false} />
     </>
   );
 };

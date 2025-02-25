@@ -29,4 +29,6 @@ export const adderStyle = (path: string) =>
 
       transition: 'all ease-in 0.1s',
     },
+
+    cursor: 'pointer',
   });

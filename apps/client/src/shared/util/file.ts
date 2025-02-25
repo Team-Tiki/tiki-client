@@ -7,7 +7,7 @@ export const extractFileExtension = (fileName: string) => {
 export const getFileVolume = (volume: number) => {
   const units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-  let index = 1;
+  let index = 0;
 
   if (volume <= 1024) {
     index = 0;

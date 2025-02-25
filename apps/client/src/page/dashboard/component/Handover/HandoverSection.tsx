@@ -9,9 +9,12 @@ import { useNoteData } from '@/page/handover/hook/api/queries';
 
 import { PATH } from '@/shared/constant/path';
 
+const SORT_ORDER = 'DESC';
+
 const HandoverSection = () => {
   const navigate = useNavigate();
-  const { data, isPending } = useNoteData('');
+
+  const { data, isPending } = useNoteData('', SORT_ORDER);
 
   return (
     <Flex styles={{ direction: 'column', gap: '0.8rem', align: 'center' }} css={listItemStyle}>

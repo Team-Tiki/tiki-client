@@ -16,12 +16,16 @@ export const fileStyle = css({
   borderRadius: '0.8rem',
 
   backgroundColor: theme.colors.gray_100,
+
+  cursor: 'pointer',
 });
 
 export const fileInfoStyle = css({
   display: 'flex',
+
   flexDirection: 'column',
 
+  alignItems: 'flex-start',
   gap: '0.8rem',
 
   ...theme.text.body08,
@@ -40,6 +44,8 @@ export const deleteIcStyle = css({
 });
 
 export const fileNameStyle = css({
+  display: 'flex',
+
   width: '14rem',
 
   lineHeight: '1.3rem',

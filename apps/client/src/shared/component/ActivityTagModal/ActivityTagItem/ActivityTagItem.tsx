@@ -4,8 +4,10 @@ import { Flex, Text } from '@tiki/ui';
 import {
   dateStyle,
   iconBackStyle,
+  layoutStyle,
   tagNameStyle,
   tagStyle,
+  wrapperStyle,
 } from '@/shared/component/ActivityTagModal/ActivityTagItem/ActivityTagItem.style';
 import { TAG_ICON } from '@/shared/constant/icon';
 
@@ -22,19 +24,10 @@ const ActivityTagItem = ({ title, date, tag, color, onDelete, isSearch = false }
   const icon = TAG_ICON.find((iconItem) => iconItem.name === tag)?.icon;
 
   return (
-    <Flex
-      styles={{
-        align: 'center',
-        padding: '0.4rem 0rem',
-        width: '100%',
-        justify: 'space-between',
-      }}>
-      <Flex
-        styles={{
-          gap: '0.8rem',
-        }}>
+    <Flex css={wrapperStyle}>
+      <Flex styles={{ gap: '0.8rem', align: 'center' }}>
         <div css={iconBackStyle}>{icon}</div>
-        <Flex styles={{ direction: 'column', align: 'flex-start', gap: '0.6rem' }}>
+        <Flex css={layoutStyle}>
           <Text tag="body8" css={tagNameStyle}>
             {title}
           </Text>

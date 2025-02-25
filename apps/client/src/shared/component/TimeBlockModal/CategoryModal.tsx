@@ -18,10 +18,10 @@ const CategoryModal = () => {
 
   const { nextStep } = useFunnel();
 
-  const isButtonActive = selectedIcon !== -1;
+  const isDisabled = selectedIcon === -1;
 
   const handleNext = () => {
-    if (isButtonActive) {
+    if (!isDisabled) {
       const blockIconType = BLOCK_CATEGORY[selectedIcon].type;
       const blockIconColor = BLOCK_CATEGORY[selectedIcon].color;
 
@@ -53,7 +53,7 @@ const CategoryModal = () => {
           ))}
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={1} contentType="create-block" buttonClick={handleNext} isButtonActive={isButtonActive} />
+      <Modal.Footer step={1} type="create-block" onClick={handleNext} disabled={isDisabled} />
     </>
   );
 };

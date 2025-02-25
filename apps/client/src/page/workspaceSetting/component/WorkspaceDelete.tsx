@@ -18,6 +18,7 @@ interface WorkspaceDeleteProps {
 
 const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
   const { mutate: deleteTeam } = $api.useMutation('delete', '/api/v1/teams/{teamId}');
+  const { mutate: leaveTeam } = $api.useMutation('delete', '/api/v1/team-member/teams/{teamId}/leave');
 
   const navigate = useNavigate();
   const { createToast } = useToastAction();
@@ -26,18 +27,10 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
   const queryClient = useQueryClient();
   const teamId = useInitializeTeamId();
 
-  const handleDeleteClick = () => {
-    openModal('deleted', {
-      title: '워크스페이스 삭제',
-      content: '정말로 이 워크스페이스를 삭제하시겠습니까?',
-      onClick: () => {
-        handleDelete();
-      },
-    });
-  };
+  const TYPE = position === POSITION.ADMIN ? '삭제' : '탈퇴';
 
   const handleDelete = () => {
-    if (position === 'ADMIN') {
+    if (position === POSITION.ADMIN) {
       deleteTeam(
         { params: { path: { teamId } } },
         {
@@ -51,15 +44,45 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
             localStorage.removeItem('teamId');
 
             navigate(PATH.DASHBOARD);
-            window.location.reload();
           },
-          onError: (error) => {
-            createToast('워크스페이스 삭제 과정에서 오류가 발생했습니다', 'error');
-            console.error(error);
+          onError: () => {
+            createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
           },
         }
       );
     }
+
+    if (position === POSITION.EXECUTIVE) {
+      leaveTeam(
+        { params: { path: { teamId } } },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ['get', '/api/v1/members/teams'],
+            });
+
+            closeModal();
+
+            localStorage.removeItem('teamId');
+
+            navigate(PATH.DASHBOARD);
+          },
+          onError: () => {
+            createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
+          },
+        }
+      );
+    }
+  };
+
+  const handleDeleteClick = () => {
+    openModal(position === POSITION.ADMIN ? 'deleted' : 'leave', {
+      title: `워크스페이스 ${TYPE}`,
+      content: `정말로 이 워크스페이스를 ${TYPE}하시겠습니까?`,
+      onClick: () => {
+        handleDelete();
+      },
+    });
   };
 
   return (

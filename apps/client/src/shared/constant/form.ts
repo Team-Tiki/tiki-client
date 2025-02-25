@@ -1,3 +1,5 @@
+import { MAX_WORKSPACE_NAME_LENGTH } from '@/page/workspaceSetting/constant';
+
 export const PLACEHOLDER = {
   NAME: '주민등록상 실명 입력',
   BIRTHDAY: 'YYYY-MM-DD',
@@ -26,8 +28,8 @@ export const SUPPORTING_TEXT = {
   UNIV: '대학교를 선택해주세요.',
 
   PASSWORD: '비밀번호를 입력해주세요',
-  PASSWORD_NOTICE: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
-  PASSWORD_INVALID: '문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_NOTICE: '영대소문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+  PASSWORD_INVALID: '영대소문자/숫자/기호를 포함한 8자 이상의 비밀번호를 입력해주세요.',
   PASSWORD_VALID: '사용가능한 비밀번호입니다.',
   PASSWORD_CHECKER: '비밀번호 확인을 위해 새로운 비밀번호를 재입력해주세요.',
   PASSWORD_NO_EQUAL: '비밀번호가 일치하지 않습니다.',
@@ -43,7 +45,7 @@ export const SUPPORTING_TEXT = {
   TIMEBLOCK_NAME_LENGTH: '타임블록명은 25자까지 작성 가능해요',
 
   WORKSPACE_NAME_NOTICE: '워크스페이스명은 변경일로부터 30일 이후에 변경할 수 있습니다. \n 신중하게 결정해주세요.',
-  WORKSPACE_NAME_INVALID_LENGTH: '워크스페이스명은 40자 이하로 설정해주세요.',
+  WORKSPACE_NAME_INVALID_LENGTH: `워크스페이스명은 ${MAX_WORKSPACE_NAME_LENGTH}자 이하로 설정해주세요.`,
   WORKSPACE_NAME_EMPTY: '워크스페이스명을 입력해주세요.',
 } as const;
 
@@ -55,4 +57,4 @@ export const AUTHCODE_MAXLENGTH = 6 as const;
 
 export const UNIV_EMAIL_FORMAT = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(ac\.kr|edu)$/;
 
-export const PASSWORD_VALID_FORMAT = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+export const PASSWORD_VALID_FORMAT = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

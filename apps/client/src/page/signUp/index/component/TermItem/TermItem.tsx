@@ -27,12 +27,12 @@ const TermItem = ({ term, onSelect, isSelected = false, isRequired = false }: Te
     <div
       role="button"
       tabIndex={0}
-      css={containerStyle(isSelected)}
+      css={containerStyle}
       onKeyDown={(e) => e.key === 'Enter' && onSelect?.()}
       onClick={onSelect}>
       <Flex styles={{ align: 'center', gap: '0.6rem' }}>
         <IcCheck width={16} height={16} css={iconStyle(isSelected)} />
-        <p css={termTextStyle}>{title}</p>
+        <p css={termTextStyle(isSelected)}>{title}</p>
       </Flex>
 
       <a href={redirectUrl} target="blank" onClick={(e) => e.stopPropagation()} css={expandButtonStyle}>

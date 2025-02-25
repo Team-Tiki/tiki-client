@@ -18,7 +18,7 @@ const IS_EMPTY_STRING = {
 } as const;
 
 export const useInfoForm = () => {
-  const [info, setInfo] = useState<InfoFormData>({ name: '', birth: new Date(), password: '', passwordChecker: '' });
+  const [info, setInfo] = useState<InfoFormData>({ name: '', birth: null, password: '', passwordChecker: '' });
 
   const { error, updateFieldError, clearFieldError, setErrors } = useError<Omit<InfoFormData, 'birth'>>({
     name: '',
@@ -32,6 +32,16 @@ export const useInfoForm = () => {
   });
 
   const { mutate } = useSignupMutation();
+
+  const disabled =
+    Object.values(error).some((error_value) => !!error_value) ||
+    Object.values(info).some((value) => !value) ||
+    info.password !== info.passwordChecker;
+
+  const dateisInvalid =
+    info.birth &&
+    (info.birth?.getTime() < new Date('1980-01-01').getTime() ||
+      info.birth?.getTime() > new Date('2010-12-31').getTime());
 
   const handleInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name: key } = e.target;
@@ -159,6 +169,8 @@ export const useInfoForm = () => {
 
   return {
     info,
+    disabled,
+    dateisInvalid,
     handleInfoChange,
     handleBirthChange,
     updatePasswordMessage,

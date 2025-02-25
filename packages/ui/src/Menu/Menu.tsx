@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 
 import { useOutsideClick } from "@tiki/utils";
 
@@ -17,4 +17,4 @@ const Menu = ({ children, onClose, ...props }: MenuProps) => {
   );
 };
 
-export default forwardRef(Menu);
+export default Menu;

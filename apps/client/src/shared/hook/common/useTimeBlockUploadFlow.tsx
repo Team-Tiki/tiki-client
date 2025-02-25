@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
+
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import BrowseFileModal from '@/shared/component/BrowseFileModal/BrowseFileModal';
@@ -7,6 +9,7 @@ import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImp
 import SelectedFilesModal from '@/shared/component/SelectedFilesModal/SelectedFilesModal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
+import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 import { useCloseModal } from '@/shared/store/modal';
 import { FunnelStep } from '@/shared/util/funnelStep';
 
@@ -16,6 +19,8 @@ export const TimeBlockFileUploadFlow = () => {
   const [files, setFiles] = useState<DocumentDetail[]>([]);
   const [isAddingFiles, setIsAddingFiles] = useState(false);
 
+  const { documents } = useDrawerContent() as Block & BlockDetail;
+  const { setContent } = useDrawerAction();
   const teamId = useInitializeTeamId();
 
   const { setTotalSteps, nextStep } = useFunnel();
@@ -36,6 +41,20 @@ export const TimeBlockFileUploadFlow = () => {
   };
 
   const handleComplete = () => {
+    const convertedFiles = files
+      .map((data) => ({
+        documentId: data.documentId,
+        capacity: data.capacity,
+        fileName: data.name,
+        fileUrl: data.url,
+        tagId: 0,
+      }))
+      .filter((data) => !documents.every((document) => document.documentId === data.documentId));
+
+    const combinedDocuments = [...documents, ...convertedFiles];
+
+    setContent('documents', combinedDocuments);
+
     closeModal();
   };
 

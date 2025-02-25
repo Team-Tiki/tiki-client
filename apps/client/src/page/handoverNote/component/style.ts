@@ -89,7 +89,7 @@ export const titleStyle = css({
   ...theme.heading.heading03,
   lineHeight: '3.6rem',
 
-  wordBreak: 'break-all',
+  wordBreak: 'keep-all',
   resize: 'none',
 
   '::placeholder': {
@@ -100,10 +100,10 @@ export const titleStyle = css({
 export const infoContainerStyle = css({
   display: 'flex',
 
-  marginTop: '3.6rem',
-
   flexDirection: 'column',
   gap: '0.4rem',
+
+  marginTop: '3.6rem',
 });
 
 export const infoLayoutStyle = (isTag?: boolean) =>

@@ -14,7 +14,7 @@ export const buttonStyle = (isClicked: boolean) =>
     border: 'none',
     borderRadius: '8px',
     backgroundColor: isClicked ? theme.colors.blue_100 : theme.colors.gray_100,
-    color: isClicked ? theme.colors.key_500 : theme.colors.black,
+    color: isClicked ? theme.colors.key_500 : theme.colors.gray_500,
 
     ...theme.text.body08,
     fontWeight: 500,

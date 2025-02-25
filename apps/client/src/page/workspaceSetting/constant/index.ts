@@ -1,3 +1,7 @@
+export const MAX_NAME_LENGTH = 32;
+
+export const MAX_WORKSPACE_NAME_LENGTH = 30;
+
 export const ERROR_NAME = {
   VALIDATE: 'VALIDATE',
   EMPTY: 'EMPTY',
@@ -15,3 +19,7 @@ export const POSITION_VALUE = {
   EXECUTIVE: '임원진',
   MEMBER: '멤버',
 };
+
+export const POSITION_SELECT_OPTIONS = [{ value: POSITION_VALUE.ADMIN }, { value: POSITION_VALUE.EXECUTIVE }];
+
+export const UNIVERCITY_SELECT_OPTIONS = [{ value: '건국대학교' }];

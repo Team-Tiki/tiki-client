@@ -46,6 +46,7 @@ const NoteItem = ({
       onClick();
     }
   };
+
   return (
     <li>
       <Flex

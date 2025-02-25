@@ -11,3 +11,10 @@ export type Documents = components['schemas']['DocumentDetailGetResponse'][];
 export type Notes = components['schemas']['NoteNameGetResponse'][];
 
 export type Document = components['schemas']['DocumentDetailGetResponse'];
+
+export type BlockInfoType = {
+  name: string;
+  startDate: string;
+  endDate: string;
+  documents: Documents;
+};

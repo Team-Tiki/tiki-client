@@ -3,15 +3,19 @@ import { Button, CommandButton, Flex, TabButton, TabList, TabPanel, TabRoot, use
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import CreateCustomNote from '@/page/handover/component/CreateNote/CreateCustomNote';
 import CreateNoteDetail from '@/page/handover/component/CreateNote/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handover/component/CreateNote/CreateTemplateNote';
+import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
 import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNote/type/note';
 
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
+import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
@@ -50,6 +54,8 @@ const CreateNotePage = () => {
   const { mutate: templateMutation } = $api.useMutation('post', '/api/v1/notes/template');
   const { mutate: customMutation } = $api.useMutation('post', '/api/v1/notes/free');
 
+  const queryClient = useQueryClient();
+
   const handleTabClick = (tabId: number) => {
     openModal('caution', {
       infoText: CAUTION.NOTE.INFO_TEXT,
@@ -74,7 +80,7 @@ const CreateNotePage = () => {
       templateMutation(
         {
           body: {
-            title: noteDetail.title,
+            title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
             complete: noteDetail.complete,
             startDate: noteDetail.startDate,
             endDate: noteDetail.endDate,
@@ -89,11 +95,14 @@ const CreateNotePage = () => {
         },
         {
           onSuccess: () => {
-            createToast('템플릿 노트가 저장되었습니다.', 'success');
+            createToast(NOTE.SUCCESS.SAVE, 'success');
+
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
           onError: () => {
-            createToast('노트 저장에 실패했습니다', 'error');
+            createToast(NOTE.ERROR.SAVE, 'error');
           },
         }
       );
@@ -103,9 +112,9 @@ const CreateNotePage = () => {
       customMutation(
         {
           body: {
-            title: noteDetail.title,
+            title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
             complete: noteDetail.complete,
-            startDate: noteDetail.startDate,
+            startDate: noteDetail.startDate === '' ? new Date().toISOString() : noteDetail.startDate,
             endDate: noteDetail.endDate,
             contents: customData.contents,
             timeBlockIds: noteDetail.timeBlockList?.map((item) => item.id!),
@@ -115,11 +124,14 @@ const CreateNotePage = () => {
         },
         {
           onSuccess: () => {
-            createToast('자유 노트가 저장되었습니다.', 'success');
+            createToast(NOTE.SUCCESS.SAVE, 'success');
+
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
             navigate(PATH.HANDOVER);
           },
           onError: () => {
-            createToast('노트 저장에 실패했습니다', 'error');
+            createToast(NOTE.ERROR.SAVE, 'error');
           },
         }
       );
@@ -138,12 +150,7 @@ const CreateNotePage = () => {
           <Button variant="tertiary" size="small" onClick={() => navigate(PATH.HANDOVER)}>
             작성 취소
           </Button>
-          <CommandButton
-            commandKey="S"
-            isCommand={true}
-            size="small"
-            type="submit"
-            onClick={() => navigate(PATH.HANDOVER)}>
+          <CommandButton commandKey="S" isCommand={true} size="small" type="submit">
             저장
           </CommandButton>
         </Flex>

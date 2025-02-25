@@ -1,6 +1,6 @@
-import { Button, DatePicker, Flex, Heading, Input, Label } from '@tiki/ui';
+import { Button, DatePicker, Flex, Heading, Input, Label, SupportingText } from '@tiki/ui';
 
-import { formStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
+import { formUnivStyle, pageStyle } from '@/page/signUp/info/InfoFormPage.style';
 import { useInfoForm } from '@/page/signUp/info/hook/common/useInfoForm';
 
 import { PLACEHOLDER } from '@/shared/constant/form';
@@ -9,6 +9,8 @@ const InfoFormPage = () => {
   const {
     info,
     error,
+    disabled,
+    dateisInvalid,
     validMessage,
     handleInfoChange,
     updateCheckerMessage,
@@ -19,7 +21,7 @@ const InfoFormPage = () => {
 
   return (
     <Flex tag="main" css={pageStyle}>
-      <form onSubmit={handleSubmit} css={formStyle}>
+      <form onSubmit={handleSubmit} css={formUnivStyle}>
         <Heading tag="H4">회원가입</Heading>
         <Flex styles={{ direction: 'column', gap: '2rem' }}>
           <Input
@@ -30,8 +32,11 @@ const InfoFormPage = () => {
             placeholder={PLACEHOLDER.NAME}
           />
           <Flex styles={{ direction: 'column', gap: '1.2rem' }}>
-            <Label id="">생년월일</Label>
-            <DatePicker onChange={handleBirthChange} variant="single" triggerWidth="100%" />
+            <Label id="birth">생년월일</Label>
+            <Flex styles={{ direction: 'column', gap: '0.2rem' }}>
+              <DatePicker onChange={handleBirthChange} variant="single" triggerWidth="100%" />
+              {dateisInvalid && <SupportingText isError={true}>생년월일을 다시 확인해주세요.</SupportingText>}
+            </Flex>
           </Flex>
           <Flex styles={{ direction: 'column', width: '100%', gap: '1.2rem' }}>
             <Input
@@ -57,7 +62,7 @@ const InfoFormPage = () => {
             />
           </Flex>
         </Flex>
-        <Button type="submit" size="xLarge" css={{ width: '100%' }}>
+        <Button disabled={disabled} type="submit" size="xLarge" css={{ width: '100%' }}>
           다음
         </Button>
       </form>

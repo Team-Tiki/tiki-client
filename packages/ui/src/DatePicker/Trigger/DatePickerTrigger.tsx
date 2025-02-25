@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 import { triggerStyle } from "@/DatePicker/index.style";
 import { textStyle } from "@/DatePicker/Trigger/DatePickerTrigger.style";
@@ -14,9 +14,14 @@ interface DatePickerTriggerProps {
   variant: "single" | "range";
 }
 
-const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePickerTriggerProps) => {
+const DatePickerTrigger = ({
+  selectedDate,
+  endDate,
+  onClick,
+  variant,
+}: DatePickerTriggerProps) => {
   return (
-    <Flex styles={{ direction: "row", align: "center", gap: "0.4rem" }}>
+    <Flex styles={{ direction: 'row', align: 'center', gap: '0.4rem' }}>
       <Input
         value={selectedDate ? format(selectedDate, "yyyy.MM.dd") : ""}
         name={variant === "single" ? "date" : "startDate"}
@@ -25,13 +30,13 @@ const DatePickerTrigger = ({ selectedDate, endDate, onClick, variant }: DatePick
         onClick={onClick}
         css={triggerStyle}
       />
-      {variant === "range" && (
+      {variant === 'range' && (
         <>
           <Text tag="body8" css={textStyle}>
             ~
           </Text>
           <Input
-            value={endDate ? format(endDate, "yyyy.MM.dd") : ""}
+            value={endDate ? format(endDate, 'yyyy.MM.dd') : ''}
             placeholder="YYYY.MM.DD"
             name="endDate"
             readOnly
