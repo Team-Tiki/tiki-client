@@ -90,11 +90,19 @@ export const triggerStyle = (variant: Required<SelectProps["variant"]>, isSelect
     /** underline 있는 select trigger 버튼 */
     variant === "underline"
       ? {
-          borderBottom: `1px solid ${isSelected ? theme.colors.key_500 : theme.colors.gray_400}`,
+          borderBottom: `1px solid ${theme.colors.gray_400}`,
+
+          ":hover": {
+            borderBottom: `1px solid ${theme.colors.key_500}`,
+          },
         }
       : {
           borderRadius: "8px",
-          boxShadow: variant === "outline" ? (!isSelected ? theme.shadow.inset : theme.shadow.inset_focus) : "none",
+          boxShadow: variant === "outline" ? theme.shadow.inset : "none",
+
+          ":hover": {
+            boxShadow: variant === "outline" ? theme.shadow.inset_focus : "none",
+          },
         },
     /** "최근 업로드 순"과 같은 option select */
     variant === "option"
