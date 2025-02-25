@@ -14,7 +14,7 @@ import {
   overlayStyle,
 } from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
-import { TAG } from '@/shared/constant';
+import { SEARCH_DELAY, TAG } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { ActivityTagModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { formatDateToDots } from '@/shared/util/date';
@@ -42,7 +42,7 @@ const ActivityTagModal = () => {
 
   const closeModal = useCloseModal();
 
-  const filterKeyword = useDebounce(inputValue, 300);
+  const filterKeyword = useDebounce(inputValue, SEARCH_DELAY);
 
   const filteredTags = activityTags.filter(
     (tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC')) && filterKeyword !== ''
