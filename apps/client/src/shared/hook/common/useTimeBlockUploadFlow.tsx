@@ -17,7 +17,7 @@ export type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 
 export const TimeBlockFileUploadFlow = () => {
   const [files, setFiles] = useState<DocumentDetail[]>([]);
-  const [isAddingFiles, setIsAddingFiles] = useState(false);
+  const [isUploadNewFile, setIsUploadNewFile] = useState(false);
 
   const { documents } = useDrawerContent() as Block & BlockDetail;
   const { setContent } = useDrawerAction();
@@ -65,12 +65,12 @@ export const TimeBlockFileUploadFlow = () => {
   return (
     <>
       <FunnelStep step={1}>
-        {isAddingFiles ? (
+        {isUploadNewFile ? (
           <NewFileUploadModal
             size="large"
             onUploadFile={handleFilesConfirmed}
             onPrev={() => {
-              setIsAddingFiles(false);
+              setIsUploadNewFile(false);
             }}
             onNext={() => {
               nextStep();
@@ -78,9 +78,10 @@ export const TimeBlockFileUploadFlow = () => {
           />
         ) : (
           <BrowseFileModal
+            type="timeblock-file"
             files={fileData?.data?.documents || []}
             selectedFiles={files}
-            onShowBlockAdd={() => setIsAddingFiles(true)}
+            onShowBlockAdd={() => setIsUploadNewFile(true)}
             onConfirmFile={handleFilesConfirmed}
           />
         )}
