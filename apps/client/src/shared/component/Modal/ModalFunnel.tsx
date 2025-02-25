@@ -9,7 +9,7 @@ import FileImportModal from '@/shared/component/FileImportModal/FileImportModal'
 import ImageImportModal from '@/shared/component/ImageImportModal/ImageImportModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import LeaveModal from '@/shared/component/LeaveModal/LeaveModal';
-import NewFileImportModal from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
+import NewFileUploadModal from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
@@ -23,7 +23,6 @@ import {
   useModalData,
   useModalIsOpen,
 } from '@/shared/store/modal';
-import { FunnelStep } from '@/shared/util/funnelStep';
 
 const ModalFunnel = () => {
   const isOpen = useModalIsOpen();
@@ -35,36 +34,22 @@ const ModalFunnel = () => {
   if (!isOpen) return null;
 
   if (contentType === 'deleted') {
-    return (
-      <Suspense>
-        <DeletedModal />
-      </Suspense>
-    );
+    return <DeletedModal />;
   }
 
   if (contentType === 'leave') {
-    return (
-      <Suspense>
-        <LeaveModal />
-      </Suspense>
-    );
+    return <LeaveModal />;
   }
 
   if (contentType === 'new-file') {
-    return (
-      <Suspense>
-        <NewFileImportModal />
-      </Suspense>
-    );
+    return <NewFileUploadModal />;
   }
 
   if (contentType === 'timeblock-file') {
     return (
-      <Suspense>
-        <FunnelProvider>
-          <TimeBlockFileUploadFlow />
-        </FunnelProvider>
-      </Suspense>
+      <FunnelProvider>
+        <TimeBlockFileUploadFlow />
+      </FunnelProvider>
     );
   }
 
@@ -72,9 +57,11 @@ const ModalFunnel = () => {
     switch (contentType) {
       case 'create-workspace':
         return (
-          <WorkSpaceProvider>
-            <WorkSpaceFlow />
-          </WorkSpaceProvider>
+          <Suspense>
+            <WorkSpaceProvider>
+              <WorkSpaceFlow />
+            </WorkSpaceProvider>
+          </Suspense>
         );
       case 'create-block':
         return (
@@ -83,13 +70,13 @@ const ModalFunnel = () => {
           </BlockProvider>
         );
       case 'invite':
-        return (
-          <FunnelStep step={1}>
-            <InviteModal />
-          </FunnelStep>
-        );
+        return <InviteModal />;
       case 'activity-tag':
-        return <ActivityTagModal />;
+        return (
+          <Suspense>
+            <ActivityTagModal />
+          </Suspense>
+        );
       case 'file':
         return <FileImportModal />;
       case 'image':
@@ -115,9 +102,7 @@ const ModalFunnel = () => {
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
-      <Suspense>
-        <FunnelProvider>{renderContent()}</FunnelProvider>
-      </Suspense>
+      <FunnelProvider>{renderContent()}</FunnelProvider>
     </Modal>
   );
 };
