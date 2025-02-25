@@ -1,11 +1,8 @@
 import { IcCheck } from '@tiki/icon';
-import { Button, Flex, Modal, Text, scrollStyle, theme } from '@tiki/ui';
-
-import { useState } from 'react';
+import { Flex } from '@tiki/ui';
 
 import {
   containerStyle,
-  contentStyle,
   expandButtonStyle,
   iconStyle,
   termTextStyle,
@@ -13,17 +10,18 @@ import {
 
 interface TermItemProps {
   term: string;
-  content: string;
-  description: string;
   onSelect?: () => void;
   isRequired?: boolean;
   isSelected?: boolean;
 }
 
-const TermItem = ({ term, content, onSelect, description, isSelected = false, isRequired = false }: TermItemProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+const TermItem = ({ term, onSelect, isSelected = false, isRequired = false }: TermItemProps) => {
   const title = `${isRequired ? '[필수]' : '[선택]'} ${term}`;
+
+  const redirectUrl =
+    term === '이용 약관'
+      ? 'https://chrome-colony-e33.notion.site/TIKI-66fad8d357bd476883e341c812a7b12f?pvs=4'
+      : 'https://chrome-colony-e33.notion.site/TIKI-16fdb1892dd580429858e986da3f5736?pvs=4';
 
   return (
     <div
@@ -37,29 +35,9 @@ const TermItem = ({ term, content, onSelect, description, isSelected = false, is
         <p css={termTextStyle}>{title}</p>
       </Flex>
 
-      <Button onClick={() => setIsExpanded(true)} css={expandButtonStyle} variant="tertiary" size="xSmall">
+      <a href={redirectUrl} target="blank" onClick={(e) => e.stopPropagation()} css={expandButtonStyle}>
         더보기
-      </Button>
-
-      <Modal isOpen={isExpanded} onClose={() => setIsExpanded(false)}>
-        <Flex styles={{ direction: 'column', gap: '2rem', width: '37.6rem' }}>
-          <Flex styles={{ direction: 'column', gap: '0.6rem' }}>
-            <Text tag="body6">{title}</Text>
-            <Text css={{ color: theme.colors.gray_800 }} tag="body8">
-              {description}
-            </Text>
-          </Flex>
-
-          <div css={contentStyle}>
-            <Text tag="body8" css={[{ whiteSpace: 'pre-line' }, scrollStyle]}>
-              {content}
-            </Text>
-          </div>
-          <Button onClick={() => setIsExpanded(false)} variant="outline" size="large" css={{ width: '100%' }}>
-            닫기
-          </Button>
-        </Flex>
-      </Modal>
+      </a>
     </div>
   );
 };
