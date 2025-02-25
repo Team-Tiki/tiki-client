@@ -9,7 +9,7 @@ import FileImportModal from '@/shared/component/FileImportModal/FileImportModal'
 import ImageImportModal from '@/shared/component/ImageImportModal/ImageImportModal';
 import InviteModal from '@/shared/component/InviteModal/InviteModal';
 import LeaveModal from '@/shared/component/LeaveModal/LeaveModal';
-import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
+import NewFileImportModal from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
 import { BlockFlow } from '@/shared/component/TimeBlockModal';
 import { WorkSpaceFlow } from '@/shared/component/WorkSpaceModal/index';
 import { BlockProvider } from '@/shared/hook/common/useBlockContext';
