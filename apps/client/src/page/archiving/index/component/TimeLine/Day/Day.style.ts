@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { theme } from '@tiki/ui';
+import { scrollStyle, theme } from '@tiki/ui';
 
 export const entireDayStyle = css({
   display: 'flex',
@@ -12,6 +12,8 @@ export const entireDayStyle = css({
 export const dayStyle = css({
   display: 'flex',
   flexDirection: 'row',
+
+  width: '100%',
 
   justifyContent: 'space-between',
 });
@@ -56,10 +58,14 @@ export const dayBodyStyle = (dayCount: number) =>
     minHeight: 'calc(100vh - 40rem)',
     maxHeight: 'calc(100vh - 2rem)',
 
-    overflowY: 'auto',
+    paddingBottom: '40.8rem',
+
     overflow: 'visible',
+    overflowY: 'scroll',
 
     backgroundColor: theme.colors.gray_100,
+
+    ...scrollStyle,
   });
 
 export const dayBodyWrapperStyle = (isOpen: boolean) =>
