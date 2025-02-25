@@ -35,11 +35,10 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
       deleteTeam(
         { params: { path: { teamId } } },
         {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/members/teams'],
             });
-
             closeModal();
 
             localStorage.removeItem(STORAGE_KEY.TEAM_ID);
@@ -58,14 +57,14 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
       leaveTeam(
         { params: { path: { teamId } } },
         {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/members/teams'],
             });
-
             closeModal();
 
-            localStorage.removeItem('teamId');
+            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
+            localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
 
             navigate(PATH.DASHBOARD);
           },
