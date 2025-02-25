@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
-import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
+import NewFileUploadModal from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
 import BrowseFileModal from '@/shared/component/TimeBlockModal/component/BrowseFile/BrowseFileModal';
 import { flexStyle } from '@/shared/component/TimeBlockModal/style';
 import { useBlockContext } from '@/shared/hook/common/useBlockContext';
@@ -66,7 +66,7 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
     <>
       <Flex css={flexStyle}>
         {fileData?.data?.documents.length === 0 || isAddingFiles ? (
-          <NewFileImportModal
+          <NewFileUploadModal
             onUploadFile={handleFileSelect}
             selectedFiles={selectedFiles}
             size="large"

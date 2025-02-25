@@ -8,15 +8,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { $api } from '@/shared/api/client';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
-import FileUploadContainer from '@/shared/component/NewFileImportModal/FileUploadContainer/FileUploadContainer';
-import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import FileUploadContainer from '@/shared/component/NewFileUploadModal/FileUploadContainer/FileUploadContainer';
+import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileUploadModal/NewFileUploadModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
 import { FILE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 import { convertToKB, getFileKey, getFileVolume } from '@/shared/util/file';
-
 
 interface NewFileImportModalProps {
   size?: 'medium' | 'large';
@@ -31,7 +30,7 @@ export interface FileWithDocumentId extends File {
   documentId?: number;
 }
 
-const NewFileImportModal = ({
+const NewFileUploadModal = ({
   onNext,
   onPrev,
   selectedFiles = [],
@@ -183,4 +182,4 @@ const NewFileImportModal = ({
   );
 };
 
-export default NewFileImportModal;
+export default NewFileUploadModal;

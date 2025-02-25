@@ -5,7 +5,7 @@ import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import BrowseFileModal from '@/shared/component/BrowseFileModal/BrowseFileModal';
-import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
+import NewFileUploadModal from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
 import SelectedFilesModal from '@/shared/component/SelectedFilesModal/SelectedFilesModal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -66,7 +66,7 @@ export const TimeBlockFileUploadFlow = () => {
     <>
       <FunnelStep step={1}>
         {isAddingFiles ? (
-          <NewFileImportModal
+          <NewFileUploadModal
             size="large"
             onUploadFile={handleFilesConfirmed}
             onPrev={() => {

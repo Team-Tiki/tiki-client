@@ -4,8 +4,8 @@ import { Button, Flex, Text } from '@tiki/ui';
 import React, { Dispatch, SetStateAction } from 'react';
 
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
-import { FileWithDocumentId } from '@/shared/component/NewFileImportModal/NewFileImportModal';
-import { boxStyle, uploadBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import { FileWithDocumentId } from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
+import { boxStyle, uploadBoxStyle } from '@/shared/component/NewFileUploadModal/NewFileUploadModal.style';
 import useFile from '@/shared/component/TimeBlockModal/hook/common/useFile';
 
 interface FileUploadContainerProps {
