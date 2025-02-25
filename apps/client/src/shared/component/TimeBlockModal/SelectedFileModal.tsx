@@ -17,7 +17,6 @@ interface SelectedFileModalProps {
 }
 
 const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
-  console.log(selectedFiles);
   const teamId = useInitializeTeamId();
 
   const { createToast } = useToastAction();
@@ -39,6 +38,7 @@ const SelectedFileModal = ({ selectedFiles }: SelectedFileModalProps) => {
         },
         body: {
           ...formData,
+          documentIds: selectedFiles.map((document) => document.documentId),
           blockType: formData.blockType as 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC',
         },
       },
