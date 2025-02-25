@@ -2,13 +2,14 @@ import { IcSearch } from '@tiki/icon';
 import { Button, Flex, Input } from '@tiki/ui';
 import { useDebounce } from '@tiki/utils';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { components } from '@/shared/__generated__/schema';
 import BrowseFileHeader from '@/shared/component/BrowseFileHeader/BrowseFileHeader';
 import BrowseFileItem from '@/shared/component/BrowseFileItem/BrowseFileItem';
 import { scrollContainerStyle } from '@/shared/component/BrowseFileModal/BrowseFileModal.style';
 import { Modal } from '@/shared/component/Modal';
+import { SEARCH_DELAY } from '@/shared/constant';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
@@ -30,9 +31,10 @@ const BrowseFileModal = ({ type, files, selectedFiles, onShowBlockAdd, onConfirm
   const closeModal = useCloseModal();
   const { nextStep, prevStep } = useFunnel();
 
+  const step = type === 'create-block' ? 3 : 1;
   const isDisabled = selectedFiles.length === 0;
-  const filterKeyword = useDebounce(searchFile, 500);
 
+  const filterKeyword = useDebounce(searchFile, SEARCH_DELAY);
   const filteredFiles = files.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC')));
 
   const handleFileSelect = (file: DocumentDetail) => {
@@ -43,21 +45,17 @@ const BrowseFileModal = ({ type, files, selectedFiles, onShowBlockAdd, onConfirm
         ? prevSelectedFiles.filter((selectedFile) => selectedFile.documentId !== file.documentId)
         : [...prevSelectedFiles, file];
 
+      onConfirmFile(updatedFiles);
       return updatedFiles;
     });
   };
-
   const handleNext = () => {
     nextStep();
   };
 
-  useEffect(() => {
-    onConfirmFile(selectedBrowseFile);
-  }, [selectedBrowseFile]);
-
   return (
     <Modal size="large" isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header step={type === 'create-block' ? 3 : 1} />
+      <Modal.Header step={step} />
       <Modal.Body>
         <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%', paddingTop: '2rem' }}>
           <Flex css={{ flexDirection: 'row', alignItems: 'center', gap: '0.4rem', width: '100%' }}>
@@ -92,7 +90,7 @@ const BrowseFileModal = ({ type, files, selectedFiles, onShowBlockAdd, onConfirm
         </Flex>
       </Modal.Body>
       <Modal.Footer
-        step={type === 'create-block' ? 3 : 1}
+        step={step}
         type={type ?? 'create-block'}
         onClick={handleNext}
         onClose={closeModal}
