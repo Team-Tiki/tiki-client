@@ -17,6 +17,10 @@ const OnBoardingPage = () => {
     openModal('create-workspace');
   };
 
+  if (localStorage.getItem(STORAGE_KEY.INVITATION_ID)) {
+    navigate(`${PATH.INVITE}/${localStorage.getItem(STORAGE_KEY.INVITE_TEAM_ID)}`);
+  }
+
   const { data, isSuccess } = $api.useQuery('get', '/api/v1/members/teams');
 
   const firstTeam = data?.data?.belongTeamGetResponses[0];
