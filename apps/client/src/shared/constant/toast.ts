@@ -16,6 +16,6 @@ export const FILE = {
   },
   ERROR: {
     NEW_FILE: '파일 업로드 실패:',
-    DELETE: '파일 삭제 실패:'
-  }
-}
+    DELETE: '파일 삭제 실패:',
+  },
+};

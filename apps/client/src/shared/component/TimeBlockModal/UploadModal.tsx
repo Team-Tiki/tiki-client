@@ -35,16 +35,19 @@ const UploadModal = ({ onConfirmFile }: UploadModalProps) => {
     },
   });
 
-  const handleFileSelect = useCallback((selected: DocumentDetail[]) => {
-    const combinedFiles = [...selectedFilesRef.current, ...selected].filter(
-      (file, index, self) => index === self.findIndex((f) => f.documentId === file.documentId)
-    );
+  const handleFileSelect = useCallback(
+    (selected: DocumentDetail[]) => {
+      const combinedFiles = [...selectedFilesRef.current, ...selected].filter(
+        (file, index, self) => index === self.findIndex((f) => f.documentId === file.documentId)
+      );
 
-    setSelectedFiles(combinedFiles);
-    selectedFilesRef.current = combinedFiles;
+      setSelectedFiles(combinedFiles);
+      selectedFilesRef.current = combinedFiles;
 
-    onConfirmFile(combinedFiles);
-  }, []);
+      onConfirmFile(combinedFiles);
+    },
+    [onConfirmFile]
+  );
 
   const handleNext = () => {
     const documentIds = selectedFilesRef.current.map((file) => file.documentId);
