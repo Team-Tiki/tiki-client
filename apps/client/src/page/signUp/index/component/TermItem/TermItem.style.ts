@@ -44,6 +44,10 @@ export const contentStyle = css({
 });
 
 export const expandButtonStyle = css({
+  padding: '0.4rem 0.6rem',
+
+  backgroundColor: theme.colors.gray_100,
+  color: theme.colors.gray_800,
   ...theme.text.body10,
   fontWeight: 500,
 

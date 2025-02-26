@@ -1,7 +1,8 @@
 import DatePickerCalendar from "@/DatePicker/Calendar/DatePickerCalendar";
 import { containerStyle } from "@/DatePicker/index.style";
 import DatePickerTrigger from "@/DatePicker/Trigger/DatePickerTrigger";
-import { useDatePicker, useOutsideClick, useOverlay } from "@tiki/utils";
+import { useDatePicker, useOutsideClick } from "@tiki/utils";
+import { MouseEvent, useState } from "react";
 
 interface DatePickerProps {
   variant: "single" | "range";
@@ -18,8 +19,9 @@ const DatePicker = ({
   defaultSelectedDate,
   defaultEndDate,
 }: DatePickerProps) => {
-  const { isOpen, close, toggle } = useOverlay();
-  const ref = useOutsideClick<HTMLDivElement>(close);
+  const [openStatus, setOpenStatus] = useState<"start" | "end" | null>(null);
+
+  const ref = useOutsideClick<HTMLDivElement>(() => setOpenStatus(null));
 
   const initialSelectedDate = defaultSelectedDate ? new Date(defaultSelectedDate) : null;
   const initialEndDate = defaultEndDate ? new Date(defaultEndDate) : null;
@@ -31,25 +33,64 @@ const DatePicker = ({
     initialEndDate,
   );
 
-  const handleInputClick = () => {
-    if (!isOpen && selectedDate && endDate) {
-      clearDates();
+  const handleSingleRange = (e: MouseEvent<HTMLInputElement>) => {
+    if (!openStatus) {
+      setOpenStatus("start");
+    } else {
+      setOpenStatus(null);
     }
-    toggle();
   };
+
+  const handleMultiRange = (e: MouseEvent<HTMLInputElement>) => {
+    const target = e.currentTarget.name;
+
+    switch (target) {
+      case "startDate": {
+        if (!openStatus || openStatus === "end") {
+          setOpenStatus("start");
+        } else if (openStatus === "start") {
+          setOpenStatus(null);
+        }
+        break;
+      }
+      case "endDate": {
+        if (!openStatus || openStatus === "start") {
+          setOpenStatus("end");
+        } else if (openStatus === "end") {
+          setOpenStatus(null);
+        }
+        break;
+      }
+      default: {
+        throw new Error("multirange datepicker only has start, endDate name field");
+      }
+    }
+
+    if (selectedDate && endDate) clearDates();
+  };
+
+  const onClick = variant === "single" ? handleSingleRange : handleMultiRange;
+
   return (
     <div ref={ref} css={containerStyle(triggerWidth)}>
       <DatePickerTrigger
         selectedDate={selectedDate || initialSelectedDate}
         endDate={endDate || initialEndDate}
-        onClick={handleInputClick}
+        onClick={onClick}
         variant={variant}
       />
-      {isOpen && (
+      {openStatus !== null && (
         <DatePickerCalendar
           selectedDate={selectedDate || initialSelectedDate || new Date()}
           endDate={endDate || initialEndDate}
-          setSelectedDate={handleSelectDate}
+          setSelectedDate={(date) => {
+            handleSelectDate(date);
+            if (variant === "single") {
+              setOpenStatus(null);
+            } else if (variant === "range") {
+              if (selectedDate) setOpenStatus(null);
+            }
+          }}
           variant={variant}
         />
       )}

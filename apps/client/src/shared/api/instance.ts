@@ -13,8 +13,6 @@ export const axiosInstance = axios.create({
 
 export const axiosPublicInstance = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api/v1`,
-  withCredentials: true,
-
   headers: {
     'Content-Type': 'application/json',
   },
