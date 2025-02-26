@@ -27,3 +27,12 @@ export const firstSpellStyle = css({
 
   fontSize: '2rem',
 });
+
+export const redButtonStyle = css({
+  color: theme.colors.sementic_red,
+  backgroundColor: theme.colors.sementic_red_10,
+
+  ':hover': {
+    backgroundColor: theme.colors.sementic_red_20,
+  },
+});

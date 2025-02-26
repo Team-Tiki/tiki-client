@@ -8,6 +8,7 @@ import { POSITION } from '@/page/workspaceSetting/constant';
 import { workspaceDeleteButton } from '@/page/workspaceSetting/styles';
 
 import { $api } from '@/shared/api/client';
+import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
@@ -34,14 +35,14 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
       deleteTeam(
         { params: { path: { teamId } } },
         {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/members/teams'],
             });
-
             closeModal();
 
-            localStorage.removeItem('teamId');
+            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
+            localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
 
             navigate(PATH.DASHBOARD);
           },
@@ -56,14 +57,14 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
       leaveTeam(
         { params: { path: { teamId } } },
         {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
               queryKey: ['get', '/api/v1/members/teams'],
             });
-
             closeModal();
 
-            localStorage.removeItem('teamId');
+            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
+            localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
 
             navigate(PATH.DASHBOARD);
           },

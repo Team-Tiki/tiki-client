@@ -8,6 +8,7 @@ import FileSection from '@/page/dashboard/component/File/FileSection';
 import HandoverSection from '@/page/dashboard/component/Handover/HandoverSection';
 import TimelineSection from '@/page/dashboard/component/Timeline';
 
+import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
@@ -19,9 +20,19 @@ const DashboardPage = () => {
     navigate(path);
   };
 
+  if (!localStorage.getItem(STORAGE_KEY.TEAM_ID)) {
+    navigate(PATH.ONBOARDING);
+  }
+
+  const { data } = $api.useQuery('get', '/api/v1/members/teams');
+
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY.INVITATION_ID)) {
       navigate(`${PATH.INVITE}/${localStorage.getItem(STORAGE_KEY.INVITE_TEAM_ID)}`);
+    }
+    if (!localStorage.getItem(STORAGE_KEY.TEAM_NAME) && data?.data?.belongTeamGetResponses[0]) {
+      localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${data?.data?.belongTeamGetResponses[0].name}`);
+      console.log('TITLE::', data?.data?.belongTeamGetResponses[0].name);
     }
   });
 
