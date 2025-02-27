@@ -20,7 +20,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       lottie-react:
-        specifier: ^2.4.0
+        specifier: 2.4.0
         version: 2.4.0(patch_hash=hj4cfbfhjnk7bdx57qimpkiigm)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
