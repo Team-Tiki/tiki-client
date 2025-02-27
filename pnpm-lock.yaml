@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  lottie-react@2.4.0:
-    hash: hj4cfbfhjnk7bdx57qimpkiigm
-    path: patches/lottie-react@2.4.0.patch
-
 importers:
 
   .:
@@ -21,7 +16,7 @@ importers:
         version: 4.1.0
       lottie-react:
         specifier: 2.4.0
-        version: 2.4.0(patch_hash=hj4cfbfhjnk7bdx57qimpkiigm)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -7742,7 +7737,7 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lottie-react@2.4.0(patch_hash=hj4cfbfhjnk7bdx57qimpkiigm)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  lottie-react@2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       lottie-web: 5.12.2
       react: 18.3.1
