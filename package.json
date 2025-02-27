@@ -38,10 +38,5 @@
     "concurrently": "^9.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "lottie-react@2.4.0": "patches/lottie-react@2.4.0.patch"
-    }
   }
 }
