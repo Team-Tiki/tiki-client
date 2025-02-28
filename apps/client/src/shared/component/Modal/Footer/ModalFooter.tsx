@@ -78,7 +78,7 @@ const ModalFooterButtons = (
     case 'invite':
       return [createButton('취소', onClose, 'outline'), createButton('완료', onClick, 'primary', disabled)];
     case 'activity-tag':
-      return [createButton('취소', onClose, 'outline'), createButton('완료', onClick, 'primary')];
+      return [createButton('취소', onClose, 'outline'), createButton('완료', onClick, 'primary', disabled)];
     case 'new-file':
       return [createButton('취소', onClose, 'outline'), createButton('업로드', onClick, 'primary', disabled)];
     case 'file':
