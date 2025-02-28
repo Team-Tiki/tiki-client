@@ -20,10 +20,10 @@ import { NoteDetailProp, Status } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
-import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useOpenModal } from '@/shared/store/modal';
+import { ActivityTag } from '@/shared/type/modal';
 
 const CreateNoteDetail = ({ info, setInfo }: NoteDetailProp) => {
   const [isWrapped, setIsWrapped] = useState(false);

@@ -23,17 +23,16 @@ import { formatDateToDots } from '@/shared/util/date';
 const ActivityTagModal = () => {
   const teamId = useInitializeTeamId();
 
+  const modalData = useModalData() as ActivityTagModalData;
   const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
     params: { path: { teamId } },
   });
-  const modalData = useModalData() as ActivityTagModalData;
 
   const [activityTags] = useState<ActivityTag[]>(data.data?.tImeBlockTaggingResponses || []);
   const [inputValue, setInputValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<ActivityTag[]>(modalData.selectedTags || []);
 
   const closeModal = useCloseModal();
-  const isDisabled = selectedTags.length === 0;
 
   const filterKeyword = useDebounce(inputValue, 300);
 
@@ -59,6 +58,7 @@ const ActivityTagModal = () => {
 
   const handleComplete = () => {
     modalData.onConfirm?.(selectedTags);
+    setSelectedTags(selectedTags);
 
     closeModal();
   };
@@ -122,7 +122,12 @@ const ActivityTagModal = () => {
           </Flex>
         </Flex>
       </Modal.Body>
-      <Modal.Footer type="activity-tag" onClick={handleComplete} onClose={closeModal} disabled={isDisabled} />
+      <Modal.Footer
+        type="activity-tag"
+        onClick={handleComplete}
+        onClose={closeModal}
+        disabled={selectedTags.length === 0}
+      />
     </>
   );
 };
