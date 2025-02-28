@@ -1,9 +1,9 @@
 import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { SINGLE_LINE_HEIGHT } from '@/page/handover/constant';
+import { HANDOVER_TITLE_MAX, SINGLE_LINE_HEIGHT } from '@/page/handover/constant';
 import {
   entireInfoStyle,
   infoContainerStyle,
@@ -14,16 +14,12 @@ import {
   textBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/style';
-import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
+import { useNoteInfoForm } from '@/page/handoverNote/hook/common/useNoteInfoForm';
+import { NoteDetailProp } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
 import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useOpenModal } from '@/shared/store/modal';
-
-interface NoteDetailProp {
-  info: CreateNoteInfoType;
-  setInfo: React.Dispatch<SetStateAction<CreateNoteInfoType>>;
-}
 
 const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
   const [isWrapped, setIsWrapped] = useState(false);
@@ -31,50 +27,23 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const tagContainerRef = useRef<HTMLDivElement>(null);
 
+  const { handleTitleChange, handleChangeStatus, handleDateChange } = useNoteInfoForm({ setInfo });
   const openModal = useOpenModal();
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInfo((prev) => ({ ...prev, title: e.target.value }));
-
-    resizeTextarea(textareaRef);
-  };
-
-  const handleChangeStatus = useCallback(
-    (value: string) => {
-      setInfo((prev) => ({
-        ...prev,
-        complete: value === '완료',
-      }));
-    },
-    [setInfo]
-  );
-
-  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    setInfo((prev) => ({
-      ...prev,
-      startDate: startDate ? startDate.toISOString() : '',
-      endDate: endDate ? endDate.toISOString() : '',
-    }));
-  };
 
   const handleAppendTag = () => {
     openModal('activity-tag', {
       selectedTags: info.timeBlockList?.map((tag) => ({
+        ...tag,
         timeBlockId: tag.id,
-        name: tag.name,
-        color: tag.color,
-        type: 'MEETING',
-        startDate: '',
+        type: tag.blockType,
       })),
       onConfirm: (tags: ActivityTag[]) => {
         setInfo((prev) => ({
           ...prev,
           timeBlockList: tags.map((tag) => ({
+            ...tag,
             id: tag.timeBlockId,
-            name: tag.name,
-            color: tag.color,
             blockType: tag.type,
-            startDate: tag.startDate,
           })),
         }));
       },
@@ -91,11 +60,18 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
     }
   }, [info.timeBlockList]);
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      resizeTextarea(textareaRef);
+    }
+  }, [info.title]);
+
   return (
     <aside css={entireInfoStyle}>
       <textarea
         ref={textareaRef}
         css={titleStyle}
+        maxLength={HANDOVER_TITLE_MAX}
         placeholder={'노트제목'}
         value={info.title || ''}
         onChange={handleTitleChange}
