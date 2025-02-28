@@ -24,6 +24,8 @@ const ActivityTagModal = () => {
   const teamId = useInitializeTeamId();
 
   const modalData = useModalData() as ActivityTagModalData;
+  const closeModal = useCloseModal();
+
   const { data } = $api.useSuspenseQuery('get', '/api/v1/teams/{teamId}/time-block/all', {
     params: { path: { teamId } },
   });
@@ -32,17 +34,11 @@ const ActivityTagModal = () => {
   const [inputValue, setInputValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<ActivityTag[]>(modalData.selectedTags || []);
 
-  const closeModal = useCloseModal();
-
   const filterKeyword = useDebounce(inputValue, 300);
 
   const filteredTags = activityTags.filter(
     (tag) => tag.name.normalize('NFC').includes(filterKeyword.normalize('NFC')) && filterKeyword !== ''
   );
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
 
   const handleDelete = (timeblockId: number) => {
     setSelectedTags((prev) => prev.filter((tag) => tag.timeBlockId !== timeblockId));
@@ -79,7 +75,7 @@ const ActivityTagModal = () => {
                 placeholder="search"
                 LeftIcon={<IcSearch width={12} height={12} />}
                 value={inputValue}
-                onChange={handleInputChange}
+                onChange={(e) => setInputValue(e.target.value)}
               />
             </DropdownTrigger>
             <DropdownList css={[overlayStyle, scrollStyle]}>

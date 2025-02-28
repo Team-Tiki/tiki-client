@@ -59,7 +59,7 @@ export interface ActivityTagModalData {
 }
 
 export interface FileImportModalData {
-  selectedTags?: FileType[];
+  selectedFiles?: FileType[];
   onUpload?: (files: FileType[]) => void;
 }
 
