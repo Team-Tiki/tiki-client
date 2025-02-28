@@ -35,7 +35,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [isWrapped, setIsWrapped] = useState(false);
 
-  const flexContainerRef = useRef<HTMLDivElement>(null);
+  const tagContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const isTag = detail.timeBlockList?.length !== 0;
@@ -99,8 +99,8 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
 
   // 활동 태그가 wrap되면 레이아웃 변경
   useEffect(() => {
-    if (flexContainerRef.current) {
-      const { offsetHeight } = flexContainerRef.current;
+    if (tagContainerRef.current) {
+      const { offsetHeight } = tagContainerRef.current;
       const singleLineHeight = SINGLE_LINE_HEIGHT;
 
       setIsWrapped(offsetHeight > singleLineHeight);
@@ -146,7 +146,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          <div ref={flexContainerRef} css={tagLayoutStyle}>
+          <div ref={tagContainerRef} css={tagLayoutStyle}>
             {detail?.timeBlockList?.length === 0 ? (
               <Button variant="text" onClick={handleAppendTag} css={textBtnStyle}>
                 여기를 눌러 활동 태그를 추가해보세요
