@@ -21,7 +21,7 @@ import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const CreateNotePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [noteDetail, setNoteDetail] = useState<CreateNoteInfoType>({
+  const [noteInfo, setNoteInfo] = useState<CreateNoteInfoType>({
     title: '',
     author: '',
     complete: false,
@@ -80,15 +80,15 @@ const CreateNotePage = () => {
       templateMutation(
         {
           body: {
-            title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
-            complete: noteDetail.complete,
-            startDate: noteDetail.startDate,
-            endDate: noteDetail.endDate,
+            title: noteInfo.title.trim() === '' ? EMPTY_NOTE_TITLE : noteInfo.title,
+            complete: noteInfo.complete,
+            startDate: noteInfo.startDate,
+            endDate: noteInfo.endDate,
             answerWhatActivity: templateData.answerWhatActivity,
             answerHowToPrepare: templateData.answerHowToPrepare,
             answerWhatIsDisappointedThing: templateData.answerWhatIsDisappointedThing,
             answerHowToFix: templateData.answerHowToFix,
-            timeBlockIds: noteDetail.timeBlockList?.map((item) => item.id!),
+            timeBlockIds: noteInfo.timeBlockList?.map((item) => item.id!),
             documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
@@ -112,12 +112,12 @@ const CreateNotePage = () => {
       customMutation(
         {
           body: {
-            title: noteDetail.title.trim() === '' ? EMPTY_NOTE_TITLE : noteDetail.title,
-            complete: noteDetail.complete,
-            startDate: noteDetail.startDate === '' ? new Date().toISOString() : noteDetail.startDate,
-            endDate: noteDetail.endDate,
+            title: noteInfo.title.trim() === '' ? EMPTY_NOTE_TITLE : noteInfo.title,
+            complete: noteInfo.complete,
+            startDate: noteInfo.startDate === '' ? new Date().toISOString() : noteInfo.startDate,
+            endDate: noteInfo.endDate,
             contents: customData.contents,
-            timeBlockIds: noteDetail.timeBlockList?.map((item) => item.id!),
+            timeBlockIds: noteInfo.timeBlockList?.map((item) => item.id!),
             documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
@@ -140,7 +140,7 @@ const CreateNotePage = () => {
 
   return (
     <form css={noteSectionStyle} onSubmit={handleSubmit}>
-      <CreateNoteDetail detail={noteDetail} setDetail={setNoteDetail} />
+      <CreateNoteDetail info={noteInfo} setInfo={setNoteInfo} />
       <TabRoot css={{ flexGrow: '1' }}>
         <TabList selectedTab={selectedTab} onTabClick={handleTabClick}>
           <TabButton css={tabButtonStyle}>템플릿 작성</TabButton>
