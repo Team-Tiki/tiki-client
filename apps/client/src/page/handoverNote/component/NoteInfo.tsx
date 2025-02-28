@@ -18,8 +18,8 @@ import { useNoteInfoForm } from '@/page/handoverNote/hook/common/useNoteInfoForm
 import { NoteDetailProp } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
-import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useOpenModal } from '@/shared/store/modal';
+import { ActivityTag } from '@/shared/type/modal';
 
 const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
   const [isWrapped, setIsWrapped] = useState(false);

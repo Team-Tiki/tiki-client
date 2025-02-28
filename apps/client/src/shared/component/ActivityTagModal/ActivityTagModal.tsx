@@ -17,15 +17,8 @@ import { Modal } from '@/shared/component/Modal';
 import { TAG } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { ActivityTagModalData, useCloseModal, useModalData } from '@/shared/store/modal';
+import { ActivityTag } from '@/shared/type/modal';
 import { formatDateToDots } from '@/shared/util/date';
-
-export type ActivityTag = {
-  timeBlockId: number;
-  name: string;
-  type: 'MEETING' | 'RECRUITING' | 'STUDY' | 'EVENT' | 'NOTICE' | 'ETC';
-  color: string;
-  startDate: string;
-};
 
 const ActivityTagModal = () => {
   const teamId = useInitializeTeamId();
