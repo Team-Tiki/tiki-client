@@ -10,7 +10,7 @@ import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
 import { AUTO_SAVE_TIME } from '@/page/handoverNote/constants';
-import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
+import { useNoteDetailData } from '@/page/handoverNote/hook/api/queries';
 import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
 import { formatDateToString } from '@/page/signUp/info/util/date';
 
@@ -120,58 +120,62 @@ const NotePage = () => {
   const handleSubmit = () => {
     if (!noteDetail) return;
 
-    if (selectedTab === 0) {
-      const templateData = noteDetail as TemplateNoteData;
+    try {
+      if (selectedTab === 0) {
+        const templateData = noteDetail as TemplateNoteData;
+        const request = Object.assign(noteConfig, {
+          ...templateData,
+          documentIds: templateData.documentList.map((document) => document.id),
+        });
 
-      const request = Object.assign(noteConfig, {
-        ...templateData,
-        documentIds: templateData.documentList.map((document) => document.id),
-      });
-
-      templateMutation(
-        {
-          params: { path: { noteId: +noteId! } },
-          body: {
-            ...request,
-            teamId,
+        templateMutation(
+          {
+            params: { path: { noteId: +noteId! } },
+            body: {
+              ...request,
+              teamId,
+            },
           },
-        },
-        {
-          onSuccess: () => {
-            createToast(NOTE.SUCCESS.SAVE, 'success');
+          {
+            onSuccess: () => {
+              createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+            },
+            onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
+          }
+        );
+      } else {
+        const customData = noteDetail as CustomNoteData;
+
+        const request = Object.assign(noteConfig, {
+          ...customData,
+          documentIds: customData.documentList.map((document) => document.id),
+        });
+
+        customMutation(
+          {
+            params: { path: { noteId: +noteId! } },
+            body: {
+              ...request,
+              teamId,
+            },
           },
-          onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
-        }
-      );
-    } else {
-      const customData = noteDetail as CustomNoteData;
+          {
+            onSuccess: () => {
+              createToast(NOTE.SUCCESS.SAVE, 'success');
 
-      const request = Object.assign(noteConfig, {
-        ...customData,
-        documentIds: customData.documentList.map((document) => document.id),
-      });
-
-      customMutation(
-        {
-          params: { path: { noteId: +noteId! } },
-          body: {
-            ...request,
-            teamId,
-          },
-        },
-        {
-          onSuccess: () => {
-            createToast(NOTE.SUCCESS.SAVE, 'success');
-
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
-          },
-          onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
-        }
-      );
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+            },
+            onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      createToast(NOTE.ERROR.SAVE, 'error');
     }
   };
 
