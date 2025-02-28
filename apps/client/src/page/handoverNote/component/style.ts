@@ -141,14 +141,17 @@ export const inputStyle = css({
   outline: 'none',
 });
 
-export const tagLayoutStyle = css({
-  display: 'flex',
+export const tagLayoutStyle = (isWrapped: boolean) =>
+  css({
+    display: 'flex',
 
-  maxWidth: '21.8rem',
+    maxWidth: '21.8rem',
 
-  flexWrap: 'wrap',
-  gap: '0.4rem',
-});
+    marginBottom: isWrapped ? '1rem' : '',
+
+    flexWrap: 'wrap',
+    gap: '0.4rem',
+  });
 
 export const textBtnStyle = css({
   paddingLeft: '0',

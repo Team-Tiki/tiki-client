@@ -132,7 +132,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          <div ref={tagContainerRef} css={tagLayoutStyle}>
+          <div ref={tagContainerRef} css={tagLayoutStyle(isWrapped)}>
             {info?.timeBlockList?.length === 0 ? (
               <Button variant="text" onClick={handleAppendTag} css={textBtnStyle}>
                 여기를 눌러 활동 태그를 추가해보세요
