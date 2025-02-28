@@ -1,14 +1,17 @@
 import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { SetStateAction, useCallback, useRef } from 'react';
+import { SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 
+import { SINGLE_LINE_HEIGHT } from '@/page/handover/constant';
 import {
   entireInfoStyle,
   infoContainerStyle,
   infoLayoutStyle,
   infoStyle,
   plusBtnStyle,
+  tagLayoutStyle,
+  textBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/style';
 import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
@@ -23,7 +26,11 @@ interface NoteDetailProp {
 }
 
 const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
+  const [isWrapped, setIsWrapped] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const flexContainerRef = useRef<HTMLDivElement>(null);
+
   const openModal = useOpenModal();
 
   const isTag = info?.timeBlockList?.length !== 0;
@@ -76,6 +83,16 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
     });
   };
 
+  // 활동 태그가 wrap되면 레이아웃 변경
+  useEffect(() => {
+    if (flexContainerRef.current) {
+      const { offsetHeight } = flexContainerRef.current;
+      const singleLineHeight = SINGLE_LINE_HEIGHT;
+
+      setIsWrapped(offsetHeight > singleLineHeight);
+    }
+  }, [info.timeBlockList]);
+
   return (
     <aside css={entireInfoStyle}>
       <textarea
@@ -87,7 +104,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
         autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
-        <li css={infoLayoutStyle(isTag)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Flex styles={{ justify: 'center', align: 'center', gap: '2rem' }}>
             <Text tag="body6" css={infoStyle}>
               작성자
@@ -99,7 +116,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           </Flex>
         </li>
 
-        <li css={infoLayoutStyle(isTag)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             작성 여부
           </Text>
@@ -113,23 +130,29 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           />
         </li>
 
-        <li css={infoLayoutStyle(info?.timeBlockList?.length !== 0)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}>
-            <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
-              <IcPlusButton width={10} height={10} />
-            </Button>
+          <div ref={flexContainerRef} css={tagLayoutStyle}>
+            {info?.timeBlockList?.length === 0 ? (
+              <Button variant="text" onClick={handleAppendTag} css={textBtnStyle}>
+                여기를 눌러 활동 태그를 추가해보세요
+              </Button>
+            ) : (
+              <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
+                <IcPlusButton width={10} height={10} />
+              </Button>
+            )}
             {info?.timeBlockList?.map((tag) => (
               <Tag key={tag.id} bgColor={tag.color}>
                 {tag.name}
               </Tag>
             ))}
-          </Flex>
+          </div>
         </li>
 
-        <li css={infoLayoutStyle(isTag)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>

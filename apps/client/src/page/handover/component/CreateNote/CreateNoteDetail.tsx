@@ -4,12 +4,15 @@ import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { SINGLE_LINE_HEIGHT } from '@/page/handover/constant';
 import {
   entireInfoStyle,
   infoContainerStyle,
   infoLayoutStyle,
   infoStyle,
   plusBtnStyle,
+  tagLayoutStyle,
+  textBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/style';
 import { CreateNoteInfoType, Status } from '@/page/handoverNote/type/note';
@@ -30,7 +33,9 @@ interface NoteDetailProp {
 const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [isWrapped, setIsWrapped] = useState(false);
 
+  const flexContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const isTag = detail.timeBlockList?.length !== 0;
@@ -85,12 +90,22 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
   };
 
   useEffect(() => {
-    setDetail({
-      ...detail,
-      startDate: formatDateToString(startDate)!,
-      endDate: formatDateToString(endDate)!,
-    });
-  }, [startDate, endDate, memberData]);
+    setDetail((prev) => ({
+      ...prev,
+      startDate: formatDateToString(startDate) || '',
+      endDate: formatDateToString(endDate) || '',
+    }));
+  }, [startDate, endDate]);
+
+  // 활동 태그가 wrap되면 레이아웃 변경
+  useEffect(() => {
+    if (flexContainerRef.current) {
+      const { offsetHeight } = flexContainerRef.current;
+      const singleLineHeight = SINGLE_LINE_HEIGHT;
+
+      setIsWrapped(offsetHeight > singleLineHeight);
+    }
+  }, [detail.timeBlockList]);
 
   return (
     <aside css={entireInfoStyle}>
@@ -103,7 +118,7 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
         autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
-        <li css={[infoLayoutStyle(isTag), { alignItems: 'center' }]}>
+        <li css={[infoLayoutStyle(isWrapped), { alignItems: 'center' }]}>
           <label htmlFor="author" css={infoStyle}>
             작성자
           </label>
@@ -112,7 +127,8 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             <Text tag="body6">{memberData?.data?.name}</Text>
           </Flex>
         </li>
-        <li css={infoLayoutStyle(isTag)}>
+
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             작성 여부
           </Text>
@@ -125,21 +141,29 @@ const CreateNoteDetail = ({ detail, setDetail }: NoteDetailProp) => {
             value={detail.complete ? '완료' : '미완료'}
           />
         </li>
-        <li css={infoLayoutStyle(isTag)}>
+
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}>
-            <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
-              <IcPlusButton width={10} height={10} />
-            </Button>
+          <div ref={flexContainerRef} css={tagLayoutStyle}>
+            {detail?.timeBlockList?.length === 0 ? (
+              <Button variant="text" onClick={handleAppendTag} css={textBtnStyle}>
+                여기를 눌러 활동 태그를 추가해보세요
+              </Button>
+            ) : (
+              <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
+                <IcPlusButton width={10} height={10} />
+              </Button>
+            )}
             {detail?.timeBlockList?.map((tag) => (
               <Tag key={tag.id} bgColor={tag.color}>
                 {tag.name}
               </Tag>
             ))}
-          </Flex>
+          </div>
         </li>
+
         <li css={infoLayoutStyle(isTag)}>
           <Text tag="body6" css={infoStyle}>
             활동 기간

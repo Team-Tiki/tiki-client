@@ -106,7 +106,7 @@ export const infoContainerStyle = css({
   marginTop: '3.6rem',
 });
 
-export const infoLayoutStyle = (isTag?: boolean) =>
+export const infoLayoutStyle = (isWrapped?: boolean) =>
   css({
     display: 'flex',
 
@@ -115,11 +115,9 @@ export const infoLayoutStyle = (isTag?: boolean) =>
     gap: '2rem',
     alignItems: 'center',
 
-    ...(isTag && {
-      ':nth-child(3)': {
-        '& p': {
-          display: 'flex',
-          height: '100%',
+    ...(isWrapped && {
+      ':nth-of-type(3)': {
+        '& > p': {
           alignSelf: 'baseline',
         },
       },
@@ -141,6 +139,23 @@ export const inputStyle = css({
   background: 'transparent',
 
   outline: 'none',
+});
+
+export const tagLayoutStyle = css({
+  display: 'flex',
+
+  maxWidth: '21.8rem',
+
+  flexWrap: 'wrap',
+  gap: '0.4rem',
+});
+
+export const textBtnStyle = css({
+  paddingLeft: '0',
+
+  textDecoration: 'underline',
+
+  ...theme.text.body06,
 });
 
 export const plusBtnStyle = css({
