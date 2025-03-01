@@ -61,8 +61,14 @@ const DrivePage = () => {
 
   const { data } = useDriveData();
 
-  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
-  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue);
+  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue, [
+    'name',
+    'createdTime',
+  ]);
+  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue, [
+    'name',
+    'createdTime',
+  ]);
 
   const handleChangeAlignOption = (option: 'list' | 'grid') => {
     setAlignOption(option);
