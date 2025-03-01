@@ -203,13 +203,13 @@ const DrivePage = () => {
         <>
           <header css={headerStyle}>
             <div css={{ marginLeft: isSelectable ? '3.4rem' : '0', padding: isSelectable ? '0' : '0 1.6rem' }}>
-              <Text tag="body6">이름</Text>
+              <Text tag="body8">이름</Text>
             </div>
 
             <div css={rightSideRowStyle}>
-              <Text tag="body6">크기</Text>
-              <Text tag="body6">종류</Text>
-              <Text tag="body6">추가된 날짜</Text>
+              <Text tag="body8">크기</Text>
+              <Text tag="body8">종류</Text>
+              <Text tag="body8">추가된 날짜</Text>
             </div>
           </header>
           <ul>

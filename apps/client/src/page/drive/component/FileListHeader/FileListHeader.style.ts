@@ -17,7 +17,7 @@ export const headerStyle = css({
 
   '& p': {
     fontWeight: 400,
-
+    color: theme.colors.gray_500,
     ...ellipsisStyle,
   },
 });
