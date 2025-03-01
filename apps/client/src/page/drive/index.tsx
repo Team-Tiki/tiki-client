@@ -237,6 +237,7 @@ const DrivePage = () => {
                     <FileListItem
                       key={String(file.documentId + file.type)}
                       {...file}
+                      type={file.name.split('.').at(-1)!}
                       isSelectable={isSelectable}
                       isSelected={getDocumentIsSelected(file.documentId)}
                       onSelect={() => selectDocument(file.documentId)}
@@ -257,7 +258,7 @@ const DrivePage = () => {
                 <FileGrid
                   key={file.documentId}
                   {...file}
-                  type={file.url?.split('.').at(-1) as File}
+                  type={file.name.split('.').at(-1) as File}
                   isSelectable={isSelectable}
                   isSelected={getDocumentIsSelected(file.documentId)}
                   onSelect={() => selectDocument(file.documentId!)}

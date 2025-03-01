@@ -107,7 +107,7 @@ const FileGrid = ({
 
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
           <Text tag="body8" css={textStyle}>
-            {type} 문서
+            {type.toUpperCase()} 문서
           </Text>
           <Text tag="body8" css={textStyle}>
             {getFileVolume(capacity ?? 0)}

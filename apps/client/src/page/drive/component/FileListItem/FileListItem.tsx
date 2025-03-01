@@ -19,7 +19,7 @@ import { getFileVolume } from '@/shared/util/file';
 
 type DocumentItem = components['schemas']['DocumentGetResponse'];
 
-type FileListItemProps = Omit<DocumentItem, 'type'> & {
+type FileListItemProps = DocumentItem & {
   isSelectable?: boolean;
   isSelected?: boolean;
   onSelect?: () => void;
@@ -31,6 +31,7 @@ const FileListItem = ({
   name,
   createdTime,
   url,
+  type,
   capacity,
   isSelectable,
   isSelected = false,
@@ -62,7 +63,7 @@ const FileListItem = ({
           {getFileVolume(capacity ?? 0)}
         </Text>
         <Text tag="body6" css={{ lineHeight: '1.6rem' }}>
-          {url?.split('.').at(-1)}
+          {type.toUpperCase()}
         </Text>
         <time css={timeStyle} dateTime={createdTime}>
           {getFormattedDate(createdTime ?? new Date().toISOString())}
