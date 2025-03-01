@@ -13,6 +13,8 @@ export const containerStyle = css({
 
   padding: '1.4rem 0',
 
+  borderBottom: `1px solid ${theme.colors.gray_300}`,
+
   '& p, & time': {
     fontWeight: 400,
 

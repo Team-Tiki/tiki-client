@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { theme } from '@tiki/ui';
 
 import { ellipsisStyle } from '@/common/style/ellipsis';
 
@@ -11,6 +12,8 @@ export const headerStyle = css({
   height: '4.8rem',
 
   padding: '1.4rem 0',
+
+  borderBottom: `1px solid ${theme.colors.gray_300}`,
 
   '& p': {
     fontWeight: 400,
