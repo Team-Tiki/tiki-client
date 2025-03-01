@@ -50,7 +50,7 @@ const FileListItem = ({
 
   return (
     <div css={containerStyle}>
-      <Flex styles={{ grow: '0.5', align: 'center', gap: '1.6rem' }} css={{ overflow: 'hidden' }}>
+      <Flex styles={{ grow: '0.5', align: 'center', gap: '0' }} css={{ overflow: 'hidden' }}>
         {isSelectable && <CheckBox isChecked={isSelected} onChange={onSelect} />}
         <Text tag="body6" css={nameFieldStyle}>
           {name}
