@@ -38,6 +38,9 @@ const DeleteTimeBlockButton = () => {
               closeDrawer();
               queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/teams/{teamId}/timeline'] });
             },
+            onError: (error) => {
+              console.log(error);
+            },
           }
         );
 

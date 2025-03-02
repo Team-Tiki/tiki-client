@@ -61,12 +61,15 @@ const HandoverPage = () => {
       setNoteList([]);
       setLastUpdatedAt('');
 
-      createToast(NOTE.SUCCESS.DELETE, 'error'),
+      createToast(NOTE.SUCCESS.DELETE, 'success'),
         queryClient.invalidateQueries({
           queryKey: ['get', '/api/v1/notes/{teamId}'],
         });
     },
-    onError: () => createToast(NOTE.ERROR.DELETE, 'error'),
+    onError: (error) => {
+      createToast(NOTE.ERROR.DELETE, 'error');
+      console.log(error);
+    },
   });
 
   useEffect(() => {
