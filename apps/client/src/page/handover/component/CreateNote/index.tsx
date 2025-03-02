@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import CreateCustomNote from '@/page/handover/component/CreateNote/CreateCustomNote';
 import CreateNoteDetail from '@/page/handover/component/CreateNote/CreateNoteDetail';
 import CreateTemplateNote from '@/page/handover/component/CreateNote/CreateTemplateNote';
-import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
+import { customConfig, infoConfig, templateConfig } from '@/page/handoverNote/constants/noteConfig';
 import { noteSectionStyle, tabButtonStyle } from '@/page/handoverNote/index.style';
 import { CreateNoteInfoType, CustomNote, TemplateNote } from '@/page/handoverNote/type/note';
 
@@ -20,29 +20,6 @@ import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 const CreateNotePage = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [noteInfo, setNoteInfo] = useState<CreateNoteInfoType>({
-    title: '',
-    author: '',
-    complete: false,
-    startDate: '',
-    endDate: '',
-    timeBlockList: [],
-  });
-
-  const [templateData, setTemplateData] = useState<TemplateNote>({
-    answerHowToFix: '',
-    answerHowToPrepare: '',
-    answerWhatActivity: '',
-    answerWhatIsDisappointedThing: '',
-    documentList: [],
-  });
-
-  const [customData, setCustomData] = useState<CustomNote>({
-    documentList: [],
-    contents: '',
-  });
-
   const navigate = useNavigate();
   const teamId = useInitializeTeamId();
 
@@ -56,6 +33,15 @@ const CreateNotePage = () => {
 
   const queryClient = useQueryClient();
 
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [templateData, setTemplateData] = useState<TemplateNote>({ ...templateConfig });
+  const [customData, setCustomData] = useState<CustomNote>({ ...customConfig });
+  const [noteInfo, setNoteInfo] = useState<CreateNoteInfoType>({
+    ...infoConfig,
+    startDate: '',
+    endDate: '',
+  });
+
   const handleTabClick = (tabId: number) => {
     openModal('caution', {
       infoText: CAUTION.NOTE.INFO_TEXT,
@@ -63,11 +49,11 @@ const CreateNotePage = () => {
       desc: CAUTION.NOTE.DESC,
       footerType: 'caution-modify',
       onClick: () => {
-        setSelectedTab(+tabId)!;
+        setSelectedTab(tabId)!;
         closeModal();
       },
       onClose: () => {
-        setSelectedTab(+!tabId)!;
+        setSelectedTab(tabId)!;
         closeModal();
       },
     });
@@ -77,18 +63,19 @@ const CreateNotePage = () => {
     e.preventDefault();
 
     if (selectedTab == 0) {
+      const infoRequest = Object.assign(infoConfig, {
+        ...noteInfo,
+      });
+
       templateMutation(
         {
           body: {
-            title: noteInfo.title.trim() === '' ? EMPTY_NOTE_TITLE : noteInfo.title,
-            complete: noteInfo.complete,
-            startDate: noteInfo.startDate,
-            endDate: noteInfo.endDate,
+            ...infoRequest,
+            timeBlockIds: infoRequest.timeBlockList,
             answerWhatActivity: templateData.answerWhatActivity,
             answerHowToPrepare: templateData.answerHowToPrepare,
             answerWhatIsDisappointedThing: templateData.answerWhatIsDisappointedThing,
             answerHowToFix: templateData.answerHowToFix,
-            timeBlockIds: noteInfo.timeBlockList?.map((item) => item.id!),
             documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
@@ -109,15 +96,16 @@ const CreateNotePage = () => {
     }
 
     if (selectedTab == 1) {
+      const infoRequest = Object.assign(infoConfig, {
+        ...noteInfo,
+      });
+
       customMutation(
         {
           body: {
-            title: noteInfo.title.trim() === '' ? EMPTY_NOTE_TITLE : noteInfo.title,
-            complete: noteInfo.complete,
-            startDate: noteInfo.startDate === '' ? new Date().toISOString() : noteInfo.startDate,
-            endDate: noteInfo.endDate,
+            ...infoRequest,
+            timeBlockIds: infoRequest.timeBlockList,
             contents: customData.contents,
-            timeBlockIds: noteInfo.timeBlockList?.map((item) => item.id!),
             documentIds: templateData.documentList?.map((item) => item.id!),
             teamId,
           },
