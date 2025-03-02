@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from 'react';
 import { NoteDetailProp, Status } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
-export const useNoteInfoForm = ({ info, setInfo }: NoteDetailProp) => {
+export const useNoteInfoForm = ({ setInfo }: NoteDetailProp) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
