@@ -15,7 +15,7 @@ export const useNoteInfoForm = ({ info, setInfo }: NoteDetailProp) => {
 
       resizeTextarea(textareaRef);
     },
-    [info?.title]
+    [info?.title, setInfo]
   );
 
   const handleChangeStatus = useCallback(
