@@ -22,6 +22,7 @@ const meta = {
     capacity: 3000,
     createdTime: '2024년 9월 30일 오전 10:13',
     url: '',
+    type: 'png',
   },
 } satisfies Meta<typeof FileListItem>;
 
