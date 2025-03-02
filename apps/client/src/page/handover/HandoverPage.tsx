@@ -147,10 +147,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={canSelect ? handleAllClick : handleToggleSelect}>
-              {canSelect ? '전체선택' : '선택'}
-            </Button>
-            {canSelect && (
+            {canSelect ? (
               <>
                 <Button variant="tertiary" onClick={(e) => handleNoteDelete(e, ids)}>
                   삭제
@@ -159,6 +156,10 @@ const HandoverPage = () => {
                   취소
                 </Button>
               </>
+            ) : (
+              <Button variant="tertiary" onClick={handleToggleSelect}>
+                선택
+              </Button>
             )}
           </Flex>
 
