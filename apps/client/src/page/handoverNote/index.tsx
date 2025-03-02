@@ -83,7 +83,7 @@ const NotePage = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!noteDetail) return;
 
     if (selectedTab === 0) {
@@ -106,22 +106,25 @@ const NotePage = () => {
             timeBlockIds: noteDetail.timeBlockList.map((tag) => tag.id) || [],
           },
         },
+
         {
           onSuccess: () => {
             createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+            return Promise.all([
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+            ]);
           },
           onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
         }
       );
     } else {
       const customData = noteDetail as CustomNoteData;
-
       const infoRequest = Object.assign(infoConfig, {
         ...(noteDetail as CreateNoteInfoType),
       });
+
       const customRequest = Object.assign(customConfig, {
         ...customData,
         documentIds: customData.documentList.map((document) => document.id),
@@ -141,8 +144,10 @@ const NotePage = () => {
           onSuccess: () => {
             createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+            return Promise.all([
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+            ]);
           },
           onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
         }
@@ -150,13 +155,14 @@ const NotePage = () => {
     }
   };
 
-  const handleSubmitBtnClick = () => {
+  const handleSubmitBtnClick = async () => {
     try {
-      handleSubmit();
+      await handleSubmit();
 
-      createToast(NOTE.SUCCESS.SAVE, 'success');
-      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+        queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+      ]);
 
       navigate(PATH.HANDOVER);
     } catch (error) {

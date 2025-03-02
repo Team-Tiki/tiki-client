@@ -84,9 +84,12 @@ const CreateNotePage = () => {
           onSuccess: () => {
             createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
-            navigate(PATH.HANDOVER);
+            return Promise.all([
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+
+              navigate(PATH.HANDOVER),
+            ]);
           },
           onError: () => {
             createToast(NOTE.ERROR.SAVE, 'error');
@@ -114,9 +117,12 @@ const CreateNotePage = () => {
           onSuccess: () => {
             createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
-            navigate(PATH.HANDOVER);
+            return Promise.all([
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+
+              navigate(PATH.HANDOVER),
+            ]);
           },
           onError: () => {
             createToast(NOTE.ERROR.SAVE, 'error');
