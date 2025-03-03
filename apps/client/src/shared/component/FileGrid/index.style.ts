@@ -8,7 +8,6 @@ export const cardStyle = (isSmall: boolean) =>
     position: 'relative',
 
     minWidth: '16rem',
-    maxWidth: '22rem',
 
     width: isSmall ? '16rem' : '100%',
     height: isSmall ? '12rem' : '16rem',

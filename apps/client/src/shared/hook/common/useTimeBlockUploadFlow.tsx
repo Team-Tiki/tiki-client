@@ -5,7 +5,7 @@ import { Block, BlockDetail } from '@/page/archiving/index/type/blockType';
 import { components } from '@/shared/__generated__/schema';
 import { $api } from '@/shared/api/client';
 import BrowseFileModal from '@/shared/component/BrowseFileModal/BrowseFileModal';
-import NewFileImportModal from '@/shared/component/NewFileImportModal/NewFileImportModal';
+import NewFileUploadModal from '@/shared/component/NewFileUploadModal/NewFileUploadModal';
 import SelectedFilesModal from '@/shared/component/SelectedFilesModal/SelectedFilesModal';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -17,7 +17,7 @@ export type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 
 export const TimeBlockFileUploadFlow = () => {
   const [files, setFiles] = useState<DocumentDetail[]>([]);
-  const [isAddingFiles, setIsAddingFiles] = useState(false);
+  const [isUploadNewFile, setIsUploadNewFile] = useState(false);
 
   const { documents } = useDrawerContent() as Block & BlockDetail;
   const { setContent } = useDrawerAction();
@@ -65,12 +65,12 @@ export const TimeBlockFileUploadFlow = () => {
   return (
     <>
       <FunnelStep step={1}>
-        {isAddingFiles ? (
-          <NewFileImportModal
+        {isUploadNewFile ? (
+          <NewFileUploadModal
             size="large"
             onUploadFile={handleFilesConfirmed}
             onPrev={() => {
-              setIsAddingFiles(false);
+              setIsUploadNewFile(false);
             }}
             onNext={() => {
               nextStep();
@@ -78,9 +78,10 @@ export const TimeBlockFileUploadFlow = () => {
           />
         ) : (
           <BrowseFileModal
+            type="timeblock-file"
             files={fileData?.data?.documents || []}
             selectedFiles={files}
-            onShowBlockAdd={() => setIsAddingFiles(true)}
+            onShowBlockAdd={() => setIsUploadNewFile(true)}
             onConfirmFile={handleFilesConfirmed}
           />
         )}

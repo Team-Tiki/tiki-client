@@ -21,17 +21,18 @@ export const getFileVolume = (volume: number) => {
   return `${volume.toFixed(2)}${units[index]}`;
 };
 
+export const isImage = (ext: string) => {
+  const value = ext.toLowerCase();
+
+  const exts = ['jpg', 'png', 'jpeg', 'gif', 'avif', 'webp', 'svg'];
+
+  return exts.includes(value);
+};
+
 export const extractFileName = (fileName: string) => {
   const lastDotIndex = fileName.lastIndexOf('.');
 
   return lastDotIndex !== -1 ? fileName.substring(0, lastDotIndex) : fileName;
-};
-
-export const convertToKB = (size: number) => {
-  const KB = 1024;
-  const convertedSize = (size / KB).toFixed(2);
-
-  return +convertedSize;
 };
 
 export const getFileKey = (url: string): string => {

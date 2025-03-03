@@ -9,33 +9,36 @@ import BrowseFileHeader from '@/shared/component/BrowseFileHeader/BrowseFileHead
 import BrowseFileItem from '@/shared/component/BrowseFileItem/BrowseFileItem';
 import { scrollContainerStyle } from '@/shared/component/BrowseFileModal/BrowseFileModal.style';
 import { Modal } from '@/shared/component/Modal';
+import { SEARCH_DELAY } from '@/shared/constant';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
 
 type DocumentDetail = components['schemas']['DocumentInfoGetResponse'];
 
 interface BrowseFileProps {
+  type?: 'create-block' | 'timeblock-file';
   files: DocumentDetail[];
   selectedFiles: DocumentDetail[];
   onShowBlockAdd: () => void;
   onConfirmFile: (selectedFiles: DocumentDetail[]) => void;
 }
 
-const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFileProps) => {
-  const [selectedFiles, setSelectedFiles] = useState<DocumentDetail[]>([]);
+const BrowseFileModal = ({ type, files, selectedFiles, onShowBlockAdd, onConfirmFile }: BrowseFileProps) => {
+  const [selectedBrowseFile, setSelectedBrowseFile] = useState<DocumentDetail[]>(selectedFiles);
   const [searchFile, setSearchFile] = useState('');
 
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
-  const { nextStep } = useFunnel();
+  const { nextStep, prevStep } = useFunnel();
 
+  const step = type === 'create-block' ? 3 : 1;
   const isDisabled = selectedFiles.length === 0;
-  const filterKeyword = useDebounce(searchFile, 500);
 
+  const filterKeyword = useDebounce(searchFile, SEARCH_DELAY);
   const filteredFiles = files.filter((file) => file.name.normalize('NFC').includes(filterKeyword.normalize('NFC')));
 
   const handleFileSelect = (file: DocumentDetail) => {
-    setSelectedFiles((prevSelectedFiles) => {
+    setSelectedBrowseFile((prevSelectedFiles) => {
       const isSelected = prevSelectedFiles.some((selectedFile) => selectedFile.documentId === file.documentId);
 
       const updatedFiles = isSelected
@@ -46,14 +49,13 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
       return updatedFiles;
     });
   };
-
   const handleNext = () => {
     nextStep();
   };
 
   return (
     <Modal size="large" isOpen={isOpen} onClose={closeModal}>
-      <Modal.Header />
+      <Modal.Header step={step} />
       <Modal.Body>
         <Flex css={{ flexDirection: 'column', gap: '2rem', width: '100%', paddingTop: '2rem' }}>
           <Flex css={{ flexDirection: 'row', alignItems: 'center', gap: '0.4rem', width: '100%' }}>
@@ -79,7 +81,7 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
                   capacity={file.capacity}
                   url={file.url}
                   createdTime={file.createdTime}
-                  isSelected={selectedFiles.some((selectedFile) => selectedFile.documentId === file.documentId)}
+                  isSelected={selectedBrowseFile.some((selectedFile) => selectedFile.documentId === file.documentId)}
                   onSelect={() => handleFileSelect(file)}
                 />
               ))}
@@ -87,7 +89,14 @@ const BrowseFileModal = ({ files, onShowBlockAdd, onConfirmFile }: BrowseFilePro
           </div>
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={1} type="timeblock-file" onClick={handleNext} onClose={closeModal} disabled={isDisabled} />
+      <Modal.Footer
+        step={step}
+        type={type ?? 'create-block'}
+        onClick={handleNext}
+        onClose={closeModal}
+        onPrev={prevStep}
+        disabled={isDisabled}
+      />
     </Modal>
   );
 };
