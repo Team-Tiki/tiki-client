@@ -49,7 +49,7 @@ export const TimeBlockFileUploadFlow = () => {
         fileUrl: data.url,
         tagId: 0,
       }))
-      .filter((data) => !documents.every((document) => document.documentId === data.documentId));
+      .filter((data) => !documents.map((documentData) => documentData.documentId).includes(data.documentId));
 
     const combinedDocuments = [...documents, ...convertedFiles];
 
