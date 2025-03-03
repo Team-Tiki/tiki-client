@@ -18,9 +18,7 @@ export const timelineStyle = () =>
 
     borderRadius: '16px',
 
-    gap: '1.6rem',
-
-    overflowY: 'auto',
+    overflowY: 'hidden',
   });
 
 export const contentStyle = css({

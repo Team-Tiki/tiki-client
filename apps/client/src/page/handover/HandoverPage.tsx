@@ -16,7 +16,7 @@ import { FILTER_TYPE, NoteListType, NoteType } from '@/page/handover/type';
 import { $api } from '@/shared/api/client';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
-import { CAUTION } from '@/shared/constant';
+import { CAUTION, SEARCH_DELAY } from '@/shared/constant';
 import { PATH } from '@/shared/constant/path';
 import { NOTE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -35,7 +35,7 @@ const HandoverPage = () => {
 
   const { data: noteData, isFetching } = useNoteData(lastUpdatedAt, sortOption);
 
-  const filterKeyword = useDebounce(searchValue, 400);
+  const filterKeyword = useDebounce(searchValue, SEARCH_DELAY);
   const teamId = useInitializeTeamId();
 
   const openModal = useOpenModal();

@@ -110,3 +110,5 @@ export const IMAGE_MODAL = {
 };
 
 export const MAX_TEAM_COUNT = 8;
+
+export const SEARCH_DELAY = 400;

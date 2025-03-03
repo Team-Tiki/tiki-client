@@ -35,13 +35,6 @@ export const extractFileName = (fileName: string) => {
   return lastDotIndex !== -1 ? fileName.substring(0, lastDotIndex) : fileName;
 };
 
-export const convertToKB = (size: number) => {
-  const KB = 1024;
-  const convertedSize = (size / KB).toFixed(2);
-
-  return +convertedSize;
-};
-
 export const getFileKey = (url: string): string => {
   const index = url.indexOf('file/');
 

@@ -17,7 +17,7 @@ import {
 } from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
-import { FILE } from '@/shared/constant';
+import { FILE, SEARCH_DELAY } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { FileImportModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
@@ -32,7 +32,7 @@ const FileImportModal = () => {
   const closeModal = useCloseModal();
 
   const teamId = useInitializeTeamId();
-  const filterKeyword = useDebounce(searchFile, 500);
+  const filterKeyword = useDebounce(searchFile, SEARCH_DELAY);
 
   const isDisabled = selectedFiles.length === 0;
 
