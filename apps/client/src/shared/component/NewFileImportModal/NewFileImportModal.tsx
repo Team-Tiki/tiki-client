@@ -3,9 +3,10 @@ import { Flex, scrollStyle, useToastAction } from '@tiki/ui';
 
 import { useEffect, useState } from 'react';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { $api } from '@/shared/api/client';
+import { axiosInstance } from '@/shared/api/instance';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
 import FileUploadContainer from '@/shared/component/NewFileImportModal/FileUploadContainer/FileUploadContainer';
@@ -51,8 +52,17 @@ const NewFileImportModal = ({
 
   const queryClient = useQueryClient();
 
+  const deleteDocuments = async (teamId: number, documentId: number[]) => {
+    const query = documentId.map((num) => `documentId=${num}`).join('&');
+
+    await axiosInstance.delete(`/teams/${teamId}/documents?${query}`);
+  };
+
   const { mutate: postDocumentMutation } = $api.useMutation('post', '/api/v1/teams/{teamId}/documents');
-  const { mutate: deleteDocumentMutation } = $api.useMutation('delete', '/api/v1/teams/{teamId}/documents');
+  const { mutate: deleteDocumentMutation } = useMutation({
+    mutationFn: ({ teamId, documentId }: { teamId: number; documentId: number[] }) =>
+      deleteDocuments(teamId, documentId),
+  });
 
   const handleUploadFile = async (file: FileWithDocumentId) => {
     return new Promise<void>((resolve) => {
@@ -120,9 +130,7 @@ const NewFileImportModal = ({
     onUploadFile(selectedFiles.filter((file) => file.name !== fileName));
 
     deleteDocumentMutation(
-      {
-        params: { query: { documentId: [documentId] }, path: { teamId } },
-      },
+      { teamId, documentId: [documentId] },
       {
         onSuccess: () => createToast('파일이 삭제되었습니다.', 'success'),
         onError: (error) => createToast(`파일 삭제 실패: ${error.message}`, 'error'),

@@ -2,12 +2,13 @@ import { Button, useToastAction } from '@tiki/ui';
 
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { POSITION } from '@/page/workspaceSetting/constant';
 import { workspaceDeleteButton } from '@/page/workspaceSetting/styles';
 
 import { $api } from '@/shared/api/client';
+import { axiosInstance } from '@/shared/api/instance';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
@@ -18,8 +19,49 @@ interface WorkspaceDeleteProps {
 }
 
 const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
-  const { mutate: deleteTeam } = $api.useMutation('delete', '/api/v1/teams/{teamId}');
-  const { mutate: leaveTeam } = $api.useMutation('delete', '/api/v1/team-member/teams/{teamId}/leave');
+  const deleteTeam = async (teamId: number) => {
+    await axiosInstance.delete(`/teams/${teamId}`);
+  };
+
+  const leaveTeam = async (teamId: number) => {
+    await axiosInstance.delete(`/team-member/teams/${teamId}/leave`);
+  };
+
+  const { mutate: deleteTeamMutate } = useMutation({
+    mutationFn: ({ teamId }: { teamId: number }) => deleteTeam(teamId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/members/teams'],
+      });
+      closeModal();
+
+      localStorage.removeItem(STORAGE_KEY.TEAM_ID);
+      localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
+
+      navigate(PATH.DASHBOARD);
+    },
+    onError: () => {
+      createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
+    },
+  });
+
+  const { mutate: leaveTeamMutate } = useMutation({
+    mutationFn: ({ teamId }: { teamId: number }) => leaveTeam(teamId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['get', '/api/v1/members/teams'],
+      });
+      closeModal();
+
+      localStorage.removeItem(STORAGE_KEY.TEAM_ID);
+      localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
+
+      navigate(PATH.DASHBOARD);
+    },
+    onError: () => {
+      createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
+    },
+  });
 
   const navigate = useNavigate();
   const { createToast } = useToastAction();
@@ -32,47 +74,11 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
 
   const handleDelete = () => {
     if (position === POSITION.ADMIN) {
-      deleteTeam(
-        { params: { path: { teamId } } },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({
-              queryKey: ['get', '/api/v1/members/teams'],
-            });
-            closeModal();
-
-            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
-            localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
-
-            navigate(PATH.DASHBOARD);
-          },
-          onError: () => {
-            createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
-          },
-        }
-      );
+      deleteTeamMutate({ teamId });
     }
 
     if (position === POSITION.EXECUTIVE) {
-      leaveTeam(
-        { params: { path: { teamId } } },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({
-              queryKey: ['get', '/api/v1/members/teams'],
-            });
-            closeModal();
-
-            localStorage.removeItem(STORAGE_KEY.TEAM_ID);
-            localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
-
-            navigate(PATH.DASHBOARD);
-          },
-          onError: () => {
-            createToast(`워크스페이스 ${TYPE} 과정에서 오류가 발생했습니다`, 'error');
-          },
-        }
-      );
+      leaveTeamMutate({ teamId });
     }
   };
 
