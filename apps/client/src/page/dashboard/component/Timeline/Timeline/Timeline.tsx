@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useDateContext } from '@/page/archiving/index/DateProvider';
-import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import { dayBodyStyle } from '@/page/archiving/index/component/TimeLine/Day/Day.style';
 import TimeBlock from '@/page/archiving/index/component/TimeLine/TimeBlock/TimeBlock';
 import { useInteractTimeline } from '@/page/archiving/index/hook/common/useInteractTimeline';
@@ -53,7 +52,7 @@ const Timeline = ({ teamId }: { teamId: number }) => {
 
   return (
     <>
-      <Day /> {!timeBlocks[0] && <ItemAdder path={PATH.ARCHIVING} />}
+      {!timeBlocks[0] && <ItemAdder path={PATH.ARCHIVING} />}
       {timeBlocks[0] && (
         <div css={[dayBodyStyle(endDay.getDate()), timelineContentStyle]}>
           {timeBlocks?.map((block) => {

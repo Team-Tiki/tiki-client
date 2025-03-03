@@ -17,7 +17,7 @@ import {
 } from '@/shared/component/FileImportModal/FileImportModal.style';
 import { Modal } from '@/shared/component/Modal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
-import { FILE } from '@/shared/constant';
+import { FILE, SEARCH_DELAY } from '@/shared/constant';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { FileImportModalData, useCloseModal, useModalData } from '@/shared/store/modal';
 import { getFileVolume } from '@/shared/util/file';
@@ -25,14 +25,14 @@ import { getFileVolume } from '@/shared/util/file';
 export type FileType = components['schemas']['DocumentInfoGetResponse'];
 
 const FileImportModal = () => {
-  const [selectedFiles, setSelectedFiles] = useState<FileType[]>([]);
-  const [searchFile, setSearchFile] = useState('');
-
   const modalData = useModalData() as FileImportModalData;
   const closeModal = useCloseModal();
 
+  const [selectedFiles, setSelectedFiles] = useState<FileType[]>(modalData.selectedFiles || []);
+  const [searchFile, setSearchFile] = useState('');
+
   const teamId = useInitializeTeamId();
-  const filterKeyword = useDebounce(searchFile, 500);
+  const filterKeyword = useDebounce(searchFile, SEARCH_DELAY);
 
   const isDisabled = selectedFiles.length === 0;
 
@@ -57,8 +57,6 @@ const FileImportModal = () => {
     if (!isSelected) {
       setSelectedFiles((prev) => [...prev, item]);
     }
-
-    close();
   };
 
   const handleDelete = (documentId: number) => {
@@ -67,6 +65,7 @@ const FileImportModal = () => {
 
   const handleUpload = () => {
     modalData.onUpload?.(selectedFiles);
+    setSelectedFiles(selectedFiles);
 
     closeModal();
   };
@@ -80,7 +79,6 @@ const FileImportModal = () => {
             <DropdownTrigger variant="input">
               <Input
                 LeftIcon={<IcSearch width={16} height={16} />}
-                isFilled={false}
                 placeholder="search"
                 onChange={(e) => setSearchFile(e.target.value)}
               />

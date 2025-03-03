@@ -1,18 +1,22 @@
 import { useRef, useState } from 'react';
 
-import { useDeleteFileMutation } from '@/shared/component/TimeBlockModal/hook/api/useDeleteFileMutation';
+import { $api } from '@/shared/api/client';
 import { usePutUploadMutation } from '@/shared/component/TimeBlockModal/hook/api/usePutUploadMutation';
-import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
+import { extractFileExtension, getFileKey } from '@/shared/util/file';
 
 const useImageUpload = () => {
   const [fileURL, setFileURL] = useState<string>('');
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
+  const fileExtension = file ? extractFileExtension(file.name) : '';
+
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
-  const { mutate: deleteFileMutate } = useDeleteFileMutation();
-  const { data: fileData, refetch: refetchFileData } = useGetFileQuery(file as File);
+  const { mutate: deleteFileMutate } = $api.useMutation('post', '/api/v1/file');
+  const { data: fileData, refetch: refetchFileData } = $api.useQuery('get', '/api/v1/file/upload', {
+    params: { query: { fileFormat: fileExtension }, options: { enabled: !!file } },
+  });
 
   const { setFormData } = useWorkSpaceContext();
 
@@ -41,16 +45,18 @@ const useImageUpload = () => {
       setFormData({ fileUrlData: '' });
 
       const { data } = await refetchFileData();
-      if (data?.url) {
-        handleFileUpload(selectedFile, data.url);
+      if (data?.data?.url) {
+        handleFileUpload(selectedFile, data.data.url);
       }
     }
   };
 
   const handleImageRemove = () => {
-    if (fileData?.fileName) {
+    if (fileData?.data?.fileName) {
       deleteFileMutate(
-        { fileName: fileData.fileName },
+        {
+          body: { fileKey: getFileKey(fileURL) },
+        },
         {
           onSuccess: () => {
             URL.revokeObjectURL(fileURL);

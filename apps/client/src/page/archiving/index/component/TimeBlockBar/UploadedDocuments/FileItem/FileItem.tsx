@@ -12,6 +12,7 @@ import { Document } from '@/page/archiving/index/type/blockType';
 import { selectFileIc } from '@/page/archiving/index/util/selectFileIc';
 
 import { downloadDocument } from '@/shared/util/document';
+import { getFileVolume } from '@/shared/util/file';
 
 interface FileItemProps extends Omit<Document, 'documentId'> {
   isEditable: boolean;
@@ -46,7 +47,7 @@ const FileItem = ({ fileName, capacity, tagId, fileUrl, isEditable }: FileItemPr
               {fileName}
             </Text>
             <Text tag="body8" css={fileCapacityStyle}>
-              {capacity}
+              {getFileVolume(capacity)}
             </Text>
           </Flex>
         </Flex>

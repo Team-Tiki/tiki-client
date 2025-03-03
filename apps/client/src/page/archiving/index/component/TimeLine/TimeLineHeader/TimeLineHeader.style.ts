@@ -7,11 +7,23 @@ export const headerStyle = css({
 
   top: '0',
 
-  paddingBottom: '1rem',
+  paddingBottom: '1.6rem',
   marginLeft: '0.6rem',
 
   alignItems: 'center',
   gap: '1.2rem',
+
+  zIndex: theme.zIndex.overlayMiddle,
+
+  backgroundColor: theme.colors.white,
+});
+
+export const wrapperStyle = css({
+  position: 'sticky',
+  display: 'flex',
+
+  flexDirection: 'column',
+  top: '0',
 
   zIndex: theme.zIndex.overlayMiddle,
 

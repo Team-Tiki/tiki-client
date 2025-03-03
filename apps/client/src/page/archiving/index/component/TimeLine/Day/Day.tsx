@@ -5,7 +5,7 @@ import { dayHeaderStyle, dayStyle } from '@/page/archiving/index/component/TimeL
 
 import { useDrawerIsOpen } from '@/shared/store/drawer';
 
-const Day = memo(() => {
+const DayHeader = memo(() => {
   const { currentYear, currentMonth, endDay } = useDateContext();
 
   const dayCount = endDay.getDate();
@@ -31,4 +31,4 @@ const Day = memo(() => {
   );
 });
 
-export default Day;
+export default DayHeader;
