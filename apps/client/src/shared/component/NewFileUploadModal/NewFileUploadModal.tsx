@@ -9,13 +9,14 @@ import { $api } from '@/shared/api/client';
 import { axiosInstance } from '@/shared/api/instance';
 import { Files } from '@/shared/api/time-blocks/team/time-block/type';
 import { Modal } from '@/shared/component/Modal';
-import FileUploadContainer from '@/shared/component/NewFileImportModal/FileUploadContainer/FileUploadContainer';
-import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileImportModal/NewFileImportModal.style';
+import FileUploadContainer from '@/shared/component/NewFileUploadModal/FileUploadContainer/FileUploadContainer';
+import { flexStyle, scrollBoxStyle } from '@/shared/component/NewFileUploadModal/NewFileImportModal.style';
 import { DocumentDetail } from '@/shared/component/TimeBlockModal';
 import UploadedFileItem from '@/shared/component/UploadedFileItem/UploadedFileItem';
+import { FILE } from '@/shared/constant/toast';
 import { useInitializeTeamId } from '@/shared/hook/common/useInitializeTeamId';
 import { useCloseModal, useModalIsOpen } from '@/shared/store/modal';
-import { convertToKB, getFileKey, getFileVolume } from '@/shared/util/file';
+import { getFileKey, getFileVolume } from '@/shared/util/file';
 
 interface NewFileImportModalProps {
   size?: 'medium' | 'large';
@@ -30,7 +31,7 @@ export interface FileWithDocumentId extends File {
   documentId?: number;
 }
 
-const NewFileImportModal = ({
+const NewFileUploadModal = ({
   onNext,
   onPrev,
   selectedFiles = [],
@@ -75,23 +76,22 @@ const NewFileImportModal = ({
                 fileName: file.name,
                 fileUrl: fileUrls[file.name] || '',
                 fileKey: getFileKey(fileUrls[file.name]),
-                capacity: convertToKB(file.size),
+                capacity: file.size,
               },
             ],
           },
         },
         {
           onSuccess: (data) => {
-            createToast('파일을 성공적으로 업로드했습니다.', 'success');
+            createToast(FILE.SUCCESS.NEW_FILE, 'success');
 
-            console.log(data);
             const uploadedFile = {
               ...file,
               documentId: data?.data?.response?.[0]?.documentId ?? 0,
               name: file.name,
               url: fileUrls[file.name] || '',
               fileKey: getFileKey(fileUrls[file.name]),
-              size: convertToKB(file.size),
+              size: file.size,
             };
 
             setFiles((prevFiles) => prevFiles.map((f) => (f.name === uploadedFile.name ? uploadedFile : f)));
@@ -102,7 +102,7 @@ const NewFileImportModal = ({
                 documentId: uploadedFile.documentId,
                 name: uploadedFile.name,
                 url: uploadedFile.url,
-                capacity: uploadedFile.size,
+                capacity: file.size,
                 createdTime: new Date().toISOString(),
               },
             ]);
@@ -110,7 +110,7 @@ const NewFileImportModal = ({
             resolve();
           },
           onError: (error) => {
-            createToast(`파일 업로드 실패: ${error.message}`, 'error');
+            createToast(FILE.ERROR.NEW_FILE + ` ${error.message}`, 'error');
 
             setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
 
@@ -132,8 +132,8 @@ const NewFileImportModal = ({
     deleteDocumentMutation(
       { teamId, documentId: [documentId] },
       {
-        onSuccess: () => createToast('파일이 삭제되었습니다.', 'success'),
-        onError: (error) => createToast(`파일 삭제 실패: ${error.message}`, 'error'),
+        onSuccess: () => createToast(FILE.SUCCESS.DELETE, 'success'),
+        onError: (error) => createToast(FILE.ERROR.DELETE + ` ${error.message}`, 'error'),
       }
     );
   };
@@ -190,4 +190,4 @@ const NewFileImportModal = ({
   );
 };
 
-export default NewFileImportModal;
+export default NewFileUploadModal;

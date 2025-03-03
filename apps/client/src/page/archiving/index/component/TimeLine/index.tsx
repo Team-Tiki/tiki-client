@@ -1,5 +1,4 @@
 import { useDateContext } from '@/page/archiving/index/DateProvider';
-import Day from '@/page/archiving/index/component/TimeLine/Day/Day';
 import {
   dayBodyStyle,
   dayBodyWrapperStyle,
@@ -48,7 +47,6 @@ const TimeLine = ({ selectedBlock, onBlockClick }: TimeLineProps) => {
 
   return (
     <div css={entireDayStyle}>
-      <Day />
       <div css={dayBodyWrapperStyle(isOpen)}>
         <div css={dayBodyStyle(endDay.getDate())}>
           {timeBlocks?.map((block) => {

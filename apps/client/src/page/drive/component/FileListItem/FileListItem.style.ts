@@ -13,6 +13,8 @@ export const containerStyle = css({
 
   padding: '1.4rem 0',
 
+  borderBottom: `1px solid ${theme.colors.gray_300}`,
+
   '& p, & time': {
     fontWeight: 400,
 
@@ -32,6 +34,6 @@ export const rightSideRowStyle = css({
 });
 
 export const nameFieldStyle = css({
-  padding: '0 1rem 0 0',
+  padding: '0 1rem 0 1.6rem',
   lineHeight: '1.6rem',
 });

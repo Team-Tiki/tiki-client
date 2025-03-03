@@ -43,18 +43,22 @@ const Custom = ({ data, setData }: CustomProps) => {
 
   const handleFileUpload = () => {
     openModal('file', {
+      selectedFiles: data?.documentList.map((document) => ({
+        documentId: document.id,
+        name: document.fileName,
+        url: document.fileUrl,
+        capacity: document.capacity,
+        createdTime: '',
+      })),
       onUpload: (files: FileType[]) => {
         setData?.((prev) => ({
           ...prev,
-          documentList: [
-            ...(prev?.documentList || []),
-            ...files.map((file) => ({
-              id: file.documentId,
-              fileName: file.name,
-              fileUrl: file.url,
-              capacity: file.capacity,
-            })),
-          ],
+          documentList: files.map((file) => ({
+            id: file.documentId,
+            fileName: file.name,
+            fileUrl: file.url,
+            capacity: file.capacity,
+          })),
         }));
       },
     });

@@ -12,6 +12,7 @@ export const tagListStyle = css({
 
   overflowX: 'hidden',
   overflowY: 'scroll',
+  scrollBehavior: 'smooth',
 
   ...scrollStyle,
 });
