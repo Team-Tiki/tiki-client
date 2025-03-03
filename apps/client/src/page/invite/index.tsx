@@ -40,12 +40,21 @@ const InvitedPage = () => {
     }
     if (data) {
       setInvitationInfo(data?.data);
+
+      if (!data.success) {
+        handleApiError(data.message);
+      }
     } else if (failureCount && invitationId) {
-      clearInvitation();
-      navigate(PATH.DASHBOARD);
-      createToast('존재하지 않거나 만료된 초대정보입니다.', 'error');
+      handleApiError('존재하지 않거나 만료된 초대정보입니다.');
     }
-  }, [createToast, data, failureCount, invitationId, invitationInfo?.teamId, isLogined, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, failureCount, invitationId, invitationInfo?.teamId, isLogined]);
+
+  const handleApiError = (message: string) => {
+    clearInvitation();
+    navigate(PATH.DASHBOARD);
+    createToast(message, 'error');
+  };
 
   const clearInvitation = () => {
     localStorage.removeItem(STORAGE_KEY.INVITATION_ID);
