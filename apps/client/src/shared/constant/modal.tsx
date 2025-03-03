@@ -44,8 +44,8 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
           ) : (
             <span>{`${step}/${totalSteps}`}</span>
           ),
-        title: '워크스페이스 이름 입력',
-        infoText: '워크스페이스 이름을 입력해주세요.',
+        title: '새로운 워크스페이스 생성하기',
+        infoText: '워크스페이스의 이름을 입력해주세요',
       },
       {
         icon: (step: number, totalSteps: number) =>
@@ -54,8 +54,8 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
           ) : (
             <span>{`${step}/${totalSteps}`}</span>
           ),
-        title: '카테고리 선택',
-        infoText: '카테고리를 선택해주세요.',
+        title: '새로운 워크스페이스 생성하기',
+        infoText: '팀 카테고리를 선택해주세요',
       },
       {
         icon: (step: number, totalSteps: number) =>
@@ -64,8 +64,8 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
           ) : (
             <span>{`${step}/${totalSteps}`}</span>
           ),
-        title: '프로필 이미지 등록',
-        infoText: '프로필 이미지를 등록해주세요.',
+        title: '동아리 프로필 이미지 등록',
+        infoText: '우리 동아리 프로필에 표시할 이미지를 등록해주세요',
       },
       {
         icon: (step: number, totalSteps: number) =>
@@ -74,8 +74,8 @@ export const MODAL_CONTENTS: Record<ModalContentType, ModalContent> = {
           ) : (
             <span>{`${step}/${totalSteps}`}</span>
           ),
-        title: '완료',
-        infoText: '워크스페이스 생성이 완료되었습니다.',
+        title: '워크스페이스 생성완료',
+        infoText: '이제 워크스페이스를 사용할 수 있습니다.',
       },
     ],
     buttons: [

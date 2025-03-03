@@ -52,10 +52,13 @@ const ModalFooterButtons = (
 
   switch (type) {
     case 'create-workspace':
-      return [
-        step >= 3 ? createButton('건너뛰기', onClick, 'outline') : null,
-        createButton(step === 5 ? '확인' : '다음으로', onClick, 'primary', disabled),
-      ].filter(Boolean) as FooterButton[];
+      if (step === 1) {
+        return [createButton('다음', onClick, 'primary', disabled)];
+      }
+      if (step === 2 || step === 3) {
+        return [createButton('이전', onPrev, 'outline'), createButton('다음', onClick, 'primary', disabled)];
+      }
+      return [createButton('확인', onClick, 'primary')];
 
     case 'create-block':
       if (step === 1) {
