@@ -7,12 +7,13 @@ import TaggedNotes from '@/page/archiving/index/component/TimeBlockBar/TaggedNot
 import { closeBtnStyle, formStyle } from '@/page/archiving/index/component/TimeBlockBar/TimeBlockBar.style';
 import UploadedDocuments from '@/page/archiving/index/component/TimeBlockBar/UploadedDocuments';
 
-import { useDrawerAction } from '@/shared/store/drawer';
+import { useDrawerAction, useDrawerContent } from '@/shared/store/drawer';
 
 const TimeBlockBar = () => {
   const [isEditable, setIsEditable] = useState(false);
 
   const { closeDrawer } = useDrawerAction();
+  const content = useDrawerContent();
 
   const handleEditClick = () => {
     setIsEditable((prevState) => !prevState);
@@ -24,7 +25,7 @@ const TimeBlockBar = () => {
 
       <form css={formStyle}>
         <BlockInfo isEditable={isEditable} onEditClick={handleEditClick} />
-        <TaggedNotes isEditable={isEditable} />
+        {content && content?.notes.length > 0 && <TaggedNotes isEditable={isEditable} />}
         <UploadedDocuments isEditable={isEditable} />
       </form>
     </section>
