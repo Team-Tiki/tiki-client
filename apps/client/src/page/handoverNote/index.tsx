@@ -5,14 +5,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { EMPTY_NOTE_TITLE } from '@/page/handover/constant';
 import Custom from '@/page/handoverNote/component/Custom';
 import NoteInfo from '@/page/handoverNote/component/NoteInfo';
 import Template from '@/page/handoverNote/component/Template';
 import { AUTO_SAVE_TIME } from '@/page/handoverNote/constants';
-import { useNoteDetailData } from '@/page/handoverNote/hooks/queries';
+import { customConfig, infoConfig, templateConfig } from '@/page/handoverNote/constants/noteConfig';
+import { useNoteDetailData } from '@/page/handoverNote/hook/api/queries';
 import { CreateNoteInfoType, CustomNoteData, TemplateNoteData } from '@/page/handoverNote/type/note';
-import { formatDateToString } from '@/page/signUp/info/util/date';
 
 import { $api } from '@/shared/api/client';
 import { CAUTION } from '@/shared/constant';
@@ -38,46 +37,11 @@ const NotePage = () => {
   const { createToast } = useToastAction();
   const teamId = useInitializeTeamId();
 
-  const today = formatDateToString(new Date()) as string;
-
   const { data: noteData } = useNoteDetailData();
   const queryClient = useQueryClient();
 
-  const noteConfig = {
-    title: noteDetail?.title === '' ? EMPTY_NOTE_TITLE : noteDetail?.title,
-    startDate: noteDetail?.startDate === '' ? today : noteDetail?.startDate,
-    endDate: noteDetail?.endDate === '' ? today : noteDetail?.endDate,
-    timeBlockIds: noteDetail?.timeBlockList.map((block) => block.id) || [],
-  };
-
-  const initalizeTemplate = {
-    noteId: Number(noteId),
-    noteType: 'TEMPLATE',
-    title: '',
-    author: noteDetail?.author,
-    startDate: '',
-    endDate: '',
-    complete: false,
-    answerWhatActivity: '',
-    answerHowToPrepare: '',
-    answerWhatIsDisappointedThing: '',
-    answerHowToFix: '',
-    timeBlockList: [],
-    documentList: [],
-  };
-
-  const initialzeCustom = {
-    noteId: Number(noteId),
-    noteType: 'FREE',
-    title: '',
-    author: noteDetail?.author,
-    startDate: '',
-    endDate: '',
-    complete: false,
-    contents: '',
-    documentList: [],
-    timeBlockList: [],
-  };
+  const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
+  const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
 
   useEffect(() => {
     if (noteData?.data) {
@@ -88,9 +52,6 @@ const NotePage = () => {
     }
   }, [noteData.data]);
 
-  const { mutate: templateMutation } = $api.useMutation('patch', '/api/v1/notes/template/{noteId}');
-  const { mutate: customMutation } = $api.useMutation('patch', '/api/v1/notes/free/{noteId}');
-
   const handleTabClick = (tabId: number) => {
     openModal('caution', {
       infoText: CAUTION.NOTE.INFO_TEXT,
@@ -99,16 +60,21 @@ const NotePage = () => {
       footerType: 'caution-modify',
       onClick: () => {
         setSelectedTab(tabId);
-
         setNoteDetail(() => {
           if (tabId === 0) {
             return {
-              ...initalizeTemplate,
-            } as TemplateNoteData;
+              ...infoConfig,
+              ...templateConfig,
+              noteId: Number(noteId),
+              author: noteData?.data?.author || '',
+            };
           } else {
             return {
-              ...initialzeCustom,
-            } as CustomNoteData;
+              noteId: Number(noteId),
+              ...infoConfig,
+              ...customConfig,
+              author: noteData?.data?.author || '',
+            };
           }
         });
 
@@ -117,57 +83,71 @@ const NotePage = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!noteDetail) return;
 
     if (selectedTab === 0) {
       const templateData = noteDetail as TemplateNoteData;
-
-      const request = Object.assign(noteConfig, {
+      const infoRequest = Object.assign(infoConfig, {
+        ...(noteDetail as CreateNoteInfoType),
+      });
+      const templateRequest = Object.assign(templateConfig, {
         ...templateData,
         documentIds: templateData.documentList.map((document) => document.id),
       });
 
       templateMutation(
         {
-          params: { path: { noteId: +noteId! } },
+          params: { path: { noteId: Number(noteId) } },
           body: {
-            ...request,
+            ...infoRequest,
+            ...templateRequest,
             teamId,
+            timeBlockIds: noteDetail.timeBlockList.map((tag) => tag.id) || [],
           },
         },
+
         {
           onSuccess: () => {
             createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+            return Promise.all([
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+            ]);
           },
           onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
         }
       );
     } else {
       const customData = noteDetail as CustomNoteData;
+      const infoRequest = Object.assign(infoConfig, {
+        ...(noteDetail as CreateNoteInfoType),
+      });
 
-      const request = Object.assign(noteConfig, {
+      const customRequest = Object.assign(customConfig, {
         ...customData,
         documentIds: customData.documentList.map((document) => document.id),
       });
 
       customMutation(
         {
-          params: { path: { noteId: +noteId! } },
+          params: { path: { noteId: Number(noteId) } },
           body: {
-            ...request,
+            ...infoRequest,
+            ...customRequest,
             teamId,
+            timeBlockIds: noteDetail.timeBlockList.map((tag) => tag.id) || [],
           },
         },
         {
           onSuccess: () => {
             createToast(NOTE.SUCCESS.SAVE, 'success');
 
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-            queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+            return Promise.all([
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+              queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+            ]);
           },
           onError: () => createToast(NOTE.ERROR.SAVE, 'error'),
         }
@@ -175,13 +155,14 @@ const NotePage = () => {
     }
   };
 
-  const handleSubmitBtnClick = () => {
+  const handleSubmitBtnClick = async () => {
     try {
-      handleSubmit();
+      await handleSubmit();
 
-      createToast(NOTE.SUCCESS.SAVE, 'success');
-      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}/{noteId}'] });
-      queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/{teamId}'] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}/${noteId}'] }),
+        queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/notes/${teamId}'] }),
+      ]);
 
       navigate(PATH.HANDOVER);
     } catch (error) {

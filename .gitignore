@@ -28,5 +28,3 @@ dist-ssr
 
 *storybook.log
 storybook-static
-
-**/__generated__/*
