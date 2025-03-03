@@ -34,8 +34,6 @@ const ActivityTagModal = () => {
   const [inputValue, setInputValue] = useState('');
   const [selectedTags, setSelectedTags] = useState<ActivityTag[]>(modalData.selectedTags || []);
 
-  const closeModal = useCloseModal();
-
   const filterKeyword = useDebounce(inputValue, SEARCH_DELAY);
 
   const filteredTags = activityTags.filter(
