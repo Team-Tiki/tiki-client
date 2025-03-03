@@ -1,6 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import completePng from '@/common/asset/img/workspace_complete.png';
 import complete from '@/common/asset/img/workspace_complete.webp';
 
 import { $api } from '@/shared/api/client';
@@ -27,9 +26,7 @@ const WorkSpaceComplete = () => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ['get', '/api/v1/members/teams'],
-          });
+          queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
 
           closeModal();
         },
@@ -46,7 +43,7 @@ const WorkSpaceComplete = () => {
             <source srcSet={complete} />
             <img
               css={{ width: '30rem', height: '30rem', objectFit: 'cover' }}
-              src={completePng}
+              src={formData.fileUrlData}
               alt="워크 스페이스 생성 완료"
             />
           </picture>

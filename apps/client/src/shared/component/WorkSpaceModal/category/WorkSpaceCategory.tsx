@@ -11,8 +11,8 @@ import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 type Category = components['schemas']['TeamCreateRequest']['category'];
 
 const WorkSpaceCategory = () => {
-  const { setFormData } = useWorkSpaceContext();
-  const { nextStep } = useFunnel();
+  const { setFormData, formData } = useWorkSpaceContext();
+  const { prevStep, nextStep } = useFunnel();
 
   const [selected, setSelected] = useState('');
 
@@ -49,7 +49,7 @@ const WorkSpaceCategory = () => {
           className="select-container"
         />
       </Modal.Body>
-      <Modal.Footer step={2} type="create-workspace" onClick={handleNext} disabled={isDisabled} />
+      <Modal.Footer step={2} type="create-workspace" onClick={handleNext} onPrev={prevStep} disabled={isDisabled} />
     </>
   );
 };

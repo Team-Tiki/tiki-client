@@ -13,9 +13,7 @@ import { useFunnel } from '@/shared/hook/common/useFunnel';
 const WorkSpaceImage = () => {
   const { fileURL, imgUploadInput, handleImageChange, handleImageRemove } = useImageUpload();
 
-  const { nextStep } = useFunnel();
-
-  const isDisabled = !fileURL;
+  const { prevStep, nextStep } = useFunnel();
 
   return (
     <>
@@ -42,7 +40,7 @@ const WorkSpaceImage = () => {
           />
         </Flex>
       </Modal.Body>
-      <Modal.Footer step={3} type="create-workspace" onClick={() => nextStep()} disabled={isDisabled} />
+      <Modal.Footer step={3} type="create-workspace" onPrev={prevStep} onClick={() => nextStep()} disabled={false} />
     </>
   );
 };
