@@ -21,6 +21,14 @@ export const getFileVolume = (volume: number) => {
   return `${volume.toFixed(2)}${units[index]}`;
 };
 
+export const isImage = (ext: string) => {
+  const value = ext.toLowerCase();
+
+  const exts = ['jpg', 'png', 'jpeg', 'gif', 'avif', 'webp', 'svg'];
+
+  return exts.includes(value);
+};
+
 export const extractFileName = (fileName: string) => {
   const lastDotIndex = fileName.lastIndexOf('.');
 

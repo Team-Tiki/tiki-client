@@ -1,5 +1,5 @@
 import { IcGrid, IcList, IcSearch } from '@tiki/icon';
-import { Button, Flex, Input, Select, Switch, useToastAction } from '@tiki/ui';
+import { Button, Flex, Input, Select, Switch, Text, useToastAction } from '@tiki/ui';
 import { hasKeyInObject, useDeferredSearchFilter } from '@tiki/utils';
 
 import { useState } from 'react';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import FileListHeader from '@/page/drive/component/FileListHeader/FileListHeader';
+import { headerStyle, rightSideRowStyle } from '@/page/drive/component/FileListHeader/FileListHeader.style';
 import FileListItem from '@/page/drive/component/FileListItem/FileListItem';
 import FolderListItem from '@/page/drive/component/FileListItem/FolderListItem';
 import { useDriveData } from '@/page/drive/hook/api/queries';
@@ -61,8 +61,14 @@ const DrivePage = () => {
 
   const { data } = useDriveData();
 
-  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue);
-  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue);
+  const { filteredData: filteredDocuments } = useDeferredSearchFilter(data.data!.documents, searchValue, [
+    'name',
+    'createdTime',
+  ]);
+  const { filteredData: filteredFolders } = useDeferredSearchFilter(data.data!.folders, searchValue, [
+    'name',
+    'createdTime',
+  ]);
 
   const handleChangeAlignOption = (option: 'list' | 'grid') => {
     setAlignOption(option);
@@ -195,7 +201,17 @@ const DrivePage = () => {
       }>
       {alignOption === 'list' ? (
         <>
-          <FileListHeader />
+          <header css={headerStyle}>
+            <div css={{ marginLeft: isSelectable ? '3.4rem' : '0', padding: isSelectable ? '0' : '0 1.6rem' }}>
+              <Text tag="body8">이름</Text>
+            </div>
+
+            <div css={rightSideRowStyle}>
+              <Text tag="body8">크기</Text>
+              <Text tag="body8">종류</Text>
+              <Text tag="body8">추가된 날짜</Text>
+            </div>
+          </header>
           <ul>
             {filteredResult.map((item) => {
               if (hasKeyInObject(item, 'folderId')) {
@@ -221,6 +237,7 @@ const DrivePage = () => {
                     <FileListItem
                       key={String(file.documentId + file.type)}
                       {...file}
+                      type={file.name.split('.').at(-1)!}
                       isSelectable={isSelectable}
                       isSelected={getDocumentIsSelected(file.documentId)}
                       onSelect={() => selectDocument(file.documentId)}
@@ -241,7 +258,7 @@ const DrivePage = () => {
                 <FileGrid
                   key={file.documentId}
                   {...file}
-                  type={file.url?.split('.').at(-1) as File}
+                  type={file.name.split('.').at(-1) as File}
                   isSelectable={isSelectable}
                   isSelected={getDocumentIsSelected(file.documentId)}
                   onSelect={() => selectDocument(file.documentId!)}
