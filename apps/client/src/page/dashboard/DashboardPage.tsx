@@ -32,7 +32,6 @@ const DashboardPage = () => {
     }
     if (!localStorage.getItem(STORAGE_KEY.TEAM_NAME) && data?.data?.belongTeamGetResponses[0]) {
       localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${data?.data?.belongTeamGetResponses[0].name}`);
-      console.log('TITLE::', data?.data?.belongTeamGetResponses[0].name);
     }
   });
 
