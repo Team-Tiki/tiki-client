@@ -8,7 +8,6 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 
-import { MESSAGE } from '@/page/invite/constant';
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
 import { firstSpellStyle, inviteStyle, redButtonStyle } from '@/page/invite/index.styles';
@@ -42,18 +41,18 @@ const InvitedPage = () => {
       setInvitationInfo(data?.data);
 
       if (!data.success) {
-        handleApiError(data.message);
+        handleApiError(invitationId !== '', data.message);
       }
     } else if (failureCount && invitationId) {
-      handleApiError('존재하지 않거나 만료된 초대정보입니다.');
+      handleApiError(invitationId !== '0', '존재하지 않거나 만료된 초대정보입니다.');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, failureCount, invitationId, invitationInfo?.teamId, isLogined]);
 
-  const handleApiError = (message: string) => {
+  const handleApiError = (isInvitationId: boolean, message: string) => {
     clearInvitation();
     navigate(PATH.DASHBOARD);
-    createToast(message, 'error');
+    isInvitationId && createToast(message, 'error');
   };
 
   const clearInvitation = () => {
@@ -72,13 +71,18 @@ const InvitedPage = () => {
         },
       },
       {
-        onSuccess: () => {
-          createToast(MESSAGE.INVITE_SUCCESS, 'success');
+        onSuccess: (res) => {
+          if (res.success) {
+            createToast(res.message, 'success');
+
+            localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
+            localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
+          } else {
+            createToast(res.message, 'error');
+          }
 
           queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
           navigate(PATH.DASHBOARD);
-          localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
-          localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
         },
         onError: (error: AxiosError) => {
           createToast(error.message, 'error');
@@ -99,8 +103,12 @@ const InvitedPage = () => {
         },
       },
       {
-        onSuccess: () => {
-          createToast(MESSAGE.DENY_SUCCESS, 'success');
+        onSuccess: (res) => {
+          if (res.success) {
+            createToast(res.message, 'success');
+          } else {
+            createToast(res.message, 'error');
+          }
         },
         onError: (error: AxiosError) => {
           createToast(error.message, 'error');
