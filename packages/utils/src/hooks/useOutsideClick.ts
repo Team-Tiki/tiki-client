@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef } from 'react';
 
 type Callback = () => void;
 
-export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose: Callback) => {
+export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(
+  onClose: Callback,
+) => {
   const ref = useRef<T>(null);
 
   const handleOutsideClick = useCallback(
@@ -13,7 +15,7 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
         onClose?.();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   const handleEscKeyDown = useCallback(
@@ -24,7 +26,7 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
         onClose?.();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {
