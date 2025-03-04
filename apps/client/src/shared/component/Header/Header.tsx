@@ -2,7 +2,6 @@ import { Flex, Heading } from '@tiki/ui';
 
 import { useMatch, useNavigate } from 'react-router-dom';
 
-import { $api } from '@/shared/api/client';
 import AlarmButton from '@/shared/component/Header/AlarmButton';
 import { headerStyle } from '@/shared/component/Header/Header.style';
 import InviteButton from '@/shared/component/Header/InviteButton';
@@ -13,9 +12,8 @@ import { PATH } from '@/shared/constant/path';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { data } = $api.useQuery('get', '/api/v1/members/teams');
 
-  const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME) ?? data?.data?.belongTeamGetResponses[0].name;
+  const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME);
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);
   const isWorkspaceSettingPage = useMatch(PATH.WORKSPACE_SETTING);
