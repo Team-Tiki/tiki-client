@@ -7,7 +7,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { POSITION } from '@/page/workspaceSetting/constant';
 import { workspaceDeleteButton } from '@/page/workspaceSetting/styles';
 
-import { $api } from '@/shared/api/client';
 import { axiosInstance } from '@/shared/api/instance';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';

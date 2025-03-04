@@ -2,7 +2,6 @@ import { Button, useToastAction } from '@tiki/ui';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { $api } from '@/shared/api/client';
 import { axiosInstance } from '@/shared/api/instance';
 import { DELETE_TIMEBLOCK } from '@/shared/constant';
 import { TIMEBLOCK } from '@/shared/constant/toast';
