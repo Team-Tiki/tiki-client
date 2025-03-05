@@ -33,6 +33,12 @@ const InvitedPage = () => {
   const { mutate: denyMutate } = useDenyInvitation();
 
   useEffect(() => {
+    const handleApiError = (isInvitationId: boolean, message: string) => {
+      clearInvitation();
+      navigate(PATH.DASHBOARD);
+      isInvitationId && createToast(message, 'error');
+    };
+
     if (isLogined && invitationInfo?.teamId) {
       navigate(`${PATH.INVITE}/${invitationInfo?.teamId}`);
       setTeamId(invitationInfo?.teamId);
@@ -46,14 +52,7 @@ const InvitedPage = () => {
     } else if (failureCount && invitationId) {
       handleApiError(invitationId !== '0', '존재하지 않거나 만료된 초대정보입니다.');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, failureCount, invitationId, invitationInfo?.teamId, isLogined]);
-
-  const handleApiError = (isInvitationId: boolean, message: string) => {
-    clearInvitation();
-    navigate(PATH.DASHBOARD);
-    isInvitationId && createToast(message, 'error');
-  };
+  }, [createToast, data, failureCount, invitationId, invitationInfo?.teamId, isLogined, navigate]);
 
   const clearInvitation = () => {
     localStorage.removeItem(STORAGE_KEY.INVITATION_ID);
