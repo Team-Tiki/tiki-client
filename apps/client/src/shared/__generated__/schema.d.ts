@@ -904,7 +904,7 @@ export interface components {
             name: string;
             /** @enum {string} */
             category: "전체" | "학술연구" | "문화예술" | "스포츠레저" | "사회활동" | "취미활동" | "창업비즈니스" | "과학기술" | "종교" | "국제교류" | "네트워킹";
-            iconImageUrl: string;
+            iconImageKey: string;
         };
         SuccessResponseTeamCreateResponse: {
             success: boolean;
@@ -966,11 +966,6 @@ export interface components {
              * @example tiki.jpg
              */
             fileName: string;
-            /**
-             * @description 파일 url
-             * @example https://.../tiki.jpg
-             */
-            fileUrl: string;
             /**
              * @description 파일 key
              * @example ....jpg
@@ -1227,10 +1222,10 @@ export interface components {
             data?: components["schemas"]["TeamInformGetResponse"];
         };
         TeamInformGetResponse: {
-            teamName: string;
+            name: string;
             /** @enum {string} */
             university: "건국대학교";
-            teamIconUrl: string;
+            iconImageUrl: string;
             /** Format: date */
             namingUpdatedAt: string;
         };
@@ -1469,14 +1464,14 @@ export interface components {
             message: string;
             data?: components["schemas"]["MemberInfoGetResponse"];
         };
-        PutObjectPreSignedUrlResponse: {
-            fileName: string;
+        PreSignedUrlResponse: {
+            fileKey: string;
             url: string;
         };
-        SuccessResponsePutObjectPreSignedUrlResponse: {
+        SuccessResponsePreSignedUrlResponse: {
             success: boolean;
             message: string;
-            data?: components["schemas"]["PutObjectPreSignedUrlResponse"];
+            data?: components["schemas"]["PreSignedUrlResponse"];
         };
         SuccessResponse: {
             success: boolean;
@@ -4054,7 +4049,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["SuccessResponsePutObjectPreSignedUrlResponse"];
+                    "*/*": components["schemas"]["SuccessResponsePreSignedUrlResponse"];
                 };
             };
             /** @description S3 PRESIGNED URL 불러오기 실패 */
