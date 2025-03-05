@@ -1222,7 +1222,7 @@ export interface components {
             data?: components["schemas"]["TeamInformGetResponse"];
         };
         TeamInformGetResponse: {
-            name: string;
+            teamName: string;
             /** @enum {string} */
             university: "건국대학교";
             iconImageUrl: string;

@@ -52,7 +52,7 @@ const useImageUpload = () => {
   };
 
   const handleImageRemove = () => {
-    if (fileData?.data?.fileName) {
+    if (fileData?.data?.fileKey) {
       deleteFileMutate(
         {
           body: { fileKey: getFileKey(fileURL) },

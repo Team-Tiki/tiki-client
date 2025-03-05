@@ -22,7 +22,7 @@ const WorkSpaceComplete = () => {
         body: {
           name: formData.name,
           category: formData.category,
-          iconImageUrl: formData.fileUrlData,
+          iconImageKey: formData.fileUrlData,
         },
       },
       {
