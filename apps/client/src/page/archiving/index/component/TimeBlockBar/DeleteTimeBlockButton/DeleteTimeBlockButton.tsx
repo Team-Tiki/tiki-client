@@ -33,9 +33,8 @@ const DeleteTimeBlockButton = () => {
           queryKey: ['get', '/api/v1/notes/{teamId}'],
         });
     },
-    onError: (error) => {
+    onError: () => {
       createToast(TIMEBLOCK.ERROR.DELETE, 'error');
-      console.log(error);
     },
   });
 

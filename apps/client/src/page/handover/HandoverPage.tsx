@@ -70,9 +70,8 @@ const HandoverPage = () => {
           queryKey: ['get', '/api/v1/notes/{teamId}'],
         });
     },
-    onError: (error) => {
+    onError: () => {
       createToast(NOTE.ERROR.DELETE, 'error');
-      console.log(error);
     },
   });
 

@@ -28,8 +28,8 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
 
   const { mutate: deleteTeamMutate } = useMutation({
     mutationFn: ({ teamId }: { teamId: number }) => deleteTeam(teamId),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
         queryKey: ['get', '/api/v1/members/teams'],
       });
       closeModal();
