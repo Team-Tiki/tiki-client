@@ -14,7 +14,8 @@ interface WorkSpaceFormData {
     | '종교'
     | '국제교류'
     | '네트워킹';
-  fileUrlData: string;
+  fileKey: string;
+  fileUrl: string;
 }
 
 interface WorkSpaceContextType {
@@ -37,7 +38,8 @@ export const WorkSpaceProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormDataState] = useState<WorkSpaceFormData>({
     name: '',
     category: '전체',
-    fileUrlData: '',
+    fileKey: '',
+    fileUrl: '',
   });
 
   const setFormData = useCallback((data: Partial<WorkSpaceFormData>) => {
@@ -48,7 +50,8 @@ export const WorkSpaceProvider = ({ children }: { children: ReactNode }) => {
     setFormDataState({
       name: '',
       category: '전체',
-      fileUrlData: '',
+      fileKey: '',
+      fileUrl: ''
     });
   }, []);
 

@@ -2,6 +2,8 @@ import mime from 'mime';
 
 import axios from 'axios';
 
+import { getFileKey } from '@/shared/util/file';
+
 export const putUploadToS3 = async (presignedUrl: string, file: File) => {
   const contentType = mime.getType(file.name) || 'application/octet-stream';
 
@@ -15,6 +17,6 @@ export const putUploadToS3 = async (presignedUrl: string, file: File) => {
     // Presigned URL에서 쿼리 문자열을 제거하여 파일 URL을 생성
     const uploadedFileUrl = presignedUrl.split('?')[0];
 
-    return uploadedFileUrl;
+    return getFileKey(uploadedFileUrl);
   }
 };

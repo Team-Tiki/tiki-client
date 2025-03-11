@@ -1,9 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import complete from '@/common/asset/img/workspace_complete.webp';
-
 import { $api } from '@/shared/api/client';
 import { Modal } from '@/shared/component/Modal';
+import { IMAGE_PLACEHOLDER } from '@/shared/constant';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal } from '@/shared/store/modal';
 
@@ -13,6 +12,7 @@ const WorkSpaceComplete = () => {
   const closeModal = useCloseModal();
 
   const { formData } = useWorkSpaceContext();
+  console.log(formData);
   const { mutate: postTeamMutate } = $api.useMutation('post', '/api/v1/teams');
 
   const handleSave = () => {
@@ -21,7 +21,7 @@ const WorkSpaceComplete = () => {
         body: {
           name: formData.name,
           category: formData.category,
-          iconImageUrl: formData.fileUrlData,
+          iconImageKey: formData.fileKey,
         },
       },
       {
@@ -39,17 +39,15 @@ const WorkSpaceComplete = () => {
       <Modal.Header step={4} totalSteps={4} />
       <Modal.Body>
         <div css={{ width: '100%', paddingTop: '2rem' }}>
-          <picture>
-            <source srcSet={complete} />
-            <img
-              css={{ width: '30rem', height: '30rem', objectFit: 'cover' }}
-              src={formData.fileUrlData}
-              alt="워크 스페이스 생성 완료"
-            />
-          </picture>
+          <img
+            css={{ width: '33.6rem', height: '33.8rem', objectFit: 'cover' }}
+            src={formData.fileUrl}
+            onError={(e) => (e.currentTarget.src = IMAGE_PLACEHOLDER)}
+            alt="워크 스페이스 생성 완료"
+          />
         </div>
       </Modal.Body>
-      <Modal.Footer step={1} type="create-workspace" onClick={handleSave} disabled={false} />
+      <Modal.Footer step={4} type="create-workspace" onClick={handleSave} disabled={false} />
     </>
   );
 };

@@ -6,9 +6,10 @@ import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 
 const useImageUpload = () => {
-  const [fileURL, setFileURL] = useState<string>('');
-  const imgUploadInput = useRef<HTMLInputElement | null>(null);
+  const [fileURL, setFileURL] = useState('');
   const [file, setFile] = useState<File | null>(null);
+
+  const imgUploadInput = useRef<HTMLInputElement | null>(null);
 
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
   const { mutate: deleteFileMutate } = useDeleteFileMutation();
@@ -16,18 +17,24 @@ const useImageUpload = () => {
 
   const { setFormData } = useWorkSpaceContext();
 
-  const handleFileUpload = (selectedFile: File, presignedUrl: string) => {
-    const newFileURL = URL.createObjectURL(selectedFile);
+  const handleFileUpload = (fileData: File, presignedUrl: string) => {
+    const newFileURL = URL.createObjectURL(fileData);
     setFileURL(newFileURL);
+
     uploadToS3Mutate(
-      { presignedUrl, file: selectedFile },
+      { presignedUrl, file: fileData },
       {
-        onSuccess: (uploadedFileUrl) => {
-          URL.revokeObjectURL(newFileURL);
-          if (uploadedFileUrl) {
-            setFileURL(uploadedFileUrl);
-            setFormData({ fileUrlData: uploadedFileUrl });
+        onSuccess: (response) => {
+        if (response) {
+            setFormData({ fileKey: response });
           }
+
+          URL.revokeObjectURL(newFileURL);
+        },
+        onError: (error) => {
+          console.error(error);
+
+          setFormData({ fileKey: '' });
         },
       }
     );
@@ -35,43 +42,46 @@ const useImageUpload = () => {
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setFileURL(URL.createObjectURL(selectedFile));
-      setFile(selectedFile);
-      setFormData({ fileUrlData: '' });
+    if (!selectedFile) return;
 
-      const { data } = await refetchFileData();
-      if (data?.url) {
-        handleFileUpload(selectedFile, data.url);
-      }
+    setFile(selectedFile);
+    setFileURL(URL.createObjectURL(selectedFile));
+    setFormData({ fileKey: '' , fileUrl: fileData?.url});
+
+    const { data } = await refetchFileData();
+    if (data?.url) {
+      handleFileUpload(selectedFile, data.url);
     }
   };
 
   const handleImageRemove = () => {
-    if (fileData?.fileName) {
+    if (fileData?.fileKey) {
       deleteFileMutate(
-        { fileName: fileData.fileName },
+        { fileKey: fileData.fileKey },
         {
           onSuccess: () => {
             URL.revokeObjectURL(fileURL);
+
             setFileURL('');
             setFile(null);
-            setFormData({ fileUrlData: '' });
+            setFormData({ fileKey: '', fileUrl: '' });
+
             if (imgUploadInput.current) {
               imgUploadInput.current.value = '';
             }
           },
         }
       );
-    }
+    };
   };
 
-  return {
-    fileURL,
-    imgUploadInput,
-    handleImageChange,
-    handleImageRemove,
-  };
+    return {
+      fileURL,
+      imgUploadInput,
+      handleImageChange,
+      handleImageRemove,
+    };
+
 };
 
 export default useImageUpload;

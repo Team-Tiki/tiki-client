@@ -116,3 +116,5 @@ export const MAX_TEAM_NAME = 30 as const;
 export const WORKSPACE_MODAL = {
   NAME: '워크스페이스명은 30자까지 작성 가능해요',
 };
+
+export const IMAGE_PLACEHOLDER = 'https://github.com/user-attachments/assets/7f97f986-6dc8-4900-9f53-3a2900565345';

@@ -8,6 +8,7 @@ import {
   imageBoxStyle,
   imageDeleteStyle,
 } from '@/shared/component/WorkSpaceModal/image/WorkSpaceImage.style';
+import { IMAGE_PLACEHOLDER } from '@/shared/constant';
 import { useFunnel } from '@/shared/hook/common/useFunnel';
 
 const WorkSpaceImage = () => {
@@ -22,7 +23,12 @@ const WorkSpaceImage = () => {
         <Flex styles={{ width: '100%', paddingTop: '2rem', justify: 'center' }}>
           <div css={[{ cursor: 'pointer' }, imageBoxStyle]}>
             {fileURL ? (
-              <img src={fileURL} alt="프로필 이미지" css={imageAddStyle} />
+              <img
+                src={fileURL}
+                alt="프로필 이미지"
+                css={imageAddStyle}
+                onError={(e) => (e.currentTarget.src = IMAGE_PLACEHOLDER)}
+              />
             ) : (
               <Label id="imgUploadInput" css={imageAddStyle}>
                 <IcTeamProfileAdd width={200} height={200} />
