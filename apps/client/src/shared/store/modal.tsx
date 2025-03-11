@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
-import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { FileType } from '@/shared/component/FileImportModal/FileImportModal';
+import { ActivityTag } from '@/shared/type/modal';
 
 export type Tag = {
   id: number;
@@ -59,7 +59,7 @@ export interface ActivityTagModalData {
 }
 
 export interface FileImportModalData {
-  selectedTags?: FileType[];
+  selectedFiles?: FileType[];
   onUpload?: (files: FileType[]) => void;
 }
 

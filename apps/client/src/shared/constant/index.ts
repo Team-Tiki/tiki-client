@@ -118,3 +118,5 @@ export const WORKSPACE_MODAL = {
 };
 
 export const IMAGE_PLACEHOLDER = 'https://github.com/user-attachments/assets/7f97f986-6dc8-4900-9f53-3a2900565345';
+
+export const SEARCH_DELAY = 400;

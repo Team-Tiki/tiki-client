@@ -12,6 +12,7 @@ import { PATH } from '@/shared/constant/path';
 
 const Header = () => {
   const navigate = useNavigate();
+
   const title = localStorage.getItem(STORAGE_KEY.TEAM_NAME);
 
   const isDashboardPage = useMatch(PATH.DASHBOARD);

@@ -30,6 +30,8 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
 
   const TYPE = position === POSITION.ADMIN ? '삭제' : '탈퇴';
 
+  const { data } = $api.useQuery('get', '/api/v1/members/teams');
+
   const handleDelete = () => {
     if (position === POSITION.ADMIN) {
       deleteTeam(
@@ -43,6 +45,10 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
 
             localStorage.removeItem(STORAGE_KEY.TEAM_ID);
             localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
+
+            if (data?.data?.belongTeamGetResponses[0]) {
+              localStorage.setItem(STORAGE_KEY.TEAM_NAME, data?.data?.belongTeamGetResponses[0].name);
+            }
 
             navigate(PATH.DASHBOARD);
           },
@@ -65,6 +71,10 @@ const WorkspaceDelete = ({ position }: WorkspaceDeleteProps) => {
 
             localStorage.removeItem(STORAGE_KEY.TEAM_ID);
             localStorage.removeItem(STORAGE_KEY.TEAM_NAME);
+
+            if (data?.data?.belongTeamGetResponses[0]) {
+              localStorage.setItem(STORAGE_KEY.TEAM_NAME, data?.data?.belongTeamGetResponses[0].name);
+            }
 
             navigate(PATH.DASHBOARD);
           },

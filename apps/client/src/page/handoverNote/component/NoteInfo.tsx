@@ -1,93 +1,84 @@
 import { IcAvatar, IcPlusButton } from '@tiki/icon';
 import { Button, DatePicker, Flex, RadioGroup, Tag, Text } from '@tiki/ui';
 
-import { SetStateAction, useCallback, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+import { HANDOVER_TITLE_MAX, SINGLE_LINE_HEIGHT } from '@/page/handover/constant';
 import {
   entireInfoStyle,
   infoContainerStyle,
   infoLayoutStyle,
   infoStyle,
   plusBtnStyle,
+  tagLayoutStyle,
+  textBtnStyle,
   titleStyle,
 } from '@/page/handoverNote/component/style';
-import { CreateNoteInfoType } from '@/page/handoverNote/type/note';
+import { useNoteInfoForm } from '@/page/handoverNote/hook/common/useNoteInfoForm';
+import { NoteDetailProp } from '@/page/handoverNote/type/note';
 import { resizeTextarea } from '@/page/handoverNote/util/resizeTextarea';
 
-import { ActivityTag } from '@/shared/component/ActivityTagModal/ActivityTagModal';
 import { useOpenModal } from '@/shared/store/modal';
-
-interface NoteDetailProp {
-  info: CreateNoteInfoType;
-  setInfo: React.Dispatch<SetStateAction<CreateNoteInfoType>>;
-}
+import { ActivityTag } from '@/shared/type/modal';
 
 const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
+  const [isWrapped, setIsWrapped] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const tagContainerRef = useRef<HTMLDivElement>(null);
+
+  const { handleTitleChange, handleChangeStatus, handleDateChange } = useNoteInfoForm({ setInfo });
   const openModal = useOpenModal();
-
-  const isTag = info?.timeBlockList?.length !== 0;
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInfo((prev) => ({ ...prev, title: e.target.value }));
-
-    resizeTextarea(textareaRef);
-  };
-
-  const handleChangeStatus = useCallback(
-    (value: string) => {
-      setInfo((prev) => ({
-        ...prev,
-        complete: value === '완료',
-      }));
-    },
-    [setInfo]
-  );
-
-  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    setInfo((prev) => ({
-      ...prev,
-      startDate: startDate ? startDate.toISOString() : '',
-      endDate: endDate ? endDate.toISOString() : '',
-    }));
-  };
 
   const handleAppendTag = () => {
     openModal('activity-tag', {
       selectedTags: info.timeBlockList?.map((tag) => ({
+        ...tag,
         timeBlockId: tag.id,
-        name: tag.name,
-        color: tag.color,
-        type: 'MEETING',
-        startDate: '',
+        type: tag.blockType,
       })),
       onConfirm: (tags: ActivityTag[]) => {
         setInfo((prev) => ({
           ...prev,
           timeBlockList: tags.map((tag) => ({
+            ...tag,
             id: tag.timeBlockId,
-            name: tag.name,
-            color: tag.color,
             blockType: tag.type,
-            startDate: tag.startDate,
           })),
         }));
       },
     });
   };
 
+  // 활동 태그가 wrap되면 레이아웃 변경
+  useEffect(() => {
+    if (tagContainerRef.current) {
+      const { offsetHeight } = tagContainerRef.current;
+      const singleLineHeight = SINGLE_LINE_HEIGHT;
+
+      setIsWrapped(offsetHeight > singleLineHeight);
+    }
+  }, [info.timeBlockList]);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      resizeTextarea(textareaRef);
+    }
+  }, [info.title]);
+
   return (
     <aside css={entireInfoStyle}>
       <textarea
         ref={textareaRef}
         css={titleStyle}
+        maxLength={HANDOVER_TITLE_MAX}
         placeholder={'노트제목'}
         value={info.title || ''}
         onChange={handleTitleChange}
         autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       />
       <ul css={infoContainerStyle}>
-        <li css={infoLayoutStyle(isTag)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Flex styles={{ justify: 'center', align: 'center', gap: '2rem' }}>
             <Text tag="body6" css={infoStyle}>
               작성자
@@ -99,7 +90,7 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           </Flex>
         </li>
 
-        <li css={infoLayoutStyle(isTag)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             작성 여부
           </Text>
@@ -113,23 +104,29 @@ const NoteInfo = ({ info, setInfo }: NoteDetailProp) => {
           />
         </li>
 
-        <li css={infoLayoutStyle(info?.timeBlockList?.length !== 0)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             활동 태그
           </Text>
-          <Flex styles={{ maxWidth: '21.8rem', gap: '0.4rem', wrap: 'wrap' }}>
-            <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
-              <IcPlusButton width={10} height={10} />
-            </Button>
+          <div ref={tagContainerRef} css={tagLayoutStyle(isWrapped)}>
+            {info?.timeBlockList?.length === 0 ? (
+              <Button variant="text" onClick={handleAppendTag} css={textBtnStyle}>
+                여기를 눌러 활동 태그를 추가해보세요
+              </Button>
+            ) : (
+              <Button variant="outline" css={plusBtnStyle} onClick={handleAppendTag}>
+                <IcPlusButton width={10} height={10} />
+              </Button>
+            )}
             {info?.timeBlockList?.map((tag) => (
               <Tag key={tag.id} bgColor={tag.color}>
                 {tag.name}
               </Tag>
             ))}
-          </Flex>
+          </div>
         </li>
 
-        <li css={infoLayoutStyle(isTag)}>
+        <li css={infoLayoutStyle(isWrapped)}>
           <Text tag="body6" css={infoStyle}>
             활동 기간
           </Text>
