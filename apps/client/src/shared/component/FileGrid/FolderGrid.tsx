@@ -36,7 +36,7 @@ const FolderGrid = ({
 
   return (
     <article css={cardStyle(variant !== 'primary')}>
-      <button onClick={onClick}>
+      <button css={{ width: '100%', backgroundColor: 'transparent' }} onClick={onClick}>
         {isSelectable && (
           <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
         )}

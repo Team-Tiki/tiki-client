@@ -22,6 +22,8 @@ export const cardStyle = (isSmall: boolean) =>
 
 export const iconWrapperStyle = (isSmall: boolean) =>
   css({
+    display: 'flex',
+
     width: '100%',
 
     padding: isSmall ? '0 0 1.8rem' : '1.2rem 0 2rem 0',
