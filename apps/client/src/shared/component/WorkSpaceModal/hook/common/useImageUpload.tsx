@@ -14,7 +14,7 @@ const useImageUpload = () => {
 
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
   const { mutate: deleteFileMutate } = $api.useMutation('post', '/api/v1/file');
-  const { data: fileData, refetch: refetchFileData } = $api.useQuery('get', '/api/v1/file/upload', {
+  const { data: fileData } = $api.useQuery('get', '/api/v1/file/upload', {
     params: { query: { fileFormat: fileExtension } },
   });
 
@@ -49,7 +49,6 @@ const useImageUpload = () => {
     setFileURL(URL.createObjectURL(selectedFile));
     setFormData({ fileKey: '', fileUrl: fileData?.data?.url });
 
-    const { data } = await refetchFileData();
     if (fileData?.data?.url) {
       handleFileUpload(selectedFile, fileData?.data?.url);
     }
