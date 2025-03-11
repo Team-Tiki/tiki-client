@@ -7,12 +7,11 @@ import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 import { useCloseModal } from '@/shared/store/modal';
 
 const WorkSpaceComplete = () => {
-  const queryClient = useQueryClient();
-
   const closeModal = useCloseModal();
 
   const { formData } = useWorkSpaceContext();
-  console.log(formData);
+
+  const queryClient = useQueryClient();
   const { mutate: postTeamMutate } = $api.useMutation('post', '/api/v1/teams');
 
   const handleSave = () => {

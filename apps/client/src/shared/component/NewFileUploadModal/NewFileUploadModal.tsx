@@ -64,7 +64,6 @@ const NewFileUploadModal = ({
             documents: [
               {
                 fileName: file.name,
-                fileUrl: fileUrls[file.name] || '',
                 fileKey: getFileKey(fileUrls[file.name]),
                 capacity: file.size,
               },

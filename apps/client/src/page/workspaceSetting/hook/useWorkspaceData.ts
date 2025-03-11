@@ -13,7 +13,7 @@ export const useWorkspaceData = () => {
     position: 'EXECUTIVE',
     teamName: '',
     university: '건국대학교',
-    teamIconUrl: '',
+    iconImageUrl: '',
   } as MemberType & Omit<TeamType, 'namingUpdatedAt'>);
 
   const [initialWorkspaceData, setInitialWorkspaceData] = useState<
@@ -44,7 +44,7 @@ export const useWorkspaceData = () => {
         position: positionData.data?.position ?? 'EXECUTIVE',
         teamName: teamData.data?.teamName ?? '',
         university: teamData.data?.university ?? '건국대학교',
-        teamIconUrl: teamData.data?.teamIconUrl ?? '',
+        iconImageUrl: teamData.data?.iconImageUrl ?? '',
       });
     }
   }, [positionData, teamData, initialWorkspaceData]);
@@ -64,7 +64,7 @@ export const useWorkspaceData = () => {
       setWorkspaceData((prev) => ({
         ...prev,
         teamName: teamData?.data?.teamName ?? '',
-        teamIconUrl: teamData?.data?.teamIconUrl ?? '',
+        teamIconUrl: teamData?.data?.iconImageUrl ?? '',
       }));
     }
   }, [teamData]);

@@ -1,19 +1,22 @@
 import { useRef, useState } from 'react';
 
-import { useDeleteFileMutation } from '@/shared/component/TimeBlockModal/hook/api/useDeleteFileMutation';
+import { $api } from '@/shared/api/client';
 import { usePutUploadMutation } from '@/shared/component/TimeBlockModal/hook/api/usePutUploadMutation';
-import useGetFileQuery from '@/shared/hook/api/useGetFileQuery';
 import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
+import { extractFileExtension } from '@/shared/util/file';
 
 const useImageUpload = () => {
   const [fileURL, setFileURL] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
+  const fileExtension = file ? extractFileExtension(file.name) : '';
 
   const { mutate: uploadToS3Mutate } = usePutUploadMutation();
-  const { mutate: deleteFileMutate } = useDeleteFileMutation();
-  const { data: fileData, refetch: refetchFileData } = useGetFileQuery(file as File);
+  const { mutate: deleteFileMutate } = $api.useMutation('post', '/api/v1/file');
+  const { data: fileData, refetch: refetchFileData } = $api.useQuery('get', '/api/v1/file/upload', {
+    params: { query: { fileFormat: fileExtension } },
+  });
 
   const { setFormData } = useWorkSpaceContext();
 
@@ -44,33 +47,33 @@ const useImageUpload = () => {
 
     setFile(selectedFile);
     setFileURL(URL.createObjectURL(selectedFile));
-    setFormData({ fileKey: '', fileUrl: fileData?.url });
+    setFormData({ fileKey: '', fileUrl: fileData?.data?.url });
 
     const { data } = await refetchFileData();
-    if (data?.url) {
-      handleFileUpload(selectedFile, data.url);
+    if (fileData?.data?.url) {
+      handleFileUpload(selectedFile, fileData?.data?.url);
     }
   };
 
   const handleImageRemove = () => {
-    if (fileData?.fileKey) {
-      deleteFileMutate(
-        { fileKey: fileData.fileKey },
-        {
-          onSuccess: () => {
-            URL.revokeObjectURL(fileURL);
+    if (!fileData?.data?.fileKey) return;
 
-            setFileURL('');
-            setFile(null);
-            setFormData({ fileKey: '', fileUrl: '' });
+    deleteFileMutate(
+      { body: { fileKey: fileData.data.fileKey } },
+      {
+        onSuccess: () => {
+          URL.revokeObjectURL(fileURL);
 
-            if (imgUploadInput.current) {
-              imgUploadInput.current.value = '';
-            }
-          },
-        }
-      );
-    }
+          setFileURL('');
+          setFile(null);
+          setFormData({ fileKey: '', fileUrl: '' });
+
+          if (imgUploadInput.current) {
+            imgUploadInput.current.value = '';
+          }
+        },
+      }
+    );
   };
 
   return {
