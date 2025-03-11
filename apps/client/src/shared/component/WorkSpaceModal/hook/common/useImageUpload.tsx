@@ -25,15 +25,13 @@ const useImageUpload = () => {
       { presignedUrl, file: fileData },
       {
         onSuccess: (response) => {
-        if (response) {
+          if (response) {
             setFormData({ fileKey: response });
           }
-
           URL.revokeObjectURL(newFileURL);
         },
         onError: (error) => {
           console.error(error);
-
           setFormData({ fileKey: '' });
         },
       }
@@ -46,7 +44,7 @@ const useImageUpload = () => {
 
     setFile(selectedFile);
     setFileURL(URL.createObjectURL(selectedFile));
-    setFormData({ fileKey: '' , fileUrl: fileData?.url});
+    setFormData({ fileKey: '', fileUrl: fileData?.url });
 
     const { data } = await refetchFileData();
     if (data?.url) {
@@ -72,16 +70,15 @@ const useImageUpload = () => {
           },
         }
       );
-    };
+    }
   };
 
-    return {
-      fileURL,
-      imgUploadInput,
-      handleImageChange,
-      handleImageRemove,
-    };
-
+  return {
+    fileURL,
+    imgUploadInput,
+    handleImageChange,
+    handleImageRemove,
+  };
 };
 
 export default useImageUpload;

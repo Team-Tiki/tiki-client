@@ -11,7 +11,7 @@ import { useWorkSpaceContext } from '@/shared/hook/common/useWorkSpaceContext';
 type Category = components['schemas']['TeamCreateRequest']['category'];
 
 const WorkSpaceCategory = () => {
-  const { setFormData, formData } = useWorkSpaceContext();
+  const { setFormData } = useWorkSpaceContext();
   const { prevStep, nextStep } = useFunnel();
 
   const [selected, setSelected] = useState('');

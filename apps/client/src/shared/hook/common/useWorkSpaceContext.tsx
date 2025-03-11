@@ -51,7 +51,7 @@ export const WorkSpaceProvider = ({ children }: { children: ReactNode }) => {
       name: '',
       category: '전체',
       fileKey: '',
-      fileUrl: ''
+      fileUrl: '',
     });
   }, []);
 
