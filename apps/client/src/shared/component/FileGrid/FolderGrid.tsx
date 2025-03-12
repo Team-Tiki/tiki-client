@@ -1,9 +1,15 @@
 import { IcFolderLarge, IcThreeDots } from '@tiki/icon';
-import { CheckBox, Flex, Heading, MenuItem, MenuList, MenuRoot, theme } from '@tiki/ui';
+import { CheckBox, Flex, Heading, MenuItem, MenuList, MenuRoot } from '@tiki/ui';
 import { useOverlay } from '@tiki/utils';
 
 import { OPTION_ICON } from '@/shared/component/FileGrid/icon';
-import { cardStyle, iconWrapperStyle, nameStyle, optionTextStyle } from '@/shared/component/FileGrid/index.style';
+import {
+  cardStyle,
+  folderMenuListStyle,
+  iconWrapperStyle,
+  nameStyle,
+  optionTextStyle,
+} from '@/shared/component/FileGrid/index.style';
 
 type FolderGridProps = {
   variant?: 'primary' | 'secondary';
@@ -36,7 +42,7 @@ const FolderGrid = ({
 
   return (
     <article css={cardStyle(variant !== 'primary')}>
-      <button css={{ width: '100%', backgroundColor: 'transparent' }} onClick={onClick}>
+      <button type="button" css={{ width: '100%', backgroundColor: 'transparent' }} onClick={onClick}>
         {isSelectable && (
           <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
         )}
@@ -50,9 +56,7 @@ const FolderGrid = ({
           {variant === 'primary' && (
             <MenuRoot onClose={close}>
               <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />
-              <MenuList
-                css={{ top: 'calc(100% + 0.4rem)', right: 0, backgroundColor: theme.colors.white }}
-                isOpen={isOpen}>
+              <MenuList css={folderMenuListStyle} isOpen={isOpen}>
                 <MenuItem
                   css={optionTextStyle}
                   LeftIcon={OPTION_ICON.name}

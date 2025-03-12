@@ -63,7 +63,7 @@ const FileGrid = ({
 
   return (
     <article css={cardStyle(variant !== 'primary')}>
-      <button css={{ width: '100%', backgroundColor: 'transparent' }} onClick={onClick}>
+      <button type="button" css={{ width: '100%', backgroundColor: 'transparent' }} onClick={onClick}>
         {isSelectable && (
           <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
         )}

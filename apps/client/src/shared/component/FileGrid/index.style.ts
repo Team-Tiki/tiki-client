@@ -84,3 +84,10 @@ export const optionTextStyle = css({
 
   fontWeight: 400,
 });
+
+export const folderMenuListStyle = css({
+  top: 'calc(100% + 0.4rem)',
+  right: 0,
+
+  backgroundColor: theme.colors.white,
+});
