@@ -33,11 +33,7 @@ const FileSection = () => {
   const allFileData = [...docDataList, ...folderDataList];
 
   return (
-    <Flex
-      css={containerStyle}
-      onClick={() => {
-        navigate(PATH.DRIVE);
-      }}>
+    <Flex css={containerStyle}>
       {!allFileData[0] && <ItemAdder path={PATH.DRIVE} />}
       {allFileData.map((item) => {
         if (hasKeyInObject(item, 'documentId')) {
@@ -49,6 +45,9 @@ const FileSection = () => {
               variant="secondary"
               {...file}
               type={extractFileExtension(file.name) as File}
+              onClick={() => {
+                navigate(PATH.DRIVE);
+              }}
             />
           );
         } else if (hasKeyInObject(item, 'folderId')) {
@@ -61,6 +60,9 @@ const FileSection = () => {
               name={folder.name}
               createdTime={folder.createdTime}
               path={folder.path}
+              onClick={() => {
+                navigate(PATH.DRIVE);
+              }}
             />
           );
         }
