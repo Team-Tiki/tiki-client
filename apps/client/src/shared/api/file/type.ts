@@ -1,3 +1,3 @@
 export interface DeleteFile {
-  fileName: string;
+  fileKey: string;
 }

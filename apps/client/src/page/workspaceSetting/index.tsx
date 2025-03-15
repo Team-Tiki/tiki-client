@@ -46,7 +46,7 @@ const WorkspaceSettingPage = () => {
             />
 
             <TeamProfileSetting
-              teamIconUrl={workspaceData.teamIconUrl}
+              teamIconUrl={workspaceData.iconImageUrl}
               teamName={workspaceData.teamName}
               onWorkspaceDataChange={handleWorkspaceDataChange}
             />
