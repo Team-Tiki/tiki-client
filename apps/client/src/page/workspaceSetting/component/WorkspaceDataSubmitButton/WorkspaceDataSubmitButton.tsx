@@ -56,7 +56,7 @@ const WorkspaceDataSubmitButton = ({
       infoMutation({
         body: {
           teamName: workspaceData.teamName,
-          teamUrl: workspaceData.teamIconUrl,
+          teamUrl: workspaceData.iconImageUrl,
         },
         params: {
           path: {

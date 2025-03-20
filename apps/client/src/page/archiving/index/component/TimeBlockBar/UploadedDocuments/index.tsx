@@ -19,24 +19,16 @@ const UploadedDocuments = ({ isEditable }: UploadedDocumentsProps) => {
 
   return (
     <Flex styles={{ direction: 'column', gap: '1.8rem', width: '100%' }}>
-      <Flex styles={{ gap: '0.8rem', align: 'center' }}>
-        <IcPaper width={16} height={16} />
-        <Text tag="body6" css={listHeaderStyle}>
-          연동된 파일
-        </Text>
-      </Flex>
+      {documents.length > 0 && (
+        <Flex styles={{ gap: '0.8rem', align: 'center' }}>
+          <IcPaper width={16} height={16} />
+          <Text tag="body6" css={listHeaderStyle}>
+            연동된 파일
+          </Text>
+        </Flex>
+      )}
       {isEditable && (
-        <Button
-          variant="outline"
-          size="medium"
-          style={{ width: '100%' }}
-          onClick={() =>
-            openModal('timeblock-file', {
-              onUploadFile: () => {
-                console.log('이거냐 ㅅㅂ?');
-              },
-            })
-          }>
+        <Button variant="outline" size="medium" style={{ width: '100%' }} onClick={() => openModal('timeblock-file')}>
           <IcCloudUpload width={16} height={16} />
           드라이브 파일 연동
         </Button>

@@ -1,7 +1,10 @@
-import { isSameMonth } from "date-fns";
+import { isSameMonth } from 'date-fns';
 
-import { dateStyle, datesContainerStyle } from "@/DatePicker/Calendar/Calendar.style";
-import { getDateStyle } from "@/DatePicker/Calendar/Dates/util/dateStyle";
+import {
+  dateStyle,
+  datesContainerStyle,
+} from '@/DatePicker/Calendar/Calendar.style';
+import { getDateStyle } from '@/DatePicker/Calendar/Dates/util/dateStyle';
 
 interface CalendarDatesProps {
   currentMonth: Date;
@@ -9,7 +12,7 @@ interface CalendarDatesProps {
   selectedDate: Date | null;
   endDate: Date | null;
   setSelectedDate: (date: Date) => void;
-  variant: "single" | "range";
+  variant: 'single' | 'range';
 }
 
 const CalendarDates = ({
@@ -27,13 +30,19 @@ const CalendarDates = ({
           tabIndex={0}
           aria-label={`${date.getMonth() + 1}월 ${date.getDate()}일`}
           key={index}
-          css={[dateStyle, getDateStyle(date, selectedDate, endDate, currentMonth)]}
-          onClick={() => setSelectedDate(date)}
+          css={[
+            dateStyle,
+            getDateStyle(date, selectedDate, endDate, currentMonth),
+          ]}
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedDate(date);
+          }}
           onKeyDown={(e) => {
-            if (e.key === "Enter") setSelectedDate(date);
+            if (e.key === 'Enter') setSelectedDate(date);
           }}
         >
-          {isSameMonth(currentMonth, date) ? date.getDate() : ""}
+          {isSameMonth(currentMonth, date) ? date.getDate() : ''}
         </div>
       ))}
     </div>

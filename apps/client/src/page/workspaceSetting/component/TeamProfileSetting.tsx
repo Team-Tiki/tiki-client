@@ -5,12 +5,12 @@ import { teamImageStyle, teamImageTextStyle } from '@/page/workspaceSetting/styl
 import { useCloseModal, useOpenModal } from '@/shared/store/modal';
 
 interface TeamProfileSettingProps {
-  teamIconUrl: string;
+  iconImageUrl: string;
   teamName: string;
   onWorkspaceDataChange: (key: string, value: string) => void;
 }
 
-const TeamProfileSetting = ({ teamIconUrl, teamName, onWorkspaceDataChange }: TeamProfileSettingProps) => {
+const TeamProfileSetting = ({ iconImageUrl, teamName, onWorkspaceDataChange }: TeamProfileSettingProps) => {
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
 
@@ -34,8 +34,8 @@ const TeamProfileSetting = ({ teamIconUrl, teamName, onWorkspaceDataChange }: Te
       </Flex>
 
       <Flex styles={{ align: 'center', gap: '1.2rem' }}>
-        {teamIconUrl ? (
-          <img src={teamIconUrl} alt="팀 대표" css={teamImageStyle} />
+        {iconImageUrl ? (
+          <img src={iconImageUrl} alt="팀 대표" css={teamImageStyle} />
         ) : (
           <Flex styles={{ justify: 'center', align: 'center' }} css={[teamImageStyle]}>
             <Text tag="body3" css={teamImageTextStyle}>
