@@ -8,7 +8,6 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 
-import { MESSAGE } from '@/page/invite/constant';
 import { useInvitationInfo } from '@/page/invite/hook/common/useInvitationInfo';
 import { useApproveInvitation, useDenyInvitation } from '@/page/invite/hook/queries';
 import { firstSpellStyle, inviteStyle, redButtonStyle } from '@/page/invite/index.styles';
@@ -34,16 +33,24 @@ const InvitedPage = () => {
   const { mutate: denyMutate } = useDenyInvitation();
 
   useEffect(() => {
+    const handleApiError = (isInvitationId: boolean, message: string) => {
+      clearInvitation();
+      navigate(PATH.DASHBOARD);
+      isInvitationId && createToast(message, 'error');
+    };
+
     if (isLogined && invitationInfo?.teamId) {
       navigate(`${PATH.INVITE}/${invitationInfo?.teamId}`);
       setTeamId(invitationInfo?.teamId);
     }
     if (data) {
       setInvitationInfo(data?.data);
+
+      if (!data.success) {
+        handleApiError(invitationId !== '', data.message);
+      }
     } else if (failureCount && invitationId) {
-      clearInvitation();
-      navigate(PATH.DASHBOARD);
-      createToast('존재하지 않거나 만료된 초대정보입니다.', 'error');
+      handleApiError(invitationId !== '0', '존재하지 않거나 만료된 초대정보입니다.');
     }
   }, [createToast, data, failureCount, invitationId, invitationInfo?.teamId, isLogined, navigate]);
 
@@ -63,13 +70,18 @@ const InvitedPage = () => {
         },
       },
       {
-        onSuccess: () => {
-          createToast(MESSAGE.INVITE_SUCCESS, 'success');
+        onSuccess: (res) => {
+          if (res.success) {
+            createToast(res.message, 'success');
+
+            localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
+            localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
+          } else {
+            createToast(res.message, 'error');
+          }
 
           queryClient.invalidateQueries({ queryKey: ['get', '/api/v1/members/teams'] });
           navigate(PATH.DASHBOARD);
-          localStorage.setItem(STORAGE_KEY.TEAM_ID, `${teamId}`);
-          localStorage.setItem(STORAGE_KEY.TEAM_NAME, `${invitationInfo?.teamName}`);
         },
         onError: (error: AxiosError) => {
           createToast(error.message, 'error');
@@ -90,8 +102,12 @@ const InvitedPage = () => {
         },
       },
       {
-        onSuccess: () => {
-          createToast(MESSAGE.DENY_SUCCESS, 'success');
+        onSuccess: (res) => {
+          if (res.success) {
+            createToast(res.message, 'success');
+          } else {
+            createToast(res.message, 'error');
+          }
         },
         onError: (error: AxiosError) => {
           createToast(error.message, 'error');

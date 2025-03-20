@@ -28,6 +28,7 @@ export type FileGridProps = components['schemas']['DocumentGetResponse'] & {
   onSelect?: () => void;
   onDelete?: () => void;
   isDeleted?: boolean;
+  onClick?: () => void;
 
   /**
    * [TODO]
@@ -46,6 +47,7 @@ const FileGrid = ({
   isSelected = false,
   isDeleted = false,
   onDelete = () => {},
+  onClick = () => {},
 }: FileGridProps) => {
   const { isOpen, close, toggle } = useOverlay();
 
@@ -61,59 +63,61 @@ const FileGrid = ({
 
   return (
     <article css={cardStyle(variant !== 'primary')}>
-      {isSelectable && (
-        <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
-      )}
-      <div css={iconWrapperStyle(variant !== 'primary')}>{getIconByType(type)}</div>
-      <Flex
-        styles={{
-          direction: 'column',
-          gap: variant === 'primary' ? '1.2rem' : '0.8rem',
-        }}>
-        <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
-          <Heading css={nameStyle} tag="H3">
-            {name}
-          </Heading>
-          {variant === 'primary' && (
-            <MenuRoot onClose={close}>
-              <div ref={optionRef}>
-                {!isDeleted && <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />}
-              </div>
+      <button type="button" css={{ width: '100%', backgroundColor: 'transparent' }} onClick={onClick}>
+        {isSelectable && (
+          <CheckBox css={{ position: 'absolute', right: 20 }} isChecked={isSelected} onChange={() => onSelect?.()} />
+        )}
+        <div css={iconWrapperStyle(variant !== 'primary')}>{getIconByType(type)}</div>
+        <Flex
+          styles={{
+            direction: 'column',
+            gap: variant === 'primary' ? '1.2rem' : '0.8rem',
+          }}>
+          <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
+            <Heading css={nameStyle} tag="H3">
+              {name}
+            </Heading>
+            {variant === 'primary' && (
+              <MenuRoot onClose={close}>
+                <div ref={optionRef}>
+                  {!isDeleted && <IcThreeDots onClick={toggle} css={{ cursor: 'pointer' }} width={16} height={16} />}
+                </div>
 
-              <MenuList css={optionListStyle(getRenderedSection())} isOpen={isOpen}>
-                <MenuItem
-                  css={optionTextStyle}
-                  LeftIcon={OPTION_ICON.download}
-                  onSelect={() => {
-                    downloadDocument(url, name);
-                  }}>
-                  파일 다운로드
-                </MenuItem>
-                <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>
-                  휴지통으로 이동
-                </MenuItem>
-                <MenuItem
-                  css={optionTextStyle}
-                  LeftIcon={OPTION_ICON.handover}
-                  onSelect={() => {
-                    alert('준비 중인 기능입니다.');
-                  }}>
-                  인수인계 노트 보기
-                </MenuItem>
-              </MenuList>
-            </MenuRoot>
-          )}
-        </Flex>
+                <MenuList css={optionListStyle(getRenderedSection())} isOpen={isOpen}>
+                  <MenuItem
+                    css={optionTextStyle}
+                    LeftIcon={OPTION_ICON.download}
+                    onSelect={() => {
+                      downloadDocument(url, name);
+                    }}>
+                    파일 다운로드
+                  </MenuItem>
+                  <MenuItem css={optionTextStyle} LeftIcon={OPTION_ICON.deleted} onSelect={onDelete}>
+                    휴지통으로 이동
+                  </MenuItem>
+                  <MenuItem
+                    css={optionTextStyle}
+                    LeftIcon={OPTION_ICON.handover}
+                    onSelect={() => {
+                      alert('준비 중인 기능입니다.');
+                    }}>
+                    인수인계 노트 보기
+                  </MenuItem>
+                </MenuList>
+              </MenuRoot>
+            )}
+          </Flex>
 
-        <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
-          <Text tag="body8" css={textStyle}>
-            {type.toUpperCase()} 문서
-          </Text>
-          <Text tag="body8" css={textStyle}>
-            {getFileVolume(capacity ?? 0)}
-          </Text>
+          <Flex styles={{ width: '100%', justify: 'space-between', align: 'center' }}>
+            <Text tag="body8" css={textStyle}>
+              {type.toUpperCase()} 문서
+            </Text>
+            <Text tag="body8" css={textStyle}>
+              {getFileVolume(capacity ?? 0)}
+            </Text>
+          </Flex>
         </Flex>
-      </Flex>
+      </button>
     </article>
   );
 };
