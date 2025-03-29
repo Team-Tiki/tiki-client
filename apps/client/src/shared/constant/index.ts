@@ -109,9 +109,9 @@ export const IMAGE_MODAL = {
   },
 };
 
-export const MAX_TEAM_COUNT = 8 as const;
+export const MAX_TEAM_COUNT = 8;
 
-export const MAX_TEAM_NAME = 30 as const;
+export const MAX_TEAM_NAME = 30;
 
 export const WORKSPACE_MODAL = {
   NAME: '워크스페이스명은 30자까지 작성 가능해요',

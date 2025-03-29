@@ -15,7 +15,7 @@ const WorkSpaceName = () => {
   const [inputValue, setInputValue] = useState(formData.name);
 
   const isDisabled = inputValue.trim().length === 0;
-  const isNameError = inputValue.length > MAX_TEAM_NAME;
+  const isNameLengthError = inputValue.length > MAX_TEAM_NAME;
 
   const handleNext = () => {
     setFormData({ name: inputValue });
@@ -34,8 +34,8 @@ const WorkSpaceName = () => {
             placeholder="팀, 동아리, 조직 이름 입력"
             value={inputValue}
             onChange={handleInputChange}
-            isError={isNameError}
-            supportingText={isNameError ? WORKSPACE_MODAL.NAME : ''}
+            isError={isNameLengthError}
+            supportingText={isNameLengthError ? WORKSPACE_MODAL.NAME : ''}
             maxLength={MAX_TEAM_NAME}
             css={inputWrapperStyle}
           />
