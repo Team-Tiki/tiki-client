@@ -5,7 +5,7 @@ import { useDebounce, useMultiSelect } from '@tiki/utils';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import NoteItem from '@/page/handover/component/NoteItem/NoteItem';
 import NoteListHeader from '@/page/handover/component/NoteListHeader/NoteListHeader';
@@ -13,7 +13,7 @@ import { FILTER_OPTION, FILTER_ORDER } from '@/page/handover/constant';
 import { useNoteData } from '@/page/handover/hook/api/queries';
 import { FILTER_TYPE, NoteListType, NoteType } from '@/page/handover/type';
 
-import { $api } from '@/shared/api/client';
+import { axiosInstance } from '@/shared/api/instance';
 import ContentBox from '@/shared/component/ContentBox/ContentBox';
 import EmptySection from '@/shared/component/EmptySection/EmptySection';
 import { CAUTION, SEARCH_DELAY } from '@/shared/constant';
@@ -43,10 +43,7 @@ const HandoverPage = () => {
 
   const { createToast } = useToastAction();
 
-  const { ids, canSelect, handleItemClick, handleAllClick, handleToggleSelect } = useMultiSelect<NoteType>(
-    'noteId',
-    noteList ?? []
-  );
+  const { ids, canSelect, handleItemClick, handleToggleSelect } = useMultiSelect<NoteType>('noteId', noteList ?? []);
 
   // 스크롤 감지하는 로직
   const targetRef = useIntersect((entry, observer) => {
@@ -56,17 +53,26 @@ const HandoverPage = () => {
     setLastUpdatedAt(noteList.length > 0 ? noteList[noteList?.length - 1].lastUpdatedAt : '');
   });
 
-  const { mutate: noteListMutate } = $api.useMutation('delete', '/api/v1/notes/{teamId}', {
+  const deleteNotes = async (teamId: number, ids: number[]) => {
+    const query = ids.map((num) => `noteIds=${num}`).join('&');
+
+    await axiosInstance.delete(`/notes/${teamId}?${query}`);
+  };
+
+  const { mutate: noteListMutate } = useMutation({
+    mutationFn: ({ teamId, ids }: { teamId: number; ids: number[] }) => deleteNotes(teamId, ids),
     onSuccess: () => {
       setNoteList([]);
       setLastUpdatedAt('');
 
-      createToast(NOTE.SUCCESS.DELETE, 'error'),
+      createToast(NOTE.SUCCESS.DELETE, 'success'),
         queryClient.invalidateQueries({
           queryKey: ['get', '/api/v1/notes/{teamId}'],
         });
     },
-    onError: () => createToast(NOTE.ERROR.DELETE, 'error'),
+    onError: () => {
+      createToast(NOTE.ERROR.DELETE, 'error');
+    },
   });
 
   useEffect(() => {
@@ -98,13 +104,7 @@ const HandoverPage = () => {
         if (!noteIds) {
           return;
         }
-        noteListMutate({
-          params: {
-            path: { teamId },
-            query: { noteIds: noteIds },
-          },
-        });
-
+        noteListMutate({ teamId, ids });
         if (canSelect) {
           handleToggleSelect();
         }
@@ -147,10 +147,7 @@ const HandoverPage = () => {
       contentOption={
         <Flex styles={{ width: '100%', justify: 'space-between', align: 'center', gap: '1rem' }}>
           <Flex styles={{ gap: '0.8rem' }}>
-            <Button variant="tertiary" onClick={canSelect ? handleAllClick : handleToggleSelect}>
-              {canSelect ? '전체선택' : '선택'}
-            </Button>
-            {canSelect && (
+            {canSelect ? (
               <>
                 <Button variant="tertiary" onClick={(e) => handleNoteDelete(e, ids)}>
                   삭제
@@ -159,6 +156,10 @@ const HandoverPage = () => {
                   취소
                 </Button>
               </>
+            ) : (
+              <Button variant="tertiary" onClick={handleToggleSelect}>
+                선택
+              </Button>
             )}
           </Flex>
 

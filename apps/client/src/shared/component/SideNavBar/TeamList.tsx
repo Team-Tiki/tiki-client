@@ -5,7 +5,7 @@ import Logo from '@/shared/component/SideNavBar/Logo';
 import { firstSpellStyle } from '@/shared/component/SideNavBar/index.style';
 import { STORAGE_KEY } from '@/shared/constant/api';
 import { PATH } from '@/shared/constant/path';
-import { useTeamIdAction } from '@/shared/store/team';
+import { useTeamId, useTeamIdAction } from '@/shared/store/team';
 
 type TeamListProps = {
   list?: components['schemas']['BelongTeamsGetResponse'];
@@ -14,7 +14,8 @@ type TeamListProps = {
 const TeamList = ({ list }: TeamListProps) => {
   const { setTeamId } = useTeamIdAction();
 
-  const getIsCurrentTeam = (id: number) => new URLSearchParams(location.search).get('teamId') === String(id);
+  const teamId = useTeamId();
+  const getIsCurrentTeam = (id: number) => teamId === id;
 
   return (
     <Flex tag="ul" styles={{ direction: 'column', gap: '4rem', padding: '2rem 0' }}>

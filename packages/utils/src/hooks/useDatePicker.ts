@@ -1,18 +1,20 @@
-import { isBefore } from "date-fns";
+import { isBefore } from 'date-fns';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useDatePicker = (
-  variant: "single" | "range",
+  variant: 'single' | 'range',
   onChange: (selectedDate: Date | null, endDate: Date | null) => void,
   initialSelectedDate: Date | null = null,
   initialEndDate: Date | null = null,
 ) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(initialSelectedDate);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    initialSelectedDate,
+  );
   const [endDate, setEndDate] = useState<Date | null>(initialEndDate);
 
   const handleSelectDate = (date: Date) => {
-    if (variant === "range") {
+    if (variant === 'range') {
       if (!selectedDate || (selectedDate && endDate)) {
         setSelectedDate(date);
         setEndDate(null);

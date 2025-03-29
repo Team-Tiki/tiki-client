@@ -64,7 +64,7 @@ export const useWorkspaceData = () => {
       setWorkspaceData((prev) => ({
         ...prev,
         teamName: teamData?.data?.teamName ?? '',
-        teamIconUrl: teamData?.data?.iconImageUrl ?? '',
+        iconImageUrl: teamData?.data?.iconImageUrl ?? '',
       }));
     }
   }, [teamData]);
