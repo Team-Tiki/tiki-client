@@ -1,5 +1,5 @@
 export const TEXT = {
-  LANDING_TITLE: '동아리의 모든 순간을 쉽고 즐겁게',
+  LANDING_TITLE: '모임의 모든 순간을 쉽고 즐겁게',
   LANDING_SUBTITLE: '티키로 더 쉽고 편리한 동아리 활동을 경험하세요',
 
   FEATURE_HEADING: {
