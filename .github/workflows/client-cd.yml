@@ -4,47 +4,24 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-    name: Build and Deploy
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      
+      - name: executing remote ssh commands using key
+        uses: appleboy/ssh-action@master
         with:
-          node-version: '21'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.1.3
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build project
-        run: pnpm build
-
-      - name: .env setting
-        run: |
-          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
-
-      - name: Build
-        run: pnpm build
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Upload build to AWS S3
-        run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete --cache-control "max-age=31536000"
-
-      - name: Invalidate AWS CloudFront Distribution
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} --paths "/*"
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            ./deploy.sh
